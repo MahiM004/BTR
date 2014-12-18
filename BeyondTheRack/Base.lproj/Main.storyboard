@@ -18,11 +18,6 @@
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5rw-IE-yUL">
                                 <rect key="frame" x="0.0" y="20" width="320" height="43"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neulogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7d9-Hi-Wuu">
-                                        <rect key="frame" x="66" y="7" width="188" height="28"/>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -83,7 +78,7 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neulogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="QgA-JW-Dkz">
                                         <rect key="frame" x="66" y="7" width="188" height="28"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neuaccount.png" translatesAutoresizingMaskIntoConstraints="NO" id="365-GF-7XF">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neuaccount.png" translatesAutoresizingMaskIntoConstraints="NO" id="365-GF-7XF">
                                         <rect key="frame" x="8" y="4" width="33" height="33"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neucart.png" translatesAutoresizingMaskIntoConstraints="NO" id="jaZ-DQ-qQs">
@@ -108,7 +103,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                     </view>
@@ -116,7 +111,6 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="bar" destination="e3H-Od-KPA" id="Ghi-aI-Cuh"/>
                         <outlet property="tableView" destination="U7e-1K-Itu" id="7qv-Qy-mmK"/>
                     </connections>
                 </viewController>
@@ -139,9 +133,6 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M05-Mt-WGH">
                                 <rect key="frame" x="0.0" y="20" width="320" height="43"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neuaccount.png" translatesAutoresizingMaskIntoConstraints="NO" id="zpR-gP-PsX">
-                                        <rect key="frame" x="8" y="4" width="33" height="33"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neucart.png" translatesAutoresizingMaskIntoConstraints="NO" id="qtF-cW-cKR">
                                         <rect key="frame" x="279" y="4" width="33" height="33"/>
                                     </imageView>
@@ -157,17 +148,20 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLo-60-Eby">
-                                        <rect key="frame" x="7" y="4" width="35" height="35"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="backarrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="7BZ-Lk-dQq">
+                                        <rect key="frame" x="11" y="9" width="20" height="23"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xdC-xi-ys2">
+                                        <rect key="frame" x="7" y="2" width="35" height="35"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="lmt-th-ypF"/>
                 </viewController>
@@ -190,9 +184,12 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RNy-a3-Sf6">
                                 <rect key="frame" x="0.0" y="28" width="320" height="43"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neulogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="VGg-2y-IUQ">
-                                        <rect key="frame" x="66" y="7" width="188" height="28"/>
-                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Pg-ZC-49V">
+                                        <rect key="frame" x="114" y="11" width="93" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -210,7 +207,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gRv-et-Dkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="FA807AB8-FDA5-4FC4-A965-F22E98F57652" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="750E3157-9114-4CCB-9001-56F252E53A59" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -234,7 +231,7 @@
     </scenes>
     <resources>
         <image name="1.png" width="640" height="320"/>
-        <image name="FA807AB8-FDA5-4FC4-A965-F22E98F57652" width="30" height="30">
+        <image name="750E3157-9114-4CCB-9001-56F252E53A59" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -292,6 +289,7 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
+        <image name="backarrow.png" width="360" height="420"/>
         <image name="neuaccount.png" width="70" height="65"/>
         <image name="neucart.png" width="70" height="65"/>
         <image name="neulogo.png" width="925" height="125"/>

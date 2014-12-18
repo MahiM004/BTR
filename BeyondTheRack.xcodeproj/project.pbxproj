@@ -21,6 +21,7 @@
 		69807B021A4229570001A154 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AFA1A4229570001A154 /* 2.png */; };
 		69807B161A42313F0001A154 /* mockupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69807B151A42313F0001A154 /* mockupTableViewCell.m */; };
 		698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */ = {isa = PBXBuildFile; fileRef = 698679FC1A4351A4003CE59C /* neulogocentered.png */; };
+		69867A031A436E2D003CE59C /* backarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A021A436E2D003CE59C /* backarrow.png */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* AppDelegate.m */; };
 		69FF406F1A3F8939000BD092 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406E1A3F8939000BD092 /* FirstViewController.m */; };
@@ -58,6 +59,7 @@
 		69807B151A42313F0001A154 /* mockupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mockupTableViewCell.m; sourceTree = "<group>"; };
 		698679FB1A434860003CE59C /* BeyondTheRack-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BeyondTheRack-Prefix.pch"; sourceTree = "<group>"; };
 		698679FC1A4351A4003CE59C /* neulogocentered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neulogocentered.png; sourceTree = "<group>"; };
+		69867A021A436E2D003CE59C /* backarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrow.png; sourceTree = "<group>"; };
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69FF40671A3F8939000BD092 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69FF40681A3F8939000BD092 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				69867A021A436E2D003CE59C /* backarrow.png */,
 				698679FC1A4351A4003CE59C /* neulogocentered.png */,
 				69807AF31A4229570001A154 /* 6.png */,
 				69807AF41A4229570001A154 /* 7.png */,
@@ -292,6 +295,7 @@
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				69807B011A4229570001A154 /* 8.png in Resources */,
+				69867A031A436E2D003CE59C /* backarrow.png in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
 				69807AFC1A4229570001A154 /* 7.png in Resources */,
 				69807AFE1A4229570001A154 /* 1.png in Resources */,

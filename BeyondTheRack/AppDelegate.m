@@ -22,11 +22,12 @@
     // Override point for customization after application launch.
     
     
-# pragma mark - setting up UX / UI
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x212121)];//212121
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        
+    //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x212121)];//212121
+    //[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 
     //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x067AB5)];//212121
    //UIImage * backgroundImage =
