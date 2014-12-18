@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		697E05811A434121000146C6 /* BTRUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 697E05801A434121000146C6 /* BTRUtility.m */; };
 		69807AEA1A4210740001A154 /* neulogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AE91A4210740001A154 /* neulogo.png */; };
 		69807AEE1A42131E0001A154 /* neuaccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AED1A42131E0001A154 /* neuaccount.png */; };
 		69807AF01A4215490001A154 /* neucart.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AEF1A4215490001A154 /* neucart.png */; };
@@ -19,6 +20,7 @@
 		69807B011A4229570001A154 /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AF91A4229570001A154 /* 8.png */; };
 		69807B021A4229570001A154 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AFA1A4229570001A154 /* 2.png */; };
 		69807B161A42313F0001A154 /* mockupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69807B151A42313F0001A154 /* mockupTableViewCell.m */; };
+		698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */ = {isa = PBXBuildFile; fileRef = 698679FC1A4351A4003CE59C /* neulogocentered.png */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* AppDelegate.m */; };
 		69FF406F1A3F8939000BD092 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406E1A3F8939000BD092 /* FirstViewController.m */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		697E057F1A434121000146C6 /* BTRUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRUtility.h; sourceTree = "<group>"; };
+		697E05801A434121000146C6 /* BTRUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRUtility.m; sourceTree = "<group>"; };
 		69807AE91A4210740001A154 /* neulogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neulogo.png; sourceTree = "<group>"; };
 		69807AED1A42131E0001A154 /* neuaccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neuaccount.png; sourceTree = "<group>"; };
 		69807AEF1A4215490001A154 /* neucart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neucart.png; sourceTree = "<group>"; };
@@ -52,6 +56,8 @@
 		69807AFA1A4229570001A154 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		69807B141A42313F0001A154 /* mockupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mockupTableViewCell.h; sourceTree = "<group>"; };
 		69807B151A42313F0001A154 /* mockupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mockupTableViewCell.m; sourceTree = "<group>"; };
+		698679FB1A434860003CE59C /* BeyondTheRack-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BeyondTheRack-Prefix.pch"; sourceTree = "<group>"; };
+		698679FC1A4351A4003CE59C /* neulogocentered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neulogocentered.png; sourceTree = "<group>"; };
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69FF40671A3F8939000BD092 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69FF40681A3F8939000BD092 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -109,6 +115,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				698679FC1A4351A4003CE59C /* neulogocentered.png */,
 				69807AF31A4229570001A154 /* 6.png */,
 				69807AF41A4229570001A154 /* 7.png */,
 				69807AF51A4229570001A154 /* 4.png */,
@@ -154,6 +161,8 @@
 				69FF40781A3F8939000BD092 /* LaunchScreen.xib */,
 				69807B141A42313F0001A154 /* mockupTableViewCell.h */,
 				69807B151A42313F0001A154 /* mockupTableViewCell.m */,
+				697E057F1A434121000146C6 /* BTRUtility.h */,
+				697E05801A434121000146C6 /* BTRUtility.m */,
 				697E057A1A432FCD000146C6 /* model */,
 				697E057B1A432FCD000146C6 /* view */,
 				697E057C1A432FCD000146C6 /* viewcontroller */,
@@ -168,6 +177,7 @@
 				69807AE21A420BB00001A154 /* images */,
 				69FF40671A3F8939000BD092 /* Info.plist */,
 				69FF40681A3F8939000BD092 /* main.m */,
+				698679FB1A434860003CE59C /* BeyondTheRack-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -279,6 +289,7 @@
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
 				69807AF01A4215490001A154 /* neucart.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
+				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				69807B011A4229570001A154 /* 8.png in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
@@ -301,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
 				69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */,
 				69FF406F1A3F8939000BD092 /* FirstViewController.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
@@ -429,6 +441,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BeyondTheRack/BeyondTheRack-Prefix.pch";
 				INFOPLIST_FILE = BeyondTheRack/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -441,6 +455,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BeyondTheRack/BeyondTheRack-Prefix.pch";
 				INFOPLIST_FILE = BeyondTheRack/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

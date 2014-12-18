@@ -12,16 +12,37 @@
 
 @interface FirstViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UINavigationItem *bar;
 
 @end
 
 @implementation FirstViewController
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    UIImageView *iv=[[UIImageView alloc] initWithFrame:CGRectMake(320-102/2,0,102,44)];
+    iv.image=[UIImage imageNamed:@"neulogocentered.png"];
+    self.navigationItem.titleView=iv;
+    
+}
+
+-(void)viewDidLayoutSubviews {
+    CGRect frame=self.navigationItem.titleView.frame;
+    frame.size.width=102;
+    frame.size.height=44;
+    self.navigationItem.titleView.frame=frame;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     
     self.tableView.delegate = self;
+    
+    
+    //UINavigationItem *item = self.bar;
+    //item.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"neulogo.png"]];
     
     // Do any additional setup after loading the view, typically from a nib.
 }
