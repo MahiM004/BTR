@@ -7,8 +7,11 @@
 //
 
 #import "FirstViewController.h"
+#import "mockupTableViewCell.h"
+
 
 @interface FirstViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -16,6 +19,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    self.tableView.delegate = self;
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -23,5 +30,41 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 160;
+}
+
+#pragma mark - Table view data source
+/*
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
+*/
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 8;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    mockupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCellIdentifier" forIndexPath:indexPath];
+    
+    if (cell == nil)
+    {
+        cell = [[mockupTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"categoryCellIdentifier"];
+    }
+    
+
+    
+    cell.mockupImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld.png",indexPath.row + 1] ];
+    
+    return cell;
+}
+
+
 
 @end
