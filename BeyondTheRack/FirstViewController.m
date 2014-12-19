@@ -56,12 +56,30 @@
         cell = [[mockupTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"categoryCellIdentifier"];
     }
     
-
+    int picNumber = (int)(indexPath.row) + 1;
     
-    cell.mockupImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.png",indexPath.row + 1] ];
+    cell.mockupImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.png", picNumber] ];
     
     return cell;
 }
+
+# pragma mark - Navigation
+
+
+- (IBAction)unwindFromShoppingBag:(UIStoryboardSegue *)unwindSegue
+{
+}
+
+
+- (IBAction)unwindFromMyAccount:(UIStoryboardSegue *)unwindSegue
+{
+}
+
+
+- (IBAction)unwindToThisViewController:(UIStoryboardSegue *)unwindSegue
+{
+}
+
 
 
 
