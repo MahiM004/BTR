@@ -57,8 +57,8 @@
 		69807AF81A4229570001A154 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
 		69807AF91A4229570001A154 /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
 		69807AFA1A4229570001A154 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
-		69807B141A42313F0001A154 /* mockupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mockupTableViewCell.h; sourceTree = "<group>"; };
-		69807B151A42313F0001A154 /* mockupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mockupTableViewCell.m; sourceTree = "<group>"; };
+		69807B141A42313F0001A154 /* mockupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mockupTableViewCell.h; path = ../mockupTableViewCell.h; sourceTree = "<group>"; };
+		69807B151A42313F0001A154 /* mockupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mockupTableViewCell.m; path = ../mockupTableViewCell.m; sourceTree = "<group>"; };
 		698679FB1A434860003CE59C /* BeyondTheRack-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BeyondTheRack-Prefix.pch"; sourceTree = "<group>"; };
 		698679FC1A4351A4003CE59C /* neulogocentered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neulogocentered.png; sourceTree = "<group>"; };
 		69867A041A43894B003CE59C /* neumyaccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neumyaccount.png; sourceTree = "<group>"; };
@@ -107,6 +107,8 @@
 		697E057B1A432FCD000146C6 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				69807B141A42313F0001A154 /* mockupTableViewCell.h */,
+				69807B151A42313F0001A154 /* mockupTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -140,6 +142,15 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		69867A0F1A4480C7003CE59C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				697E057F1A434121000146C6 /* BTRUtility.h */,
+				697E05801A434121000146C6 /* BTRUtility.m */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		69FF405A1A3F8939000BD092 = {
 			isa = PBXGroup;
 			children = (
@@ -168,13 +179,10 @@
 				69FF406E1A3F8939000BD092 /* FirstViewController.m */,
 				69FF40761A3F8939000BD092 /* Images.xcassets */,
 				69FF40781A3F8939000BD092 /* LaunchScreen.xib */,
-				69807B141A42313F0001A154 /* mockupTableViewCell.h */,
-				69807B151A42313F0001A154 /* mockupTableViewCell.m */,
-				697E057F1A434121000146C6 /* BTRUtility.h */,
-				697E05801A434121000146C6 /* BTRUtility.m */,
 				697E057A1A432FCD000146C6 /* model */,
 				697E057B1A432FCD000146C6 /* view */,
 				697E057C1A432FCD000146C6 /* viewcontroller */,
+				69867A0F1A4480C7003CE59C /* Resources */,
 				69FF40661A3F8939000BD092 /* Supporting Files */,
 			);
 			path = BeyondTheRack;
