@@ -7,21 +7,26 @@
 //
 
 #import "FirstViewController.h"
+#import "EventsViewController.h"
 #import "mockupTableViewCell.h"
 
 
 @interface FirstViewController ()
+
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
+
 
 @implementation FirstViewController
 
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
     
+    [super viewDidLoad];
     self.tableView.delegate = self;
+  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,6 +70,25 @@
 
 
 # pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    if ([[segue identifier] isEqualToString:@"categorySelectedSegue"])
+    {
+        EventsViewController *vc = [segue destinationViewController];
+        
+        NSArray  * categoryItems = [NSArray arrayWithObjects:@"The Holiday Issue", @"Editor's Picks", @"Furniture", @"Women", @"Kids", @"Home", @"State Concepts", @"Winter Sale",nil];
+
+        UITableViewCell *cell = (UITableViewCell*)sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        [vc setCatText:[categoryItems objectAtIndex:[indexPath row]]];
+        [vc setCategoryCount:[categoryItems count]];
+        [vc setSelectedCategoryIndex:[indexPath row]];
+        
+    }
+    
+}
 
 
 - (IBAction)unwindFromShoppingBag:(UIStoryboardSegue *)unwindSegue
