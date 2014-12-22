@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EventsViewController : UIViewController
+@interface EventsViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
 
 @property (strong, nonatomic) NSString *catText;
 @property (nonatomic) NSUInteger categoryCount;

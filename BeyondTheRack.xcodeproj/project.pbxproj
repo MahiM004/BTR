@@ -25,6 +25,8 @@
 		69867A071A438A8C003CE59C /* bagicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A061A438A8C003CE59C /* bagicon.png */; };
 		69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A0A1A446FCA003CE59C /* backarrowcool.png */; };
 		69867A151A44A701003CE59C /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A141A44A701003CE59C /* EventsViewController.m */; };
+		69867A181A485AA7003CE59C /* EventCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A171A485AA7003CE59C /* EventCollectionViewCell.m */; };
+		69867A1B1A485AC4003CE59C /* fonyCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A1A1A485AC4003CE59C /* fonyCollectionViewController.m */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* AppDelegate.m */; };
 		69FF406F1A3F8939000BD092 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406E1A3F8939000BD092 /* FirstViewController.m */; };
@@ -67,6 +69,10 @@
 		69867A0A1A446FCA003CE59C /* backarrowcool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrowcool.png; sourceTree = "<group>"; };
 		69867A131A44A701003CE59C /* EventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
 		69867A141A44A701003CE59C /* EventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
+		69867A161A485AA7003CE59C /* EventCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCollectionViewCell.h; sourceTree = "<group>"; };
+		69867A171A485AA7003CE59C /* EventCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCollectionViewCell.m; sourceTree = "<group>"; };
+		69867A191A485AC4003CE59C /* fonyCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fonyCollectionViewController.h; sourceTree = "<group>"; };
+		69867A1A1A485AC4003CE59C /* fonyCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fonyCollectionViewController.m; sourceTree = "<group>"; };
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69FF40671A3F8939000BD092 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69FF40681A3F8939000BD092 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -112,6 +118,8 @@
 			children = (
 				69807B141A42313F0001A154 /* mockupTableViewCell.h */,
 				69807B151A42313F0001A154 /* mockupTableViewCell.m */,
+				69867A161A485AA7003CE59C /* EventCollectionViewCell.h */,
+				69867A171A485AA7003CE59C /* EventCollectionViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -123,6 +131,8 @@
 				69FF406E1A3F8939000BD092 /* FirstViewController.m */,
 				69867A131A44A701003CE59C /* EventsViewController.h */,
 				69867A141A44A701003CE59C /* EventsViewController.m */,
+				69867A191A485AC4003CE59C /* fonyCollectionViewController.h */,
+				69867A1A1A485AC4003CE59C /* fonyCollectionViewController.m */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -337,6 +347,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69867A1B1A485AC4003CE59C /* fonyCollectionViewController.m in Sources */,
+				69867A181A485AA7003CE59C /* EventCollectionViewCell.m in Sources */,
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
 				69867A151A44A701003CE59C /* EventsViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */,
