@@ -2,15 +2,19 @@
 //  EventsViewController.h
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2014-12-19.
+//  Created by Hadi Kheyruri on 2014-12-22.
 //  Copyright (c) 2014 Hadi Kheyruri. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "CollectionCell.h"
+#import "DetailViewController.h"
 
-@interface EventsViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface EventsViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ColectionCellDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *categoryHeaderLabel;
+
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 

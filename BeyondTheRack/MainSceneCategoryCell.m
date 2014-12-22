@@ -1,14 +1,14 @@
 //
-//  mockupTableViewCell.m
+//  MainSceneCategoryCell.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2014-12-17.
 //  Copyright (c) 2014 Hadi Kheyruri. All rights reserved.
 //
 
-#import "mockupTableViewCell.h"
+#import "MainSceneCategoryCell.h"
 
-@implementation mockupTableViewCell
+@implementation MainSceneCategoryCell
 
 - (void)awakeFromNib {
     // Initialization code

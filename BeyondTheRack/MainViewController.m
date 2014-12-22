@@ -1,17 +1,17 @@
 //
-//  FirstViewController.m
+//  MainViewController.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2014-12-15.
 //  Copyright (c) 2014 Hadi Kheyruri. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "MainViewController.h"
 #import "EventsViewController.h"
-#import "mockupTableViewCell.h"
+#import "MainSceneCategoryCell.h"
 
 
-@interface FirstViewController ()
+@interface MainViewController ()
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -19,7 +19,7 @@
 @end
 
 
-@implementation FirstViewController
+@implementation MainViewController
 
 
 - (void)viewDidLoad {
@@ -54,11 +54,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    mockupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCellIdentifier" forIndexPath:indexPath];
+    MainSceneCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCellIdentifier" forIndexPath:indexPath];
     
     if (cell == nil)
     {
-        cell = [[mockupTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"categoryCellIdentifier"];
+        cell = [[MainSceneCategoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"categoryCellIdentifier"];
     }
     
     int picNumber = (int)(indexPath.row) + 1;

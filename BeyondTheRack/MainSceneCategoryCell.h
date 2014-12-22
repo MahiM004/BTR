@@ -1,5 +1,5 @@
 //
-//  mockupTableViewCell.h
+//  MainSceneCategoryCell.h
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2014-12-17.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface mockupTableViewCell : UITableViewCell
+@interface MainSceneCategoryCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *mockupImageView;
 
 @end

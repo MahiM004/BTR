@@ -9,8 +9,10 @@
 #import "EventsViewController.h"
 #import "EventCollectionViewCell.h"
 
+
 @interface EventsViewController ()
 
+@property (nonatomic,strong) NSMutableArray *collectionData;
 @property (strong, nonatomic) NSArray *_data;
 
 @end
@@ -23,7 +25,7 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.categoryLabel.text = [self catText];
+    self.categoryHeaderLabel.text = [self catText];
     self.pageControl.numberOfPages = [self categoryCount];
     self.pageControl.currentPage = [self selectedCategoryIndex];
 } 
@@ -33,7 +35,64 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     // Do any additional setup after loading the view.
 
     
-    
+    self.collectionData = [[NSMutableArray alloc] initWithObjects:
+                           [[NSMutableArray alloc] initWithObjects:
+                            @"1",
+                            @"2",
+                            @"3",
+                            @"3",
+                            @"4",
+                            @"5",
+                            @"6",
+                            @"7",
+                            @"8",
+                            @"9",
+                            @"10",
+                            @"11",
+                            @"12",
+                            @"13",
+                            @"14",
+                            @"15",
+                            @"16",
+                            @"17",
+                            @"18",
+                            @"19",
+                            @"20",
+                            @"21",
+                            @"22",
+                            @"23",
+                            @"24",
+                            @"25",
+                            @"26",
+                            nil],
+                           [[NSMutableArray alloc] initWithObjects:
+                            @"A",
+                            @"B",
+                            @"C",
+                            @"D",
+                            @"E",
+                            @"F",
+                            @"G",
+                            @"H",
+                            @"I",
+                            @"G",
+                            @"K",
+                            @"L",
+                            @"M",
+                            @"N",
+                            @"O",
+                            @"P",
+                            @"Q",
+                            @"R",
+                            @"S",
+                            @"T",
+                            @"U",
+                            @"V",
+                            @"X",
+                            @"W",
+                            @"Z",
+                            nil],
+                           nil];
     
     //self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -43,16 +102,9 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     [[self collectionView] setDelegate:self];
     
     
-    
     [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
-    
-    
-    
-    
-   [self.collectionView reloadData];
-
-
+    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,6 +130,7 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     return 14;
 }
 
+/*
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -85,11 +138,30 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     EventCollectionViewCell *newCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     //newCell.cellLabel.text = [NSString stringWithFormat:@"Section:%d, Item:%d", indexPath.section, indexPath.item];
-    newCell.eventImageView.image = [UIImage imageNamed:@"1.png"];
-    newCell.backgroundColor = [UIColor blueColor];
+    //newCell.eventImageView.image = [UIImage imageNamed:@"1.png"];
+    //newCell.backgroundColor = [UIColor blueColor];
     
     return newCell;
 }
+*/
+
+
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    CollectionCell *cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
+    cell.cellData = [self.collectionData objectAtIndex:indexPath.row];
+    cell.delegate = self;
+    return cell;
+}
+
+-(void)tableCellDidSelect:(UITableViewCell *)cell{
+    NSLog(@"Tap %@",cell.textLabel.text);
+    DetailViewController *detailVC = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
+    detailVC.label.text = cell.textLabel.text;
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+
 /*
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
