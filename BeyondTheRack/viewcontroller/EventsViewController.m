@@ -31,9 +31,27 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
     
     
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    
+    //self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    //UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    //_collectionView=[[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
+    [[self collectionView] setDataSource:self];
+    [[self collectionView] setDelegate:self];
+    
+    
+    
+    [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    
+    
+    
+    
+    
+   [self.collectionView reloadData];
+
 
 }
 
@@ -57,7 +75,7 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     //return [sectionArray count];
     
     
-    return 4;
+    return 14;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -66,16 +84,18 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     
     EventCollectionViewCell *newCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    
-    
     //newCell.cellLabel.text = [NSString stringWithFormat:@"Section:%d, Item:%d", indexPath.section, indexPath.item];
-    
-    
     newCell.eventImageView.image = [UIImage imageNamed:@"1.png"];
+    newCell.backgroundColor = [UIColor blueColor];
     
     return newCell;
 }
-
+/*
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(50, 50);
+}
+*/
 
 #pragma mark - UICollectionViewDelegate
 
@@ -89,7 +109,7 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
 
 
 #pragma mark – UICollectionViewDelegateFlowLayout
-
+/*
 // 1
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -113,7 +133,7 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(20, 20, 1000, 1000);
 }
-
+*/
 
 /*
 // 1
@@ -144,3 +164,17 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
 */
 
 @end
+
+
+
+/* this works - not elegant
+ 
+ UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+ UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,150,310)];
+ imgView.contentMode = UIViewContentModeScaleAspectFit;
+ imgView.clipsToBounds = YES;
+ imgView.image = [UIImage imageNamed:@"1.png"];//[self.imageArray objectAtIndex:indexPath.row];
+ [cell addSubview:imgView];
+ return cell;
+ */
+

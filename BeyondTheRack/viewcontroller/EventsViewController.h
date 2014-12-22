@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EventsViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface EventsViewController : UIViewController <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;

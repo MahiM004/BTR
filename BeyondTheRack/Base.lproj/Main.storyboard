@@ -166,7 +166,7 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="43"/>
                                 <subviews>
                                     <pageControl alpha="0.59999999999999964" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="8" translatesAutoresizingMaskIntoConstraints="NO" id="FnP-sC-YV7">
-                                        <rect key="frame" x="0.0" y="21" width="319" height="37"/>
+                                        <rect key="frame" x="0.0" y="22" width="319" height="37"/>
                                         <color key="currentPageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </pageControl>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bagicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="qtF-cW-cKR">
@@ -199,25 +199,30 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9LL-0b-UtJ">
-                                <rect key="frame" x="0.0" y="71" width="320" height="497"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9LL-0b-UtJ">
+                                <rect key="frame" x="0.0" y="71" width="320" height="517"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dM0-j4-NUV">
-                                    <size key="itemSize" width="319" height="64"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="fb4-DT-RbX">
+                                    <size key="itemSize" width="318" height="140"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <view key="backgroundView" contentMode="scaleToFill" fixedFrame="YES" id="JHi-sd-vYA">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="498"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EventCollectionCellIdentifier" id="z7E-4a-BCl" customClass="EventCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" reuseIdentifier="EventCollectionCellIdentifier" id="z7E-4a-BCl" customClass="EventCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="319" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="318" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zif-UW-u4U">
-                                                    <rect key="frame" x="0.0" y="0.0" width="319" height="64"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="1.png" translatesAutoresizingMaskIntoConstraints="NO" id="zif-UW-u4U">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -229,7 +234,7 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="lmt-th-ypF"/>
                     <connections>
@@ -241,7 +246,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tsY-wd-4Bt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="8mC-U3-ghr" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1520" y="-251"/>
+            <point key="canvasLocation" x="1519" y="-251"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="8lk-jk-Zc6">
@@ -297,7 +302,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gRv-et-Dkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="8B4C8BFC-B45E-4219-A95E-A9B77E2B0C97" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="237D84B1-CB3A-4E89-8E24-FD2B205387AF" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -321,7 +326,7 @@
     </scenes>
     <resources>
         <image name="1.png" width="640" height="320"/>
-        <image name="8B4C8BFC-B45E-4219-A95E-A9B77E2B0C97" width="30" height="30">
+        <image name="237D84B1-CB3A-4E89-8E24-FD2B205387AF" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND

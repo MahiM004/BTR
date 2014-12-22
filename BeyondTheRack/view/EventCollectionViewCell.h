@@ -10,6 +10,6 @@
 
 @interface EventCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *eventImageView;
+@property (retain, nonatomic) IBOutlet UIImageView *eventImageView;
 
 @end
