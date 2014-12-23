@@ -22,9 +22,6 @@
 @implementation EventsViewController
 
 
-static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
-
-
 - (void)viewWillAppear:(BOOL)animated
 {
     self.categoryHeaderLabel.text = [self catText];
@@ -39,61 +36,152 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     
     self.collectionData = [[NSMutableArray alloc] initWithObjects:
                            [[NSMutableArray alloc] initWithObjects:
-                            @"1",
-                            @"2",
-                            @"3",
-                            @"3",
-                            @"4",
-                            @"5",
-                            @"6",
-                            @"7",
-                            @"8",
-                            @"9",
-                            @"10",
-                            @"11",
-                            @"12",
-                            @"13",
-                            @"14",
-                            @"15",
-                            @"16",
-                            @"17",
-                            @"18",
-                            @"19",
-                            @"20",
-                            @"21",
-                            @"22",
-                            @"23",
-                            @"24",
-                            @"25",
-                            @"26",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
+                            @"1.png",
                             nil],
                            [[NSMutableArray alloc] initWithObjects:
-                            @"A",
-                            @"B",
-                            @"C",
-                            @"D",
-                            @"E",
-                            @"F",
-                            @"G",
-                            @"H",
-                            @"I",
-                            @"G",
-                            @"K",
-                            @"L",
-                            @"M",
-                            @"N",
-                            @"O",
-                            @"P",
-                            @"Q",
-                            @"R",
-                            @"S",
-                            @"T",
-                            @"U",
-                            @"V",
-                            @"X",
-                            @"W",
-                            @"Z",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
+                            @"2.png",
                             nil],
+    [[NSMutableArray alloc] initWithObjects:
+     @"3.png",
+     @"3.png",
+     @"3.png",
+     @"3.png",
+     @"3.png",
+     @"3.png",
+     @"3.png",
+     @"3.png",
+     @"3.png",
+     @"3.png",
+     @"3.png",
+     nil],
+    [[NSMutableArray alloc] initWithObjects:
+     @"4.png",
+     @"4.png",
+     @"4.png",
+     @"4.png",
+     @"4.png",
+     @"4.png",
+     @"4.png",
+     @"4.png",
+     @"4.png",
+     @"4.png",
+     @"4.png",
+     @"4.png",
+     nil],
+    [[NSMutableArray alloc] initWithObjects:
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     @"5.png",
+     nil],
+    [[NSMutableArray alloc] initWithObjects:
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     @"6.png",
+     nil],
+    [[NSMutableArray alloc] initWithObjects:
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     @"7.png",
+     nil],
+    [[NSMutableArray alloc] initWithObjects:
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     @"8.png",
+     nil],
                            nil];
     
     //self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -104,10 +192,10 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     [[self collectionView] setDelegate:self];
     
     
-    [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    //[self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     
-    [self.collectionView reloadData];
+   // [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -117,43 +205,46 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
 
 #pragma mark - UICollectionView Datasource
 
+/*
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [self.collectionData count];
+}
+*/
+
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
-    // _data is a class member variable that contains one array per section.
-    //return [[self _data] count];
+
+    //return [self categoryCount];;
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
    
-    //NSArray* sectionArray = [[self _data] objectAtIndex:section];
-    //return [sectionArray count];
-    
-    
-    return 2;
+    return [self categoryCount];//[[[self collectionData] objectAtIndex:section] count];
 }
 
-/*
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSInteger currentIndex = self.collectionView.contentOffset.x / self.collectionView.frame.size.width;
+    
+    NSArray  * categoryItems = [NSArray arrayWithObjects:@"The Holiday Issue", @"Editor's Picks", @"Furniture", @"Women", @"Kids", @"Home", @"State Concepts", @"Winter Sale",nil];
     
     
-    EventCollectionViewCell *newCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    self.pageControl.currentPage = currentIndex;
+    self.categoryHeaderLabel.text = [categoryItems objectAtIndex:currentIndex];
     
-    //newCell.cellLabel.text = [NSString stringWithFormat:@"Section:%d, Item:%d", indexPath.section, indexPath.item];
-    //newCell.eventImageView.image = [UIImage imageNamed:@"1.png"];
-    //newCell.backgroundColor = [UIColor blueColor];
-    
-    return newCell;
 }
-*/
+
 
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CollectionCell *cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
+    CollectionCell *cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCellIdentifier" forIndexPath:indexPath];
+    NSLog(@"CollectionData count: %lu", (unsigned long)[[self.collectionData objectAtIndex:indexPath.row] count]);
     cell.cellData = [self.collectionData objectAtIndex:indexPath.row];
-    cell.delegate = self;
+    [cell.tableView reloadData];
     return cell;
 }
 
@@ -165,12 +256,20 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
 }
 
 
+@end
+
+
+
+
+
+
+
+
+// -(void)scrollViewDidScroll:(UIScrollView *)scrollView {  }
+
+
+
 /*
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(50, 50);
-}
-*/
 
 #pragma mark - UICollectionViewDelegate
 
@@ -182,63 +281,32 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     // TODO: Deselect item
 }
 
-
-#pragma mark – UICollectionViewDelegateFlowLayout
-/*
-// 1
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    //NSString *searchTerm = self.searches[indexPath.section]; FlickrPhoto *photo =
-    //self.searchResults[searchTerm][indexPath.row];
-    // 2
-    //CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
-    //retval.height += 35; retval.width += 35;
-    
-    //return retval;
-    
-    
-    CGSize somethingSize = CGSizeMake(100, 100);
-    return somethingSize;
-
-}
-
-// 3
-- (UIEdgeInsets)collectionView:
-(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(20, 20, 1000, 1000);
-}
 */
 
-/*
-// 1
-- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    NSString *searchTerm = self.searches[section];
-    return [self.searchResults[searchTerm] count];
-}
-// 2
-- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
-    return [self.searches count];
-}
-// 3
-- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"FlickrCell " forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
-    return cell;
-}
-*/
+
 
 /*
-#pragma mark - Navigation
+ - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+ cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+ 
+ 
+ EventCollectionViewCell *newCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+ 
+ //newCell.cellLabel.text = [NSString stringWithFormat:@"Section:%d, Item:%d", indexPath.section, indexPath.item];
+ //newCell.eventImageView.image = [UIImage imageNamed:@"1.png"];
+ //newCell.backgroundColor = [UIColor blueColor];
+ 
+ return newCell;
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
-@end
+/*
+ - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+ {
+ return CGSizeMake(50, 50);
+ }
+ */
 
 
 
@@ -253,3 +321,60 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
  return cell;
  */
 
+
+
+
+//#pragma mark – UICollectionViewDelegateFlowLayout
+/*
+ // 1
+ - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+ {
+ 
+ //NSString *searchTerm = self.searches[indexPath.section]; FlickrPhoto *photo =
+ //self.searchResults[searchTerm][indexPath.row];
+ // 2
+ //CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
+ //retval.height += 35; retval.width += 35;
+ 
+ //return retval;
+ 
+ 
+ CGSize somethingSize = CGSizeMake(100, 100);
+ return somethingSize;
+ 
+ }
+ 
+ // 3
+ - (UIEdgeInsets)collectionView:
+ (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+ return UIEdgeInsetsMake(20, 20, 1000, 1000);
+ }
+ */
+
+/*
+ // 1
+ - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+ NSString *searchTerm = self.searches[section];
+ return [self.searchResults[searchTerm] count];
+ }
+ // 2
+ - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+ return [self.searches count];
+ }
+ // 3
+ - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+ UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"FlickrCell " forIndexPath:indexPath];
+ cell.backgroundColor = [UIColor whiteColor];
+ return cell;
+ }
+ */
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */

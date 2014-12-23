@@ -15,14 +15,16 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+//        self.cellData = [[NSMutableArray alloc] init];
+
         // Initialization code
-        self.cellData = [[NSMutableArray alloc] init];
     }
+    
+
     return self;
 }
--(void) awakeFromNib{
-    self.cellData = [[NSMutableArray alloc] init];
-}
+
+//-(void) awakeFromNib{ self.cellData = [[NSMutableArray alloc] init]; }
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -32,7 +34,9 @@
     // Drawing code
 }
 */
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    //NSLog(@"numberOfRowsInSection: %d", [self.cellData count]);
     return [self.cellData count];
 }
 
@@ -40,21 +44,24 @@
 // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *CellIdentifier = @"TableCell";
+    static NSString *CellIdentifier = @"TableCellIdentifier";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.textLabel.text = [self.cellData objectAtIndex:indexPath.row];
+    
+  //  int myindex = indexPath.row;
+    //NSLog(@"Possible error index:  %d", myindex);
+    cell.textLabel.text = [self.cellData objectAtIndex: indexPath.row];
     
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [[self delegate] tableCellDidSelect:cell];
+   // UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    //[[self delegate] tableCellDidSelect:cell];
 }
 
 

@@ -10,13 +10,11 @@
 #import "CollectionCell.h"
 #import "DetailViewController.h"
 
-@interface EventsViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ColectionCellDelegate>
-
+@interface EventsViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *categoryHeaderLabel;
-
 
 @property (strong, nonatomic) NSString *catText;
 @property (nonatomic) NSUInteger categoryCount;
