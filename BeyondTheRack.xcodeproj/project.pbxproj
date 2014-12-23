@@ -26,7 +26,6 @@
 		69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A0A1A446FCA003CE59C /* backarrowcool.png */; };
 		69867A151A44A701003CE59C /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A141A44A701003CE59C /* EventsViewController.m */; };
 		69867A181A485AA7003CE59C /* EventCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A171A485AA7003CE59C /* EventCollectionViewCell.m */; };
-		69867A1B1A485AC4003CE59C /* fonyCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A1A1A485AC4003CE59C /* fonyCollectionViewController.m */; };
 		69867A211A48AC1E003CE59C /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A201A48AC1E003CE59C /* DetailViewController.m */; };
 		69867A241A48AC26003CE59C /* CollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A231A48AC26003CE59C /* CollectionCell.m */; };
 		69867A261A48AC35003CE59C /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69867A251A48AC35003CE59C /* DetailViewController.xib */; };
@@ -74,8 +73,6 @@
 		69867A141A44A701003CE59C /* EventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
 		69867A161A485AA7003CE59C /* EventCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCollectionViewCell.h; sourceTree = "<group>"; };
 		69867A171A485AA7003CE59C /* EventCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCollectionViewCell.m; sourceTree = "<group>"; };
-		69867A191A485AC4003CE59C /* fonyCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fonyCollectionViewController.h; sourceTree = "<group>"; };
-		69867A1A1A485AC4003CE59C /* fonyCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fonyCollectionViewController.m; sourceTree = "<group>"; };
 		69867A1F1A48AC1E003CE59C /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		69867A201A48AC1E003CE59C /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		69867A221A48AC26003CE59C /* CollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionCell.h; sourceTree = "<group>"; };
@@ -143,8 +140,6 @@
 				69FF406E1A3F8939000BD092 /* MainViewController.m */,
 				69867A131A44A701003CE59C /* EventsViewController.h */,
 				69867A141A44A701003CE59C /* EventsViewController.m */,
-				69867A191A485AC4003CE59C /* fonyCollectionViewController.h */,
-				69867A1A1A485AC4003CE59C /* fonyCollectionViewController.m */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -361,7 +356,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69867A1B1A485AC4003CE59C /* fonyCollectionViewController.m in Sources */,
 				69867A241A48AC26003CE59C /* CollectionCell.m in Sources */,
 				69867A181A485AA7003CE59C /* EventCollectionViewCell.m in Sources */,
 				69867A211A48AC1E003CE59C /* DetailViewController.m in Sources */,

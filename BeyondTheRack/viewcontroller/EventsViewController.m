@@ -127,7 +127,7 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     //return [sectionArray count];
     
     
-    return 14;
+    return 2;
 }
 
 /*
