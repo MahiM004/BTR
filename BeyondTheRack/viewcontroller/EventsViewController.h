@@ -13,12 +13,9 @@
 @interface EventsViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ColectionCellDelegate>
 
 
-@property (weak, nonatomic) IBOutlet UILabel *categoryHeaderLabel;
-
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-
-
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *categoryHeaderLabel;
 
 
 @property (strong, nonatomic) NSString *catText;

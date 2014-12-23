@@ -12,6 +12,8 @@
 
 @interface EventsViewController ()
 
+
+
 @property (nonatomic,strong) NSMutableArray *collectionData;
 @property (strong, nonatomic) NSArray *_data;
 
@@ -103,6 +105,7 @@ static NSString * const reuseIdentifier = @"EventCollectionCellIdentifier";
     
     
     [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    
     
     [self.collectionView reloadData];
 }
