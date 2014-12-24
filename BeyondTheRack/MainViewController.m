@@ -9,7 +9,7 @@
 #import "MainViewController.h"
 #import "EventsViewController.h"
 #import "MainSceneCategoryCell.h"
-
+#import "ShoppingBagViewController.h"
 
 @interface MainViewController ()
 
@@ -90,6 +90,13 @@
     
 }
 
+- (IBAction)tappedShoppingBag:(id)sender {
+    
+    ShoppingBagViewController *bagVC = [[ShoppingBagViewController alloc] initWithNibName:@"ShoppingBagViewController" bundle:nil];
+    bagVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:bagVC animated:YES completion:NULL];
+
+}
 
 - (IBAction)unwindFromShoppingBag:(UIStoryboardSegue *)unwindSegue
 {

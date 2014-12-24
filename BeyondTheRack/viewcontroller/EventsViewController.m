@@ -8,7 +8,7 @@
 
 #import "EventsViewController.h"
 #import "EventCollectionViewCell.h"
-
+#import "ShoppingBagViewController.h"
 
 @interface EventsViewController ()
 
@@ -281,6 +281,12 @@ animated:(BOOL)animated
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
+- (IBAction)tappedShoppingBag:(id)sender {
+
+    ShoppingBagViewController *bagVC = [[ShoppingBagViewController alloc] initWithNibName:@"ShoppingBagViewController" bundle:nil];
+    bagVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:bagVC animated:YES completion:NULL];
+}
 
 @end
 
