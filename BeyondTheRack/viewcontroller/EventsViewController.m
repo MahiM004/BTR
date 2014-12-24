@@ -24,10 +24,20 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     self.categoryHeaderLabel.text = [self catText];
     self.pageControl.numberOfPages = [self categoryCount];
     self.pageControl.currentPage = [self selectedCategoryIndex];
 } 
+
+
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,151 +46,151 @@
     
     self.collectionData = [[NSMutableArray alloc] initWithObjects:
                            [[NSMutableArray alloc] initWithObjects:
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
-                            @"1.png",
+                            @"1a.png",
+                            @"1b.png",
+                            @"1c.png",
+                            @"1d.png",
+                            @"1e.png",
+                            @"1f.png",
+                            @"1g.png",
+                            @"1h.gpng",
+                            @"1i.png",
+                            @"1j.png",
+                            @"1k.png",
+                            @"1l.png",
+                            @"1m.png",
+                            @"1n.png",
+                            @"1o.png",
+                            @"1p.png",
+                            @"1q.png",
+                            @"1r.png",
+                            @"1s.png",
+                            @"1t.png",
+                            @"1u.png",
+                            @"1v.png",
+                            @"1w.png",
                             nil],
                            [[NSMutableArray alloc] initWithObjects:
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
-                            @"2.png",
+                            @"2a.png",
+                            @"2b.png",
+                            @"2c.png",
+                            @"2d.png",
+                            @"2e.png",
+                            @"2f.png",
+                            @"2g.png",
+                            @"2h.png",
+                            @"2i.png",
+                            @"2j.png",
+                            @"2k.png",
+                            @"2l.png",
+                            @"2m.png",
+                            @"2n.png",
+                            @"2o.png",
+                            @"2p.png",
+                            @"2q.png",
+                            @"2r.png",
                             nil],
     [[NSMutableArray alloc] initWithObjects:
-     @"3.png",
-     @"3.png",
-     @"3.png",
-     @"3.png",
-     @"3.png",
-     @"3.png",
-     @"3.png",
-     @"3.png",
-     @"3.png",
-     @"3.png",
-     @"3.png",
+     @"3a.png",
+     @"3b.png",
+     @"3c.png",
+     @"3d.png",
+     @"3e.png",
+     @"3f.png",
+     @"3g.png",
+     @"3h.png",
+     @"3i.png",
+     @"3j.png",
+     @"3k.png",
      nil],
     [[NSMutableArray alloc] initWithObjects:
-     @"4.png",
-     @"4.png",
-     @"4.png",
-     @"4.png",
-     @"4.png",
-     @"4.png",
-     @"4.png",
-     @"4.png",
-     @"4.png",
-     @"4.png",
-     @"4.png",
-     @"4.png",
+     @"4a.png",
+     @"4b.png",
+     @"4c.png",
+     @"4d.png",
+     @"4e.png",
+     @"4f.png",
+     @"4g.png",
+     @"4h.png",
+     @"4i.png",
+     @"4j.png",
+     @"4k.png",
+     @"4l.png",
      nil],
     [[NSMutableArray alloc] initWithObjects:
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
-     @"5.png",
+     @"5a.png",
+     @"5b.png",
+     @"5c.png",
+     @"5d.png",
+     @"5e.png",
+     @"5f.png",
+     @"5g.png",
+     @"5h.png",
+     @"5i.png",
+     @"5j.png",
+     @"5k.png",
+     @"5l.png",
+     @"5m.png",
+     @"5n.png",
+     @"5o.png",
+     @"5p.png",
+     @"5q.png",
+     @"5r.png",
+     @"5s.png",
      nil],
     [[NSMutableArray alloc] initWithObjects:
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
-     @"6.png",
+     @"6a.png",
+     @"6b.png",
+     @"6c.png",
+     @"6d.png",
+     @"6e.png",
+     @"6f.png",
+     @"6g.png",
+     @"6h.png",
+     @"6i.png",
+     @"6j.png",
+     @"6k.png",
+     @"6l.png",
+     @"6m.png",
+     @"6n.png",
      nil],
     [[NSMutableArray alloc] initWithObjects:
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
-     @"7.png",
+     @"7a.png",
+     @"7b.png",
+     @"7c.png",
+     @"7d.png",
+     @"7e.png",
+     @"7f.png",
+     @"7g.png",
+     @"7h.png",
+     @"7i.png",
+     @"7j.png",
+     @"7k.png",
+     @"7l.png",
+     @"7m.png",
+     @"7n.png",
+     @"7o.png",
      nil],
     [[NSMutableArray alloc] initWithObjects:
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
-     @"8.png",
+     @"8a.png",
+     @"8b.png",
+     @"8c.png",
+     @"8d.png",
+     @"8e.png",
+     @"8f.png",
+     @"8g.png",
+     @"8h.png",
+     @"8i.png",
+     @"8j.png",
+     @"8k.png",
+     @"8l.png",
+     @"8m.png",
+     @"8n.png",
+     @"8o.png",
+     @"8p.png",
+     @"8q.png",
+     @"8r.png",
+     @"8s.png",
      nil],
                            nil];
     
@@ -194,9 +204,25 @@
     
     //[self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
+
+    
+    /*
+    - (void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath
+atScrollPosition:(UICollectionViewScrollPosition)scrollPosition
+animated:(BOOL)animated
+    */
     
    // [self.collectionView reloadData];
+    
+    
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self selectedCategoryIndex] inSection:0];
+    // scrolling here does work
+    [self.collectionView scrollToItemAtIndexPath:indexPath
+                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                        animated:YES];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -225,6 +251,7 @@
 
 
 
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSInteger currentIndex = self.collectionView.contentOffset.x / self.collectionView.frame.size.width;
@@ -242,7 +269,6 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CollectionCell *cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCellIdentifier" forIndexPath:indexPath];
-    NSLog(@"CollectionData count: %lu", (unsigned long)[[self.collectionData objectAtIndex:indexPath.row] count]);
     cell.cellData = [self.collectionData objectAtIndex:indexPath.row];
     [cell.tableView reloadData];
     return cell;
