@@ -37,6 +37,18 @@
                           @"Future Deals",
                           @"Christmas Special",
                           nil];
+
+    self.categoryItemPics = [[NSMutableArray alloc] initWithObjects:
+                             @"women",
+                             @"men",
+                             @"home",
+                             @"specials",
+                             @"editor",
+                             @"kids",
+                             @"future",
+                             @"xmasspecials",
+                             nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,12 +83,10 @@
         cell = [[MainSceneCategoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"categoryCellIdentifier"];
     }
     
-    NSArray  * categoryItems = [NSArray arrayWithObjects:@"women", @"men", @"home", @"specials", @"editor", @"kids", @"future", @"xmasspecials",nil];
-
     
     int picNumber = (int)(indexPath.row);
     
-    cell.categoryImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[categoryItems objectAtIndex:picNumber]] ];
+    cell.categoryImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[self.categoryItemPics objectAtIndex:picNumber]] ];
     cell.categoryLabel.text = [[self categoryNames] objectAtIndex:picNumber];
     
     return cell;

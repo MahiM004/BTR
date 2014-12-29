@@ -11,6 +11,7 @@
 @interface MainViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource>
 
 @property(strong,nonatomic) NSMutableArray *categoryNames;
+@property(strong,nonatomic) NSMutableArray *categoryItemPics;
 
 
 @end
