@@ -14,7 +14,6 @@
 		69807AEA1A4210740001A154 /* neulogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AE91A4210740001A154 /* neulogo.png */; };
 		69807AEE1A42131E0001A154 /* neuaccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AED1A42131E0001A154 /* neuaccount.png */; };
 		69807AF01A4215490001A154 /* neucart.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AEF1A4215490001A154 /* neucart.png */; };
-		69807B161A42313F0001A154 /* MainSceneCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69807B151A42313F0001A154 /* MainSceneCategoryCell.m */; };
 		6985BAE61A51AFE100C59871 /* future.png in Resources */ = {isa = PBXBuildFile; fileRef = 6985BAE41A51AFE100C59871 /* future.png */; };
 		6985BAE71A51AFE100C59871 /* kids.png in Resources */ = {isa = PBXBuildFile; fileRef = 6985BAE51A51AFE100C59871 /* kids.png */; };
 		698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */ = {isa = PBXBuildFile; fileRef = 698679FC1A4351A4003CE59C /* neulogocentered.png */; };
@@ -34,7 +33,6 @@
 		69EF6DD91A51A82500D95D60 /* xmasspecials.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EF6DD11A51A82500D95D60 /* xmasspecials.png */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* AppDelegate.m */; };
-		69FF406F1A3F8939000BD092 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406E1A3F8939000BD092 /* MainViewController.m */; };
 		69FF40751A3F8939000BD092 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40731A3F8939000BD092 /* Main.storyboard */; };
 		69FF40771A3F8939000BD092 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40761A3F8939000BD092 /* Images.xcassets */; };
 		69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40781A3F8939000BD092 /* LaunchScreen.xib */; };
@@ -63,8 +61,6 @@
 		69807AE91A4210740001A154 /* neulogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neulogo.png; sourceTree = "<group>"; };
 		69807AED1A42131E0001A154 /* neuaccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neuaccount.png; sourceTree = "<group>"; };
 		69807AEF1A4215490001A154 /* neucart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neucart.png; sourceTree = "<group>"; };
-		69807B141A42313F0001A154 /* MainSceneCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainSceneCategoryCell.h; path = ../MainSceneCategoryCell.h; sourceTree = "<group>"; };
-		69807B151A42313F0001A154 /* MainSceneCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainSceneCategoryCell.m; path = ../MainSceneCategoryCell.m; sourceTree = "<group>"; };
 		6985BAE41A51AFE100C59871 /* future.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = future.png; sourceTree = "<group>"; };
 		6985BAE51A51AFE100C59871 /* kids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kids.png; sourceTree = "<group>"; };
 		698679FB1A434860003CE59C /* BeyondTheRack-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BeyondTheRack-Prefix.pch"; sourceTree = "<group>"; };
@@ -92,8 +88,6 @@
 		69FF40681A3F8939000BD092 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		69FF406A1A3F8939000BD092 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		69FF406B1A3F8939000BD092 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		69FF406D1A3F8939000BD092 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = ../MainViewController.h; sourceTree = "<group>"; };
-		69FF406E1A3F8939000BD092 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = ../MainViewController.m; sourceTree = "<group>"; };
 		69FF40741A3F8939000BD092 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		69FF40761A3F8939000BD092 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		69FF40791A3F8939000BD092 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -134,8 +128,6 @@
 				69765FEF1A51BEC2004A0F46 /* MainSceneCategoryCell.m */,
 				69867A221A48AC26003CE59C /* CollectionCell.h */,
 				69867A231A48AC26003CE59C /* CollectionCell.m */,
-				69807B141A42313F0001A154 /* MainSceneCategoryCell.h */,
-				69807B151A42313F0001A154 /* MainSceneCategoryCell.m */,
 				69867A161A485AA7003CE59C /* EventCollectionViewCell.h */,
 				69867A171A485AA7003CE59C /* EventCollectionViewCell.m */,
 			);
@@ -145,8 +137,6 @@
 		697E057C1A432FCD000146C6 /* viewcontroller */ = {
 			isa = PBXGroup;
 			children = (
-				69FF406D1A3F8939000BD092 /* MainViewController.h */,
-				69FF406E1A3F8939000BD092 /* MainViewController.m */,
 				69765FF11A51BED2004A0F46 /* MainViewController.h */,
 				69765FF21A51BED2004A0F46 /* MainViewController.m */,
 				69867A131A44A701003CE59C /* EventsViewController.h */,
@@ -385,11 +375,9 @@
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
 				69867A151A44A701003CE59C /* EventsViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */,
-				69FF406F1A3F8939000BD092 /* MainViewController.m in Sources */,
 				69765FF31A51BED2004A0F46 /* MainViewController.m in Sources */,
 				69765FED1A51BE5A004A0F46 /* MyAccountViewController.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
-				69807B161A42313F0001A154 /* MainSceneCategoryCell.m in Sources */,
 				69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

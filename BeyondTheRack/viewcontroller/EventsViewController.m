@@ -274,9 +274,9 @@ animated:(BOOL)animated
 
 -(void)tableCellDidSelect:(UITableViewCell *)cell{
     NSLog(@"Tap %@",cell.textLabel.text);
-    DetailViewController *detailVC = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    detailVC.label.text = cell.textLabel.text;
-    [self.navigationController pushViewController:detailVC animated:YES];
+    //DetailViewController *detailVC = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
+    //detailVC.label.text = cell.textLabel.text;
+    //[self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (IBAction)tappedShoppingBag:(id)sender {

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CollectionCell.h"
-#import "DetailViewController.h"
 
 @interface EventsViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
