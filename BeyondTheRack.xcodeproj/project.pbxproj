@@ -25,6 +25,7 @@
 		69867A241A48AC26003CE59C /* CollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A231A48AC26003CE59C /* CollectionCell.m */; };
 		69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */; };
 		69B55F0E1A4B1AFC009A5524 /* ShoppingBagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B55F0C1A4B1AFC009A5524 /* ShoppingBagViewController.xib */; };
+		69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C15AAF1A51FFE200D6E358 /* bareffect.png */; };
 		69E605A41A51AE57000FF0E6 /* editor.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E605A11A51AE57000FF0E6 /* editor.png */; };
 		69E605A51A51AE57000FF0E6 /* specials.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E605A21A51AE57000FF0E6 /* specials.png */; };
 		69E605A61A51AE57000FF0E6 /* women.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E605A31A51AE57000FF0E6 /* women.png */; };
@@ -77,6 +78,7 @@
 		69B55F0A1A4B1AFC009A5524 /* ShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingBagViewController.h; sourceTree = "<group>"; };
 		69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingBagViewController.m; sourceTree = "<group>"; };
 		69B55F0C1A4B1AFC009A5524 /* ShoppingBagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppingBagViewController.xib; sourceTree = "<group>"; };
+		69C15AAF1A51FFE200D6E358 /* bareffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bareffect.png; sourceTree = "<group>"; };
 		69E605A11A51AE57000FF0E6 /* editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editor.png; sourceTree = "<group>"; };
 		69E605A21A51AE57000FF0E6 /* specials.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = specials.png; sourceTree = "<group>"; };
 		69E605A31A51AE57000FF0E6 /* women.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = women.png; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		69B55F0F1A4B44A2009A5524 /* category pics */ = {
 			isa = PBXGroup;
 			children = (
+				69C15AAF1A51FFE200D6E358 /* bareffect.png */,
 				69EF6DCC1A51A82500D95D60 /* home.png */,
 				6985BAE41A51AFE100C59871 /* future.png */,
 				6985BAE51A51AFE100C59871 /* kids.png */,
@@ -343,6 +346,7 @@
 				69E605A61A51AE57000FF0E6 /* women.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
+				69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */,
 				69EF6DD91A51A82500D95D60 /* xmasspecials.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,

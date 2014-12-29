@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyAccountViewController : UIViewController
+@interface MyAccountViewController : UIViewController <UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

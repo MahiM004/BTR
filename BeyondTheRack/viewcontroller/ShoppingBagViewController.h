@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShoppingBagViewController : UIViewController
+@interface ShoppingBagViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

@@ -25,6 +25,29 @@
 }
 
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 8;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCellIdentifier" forIndexPath:indexPath];
+    
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"categoryCellIdentifier"];
+    }
+    
+    cell.backgroundColor = [UIColor blackColor];
+    cell.detailTextLabel.text = @"something cool";
+    cell.textLabel.text = @"Kewl";
+    
+    return cell;
+}
+
+
 - (IBAction)tappedClose:(id)sender {
 
     [self dismissViewControllerAnimated:YES completion: nil];

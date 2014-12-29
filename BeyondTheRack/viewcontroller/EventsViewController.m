@@ -25,8 +25,14 @@
     [super viewWillAppear:animated];
 
     self.categoryHeaderLabel.text = [self catText];
-    self.pageControl.numberOfPages = [self categoryCount];
-    self.pageControl.currentPage = [self selectedCategoryIndex];
+    
+    self.nextCategory.text = [self.categoryNames objectAtIndex:((self.selectedCategoryIndex + 1) % self.categoryCount)];
+    self.lastCategory.text = [self.categoryNames objectAtIndex:((self.selectedCategoryIndex - 1) % self.categoryCount)];
+    //self.nextCategory.text = [self.categoryNames objectAtIndex:self.selectedCategoryIndex];
+    //self.lastCategory.text = [self.categoryNames objectAtIndex:self.selectedCategoryIndex];
+    
+    //self.pageControl.numberOfPages = [self categoryCount];
+    //self.pageControl.currentPage = [self selectedCategoryIndex];
 } 
 
 
@@ -41,9 +47,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-   
-    
-    
     self.collectionData = [[NSMutableArray alloc] initWithObjects:
                            [[NSMutableArray alloc] initWithObjects:
                             @"1a.png",
@@ -256,9 +259,17 @@ animated:(BOOL)animated
 {
     NSInteger currentIndex = self.collectionView.contentOffset.x / self.collectionView.frame.size.width;
     
-    self.pageControl.currentPage = currentIndex;
+    //self.pageControl.currentPage = currentIndex;
     self.categoryHeaderLabel.text = [self.categoryNames objectAtIndex:currentIndex];
     
+    //self.nextCategory.text = [self.categoryNames objectAtIndex:((self.selectedCategoryIndex + 1) % currentIndex)];
+    //self.lastCategory.text = [self.categoryNames objectAtIndex:((self.selectedCategoryIndex - 1) % currentIndex)];
+
+ 
+    
+    self.nextCategory.text = [self.categoryNames objectAtIndex:(currentIndex + 1) % self.categoryCount ];
+    self.lastCategory.text = [self.categoryNames objectAtIndex:(currentIndex - 1) % self.categoryCount ];
+
 }
 
 
