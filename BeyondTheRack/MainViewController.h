@@ -10,6 +10,7 @@
 
 @interface MainViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource>
 
+@property(strong,nonatomic) NSMutableArray *categoryNames;
 
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MainSceneCategoryCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *mockupImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *categoryImageView;
+@property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 
 @end

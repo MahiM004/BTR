@@ -12,10 +12,8 @@
 
 @interface EventsViewController ()
 
-
-
 @property (nonatomic,strong) NSMutableArray *collectionData;
-@property (strong, nonatomic) NSArray *_data;
+
 
 @end
 
@@ -43,6 +41,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+   
+    
     
     self.collectionData = [[NSMutableArray alloc] initWithObjects:
                            [[NSMutableArray alloc] initWithObjects:
@@ -256,11 +256,8 @@ animated:(BOOL)animated
 {
     NSInteger currentIndex = self.collectionView.contentOffset.x / self.collectionView.frame.size.width;
     
-    NSArray  * categoryItems = [NSArray arrayWithObjects:@"The Holiday Issue", @"Editor's Picks", @"Furniture", @"Women", @"Kids", @"Home", @"State Concepts", @"Winter Sale",nil];
-    
-    
     self.pageControl.currentPage = currentIndex;
-    self.categoryHeaderLabel.text = [categoryItems objectAtIndex:currentIndex];
+    self.categoryHeaderLabel.text = [self.categoryNames objectAtIndex:currentIndex];
     
 }
 
@@ -270,6 +267,7 @@ animated:(BOOL)animated
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CollectionCell *cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCellIdentifier" forIndexPath:indexPath];
     cell.cellData = [self.collectionData objectAtIndex:indexPath.row];
+    
     [cell.tableView reloadData];
     return cell;
 }

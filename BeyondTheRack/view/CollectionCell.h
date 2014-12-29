@@ -16,4 +16,6 @@
 @interface CollectionCell : UICollectionViewCell<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(strong,nonatomic) NSMutableArray *cellData;
+
+
 @end

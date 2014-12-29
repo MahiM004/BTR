@@ -27,6 +27,16 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
   
+    self.categoryNames = [[NSMutableArray alloc] initWithObjects:
+                          @"Women",
+                          @"Men",
+                          @"Home",
+                          @"Special Sale!",
+                          @"Editor's Pick",
+                          @"Kids",
+                          @"Future Deals",
+                          @"Christmas Special",
+                          nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,7 +76,8 @@
     
     int picNumber = (int)(indexPath.row);
     
-    cell.mockupImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[categoryItems objectAtIndex:picNumber]] ];
+    cell.categoryImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[categoryItems objectAtIndex:picNumber]] ];
+    cell.categoryLabel.text = [[self categoryNames] objectAtIndex:picNumber];
     
     return cell;
 }
@@ -81,12 +92,11 @@
     {
         EventsViewController *vc = [segue destinationViewController];
         
-        NSArray  * categoryItems = [NSArray arrayWithObjects:@"The Holiday Issue", @"Editor's Picks", @"Furniture", @"Women", @"Kids", @"Home", @"State Concepts", @"Winter Sale",nil];
-
         UITableViewCell *cell = (UITableViewCell*)sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        [vc setCatText:[categoryItems objectAtIndex:[indexPath row]]];
-        [vc setCategoryCount:[categoryItems count]];
+        [vc setCategoryNames:[self categoryNames]];
+        [vc setCatText:[self.categoryNames objectAtIndex:[indexPath row]]];
+        [vc setCategoryCount:[self.categoryNames count]];
         [vc setSelectedCategoryIndex:[indexPath row]];
         
     }
