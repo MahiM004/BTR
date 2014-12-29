@@ -33,12 +33,12 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 160;
 }
-
+*/
 #pragma mark - Table view data source
 /*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -61,9 +61,12 @@
         cell = [[MainSceneCategoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"categoryCellIdentifier"];
     }
     
-    int picNumber = (int)(indexPath.row) + 1;
+    NSArray  * categoryItems = [NSArray arrayWithObjects:@"women", @"men", @"home", @"specials", @"editor", @"kids", @"future", @"xmasspecials",nil];
+
     
-    cell.mockupImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.png", picNumber] ];
+    int picNumber = (int)(indexPath.row);
+    
+    cell.mockupImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[categoryItems objectAtIndex:picNumber]] ];
     
     return cell;
 }
