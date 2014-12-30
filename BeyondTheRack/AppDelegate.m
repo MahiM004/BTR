@@ -24,16 +24,7 @@
 
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        
-    //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x212121)];//212121
-    //[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-
-    //[[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x067AB5)];//212121
-   //UIImage * backgroundImage =
     
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"neulogo.png"] forBarMetrics:UIBarMetricsDefault];
-    //self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"neulogo.png"]];
     
     return YES;
 }
