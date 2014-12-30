@@ -12,7 +12,8 @@
 
 @interface EventsViewController ()
 
-@property (nonatomic,strong) NSMutableArray *collectionData;
+@property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) NSMutableArray *originalDataArray;
 
 
 @end
@@ -28,11 +29,7 @@
     
     self.nextCategory.text = [self.categoryNames objectAtIndex:((self.selectedCategoryIndex + 1) % self.categoryCount)];
     self.lastCategory.text = [self.categoryNames objectAtIndex:((self.selectedCategoryIndex - 1) % self.categoryCount)];
-    //self.nextCategory.text = [self.categoryNames objectAtIndex:self.selectedCategoryIndex];
-    //self.lastCategory.text = [self.categoryNames objectAtIndex:self.selectedCategoryIndex];
-    
-    //self.pageControl.numberOfPages = [self categoryCount];
-    //self.pageControl.currentPage = [self selectedCategoryIndex];
+
 } 
 
 
@@ -47,7 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.collectionData = [[NSMutableArray alloc] initWithObjects:
+    self.originalDataArray = [[NSMutableArray alloc] initWithObjects:
                            [[NSMutableArray alloc] initWithObjects:
                             @"1a.png",
                             @"1b.png",
@@ -195,6 +192,7 @@
      @"8r.png",
      @"8s.png",
      nil],
+                      
                            nil];
     
     //self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -206,25 +204,18 @@
     
     
     //[self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-
-    
-    /*
-    - (void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath
-atScrollPosition:(UICollectionViewScrollPosition)scrollPosition
-animated:(BOOL)animated
-    */
-    
-   // [self.collectionView reloadData];
+    //[self.collectionView reloadData];
     
     
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self selectedCategoryIndex] inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self selectedCategoryIndex]+1 inSection:0];
     // scrolling here does work
     [self.collectionView scrollToItemAtIndexPath:indexPath
                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                         animated:YES];
+    
+    [self setupDataForCollectionViewInfiniteScrolling];
 }
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -234,42 +225,60 @@ animated:(BOOL)animated
 
 #pragma mark - UICollectionView Datasource
 
-/*
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [self.collectionData count];
+
+// for infinite scrolling
+-(void)setupDataForCollectionViewInfiniteScrolling {
+    
+    id firstItem = [[self originalDataArray] objectAtIndex:0];
+    id lastItem = [[self originalDataArray ] lastObject];
+    
+    NSMutableArray *workingArray = [self.originalDataArray mutableCopy];
+    
+    // Add the copy of the last item to the beginning
+    [workingArray insertObject:lastItem atIndex:0];
+    
+    // Add the copy of the first item to the end
+    [workingArray addObject:firstItem];
+    
+    // Update the collection view's data source property
+    self.dataArray = [NSMutableArray arrayWithArray:workingArray];
 }
-*/
 
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
 
-    //return [self categoryCount];;
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
    
-    return [self categoryCount];//[[[self collectionData] objectAtIndex:section] count];
+    return [self categoryCount]+2; // extra 2 for infinite scrolling
 }
 
 
 
-
+// for infinite scrolling
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSInteger currentIndex = self.collectionView.contentOffset.x / self.collectionView.frame.size.width;
-    
-    //self.pageControl.currentPage = currentIndex;
-    self.categoryHeaderLabel.text = [self.categoryNames objectAtIndex:currentIndex];
-    
-    //self.nextCategory.text = [self.categoryNames objectAtIndex:((self.selectedCategoryIndex + 1) % currentIndex)];
-    //self.lastCategory.text = [self.categoryNames objectAtIndex:((self.selectedCategoryIndex - 1) % currentIndex)];
 
- 
-    
-    self.nextCategory.text = [self.categoryNames objectAtIndex:(currentIndex + 1) % self.categoryCount ];
-    self.lastCategory.text = [self.categoryNames objectAtIndex:(currentIndex - 1) % self.categoryCount ];
+    if (currentIndex == ([self categoryCount] + 1)) {
+        
+        // user is scrolling to the right from the last item to the 'fake' item 1.
+        // reposition offset to show the 'real' item 1 at the left-hand end of the collection view
+        
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:1 inSection:0];
+        [self.collectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
 
+    } else if (scrollView.contentOffset.x == 0)  {
+        
+        // user is scrolling to the left from the first item to the fake 'item N'.
+        // reposition offset to show the 'real' item N at the right end end of the collection view
+        
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:([self categoryCount]) inSection:0];
+        [self.collectionView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+
+    }
 }
 
 
@@ -277,7 +286,16 @@ animated:(BOOL)animated
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CollectionCell *cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCellIdentifier" forIndexPath:indexPath];
-    cell.cellData = [self.collectionData objectAtIndex:indexPath.row];
+   
+    cell.cellData = [self.dataArray objectAtIndex:indexPath.row];
+    NSInteger currentIndex = indexPath.row - 1;
+    
+    if (currentIndex >=0 && currentIndex <= 7) {
+
+        self.categoryHeaderLabel.text = [self.categoryNames objectAtIndex:currentIndex];
+        self.nextCategory.text = [self.categoryNames objectAtIndex:((currentIndex + 1) % self.categoryCount) ];
+        self.lastCategory.text = [self.categoryNames objectAtIndex:((currentIndex - 1) % self.categoryCount) ];
+    }
     
     [cell.tableView reloadData];
     return cell;
@@ -290,6 +308,8 @@ animated:(BOOL)animated
     //[self.navigationController pushViewController:detailVC animated:YES];
 }
 
+
+
 - (IBAction)tappedShoppingBag:(id)sender {
 
     ShoppingBagViewController *bagVC = [[ShoppingBagViewController alloc] initWithNibName:@"ShoppingBagViewController" bundle:nil];
@@ -298,9 +318,6 @@ animated:(BOOL)animated
 }
 
 @end
-
-
-
 
 
 

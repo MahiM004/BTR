@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSString *catText;
 @property (nonatomic) NSUInteger categoryCount;
 @property (nonatomic) NSUInteger selectedCategoryIndex;
+
 @property (strong, nonatomic) NSMutableArray *categoryNames;
 
 @end
