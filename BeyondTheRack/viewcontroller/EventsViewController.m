@@ -14,7 +14,6 @@
 
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,strong) NSMutableArray *originalDataArray;
-@property (nonatomic) NSInteger headerIndex;
 
 @end
 
@@ -301,8 +300,7 @@
     CollectionCell *cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCellIdentifier" forIndexPath:indexPath];
    
     cell.cellData = [self.dataArray objectAtIndex:indexPath.row];
-    self.headerIndex = indexPath.row - 1;
-
+    
     [cell.tableView reloadData];
     return cell;
 }
