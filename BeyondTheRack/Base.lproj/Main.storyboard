@@ -26,7 +26,7 @@
                                         <rect key="frame" x="281" y="6" width="34" height="42"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zbu-1e-tGa" userLabel="bagMainSceneButton">
-                                        <rect key="frame" x="267" y="0.0" width="56" height="52"/>
+                                        <rect key="frame" x="262" y="0.0" width="60" height="52"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -35,7 +35,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="496-Di-gBi" userLabel="myAccountButton">
-                                        <rect key="frame" x="7" y="5" width="35" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -189,7 +189,7 @@
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                             </attributes>
                                         </fragment>
-                                        <fragment content="Hadi Kheyruri">
+                                        <fragment content="Richard Cohene">
                                             <attributes>
                                                 <color key="NSColor" red="0.12941176470588237" green="0.12941176470588237" blue="0.12941176470588237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="16" name="HelveticaNeue"/>
@@ -452,7 +452,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="D5C4E799-42CF-49AD-A3D0-8F77696E50E5" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="1ACFD769-4DDA-4DB8-B4F7-367B150D9E2C" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -639,7 +639,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="D5C4E799-42CF-49AD-A3D0-8F77696E50E5" width="30" height="30">
+        <image name="1ACFD769-4DDA-4DB8-B4F7-367B150D9E2C" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
