@@ -14,7 +14,7 @@
 
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,strong) NSMutableArray *originalDataArray;
-
+@property (nonatomic) NSInteger headerIndex;
 
 @end
 
@@ -261,6 +261,19 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSInteger currentIndex = self.collectionView.contentOffset.x / self.collectionView.frame.size.width;
+    
+    // handling boundry indexes for category titles
+    NSInteger myHeaderIndex = currentIndex - 1;
+    if (myHeaderIndex == [self categoryCount]) myHeaderIndex = 0;
+    if (myHeaderIndex == -1) myHeaderIndex = [self categoryCount] - 1;
+
+    if (myHeaderIndex >=0 && myHeaderIndex <= [self categoryCount] - 1) {
+        
+        self.categoryHeaderLabel.text = [self.categoryNames objectAtIndex:myHeaderIndex];
+        self.nextCategory.text = [self.categoryNames objectAtIndex:((myHeaderIndex + 1) % self.categoryCount) ];
+        self.lastCategory.text = [self.categoryNames objectAtIndex:((myHeaderIndex - 1) % self.categoryCount) ];
+    }
+    
 
     if (currentIndex == ([self categoryCount] + 1)) {
         
@@ -288,15 +301,8 @@
     CollectionCell *cell = (CollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCellIdentifier" forIndexPath:indexPath];
    
     cell.cellData = [self.dataArray objectAtIndex:indexPath.row];
-    NSInteger currentIndex = indexPath.row - 1;
-    
-    if (currentIndex >=0 && currentIndex <= 7) {
+    self.headerIndex = indexPath.row - 1;
 
-        self.categoryHeaderLabel.text = [self.categoryNames objectAtIndex:currentIndex];
-        self.nextCategory.text = [self.categoryNames objectAtIndex:((currentIndex + 1) % self.categoryCount) ];
-        self.lastCategory.text = [self.categoryNames objectAtIndex:((currentIndex - 1) % self.categoryCount) ];
-    }
-    
     [cell.tableView reloadData];
     return cell;
 }
