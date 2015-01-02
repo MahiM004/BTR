@@ -501,14 +501,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoA-cB-WkP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="unA-cr-9AS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1781" y="897"/>
+            <point key="canvasLocation" x="1771" y="819"/>
         </scene>
         <!--First-->
         <scene sceneID="Dr9-ga-gks">
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="4D5E1B06-2D28-42CB-9166-D4D44D4CC2E4" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="2448796B-F69F-46A7-B790-9CA9A25B3200" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -794,7 +794,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wxx-54-p0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1193" y="-828"/>
+            <point key="canvasLocation" x="1109" y="-828"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="YGv-W2-wAc">
@@ -811,12 +811,6 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ur6-0Z-fSv">
                                 <rect key="frame" x="0.0" y="22" width="320" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Checkout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPI-uO-kIg">
-                                        <rect key="frame" x="90" y="10" width="140" height="24"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D22-fr-pgo">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
@@ -828,6 +822,12 @@
                                             <segue destination="tkG-Z3-8WU" kind="unwind" unwindAction="unwindToShoppingBagScene:" id="Evr-tj-2lP"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Checkout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPI-uO-kIg">
+                                        <rect key="frame" x="90" y="11" width="140" height="24"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -874,7 +874,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MqG-1b-FVz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tkG-Z3-8WU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1594" y="-828"/>
+            <point key="canvasLocation" x="1536" y="-828"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tdT-TP-sBs">
@@ -892,8 +892,8 @@
                                 <rect key="frame" x="0.0" y="22" width="320" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Checkout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08i-26-GDu">
-                                        <rect key="frame" x="90" y="10" width="140" height="24"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                        <rect key="frame" x="90" y="11" width="140" height="24"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -954,7 +954,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gcZ-RT-YFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="8hz-3H-5iO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1996" y="-828"/>
+            <point key="canvasLocation" x="1968" y="-828"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ohB-Tf-V6s">
@@ -995,8 +995,8 @@
                                 <rect key="frame" x="0.0" y="22" width="320" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Checkout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEV-A9-erv">
-                                        <rect key="frame" x="90" y="10" width="140" height="24"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                        <rect key="frame" x="90" y="11" width="140" height="24"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1057,7 +1057,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="4D5E1B06-2D28-42CB-9166-D4D44D4CC2E4" width="30" height="30">
+        <image name="2448796B-F69F-46A7-B790-9CA9A25B3200" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
