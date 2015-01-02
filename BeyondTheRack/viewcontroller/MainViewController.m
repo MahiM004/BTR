@@ -106,13 +106,13 @@
 
 - (IBAction)tappedShoppingBag:(id)sender {
     
-    ShoppingBagViewController *bagVC = [[ShoppingBagViewController alloc] initWithNibName:@"ShoppingBagViewController" bundle:nil];
-    bagVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [self presentViewController:bagVC animated:YES completion:NULL];
-
+    UIStoryboard *storyboard = self.storyboard;
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+    [self presentViewController:vc animated:YES completion:nil];
+    
 }
 
-- (IBAction)unwindFromShoppingBag:(UIStoryboardSegue *)unwindSegue
+- (IBAction)unwindFromShoppingBagToMainScene:(UIStoryboardSegue *)unwindSegue
 {
 }
 
@@ -122,7 +122,7 @@
 }
 
 
-- (IBAction)unwindToThisViewController:(UIStoryboardSegue *)unwindSegue
+- (IBAction)unwindToMainViewController:(UIStoryboardSegue *)unwindSegue
 {
 }
 
