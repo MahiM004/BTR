@@ -13,7 +13,7 @@
 
 
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (retain, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *categoryHeaderLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *lastCategory;

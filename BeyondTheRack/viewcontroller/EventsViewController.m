@@ -10,6 +10,8 @@
 #import "EventCollectionViewCell.h"
 #import "ShoppingBagViewController.h"
 
+#import <math.h>
+
 @interface EventsViewController ()
 
 @property (nonatomic,strong) NSMutableArray *dataArray;
@@ -23,12 +25,17 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    self.categoryHeaderLabel.text = [self catText];
     
-    self.nextCategory.text = [self.categoryNames objectAtIndex:((self.selectedCategoryIndex + 1) % self.categoryCount)];
-    self.lastCategory.text = [self.categoryNames objectAtIndex:((self.selectedCategoryIndex - 1) % self.categoryCount)];
+    // handling boundry indexes for category titles
+    NSInteger myHeaderIndex = [self selectedCategoryIndex];
 
+    if (myHeaderIndex >=0 && myHeaderIndex <= [self categoryCount] - 1) {
+        
+        self.categoryHeaderLabel.text = [self.categoryNames objectAtIndex:myHeaderIndex];
+        self.nextCategory.text = [self.categoryNames objectAtIndex:[self modulaForIndex:(myHeaderIndex+1) withCategoryCount:[self categoryCount]]];
+        self.lastCategory.text = [self.categoryNames objectAtIndex:[self modulaForIndex:(myHeaderIndex-1) withCategoryCount:[self categoryCount]]];
+    }
+    
 } 
 
 
@@ -170,34 +177,22 @@
      @"7n.png",
      @"7o.png",
      nil],
-    [[NSMutableArray alloc] initWithObjects:
-     @"8a.png",
-     @"8b.png",
-     @"8c.png",
-     @"8d.png",
-     @"8e.png",
-     @"8f.png",
-     @"8g.png",
-     @"8h.png",
-     @"8i.png",
-     @"8j.png",
-     @"8k.png",
-     @"8l.png",
-     @"8m.png",
-     @"8n.png",
-     @"8o.png",
-     @"8p.png",
-     @"8q.png",
-     @"8r.png",
-     @"8s.png",
-     nil],
-                      
+                              [[NSMutableArray alloc] initWithObjects:
+                               @"8a.png",
+                               @"8b.png",
+                               @"8c.png",
+                               @"8d.png",
+                               @"8e.png",
+                               @"8f.png",
+                               @"8g.png",
+                               @"8h.png",
+                               @"8o.png",
+                               nil],
+
                            nil];
     
-    //self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    //UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-    //_collectionView=[[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
+    
     [[self collectionView] setDataSource:self];
     [[self collectionView] setDelegate:self];
     
@@ -262,15 +257,16 @@
     NSInteger currentIndex = self.collectionView.contentOffset.x / self.collectionView.frame.size.width;
     
     // handling boundry indexes for category titles
-    NSInteger myHeaderIndex = currentIndex - 1;
+    int myHeaderIndex = currentIndex - 1;
     if (myHeaderIndex == [self categoryCount]) myHeaderIndex = 0;
     if (myHeaderIndex == -1) myHeaderIndex = [self categoryCount] - 1;
 
     if (myHeaderIndex >=0 && myHeaderIndex <= [self categoryCount] - 1) {
         
         self.categoryHeaderLabel.text = [self.categoryNames objectAtIndex:myHeaderIndex];
-        self.nextCategory.text = [self.categoryNames objectAtIndex:((myHeaderIndex + 1) % self.categoryCount) ];
-        self.lastCategory.text = [self.categoryNames objectAtIndex:((myHeaderIndex - 1) % self.categoryCount) ];
+        self.nextCategory.text = [self.categoryNames objectAtIndex:[self modulaForIndex:(myHeaderIndex+1) withCategoryCount:[self categoryCount]]];
+        self.lastCategory.text = [self.categoryNames objectAtIndex:[self modulaForIndex:(myHeaderIndex-1) withCategoryCount:[self categoryCount]]];
+
     }
     
 
@@ -321,8 +317,22 @@
     [self presentViewController:bagVC animated:YES completion:NULL];
 }
 
-@end
 
+
+
+
+
+
+- (NSInteger) modulaForIndex:(NSInteger)inputInt withCategoryCount:(NSInteger)count
+{
+    NSInteger relevantInt = (inputInt >= 0) ? (inputInt % count) : ((inputInt % count) + count);
+
+    return relevantInt;
+}
+
+
+
+@end
 
 
 

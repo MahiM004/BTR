@@ -31,11 +31,11 @@
                           @"Women",
                           @"Men",
                           @"Home",
-                          @"Special Sale!",
-                          @"Editor's Pick",
+                          @"Outlet",
+                          @"All Events",
                           @"Kids",
-                          @"Future Deals",
-                          @"Christmas Special",
+                          @"Curvey Closet",
+                          @"Holiday Sale",
                           nil];
 
     self.categoryItemPics = [[NSMutableArray alloc] initWithObjects:
