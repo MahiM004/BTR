@@ -508,7 +508,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="D8F7B477-E7FD-4689-9AF5-FA78FD34A88B" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="8195A07A-19E1-4998-A27D-FF8F8BA3F50F" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -730,7 +730,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="tappedClose:" destination="cAR-4K-mYr" eventType="touchUpInside" id="1IP-jG-ByX"/>
+                                            <action selector="tappedClose:" destination="cAR-4K-mYr" eventType="touchUpInside" id="sOD-Dw-7xb"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -771,6 +771,9 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="tappedCheckout:" destination="cAR-4K-mYr" eventType="touchUpInside" id="HqS-g4-0dp"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.89803921568627454" green="0.56862745098039214" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -811,12 +814,12 @@
                                     <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D22-fr-pgo">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <state key="normal" title="Close">
+                                        <state key="normal" title="Back">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="tkG-Z3-8WU" kind="unwind" unwindAction="unwindToShoppingBagScene:" id="Evr-tj-2lP"/>
+                                            <segue destination="tkG-Z3-8WU" kind="unwind" unwindAction="unwindToShoppingBagScene:" id="eV8-Vv-PKO"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Checkout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPI-uO-kIg">
@@ -841,6 +844,9 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="tappedContinueToCheckout:" destination="glx-Fh-ynL" eventType="touchUpInside" id="ro8-gN-hcN"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.42745098039215684" green="0.52941176470588236" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -971,12 +977,12 @@
                                     <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPY-9Z-w2L">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <state key="normal" title="Close">
+                                        <state key="normal" title="Back">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="8hz-3H-5iO" kind="unwind" unwindAction="unwindToShoppingBagScene:" id="IDr-8M-HfY"/>
+                                            <segue destination="8hz-3H-5iO" kind="unwind" unwindAction="unwindToAddressCheckoutScene:" id="xqd-wb-4pN"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -995,6 +1001,9 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="tappedContinueToCheckout:" destination="s7Y-Y9-e1Q" eventType="touchUpInside" id="2LL-b8-V1b"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.39215686274509803" green="0.46274509803921571" blue="0.52941176470588236" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1036,14 +1045,14 @@
                                         <rect key="frame" x="16" y="21" width="288" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iiR-Cm-vW2">
-                                                <rect key="frame" x="2" y="0.0" width="290" height="43"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="43"/>
                                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="22"/>
                                                 <state key="normal" title="Approve Purchase">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="5Wd-id-3W3" kind="unwind" unwindAction="unwindToShoppingBagScene:" id="Ppu-Nq-gSI"/>
+                                                    <segue destination="5Wd-id-3W3" kind="unwind" unwindAction="unwindToMainViewController:" id="P7X-kp-PK7"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1064,12 +1073,12 @@
                                     <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BcM-sd-SuA">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <state key="normal" title="Close">
+                                        <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="5Wd-id-3W3" kind="unwind" unwindAction="unwindToShoppingBagScene:" id="2ar-VW-7F8"/>
+                                            <segue destination="5Wd-id-3W3" kind="unwind" unwindAction="unwindToShoppingBagScene:" id="jow-ig-0WV"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1153,7 +1162,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="D8F7B477-E7FD-4689-9AF5-FA78FD34A88B" width="30" height="30">
+        <image name="8195A07A-19E1-4998-A27D-FF8F8BA3F50F" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND

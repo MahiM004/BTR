@@ -24,6 +24,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (IBAction)tappedApprovePurchase:(UIButton *)sender {
+}
+
 /*
 #pragma mark - Navigation
 

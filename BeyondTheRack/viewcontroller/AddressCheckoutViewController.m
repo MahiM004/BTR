@@ -8,6 +8,9 @@
 
 #import "AddressCheckoutViewController.h"
 
+#import "PaymentCheckoutViewController.h"
+#import "ApprovePurchaseViewController.h"
+
 @interface AddressCheckoutViewController ()
 
 @end
@@ -23,6 +26,28 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark - Navigation
+
+
+- (IBAction)tappedContinueToCheckout:(UIButton *)sender {
+    
+    
+    UIStoryboard *storyboard = self.storyboard;
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"PaymentCheckoutViewController"];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+
+- (IBAction)unwindToAddressCheckoutScene:(UIStoryboardSegue *)unwindSegue
+{
+    
+    
+}
+
+
+
 
 /*
 #pragma mark - Navigation

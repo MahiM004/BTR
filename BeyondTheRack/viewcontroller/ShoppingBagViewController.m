@@ -8,6 +8,10 @@
 
 #import "ShoppingBagViewController.h"
 
+#import "AddressCheckoutViewController.h"
+#import "PaymentCheckoutViewController.h"
+#import "ApprovePurchaseViewController.h"
+
 @interface ShoppingBagViewController ()
 
 @end
@@ -47,6 +51,22 @@
     return cell;
 }
 
+- (IBAction)tappedCheckout:(UIButton *)sender {
+    
+    
+    UIStoryboard *storyboard = self.storyboard;
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"AddressCheckoutViewController"];
+    [self presentViewController:vc animated:YES completion:nil];
+
+}
+
+
+
+- (IBAction)tappedClose:(UIButton *)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
 
 
 - (IBAction)unwindToShoppingBagScene:(UIStoryboardSegue *)unwindSegue
@@ -55,12 +75,6 @@
 
 
 
-
-- (IBAction)tappedClose:(id)sender {
-
-    [self dismissViewControllerAnimated:YES completion: nil];
-
-}
 
 
 /*
