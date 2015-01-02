@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		695F99DE1A573D8800A80D12 /* AddressCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99DD1A573D8800A80D12 /* AddressCheckoutViewController.m */; };
+		695F99E11A573D9E00A80D12 /* PaymentCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E01A573D9E00A80D12 /* PaymentCheckoutViewController.m */; };
+		695F99E41A573DB700A80D12 /* ApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* ApprovePurchaseViewController.m */; };
 		69765FED1A51BE5A004A0F46 /* MyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEC1A51BE5A004A0F46 /* MyAccountViewController.m */; };
 		69765FF01A51BEC2004A0F46 /* MainSceneCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEF1A51BEC2004A0F46 /* MainSceneCategoryCell.m */; };
 		69765FF31A51BED2004A0F46 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FF21A51BED2004A0F46 /* MainViewController.m */; };
@@ -50,6 +53,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		695F99DC1A573D8800A80D12 /* AddressCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCheckoutViewController.h; sourceTree = "<group>"; };
+		695F99DD1A573D8800A80D12 /* AddressCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCheckoutViewController.m; sourceTree = "<group>"; };
+		695F99DF1A573D9E00A80D12 /* PaymentCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentCheckoutViewController.h; sourceTree = "<group>"; };
+		695F99E01A573D9E00A80D12 /* PaymentCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentCheckoutViewController.m; sourceTree = "<group>"; };
+		695F99E21A573DB700A80D12 /* ApprovePurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApprovePurchaseViewController.h; sourceTree = "<group>"; };
+		695F99E31A573DB700A80D12 /* ApprovePurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApprovePurchaseViewController.m; sourceTree = "<group>"; };
 		69765FEB1A51BE5A004A0F46 /* MyAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAccountViewController.h; sourceTree = "<group>"; };
 		69765FEC1A51BE5A004A0F46 /* MyAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAccountViewController.m; sourceTree = "<group>"; };
 		69765FEE1A51BEC2004A0F46 /* MainSceneCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSceneCategoryCell.h; sourceTree = "<group>"; };
@@ -114,6 +123,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		695F99D81A573D1500A80D12 /* checkout */ = {
+			isa = PBXGroup;
+			children = (
+				69B55F0A1A4B1AFC009A5524 /* ShoppingBagViewController.h */,
+				69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */,
+				695F99DC1A573D8800A80D12 /* AddressCheckoutViewController.h */,
+				695F99DD1A573D8800A80D12 /* AddressCheckoutViewController.m */,
+				695F99DF1A573D9E00A80D12 /* PaymentCheckoutViewController.h */,
+				695F99E01A573D9E00A80D12 /* PaymentCheckoutViewController.m */,
+				695F99E21A573DB700A80D12 /* ApprovePurchaseViewController.h */,
+				695F99E31A573DB700A80D12 /* ApprovePurchaseViewController.m */,
+			);
+			name = checkout;
+			sourceTree = "<group>";
+		};
 		697E057A1A432FCD000146C6 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,10 +165,9 @@
 				69765FF21A51BED2004A0F46 /* MainViewController.m */,
 				69867A131A44A701003CE59C /* EventsViewController.h */,
 				69867A141A44A701003CE59C /* EventsViewController.m */,
-				69B55F0A1A4B1AFC009A5524 /* ShoppingBagViewController.h */,
-				69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */,
 				69765FEB1A51BE5A004A0F46 /* MyAccountViewController.h */,
 				69765FEC1A51BE5A004A0F46 /* MyAccountViewController.m */,
+				695F99D81A573D1500A80D12 /* checkout */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -369,16 +392,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				695F99E41A573DB700A80D12 /* ApprovePurchaseViewController.m in Sources */,
 				69765FF01A51BEC2004A0F46 /* MainSceneCategoryCell.m in Sources */,
 				69867A241A48AC26003CE59C /* CollectionCell.m in Sources */,
 				69867A181A485AA7003CE59C /* EventCollectionViewCell.m in Sources */,
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
 				69867A151A44A701003CE59C /* EventsViewController.m in Sources */,
+				695F99E11A573D9E00A80D12 /* PaymentCheckoutViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */,
 				69765FF31A51BED2004A0F46 /* MainViewController.m in Sources */,
 				69765FED1A51BE5A004A0F46 /* MyAccountViewController.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
 				69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */,
+				695F99DE1A573D8800A80D12 /* AddressCheckoutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
