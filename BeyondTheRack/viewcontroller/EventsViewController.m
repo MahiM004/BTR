@@ -257,7 +257,7 @@
     NSInteger currentIndex = self.collectionView.contentOffset.x / self.collectionView.frame.size.width;
     
     // handling boundry indexes for category titles
-    int myHeaderIndex = currentIndex - 1;
+    NSInteger myHeaderIndex = currentIndex - 1;
     if (myHeaderIndex == [self categoryCount]) myHeaderIndex = 0;
     if (myHeaderIndex == -1) myHeaderIndex = [self categoryCount] - 1;
 
