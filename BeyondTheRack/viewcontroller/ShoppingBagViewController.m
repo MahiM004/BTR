@@ -7,9 +7,6 @@
 //
 
 #import "ShoppingBagViewController.h"
-
-#import "AddressCheckoutViewController.h"
-#import "PaymentCheckoutViewController.h"
 #import "ApprovePurchaseViewController.h"
 
 @interface ShoppingBagViewController ()
@@ -60,8 +57,9 @@
 - (IBAction)tappedCheckout:(UIButton *)sender {
     
     
+    
     UIStoryboard *storyboard = self.storyboard;
-    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"AddressCheckoutViewController"];
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ApprovePurchaseViewController"];
     [self presentViewController:vc animated:YES completion:nil];
 
 }
