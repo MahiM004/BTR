@@ -96,7 +96,6 @@
         UITableViewCell *cell = (UITableViewCell*)sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         [vc setCategoryNames:[self categoryNames]];
-        [vc setCatText:[self.categoryNames objectAtIndex:[indexPath row]]];
         [vc setCategoryCount:[self.categoryNames count]];
         [vc setSelectedCategoryIndex:[indexPath row]];
         
@@ -112,19 +111,7 @@
     
 }
 
-- (IBAction)unwindFromShoppingBagToMainScene:(UIStoryboardSegue *)unwindSegue
-{
-}
 
-
-- (IBAction)unwindFromMyAccount:(UIStoryboardSegue *)unwindSegue
-{
-}
-
-
-- (IBAction)unwindToMainViewController:(UIStoryboardSegue *)unwindSegue
-{
-}
 
 
 

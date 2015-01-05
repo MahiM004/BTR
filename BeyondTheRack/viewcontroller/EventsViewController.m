@@ -50,6 +50,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    self.categoryNames = [[NSMutableArray alloc] initWithObjects:
+                          @"Women",
+                          @"Men",
+                          @"Home",
+                          @"Outlet",
+                          @"Your Catalog",
+                          @"Kids",
+                          @"Curvey Closet",
+                          @"Holiday Sale",
+                          nil];
+    
+    self.categoryCount = [[self categoryNames] count];
+    self.selectedCategoryIndex = 4;
+    
     self.originalDataArray = [[NSMutableArray alloc] initWithObjects:
                            [[NSMutableArray alloc] initWithObjects:
                             @"eventwomen1.png",
@@ -311,6 +325,20 @@
     return relevantInt;
 }
 
+
+- (IBAction)unwindFromShoppingBagToMainScene:(UIStoryboardSegue *)unwindSegue
+{
+}
+
+
+- (IBAction)unwindFromMyAccount:(UIStoryboardSegue *)unwindSegue
+{
+}
+
+
+- (IBAction)unwindToEventViewController:(UIStoryboardSegue *)unwindSegue
+{
+}
 
 
 @end
