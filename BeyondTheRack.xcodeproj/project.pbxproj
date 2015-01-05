@@ -22,7 +22,6 @@
 		69867A071A438A8C003CE59C /* bagicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A061A438A8C003CE59C /* bagicon.png */; };
 		69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A0A1A446FCA003CE59C /* backarrowcool.png */; };
 		69867A151A44A701003CE59C /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A141A44A701003CE59C /* EventsViewController.m */; };
-		69867A181A485AA7003CE59C /* EventCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A171A485AA7003CE59C /* EventCollectionViewCell.m */; };
 		69867A241A48AC26003CE59C /* CollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A231A48AC26003CE59C /* CollectionCell.m */; };
 		69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */; };
 		69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C15AAF1A51FFE200D6E358 /* bareffect.png */; };
@@ -37,7 +36,7 @@
 		69F734C71A5AE21100698081 /* xmasspecials.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734BE1A5AE21100698081 /* xmasspecials.png */; };
 		69F734D71A5AEA0500698081 /* eventcurveycloset.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734C91A5AEA0500698081 /* eventcurveycloset.png */; };
 		69F734D81A5AEA0500698081 /* eventholidaysale.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734CA1A5AEA0500698081 /* eventholidaysale.png */; };
-		69F734D91A5AEA0500698081 /* eventhome.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734CB1A5AEA0500698081 /* eventhome.png */; };
+		69F734D91A5AEA0500698081 /* eventhome1.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734CB1A5AEA0500698081 /* eventhome1.png */; };
 		69F734DA1A5AEA0500698081 /* eventhome2.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734CC1A5AEA0500698081 /* eventhome2.png */; };
 		69F734DB1A5AEA0500698081 /* eventkids.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734CD1A5AEA0500698081 /* eventkids.png */; };
 		69F734DC1A5AEA0500698081 /* eventmen1.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734CE1A5AEA0500698081 /* eventmen1.png */; };
@@ -92,8 +91,6 @@
 		69867A0A1A446FCA003CE59C /* backarrowcool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrowcool.png; sourceTree = "<group>"; };
 		69867A131A44A701003CE59C /* EventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
 		69867A141A44A701003CE59C /* EventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
-		69867A161A485AA7003CE59C /* EventCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCollectionViewCell.h; sourceTree = "<group>"; };
-		69867A171A485AA7003CE59C /* EventCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCollectionViewCell.m; sourceTree = "<group>"; };
 		69867A221A48AC26003CE59C /* CollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionCell.h; sourceTree = "<group>"; };
 		69867A231A48AC26003CE59C /* CollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionCell.m; sourceTree = "<group>"; };
 		69B55F0A1A4B1AFC009A5524 /* ShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingBagViewController.h; sourceTree = "<group>"; };
@@ -110,7 +107,7 @@
 		69F734BE1A5AE21100698081 /* xmasspecials.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xmasspecials.png; sourceTree = "<group>"; };
 		69F734C91A5AEA0500698081 /* eventcurveycloset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventcurveycloset.png; sourceTree = "<group>"; };
 		69F734CA1A5AEA0500698081 /* eventholidaysale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventholidaysale.png; sourceTree = "<group>"; };
-		69F734CB1A5AEA0500698081 /* eventhome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventhome.png; sourceTree = "<group>"; };
+		69F734CB1A5AEA0500698081 /* eventhome1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventhome1.png; sourceTree = "<group>"; };
 		69F734CC1A5AEA0500698081 /* eventhome2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventhome2.png; sourceTree = "<group>"; };
 		69F734CD1A5AEA0500698081 /* eventkids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventkids.png; sourceTree = "<group>"; };
 		69F734CE1A5AEA0500698081 /* eventmen1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventmen1.png; sourceTree = "<group>"; };
@@ -182,8 +179,6 @@
 				69765FEF1A51BEC2004A0F46 /* MainSceneCategoryCell.m */,
 				69867A221A48AC26003CE59C /* CollectionCell.h */,
 				69867A231A48AC26003CE59C /* CollectionCell.m */,
-				69867A161A485AA7003CE59C /* EventCollectionViewCell.h */,
-				69867A171A485AA7003CE59C /* EventCollectionViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -249,7 +244,7 @@
 			children = (
 				69F734C91A5AEA0500698081 /* eventcurveycloset.png */,
 				69F734CA1A5AEA0500698081 /* eventholidaysale.png */,
-				69F734CB1A5AEA0500698081 /* eventhome.png */,
+				69F734CB1A5AEA0500698081 /* eventhome1.png */,
 				69F734CC1A5AEA0500698081 /* eventhome2.png */,
 				69F734CD1A5AEA0500698081 /* eventkids.png */,
 				69F734CE1A5AEA0500698081 /* eventmen1.png */,
@@ -425,7 +420,7 @@
 				69F734DE1A5AEA0500698081 /* eventoutlet1.png in Resources */,
 				69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */,
 				69F734C01A5AE21100698081 /* future.png in Resources */,
-				69F734D91A5AEA0500698081 /* eventhome.png in Resources */,
+				69F734D91A5AEA0500698081 /* eventhome1.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
 				69F734C31A5AE21100698081 /* men.png in Resources */,
@@ -463,7 +458,6 @@
 				695F99E41A573DB700A80D12 /* ApprovePurchaseViewController.m in Sources */,
 				69765FF01A51BEC2004A0F46 /* MainSceneCategoryCell.m in Sources */,
 				69867A241A48AC26003CE59C /* CollectionCell.m in Sources */,
-				69867A181A485AA7003CE59C /* EventCollectionViewCell.m in Sources */,
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
 				69867A151A44A701003CE59C /* EventsViewController.m in Sources */,
 				695F99E11A573D9E00A80D12 /* PaymentCheckoutViewController.m in Sources */,

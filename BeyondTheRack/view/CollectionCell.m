@@ -53,8 +53,14 @@
     }
     
   //  int myindex = indexPath.row;
+    
     //NSLog(@"Possible error index:  %d", myindex);
-    cell.textLabel.text = [self.cellData objectAtIndex: indexPath.row];
+    
+    
+    UIImageView *imv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 320, 160)];
+    imv.image=[UIImage imageNamed:[self.cellData objectAtIndex: indexPath.row]];
+    [cell.contentView addSubview:imv];
+
     
     return cell;
 }
