@@ -33,9 +33,14 @@
 
 - (IBAction)tappedContinueToCheckout:(UIButton *)sender {
     
-    
+    /*
     UIStoryboard *storyboard = self.storyboard;
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"PaymentCheckoutViewController"];
+    [self presentViewController:vc animated:YES completion:nil];
+     */
+    
+    UIStoryboard *storyboard = self.storyboard;
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ApprovePurchaseViewController"];
     [self presentViewController:vc animated:YES completion:nil];
 }
 

@@ -21,6 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,22 +36,23 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 8;
+    return 4;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCellIdentifier" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingBagCellIdentifier" forIndexPath:indexPath];
     
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"categoryCellIdentifier"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
     }
     
-    cell.backgroundColor = [UIColor blackColor];
-    cell.detailTextLabel.text = @"something cool";
-    cell.textLabel.text = @"Kewl";
+    
+    UIImageView *imv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 320, 150)];
+    imv.image=[UIImage imageNamed:@"itemInBag.png"];
+    [cell.contentView addSubview:imv];
     
     return cell;
 }
