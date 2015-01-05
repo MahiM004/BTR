@@ -7,7 +7,7 @@
 //
 
 #import "EventsViewController.h"
-#import "EventCollectionViewCell.h"
+//#import "EventCollectionViewCell.h"
 #import "ShoppingBagViewController.h"
 
 #import <math.h>
@@ -52,141 +52,89 @@
 
     self.originalDataArray = [[NSMutableArray alloc] initWithObjects:
                            [[NSMutableArray alloc] initWithObjects:
-                            @"1a.png",
-                            @"1b.png",
-                            @"1c.png",
-                            @"1d.png",
-                            @"1e.png",
-                            @"1f.png",
-                            @"1g.png",
-                            @"1h.gpng",
-                            @"1i.png",
-                            @"1j.png",
-                            @"1k.png",
-                            @"1l.png",
-                            @"1m.png",
-                            @"1n.png",
-                            @"1o.png",
-                            @"1p.png",
-                            @"1q.png",
-                            @"1r.png",
-                            @"1s.png",
-                            @"1t.png",
-                            @"1u.png",
-                            @"1v.png",
-                            @"1w.png",
+                            @"eventwomen1.png",
+                            @"eventwomen2.png",
+                            @"eventwomen3.png",
+                            @"eventwomen2.png",
+                            @"eventwomen2.png",
+                            @"eventwomen3.png",
+                            @"eventwomen1.png",
+                            @"eventwomen3.png",
                             nil],
+                              
                            [[NSMutableArray alloc] initWithObjects:
-                            @"2a.png",
-                            @"2b.png",
-                            @"2c.png",
-                            @"2d.png",
-                            @"2e.png",
-                            @"2f.png",
-                            @"2g.png",
-                            @"2h.png",
-                            @"2i.png",
-                            @"2j.png",
-                            @"2k.png",
-                            @"2l.png",
-                            @"2m.png",
-                            @"2n.png",
-                            @"2o.png",
-                            @"2p.png",
-                            @"2q.png",
-                            @"2r.png",
+                            @"eventmen1.png",
+                            @"eventmen2.png",
+                            @"eventmen1.png",
+                            @"eventmen2.png",
+                            @"eventmen1.png",
+                            @"eventmen2.png",
                             nil],
+                              
     [[NSMutableArray alloc] initWithObjects:
-     @"3a.png",
-     @"3b.png",
-     @"3c.png",
-     @"3d.png",
-     @"3e.png",
-     @"3f.png",
-     @"3g.png",
-     @"3h.png",
-     @"3i.png",
-     @"3j.png",
-     @"3k.png",
+     @"eventhome1.png",
+     @"eventhome1.png",
+     @"eventhome1.png",
+     @"eventhome2.png",
+     @"eventhome1.png",
+     @"eventhome2.png",
+     nil],
+                              
+    [[NSMutableArray alloc] initWithObjects:
+     @"eventoutlet1.png",
+     @"eventoutlet2.png",
+     @"eventoutlet3.png",
+     @"eventoutlet4.png",
+     @"eventoutlet2.png",
+     @"eventoutlet4.png",
+     @"eventoutlet1.png",
+     @"eventoutlet3.png",
+     @"eventoutlet1.png",
+     @"eventoutlet1.png",
+     @"eventoutlet2.png",
+     @"eventoutlet4.png",
+     
      nil],
     [[NSMutableArray alloc] initWithObjects:
-     @"4a.png",
-     @"4b.png",
-     @"4c.png",
-     @"4d.png",
-     @"4e.png",
-     @"4f.png",
-     @"4g.png",
-     @"4h.png",
-     @"4i.png",
-     @"4j.png",
-     @"4k.png",
-     @"4l.png",
+     @"eventwomen1.png",
+     @"eventwomen2.png",
+     @"eventwomen3.png",
+     @"eventmen1.png",
+     @"eventmen2.png",
+     @"eventhome1.png",
+     @"eventhome2.png",
+     @"eventoutlet1.png",
+     @"eventoutlet2.png",
+     @"eventoutlet3.png",
+     @"eventoutlet4.png",
+     @"eventkids.png",
+     @"eventcurveycloset.png",
+     @"eventholidaysale.png",
+
      nil],
     [[NSMutableArray alloc] initWithObjects:
-     @"5a.png",
-     @"5b.png",
-     @"5c.png",
-     @"5d.png",
-     @"5e.png",
-     @"5f.png",
-     @"5g.png",
-     @"5h.png",
-     @"5i.png",
-     @"5j.png",
-     @"5k.png",
-     @"5l.png",
-     @"5m.png",
-     @"5n.png",
-     @"5o.png",
-     @"5p.png",
-     @"5q.png",
-     @"5r.png",
-     @"5s.png",
+     @"eventkids.png",
+     @"eventkids.png",
+     @"eventkids.png",
+     @"eventkids.png",
+     @"eventkids.png",
      nil],
+                              
     [[NSMutableArray alloc] initWithObjects:
-     @"6a.png",
-     @"6b.png",
-     @"6c.png",
-     @"6d.png",
-     @"6e.png",
-     @"6f.png",
-     @"6g.png",
-     @"6h.png",
-     @"6i.png",
-     @"6j.png",
-     @"6k.png",
-     @"6l.png",
-     @"6m.png",
-     @"6n.png",
-     nil],
-    [[NSMutableArray alloc] initWithObjects:
-     @"7a.png",
-     @"7b.png",
-     @"7c.png",
-     @"7d.png",
-     @"7e.png",
-     @"7f.png",
-     @"7g.png",
-     @"7h.png",
-     @"7i.png",
-     @"7j.png",
-     @"7k.png",
-     @"7l.png",
-     @"7m.png",
-     @"7n.png",
-     @"7o.png",
+     @"eventcurveycloset.png",
+     @"eventcurveycloset.png",
+     @"eventcurveycloset.png",
+     @"eventcurveycloset.png",
+     @"eventcurveycloset.png",
+     @"eventcurveycloset.png",
      nil],
                               [[NSMutableArray alloc] initWithObjects:
-                               @"8a.png",
-                               @"8b.png",
-                               @"8c.png",
-                               @"8d.png",
-                               @"8e.png",
-                               @"8f.png",
-                               @"8g.png",
-                               @"8h.png",
-                               @"8o.png",
+                               @"eventholidaysale.png",
+                               @"eventholidaysale.png",
+                               @"eventholidaysale.png",
+                               @"eventholidaysale.png",
+                               @"eventholidaysale.png",
+
                                nil],
 
                            nil];
@@ -197,7 +145,7 @@
     [[self collectionView] setDelegate:self];
     
     
-    //[self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    //[self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCellIdentifier"];
     //[self.collectionView reloadData];
     
     
@@ -299,7 +247,37 @@
     
     [cell.tableView reloadData];
     return cell;
+    
+    
+    
+    /*
+    EventCollectionViewCell *newCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCellIdentifier" forIndexPath:indexPath];
+    
+    //newCell.cellLabel.text = [NSString stringWithFormat:@"Section:%d, Item:%d", indexPath.section, indexPath.item];
+    newCell.eventImageView.image = [UIImage imageNamed:@"1.png"];
+    //newCell.backgroundColor = [UIColor blueColor];
+    
+    return newCell;
+     */
 }
+
+
+/*
+ - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+ cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+ 
+ 
+ EventCollectionViewCell *newCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+ 
+ //newCell.cellLabel.text = [NSString stringWithFormat:@"Section:%d, Item:%d", indexPath.section, indexPath.item];
+ //newCell.eventImageView.image = [UIImage imageNamed:@"1.png"];
+ //newCell.backgroundColor = [UIColor blueColor];
+ 
+ return newCell;
+ }
+ */
+
+
 
 -(void)tableCellDidSelect:(UITableViewCell *)cell{
     NSLog(@"Tap %@",cell.textLabel.text);
@@ -360,20 +338,7 @@
 
 
 
-/*
- - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
- cellForItemAtIndexPath:(NSIndexPath *)indexPath {
- 
- 
- EventCollectionViewCell *newCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
- 
- //newCell.cellLabel.text = [NSString stringWithFormat:@"Section:%d, Item:%d", indexPath.section, indexPath.item];
- //newCell.eventImageView.image = [UIImage imageNamed:@"1.png"];
- //newCell.backgroundColor = [UIColor blueColor];
- 
- return newCell;
- }
- */
+
 
 
 /*
