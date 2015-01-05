@@ -12,6 +12,8 @@
 
 #import <math.h>
 
+#define YOUR_CATAGORY 4
+
 @interface EventsViewController ()
 
 @property (nonatomic,strong) NSMutableArray *dataArray;
@@ -27,14 +29,7 @@
     [super viewWillAppear:animated];
     
     // handling boundry indexes for category titles
-    NSInteger myHeaderIndex = [self selectedCategoryIndex];
 
-    if (myHeaderIndex >=0 && myHeaderIndex <= [self categoryCount] - 1) {
-        
-        self.categoryHeaderLabel.text = [self.categoryNames objectAtIndex:myHeaderIndex];
-        self.nextCategory.text = [self.categoryNames objectAtIndex:[self modulaForIndex:(myHeaderIndex+1) withCategoryCount:[self categoryCount]]];
-        self.lastCategory.text = [self.categoryNames objectAtIndex:[self modulaForIndex:(myHeaderIndex-1) withCategoryCount:[self categoryCount]]];
-    }
     
 } 
 
@@ -62,7 +57,6 @@
                           nil];
     
     self.categoryCount = [[self categoryNames] count];
-    self.selectedCategoryIndex = 4;
     
     self.originalDataArray = [[NSMutableArray alloc] initWithObjects:
                            [[NSMutableArray alloc] initWithObjects:
@@ -163,13 +157,23 @@
     //[self.collectionView reloadData];
     
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self selectedCategoryIndex]+1 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:YOUR_CATAGORY+1 inSection:0];
     // scrolling here does work
     [self.collectionView scrollToItemAtIndexPath:indexPath
                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                         animated:YES];
     
     [self setupDataForCollectionViewInfiniteScrolling];
+    
+    
+    NSInteger myHeaderIndex = YOUR_CATAGORY;
+    
+    if (myHeaderIndex >=0 && myHeaderIndex <= [self categoryCount] - 1) {
+        
+        self.categoryHeaderLabel.text = [self.categoryNames objectAtIndex:myHeaderIndex];
+        self.nextCategory.text = [self.categoryNames objectAtIndex:[self modulaForIndex:(myHeaderIndex+1) withCategoryCount:[self categoryCount]]];
+        self.lastCategory.text = [self.categoryNames objectAtIndex:[self modulaForIndex:(myHeaderIndex-1) withCategoryCount:[self categoryCount]]];
+    }
 }
 
 
