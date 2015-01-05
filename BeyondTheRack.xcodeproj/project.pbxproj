@@ -12,7 +12,6 @@
 		695F99E41A573DB700A80D12 /* ApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* ApprovePurchaseViewController.m */; };
 		69765FED1A51BE5A004A0F46 /* MyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEC1A51BE5A004A0F46 /* MyAccountViewController.m */; };
 		69765FF01A51BEC2004A0F46 /* MainSceneCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEF1A51BEC2004A0F46 /* MainSceneCategoryCell.m */; };
-		69765FF31A51BED2004A0F46 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FF21A51BED2004A0F46 /* MainViewController.m */; };
 		697E05811A434121000146C6 /* BTRUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 697E05801A434121000146C6 /* BTRUtility.m */; };
 		69807AEA1A4210740001A154 /* neulogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AE91A4210740001A154 /* neulogo.png */; };
 		69807AEE1A42131E0001A154 /* neuaccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AED1A42131E0001A154 /* neuaccount.png */; };
@@ -78,8 +77,6 @@
 		69765FEC1A51BE5A004A0F46 /* MyAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAccountViewController.m; sourceTree = "<group>"; };
 		69765FEE1A51BEC2004A0F46 /* MainSceneCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainSceneCategoryCell.h; sourceTree = "<group>"; };
 		69765FEF1A51BEC2004A0F46 /* MainSceneCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainSceneCategoryCell.m; sourceTree = "<group>"; };
-		69765FF11A51BED2004A0F46 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		69765FF21A51BED2004A0F46 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		697E057F1A434121000146C6 /* BTRUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRUtility.h; sourceTree = "<group>"; };
 		697E05801A434121000146C6 /* BTRUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRUtility.m; sourceTree = "<group>"; };
 		69807AE91A4210740001A154 /* neulogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neulogo.png; sourceTree = "<group>"; };
@@ -188,8 +185,6 @@
 		697E057C1A432FCD000146C6 /* viewcontroller */ = {
 			isa = PBXGroup;
 			children = (
-				69765FF11A51BED2004A0F46 /* MainViewController.h */,
-				69765FF21A51BED2004A0F46 /* MainViewController.m */,
 				69867A131A44A701003CE59C /* EventsViewController.h */,
 				69867A141A44A701003CE59C /* EventsViewController.m */,
 				69765FEB1A51BE5A004A0F46 /* MyAccountViewController.h */,
@@ -466,7 +461,6 @@
 				69867A151A44A701003CE59C /* EventsViewController.m in Sources */,
 				695F99E11A573D9E00A80D12 /* PaymentCheckoutViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */,
-				69765FF31A51BED2004A0F46 /* MainViewController.m in Sources */,
 				69765FED1A51BE5A004A0F46 /* MyAccountViewController.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
 				69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */,
