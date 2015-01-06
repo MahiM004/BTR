@@ -211,7 +211,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-   
+    
     return [self categoryCount]+2; // extra 2 for infinite scrolling
 }
 
@@ -254,7 +254,6 @@
 
     }
 }
-
 
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
