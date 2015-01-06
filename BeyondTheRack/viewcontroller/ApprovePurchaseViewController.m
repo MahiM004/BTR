@@ -26,6 +26,9 @@
 
 
 - (IBAction)tappedApprovePurchase:(UIButton *)sender {
+    
+   // [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 /*
