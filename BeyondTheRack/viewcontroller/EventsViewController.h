@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "CollectionCell.h"
 
-@interface EventsViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+#import "TTSlidingPagesDataSource.h"
+#import "TTSliddingPageDelegate.h"
 
 
+@interface EventsViewController : UIViewController <TTSlidingPagesDataSource, TTSliddingPageDelegate>{
+}
 
 @property (retain, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *categoryHeaderLabel;
