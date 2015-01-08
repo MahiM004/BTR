@@ -60,10 +60,15 @@
     self.slider.dataSource = self;
     
     //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
+    
+    
+
+    
     self.slider.view.frame = self.view.frame;
     [self.view addSubview:self.slider.view];
     [self addChildViewController:self.slider];
-
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

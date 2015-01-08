@@ -198,6 +198,7 @@
         //hide the page dots initially
         pageControl.alpha = 0;
     }
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
