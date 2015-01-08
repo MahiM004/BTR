@@ -28,25 +28,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
+    //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
     
     self.slider = [[TTScrollSlidingPagesController alloc] init];
     self.slider.titleScrollerInActiveTextColour = [UIColor lightGrayColor];
-    //self.slider.titleScrollerBottomEdgeColour = [UIColor blueColor];
     self.slider.titleScrollerBottomEdgeHeight = 2;
     
-    //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
     self.slider.hideStatusBarWhenScrolling = NO;
-    //self.slider.titleScrollerHidden = YES;
-    //slider.titleScrollerHeight = 100;
-    //slider.titleScrollerItemWidth=60;
-    //self.slider.titleScrollerBackgroundColour = [UIColor redColor];
     self.slider.disableTitleScrollerShadow = YES;
-    //slider.disableUIPageControl = YES;
     self.slider.initialPageNumber = 2;
     self.slider.pagingEnabled = YES;
     self.slider.zoomOutAnimationDisabled = YES;
     self.slider.disableTitleShadow = YES;
+    
+    //self.slider.titleScrollerHidden = YES;
+    //slider.titleScrollerHeight = 100;
+    //slider.titleScrollerItemWidth=60;
+    //self.slider.titleScrollerBackgroundColour = [UIColor redColor];
+    //slider.disableUIPageControl = YES;
+    //self.slider.titleScrollerBottomEdgeColour = [UIColor blueColor];
+
+    
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7){
         self.slider.hideStatusBarWhenScrolling = YES;//this property normally only makes sense on iOS7+. See the documentation in TTScrollSlidingPagesController.h. If you wanted to use it in iOS6 you'd have to make sure the status bar overlapped the TTScrollSlidingPagesController.
@@ -98,8 +100,6 @@
     UIViewController *viewController;
     if (index % 2 == 0){ //just an example, alternating views between one example table view and another.
         viewController = [[EventsTableTableViewController alloc] init];
-        
-        //        viewController = [[TabOneViewController alloc] init];
     } else {
         viewController = [[EventsTableTableViewController alloc] init];
     }

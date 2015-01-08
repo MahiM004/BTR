@@ -53,7 +53,7 @@
         self.titleScrollerHidden = NO;
         self.titleScrollerHeight = 34;
         self.titleScrollerItemWidth = 150;
-        self.disableTitleShadow = NO;
+        self.disableTitleShadow = YES;
         
         //self.titleScrollerBackgroundColour = [UIColor clearColor];
 
@@ -79,7 +79,7 @@
         self.disableUIPageControl = NO;
         self.initialPageNumber = 0;
         self.pagingEnabled = YES;
-        self.zoomOutAnimationDisabled = NO;
+        self.zoomOutAnimationDisabled = YES;
         self.hideStatusBarWhenScrolling = NO;
     }
     return self;

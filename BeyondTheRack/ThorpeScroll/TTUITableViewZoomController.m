@@ -77,19 +77,19 @@
 #pragma -mark Getters for four customisable variable. Provide default if not set.
 -(NSNumber *)cellZoomXScaleFactor{
     if (_xZoomFactor == nil){
-        _xZoomFactor = [NSNumber numberWithFloat:1.25];
+        _xZoomFactor = [NSNumber numberWithFloat:1.035];
     }
     return _xZoomFactor;
 }
 -(NSNumber *)cellZoomYScaleFactor{
     if (_yZoomFactor == nil){
-        _yZoomFactor = [NSNumber numberWithFloat:1.25];
+        _yZoomFactor = [NSNumber numberWithFloat:1.035];
     }
     return _yZoomFactor;
 }
 -(NSNumber *)cellZoomAnimationDuration{
     if (_animationDuration == nil){
-        _animationDuration = [NSNumber numberWithFloat:0.65];
+        _animationDuration = [NSNumber numberWithFloat:0.5];
     }
     return _animationDuration;
 }
