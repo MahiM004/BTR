@@ -95,16 +95,16 @@
 #pragma mark TTSlidingPagesDataSource methods
 
 -(int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source{
-    return 7;
+    return [[self categoryNames] count];
 }
 
 -(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index{
     UIViewController *viewController;
-    if (index % 2 == 0){ //just an example, alternating views between one example table view and another.
-        viewController = [[EventsTableTableViewController alloc] init];
-    } else {
-        viewController = [[EventsTableTableViewController alloc] init];
-    }
+    
+    
+    EventsTableTableViewController *myVC  = [[EventsTableTableViewController alloc] init];
+    myVC.eventsArray = [[self dataArray] objectAtIndex:index];
+    viewController = myVC;
     
     return [[TTSlidingPage alloc] initWithContentViewController:viewController];
 }
@@ -159,16 +159,41 @@
                                @"eventmen1.png",
                                @"eventmen2.png",
                                nil],
-                              
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventhome1.png",
-                               @"eventhome1.png",
-                               @"eventhome1.png",
-                               @"eventhome2.png",
-                               @"eventhome1.png",
-                               @"eventhome2.png",
-                               nil],
-                              
+                      
+                      [[NSMutableArray alloc] initWithObjects:
+                       @"eventwomen1.png",
+                       @"eventwomen2.png",
+                       @"eventwomen3.png",
+                       @"eventmen1.png",
+                       @"eventmen2.png",
+                       @"eventhome1.png",
+                       @"eventhome2.png",
+                       @"eventoutlet1.png",
+                       @"eventoutlet2.png",
+                       @"eventoutlet3.png",
+                       @"eventoutlet4.png",
+                       @"eventkids.png",
+                       @"eventcurveycloset.png",
+                       @"eventholidaysale.png",
+                       nil],
+                
+                      [[NSMutableArray alloc] initWithObjects:
+                       @"eventhome1.png",
+                       @"eventhome1.png",
+                       @"eventhome1.png",
+                       @"eventhome2.png",
+                       @"eventhome1.png",
+                       @"eventhome2.png",
+                       nil],
+                      
+                      [[NSMutableArray alloc] initWithObjects:
+                       @"eventkids.png",
+                       @"eventkids.png",
+                       @"eventkids.png",
+                       @"eventkids.png",
+                       @"eventkids.png",
+                       nil],
+                      
                               [[NSMutableArray alloc] initWithObjects:
                                @"eventoutlet1.png",
                                @"eventoutlet2.png",
@@ -182,32 +207,10 @@
                                @"eventoutlet1.png",
                                @"eventoutlet2.png",
                                @"eventoutlet4.png",
-                               
                                nil],
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventwomen1.png",
-                               @"eventwomen2.png",
-                               @"eventwomen3.png",
-                               @"eventmen1.png",
-                               @"eventmen2.png",
-                               @"eventhome1.png",
-                               @"eventhome2.png",
-                               @"eventoutlet1.png",
-                               @"eventoutlet2.png",
-                               @"eventoutlet3.png",
-                               @"eventoutlet4.png",
-                               @"eventkids.png",
-                               @"eventcurveycloset.png",
-                               @"eventholidaysale.png",
-                               
-                               nil],
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventkids.png",
-                               @"eventkids.png",
-                               @"eventkids.png",
-                               @"eventkids.png",
-                               @"eventkids.png",
-                               nil],
+  
+                      
+            
                               
                               [[NSMutableArray alloc] initWithObjects:
                                @"eventcurveycloset.png",
@@ -217,14 +220,7 @@
                                @"eventcurveycloset.png",
                                @"eventcurveycloset.png",
                                nil],
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventholidaysale.png",
-                               @"eventholidaysale.png",
-                               @"eventholidaysale.png",
-                               @"eventholidaysale.png",
-                               @"eventholidaysale.png",
-                               
-                               nil],
+
                               
                               nil];
 }

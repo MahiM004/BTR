@@ -32,15 +32,6 @@
 		69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */; };
 		69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C15AAF1A51FFE200D6E358 /* bareffect.png */; };
 		69EB9E131A5B00D2003A48F1 /* itemInBag.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EB9E121A5B00D2003A48F1 /* itemInBag.png */; };
-		69F734BF1A5AE21100698081 /* editor.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734B61A5AE21100698081 /* editor.png */; };
-		69F734C01A5AE21100698081 /* future.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734B71A5AE21100698081 /* future.png */; };
-		69F734C11A5AE21100698081 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734B81A5AE21100698081 /* home.png */; };
-		69F734C21A5AE21100698081 /* kids.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734B91A5AE21100698081 /* kids.png */; };
-		69F734C31A5AE21100698081 /* men.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734BA1A5AE21100698081 /* men.png */; };
-		69F734C41A5AE21100698081 /* men2.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734BB1A5AE21100698081 /* men2.png */; };
-		69F734C51A5AE21100698081 /* specials.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734BC1A5AE21100698081 /* specials.png */; };
-		69F734C61A5AE21100698081 /* women.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734BD1A5AE21100698081 /* women.png */; };
-		69F734C71A5AE21100698081 /* xmasspecials.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734BE1A5AE21100698081 /* xmasspecials.png */; };
 		69F734D71A5AEA0500698081 /* eventcurveycloset.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734C91A5AEA0500698081 /* eventcurveycloset.png */; };
 		69F734D81A5AEA0500698081 /* eventholidaysale.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734CA1A5AEA0500698081 /* eventholidaysale.png */; };
 		69F734D91A5AEA0500698081 /* eventhome1.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734CB1A5AEA0500698081 /* eventhome1.png */; };
@@ -51,7 +42,7 @@
 		69F734DE1A5AEA0500698081 /* eventoutlet1.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734D01A5AEA0500698081 /* eventoutlet1.png */; };
 		69F734DF1A5AEA0500698081 /* eventoutlet2.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734D11A5AEA0500698081 /* eventoutlet2.png */; };
 		69F734E01A5AEA0500698081 /* eventoutlet4.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734D21A5AEA0500698081 /* eventoutlet4.png */; };
-		69F734E11A5AEA0500698081 /* eventputlet3.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734D31A5AEA0500698081 /* eventputlet3.png */; };
+		69F734E11A5AEA0500698081 /* eventoutlet3.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734D31A5AEA0500698081 /* eventoutlet3.png */; };
 		69F734E21A5AEA0500698081 /* eventwomen1.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734D41A5AEA0500698081 /* eventwomen1.png */; };
 		69F734E31A5AEA0500698081 /* eventwomen2.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734D51A5AEA0500698081 /* eventwomen2.png */; };
 		69F734E41A5AEA0500698081 /* eventwomen3.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734D61A5AEA0500698081 /* eventwomen3.png */; };
@@ -117,15 +108,6 @@
 		69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingBagViewController.m; sourceTree = "<group>"; };
 		69C15AAF1A51FFE200D6E358 /* bareffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bareffect.png; path = "category pics/bareffect.png"; sourceTree = "<group>"; };
 		69EB9E121A5B00D2003A48F1 /* itemInBag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemInBag.png; sourceTree = "<group>"; };
-		69F734B61A5AE21100698081 /* editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editor.png; sourceTree = "<group>"; };
-		69F734B71A5AE21100698081 /* future.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = future.png; sourceTree = "<group>"; };
-		69F734B81A5AE21100698081 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
-		69F734B91A5AE21100698081 /* kids.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kids.png; sourceTree = "<group>"; };
-		69F734BA1A5AE21100698081 /* men.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = men.png; sourceTree = "<group>"; };
-		69F734BB1A5AE21100698081 /* men2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = men2.png; sourceTree = "<group>"; };
-		69F734BC1A5AE21100698081 /* specials.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = specials.png; sourceTree = "<group>"; };
-		69F734BD1A5AE21100698081 /* women.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = women.png; sourceTree = "<group>"; };
-		69F734BE1A5AE21100698081 /* xmasspecials.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xmasspecials.png; sourceTree = "<group>"; };
 		69F734C91A5AEA0500698081 /* eventcurveycloset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventcurveycloset.png; sourceTree = "<group>"; };
 		69F734CA1A5AEA0500698081 /* eventholidaysale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventholidaysale.png; sourceTree = "<group>"; };
 		69F734CB1A5AEA0500698081 /* eventhome1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventhome1.png; sourceTree = "<group>"; };
@@ -136,7 +118,7 @@
 		69F734D01A5AEA0500698081 /* eventoutlet1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventoutlet1.png; sourceTree = "<group>"; };
 		69F734D11A5AEA0500698081 /* eventoutlet2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventoutlet2.png; sourceTree = "<group>"; };
 		69F734D21A5AEA0500698081 /* eventoutlet4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventoutlet4.png; sourceTree = "<group>"; };
-		69F734D31A5AEA0500698081 /* eventputlet3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventputlet3.png; sourceTree = "<group>"; };
+		69F734D31A5AEA0500698081 /* eventoutlet3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventoutlet3.png; sourceTree = "<group>"; };
 		69F734D41A5AEA0500698081 /* eventwomen1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventwomen1.png; sourceTree = "<group>"; };
 		69F734D51A5AEA0500698081 /* eventwomen2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventwomen2.png; sourceTree = "<group>"; };
 		69F734D61A5AEA0500698081 /* eventwomen3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventwomen3.png; sourceTree = "<group>"; };
@@ -222,7 +204,6 @@
 				69EB9E121A5B00D2003A48F1 /* itemInBag.png */,
 				69C15AAF1A51FFE200D6E358 /* bareffect.png */,
 				69F734C81A5AEA0500698081 /* eventpics */,
-				69B55F0F1A4B44A2009A5524 /* category pics */,
 				69867A0A1A446FCA003CE59C /* backarrowcool.png */,
 				69867A061A438A8C003CE59C /* bagicon.png */,
 				69867A041A43894B003CE59C /* neumyaccount.png */,
@@ -266,22 +247,6 @@
 			path = ThorpeScroll;
 			sourceTree = "<group>";
 		};
-		69B55F0F1A4B44A2009A5524 /* category pics */ = {
-			isa = PBXGroup;
-			children = (
-				69F734B61A5AE21100698081 /* editor.png */,
-				69F734B71A5AE21100698081 /* future.png */,
-				69F734B81A5AE21100698081 /* home.png */,
-				69F734B91A5AE21100698081 /* kids.png */,
-				69F734BA1A5AE21100698081 /* men.png */,
-				69F734BB1A5AE21100698081 /* men2.png */,
-				69F734BC1A5AE21100698081 /* specials.png */,
-				69F734BD1A5AE21100698081 /* women.png */,
-				69F734BE1A5AE21100698081 /* xmasspecials.png */,
-			);
-			path = "category pics";
-			sourceTree = "<group>";
-		};
 		69F734C81A5AEA0500698081 /* eventpics */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,7 +260,7 @@
 				69F734D01A5AEA0500698081 /* eventoutlet1.png */,
 				69F734D11A5AEA0500698081 /* eventoutlet2.png */,
 				69F734D21A5AEA0500698081 /* eventoutlet4.png */,
-				69F734D31A5AEA0500698081 /* eventputlet3.png */,
+				69F734D31A5AEA0500698081 /* eventoutlet3.png */,
 				69F734D41A5AEA0500698081 /* eventwomen1.png */,
 				69F734D51A5AEA0500698081 /* eventwomen2.png */,
 				69F734D61A5AEA0500698081 /* eventwomen3.png */,
@@ -453,32 +418,23 @@
 				69F734D81A5AEA0500698081 /* eventholidaysale.png in Resources */,
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
 				69B02CBE1A5ED32700040C86 /* EventTableViewCell.xib in Resources */,
-				69F734C11A5AE21100698081 /* home.png in Resources */,
-				69F734C51A5AE21100698081 /* specials.png in Resources */,
 				69F734DA1A5AEA0500698081 /* eventhome2.png in Resources */,
 				69807AF01A4215490001A154 /* neucart.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
 				69F734E41A5AEA0500698081 /* eventwomen3.png in Resources */,
 				69F734DC1A5AEA0500698081 /* eventmen1.png in Resources */,
-				69F734E11A5AEA0500698081 /* eventputlet3.png in Resources */,
+				69F734E11A5AEA0500698081 /* eventoutlet3.png in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
 				69F734DE1A5AEA0500698081 /* eventoutlet1.png in Resources */,
 				69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */,
-				69F734C01A5AE21100698081 /* future.png in Resources */,
 				69F734D91A5AEA0500698081 /* eventhome1.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
-				69F734C31A5AE21100698081 /* men.png in Resources */,
-				69F734C71A5AE21100698081 /* xmasspecials.png in Resources */,
 				69F734DF1A5AEA0500698081 /* eventoutlet2.png in Resources */,
 				69F734E31A5AEA0500698081 /* eventwomen2.png in Resources */,
-				69F734BF1A5AE21100698081 /* editor.png in Resources */,
-				69F734C21A5AE21100698081 /* kids.png in Resources */,
 				69B02CAE1A5DA70700040C86 /* EventsTableTableViewController.xib in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
-				69F734C61A5AE21100698081 /* women.png in Resources */,
 				69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */,
-				69F734C41A5AE21100698081 /* men2.png in Resources */,
 				69F734E21A5AEA0500698081 /* eventwomen1.png in Resources */,
 				69F734E01A5AEA0500698081 /* eventoutlet4.png in Resources */,
 				69867A071A438A8C003CE59C /* bagicon.png in Resources */,

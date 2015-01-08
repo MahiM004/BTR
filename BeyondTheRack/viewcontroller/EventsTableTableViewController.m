@@ -7,6 +7,8 @@
 //
 
 #import "EventsTableTableViewController.h"
+#import "EventTableViewCell.h"
+
 
 @interface EventsTableTableViewController ()
 
@@ -39,7 +41,7 @@
 {
     
     // Return the number of rows in the section.
-    return 10;
+    return [[self eventsArray] count];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -51,6 +53,8 @@
 {
     static NSString *CellIdentifier = @"EventCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    cell.imageView.image = [UIImage imageNamed:[[self eventsArray] objectAtIndex:indexPath.row]];
     
     // Configure the cell...
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

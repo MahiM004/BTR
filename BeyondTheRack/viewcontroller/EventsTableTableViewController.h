@@ -12,4 +12,6 @@
 
 @interface EventsTableTableViewController : TTUITableViewZoomController
 
+@property (strong, nonatomic) NSMutableArray *eventsArray;
+
 @end
