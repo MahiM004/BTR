@@ -23,10 +23,6 @@
 
 @interface MainViewController ()
 
-@property (nonatomic,strong) NSMutableArray *dataArray;
-
-@property (nonatomic,strong) NSMutableArray *originalDataArray;
-
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
 
@@ -52,8 +48,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-    [self initData];
 }
 
 
@@ -72,112 +66,6 @@
     //[self.navigationController pushViewController:detailVC animated:YES];
 }
 
-
-
--(void)initData{
-    
-    self.categoryNames = [[NSMutableArray alloc] initWithObjects:
-                          @"Women",
-                          @"Men",
-                          @"Home",
-                          @"Outlet",
-                          @"Your Catalog",
-                          @"Kids",
-                          @"Curvey Closet",
-                          @"Holiday Sale",
-                          nil];
-    
-    self.categoryCount = [[self categoryNames] count];
-    
-    self.originalDataArray = [[NSMutableArray alloc] initWithObjects:
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventwomen1.png",
-                               @"eventwomen2.png",
-                               @"eventwomen3.png",
-                               @"eventwomen2.png",
-                               @"eventwomen2.png",
-                               @"eventwomen3.png",
-                               @"eventwomen1.png",
-                               @"eventwomen3.png",
-                               nil],
-                              
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventmen1.png",
-                               @"eventmen2.png",
-                               @"eventmen1.png",
-                               @"eventmen2.png",
-                               @"eventmen1.png",
-                               @"eventmen2.png",
-                               nil],
-                              
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventhome1.png",
-                               @"eventhome1.png",
-                               @"eventhome1.png",
-                               @"eventhome2.png",
-                               @"eventhome1.png",
-                               @"eventhome2.png",
-                               nil],
-                              
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventoutlet1.png",
-                               @"eventoutlet2.png",
-                               @"eventoutlet3.png",
-                               @"eventoutlet4.png",
-                               @"eventoutlet2.png",
-                               @"eventoutlet4.png",
-                               @"eventoutlet1.png",
-                               @"eventoutlet3.png",
-                               @"eventoutlet1.png",
-                               @"eventoutlet1.png",
-                               @"eventoutlet2.png",
-                               @"eventoutlet4.png",
-                               
-                               nil],
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventwomen1.png",
-                               @"eventwomen2.png",
-                               @"eventwomen3.png",
-                               @"eventmen1.png",
-                               @"eventmen2.png",
-                               @"eventhome1.png",
-                               @"eventhome2.png",
-                               @"eventoutlet1.png",
-                               @"eventoutlet2.png",
-                               @"eventoutlet3.png",
-                               @"eventoutlet4.png",
-                               @"eventkids.png",
-                               @"eventcurveycloset.png",
-                               @"eventholidaysale.png",
-                               
-                               nil],
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventkids.png",
-                               @"eventkids.png",
-                               @"eventkids.png",
-                               @"eventkids.png",
-                               @"eventkids.png",
-                               nil],
-                              
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventcurveycloset.png",
-                               @"eventcurveycloset.png",
-                               @"eventcurveycloset.png",
-                               @"eventcurveycloset.png",
-                               @"eventcurveycloset.png",
-                               @"eventcurveycloset.png",
-                               nil],
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventholidaysale.png",
-                               @"eventholidaysale.png",
-                               @"eventholidaysale.png",
-                               @"eventholidaysale.png",
-                               @"eventholidaysale.png",
-                               
-                               nil],
-                              
-                              nil];
-}
 
 
 - (IBAction)tappedShoppingBag:(id)sender {

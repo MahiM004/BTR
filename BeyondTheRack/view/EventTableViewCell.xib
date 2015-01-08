@@ -19,6 +19,9 @@
                 </subviews>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="imageView" destination="ViC-IW-Uij" id="EAm-qd-Ntr"/>
+            </connections>
             <point key="canvasLocation" x="275" y="278"/>
         </tableViewCell>
     </objects>

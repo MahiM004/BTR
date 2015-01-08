@@ -9,6 +9,7 @@
 #import "EventTableViewCell.h"
 
 @implementation EventTableViewCell
+@synthesize imageView;
 
 - (void)awakeFromNib {
     // Initialization code

@@ -14,7 +14,4 @@
 
 @interface MainViewController : UIViewController
 
-@property (nonatomic) NSUInteger categoryCount;
-@property (strong, nonatomic) NSMutableArray *categoryNames;
-
 @end

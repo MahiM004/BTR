@@ -24,10 +24,12 @@
 
 @implementation CategoryViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
+    [self initData];
     //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
     
     self.slider = [[TTScrollSlidingPagesController alloc] init];
@@ -109,40 +111,9 @@
 
 -(TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index{
     TTSlidingPageTitle *title;
-    // if (index == 0){
-    //use a image as the header for the first page
-    //   title= [[TTSlidingPageTitle alloc] initWithHeaderImage:[UIImage imageNamed:@"about-tomthorpelogo.png"]];
-    //} else {
-    //all other pages just use a simple text header
-    switch (index) {
-            
-        case 0:
-            title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Women"];
-            break;
-        case 1:
-            title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Men"];
-            break;
-        case 2:
-            title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Your Catalog"];
-            break;
-        case 3:
-            title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Home"];
-            break;
-        case 4:
-            title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Kids"];
-            break;
-        case 5:
-            title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Outlet"];
-            break;
-        case 6:
-            title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Curvey Closet"];
-            break;
-        default:
-            title = [[TTSlidingPageTitle alloc] initWithHeaderText:[NSString stringWithFormat:@"Page %d", index+1]];
-            break;
-    }
+  
+    title = [[TTSlidingPageTitle alloc] initWithHeaderText:[[self categoryNames] objectAtIndex:index]];
     
-    //                                                                                                                                                                                                                                 }
     return title;
 }
 
@@ -150,6 +121,112 @@
 -(void)didScrollToViewAtIndex:(NSUInteger)index
 {
     NSLog(@"scrolled to view");
+}
+
+
+
+
+-(void)initData{
+    
+    
+    self.categoryNames = [[NSMutableArray alloc] initWithObjects:
+                          @"Women",
+                          @"Men",
+                          @"Your Catalog",
+                          @"Home",
+                          @"Kids",
+                          @"Outlet",
+                          @"Curvey Closet",
+                          nil];
+        
+    self.dataArray = [[NSMutableArray alloc] initWithObjects:
+                              [[NSMutableArray alloc] initWithObjects:
+                               @"eventwomen1.png",
+                               @"eventwomen2.png",
+                               @"eventwomen3.png",
+                               @"eventwomen2.png",
+                               @"eventwomen2.png",
+                               @"eventwomen3.png",
+                               @"eventwomen1.png",
+                               @"eventwomen3.png",
+                               nil],
+                              
+                              [[NSMutableArray alloc] initWithObjects:
+                               @"eventmen1.png",
+                               @"eventmen2.png",
+                               @"eventmen1.png",
+                               @"eventmen2.png",
+                               @"eventmen1.png",
+                               @"eventmen2.png",
+                               nil],
+                              
+                              [[NSMutableArray alloc] initWithObjects:
+                               @"eventhome1.png",
+                               @"eventhome1.png",
+                               @"eventhome1.png",
+                               @"eventhome2.png",
+                               @"eventhome1.png",
+                               @"eventhome2.png",
+                               nil],
+                              
+                              [[NSMutableArray alloc] initWithObjects:
+                               @"eventoutlet1.png",
+                               @"eventoutlet2.png",
+                               @"eventoutlet3.png",
+                               @"eventoutlet4.png",
+                               @"eventoutlet2.png",
+                               @"eventoutlet4.png",
+                               @"eventoutlet1.png",
+                               @"eventoutlet3.png",
+                               @"eventoutlet1.png",
+                               @"eventoutlet1.png",
+                               @"eventoutlet2.png",
+                               @"eventoutlet4.png",
+                               
+                               nil],
+                              [[NSMutableArray alloc] initWithObjects:
+                               @"eventwomen1.png",
+                               @"eventwomen2.png",
+                               @"eventwomen3.png",
+                               @"eventmen1.png",
+                               @"eventmen2.png",
+                               @"eventhome1.png",
+                               @"eventhome2.png",
+                               @"eventoutlet1.png",
+                               @"eventoutlet2.png",
+                               @"eventoutlet3.png",
+                               @"eventoutlet4.png",
+                               @"eventkids.png",
+                               @"eventcurveycloset.png",
+                               @"eventholidaysale.png",
+                               
+                               nil],
+                              [[NSMutableArray alloc] initWithObjects:
+                               @"eventkids.png",
+                               @"eventkids.png",
+                               @"eventkids.png",
+                               @"eventkids.png",
+                               @"eventkids.png",
+                               nil],
+                              
+                              [[NSMutableArray alloc] initWithObjects:
+                               @"eventcurveycloset.png",
+                               @"eventcurveycloset.png",
+                               @"eventcurveycloset.png",
+                               @"eventcurveycloset.png",
+                               @"eventcurveycloset.png",
+                               @"eventcurveycloset.png",
+                               nil],
+                              [[NSMutableArray alloc] initWithObjects:
+                               @"eventholidaysale.png",
+                               @"eventholidaysale.png",
+                               @"eventholidaysale.png",
+                               @"eventholidaysale.png",
+                               @"eventholidaysale.png",
+                               
+                               nil],
+                              
+                              nil];
 }
 
 
