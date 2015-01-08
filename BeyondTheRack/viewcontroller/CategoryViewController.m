@@ -100,7 +100,7 @@
 #pragma mark TTSlidingPagesDataSource methods
 
 -(int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source{
-    return [[self categoryNames] count];
+    return (int)[[self categoryNames] count];
 }
 
 -(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index{

@@ -150,7 +150,7 @@
  
  UIView *whiteSeperatorView = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.view.frame.size.width,1)];
  whiteSeperatorView.backgroundColor = [UIColor lightGrayColor];//colorWithRed:0 green:0 blue:0 alpha:0.4];
- [self.view addSubview:whiteSeperatorView]; 
+ [self.view addSubview:whiteSeperatorView];
  
  */
 
