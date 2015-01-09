@@ -31,6 +31,17 @@
 		69B02CBE1A5ED32700040C86 /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B02CBC1A5ED32700040C86 /* EventTableViewCell.xib */; };
 		69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B02CBF1A60304000040C86 /* CoreData.framework */; };
 		69B02CC71A6031A700040C86 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CC51A6031A700040C86 /* Model.xcdatamodeld */; };
+		69B02CCA1A60471500040C86 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CC91A60471500040C86 /* Order.m */; };
+		69B02CCD1A60471600040C86 /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CCC1A60471600040C86 /* BagItem.m */; };
+		69B02CD01A60471600040C86 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CCF1A60471600040C86 /* Item.m */; };
+		69B02CD31A60471600040C86 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CD21A60471600040C86 /* Event.m */; };
+		69B02CD61A60471600040C86 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CD51A60471600040C86 /* User.m */; };
+		69B02CD91A60471600040C86 /* General1.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CD81A60471600040C86 /* General1.m */; };
+		69B02CDC1A60471600040C86 /* General3.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CDB1A60471600040C86 /* General3.m */; };
+		69B02CDF1A60471600040C86 /* General2.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CDE1A60471600040C86 /* General2.m */; };
+		69B02CE21A60471600040C86 /* UserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE11A60471600040C86 /* UserNotifications.m */; };
+		69B02CE51A60471600040C86 /* ShippingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE41A60471600040C86 /* ShippingAddress.m */; };
+		69B02CE81A60471600040C86 /* PaymentDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE71A60471600040C86 /* PaymentDetails.m */; };
 		69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */; };
 		69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C15AAF1A51FFE200D6E358 /* bareffect.png */; };
 		69EB9E131A5B00D2003A48F1 /* itemInBag.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EB9E121A5B00D2003A48F1 /* itemInBag.png */; };
@@ -108,6 +119,28 @@
 		69B02CBC1A5ED32700040C86 /* EventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
 		69B02CBF1A60304000040C86 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		69B02CC61A6031A700040C86 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		69B02CC81A60471500040C86 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		69B02CC91A60471500040C86 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		69B02CCB1A60471600040C86 /* BagItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItem.h; sourceTree = "<group>"; };
+		69B02CCC1A60471600040C86 /* BagItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItem.m; sourceTree = "<group>"; };
+		69B02CCE1A60471600040C86 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		69B02CCF1A60471600040C86 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		69B02CD11A60471600040C86 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		69B02CD21A60471600040C86 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		69B02CD41A60471600040C86 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		69B02CD51A60471600040C86 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		69B02CD71A60471600040C86 /* General1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General1.h; sourceTree = "<group>"; };
+		69B02CD81A60471600040C86 /* General1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General1.m; sourceTree = "<group>"; };
+		69B02CDA1A60471600040C86 /* General3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General3.h; sourceTree = "<group>"; };
+		69B02CDB1A60471600040C86 /* General3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General3.m; sourceTree = "<group>"; };
+		69B02CDD1A60471600040C86 /* General2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General2.h; sourceTree = "<group>"; };
+		69B02CDE1A60471600040C86 /* General2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General2.m; sourceTree = "<group>"; };
+		69B02CE01A60471600040C86 /* UserNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotifications.h; sourceTree = "<group>"; };
+		69B02CE11A60471600040C86 /* UserNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotifications.m; sourceTree = "<group>"; };
+		69B02CE31A60471600040C86 /* ShippingAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingAddress.h; sourceTree = "<group>"; };
+		69B02CE41A60471600040C86 /* ShippingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingAddress.m; sourceTree = "<group>"; };
+		69B02CE61A60471600040C86 /* PaymentDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentDetails.h; sourceTree = "<group>"; };
+		69B02CE71A60471600040C86 /* PaymentDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentDetails.m; sourceTree = "<group>"; };
 		69B55F0A1A4B1AFC009A5524 /* ShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingBagViewController.h; sourceTree = "<group>"; };
 		69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingBagViewController.m; sourceTree = "<group>"; };
 		69C15AAF1A51FFE200D6E358 /* bareffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bareffect.png; path = "category pics/bareffect.png"; sourceTree = "<group>"; };
@@ -251,6 +284,28 @@
 			isa = PBXGroup;
 			children = (
 				69B02CC51A6031A700040C86 /* Model.xcdatamodeld */,
+				69B02CE61A60471600040C86 /* PaymentDetails.h */,
+				69B02CE71A60471600040C86 /* PaymentDetails.m */,
+				69B02CE31A60471600040C86 /* ShippingAddress.h */,
+				69B02CE41A60471600040C86 /* ShippingAddress.m */,
+				69B02CE01A60471600040C86 /* UserNotifications.h */,
+				69B02CE11A60471600040C86 /* UserNotifications.m */,
+				69B02CDD1A60471600040C86 /* General2.h */,
+				69B02CDE1A60471600040C86 /* General2.m */,
+				69B02CDA1A60471600040C86 /* General3.h */,
+				69B02CDB1A60471600040C86 /* General3.m */,
+				69B02CD71A60471600040C86 /* General1.h */,
+				69B02CD81A60471600040C86 /* General1.m */,
+				69B02CD41A60471600040C86 /* User.h */,
+				69B02CD51A60471600040C86 /* User.m */,
+				69B02CD11A60471600040C86 /* Event.h */,
+				69B02CD21A60471600040C86 /* Event.m */,
+				69B02CCE1A60471600040C86 /* Item.h */,
+				69B02CCF1A60471600040C86 /* Item.m */,
+				69B02CCB1A60471600040C86 /* BagItem.h */,
+				69B02CCC1A60471600040C86 /* BagItem.m */,
+				69B02CC81A60471500040C86 /* Order.h */,
+				69B02CC91A60471500040C86 /* Order.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -466,10 +521,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B02CD01A60471600040C86 /* Item.m in Sources */,
+				69B02CCD1A60471600040C86 /* BagItem.m in Sources */,
+				69B02CCA1A60471500040C86 /* Order.m in Sources */,
+				69B02CE21A60471600040C86 /* UserNotifications.m in Sources */,
 				695F99E41A573DB700A80D12 /* ApprovePurchaseViewController.m in Sources */,
 				69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */,
 				69B02CBD1A5ED32700040C86 /* EventTableViewCell.m in Sources */,
+				69B02CE81A60471600040C86 /* PaymentDetails.m in Sources */,
+				69B02CE51A60471600040C86 /* ShippingAddress.m in Sources */,
+				69B02CDC1A60471600040C86 /* General3.m in Sources */,
+				69B02CD61A60471600040C86 /* User.m in Sources */,
+				69B02CD31A60471600040C86 /* Event.m in Sources */,
 				69B02CAD1A5DA70700040C86 /* EventsTableTableViewController.m in Sources */,
+				69B02CDF1A60471600040C86 /* General2.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
 				69867A151A44A701003CE59C /* MainViewController.m in Sources */,
@@ -482,6 +547,7 @@
 				69765FED1A51BE5A004A0F46 /* MyAccountViewController.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
 				69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */,
+				69B02CD91A60471600040C86 /* General1.m in Sources */,
 				69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
