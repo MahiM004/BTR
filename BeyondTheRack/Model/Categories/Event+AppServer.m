@@ -14,26 +14,26 @@
 
 + (void)initInManagedObjectContext:(NSManagedObjectContext *)context
 {
-    ShippingAddress *shippingAddress = nil;
+    Event *event = nil;
     
-    shippingAddress = [NSEntityDescription insertNewObjectForEntityForName:@"ShippingAddress"
+    event = [NSEntityDescription insertNewObjectForEntityForName:@"Event"
                                                     inManagedObjectContext:context];
     
-    shippingAddress.city = @"dummy";
+    event.eventDescription = @"dummy";
 }
 
 
-+ (ShippingAddress *)shippingAddressWithAppServerInfo:(NSDictionary *)shippingAddressDictionary
++ (Event *)eventWithAppServerInfo:(NSDictionary *)eventDictionary
                                inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    ShippingAddress *shippingAddress = nil;
-    NSString *unique = shippingAddressDictionary[@"id"];
+    Event *event = nil;
+    NSString *unique = eventDictionary[@"id"];
     
     if(!unique)
         return nil;
     
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"ShippingAddress"];
-    request.predicate = [NSPredicate predicateWithFormat:@"shippingAddressId = %@", unique];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    request.predicate = [NSPredicate predicateWithFormat:@"eventId = %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
@@ -48,10 +48,10 @@
         
     } else if ([matches count] == 1) {
         
-        shippingAddress = [matches firstObject];
+        event = [matches firstObject];
         
-        if ([ShippingAddress valueForKeyPath:@"id"])
-            shippingAddress.shippingAddressId = [shippingAddressDictionary valueForKeyPath:@"id"];
+        if ([eventDictionary valueForKeyPath:@"id"])
+            event.eventId = [eventDictionary valueForKeyPath:@"id"];
         
         
     } else if ([matches count] == 0 || [matches count] > 1 ) {
@@ -63,31 +63,31 @@
             }
         }
         
-        shippingAddress = [NSEntityDescription insertNewObjectForEntityForName:@"ShippingAddress"
+        event = [NSEntityDescription insertNewObjectForEntityForName:@"Event"
                                                         inManagedObjectContext:context];
         
-        if ([[shippingAddressDictionary valueForKeyPath:@"id"] stringValue])
-            shippingAddress.shippingAddressId = [[shippingAddressDictionary valueForKeyPath:@"id"] stringValue];
+        if ([[eventDictionary valueForKeyPath:@"id"] stringValue])
+            event.eventId = [[eventDictionary valueForKeyPath:@"id"] stringValue];
     }
     
-    return shippingAddress;
+    return event;
 }
 
-+ (NSMutableArray *)loadShippingAddressesFromAppServerArray:(NSArray *)shippingAddresses // of AppServer ShippingAddress NSDictionary
++ (NSMutableArray *)loadEventsFromAppServerArray:(NSArray *)events // of AppServer Event NSDictionary
                                    intoManagedObjectContext:(NSManagedObjectContext *)context
 {
     
-    NSMutableArray *addressArray = [[NSMutableArray alloc] init];
+    NSMutableArray *eventArray = [[NSMutableArray alloc] init];
     
-    for (NSDictionary *shippingAddress in shippingAddresses) {
+    for (NSDictionary *event in events) {
         
-        NSObject *someObject = [self shippingAddressWithAppServerInfo:shippingAddress inManagedObjectContext:context];
+        NSObject *someObject = [self eventWithAppServerInfo:event inManagedObjectContext:context];
         if (someObject)
-            [addressArray addObject:someObject];
+            [eventArray addObject:someObject];
         
     }
     
-    return addressArray;
+    return eventArray;
 }
 
 

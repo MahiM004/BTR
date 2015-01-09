@@ -14,10 +14,8 @@
 + (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
 
 
-+ (ShippingAddress *)shippingAddressWithAppServerInfo:(NSDictionary *)shippingAddressesDictionary
++ (User *)userWithAppServerInfo:(NSDictionary *)userDictionary
                                inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (NSMutableArray *)loadShippingAddressesFromAppServerArray:(NSArray *)shippingAddresses // of AppServer ShippingAddress NSDictionary
-                                   intoManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

@@ -14,26 +14,26 @@
 
 + (void)initInManagedObjectContext:(NSManagedObjectContext *)context
 {
-    ShippingAddress *shippingAddress = nil;
+    PaymentDetail *paymentDetail = nil;
     
-    shippingAddress = [NSEntityDescription insertNewObjectForEntityForName:@"ShippingAddress"
+    paymentDetail = [NSEntityDescription insertNewObjectForEntityForName:@"PaymentDetail"
                                                     inManagedObjectContext:context];
     
-    shippingAddress.city = @"dummy";
+    paymentDetail.cardholderName = @"dummy";
 }
 
 
-+ (ShippingAddress *)shippingAddressWithAppServerInfo:(NSDictionary *)shippingAddressDictionary
++ (PaymentDetail *)paymentDetailWithAppServerInfo:(NSDictionary *)paymentDetailDictionary
                                inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    ShippingAddress *shippingAddress = nil;
-    NSString *unique = shippingAddressDictionary[@"id"];
+    PaymentDetail *paymentDetail = nil;
+    NSString *unique = paymentDetailDictionary[@"id"];
     
     if(!unique)
         return nil;
     
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"ShippingAddress"];
-    request.predicate = [NSPredicate predicateWithFormat:@"shippingAddressId = %@", unique];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"PaymentDetail"];
+    request.predicate = [NSPredicate predicateWithFormat:@"paymentDetailId = %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
@@ -48,10 +48,10 @@
         
     } else if ([matches count] == 1) {
         
-        shippingAddress = [matches firstObject];
+        paymentDetail = [matches firstObject];
         
-        if ([ShippingAddress valueForKeyPath:@"id"])
-            shippingAddress.shippingAddressId = [shippingAddressDictionary valueForKeyPath:@"id"];
+        if ([paymentDetailDictionary valueForKeyPath:@"id"])
+            paymentDetail.paymentDetailId = [paymentDetailDictionary valueForKeyPath:@"id"];
         
         
     } else if ([matches count] == 0 || [matches count] > 1 ) {
@@ -63,31 +63,31 @@
             }
         }
         
-        shippingAddress = [NSEntityDescription insertNewObjectForEntityForName:@"ShippingAddress"
+        paymentDetail = [NSEntityDescription insertNewObjectForEntityForName:@"PaymentDetail"
                                                         inManagedObjectContext:context];
         
-        if ([[shippingAddressDictionary valueForKeyPath:@"id"] stringValue])
-            shippingAddress.shippingAddressId = [[shippingAddressDictionary valueForKeyPath:@"id"] stringValue];
+        if ([[paymentDetailDictionary valueForKeyPath:@"id"] stringValue])
+            paymentDetail.paymentDetailId = [[paymentDetailDictionary valueForKeyPath:@"id"] stringValue];
     }
     
-    return shippingAddress;
+    return paymentDetail;
 }
 
-+ (NSMutableArray *)loadShippingAddressesFromAppServerArray:(NSArray *)shippingAddresses // of AppServer ShippingAddress NSDictionary
++ (NSMutableArray *)loadPaymentDetailsFromAppServerArray:(NSArray *)paymentDetails // of AppServer PaymentDetail NSDictionary
                                    intoManagedObjectContext:(NSManagedObjectContext *)context
 {
     
-    NSMutableArray *addressArray = [[NSMutableArray alloc] init];
+    NSMutableArray *paymentDetailArray = [[NSMutableArray alloc] init];
     
-    for (NSDictionary *shippingAddress in shippingAddresses) {
+    for (NSDictionary *paymentDetail in paymentDetails) {
         
-        NSObject *someObject = [self shippingAddressWithAppServerInfo:shippingAddress inManagedObjectContext:context];
+        NSObject *someObject = [self paymentDetailWithAppServerInfo:paymentDetail inManagedObjectContext:context];
         if (someObject)
-            [addressArray addObject:someObject];
+            [paymentDetailArray addObject:someObject];
         
     }
     
-    return addressArray;
+    return paymentDetailArray;
 }
 
 

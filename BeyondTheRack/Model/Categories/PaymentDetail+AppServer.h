@@ -13,10 +13,10 @@
 + (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
 
 
-+ (ShippingAddress *)shippingAddressWithAppServerInfo:(NSDictionary *)shippingAddressesDictionary
++ (PaymentDetail *)paymentDetailWithAppServerInfo:(NSDictionary *)paymentDetailDictionary
                                inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (NSMutableArray *)loadShippingAddressesFromAppServerArray:(NSArray *)shippingAddresses // of AppServer ShippingAddress NSDictionary
++ (NSMutableArray *)loadPaymentDetailsFromAppServerArray:(NSArray *)paymentDetails // of AppServer PaymentDetail NSDictionary
                                    intoManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

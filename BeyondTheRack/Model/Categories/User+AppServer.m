@@ -14,26 +14,26 @@
 
 + (void)initInManagedObjectContext:(NSManagedObjectContext *)context
 {
-    ShippingAddress *shippingAddress = nil;
+    User *user = nil;
     
-    shippingAddress = [NSEntityDescription insertNewObjectForEntityForName:@"ShippingAddress"
+    user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                                     inManagedObjectContext:context];
     
-    shippingAddress.city = @"dummy";
+    user.usernameId = @"dummy";
 }
 
 
-+ (ShippingAddress *)shippingAddressWithAppServerInfo:(NSDictionary *)shippingAddressDictionary
++ (User *)userWithAppServerInfo:(NSDictionary *)userDictionary
                                inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    ShippingAddress *shippingAddress = nil;
-    NSString *unique = shippingAddressDictionary[@"id"];
+    User *user = nil;
+    NSString *unique = userDictionary[@"id"];
     
     if(!unique)
         return nil;
     
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"ShippingAddress"];
-    request.predicate = [NSPredicate predicateWithFormat:@"shippingAddressId = %@", unique];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
+    request.predicate = [NSPredicate predicateWithFormat:@"usernameId = %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
@@ -48,11 +48,10 @@
         
     } else if ([matches count] == 1) {
         
-        shippingAddress = [matches firstObject];
+        user = [matches firstObject];
         
-        if ([ShippingAddress valueForKeyPath:@"id"])
-            shippingAddress.shippingAddressId = [shippingAddressDictionary valueForKeyPath:@"id"];
-        
+        if ([userDictionary valueForKeyPath:@"id"])
+            user.usernameId = [userDictionary valueForKeyPath:@"id"];
         
     } else if ([matches count] == 0 || [matches count] > 1 ) {
         
@@ -63,32 +62,17 @@
             }
         }
         
-        shippingAddress = [NSEntityDescription insertNewObjectForEntityForName:@"ShippingAddress"
+        user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                                         inManagedObjectContext:context];
         
-        if ([[shippingAddressDictionary valueForKeyPath:@"id"] stringValue])
-            shippingAddress.shippingAddressId = [[shippingAddressDictionary valueForKeyPath:@"id"] stringValue];
+        if ([[userDictionary valueForKeyPath:@"id"] stringValue])
+            user.usernameId = [[userDictionary valueForKeyPath:@"id"] stringValue];
     }
     
-    return shippingAddress;
+    return user;
 }
 
-+ (NSMutableArray *)loadShippingAddressesFromAppServerArray:(NSArray *)shippingAddresses // of AppServer ShippingAddress NSDictionary
-                                   intoManagedObjectContext:(NSManagedObjectContext *)context
-{
-    
-    NSMutableArray *addressArray = [[NSMutableArray alloc] init];
-    
-    for (NSDictionary *shippingAddress in shippingAddresses) {
-        
-        NSObject *someObject = [self shippingAddressWithAppServerInfo:shippingAddress inManagedObjectContext:context];
-        if (someObject)
-            [addressArray addObject:someObject];
-        
-    }
-    
-    return addressArray;
-}
+
 
 
 @end
