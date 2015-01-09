@@ -29,6 +29,8 @@
 		69B02CB41A5DBAB000040C86 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CB31A5DBAB000040C86 /* CategoryViewController.m */; };
 		69B02CBD1A5ED32700040C86 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CBB1A5ED32700040C86 /* EventTableViewCell.m */; };
 		69B02CBE1A5ED32700040C86 /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B02CBC1A5ED32700040C86 /* EventTableViewCell.xib */; };
+		69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B02CBF1A60304000040C86 /* CoreData.framework */; };
+		69B02CC71A6031A700040C86 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CC51A6031A700040C86 /* Model.xcdatamodeld */; };
 		69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */; };
 		69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C15AAF1A51FFE200D6E358 /* bareffect.png */; };
 		69EB9E131A5B00D2003A48F1 /* itemInBag.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EB9E121A5B00D2003A48F1 /* itemInBag.png */; };
@@ -104,6 +106,8 @@
 		69B02CBA1A5ED32700040C86 /* EventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableViewCell.h; sourceTree = "<group>"; };
 		69B02CBB1A5ED32700040C86 /* EventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
 		69B02CBC1A5ED32700040C86 /* EventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
+		69B02CBF1A60304000040C86 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		69B02CC61A6031A700040C86 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		69B55F0A1A4B1AFC009A5524 /* ShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingBagViewController.h; sourceTree = "<group>"; };
 		69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingBagViewController.m; sourceTree = "<group>"; };
 		69C15AAF1A51FFE200D6E358 /* bareffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bareffect.png; path = "category pics/bareffect.png"; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,24 +169,18 @@
 			name = checkout;
 			sourceTree = "<group>";
 		};
-		697E057A1A432FCD000146C6 /* model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		697E057B1A432FCD000146C6 /* view */ = {
+		697E057B1A432FCD000146C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				69B02CBA1A5ED32700040C86 /* EventTableViewCell.h */,
 				69B02CBB1A5ED32700040C86 /* EventTableViewCell.m */,
 				69B02CBC1A5ED32700040C86 /* EventTableViewCell.xib */,
 			);
+			name = View;
 			path = view;
 			sourceTree = "<group>";
 		};
-		697E057C1A432FCD000146C6 /* viewcontroller */ = {
+		697E057C1A432FCD000146C6 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				69867A131A44A701003CE59C /* MainViewController.h */,
@@ -195,6 +194,7 @@
 				69765FEC1A51BE5A004A0F46 /* MyAccountViewController.m */,
 				695F99D81A573D1500A80D12 /* checkout */,
 			);
+			name = ViewController;
 			path = viewcontroller;
 			sourceTree = "<group>";
 		};
@@ -247,6 +247,14 @@
 			path = ThorpeScroll;
 			sourceTree = "<group>";
 		};
+		69B02CC41A60319600040C86 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				69B02CC51A6031A700040C86 /* Model.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		69F734C81A5AEA0500698081 /* eventpics */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				69FF40651A3F8939000BD092 /* BeyondTheRack */,
+				69B02CBF1A60304000040C86 /* CoreData.framework */,
 				69FF40821A3F8939000BD092 /* BeyondTheRackTests */,
 				69FF40641A3F8939000BD092 /* Products */,
 			);
@@ -294,9 +303,9 @@
 				69FF406B1A3F8939000BD092 /* AppDelegate.m */,
 				69FF40761A3F8939000BD092 /* Images.xcassets */,
 				69FF40781A3F8939000BD092 /* LaunchScreen.xib */,
-				697E057A1A432FCD000146C6 /* model */,
-				697E057B1A432FCD000146C6 /* view */,
-				697E057C1A432FCD000146C6 /* viewcontroller */,
+				69B02CC41A60319600040C86 /* Model */,
+				697E057B1A432FCD000146C6 /* View */,
+				697E057C1A432FCD000146C6 /* ViewController */,
 				69867A0F1A4480C7003CE59C /* Resources */,
 				69FF40661A3F8939000BD092 /* Supporting Files */,
 			);
@@ -465,6 +474,7 @@
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
 				69867A151A44A701003CE59C /* MainViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */,
+				69B02CC71A6031A700040C86 /* Model.xcdatamodeld in Sources */,
 				69B02CB41A5DBAB000040C86 /* CategoryViewController.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69B02CB11A5DA80900040C86 /* TTUITableViewZoomController.m in Sources */,
@@ -685,6 +695,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		69B02CC51A6031A700040C86 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				69B02CC61A6031A700040C86 /* Model.xcdatamodel */,
+			);
+			currentVersion = 69B02CC61A6031A700040C86 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 69FF405B1A3F8939000BD092 /* Project object */;
 }
