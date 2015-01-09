@@ -66,6 +66,7 @@
         <attribute name="confirmed" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createDateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="expiryDateTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="orderId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="orderStatus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="paymentDetailsId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shippingAddressId" optional="YES" attributeType="String" syncable="YES"/>
@@ -82,7 +83,7 @@
         <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expiryMonth" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expiryYear" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="paymentDetailsId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="paymentDetailId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="postalCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="province" optional="YES" attributeType="String" syncable="YES"/>
@@ -123,20 +124,21 @@
         <attribute name="homeOffice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="menDesignerBrands" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="usernameId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userNotificationsId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weeklySneakPeaks" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="womenDesignerBrands" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BagItem" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="General1" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="General2" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="General3" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Item" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Order" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="PaymentDetail" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ShippingAddress" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UserNotifications" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="BagItem" positionX="151" positionY="-9" width="128" height="180"/>
+        <element name="Event" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="General1" positionX="-414" positionY="-63" width="128" height="165"/>
+        <element name="General2" positionX="-81" positionY="-63" width="128" height="165"/>
+        <element name="General3" positionX="-621" positionY="240" width="128" height="165"/>
+        <element name="Item" positionX="-513" positionY="60" width="128" height="165"/>
+        <element name="Order" positionX="-135" positionY="135" width="128" height="193"/>
+        <element name="PaymentDetail" positionX="88" positionY="132" width="128" height="253"/>
+        <element name="ShippingAddress" positionX="-270" positionY="-72" width="128" height="195"/>
+        <element name="User" positionX="-353" positionY="144" width="128" height="270"/>
+        <element name="UserNotifications" positionX="-684" positionY="-33" width="128" height="163"/>
     </elements>
 </model>

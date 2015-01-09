@@ -1,5 +1,5 @@
 //
-//  PaymentDetails.m
+//  PaymentDetail.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-09.
@@ -11,19 +11,19 @@
 
 @implementation PaymentDetail
 
-@dynamic paymentDetailsId;
-@dynamic usernameId;
-@dynamic cardType;
-@dynamic cardholderName;
-@dynamic expiryMonth;
-@dynamic expiryYear;
-@dynamic ccvNumber;
 @dynamic addressLine1;
 @dynamic addressLine2;
-@dynamic postalCode;
+@dynamic cardholderName;
+@dynamic cardType;
+@dynamic ccvNumber;
 @dynamic city;
-@dynamic province;
 @dynamic country;
+@dynamic expiryMonth;
+@dynamic expiryYear;
+@dynamic paymentDetailId;
 @dynamic phoneNumber;
+@dynamic postalCode;
+@dynamic province;
+@dynamic usernameId;
 
 @end

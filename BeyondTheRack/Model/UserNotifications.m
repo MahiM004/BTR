@@ -11,12 +11,13 @@
 
 @implementation UserNotifications
 
-@dynamic usernameId;
+@dynamic childrenDesignerBrands;
 @dynamic dailyEventStart;
+@dynamic homeOffice;
+@dynamic menDesignerBrands;
+@dynamic usernameId;
 @dynamic weeklySneakPeaks;
 @dynamic womenDesignerBrands;
-@dynamic menDesignerBrands;
-@dynamic childrenDesignerBrands;
-@dynamic homeOffice;
+@dynamic userNotificationsId;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  EventsViewController.m
+//  BTREventsViewController.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2014-12-19.

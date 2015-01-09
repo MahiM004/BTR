@@ -12,14 +12,15 @@
 
 @interface Order : NSManagedObject
 
-@property (nonatomic, retain) NSString * shippingAddressId;
-@property (nonatomic, retain) NSString * paymentDetailsId;
-@property (nonatomic, retain) NSString * confirmed;
-@property (nonatomic, retain) NSString * orderStatus;
-@property (nonatomic, retain) NSString * usernameId;
 @property (nonatomic, retain) NSDate * confirmDateTime;
+@property (nonatomic, retain) NSString * confirmed;
 @property (nonatomic, retain) NSDate * createDateTime;
 @property (nonatomic, retain) NSDate * expiryDateTime;
+@property (nonatomic, retain) NSString * orderStatus;
+@property (nonatomic, retain) NSString * paymentDetailsId;
+@property (nonatomic, retain) NSString * shippingAddressId;
 @property (nonatomic, retain) NSString * totalPrice;
+@property (nonatomic, retain) NSString * usernameId;
+@property (nonatomic, retain) NSString * orderId;
 
 @end

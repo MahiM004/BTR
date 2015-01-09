@@ -1,5 +1,5 @@
 //
-//  ApprovePurchaseViewController.m
+//  BTRApprovePurchaseViewController.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-02.

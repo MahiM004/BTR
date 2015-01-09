@@ -11,14 +11,15 @@
 
 @implementation Order
 
-@dynamic shippingAddressId;
-@dynamic paymentDetailsId;
-@dynamic confirmed;
-@dynamic orderStatus;
-@dynamic usernameId;
 @dynamic confirmDateTime;
+@dynamic confirmed;
 @dynamic createDateTime;
 @dynamic expiryDateTime;
+@dynamic orderStatus;
+@dynamic paymentDetailsId;
+@dynamic shippingAddressId;
 @dynamic totalPrice;
+@dynamic usernameId;
+@dynamic orderId;
 
 @end

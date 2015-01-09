@@ -1,5 +1,5 @@
 //
-//  CategoryTableTableViewController.m
+//  BTRCategoryTableTableViewController.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-07.

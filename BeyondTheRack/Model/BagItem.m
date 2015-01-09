@@ -12,13 +12,13 @@
 @implementation BagItem
 
 @dynamic bagItemId;
-@dynamic usernameId;
 @dynamic createDateTime;
 @dynamic expiryDateTime;
-@dynamic orderId;
-@dynamic itemId;
-@dynamic quantity;
 @dynamic isInStock;
+@dynamic itemId;
+@dynamic orderId;
+@dynamic quantity;
 @dynamic unitPrice;
+@dynamic usernameId;
 
 @end

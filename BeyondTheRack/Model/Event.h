@@ -12,13 +12,13 @@
 
 @interface Event : NSManagedObject
 
-@property (nonatomic, retain) NSString * eventId;
 @property (nonatomic, retain) NSString * categoryId;
-@property (nonatomic, retain) NSString * imageName;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * eventDescription;
-@property (nonatomic, retain) NSDate * expiryDateTime;
 @property (nonatomic, retain) NSString * discount;
+@property (nonatomic, retain) NSString * eventDescription;
+@property (nonatomic, retain) NSString * eventId;
+@property (nonatomic, retain) NSDate * expiryDateTime;
+@property (nonatomic, retain) NSString * imageName;
 @property (nonatomic, retain) NSString * saveUpTo;
+@property (nonatomic, retain) NSString * title;
 
 @end

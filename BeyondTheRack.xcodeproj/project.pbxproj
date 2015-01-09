@@ -18,6 +18,17 @@
 		69867A071A438A8C003CE59C /* bagicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A061A438A8C003CE59C /* bagicon.png */; };
 		69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A0A1A446FCA003CE59C /* backarrowcool.png */; };
 		69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A141A44A701003CE59C /* BTRMainViewController.m */; };
+		69869F641A6075E900F986BC /* PaymentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F631A6075E900F986BC /* PaymentDetail.m */; };
+		69869F671A6075E900F986BC /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F661A6075E900F986BC /* Order.m */; };
+		69869F6A1A6075E900F986BC /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F691A6075E900F986BC /* BagItem.m */; };
+		69869F6D1A6075E900F986BC /* General1.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F6C1A6075E900F986BC /* General1.m */; };
+		69869F701A6075EA00F986BC /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F6F1A6075EA00F986BC /* Item.m */; };
+		69869F731A6075EA00F986BC /* ShippingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F721A6075EA00F986BC /* ShippingAddress.m */; };
+		69869F761A6075EA00F986BC /* General2.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F751A6075EA00F986BC /* General2.m */; };
+		69869F791A6075EA00F986BC /* General3.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F781A6075EA00F986BC /* General3.m */; };
+		69869F7C1A6075EA00F986BC /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F7B1A6075EA00F986BC /* Event.m */; };
+		69869F7F1A6075EA00F986BC /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F7E1A6075EA00F986BC /* User.m */; };
+		69869F821A6075EA00F986BC /* UserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F811A6075EA00F986BC /* UserNotifications.m */; };
 		69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C911A5DA23100040C86 /* TTBlackTriangle.m */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
@@ -31,16 +42,6 @@
 		69B02CBE1A5ED32700040C86 /* BTREventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B02CBC1A5ED32700040C86 /* BTREventTableViewCell.xib */; };
 		69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B02CBF1A60304000040C86 /* CoreData.framework */; };
 		69B02CC71A6031A700040C86 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CC51A6031A700040C86 /* Model.xcdatamodeld */; };
-		69B02CCA1A60471500040C86 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CC91A60471500040C86 /* Order.m */; };
-		69B02CCD1A60471600040C86 /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CCC1A60471600040C86 /* BagItem.m */; };
-		69B02CD01A60471600040C86 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CCF1A60471600040C86 /* Item.m */; };
-		69B02CD31A60471600040C86 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CD21A60471600040C86 /* Event.m */; };
-		69B02CD61A60471600040C86 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CD51A60471600040C86 /* User.m */; };
-		69B02CD91A60471600040C86 /* General1.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CD81A60471600040C86 /* General1.m */; };
-		69B02CDC1A60471600040C86 /* General3.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CDB1A60471600040C86 /* General3.m */; };
-		69B02CDF1A60471600040C86 /* General2.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CDE1A60471600040C86 /* General2.m */; };
-		69B02CE21A60471600040C86 /* UserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE11A60471600040C86 /* UserNotifications.m */; };
-		69B02CE51A60471600040C86 /* ShippingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE41A60471600040C86 /* ShippingAddress.m */; };
 		69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CEE1A605A0400040C86 /* ShippingAddress+AppServer.m */; };
 		69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CF11A605A2700040C86 /* UserNotifications+AppServer.m */; };
 		69B02CF51A605A4400040C86 /* General1+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CF41A605A4400040C86 /* General1+AppServer.m */; };
@@ -51,7 +52,6 @@
 		69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D061A605AED00040C86 /* Item+AppServer.m */; };
 		69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D091A605B0F00040C86 /* BagItem+AppServer.m */; };
 		69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D0C1A605B2A00040C86 /* Order+AppServer.m */; };
-		69B02D131A605E2000040C86 /* PaymentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D121A605E2000040C86 /* PaymentDetail.m */; };
 		69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D151A605E8700040C86 /* PaymentDetail+AppServer.m */; };
 		69B55F0D1A4B1AFC009A5524 /* BTRShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* BTRShoppingBagViewController.m */; };
 		69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C15AAF1A51FFE200D6E358 /* bareffect.png */; };
@@ -105,6 +105,28 @@
 		69867A0A1A446FCA003CE59C /* backarrowcool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrowcool.png; sourceTree = "<group>"; };
 		69867A131A44A701003CE59C /* BTRMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMainViewController.h; sourceTree = "<group>"; };
 		69867A141A44A701003CE59C /* BTRMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMainViewController.m; sourceTree = "<group>"; };
+		69869F621A6075E900F986BC /* PaymentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentDetail.h; sourceTree = "<group>"; };
+		69869F631A6075E900F986BC /* PaymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentDetail.m; sourceTree = "<group>"; };
+		69869F651A6075E900F986BC /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		69869F661A6075E900F986BC /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		69869F681A6075E900F986BC /* BagItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItem.h; sourceTree = "<group>"; };
+		69869F691A6075E900F986BC /* BagItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItem.m; sourceTree = "<group>"; };
+		69869F6B1A6075E900F986BC /* General1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General1.h; sourceTree = "<group>"; };
+		69869F6C1A6075E900F986BC /* General1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General1.m; sourceTree = "<group>"; };
+		69869F6E1A6075EA00F986BC /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		69869F6F1A6075EA00F986BC /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		69869F711A6075EA00F986BC /* ShippingAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingAddress.h; sourceTree = "<group>"; };
+		69869F721A6075EA00F986BC /* ShippingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingAddress.m; sourceTree = "<group>"; };
+		69869F741A6075EA00F986BC /* General2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General2.h; sourceTree = "<group>"; };
+		69869F751A6075EA00F986BC /* General2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General2.m; sourceTree = "<group>"; };
+		69869F771A6075EA00F986BC /* General3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General3.h; sourceTree = "<group>"; };
+		69869F781A6075EA00F986BC /* General3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General3.m; sourceTree = "<group>"; };
+		69869F7A1A6075EA00F986BC /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		69869F7B1A6075EA00F986BC /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		69869F7D1A6075EA00F986BC /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		69869F7E1A6075EA00F986BC /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		69869F801A6075EA00F986BC /* UserNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotifications.h; sourceTree = "<group>"; };
+		69869F811A6075EA00F986BC /* UserNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotifications.m; sourceTree = "<group>"; };
 		69B02C901A5DA23100040C86 /* TTBlackTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBlackTriangle.h; sourceTree = "<group>"; };
 		69B02C911A5DA23100040C86 /* TTBlackTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBlackTriangle.m; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
@@ -130,26 +152,6 @@
 		69B02CBC1A5ED32700040C86 /* BTREventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTREventTableViewCell.xib; sourceTree = "<group>"; };
 		69B02CBF1A60304000040C86 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		69B02CC61A6031A700040C86 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		69B02CC81A60471500040C86 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
-		69B02CC91A60471500040C86 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
-		69B02CCB1A60471600040C86 /* BagItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItem.h; sourceTree = "<group>"; };
-		69B02CCC1A60471600040C86 /* BagItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItem.m; sourceTree = "<group>"; };
-		69B02CCE1A60471600040C86 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		69B02CCF1A60471600040C86 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
-		69B02CD11A60471600040C86 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		69B02CD21A60471600040C86 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		69B02CD41A60471600040C86 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		69B02CD51A60471600040C86 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		69B02CD71A60471600040C86 /* General1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General1.h; sourceTree = "<group>"; };
-		69B02CD81A60471600040C86 /* General1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General1.m; sourceTree = "<group>"; };
-		69B02CDA1A60471600040C86 /* General3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General3.h; sourceTree = "<group>"; };
-		69B02CDB1A60471600040C86 /* General3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General3.m; sourceTree = "<group>"; };
-		69B02CDD1A60471600040C86 /* General2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General2.h; sourceTree = "<group>"; };
-		69B02CDE1A60471600040C86 /* General2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General2.m; sourceTree = "<group>"; };
-		69B02CE01A60471600040C86 /* UserNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotifications.h; sourceTree = "<group>"; };
-		69B02CE11A60471600040C86 /* UserNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotifications.m; sourceTree = "<group>"; };
-		69B02CE31A60471600040C86 /* ShippingAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingAddress.h; sourceTree = "<group>"; };
-		69B02CE41A60471600040C86 /* ShippingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingAddress.m; sourceTree = "<group>"; };
 		69B02CED1A605A0400040C86 /* ShippingAddress+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ShippingAddress+AppServer.h"; sourceTree = "<group>"; };
 		69B02CEE1A605A0400040C86 /* ShippingAddress+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ShippingAddress+AppServer.m"; sourceTree = "<group>"; };
 		69B02CF01A605A2700040C86 /* UserNotifications+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UserNotifications+AppServer.h"; sourceTree = "<group>"; };
@@ -172,8 +174,6 @@
 		69B02D0C1A605B2A00040C86 /* Order+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Order+AppServer.m"; sourceTree = "<group>"; };
 		69B02D0E1A605DD900040C86 /* PaymentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaymentDetail.h; path = BeyondTheRack/Model/PaymentDetail.h; sourceTree = "<group>"; };
 		69B02D0F1A605DD900040C86 /* PaymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaymentDetail.m; path = BeyondTheRack/Model/PaymentDetail.m; sourceTree = "<group>"; };
-		69B02D111A605E2000040C86 /* PaymentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentDetail.h; sourceTree = "<group>"; };
-		69B02D121A605E2000040C86 /* PaymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentDetail.m; sourceTree = "<group>"; };
 		69B02D141A605E8700040C86 /* PaymentDetail+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PaymentDetail+AppServer.h"; sourceTree = "<group>"; };
 		69B02D151A605E8700040C86 /* PaymentDetail+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PaymentDetail+AppServer.m"; sourceTree = "<group>"; };
 		69B55F0A1A4B1AFC009A5524 /* BTRShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRShoppingBagViewController.h; sourceTree = "<group>"; };
@@ -320,28 +320,28 @@
 			children = (
 				69B02CE91A6058F400040C86 /* Categories */,
 				69B02CC51A6031A700040C86 /* Model.xcdatamodeld */,
-				69B02D111A605E2000040C86 /* PaymentDetail.h */,
-				69B02D121A605E2000040C86 /* PaymentDetail.m */,
-				69B02CE31A60471600040C86 /* ShippingAddress.h */,
-				69B02CE41A60471600040C86 /* ShippingAddress.m */,
-				69B02CE01A60471600040C86 /* UserNotifications.h */,
-				69B02CE11A60471600040C86 /* UserNotifications.m */,
-				69B02CDD1A60471600040C86 /* General2.h */,
-				69B02CDE1A60471600040C86 /* General2.m */,
-				69B02CDA1A60471600040C86 /* General3.h */,
-				69B02CDB1A60471600040C86 /* General3.m */,
-				69B02CD71A60471600040C86 /* General1.h */,
-				69B02CD81A60471600040C86 /* General1.m */,
-				69B02CD41A60471600040C86 /* User.h */,
-				69B02CD51A60471600040C86 /* User.m */,
-				69B02CD11A60471600040C86 /* Event.h */,
-				69B02CD21A60471600040C86 /* Event.m */,
-				69B02CCE1A60471600040C86 /* Item.h */,
-				69B02CCF1A60471600040C86 /* Item.m */,
-				69B02CCB1A60471600040C86 /* BagItem.h */,
-				69B02CCC1A60471600040C86 /* BagItem.m */,
-				69B02CC81A60471500040C86 /* Order.h */,
-				69B02CC91A60471500040C86 /* Order.m */,
+				69869F801A6075EA00F986BC /* UserNotifications.h */,
+				69869F811A6075EA00F986BC /* UserNotifications.m */,
+				69869F7D1A6075EA00F986BC /* User.h */,
+				69869F7E1A6075EA00F986BC /* User.m */,
+				69869F7A1A6075EA00F986BC /* Event.h */,
+				69869F7B1A6075EA00F986BC /* Event.m */,
+				69869F771A6075EA00F986BC /* General3.h */,
+				69869F781A6075EA00F986BC /* General3.m */,
+				69869F741A6075EA00F986BC /* General2.h */,
+				69869F751A6075EA00F986BC /* General2.m */,
+				69869F711A6075EA00F986BC /* ShippingAddress.h */,
+				69869F721A6075EA00F986BC /* ShippingAddress.m */,
+				69869F6E1A6075EA00F986BC /* Item.h */,
+				69869F6F1A6075EA00F986BC /* Item.m */,
+				69869F6B1A6075E900F986BC /* General1.h */,
+				69869F6C1A6075E900F986BC /* General1.m */,
+				69869F681A6075E900F986BC /* BagItem.h */,
+				69869F691A6075E900F986BC /* BagItem.m */,
+				69869F651A6075E900F986BC /* Order.h */,
+				69869F661A6075E900F986BC /* Order.m */,
+				69869F621A6075E900F986BC /* PaymentDetail.h */,
+				69869F631A6075E900F986BC /* PaymentDetail.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -588,44 +588,44 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69B02CD01A60471600040C86 /* Item.m in Sources */,
 				69B02CF51A605A4400040C86 /* General1+AppServer.m in Sources */,
-				69B02D131A605E2000040C86 /* PaymentDetail.m in Sources */,
-				69B02CCD1A60471600040C86 /* BagItem.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
-				69B02CCA1A60471500040C86 /* Order.m in Sources */,
-				69B02CE21A60471600040C86 /* UserNotifications.m in Sources */,
+				69869F6A1A6075E900F986BC /* BagItem.m in Sources */,
+				69869F821A6075EA00F986BC /* UserNotifications.m in Sources */,
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
 				695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */,
 				69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */,
 				69B02CBD1A5ED32700040C86 /* BTREventTableViewCell.m in Sources */,
+				69869F671A6075E900F986BC /* Order.m in Sources */,
+				69869F7C1A6075EA00F986BC /* Event.m in Sources */,
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				69B02CFB1A605A7500040C86 /* General3+AppServer.m in Sources */,
 				69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */,
-				69B02CE51A60471600040C86 /* ShippingAddress.m in Sources */,
 				69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */,
-				69B02CDC1A60471600040C86 /* General3.m in Sources */,
 				69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */,
-				69B02CD61A60471600040C86 /* User.m in Sources */,
-				69B02CD31A60471600040C86 /* Event.m in Sources */,
 				69B02CAD1A5DA70700040C86 /* BTREventsTableTableViewController.m in Sources */,
-				69B02CDF1A60471600040C86 /* General2.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
 				69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */,
+				69869F701A6075EA00F986BC /* Item.m in Sources */,
 				69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */,
+				69869F761A6075EA00F986BC /* General2.m in Sources */,
 				69B02CC71A6031A700040C86 /* Model.xcdatamodeld in Sources */,
+				69869F6D1A6075E900F986BC /* General1.m in Sources */,
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69B02CB11A5DA80900040C86 /* TTUITableViewZoomController.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
+				69869F731A6075EA00F986BC /* ShippingAddress.m in Sources */,
+				69869F791A6075EA00F986BC /* General3.m in Sources */,
 				69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */,
+				69869F641A6075E900F986BC /* PaymentDetail.m in Sources */,
+				69869F7F1A6075EA00F986BC /* User.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
 				69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */,
-				69B02CD91A60471600040C86 /* General1.m in Sources */,
 				69B55F0D1A4B1AFC009A5524 /* BTRShoppingBagViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

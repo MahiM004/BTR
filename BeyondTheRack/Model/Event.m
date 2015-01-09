@@ -11,13 +11,13 @@
 
 @implementation Event
 
-@dynamic eventId;
 @dynamic categoryId;
-@dynamic imageName;
-@dynamic title;
-@dynamic eventDescription;
-@dynamic expiryDateTime;
 @dynamic discount;
+@dynamic eventDescription;
+@dynamic eventId;
+@dynamic expiryDateTime;
+@dynamic imageName;
 @dynamic saveUpTo;
+@dynamic title;
 
 @end

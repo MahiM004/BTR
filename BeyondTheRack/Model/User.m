@@ -11,20 +11,20 @@
 
 @implementation User
 
-@dynamic usernameId;
-@dynamic name;
-@dynamic familyName;
-@dynamic email;
-@dynamic password;
-@dynamic sessionId;
-@dynamic gender;
 @dynamic addressLine1;
 @dynamic addressLine2;
-@dynamic postalCode;
 @dynamic city;
-@dynamic province;
 @dynamic country;
-@dynamic phoneNumber;
+@dynamic email;
+@dynamic familyName;
+@dynamic gender;
 @dynamic isAddressFilled;
+@dynamic name;
+@dynamic password;
+@dynamic phoneNumber;
+@dynamic postalCode;
+@dynamic province;
+@dynamic sessionId;
+@dynamic usernameId;
 
 @end

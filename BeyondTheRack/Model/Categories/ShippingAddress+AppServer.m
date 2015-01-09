@@ -33,8 +33,8 @@
     if(!unique)
         return nil;
     
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FriendRelation"];
-    request.predicate = [NSPredicate predicateWithFormat:@"friendRelationId = %@", unique];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"ShippingAddress"];
+    request.predicate = [NSPredicate predicateWithFormat:@"shippingAddressId = %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
@@ -51,7 +51,7 @@
         
         shippingAddress = [matches firstObject];
         
-        if ([ShippingAddress valueForKeyPath:@"id"])
+        if ([shippingAddressDictionary valueForKeyPath:@"id"])
             shippingAddress.shippingAddressId = [shippingAddressDictionary valueForKeyPath:@"id"];
         
         
@@ -74,7 +74,7 @@
     return shippingAddress;
 }
 
-+ (NSMutableArray *)loadShippingAddressesFromAppServerArray:(NSArray *)shippingAddresses // of AppServer FriendRelation NSDictionary
++ (NSMutableArray *)loadShippingAddressesFromAppServerArray:(NSArray *)shippingAddresses // of AppServer ShippingAddress NSDictionary
                                    intoManagedObjectContext:(NSManagedObjectContext *)context
 {
     

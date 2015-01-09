@@ -12,13 +12,13 @@
 
 @interface Item : NSManagedObject
 
-@property (nonatomic, retain) NSString * itemId;
+@property (nonatomic, retain) NSString * discount;
 @property (nonatomic, retain) NSString * eventId;
-@property (nonatomic, retain) NSString * productId;
+@property (nonatomic, retain) NSDate * expiryDateTime;
 @property (nonatomic, retain) NSString * imageName;
 @property (nonatomic, retain) NSString * itemDescription;
-@property (nonatomic, retain) NSString * discount;
+@property (nonatomic, retain) NSString * itemId;
+@property (nonatomic, retain) NSString * productId;
 @property (nonatomic, retain) NSString * saveUpTo;
-@property (nonatomic, retain) NSDate * expiryDateTime;
 
 @end

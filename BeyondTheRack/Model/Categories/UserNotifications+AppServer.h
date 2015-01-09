@@ -10,4 +10,11 @@
 
 @interface UserNotifications (AppServer)
 
+
++ (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
+
+
++ (UserNotifications *)userNotificationsWithAppServerInfo:(NSDictionary *)userNotificationsDictionary
+                               inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end

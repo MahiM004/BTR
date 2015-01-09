@@ -11,15 +11,15 @@
 
 @implementation ShippingAddress
 
-@dynamic shippingAddressId;
-@dynamic usernameId;
-@dynamic recipientName;
 @dynamic addressLine1;
 @dynamic addressLine2;
-@dynamic postalCode;
 @dynamic city;
-@dynamic province;
 @dynamic country;
 @dynamic phoneNumber;
+@dynamic postalCode;
+@dynamic province;
+@dynamic recipientName;
+@dynamic shippingAddressId;
+@dynamic usernameId;
 
 @end

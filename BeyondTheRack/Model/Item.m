@@ -11,13 +11,13 @@
 
 @implementation Item
 
-@dynamic itemId;
+@dynamic discount;
 @dynamic eventId;
-@dynamic productId;
+@dynamic expiryDateTime;
 @dynamic imageName;
 @dynamic itemDescription;
-@dynamic discount;
+@dynamic itemId;
+@dynamic productId;
 @dynamic saveUpTo;
-@dynamic expiryDateTime;
 
 @end

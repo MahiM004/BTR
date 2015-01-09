@@ -10,4 +10,12 @@
 
 @interface General1 (AppServer)
 
+
++ (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
+
+
++ (General1 *)general1WithAppServerInfo:(NSDictionary *)general1Dictionary
+                               inManagedObjectContext:(NSManagedObjectContext *)context;
+
+
 @end
