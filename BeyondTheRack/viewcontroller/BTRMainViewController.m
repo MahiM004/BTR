@@ -6,22 +6,22 @@
 //  Copyright (c) 2014 Hadi Kheyruri. All rights reserved.
 //
 
-#import "MainViewController.h"
-#import "ShoppingBagViewController.h"
+#import "BTRMainViewController.h"
+#import "BTRShoppingBagViewController.h"
 
 
 
 #import "TTScrollSlidingPagesController.h"
 #import "TTSlidingPage.h"
 #import "TTSlidingPageTitle.h"
-#import "EventsTableTableViewController.h"
+#import "BTREventsTableTableViewController.h"
 
 
 #import <math.h>
 
 #define YOUR_CATAGORY 4
 
-@interface MainViewController ()
+@interface BTRMainViewController ()
 
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation MainViewController
+@implementation BTRMainViewController
 
 
 - (void)viewWillAppear:(BOOL)animated

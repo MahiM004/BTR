@@ -10,7 +10,7 @@
 #import "TTUITableViewZoomController.h"
 
 
-@interface EventsTableTableViewController : TTUITableViewZoomController
+@interface BTREventsTableTableViewController : TTUITableViewZoomController
 
 @property (strong, nonatomic) NSMutableArray *eventsArray;
 

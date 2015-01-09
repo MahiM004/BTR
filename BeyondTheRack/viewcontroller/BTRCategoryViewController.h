@@ -11,7 +11,7 @@
 #import "TTSlidingPagesDataSource.h"
 #import "TTSliddingPageDelegate.h"
 
-@interface CategoryViewController : UIViewController<TTSlidingPagesDataSource, TTSliddingPageDelegate>{
+@interface BTRCategoryViewController : UIViewController<TTSlidingPagesDataSource, TTSliddingPageDelegate>{
 }
 
 

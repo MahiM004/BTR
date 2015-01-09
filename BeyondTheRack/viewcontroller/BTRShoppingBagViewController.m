@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Hadi Kheyruri. All rights reserved.
 //
 
-#import "ShoppingBagViewController.h"
-#import "ApprovePurchaseViewController.h"
+#import "BTRShoppingBagViewController.h"
+#import "BTRApprovePurchaseViewController.h"
 
-@interface ShoppingBagViewController ()
+@interface BTRShoppingBagViewController ()
 
 @end
 
-@implementation ShoppingBagViewController
+@implementation BTRShoppingBagViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -1,5 +1,5 @@
 //
-//  EventTableViewCell.h
+//  BTREventTableViewCell.h
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-08.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EventTableViewCell : UITableViewCell
+@interface BTREventTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 

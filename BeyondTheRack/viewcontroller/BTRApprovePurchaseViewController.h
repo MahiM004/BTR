@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ApprovePurchaseViewController : UIViewController
+@interface BTRApprovePurchaseViewController : UIViewController
 
 @end

@@ -1,14 +1,14 @@
 //
-//  EventTableViewCell.m
+//  BTREventTableViewCell.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-08.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "EventTableViewCell.h"
+#import "BTREventTableViewCell.h"
 
-@implementation EventTableViewCell
+@implementation BTREventTableViewCell
 @synthesize imageView;
 
 - (void)awakeFromNib {

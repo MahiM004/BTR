@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Hadi Kheyruri. All rights reserved.
 //
 
-#import "MyAccountViewController.h"
+#import "BTRMyAccountViewController.h"
 
-@interface MyAccountViewController ()
+@interface BTRMyAccountViewController ()
 
 @end
 
-@implementation MyAccountViewController
+@implementation BTRMyAccountViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

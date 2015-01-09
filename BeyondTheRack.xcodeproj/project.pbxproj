@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		695F99E41A573DB700A80D12 /* ApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* ApprovePurchaseViewController.m */; };
-		69765FED1A51BE5A004A0F46 /* MyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEC1A51BE5A004A0F46 /* MyAccountViewController.m */; };
+		695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */; };
+		69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */; };
 		697E05811A434121000146C6 /* BTRUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 697E05801A434121000146C6 /* BTRUtility.m */; };
 		69807AEA1A4210740001A154 /* neulogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AE91A4210740001A154 /* neulogo.png */; };
 		69807AEE1A42131E0001A154 /* neuaccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AED1A42131E0001A154 /* neuaccount.png */; };
@@ -17,18 +17,18 @@
 		69867A051A43894B003CE59C /* neumyaccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A041A43894B003CE59C /* neumyaccount.png */; };
 		69867A071A438A8C003CE59C /* bagicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A061A438A8C003CE59C /* bagicon.png */; };
 		69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A0A1A446FCA003CE59C /* backarrowcool.png */; };
-		69867A151A44A701003CE59C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A141A44A701003CE59C /* MainViewController.m */; };
+		69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A141A44A701003CE59C /* BTRMainViewController.m */; };
 		69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C911A5DA23100040C86 /* TTBlackTriangle.m */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
 		69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C981A5DA23100040C86 /* TTSlidingPage.m */; };
 		69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */; };
-		69B02CAD1A5DA70700040C86 /* EventsTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CAB1A5DA70700040C86 /* EventsTableTableViewController.m */; };
-		69B02CAE1A5DA70700040C86 /* EventsTableTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B02CAC1A5DA70700040C86 /* EventsTableTableViewController.xib */; };
+		69B02CAD1A5DA70700040C86 /* BTREventsTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CAB1A5DA70700040C86 /* BTREventsTableTableViewController.m */; };
+		69B02CAE1A5DA70700040C86 /* BTREventsTableTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B02CAC1A5DA70700040C86 /* BTREventsTableTableViewController.xib */; };
 		69B02CB11A5DA80900040C86 /* TTUITableViewZoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CB01A5DA80900040C86 /* TTUITableViewZoomController.m */; };
-		69B02CB41A5DBAB000040C86 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CB31A5DBAB000040C86 /* CategoryViewController.m */; };
-		69B02CBD1A5ED32700040C86 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CBB1A5ED32700040C86 /* EventTableViewCell.m */; };
-		69B02CBE1A5ED32700040C86 /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B02CBC1A5ED32700040C86 /* EventTableViewCell.xib */; };
+		69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */; };
+		69B02CBD1A5ED32700040C86 /* BTREventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CBB1A5ED32700040C86 /* BTREventTableViewCell.m */; };
+		69B02CBE1A5ED32700040C86 /* BTREventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B02CBC1A5ED32700040C86 /* BTREventTableViewCell.xib */; };
 		69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B02CBF1A60304000040C86 /* CoreData.framework */; };
 		69B02CC71A6031A700040C86 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CC51A6031A700040C86 /* Model.xcdatamodeld */; };
 		69B02CCA1A60471500040C86 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CC91A60471500040C86 /* Order.m */; };
@@ -51,10 +51,9 @@
 		69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D061A605AED00040C86 /* Item+AppServer.m */; };
 		69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D091A605B0F00040C86 /* BagItem+AppServer.m */; };
 		69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D0C1A605B2A00040C86 /* Order+AppServer.m */; };
-		69B02D101A605DD900040C86 /* PaymentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D0F1A605DD900040C86 /* PaymentDetail.m */; };
 		69B02D131A605E2000040C86 /* PaymentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D121A605E2000040C86 /* PaymentDetail.m */; };
 		69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D151A605E8700040C86 /* PaymentDetail+AppServer.m */; };
-		69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */; };
+		69B55F0D1A4B1AFC009A5524 /* BTRShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* BTRShoppingBagViewController.m */; };
 		69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C15AAF1A51FFE200D6E358 /* bareffect.png */; };
 		69EB9E131A5B00D2003A48F1 /* itemInBag.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EB9E121A5B00D2003A48F1 /* itemInBag.png */; };
 		69F734D71A5AEA0500698081 /* eventcurveycloset.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734C91A5AEA0500698081 /* eventcurveycloset.png */; };
@@ -72,7 +71,7 @@
 		69F734E31A5AEA0500698081 /* eventwomen2.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734D51A5AEA0500698081 /* eventwomen2.png */; };
 		69F734E41A5AEA0500698081 /* eventwomen3.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F734D61A5AEA0500698081 /* eventwomen3.png */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
-		69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* AppDelegate.m */; };
+		69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */; };
 		69FF40751A3F8939000BD092 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40731A3F8939000BD092 /* Main.storyboard */; };
 		69FF40771A3F8939000BD092 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40761A3F8939000BD092 /* Images.xcassets */; };
 		69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40781A3F8939000BD092 /* LaunchScreen.xib */; };
@@ -90,10 +89,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		695F99E21A573DB700A80D12 /* ApprovePurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApprovePurchaseViewController.h; sourceTree = "<group>"; };
-		695F99E31A573DB700A80D12 /* ApprovePurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApprovePurchaseViewController.m; sourceTree = "<group>"; };
-		69765FEB1A51BE5A004A0F46 /* MyAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAccountViewController.h; sourceTree = "<group>"; };
-		69765FEC1A51BE5A004A0F46 /* MyAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAccountViewController.m; sourceTree = "<group>"; };
+		695F99E21A573DB700A80D12 /* BTRApprovePurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRApprovePurchaseViewController.h; sourceTree = "<group>"; };
+		695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRApprovePurchaseViewController.m; sourceTree = "<group>"; };
+		69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMyAccountViewController.h; sourceTree = "<group>"; };
+		69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMyAccountViewController.m; sourceTree = "<group>"; };
 		697E057F1A434121000146C6 /* BTRUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRUtility.h; sourceTree = "<group>"; };
 		697E05801A434121000146C6 /* BTRUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRUtility.m; sourceTree = "<group>"; };
 		69807AE91A4210740001A154 /* neulogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neulogo.png; sourceTree = "<group>"; };
@@ -104,8 +103,8 @@
 		69867A041A43894B003CE59C /* neumyaccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neumyaccount.png; sourceTree = "<group>"; };
 		69867A061A438A8C003CE59C /* bagicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bagicon.png; sourceTree = "<group>"; };
 		69867A0A1A446FCA003CE59C /* backarrowcool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrowcool.png; sourceTree = "<group>"; };
-		69867A131A44A701003CE59C /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		69867A141A44A701003CE59C /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		69867A131A44A701003CE59C /* BTRMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMainViewController.h; sourceTree = "<group>"; };
+		69867A141A44A701003CE59C /* BTRMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMainViewController.m; sourceTree = "<group>"; };
 		69B02C901A5DA23100040C86 /* TTBlackTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBlackTriangle.h; sourceTree = "<group>"; };
 		69B02C911A5DA23100040C86 /* TTBlackTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBlackTriangle.m; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
@@ -119,16 +118,16 @@
 		69B02C9A1A5DA23100040C86 /* TTSlidingPageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPageTitle.h; sourceTree = "<group>"; };
 		69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPageTitle.m; sourceTree = "<group>"; };
 		69B02C9C1A5DA23100040C86 /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
-		69B02CAA1A5DA70700040C86 /* EventsTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTableTableViewController.h; sourceTree = "<group>"; };
-		69B02CAB1A5DA70700040C86 /* EventsTableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTableTableViewController.m; sourceTree = "<group>"; };
-		69B02CAC1A5DA70700040C86 /* EventsTableTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventsTableTableViewController.xib; sourceTree = "<group>"; };
+		69B02CAA1A5DA70700040C86 /* BTREventsTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventsTableTableViewController.h; sourceTree = "<group>"; };
+		69B02CAB1A5DA70700040C86 /* BTREventsTableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventsTableTableViewController.m; sourceTree = "<group>"; };
+		69B02CAC1A5DA70700040C86 /* BTREventsTableTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTREventsTableTableViewController.xib; sourceTree = "<group>"; };
 		69B02CAF1A5DA80900040C86 /* TTUITableViewZoomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUITableViewZoomController.h; sourceTree = "<group>"; };
 		69B02CB01A5DA80900040C86 /* TTUITableViewZoomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTUITableViewZoomController.m; sourceTree = "<group>"; };
-		69B02CB21A5DBAB000040C86 /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
-		69B02CB31A5DBAB000040C86 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
-		69B02CBA1A5ED32700040C86 /* EventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTableViewCell.h; sourceTree = "<group>"; };
-		69B02CBB1A5ED32700040C86 /* EventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
-		69B02CBC1A5ED32700040C86 /* EventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
+		69B02CB21A5DBAB000040C86 /* BTRCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRCategoryViewController.h; sourceTree = "<group>"; };
+		69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRCategoryViewController.m; sourceTree = "<group>"; };
+		69B02CBA1A5ED32700040C86 /* BTREventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventTableViewCell.h; sourceTree = "<group>"; };
+		69B02CBB1A5ED32700040C86 /* BTREventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventTableViewCell.m; sourceTree = "<group>"; };
+		69B02CBC1A5ED32700040C86 /* BTREventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTREventTableViewCell.xib; sourceTree = "<group>"; };
 		69B02CBF1A60304000040C86 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		69B02CC61A6031A700040C86 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		69B02CC81A60471500040C86 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
@@ -177,8 +176,8 @@
 		69B02D121A605E2000040C86 /* PaymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentDetail.m; sourceTree = "<group>"; };
 		69B02D141A605E8700040C86 /* PaymentDetail+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PaymentDetail+AppServer.h"; sourceTree = "<group>"; };
 		69B02D151A605E8700040C86 /* PaymentDetail+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PaymentDetail+AppServer.m"; sourceTree = "<group>"; };
-		69B55F0A1A4B1AFC009A5524 /* ShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingBagViewController.h; sourceTree = "<group>"; };
-		69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingBagViewController.m; sourceTree = "<group>"; };
+		69B55F0A1A4B1AFC009A5524 /* BTRShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRShoppingBagViewController.h; sourceTree = "<group>"; };
+		69B55F0B1A4B1AFC009A5524 /* BTRShoppingBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRShoppingBagViewController.m; sourceTree = "<group>"; };
 		69C15AAF1A51FFE200D6E358 /* bareffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bareffect.png; path = "category pics/bareffect.png"; sourceTree = "<group>"; };
 		69EB9E121A5B00D2003A48F1 /* itemInBag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemInBag.png; sourceTree = "<group>"; };
 		69F734C91A5AEA0500698081 /* eventcurveycloset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventcurveycloset.png; sourceTree = "<group>"; };
@@ -198,8 +197,8 @@
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69FF40671A3F8939000BD092 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69FF40681A3F8939000BD092 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		69FF406A1A3F8939000BD092 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		69FF406B1A3F8939000BD092 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		69FF406A1A3F8939000BD092 /* BTRAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTRAppDelegate.h; sourceTree = "<group>"; };
+		69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTRAppDelegate.m; sourceTree = "<group>"; };
 		69FF40741A3F8939000BD092 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		69FF40761A3F8939000BD092 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		69FF40791A3F8939000BD092 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -230,10 +229,10 @@
 		695F99D81A573D1500A80D12 /* checkout */ = {
 			isa = PBXGroup;
 			children = (
-				69B55F0A1A4B1AFC009A5524 /* ShoppingBagViewController.h */,
-				69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */,
-				695F99E21A573DB700A80D12 /* ApprovePurchaseViewController.h */,
-				695F99E31A573DB700A80D12 /* ApprovePurchaseViewController.m */,
+				69B55F0A1A4B1AFC009A5524 /* BTRShoppingBagViewController.h */,
+				69B55F0B1A4B1AFC009A5524 /* BTRShoppingBagViewController.m */,
+				695F99E21A573DB700A80D12 /* BTRApprovePurchaseViewController.h */,
+				695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */,
 			);
 			name = checkout;
 			sourceTree = "<group>";
@@ -241,9 +240,9 @@
 		697E057B1A432FCD000146C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				69B02CBA1A5ED32700040C86 /* EventTableViewCell.h */,
-				69B02CBB1A5ED32700040C86 /* EventTableViewCell.m */,
-				69B02CBC1A5ED32700040C86 /* EventTableViewCell.xib */,
+				69B02CBA1A5ED32700040C86 /* BTREventTableViewCell.h */,
+				69B02CBB1A5ED32700040C86 /* BTREventTableViewCell.m */,
+				69B02CBC1A5ED32700040C86 /* BTREventTableViewCell.xib */,
 			);
 			name = View;
 			path = view;
@@ -252,15 +251,15 @@
 		697E057C1A432FCD000146C6 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				69867A131A44A701003CE59C /* MainViewController.h */,
-				69867A141A44A701003CE59C /* MainViewController.m */,
-				69B02CB21A5DBAB000040C86 /* CategoryViewController.h */,
-				69B02CB31A5DBAB000040C86 /* CategoryViewController.m */,
-				69B02CAA1A5DA70700040C86 /* EventsTableTableViewController.h */,
-				69B02CAB1A5DA70700040C86 /* EventsTableTableViewController.m */,
-				69B02CAC1A5DA70700040C86 /* EventsTableTableViewController.xib */,
-				69765FEB1A51BE5A004A0F46 /* MyAccountViewController.h */,
-				69765FEC1A51BE5A004A0F46 /* MyAccountViewController.m */,
+				69867A131A44A701003CE59C /* BTRMainViewController.h */,
+				69867A141A44A701003CE59C /* BTRMainViewController.m */,
+				69B02CB21A5DBAB000040C86 /* BTRCategoryViewController.h */,
+				69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */,
+				69B02CAA1A5DA70700040C86 /* BTREventsTableTableViewController.h */,
+				69B02CAB1A5DA70700040C86 /* BTREventsTableTableViewController.m */,
+				69B02CAC1A5DA70700040C86 /* BTREventsTableTableViewController.xib */,
+				69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */,
+				69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */,
 				695F99D81A573D1500A80D12 /* checkout */,
 			);
 			name = ViewController;
@@ -422,8 +421,8 @@
 			isa = PBXGroup;
 			children = (
 				69FF40731A3F8939000BD092 /* Main.storyboard */,
-				69FF406A1A3F8939000BD092 /* AppDelegate.h */,
-				69FF406B1A3F8939000BD092 /* AppDelegate.m */,
+				69FF406A1A3F8939000BD092 /* BTRAppDelegate.h */,
+				69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */,
 				69FF40761A3F8939000BD092 /* Images.xcassets */,
 				69FF40781A3F8939000BD092 /* LaunchScreen.xib */,
 				69B02CC41A60319600040C86 /* Model */,
@@ -549,7 +548,7 @@
 				69807AEE1A42131E0001A154 /* neuaccount.png in Resources */,
 				69F734D81A5AEA0500698081 /* eventholidaysale.png in Resources */,
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
-				69B02CBE1A5ED32700040C86 /* EventTableViewCell.xib in Resources */,
+				69B02CBE1A5ED32700040C86 /* BTREventTableViewCell.xib in Resources */,
 				69F734DA1A5AEA0500698081 /* eventhome2.png in Resources */,
 				69807AF01A4215490001A154 /* neucart.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
@@ -564,7 +563,7 @@
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
 				69F734DF1A5AEA0500698081 /* eventoutlet2.png in Resources */,
 				69F734E31A5AEA0500698081 /* eventwomen2.png in Resources */,
-				69B02CAE1A5DA70700040C86 /* EventsTableTableViewController.xib in Resources */,
+				69B02CAE1A5DA70700040C86 /* BTREventsTableTableViewController.xib in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */,
 				69F734E21A5AEA0500698081 /* eventwomen1.png in Resources */,
@@ -591,14 +590,15 @@
 			files = (
 				69B02CD01A60471600040C86 /* Item.m in Sources */,
 				69B02CF51A605A4400040C86 /* General1+AppServer.m in Sources */,
+				69B02D131A605E2000040C86 /* PaymentDetail.m in Sources */,
 				69B02CCD1A60471600040C86 /* BagItem.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
 				69B02CCA1A60471500040C86 /* Order.m in Sources */,
 				69B02CE21A60471600040C86 /* UserNotifications.m in Sources */,
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
-				695F99E41A573DB700A80D12 /* ApprovePurchaseViewController.m in Sources */,
+				695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */,
 				69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */,
-				69B02CBD1A5ED32700040C86 /* EventTableViewCell.m in Sources */,
+				69B02CBD1A5ED32700040C86 /* BTREventTableViewCell.m in Sources */,
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				69B02CFB1A605A7500040C86 /* General3+AppServer.m in Sources */,
 				69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */,
@@ -608,27 +608,25 @@
 				69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */,
 				69B02CD61A60471600040C86 /* User.m in Sources */,
 				69B02CD31A60471600040C86 /* Event.m in Sources */,
-				69B02CAD1A5DA70700040C86 /* EventsTableTableViewController.m in Sources */,
+				69B02CAD1A5DA70700040C86 /* BTREventsTableTableViewController.m in Sources */,
 				69B02CDF1A60471600040C86 /* General2.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
-				69867A151A44A701003CE59C /* MainViewController.m in Sources */,
-				69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */,
+				69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */,
+				69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */,
 				69B02CC71A6031A700040C86 /* Model.xcdatamodeld in Sources */,
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
-				69B02CB41A5DBAB000040C86 /* CategoryViewController.m in Sources */,
+				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69B02CB11A5DA80900040C86 /* TTUITableViewZoomController.m in Sources */,
-				69B02D131A605E2000040C86 /* PaymentDetail.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
-				69765FED1A51BE5A004A0F46 /* MyAccountViewController.m in Sources */,
-				69B02D101A605DD900040C86 /* PaymentDetail.m in Sources */,
+				69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
 				69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */,
 				69B02CD91A60471600040C86 /* General1.m in Sources */,
-				69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */,
+				69B55F0D1A4B1AFC009A5524 /* BTRShoppingBagViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

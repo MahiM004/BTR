@@ -6,23 +6,23 @@
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "CategoryViewController.h"
+#import "BTRCategoryViewController.h"
 
 
 #import "TTScrollSlidingPagesController.h"
 #import "TTSlidingPage.h"
 #import "TTSlidingPageTitle.h"
-#import "EventsTableTableViewController.h"
+#import "BTREventsTableTableViewController.h"
 
 
 
-@interface CategoryViewController ()
+@interface BTRCategoryViewController ()
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
 
 @end
 
-@implementation CategoryViewController
+@implementation BTRCategoryViewController
 
 
 - (void)viewDidLoad {
@@ -107,7 +107,7 @@
     UIViewController *viewController;
     
     
-    EventsTableTableViewController *myVC  = [[EventsTableTableViewController alloc] init];
+    BTREventsTableTableViewController *myVC  = [[BTREventsTableTableViewController alloc] init];
     myVC.eventsArray = [[self dataArray] objectAtIndex:index];
     viewController = myVC;
     

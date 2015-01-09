@@ -6,21 +6,21 @@
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "EventsTableTableViewController.h"
-#import "EventTableViewCell.h"
+#import "BTREventsTableTableViewController.h"
+#import "BTREventTableViewCell.h"
 
 
-@interface EventsTableTableViewController ()
+@interface BTREventsTableTableViewController ()
 
 @end
 
-@implementation EventsTableTableViewController
+@implementation BTREventsTableTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     //
-    [self.tableView registerNib:[UINib nibWithNibName:@"EventTableViewCell" bundle:nil]
+    [self.tableView registerNib:[UINib nibWithNibName:@"BTREventTableViewCell" bundle:nil]
          forCellReuseIdentifier:@"EventCellIdentifier"];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

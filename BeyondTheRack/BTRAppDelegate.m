@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Hadi Kheyruri. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "BTRAppDelegate.h"
 
-@interface AppDelegate ()
+@interface BTRAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation BTRAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

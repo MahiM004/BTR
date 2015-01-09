@@ -12,6 +12,6 @@
 #import "TTSliddingPageDelegate.h"
 
 
-@interface MainViewController : UIViewController
+@interface BTRMainViewController : UIViewController
 
 @end

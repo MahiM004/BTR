@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "ApprovePurchaseViewController.h"
+#import "BTRApprovePurchaseViewController.h"
 
-@interface ApprovePurchaseViewController ()
+@interface BTRApprovePurchaseViewController ()
 
 @end
 
-@implementation ApprovePurchaseViewController
+@implementation BTRApprovePurchaseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
