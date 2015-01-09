@@ -42,6 +42,17 @@
 		69B02CE21A60471600040C86 /* UserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE11A60471600040C86 /* UserNotifications.m */; };
 		69B02CE51A60471600040C86 /* ShippingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE41A60471600040C86 /* ShippingAddress.m */; };
 		69B02CE81A60471600040C86 /* PaymentDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE71A60471600040C86 /* PaymentDetails.m */; };
+		69B02CEC1A6059E800040C86 /* PaymentDetails+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CEB1A6059E800040C86 /* PaymentDetails+AppServer.m */; };
+		69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CEE1A605A0400040C86 /* ShippingAddress+AppServer.m */; };
+		69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CF11A605A2700040C86 /* UserNotifications+AppServer.m */; };
+		69B02CF51A605A4400040C86 /* General1+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CF41A605A4400040C86 /* General1+AppServer.m */; };
+		69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CF71A605A6300040C86 /* General2+AppServer.m */; };
+		69B02CFB1A605A7500040C86 /* General3+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CFA1A605A7500040C86 /* General3+AppServer.m */; };
+		69B02D011A605AB700040C86 /* User+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D001A605AB700040C86 /* User+AppServer.m */; };
+		69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D031A605AD200040C86 /* Event+AppServer.m */; };
+		69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D061A605AED00040C86 /* Item+AppServer.m */; };
+		69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D091A605B0F00040C86 /* BagItem+AppServer.m */; };
+		69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D0C1A605B2A00040C86 /* Order+AppServer.m */; };
 		69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */; };
 		69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C15AAF1A51FFE200D6E358 /* bareffect.png */; };
 		69EB9E131A5B00D2003A48F1 /* itemInBag.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EB9E121A5B00D2003A48F1 /* itemInBag.png */; };
@@ -141,6 +152,28 @@
 		69B02CE41A60471600040C86 /* ShippingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingAddress.m; sourceTree = "<group>"; };
 		69B02CE61A60471600040C86 /* PaymentDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentDetails.h; sourceTree = "<group>"; };
 		69B02CE71A60471600040C86 /* PaymentDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentDetails.m; sourceTree = "<group>"; };
+		69B02CEA1A6059E800040C86 /* PaymentDetails+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PaymentDetails+AppServer.h"; sourceTree = "<group>"; };
+		69B02CEB1A6059E800040C86 /* PaymentDetails+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PaymentDetails+AppServer.m"; sourceTree = "<group>"; };
+		69B02CED1A605A0400040C86 /* ShippingAddress+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ShippingAddress+AppServer.h"; sourceTree = "<group>"; };
+		69B02CEE1A605A0400040C86 /* ShippingAddress+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ShippingAddress+AppServer.m"; sourceTree = "<group>"; };
+		69B02CF01A605A2700040C86 /* UserNotifications+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UserNotifications+AppServer.h"; sourceTree = "<group>"; };
+		69B02CF11A605A2700040C86 /* UserNotifications+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UserNotifications+AppServer.m"; sourceTree = "<group>"; };
+		69B02CF31A605A4400040C86 /* General1+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "General1+AppServer.h"; sourceTree = "<group>"; };
+		69B02CF41A605A4400040C86 /* General1+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "General1+AppServer.m"; sourceTree = "<group>"; };
+		69B02CF61A605A6300040C86 /* General2+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "General2+AppServer.h"; sourceTree = "<group>"; };
+		69B02CF71A605A6300040C86 /* General2+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "General2+AppServer.m"; sourceTree = "<group>"; };
+		69B02CF91A605A7500040C86 /* General3+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "General3+AppServer.h"; sourceTree = "<group>"; };
+		69B02CFA1A605A7500040C86 /* General3+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "General3+AppServer.m"; sourceTree = "<group>"; };
+		69B02CFF1A605AB700040C86 /* User+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+AppServer.h"; sourceTree = "<group>"; };
+		69B02D001A605AB700040C86 /* User+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+AppServer.m"; sourceTree = "<group>"; };
+		69B02D021A605AD200040C86 /* Event+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+AppServer.h"; sourceTree = "<group>"; };
+		69B02D031A605AD200040C86 /* Event+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Event+AppServer.m"; sourceTree = "<group>"; };
+		69B02D051A605AED00040C86 /* Item+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Item+AppServer.h"; sourceTree = "<group>"; };
+		69B02D061A605AED00040C86 /* Item+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Item+AppServer.m"; sourceTree = "<group>"; };
+		69B02D081A605B0F00040C86 /* BagItem+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BagItem+AppServer.h"; sourceTree = "<group>"; };
+		69B02D091A605B0F00040C86 /* BagItem+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BagItem+AppServer.m"; sourceTree = "<group>"; };
+		69B02D0B1A605B2A00040C86 /* Order+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Order+AppServer.h"; sourceTree = "<group>"; };
+		69B02D0C1A605B2A00040C86 /* Order+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Order+AppServer.m"; sourceTree = "<group>"; };
 		69B55F0A1A4B1AFC009A5524 /* ShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingBagViewController.h; sourceTree = "<group>"; };
 		69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingBagViewController.m; sourceTree = "<group>"; };
 		69C15AAF1A51FFE200D6E358 /* bareffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bareffect.png; path = "category pics/bareffect.png"; sourceTree = "<group>"; };
@@ -283,6 +316,7 @@
 		69B02CC41A60319600040C86 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				69B02CE91A6058F400040C86 /* Categories */,
 				69B02CC51A6031A700040C86 /* Model.xcdatamodeld */,
 				69B02CE61A60471600040C86 /* PaymentDetails.h */,
 				69B02CE71A60471600040C86 /* PaymentDetails.m */,
@@ -308,6 +342,35 @@
 				69B02CC91A60471500040C86 /* Order.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		69B02CE91A6058F400040C86 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				69B02CEA1A6059E800040C86 /* PaymentDetails+AppServer.h */,
+				69B02CEB1A6059E800040C86 /* PaymentDetails+AppServer.m */,
+				69B02CED1A605A0400040C86 /* ShippingAddress+AppServer.h */,
+				69B02CEE1A605A0400040C86 /* ShippingAddress+AppServer.m */,
+				69B02CF01A605A2700040C86 /* UserNotifications+AppServer.h */,
+				69B02CF11A605A2700040C86 /* UserNotifications+AppServer.m */,
+				69B02CF31A605A4400040C86 /* General1+AppServer.h */,
+				69B02CF41A605A4400040C86 /* General1+AppServer.m */,
+				69B02CF61A605A6300040C86 /* General2+AppServer.h */,
+				69B02CF71A605A6300040C86 /* General2+AppServer.m */,
+				69B02CF91A605A7500040C86 /* General3+AppServer.h */,
+				69B02CFA1A605A7500040C86 /* General3+AppServer.m */,
+				69B02CFF1A605AB700040C86 /* User+AppServer.h */,
+				69B02D001A605AB700040C86 /* User+AppServer.m */,
+				69B02D021A605AD200040C86 /* Event+AppServer.h */,
+				69B02D031A605AD200040C86 /* Event+AppServer.m */,
+				69B02D051A605AED00040C86 /* Item+AppServer.h */,
+				69B02D061A605AED00040C86 /* Item+AppServer.m */,
+				69B02D081A605B0F00040C86 /* BagItem+AppServer.h */,
+				69B02D091A605B0F00040C86 /* BagItem+AppServer.m */,
+				69B02D0B1A605B2A00040C86 /* Order+AppServer.h */,
+				69B02D0C1A605B2A00040C86 /* Order+AppServer.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		69F734C81A5AEA0500698081 /* eventpics */ = {
@@ -522,27 +585,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B02CD01A60471600040C86 /* Item.m in Sources */,
+				69B02CF51A605A4400040C86 /* General1+AppServer.m in Sources */,
 				69B02CCD1A60471600040C86 /* BagItem.m in Sources */,
+				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
 				69B02CCA1A60471500040C86 /* Order.m in Sources */,
 				69B02CE21A60471600040C86 /* UserNotifications.m in Sources */,
+				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
 				695F99E41A573DB700A80D12 /* ApprovePurchaseViewController.m in Sources */,
 				69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */,
 				69B02CBD1A5ED32700040C86 /* EventTableViewCell.m in Sources */,
+				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
+				69B02CFB1A605A7500040C86 /* General3+AppServer.m in Sources */,
+				69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */,
 				69B02CE81A60471600040C86 /* PaymentDetails.m in Sources */,
 				69B02CE51A60471600040C86 /* ShippingAddress.m in Sources */,
+				69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */,
 				69B02CDC1A60471600040C86 /* General3.m in Sources */,
 				69B02CD61A60471600040C86 /* User.m in Sources */,
 				69B02CD31A60471600040C86 /* Event.m in Sources */,
+				69B02CEC1A6059E800040C86 /* PaymentDetails+AppServer.m in Sources */,
 				69B02CAD1A5DA70700040C86 /* EventsTableTableViewController.m in Sources */,
 				69B02CDF1A60471600040C86 /* General2.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
+				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
 				69867A151A44A701003CE59C /* MainViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* AppDelegate.m in Sources */,
 				69B02CC71A6031A700040C86 /* Model.xcdatamodeld in Sources */,
+				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* CategoryViewController.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69B02CB11A5DA80900040C86 /* TTUITableViewZoomController.m in Sources */,
+				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
 				69765FED1A51BE5A004A0F46 /* MyAccountViewController.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
