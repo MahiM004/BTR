@@ -72,7 +72,7 @@
         <attribute name="totalPrice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="usernameId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="PaymentDetails" representedClassName="PaymentDetails" syncable="YES">
+    <entity name="PaymentDetail" representedClassName="PaymentDetail" syncable="YES">
         <attribute name="addressLine1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="addressLine2" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cardholderName" optional="YES" attributeType="String" syncable="YES"/>
@@ -127,16 +127,16 @@
         <attribute name="womenDesignerBrands" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="User" positionX="-774" positionY="-117" width="128" height="268"/>
-        <element name="ShippingAddress" positionX="-587" positionY="-90" width="128" height="193"/>
-        <element name="PaymentDetails" positionX="-389" positionY="-100" width="128" height="253"/>
-        <element name="BagItem" positionX="-765" positionY="243" width="128" height="178"/>
-        <element name="Item" positionX="-189" positionY="260" width="128" height="163"/>
-        <element name="UserNotifications" positionX="-200" positionY="-40" width="128" height="148"/>
-        <element name="General1" positionX="7" positionY="-81" width="128" height="163"/>
-        <element name="Order" positionX="-585" positionY="236" width="128" height="178"/>
-        <element name="Event" positionX="-371" positionY="263" width="128" height="163"/>
-        <element name="General3" positionX="9" positionY="314" width="128" height="163"/>
-        <element name="General2" positionX="9" positionY="117" width="128" height="163"/>
+        <element name="BagItem" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="General1" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="General2" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="General3" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Item" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Order" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="PaymentDetail" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ShippingAddress" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UserNotifications" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

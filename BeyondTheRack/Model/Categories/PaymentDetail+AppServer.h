@@ -1,13 +1,13 @@
 //
-//  PaymentDetails+AppServer.h
+//  PaymentDetail+AppServer.h
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-09.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "PaymentDetails.h"
+#import "PaymentDetail.h"
 
-@interface PaymentDetails (AppServer)
+@interface PaymentDetail (AppServer)
 
 @end

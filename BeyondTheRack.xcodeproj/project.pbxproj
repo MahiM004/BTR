@@ -41,8 +41,6 @@
 		69B02CDF1A60471600040C86 /* General2.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CDE1A60471600040C86 /* General2.m */; };
 		69B02CE21A60471600040C86 /* UserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE11A60471600040C86 /* UserNotifications.m */; };
 		69B02CE51A60471600040C86 /* ShippingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE41A60471600040C86 /* ShippingAddress.m */; };
-		69B02CE81A60471600040C86 /* PaymentDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CE71A60471600040C86 /* PaymentDetails.m */; };
-		69B02CEC1A6059E800040C86 /* PaymentDetails+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CEB1A6059E800040C86 /* PaymentDetails+AppServer.m */; };
 		69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CEE1A605A0400040C86 /* ShippingAddress+AppServer.m */; };
 		69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CF11A605A2700040C86 /* UserNotifications+AppServer.m */; };
 		69B02CF51A605A4400040C86 /* General1+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CF41A605A4400040C86 /* General1+AppServer.m */; };
@@ -53,6 +51,9 @@
 		69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D061A605AED00040C86 /* Item+AppServer.m */; };
 		69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D091A605B0F00040C86 /* BagItem+AppServer.m */; };
 		69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D0C1A605B2A00040C86 /* Order+AppServer.m */; };
+		69B02D101A605DD900040C86 /* PaymentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D0F1A605DD900040C86 /* PaymentDetail.m */; };
+		69B02D131A605E2000040C86 /* PaymentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D121A605E2000040C86 /* PaymentDetail.m */; };
+		69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D151A605E8700040C86 /* PaymentDetail+AppServer.m */; };
 		69B55F0D1A4B1AFC009A5524 /* ShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */; };
 		69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C15AAF1A51FFE200D6E358 /* bareffect.png */; };
 		69EB9E131A5B00D2003A48F1 /* itemInBag.png in Resources */ = {isa = PBXBuildFile; fileRef = 69EB9E121A5B00D2003A48F1 /* itemInBag.png */; };
@@ -150,10 +151,6 @@
 		69B02CE11A60471600040C86 /* UserNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotifications.m; sourceTree = "<group>"; };
 		69B02CE31A60471600040C86 /* ShippingAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingAddress.h; sourceTree = "<group>"; };
 		69B02CE41A60471600040C86 /* ShippingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingAddress.m; sourceTree = "<group>"; };
-		69B02CE61A60471600040C86 /* PaymentDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentDetails.h; sourceTree = "<group>"; };
-		69B02CE71A60471600040C86 /* PaymentDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentDetails.m; sourceTree = "<group>"; };
-		69B02CEA1A6059E800040C86 /* PaymentDetails+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PaymentDetails+AppServer.h"; sourceTree = "<group>"; };
-		69B02CEB1A6059E800040C86 /* PaymentDetails+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PaymentDetails+AppServer.m"; sourceTree = "<group>"; };
 		69B02CED1A605A0400040C86 /* ShippingAddress+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ShippingAddress+AppServer.h"; sourceTree = "<group>"; };
 		69B02CEE1A605A0400040C86 /* ShippingAddress+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ShippingAddress+AppServer.m"; sourceTree = "<group>"; };
 		69B02CF01A605A2700040C86 /* UserNotifications+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UserNotifications+AppServer.h"; sourceTree = "<group>"; };
@@ -174,6 +171,12 @@
 		69B02D091A605B0F00040C86 /* BagItem+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BagItem+AppServer.m"; sourceTree = "<group>"; };
 		69B02D0B1A605B2A00040C86 /* Order+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Order+AppServer.h"; sourceTree = "<group>"; };
 		69B02D0C1A605B2A00040C86 /* Order+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Order+AppServer.m"; sourceTree = "<group>"; };
+		69B02D0E1A605DD900040C86 /* PaymentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaymentDetail.h; path = BeyondTheRack/Model/PaymentDetail.h; sourceTree = "<group>"; };
+		69B02D0F1A605DD900040C86 /* PaymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaymentDetail.m; path = BeyondTheRack/Model/PaymentDetail.m; sourceTree = "<group>"; };
+		69B02D111A605E2000040C86 /* PaymentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentDetail.h; sourceTree = "<group>"; };
+		69B02D121A605E2000040C86 /* PaymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentDetail.m; sourceTree = "<group>"; };
+		69B02D141A605E8700040C86 /* PaymentDetail+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PaymentDetail+AppServer.h"; sourceTree = "<group>"; };
+		69B02D151A605E8700040C86 /* PaymentDetail+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PaymentDetail+AppServer.m"; sourceTree = "<group>"; };
 		69B55F0A1A4B1AFC009A5524 /* ShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingBagViewController.h; sourceTree = "<group>"; };
 		69B55F0B1A4B1AFC009A5524 /* ShoppingBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingBagViewController.m; sourceTree = "<group>"; };
 		69C15AAF1A51FFE200D6E358 /* bareffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bareffect.png; path = "category pics/bareffect.png"; sourceTree = "<group>"; };
@@ -318,8 +321,8 @@
 			children = (
 				69B02CE91A6058F400040C86 /* Categories */,
 				69B02CC51A6031A700040C86 /* Model.xcdatamodeld */,
-				69B02CE61A60471600040C86 /* PaymentDetails.h */,
-				69B02CE71A60471600040C86 /* PaymentDetails.m */,
+				69B02D111A605E2000040C86 /* PaymentDetail.h */,
+				69B02D121A605E2000040C86 /* PaymentDetail.m */,
 				69B02CE31A60471600040C86 /* ShippingAddress.h */,
 				69B02CE41A60471600040C86 /* ShippingAddress.m */,
 				69B02CE01A60471600040C86 /* UserNotifications.h */,
@@ -347,8 +350,6 @@
 		69B02CE91A6058F400040C86 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				69B02CEA1A6059E800040C86 /* PaymentDetails+AppServer.h */,
-				69B02CEB1A6059E800040C86 /* PaymentDetails+AppServer.m */,
 				69B02CED1A605A0400040C86 /* ShippingAddress+AppServer.h */,
 				69B02CEE1A605A0400040C86 /* ShippingAddress+AppServer.m */,
 				69B02CF01A605A2700040C86 /* UserNotifications+AppServer.h */,
@@ -369,6 +370,8 @@
 				69B02D091A605B0F00040C86 /* BagItem+AppServer.m */,
 				69B02D0B1A605B2A00040C86 /* Order+AppServer.h */,
 				69B02D0C1A605B2A00040C86 /* Order+AppServer.m */,
+				69B02D141A605E8700040C86 /* PaymentDetail+AppServer.h */,
+				69B02D151A605E8700040C86 /* PaymentDetail+AppServer.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -397,6 +400,8 @@
 		69FF405A1A3F8939000BD092 = {
 			isa = PBXGroup;
 			children = (
+				69B02D0E1A605DD900040C86 /* PaymentDetail.h */,
+				69B02D0F1A605DD900040C86 /* PaymentDetail.m */,
 				69FF40651A3F8939000BD092 /* BeyondTheRack */,
 				69B02CBF1A60304000040C86 /* CoreData.framework */,
 				69FF40821A3F8939000BD092 /* BeyondTheRackTests */,
@@ -597,13 +602,12 @@
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				69B02CFB1A605A7500040C86 /* General3+AppServer.m in Sources */,
 				69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */,
-				69B02CE81A60471600040C86 /* PaymentDetails.m in Sources */,
 				69B02CE51A60471600040C86 /* ShippingAddress.m in Sources */,
 				69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */,
 				69B02CDC1A60471600040C86 /* General3.m in Sources */,
+				69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */,
 				69B02CD61A60471600040C86 /* User.m in Sources */,
 				69B02CD31A60471600040C86 /* Event.m in Sources */,
-				69B02CEC1A6059E800040C86 /* PaymentDetails+AppServer.m in Sources */,
 				69B02CAD1A5DA70700040C86 /* EventsTableTableViewController.m in Sources */,
 				69B02CDF1A60471600040C86 /* General2.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
@@ -616,9 +620,11 @@
 				69B02CB41A5DBAB000040C86 /* CategoryViewController.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69B02CB11A5DA80900040C86 /* TTUITableViewZoomController.m in Sources */,
+				69B02D131A605E2000040C86 /* PaymentDetail.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
 				69765FED1A51BE5A004A0F46 /* MyAccountViewController.m in Sources */,
+				69B02D101A605DD900040C86 /* PaymentDetail.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
 				69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */,
 				69B02CD91A60471600040C86 /* General1.m in Sources */,

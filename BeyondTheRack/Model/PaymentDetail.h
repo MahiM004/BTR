@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface PaymentDetails : NSManagedObject
+@interface PaymentDetail : NSManagedObject
 
 @property (nonatomic, retain) NSString * paymentDetailsId;
 @property (nonatomic, retain) NSString * usernameId;

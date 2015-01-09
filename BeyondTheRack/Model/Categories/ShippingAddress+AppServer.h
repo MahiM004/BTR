@@ -10,4 +10,15 @@
 
 @interface ShippingAddress (AppServer)
 
+
++ (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
+
+
++ (ShippingAddress *)shippingAddressWithAppServerInfo:(NSDictionary *)shippingAddressesDictionary
+                             inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (NSMutableArray *)loadShippingAddressesFromAppServerArray:(NSArray *)shippingAddresses // of AppServer FriendRelation NSDictionary
+                                intoManagedObjectContext:(NSManagedObjectContext *)context;
+
+
 @end
