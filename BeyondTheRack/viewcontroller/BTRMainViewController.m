@@ -17,6 +17,8 @@
 #import "BTREventsTableTableViewController.h"
 
 
+
+
 #import <math.h>
 
 #define YOUR_CATAGORY 4
@@ -36,6 +38,8 @@
 {
     [super viewWillAppear:animated];
     
+    
+
     // handling boundry indexes for category titles
 }
 
@@ -47,7 +51,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
+    
 }
 
 
@@ -66,6 +72,11 @@
     //[self.navigationController pushViewController:detailVC animated:YES];
 }
 
+
+
+
+
+#pragma mark - Navigation
 
 
 - (IBAction)tappedShoppingBag:(id)sender {

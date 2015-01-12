@@ -13,5 +13,6 @@
 
 + (NSURL *)URLforRecentEventsForCategoryId:(NSString *)categoryId;
 + (NSURL *)URLforAllRecentEvents;
++ (NSURL *)URLforEventImageWithId:(NSString *)imageId;
 
 @end

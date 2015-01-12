@@ -12,4 +12,8 @@
 
 + (UIImage *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;
 
++ (void)saveImage:(UIImage *)image withFilename:(NSString *)filename;
+
++ (UIImage *)imageWithFilename:(NSString *)filename;
+
 @end

@@ -8,6 +8,7 @@
 
 #import "BTREventsTableTableViewController.h"
 #import "BTREventTableViewCell.h"
+#import "BTREventFetcher.h"
 
 
 @interface BTREventsTableTableViewController ()
@@ -27,6 +28,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
 }
 
 
@@ -55,9 +57,39 @@
     static NSString *CellIdentifier = @"EventCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    cell.imageView.image = [UIImage imageNamed:[[self eventsArray] objectAtIndex:indexPath.row]];
+    //cell.imageView.image = [UIImage imageNamed:[[self eventsArray] objectAtIndex:indexPath.row]];
     
-    // Configure the cell...
+    
+    NSString *imageName = [NSString stringWithFormat:@"eventImage%@.PNG", [UIImage imageNamed:[[self eventsArray] objectAtIndex:indexPath.row]]];
+    UIImage *img = [BTRUtility imageWithFilename:imageName];
+    
+    if (img == nil)
+    {
+        
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:@"10"]];
+        
+        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+        requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"success");
+            cell.imageView.image = responseObject;
+            [BTRUtility saveImage:responseObject withFilename:imageName];
+            
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"fail");
+
+        }];
+        [requestOperation start];
+        
+    }
+    else {
+        cell.imageView.image = img;
+    }
+    
+    
+
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

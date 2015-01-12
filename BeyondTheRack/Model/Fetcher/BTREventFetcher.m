@@ -22,5 +22,9 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/events/all", BASEURL]];
 }
 
++ (NSURL *)URLforEventImageWithId:(NSString *)imageId
+{
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@", BASEURL, imageId]];
+}
 
 @end

@@ -16,9 +16,16 @@
 
 
 
+#import "BTREventFetcher.h"
+#import "Event+AppServer.h"
+
+
+
 @interface BTRCategoryViewController ()
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+
 
 @end
 
@@ -29,6 +36,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    [self getServerData];
+
+    
     [self initData];
     //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
     
@@ -128,6 +138,57 @@
     NSLog(@"scrolled to view");
 }
 
+
+
+# pragma mark - Load Events
+
+- (void)getServerData
+{
+    
+    //    if([Reachability connectedToInternet])
+    //  {
+    
+    if (!self.beyondTheRackDocument.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
+        
+    } else {
+        
+        [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
+    }
+    //   }
+    
+}
+
+
+- (void)fetchEventsDataIntoDocument:(UIManagedDocument *)document
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTREventFetcher URLforAllRecentEvents]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         
+         NSArray * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                          options:0
+                                                                            error:NULL];
+         
+         [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
+         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         //NSLog(@"Error: %@", error);
+     }];
+    
+}
 
 
 

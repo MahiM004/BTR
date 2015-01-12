@@ -27,7 +27,8 @@
                                inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Event *event = nil;
-    NSString *unique = eventDictionary[@"id"];
+    NSString *unique = eventDictionary[@"event_id"];
+    
     
     if(!unique)
         return nil;
@@ -50,8 +51,12 @@
         
         event = [matches firstObject];
         
-        if ([eventDictionary valueForKeyPath:@"id"])
-            event.eventId = [eventDictionary valueForKeyPath:@"id"];
+        if ([eventDictionary valueForKeyPath:@"event_id"])
+            event.eventId = [eventDictionary valueForKeyPath:@"event_id"];
+        
+        if ([eventDictionary[@"images"]  valueForKey:@"470x230"])
+            event.imageName = [eventDictionary[@"images"]  valueForKey:@"470x230"];
+
         
         
     } else if ([matches count] == 0 || [matches count] > 1 ) {
@@ -66,8 +71,13 @@
         event = [NSEntityDescription insertNewObjectForEntityForName:@"Event"
                                                         inManagedObjectContext:context];
         
-        if ([[eventDictionary valueForKeyPath:@"id"] stringValue])
-            event.eventId = [[eventDictionary valueForKeyPath:@"id"] stringValue];
+        
+        if ([eventDictionary valueForKeyPath:@"event_id"])
+            event.eventId = [eventDictionary valueForKeyPath:@"event_id"];
+        
+        if ([eventDictionary[@"images"]  valueForKey:@"470x230"])
+            event.imageName = [eventDictionary[@"images"]  valueForKey:@"470x230"];
+
     }
     
     return event;
@@ -78,6 +88,7 @@
 {
     
     NSMutableArray *eventArray = [[NSMutableArray alloc] init];
+    
     
     for (NSDictionary *event in events) {
         
