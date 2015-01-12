@@ -38,6 +38,8 @@
 		69869F9E1A63FB2100F986BC /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F931A63FB2100F986BC /* AFURLRequestSerialization.m */; };
 		69869F9F1A63FB2100F986BC /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F951A63FB2100F986BC /* AFURLResponseSerialization.m */; };
 		69869FA01A63FB2100F986BC /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F971A63FB2100F986BC /* AFURLSessionManager.m */; };
+		69869FA31A63FCA500F986BC /* BTRFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FA21A63FCA500F986BC /* BTRFetcher.m */; };
+		69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FA51A63FD6B00F986BC /* BTREventFetcher.m */; };
 		69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C911A5DA23100040C86 /* TTBlackTriangle.m */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
@@ -155,6 +157,10 @@
 		69869F951A63FB2100F986BC /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		69869F961A63FB2100F986BC /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		69869F971A63FB2100F986BC /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		69869FA11A63FCA500F986BC /* BTRFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFetcher.h; sourceTree = "<group>"; };
+		69869FA21A63FCA500F986BC /* BTRFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFetcher.m; sourceTree = "<group>"; };
+		69869FA41A63FD6B00F986BC /* BTREventFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventFetcher.h; sourceTree = "<group>"; };
+		69869FA51A63FD6B00F986BC /* BTREventFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventFetcher.m; sourceTree = "<group>"; };
 		69B02C901A5DA23100040C86 /* TTBlackTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBlackTriangle.h; sourceTree = "<group>"; };
 		69B02C911A5DA23100040C86 /* TTBlackTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBlackTriangle.m; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
@@ -325,6 +331,10 @@
 		69869F831A63F8FD00F986BC /* Fetcher */ = {
 			isa = PBXGroup;
 			children = (
+				69869FA11A63FCA500F986BC /* BTRFetcher.h */,
+				69869FA21A63FCA500F986BC /* BTRFetcher.m */,
+				69869FA41A63FD6B00F986BC /* BTREventFetcher.h */,
+				69869FA51A63FD6B00F986BC /* BTREventFetcher.m */,
 			);
 			path = Fetcher;
 			sourceTree = "<group>";
@@ -660,9 +670,11 @@
 				695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */,
 				69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */,
 				69B02CBD1A5ED32700040C86 /* BTREventTableViewCell.m in Sources */,
+				69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */,
 				69869FA01A63FB2100F986BC /* AFURLSessionManager.m in Sources */,
 				69869F671A6075E900F986BC /* Order.m in Sources */,
 				69869F991A63FB2100F986BC /* AFHTTPRequestOperationManager.m in Sources */,
+				69869FA31A63FCA500F986BC /* BTRFetcher.m in Sources */,
 				69869F7C1A6075EA00F986BC /* Event.m in Sources */,
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				69869F9B1A63FB2100F986BC /* AFNetworkReachabilityManager.m in Sources */,
