@@ -19,7 +19,6 @@
 @interface BTRCategoryViewController ()
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
-@property (strong, nonatomic) NSMutableArray *imageArray;
 
 
 @end
@@ -112,7 +111,6 @@
     
     
     BTREventsTableTableViewController *myVC  = [[BTREventsTableTableViewController alloc] init];
-    myVC.eventsArray = [[self dataArray] objectAtIndex:index];
     viewController = myVC;
     
     return [[TTSlidingPage alloc] initWithContentViewController:viewController];
@@ -146,93 +144,7 @@
                           @"Outlet",
                           @"Curvey Closet",
                           nil];
-
     
-    
-    self.dataArray = [[NSMutableArray alloc] initWithObjects:
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventwomen1.png",
-                               @"eventwomen2.png",
-                               @"eventwomen3.png",
-                               @"eventwomen2.png",
-                               @"eventwomen2.png",
-                               @"eventwomen3.png",
-                               @"eventwomen1.png",
-                               @"eventwomen3.png",
-                               nil],
-                              
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventmen1.png",
-                               @"eventmen2.png",
-                               @"eventmen1.png",
-                               @"eventmen2.png",
-                               @"eventmen1.png",
-                               @"eventmen2.png",
-                               nil],
-                      
-                      [[NSMutableArray alloc] initWithObjects:
-                       @"eventwomen1.png",
-                       @"eventwomen2.png",
-                       @"eventwomen3.png",
-                       @"eventmen1.png",
-                       @"eventmen2.png",
-                       @"eventhome1.png",
-                       @"eventhome2.png",
-                       @"eventoutlet1.png",
-                       @"eventoutlet2.png",
-                       @"eventoutlet3.png",
-                       @"eventoutlet4.png",
-                       @"eventkids.png",
-                       @"eventcurveycloset.png",
-                       @"eventholidaysale.png",
-                       nil],
-                
-                      [[NSMutableArray alloc] initWithObjects:
-                       @"eventhome1.png",
-                       @"eventhome1.png",
-                       @"eventhome1.png",
-                       @"eventhome2.png",
-                       @"eventhome1.png",
-                       @"eventhome2.png",
-                       nil],
-                      
-                      [[NSMutableArray alloc] initWithObjects:
-                       @"eventkids.png",
-                       @"eventkids.png",
-                       @"eventkids.png",
-                       @"eventkids.png",
-                       @"eventkids.png",
-                       nil],
-                      
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventoutlet1.png",
-                               @"eventoutlet2.png",
-                               @"eventoutlet3.png",
-                               @"eventoutlet4.png",
-                               @"eventoutlet2.png",
-                               @"eventoutlet4.png",
-                               @"eventoutlet1.png",
-                               @"eventoutlet3.png",
-                               @"eventoutlet1.png",
-                               @"eventoutlet1.png",
-                               @"eventoutlet2.png",
-                               @"eventoutlet4.png",
-                               nil],
-  
-                      
-            
-                              
-                              [[NSMutableArray alloc] initWithObjects:
-                               @"eventcurveycloset.png",
-                               @"eventcurveycloset.png",
-                               @"eventcurveycloset.png",
-                               @"eventcurveycloset.png",
-                               @"eventcurveycloset.png",
-                               @"eventcurveycloset.png",
-                               nil],
-
-                              
-                              nil];
 }
 
 

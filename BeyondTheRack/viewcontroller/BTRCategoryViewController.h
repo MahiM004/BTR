@@ -16,7 +16,5 @@
 
 
 @property (strong, nonatomic) NSMutableArray *categoryNames;
-@property (strong, nonatomic) NSMutableArray *dataArray;
-
 
 @end

@@ -12,6 +12,4 @@
 
 @interface BTREventsTableTableViewController : TTUITableViewZoomController
 
-@property (strong, nonatomic) NSMutableArray *eventsArray;
-
 @end

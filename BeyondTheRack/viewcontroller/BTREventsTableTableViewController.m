@@ -56,7 +56,7 @@
 {
     
     // Return the number of rows in the section.
-    return [[self eventsArray] count];
+    return [[self imageArray] count];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
