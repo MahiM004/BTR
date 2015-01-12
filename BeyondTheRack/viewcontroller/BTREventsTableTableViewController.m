@@ -60,13 +60,15 @@
     //cell.imageView.image = [UIImage imageNamed:[[self eventsArray] objectAtIndex:indexPath.row]];
     
     
-    NSString *imageName = [NSString stringWithFormat:@"eventImage%@.PNG", [UIImage imageNamed:[[self eventsArray] objectAtIndex:indexPath.row]]];
+    NSString *imageName = [NSString stringWithFormat:@"eventImage%d.PNG",indexPath.row];
+    NSLog(@"image name: %@", imageName);
+    
     UIImage *img = [BTRUtility imageWithFilename:imageName];
     
     if (img == nil)
     {
         
-        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:@"10"]];
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[[self eventsArray] objectAtIndex:indexPath.row]]];
         
         AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
         requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
@@ -78,7 +80,7 @@
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"fail");
+            NSLog(@"Error: %@", error);
 
         }];
         [requestOperation start];

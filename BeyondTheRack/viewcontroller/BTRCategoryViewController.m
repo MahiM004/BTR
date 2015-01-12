@@ -25,6 +25,7 @@
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (strong, nonatomic) NSMutableArray *imageArray;
 
 
 @end
@@ -36,7 +37,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    [self getServerData];
 
     
     [self initData];
@@ -180,8 +180,17 @@
                                                                           options:0
                                                                             error:NULL];
          
-         [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
+         NSArray *eventObjects = [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         
+         
+
+         self.imageArray = [[NSMutableArray alloc] init];
+         
+         for (NSDictionary *myEvent in eventObjects) {
+             [self.imageArray addObject:[(Event *)myEvent imageName]];
+         }
+         [self initImageData];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -204,7 +213,37 @@
                           @"Outlet",
                           @"Curvey Closet",
                           nil];
-        
+}
+
+- (void) initImageData {
+    NSLog(@"count: %d", [[self imageArray] count]);
+    self.dataArray = [[NSMutableArray alloc] initWithObjects:
+                      
+                      
+                      [[NSMutableArray alloc] initWithObjects:
+                       [self imageArray], nil],
+                      
+                      [[NSMutableArray alloc] initWithObjects:
+                       [self imageArray], nil],
+                      
+                      [[NSMutableArray alloc] initWithObjects:
+                       [self imageArray], nil],
+                      
+                      [[NSMutableArray alloc] initWithObjects:
+                       [self imageArray], nil],
+                      
+                      [[NSMutableArray alloc] initWithObjects:
+                       [self imageArray], nil],
+
+                      [[NSMutableArray alloc] initWithObjects:
+                       [self imageArray], nil],
+                      
+                      [[NSMutableArray alloc] initWithObjects:
+                       [self imageArray], nil],
+
+                      nil];
+    
+        /*
     self.dataArray = [[NSMutableArray alloc] initWithObjects:
                               [[NSMutableArray alloc] initWithObjects:
                                @"eventwomen1.png",
@@ -288,7 +327,7 @@
                                nil],
 
                               
-                              nil];
+                              nil];*/
 }
 
 

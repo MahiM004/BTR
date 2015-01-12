@@ -56,8 +56,6 @@
         
         if ([eventDictionary[@"images"]  valueForKey:@"470x230"])
             event.imageName = [eventDictionary[@"images"]  valueForKey:@"470x230"];
-
-        
         
     } else if ([matches count] == 0 || [matches count] > 1 ) {
         
