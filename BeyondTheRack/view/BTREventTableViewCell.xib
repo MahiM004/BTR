@@ -13,7 +13,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eventholidaysale.png" translatesAutoresizingMaskIntoConstraints="NO" id="ViC-IW-Uij">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ViC-IW-Uij">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
                     </imageView>
                 </subviews>
@@ -25,7 +25,4 @@
             <point key="canvasLocation" x="275" y="278"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="eventholidaysale.png" width="636" height="320"/>
-    </resources>
 </document>

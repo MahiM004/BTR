@@ -16,15 +16,9 @@
 
 
 
-#import "BTREventFetcher.h"
-#import "Event+AppServer.h"
-
-
-
 @interface BTRCategoryViewController ()
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (strong, nonatomic) NSMutableArray *imageArray;
 
 
@@ -140,67 +134,6 @@
 
 
 
-# pragma mark - Load Events
-
-- (void)getServerData
-{
-    
-    //    if([Reachability connectedToInternet])
-    //  {
-    
-    if (!self.beyondTheRackDocument.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
-        
-    } else {
-        
-        [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
-    }
-    //   }
-    
-}
-
-
-- (void)fetchEventsDataIntoDocument:(UIManagedDocument *)document
-{
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTREventFetcher URLforAllRecentEvents]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         
-         NSArray * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                          options:0
-                                                                            error:NULL];
-         
-         NSArray *eventObjects = [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
-         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-         
-         
-
-         self.imageArray = [[NSMutableArray alloc] init];
-         
-         for (NSDictionary *myEvent in eventObjects) {
-             [self.imageArray addObject:[(Event *)myEvent imageName]];
-         }
-         [self initImageData];
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         //NSLog(@"Error: %@", error);
-     }];
-    
-}
-
-
-
 -(void)initData{
     
     
@@ -213,37 +146,9 @@
                           @"Outlet",
                           @"Curvey Closet",
                           nil];
-}
 
-- (void) initImageData {
-    NSLog(@"count: %d", [[self imageArray] count]);
-    self.dataArray = [[NSMutableArray alloc] initWithObjects:
-                      
-                      
-                      [[NSMutableArray alloc] initWithObjects:
-                       [self imageArray], nil],
-                      
-                      [[NSMutableArray alloc] initWithObjects:
-                       [self imageArray], nil],
-                      
-                      [[NSMutableArray alloc] initWithObjects:
-                       [self imageArray], nil],
-                      
-                      [[NSMutableArray alloc] initWithObjects:
-                       [self imageArray], nil],
-                      
-                      [[NSMutableArray alloc] initWithObjects:
-                       [self imageArray], nil],
-
-                      [[NSMutableArray alloc] initWithObjects:
-                       [self imageArray], nil],
-                      
-                      [[NSMutableArray alloc] initWithObjects:
-                       [self imageArray], nil],
-
-                      nil];
     
-        /*
+    
     self.dataArray = [[NSMutableArray alloc] initWithObjects:
                               [[NSMutableArray alloc] initWithObjects:
                                @"eventwomen1.png",
@@ -327,7 +232,7 @@
                                nil],
 
                               
-                              nil];*/
+                              nil];
 }
 
 

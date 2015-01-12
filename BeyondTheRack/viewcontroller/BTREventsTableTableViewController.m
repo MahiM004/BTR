@@ -10,12 +10,24 @@
 #import "BTREventTableViewCell.h"
 #import "BTREventFetcher.h"
 
+#import "Event+AppServer.h"
 
 @interface BTREventsTableTableViewController ()
+
+@property (strong, nonatomic) NSMutableArray *imageArray;
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+
 
 @end
 
 @implementation BTREventsTableTableViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    
+    [self getServerData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,19 +68,15 @@
 {
     static NSString *CellIdentifier = @"EventCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    //cell.imageView.image = [UIImage imageNamed:[[self eventsArray] objectAtIndex:indexPath.row]];
-    
+        
     
     NSString *imageName = [NSString stringWithFormat:@"eventImage%d.PNG",indexPath.row];
-    NSLog(@"image name: %@", imageName);
-    
     UIImage *img = [BTRUtility imageWithFilename:imageName];
     
     if (img == nil)
     {
         
-        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[[self eventsArray] objectAtIndex:indexPath.row]]];
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[[self imageArray] objectAtIndex:indexPath.row]]];
         
         AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
         requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
@@ -104,6 +112,65 @@
 - (void)dealloc {
     NSLog(@"Tab One Dealloc");
 }
+
+
+
+
+# pragma mark - Load Events
+
+- (void)getServerData
+{
+    
+    //    if([Reachability connectedToInternet])
+    //  {
+    
+    if (!self.beyondTheRackDocument.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
+        
+    } else {
+        
+        [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
+    }
+    //   }
+    
+}
+
+
+- (void)fetchEventsDataIntoDocument:(UIManagedDocument *)document
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTREventFetcher URLforAllRecentEvents]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         
+         NSArray * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                          options:0
+                                                                            error:NULL];
+         
+         NSArray *eventObjects = [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
+         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         
+         self.imageArray = [[NSMutableArray alloc] initWithArray:eventObjects];
+         [self.tableView reloadData];
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         //NSLog(@"Error: %@", error);
+     }];
+    
+}
+
+
+
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

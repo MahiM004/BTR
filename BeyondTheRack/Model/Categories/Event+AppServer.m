@@ -92,7 +92,7 @@
         
         NSObject *someObject = [self eventWithAppServerInfo:event inManagedObjectContext:context];
         if (someObject)
-            [eventArray addObject:someObject];
+            [eventArray addObject:[(Event *)someObject imageName]];
         
     }
     
