@@ -40,6 +40,8 @@
 		69869FA01A63FB2100F986BC /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F971A63FB2100F986BC /* AFURLSessionManager.m */; };
 		69869FA31A63FCA500F986BC /* BTRFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FA21A63FCA500F986BC /* BTRFetcher.m */; };
 		69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FA51A63FD6B00F986BC /* BTREventFetcher.m */; };
+		69869FA91A64028300F986BC /* BTRAppDelegate+MOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FA81A64028300F986BC /* BTRAppDelegate+MOC.m */; };
+		69869FAC1A6408D200F986BC /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */; };
 		69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C911A5DA23100040C86 /* TTBlackTriangle.m */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
@@ -161,6 +163,10 @@
 		69869FA21A63FCA500F986BC /* BTRFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFetcher.m; sourceTree = "<group>"; };
 		69869FA41A63FD6B00F986BC /* BTREventFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventFetcher.h; sourceTree = "<group>"; };
 		69869FA51A63FD6B00F986BC /* BTREventFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventFetcher.m; sourceTree = "<group>"; };
+		69869FA71A64028300F986BC /* BTRAppDelegate+MOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTRAppDelegate+MOC.h"; sourceTree = "<group>"; };
+		69869FA81A64028300F986BC /* BTRAppDelegate+MOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BTRAppDelegate+MOC.m"; sourceTree = "<group>"; };
+		69869FAA1A6408D200F986BC /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		69B02C901A5DA23100040C86 /* TTBlackTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBlackTriangle.h; sourceTree = "<group>"; };
 		69B02C911A5DA23100040C86 /* TTBlackTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBlackTriangle.m; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
@@ -206,8 +212,6 @@
 		69B02D091A605B0F00040C86 /* BagItem+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BagItem+AppServer.m"; sourceTree = "<group>"; };
 		69B02D0B1A605B2A00040C86 /* Order+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Order+AppServer.h"; sourceTree = "<group>"; };
 		69B02D0C1A605B2A00040C86 /* Order+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Order+AppServer.m"; sourceTree = "<group>"; };
-		69B02D0E1A605DD900040C86 /* PaymentDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaymentDetail.h; path = BeyondTheRack/Model/PaymentDetail.h; sourceTree = "<group>"; };
-		69B02D0F1A605DD900040C86 /* PaymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaymentDetail.m; path = BeyondTheRack/Model/PaymentDetail.m; sourceTree = "<group>"; };
 		69B02D141A605E8700040C86 /* PaymentDetail+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PaymentDetail+AppServer.h"; sourceTree = "<group>"; };
 		69B02D151A605E8700040C86 /* PaymentDetail+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PaymentDetail+AppServer.m"; sourceTree = "<group>"; };
 		69B55F0A1A4B1AFC009A5524 /* BTRShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRShoppingBagViewController.h; sourceTree = "<group>"; };
@@ -324,6 +328,8 @@
 				69B02C8A1A5DA23100040C86 /* ThorpeScroll */,
 				697E057F1A434121000146C6 /* BTRUtility.h */,
 				697E05801A434121000146C6 /* BTRUtility.m */,
+				69869FAA1A6408D200F986BC /* CoreDataTableViewController.h */,
+				69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -472,8 +478,6 @@
 		69FF405A1A3F8939000BD092 = {
 			isa = PBXGroup;
 			children = (
-				69B02D0E1A605DD900040C86 /* PaymentDetail.h */,
-				69B02D0F1A605DD900040C86 /* PaymentDetail.m */,
 				69FF40651A3F8939000BD092 /* BeyondTheRack */,
 				69B02CBF1A60304000040C86 /* CoreData.framework */,
 				69FF40821A3F8939000BD092 /* BeyondTheRackTests */,
@@ -496,6 +500,8 @@
 				69FF40731A3F8939000BD092 /* Main.storyboard */,
 				69FF406A1A3F8939000BD092 /* BTRAppDelegate.h */,
 				69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */,
+				69869FA71A64028300F986BC /* BTRAppDelegate+MOC.h */,
+				69869FA81A64028300F986BC /* BTRAppDelegate+MOC.m */,
 				69FF40761A3F8939000BD092 /* Images.xcassets */,
 				69FF40781A3F8939000BD092 /* LaunchScreen.xib */,
 				69B02CC41A60319600040C86 /* Model */,
@@ -695,7 +701,9 @@
 				69B02CC71A6031A700040C86 /* Model.xcdatamodeld in Sources */,
 				69869F6D1A6075E900F986BC /* General1.m in Sources */,
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
+				69869FAC1A6408D200F986BC /* CoreDataTableViewController.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
+				69869FA91A64028300F986BC /* BTRAppDelegate+MOC.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69B02CB11A5DA80900040C86 /* TTUITableViewZoomController.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
