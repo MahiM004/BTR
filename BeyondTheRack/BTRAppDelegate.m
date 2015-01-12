@@ -8,7 +8,16 @@
 
 #import "BTRAppDelegate.h"
 
+#import "BTRAppDelegate+MOC.h"
+#import "BTREventFetcher.h"
+#import "Event+AppServer.h"
+//#import "BTRDatabaseAvailibility.h"
+#import "AFNetworkActivityIndicatorManager.h"
+
+
 @interface BTRAppDelegate ()
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+
 
 @end
 
@@ -19,6 +28,43 @@
     // Override point for customization after application launch.
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    
+    
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        
+        
+        if (!self.beyondTheRackDocument) {
+            
+            [[BTRDocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
+                self.beyondTheRackDocument = document;
+                
+                
+                NSString *firstTime = [[NSUserDefaults standardUserDefaults] stringForKey:@"FirstTime"];
+                
+                if (![firstTime isEqualToString:@"FALSE"]){
+                    
+                    [Event initInManagedObjectContext:[document managedObjectContext]];
+           
+                    
+                    [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                    
+                    
+                    [self deleteAllObjectsInContext:[[self beyondTheRackDocument] managedObjectContext] usingModel:[[self beyondTheRackDocument] managedObjectModel]];
+                    
+                    [[NSUserDefaults standardUserDefaults] setValue:@"FALSE" forKey:@"FirstTime"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                }
+                
+            }];
+        }
+    }];
+    
+    
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    
         
     return YES;
 }
@@ -44,5 +90,39 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+
+#pragma mark - empty the db
+
+- (void)deleteAllObjectsInContext:(NSManagedObjectContext *)context
+                       usingModel:(NSManagedObjectModel *)model
+{
+    NSArray *entities = model.entities;
+    for (NSEntityDescription *entityDescription in entities) {
+        [self deleteAllObjectsWithEntityName:entityDescription.name
+                                   inContext:context];
+    }
+}
+
+- (void)deleteAllObjectsWithEntityName:(NSString *)entityName
+                             inContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *fetchRequest =
+    [NSFetchRequest fetchRequestWithEntityName:entityName];
+    fetchRequest.includesPropertyValues = NO;
+    fetchRequest.includesSubentities = NO;
+    
+    NSError *error;
+    NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
+    
+    for (NSManagedObject *managedObject in items) {
+        [context deleteObject:managedObject];
+    }
+}
+
+
+
+
 
 @end
