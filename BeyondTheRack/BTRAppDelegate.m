@@ -27,6 +27,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     
@@ -60,6 +62,9 @@
                 
             }];
         }
+        
+        [self crunchNumbers];
+
     }];
     
     
@@ -121,6 +126,58 @@
     }
 }
 
+
+
+
+# pragma mark - Load events 
+
+- (void)crunchNumbers
+{
+    
+   // if([Reachability connectedToInternet])
+   // {
+        if (!self.beyondTheRackDocument.managedObjectContext) {
+            
+            self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+            [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
+            
+        } else {
+            
+            [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
+        }
+    //}
+    
+}
+
+    
+    
+- (void)fetchEventsDataIntoDocument:(UIManagedDocument *)document
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTREventFetcher URLforAllRecentEvents]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         
+         NSArray * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                          options:0
+                                                                            error:NULL];
+         
+         [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
+         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         //NSLog(@"Error: %@", error);
+     }];
+}
 
 
 

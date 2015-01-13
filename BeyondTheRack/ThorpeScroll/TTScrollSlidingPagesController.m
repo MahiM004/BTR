@@ -41,6 +41,12 @@
 
 @implementation TTScrollSlidingPagesController
 
+
+- (BOOL)touchesShouldCancelInContentView:(UIView *)view
+{
+    return NO;
+}
+
 /**
  Initalises the control and sets all the default values for the user-settable properties.
  */

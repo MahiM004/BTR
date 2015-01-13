@@ -1,5 +1,5 @@
 //
-//  BTRCategoryTableTableViewController.h
+//  BTREventsTableViewController.h
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-07.
@@ -10,6 +10,6 @@
 #import "TTUITableViewZoomController.h"
 
 
-@interface BTREventsTableTableViewController : TTUITableViewZoomController
+@interface BTREventsTableViewController : TTUITableViewZoomController
 
 @end
