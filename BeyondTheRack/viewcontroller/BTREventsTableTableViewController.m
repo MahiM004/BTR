@@ -70,25 +70,25 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
     
-    NSString *imageName = [NSString stringWithFormat:@"eventImage%d.PNG",indexPath.row];
+    NSString *imageName = [NSString stringWithFormat:@"eventImage%@.PNG",[[self imageArray] objectAtIndex:indexPath.row]];
     UIImage *img = [BTRUtility imageWithFilename:imageName];
     
     if (img == nil)
     {
         
         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[[self imageArray] objectAtIndex:indexPath.row]]];
-        
+        NSLog(@"image url: %@", [[self imageArray] objectAtIndex:indexPath.row]);
         AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
         requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            NSLog(@"success");
+            //NSLog(@"success");
             cell.imageView.image = responseObject;
             [BTRUtility saveImage:responseObject withFilename:imageName];
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
+            //NSLog(@"Error: %@", error);
 
         }];
         [requestOperation start];

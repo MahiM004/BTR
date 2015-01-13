@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface BTREventTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
