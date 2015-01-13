@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="2874CE32-0571-4FD0-AB0C-DC234C715023" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="417DDF8E-2957-4EC8-82F6-3BD6FF41DD64" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -497,7 +497,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RR7-rF-5Oq" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="272" y="-619"/>
+            <point key="canvasLocation" x="295" y="-673"/>
         </scene>
         <!--Shopping Bag View Controller-->
         <scene sceneID="fVo-F9-AIa">
@@ -758,7 +758,7 @@
                         <viewControllerLayoutGuide type="top" id="p15-O4-ETW"/>
                         <viewControllerLayoutGuide type="bottom" id="0D9-4j-hW5"/>
                     </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pta-9g-qU3">
+                    <view key="view" opaque="NO" clipsSubviews="YES" contentMode="center" id="pta-9g-qU3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="508"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
@@ -770,7 +770,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="2874CE32-0571-4FD0-AB0C-DC234C715023" width="30" height="30">
+        <image name="417DDF8E-2957-4EC8-82F6-3BD6FF41DD64" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
