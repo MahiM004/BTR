@@ -10,9 +10,9 @@
 #import "CoreDataTableViewController.h"
 
 
-@interface BTREventsTableViewController : CoreDataTableViewController
+@interface BTREventsTableViewController : CoreDataTableViewController{
+    UIImageView *imageView;
+}
 
-
-@property (strong, nonatomic) UIImageView *eventImageView;
 
 @end

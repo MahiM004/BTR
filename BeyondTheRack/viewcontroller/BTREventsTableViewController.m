@@ -40,8 +40,6 @@
     self.tableView.separatorColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self setupDocument];
-        [self.tableView reloadData];
-
     }];
 
 }
@@ -135,25 +133,36 @@
     
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-    self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 159)];
+    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 159)];
 
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]];
 
-    __weak typeof(self) weakSelf = self;
-    [self.eventImageView setImageWithURLRequest:urlRequest placeholderImage:[UIImage imageNamed:@"neulogo.png"]
-                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       
-                                       weakSelf.eventImageView.alpha = 0.0;
-                                       weakSelf.eventImageView.image = image;
-                                       [UIView animateWithDuration:0.25
-                                                        animations:^{
-                                                            weakSelf.eventImageView.alpha = 1.0;
-                                                        }];
-                                   }
-                                   failure:nil];
-    
-    
-    [cell addSubview:self.eventImageView];
+    __weak UIImageView *weakImageView = imageView;
+    [imageView setImageWithURLRequest:urlRequest placeholderImage:nil
+     
+                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                  
+                                  UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
+                                  if (!strongImageView) return;
+                                  
+                                  weakImageView.alpha = 0.0;
+                                  weakImageView.image = image;
+        
+                                  [UIView animateWithDuration:0.5
+                                                   animations:^{
+                                                    weakImageView.alpha = 1;
+                                                   }
+                                   
+                                                   completion:nil];
+                              
+                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                              
+                                  
+                                  weakImageView.image = [UIImage imageNamed:@"neulogo.png"];
+                              
+                              }];
+
+    [cell addSubview:imageView];
     
     return cell;
 }
@@ -168,6 +177,8 @@
 
 - (void)dealloc {
     NSLog(@"Tab One Dealloc");
+    [imageView cancelImageRequestOperation];
+
 }
 
 
@@ -175,24 +186,6 @@
 
 @end
 
-
-
-
-// [eventImageView setImageWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]] ;//] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-
-/*
- [eventImageView setImageWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]
- success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
- 
- self.imageView.alpha = 0.0;
- self.imageView.image = image;
- [UIView animateWithDuration:0.25
- animations:^{
- self.imageView.alpha = 1.0;
- }];
- }
- failure:NULL];
- */
 
 
 
