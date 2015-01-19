@@ -14,10 +14,13 @@
 //#import "BTRDatabaseAvailibility.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
+// TODO: room for optimizing image loading
+
 
 @interface BTRAppDelegate ()
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end
 
@@ -40,34 +43,41 @@
         if (!self.beyondTheRackDocument) {
             
             [[BTRDocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
+                
+                self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+                self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+                
                 self.beyondTheRackDocument = document;
                 
+
+                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+                serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+                manager.responseSerializer = serializer;
+                manager.requestSerializer = [AFJSONRequestSerializer serializer];
                 
-                NSString *firstTime = [[NSUserDefaults standardUserDefaults] stringForKey:@"FirstTime"];
-                
-                if (![firstTime isEqualToString:@"FALSE"]){
-                    
-                    [Event initInManagedObjectContext:[document managedObjectContext]];
-           
-                    
-                    [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-                    
-                    
-                    [self deleteAllObjectsInContext:[[self beyondTheRackDocument] managedObjectContext] usingModel:[[self beyondTheRackDocument] managedObjectModel]];
-                    
-                    [[NSUserDefaults standardUserDefaults] setValue:@"FALSE" forKey:@"FirstTime"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    
-                }
-                
+                [manager GET:[NSString stringWithFormat:@"%@", [BTREventFetcher URLforAllRecentEvents]]
+                  parameters:nil
+                     success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+                 {
+                     
+                     NSArray * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                                      options:0
+                                                                                        error:NULL];
+                     
+                     [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
+                     [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                     
+                     
+                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     
+                     //NSLog(@"Error: %@", error);
+                 }];
             }];
         }
-        
-        [self crunchNumbers];
 
     }];
-    
-    
+
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
         
@@ -131,26 +141,8 @@
 
 # pragma mark - Load events 
 
-- (void)crunchNumbers
-{
-    
-   // if([Reachability connectedToInternet])
-   // {
-        if (!self.beyondTheRackDocument.managedObjectContext) {
-            
-            self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-            [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
-            
-        } else {
-            
-            [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
-        }
-    //}
-    
-}
 
-    
-    
+
 - (void)fetchEventsDataIntoDocument:(UIManagedDocument *)document
 {
     
@@ -182,4 +174,38 @@
 
 
 
+
 @end
+
+
+
+
+
+
+
+//  if (![firstTime isEqualToString:@"FALSE"]){
+
+//[Event initInManagedObjectContext:[document managedObjectContext]];
+
+
+//[document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+//[self deleteAllObjectsInContext:[[self beyondTheRackDocument] managedObjectContext] usingModel:[[self beyondTheRackDocument] managedObjectModel]];
+//[self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
+
+
+
+//[[NSUserDefaults standardUserDefaults] setValue:@"FALSE" forKey:@"FirstTime"];
+//[[NSUserDefaults standardUserDefaults] synchronize];
+
+//    }
+
+
+
+
+
+
+
+
+
+
+

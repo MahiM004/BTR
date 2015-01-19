@@ -171,6 +171,7 @@
     bottomScrollView.directionalLockEnabled = YES;
     bottomScrollView.delegate = self; //move the top scroller proportionally as you drag the bottom.
     bottomScrollView.alwaysBounceVertical = NO;
+    bottomScrollView.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
     [self.view addSubview:bottomScrollView];
     
     //add the drop shadow on the top scroller (if enabled) and bring the view to the front
@@ -189,8 +190,6 @@
         
         [self.view bringSubviewToFront:topScrollViewWrapper];//bring view to sit on top so you can see the shadow!
     }
-    
-
     
     if (self.hideStatusBarWhenScrolling){
         //hide the page dots initially

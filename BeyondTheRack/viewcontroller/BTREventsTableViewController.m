@@ -37,10 +37,13 @@
 
     
     self.tableView.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
-    
-    //[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+    self.tableView.separatorColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self setupDocument];
-    //}];
+        [self.tableView reloadData];
+
+    }];
+
 }
 
 
@@ -61,11 +64,12 @@
         
         
     } else {
-        
+
         [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
         [self.tableView reloadData];
         
     }
+
 }
 
 
@@ -90,7 +94,6 @@
          [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
-         
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
          //NSLog(@"Error: %@", error);
@@ -104,7 +107,6 @@
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"imageName" ascending:YES]];
-    
     
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -128,10 +130,11 @@
     static NSString *CellIdentifier = @"EventCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
    
+
+    
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-        
     
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     

@@ -311,15 +311,10 @@
 		69867A0F1A4480C7003CE59C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				69AB98311A6D50E300EDB1E6 /* BTRHelpClasses */,
 				69869FB01A640EFF00F986BC /* UIKit+AFNetworking */,
 				69869F841A63FB2100F986BC /* AFNetworking */,
 				69B02C8A1A5DA23100040C86 /* ThorpeScroll */,
-				697E057F1A434121000146C6 /* BTRUtility.h */,
-				697E05801A434121000146C6 /* BTRUtility.m */,
-				69869FAA1A6408D200F986BC /* CoreDataTableViewController.h */,
-				69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */,
-				69869FAD1A640C0600F986BC /* BTRDocumentHandler.h */,
-				69869FAE1A640C0600F986BC /* BTRDocumentHandler.m */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -383,6 +378,19 @@
 				69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */,
 			);
 			path = "UIKit+AFNetworking";
+			sourceTree = "<group>";
+		};
+		69AB98311A6D50E300EDB1E6 /* BTRHelpClasses */ = {
+			isa = PBXGroup;
+			children = (
+				697E057F1A434121000146C6 /* BTRUtility.h */,
+				697E05801A434121000146C6 /* BTRUtility.m */,
+				69869FAA1A6408D200F986BC /* CoreDataTableViewController.h */,
+				69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */,
+				69869FAD1A640C0600F986BC /* BTRDocumentHandler.h */,
+				69869FAE1A640C0600F986BC /* BTRDocumentHandler.m */,
+			);
+			name = BTRHelpClasses;
 			sourceTree = "<group>";
 		};
 		69B02C8A1A5DA23100040C86 /* ThorpeScroll */ = {

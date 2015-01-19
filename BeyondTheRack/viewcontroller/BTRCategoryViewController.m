@@ -25,6 +25,10 @@
 
 @implementation BTRCategoryViewController
 
+-(void)initData {
+    
+    self.categoryNames = [[NSMutableArray alloc] initWithObjects:@"Women", @"Men", @"Your Catalog", @"Home", @"Kids", @"Outlet", @"Curvey Closet", nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,18 +49,13 @@
     self.slider.pagingEnabled = YES;
     self.slider.zoomOutAnimationDisabled = YES;
     self.slider.disableTitleShadow = YES;
-      self.slider.titleScrollerBackgroundColour = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
-    
+    self.slider.titleScrollerBackgroundColour = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
     //self.slider.titleScrollerHidden = YES;
     //slider.titleScrollerHeight = 100;
     //slider.titleScrollerItemWidth=60;
     //self.slider.titleScrollerBackgroundColour = [UIColor redColor];
     //slider.disableUIPageControl = YES;
     //self.slider.titleScrollerBottomEdgeColour = [UIColor blueColor];
-  
-
-
-    
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7){
         self.slider.hideStatusBarWhenScrolling = YES;//this property normally only makes sense on iOS7+. See the documentation in TTScrollSlidingPagesController.h. If you wanted to use it in iOS6 you'd have to make sure the status bar overlapped the TTScrollSlidingPagesController.
@@ -66,31 +65,16 @@
     self.slider.dataSource = self;
     
     //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
-    
-    
 
-    
     self.slider.view.frame = self.view.frame;
     [self.view addSubview:self.slider.view];
     [self addChildViewController:self.slider];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 -(void)tableCellDidSelect:(UITableViewCell *)cell{
@@ -99,8 +83,6 @@
     //detailVC.label.text = cell.textLabel.text;
     //[self.navigationController pushViewController:detailVC animated:YES];
 }
-
-
 
 
 #pragma mark TTSlidingPagesDataSource methods
@@ -127,28 +109,20 @@
     return title;
 }
 
-#pragma mark - delegate
+#pragma mark - scrollview delegate
+
 -(void)didScrollToViewAtIndex:(NSUInteger)index
 {
     NSLog(@"scrolled to view");
 }
 
 
+#pragma mark - Navigation
+ 
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
--(void)initData{
-    
-    
-    self.categoryNames = [[NSMutableArray alloc] initWithObjects:
-                          @"Women",
-                          @"Men",
-                          @"Your Catalog",
-                          @"Home",
-                          @"Kids",
-                          @"Outlet",
-                          @"Curvey Closet",
-                          nil];
-    
-}
+ }
+
 
 
 @end
