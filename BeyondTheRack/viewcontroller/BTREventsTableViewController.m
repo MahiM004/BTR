@@ -130,48 +130,14 @@
     static NSString *CellIdentifier = @"EventCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
    
-
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    cell.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
     
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    
-    NSString *imageSaveName = [NSString stringWithFormat:@"eventImage%@.PNG",[event eventId]];
-    UIImage *img = [BTRUtility imageWithFilename:imageSaveName];
-    eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 159)];
 
-    
-    if (img == nil)
-    {
-        
-        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId: [event imageName]]];
-        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
-        requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
-        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            eventImageView.image = responseObject;
-            [BTRUtility saveImage:responseObject withFilename:imageSaveName];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            //eventImageView.image = [UIImage imageNamed:@"neulogo.png"];
-            //cell.backgroundColor = [UIColor redColor];
-            NSLog(@"Error: %@", error);
-            
-        }];
-        [requestOperation start];
-        
-    }
-    else {
-        eventImageView.image = img;
-    }
-    
-    
-    cell.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:0.6];
-    
+    eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 159)];
+    [eventImageView setImageWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+
     [cell addSubview:eventImageView];
     
     return cell;

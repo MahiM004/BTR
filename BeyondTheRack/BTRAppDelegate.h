@@ -11,7 +11,6 @@
 @interface BTRAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-- (void)fetchEventsDataIntoDocument:(UIManagedDocument *)document;
 
 
 @end
