@@ -133,7 +133,7 @@
     
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 159)];
+    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
 
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]];
 
