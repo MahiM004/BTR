@@ -7,7 +7,6 @@
 //
 
 #import "BTREventsTableViewController.h"
-#import "BTREventTableViewCell.h"
 #import "BTREventFetcher.h"
 
 #import "Event+AppServer.h"
@@ -18,10 +17,12 @@
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation BTREventsTableViewController
+
 
 
 - (void)viewWillAppear:(BOOL)animated
@@ -31,123 +32,40 @@
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+
     
-    //
-    [self.tableView registerNib:[UINib nibWithNibName:@"BTREventTableViewCell" bundle:nil]
-         forCellReuseIdentifier:@"EventCellIdentifier"];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.tableView.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    
-   // [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [self getServerData];
-        // Main thread work (UI usually)
-        [self.tableView reloadData];
+    //[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self setupDocument];
     //}];
-
-    
-    
 }
-
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    
-    // Return the number of rows in the section.
-    return [[self eventArray] count];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 161;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"EventCellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        
-    
-    NSString *imageName = [NSString stringWithFormat:@"eventImage%@.PNG",[(Event *)[[self eventArray] objectAtIndex:indexPath.row] eventId]];
-    UIImage *img = [BTRUtility imageWithFilename:imageName];
-    
-    if (img == nil)
-    {
-        
-        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[(Event *)[[self eventArray] objectAtIndex:indexPath.row] imageName]]];
-        
-
-        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
-        requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
-        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            cell.imageView.image = responseObject;
-            [BTRUtility saveImage:responseObject withFilename:imageName];
-            
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            cell.imageView.image = [UIImage imageNamed:@"neulogo.png"];
-            cell.backgroundColor = [UIColor redColor];
-            //NSLog(@"Error: %@", error);
-
-        }];
-        [requestOperation start];
-        
-    }
-    else {
-        cell.imageView.image = img;
-    }
-    
-    
-
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cell Tapped" message:[NSString stringWithFormat:@"Cell %ld tapped", (long)indexPath.row] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    [alert show];
-}
-
-- (void)dealloc {
-    NSLog(@"Tab One Dealloc");
-}
-
-
 
 
 # pragma mark - Load Events
 
-- (void)getServerData
+- (void)setupDocument
 {
     
-    //    if([Reachability connectedToInternet])
-    //  {
     
-    if (!self.beyondTheRackDocument.managedObjectContext) {
+    if (!self.managedObjectContext) {
         
         self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+        [self setupFetchedResultsController];
         [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
+        [self.tableView reloadData];
+        
+        
         
     } else {
         
         [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
+        [self.tableView reloadData];
+        
     }
-    //   }
-    
 }
 
 
@@ -169,11 +87,9 @@
                                                                           options:0
                                                                             error:NULL];
          
-         NSArray *eventObjects = [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
+         [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
-         self.eventArray = [[NSMutableArray alloc] initWithArray:eventObjects];
-         [self.tableView reloadData];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -182,6 +98,93 @@
     
 }
 
+
+- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
+{
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"imageName" ascending:YES]];
+    
+    
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+}
+
+
+
+#pragma mark - Table view data source
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 161;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"EventCellIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+   
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+        
+    
+    Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    
+    NSString *imageSaveName = [NSString stringWithFormat:@"eventImage%@.PNG",[event eventId]];
+    UIImage *img = [BTRUtility imageWithFilename:imageSaveName];
+    eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 159)];
+
+    
+    if (img == nil)
+    {
+        
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId: [event imageName]]];
+        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+        requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            eventImageView.image = responseObject;
+            [BTRUtility saveImage:responseObject withFilename:imageSaveName];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            //eventImageView.image = [UIImage imageNamed:@"neulogo.png"];
+            //cell.backgroundColor = [UIColor redColor];
+            NSLog(@"Error: %@", error);
+            
+        }];
+        [requestOperation start];
+        
+    }
+    else {
+        eventImageView.image = img;
+    }
+    
+    
+    cell.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:0.6];
+    
+    [cell addSubview:eventImageView];
+    
+    return cell;
+}
+
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cell Tapped" message:[NSString stringWithFormat:@"Cell %ld tapped", (long)indexPath.row] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    [alert show];
+}
+
+- (void)dealloc {
+    NSLog(@"Tab One Dealloc");
+}
 
 
 

@@ -51,17 +51,13 @@
 		69869FC71A640F0000F986BC /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FBD1A640EFF00F986BC /* UIProgressView+AFNetworking.m */; };
 		69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FBF1A640EFF00F986BC /* UIRefreshControl+AFNetworking.m */; };
 		69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */; };
-		69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C911A5DA23100040C86 /* TTBlackTriangle.m */; };
+		69AB98301A6D441700EDB1E6 /* eventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB982F1A6D441700EDB1E6 /* eventView.m */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
 		69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C981A5DA23100040C86 /* TTSlidingPage.m */; };
 		69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */; };
 		69B02CAD1A5DA70700040C86 /* BTREventsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CAB1A5DA70700040C86 /* BTREventsTableViewController.m */; };
-		69B02CAE1A5DA70700040C86 /* BTREventsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B02CAC1A5DA70700040C86 /* BTREventsTableViewController.xib */; };
-		69B02CB11A5DA80900040C86 /* TTUITableViewZoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CB01A5DA80900040C86 /* TTUITableViewZoomController.m */; };
 		69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */; };
-		69B02CBD1A5ED32700040C86 /* BTREventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CBB1A5ED32700040C86 /* BTREventTableViewCell.m */; };
-		69B02CBE1A5ED32700040C86 /* BTREventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B02CBC1A5ED32700040C86 /* BTREventTableViewCell.xib */; };
 		69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B02CBF1A60304000040C86 /* CoreData.framework */; };
 		69B02CC71A6031A700040C86 /* beyondtherack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */; };
 		69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CEE1A605A0400040C86 /* ShippingAddress+AppServer.m */; };
@@ -181,8 +177,8 @@
 		69869FBF1A640EFF00F986BC /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		69869FC01A640F0000F986BC /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		69B02C901A5DA23100040C86 /* TTBlackTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBlackTriangle.h; sourceTree = "<group>"; };
-		69B02C911A5DA23100040C86 /* TTBlackTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBlackTriangle.m; sourceTree = "<group>"; };
+		69AB982E1A6D441700EDB1E6 /* eventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventView.h; sourceTree = "<group>"; };
+		69AB982F1A6D441700EDB1E6 /* eventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eventView.m; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
 		69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollSlidingPagesController.m; sourceTree = "<group>"; };
 		69B02C941A5DA23100040C86 /* TTScrollViewWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollViewWrapper.h; sourceTree = "<group>"; };
@@ -196,14 +192,8 @@
 		69B02C9C1A5DA23100040C86 /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
 		69B02CAA1A5DA70700040C86 /* BTREventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventsTableViewController.h; sourceTree = "<group>"; };
 		69B02CAB1A5DA70700040C86 /* BTREventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventsTableViewController.m; sourceTree = "<group>"; };
-		69B02CAC1A5DA70700040C86 /* BTREventsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTREventsTableViewController.xib; sourceTree = "<group>"; };
-		69B02CAF1A5DA80900040C86 /* TTUITableViewZoomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUITableViewZoomController.h; sourceTree = "<group>"; };
-		69B02CB01A5DA80900040C86 /* TTUITableViewZoomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTUITableViewZoomController.m; sourceTree = "<group>"; };
 		69B02CB21A5DBAB000040C86 /* BTRCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRCategoryViewController.h; sourceTree = "<group>"; };
 		69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRCategoryViewController.m; sourceTree = "<group>"; };
-		69B02CBA1A5ED32700040C86 /* BTREventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventTableViewCell.h; sourceTree = "<group>"; };
-		69B02CBB1A5ED32700040C86 /* BTREventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventTableViewCell.m; sourceTree = "<group>"; };
-		69B02CBC1A5ED32700040C86 /* BTREventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTREventTableViewCell.xib; sourceTree = "<group>"; };
 		69B02CBF1A60304000040C86 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		69B02CC61A6031A700040C86 /* beyondtherack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = beyondtherack.xcdatamodel; sourceTree = "<group>"; };
 		69B02CED1A605A0400040C86 /* ShippingAddress+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ShippingAddress+AppServer.h"; sourceTree = "<group>"; };
@@ -278,9 +268,8 @@
 		697E057B1A432FCD000146C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				69B02CBA1A5ED32700040C86 /* BTREventTableViewCell.h */,
-				69B02CBB1A5ED32700040C86 /* BTREventTableViewCell.m */,
-				69B02CBC1A5ED32700040C86 /* BTREventTableViewCell.xib */,
+				69AB982E1A6D441700EDB1E6 /* eventView.h */,
+				69AB982F1A6D441700EDB1E6 /* eventView.m */,
 			);
 			name = View;
 			path = view;
@@ -295,7 +284,6 @@
 				69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */,
 				69B02CAA1A5DA70700040C86 /* BTREventsTableViewController.h */,
 				69B02CAB1A5DA70700040C86 /* BTREventsTableViewController.m */,
-				69B02CAC1A5DA70700040C86 /* BTREventsTableViewController.xib */,
 				69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */,
 				69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */,
 				695F99D81A573D1500A80D12 /* checkout */,
@@ -400,8 +388,6 @@
 		69B02C8A1A5DA23100040C86 /* ThorpeScroll */ = {
 			isa = PBXGroup;
 			children = (
-				69B02C901A5DA23100040C86 /* TTBlackTriangle.h */,
-				69B02C911A5DA23100040C86 /* TTBlackTriangle.m */,
 				69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */,
 				69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */,
 				69B02C941A5DA23100040C86 /* TTScrollViewWrapper.h */,
@@ -413,8 +399,6 @@
 				69B02C9A1A5DA23100040C86 /* TTSlidingPageTitle.h */,
 				69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */,
 				69B02C9C1A5DA23100040C86 /* TTUIScrollViewSlidingPages.h */,
-				69B02CAF1A5DA80900040C86 /* TTUITableViewZoomController.h */,
-				69B02CB01A5DA80900040C86 /* TTUITableViewZoomController.m */,
 			);
 			path = ThorpeScroll;
 			sourceTree = "<group>";
@@ -630,14 +614,12 @@
 				69EB9E131A5B00D2003A48F1 /* itemInBag.png in Resources */,
 				69807AEE1A42131E0001A154 /* neuaccount.png in Resources */,
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
-				69B02CBE1A5ED32700040C86 /* BTREventTableViewCell.xib in Resources */,
 				69807AF01A4215490001A154 /* neucart.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
 				69C15AB01A51FFE200D6E358 /* bareffect.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
-				69B02CAE1A5DA70700040C86 /* BTREventsTableViewController.xib in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */,
 				69867A071A438A8C003CE59C /* bagicon.png in Resources */,
@@ -668,8 +650,6 @@
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
 				695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */,
 				69869FC21A640F0000F986BC /* AFNetworkActivityIndicatorManager.m in Sources */,
-				69B02CA01A5DA23100040C86 /* TTBlackTriangle.m in Sources */,
-				69B02CBD1A5ED32700040C86 /* BTREventTableViewCell.m in Sources */,
 				69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */,
 				69869FA01A63FB2100F986BC /* AFURLSessionManager.m in Sources */,
 				69869F671A6075E900F986BC /* Order.m in Sources */,
@@ -701,10 +681,10 @@
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
 				69869FC31A640F0000F986BC /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				69869FAC1A6408D200F986BC /* CoreDataTableViewController.m in Sources */,
+				69AB98301A6D441700EDB1E6 /* eventView.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
 				69869FA91A64028300F986BC /* BTRAppDelegate+MOC.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
-				69B02CB11A5DA80900040C86 /* TTUITableViewZoomController.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
 				69869FC71A640F0000F986BC /* UIProgressView+AFNetworking.m in Sources */,

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTUITableViewZoomController.h"
+#import "CoreDataTableViewController.h"
 
 
-@interface BTREventsTableViewController : TTUITableViewZoomController
+@interface BTREventsTableViewController : CoreDataTableViewController {
+    UIImageView *eventImageView;
+}
 
 @end
