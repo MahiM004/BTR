@@ -135,10 +135,25 @@
     
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-    eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 159)];
-    [eventImageView setImageWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 159)];
 
-    [cell addSubview:eventImageView];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]];
+
+    __weak typeof(self) weakSelf = self;
+    [self.eventImageView setImageWithURLRequest:urlRequest placeholderImage:[UIImage imageNamed:@"neulogo.png"]
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                       
+                                       weakSelf.eventImageView.alpha = 0.0;
+                                       weakSelf.eventImageView.image = image;
+                                       [UIView animateWithDuration:0.25
+                                                        animations:^{
+                                                            weakSelf.eventImageView.alpha = 1.0;
+                                                        }];
+                                   }
+                                   failure:nil];
+    
+    
+    [cell addSubview:self.eventImageView];
     
     return cell;
 }
@@ -161,6 +176,23 @@
 @end
 
 
+
+
+// [eventImageView setImageWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]] ;//] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+
+/*
+ [eventImageView setImageWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]
+ success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+ 
+ self.imageView.alpha = 0.0;
+ self.imageView.image = image;
+ [UIView animateWithDuration:0.25
+ animations:^{
+ self.imageView.alpha = 1.0;
+ }];
+ }
+ failure:NULL];
+ */
 
 
 
