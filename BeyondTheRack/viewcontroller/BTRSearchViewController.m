@@ -20,6 +20,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
+    
+    
+    
+    CGSize size = CGSizeMake(30, 30);
+    // create context with transparent background
+    UIGraphicsBeginImageContextWithOptions(size, NO, 1);
+    
+    // Add a clip before drawing anything, in the shape of an rounded rect
+    [[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0,0,30,30)
+                                cornerRadius:5.0] addClip];
+    [[UIColor colorWithRed:112.0/255.0 green:128.0/255.0 blue:144.0/255.0 alpha:0.4] setFill];
+    
+    UIRectFill(CGRectMake(0, 0, size.width, size.height));
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [self.searchBar setSearchFieldBackgroundImage:image forState:UIControlStateNormal];
+    
+    self.view .backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
+    
 }
 
 
