@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="A26AE9F8-81C6-4917-8F98-171304CE2D7D" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="A6325D1A-F411-4B20-80A8-15A63CB11D34" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -508,8 +508,8 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neulogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="YpU-Z5-mVY">
                                         <rect key="frame" x="60" y="10" width="162" height="24"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search.png" translatesAutoresizingMaskIntoConstraints="NO" id="bwJ-Os-Tqo">
-                                        <rect key="frame" x="236" y="8" width="25" height="30"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="searchglass.png" translatesAutoresizingMaskIntoConstraints="NO" id="bwJ-Os-Tqo" userLabel="searchicon.png">
+                                        <rect key="frame" x="236" y="9" width="24" height="28"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -806,7 +806,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="A26AE9F8-81C6-4917-8F98-171304CE2D7D" width="30" height="30">
+        <image name="A6325D1A-F411-4B20-80A8-15A63CB11D34" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -867,7 +867,7 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="bagicon.png" width="420" height="490"/>
         <image name="neulogo.png" width="925" height="125"/>
         <image name="neumyaccount.png" width="600" height="700"/>
-        <image name="search.png" width="420" height="492"/>
+        <image name="searchglass.png" width="500" height="583"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
