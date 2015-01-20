@@ -14,7 +14,7 @@
 #import "TTScrollSlidingPagesController.h"
 #import "TTSlidingPage.h"
 #import "TTSlidingPageTitle.h"
-#import "BTREventsTableViewController.h"
+#import "BTREventsCDTVC.h"
 
 #import <math.h>
 

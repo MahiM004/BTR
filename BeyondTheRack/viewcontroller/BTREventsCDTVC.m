@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "BTREventsTableViewController.h"
+#import "BTREventsCDTVC.h"
 #import "BTREventFetcher.h"
 
 #import "Event+AppServer.h"
 
-@interface BTREventsTableViewController ()
+@interface BTREventsCDTVC ()
 
 @property (strong, nonatomic) NSMutableArray *eventArray;
 
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation BTREventsTableViewController
+@implementation BTREventsCDTVC
 
 
 

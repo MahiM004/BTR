@@ -12,7 +12,7 @@
 #import "TTScrollSlidingPagesController.h"
 #import "TTSlidingPage.h"
 #import "TTSlidingPageTitle.h"
-#import "BTREventsTableViewController.h"
+#import "BTREventsCDTVC.h"
 
 
 
@@ -95,7 +95,7 @@
     UIViewController *viewController;
     
     
-    BTREventsTableViewController *myVC  = [[BTREventsTableViewController alloc] init];
+    BTREventsCDTVC *myVC  = [[BTREventsCDTVC alloc] init];
     viewController = myVC;
     
     return [[TTSlidingPage alloc] initWithContentViewController:viewController];

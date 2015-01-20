@@ -51,11 +51,12 @@
 		69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */; };
 		69AB98301A6D441700EDB1E6 /* eventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB982F1A6D441700EDB1E6 /* eventView.m */; };
 		69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98381A6E95C300EDB1E6 /* searchglass.png */; };
+		69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
 		69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C981A5DA23100040C86 /* TTSlidingPage.m */; };
 		69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */; };
-		69B02CAD1A5DA70700040C86 /* BTREventsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CAB1A5DA70700040C86 /* BTREventsTableViewController.m */; };
+		69B02CAD1A5DA70700040C86 /* BTREventsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */; };
 		69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */; };
 		69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B02CBF1A60304000040C86 /* CoreData.framework */; };
 		69B02CC71A6031A700040C86 /* beyondtherack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */; };
@@ -175,6 +176,8 @@
 		69AB982E1A6D441700EDB1E6 /* eventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventView.h; sourceTree = "<group>"; };
 		69AB982F1A6D441700EDB1E6 /* eventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eventView.m; sourceTree = "<group>"; };
 		69AB98381A6E95C300EDB1E6 /* searchglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchglass.png; sourceTree = "<group>"; };
+		69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchViewController.h; sourceTree = "<group>"; };
+		69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchViewController.m; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
 		69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollSlidingPagesController.m; sourceTree = "<group>"; };
 		69B02C941A5DA23100040C86 /* TTScrollViewWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollViewWrapper.h; sourceTree = "<group>"; };
@@ -186,8 +189,8 @@
 		69B02C9A1A5DA23100040C86 /* TTSlidingPageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPageTitle.h; sourceTree = "<group>"; };
 		69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPageTitle.m; sourceTree = "<group>"; };
 		69B02C9C1A5DA23100040C86 /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
-		69B02CAA1A5DA70700040C86 /* BTREventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventsTableViewController.h; sourceTree = "<group>"; };
-		69B02CAB1A5DA70700040C86 /* BTREventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventsTableViewController.m; sourceTree = "<group>"; };
+		69B02CAA1A5DA70700040C86 /* BTREventsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventsCDTVC.h; sourceTree = "<group>"; };
+		69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventsCDTVC.m; sourceTree = "<group>"; };
 		69B02CB21A5DBAB000040C86 /* BTRCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRCategoryViewController.h; sourceTree = "<group>"; };
 		69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRCategoryViewController.m; sourceTree = "<group>"; };
 		69B02CBF1A60304000040C86 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -276,10 +279,12 @@
 				69867A141A44A701003CE59C /* BTRMainViewController.m */,
 				69B02CB21A5DBAB000040C86 /* BTRCategoryViewController.h */,
 				69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */,
-				69B02CAA1A5DA70700040C86 /* BTREventsTableViewController.h */,
-				69B02CAB1A5DA70700040C86 /* BTREventsTableViewController.m */,
+				69B02CAA1A5DA70700040C86 /* BTREventsCDTVC.h */,
+				69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */,
 				69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */,
 				69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */,
+				69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */,
+				69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */,
 				695F99D81A573D1500A80D12 /* Checkout */,
 			);
 			name = ViewController;
@@ -637,6 +642,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B02CF51A605A4400040C86 /* General1+AppServer.m in Sources */,
+				69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */,
 				69869FAF1A640C0600F986BC /* BTRDocumentHandler.m in Sources */,
 				69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
@@ -661,7 +667,7 @@
 				69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */,
 				69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */,
 				69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */,
-				69B02CAD1A5DA70700040C86 /* BTREventsTableViewController.m in Sources */,
+				69B02CAD1A5DA70700040C86 /* BTREventsCDTVC.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				69869F9C1A63FB2100F986BC /* AFSecurityPolicy.m in Sources */,
 				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,

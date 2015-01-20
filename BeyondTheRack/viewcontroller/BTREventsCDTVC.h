@@ -10,7 +10,7 @@
 #import "CoreDataTableViewController.h"
 
 
-@interface BTREventsTableViewController : CoreDataTableViewController{
+@interface BTREventsCDTVC : CoreDataTableViewController{
     UIImageView *imageView;
 }
 
