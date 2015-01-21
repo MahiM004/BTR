@@ -57,20 +57,74 @@
         if ([eventDictionary[@"images"]  valueForKey:@"470x230"])
             event.imageName = [eventDictionary[@"images"]  valueForKey:@"470x230"];
         
+        if ([eventDictionary valueForKeyPath:@"short_desc"])
+            event.shortEventDescription = [eventDictionary valueForKey:@"short_desc"];
+    
+        if ([eventDictionary valueForKeyPath:@"long_desc"])
+            event.longEventDescription = [eventDictionary valueForKey:@"long_desc"];
         
+        if ([eventDictionary valueForKeyPath:@"keyword"])
+            event.keyword = [eventDictionary valueForKey:@"keyword"];
         
+        if ([eventDictionary valueForKeyPath:@"importance"])
+            event.importance = [eventDictionary valueForKey:@"importance"];
         
+        if ([eventDictionary valueForKeyPath:@"type"])
+            event.eventType = [eventDictionary valueForKey:@"type"];
+        
+        if ([eventDictionary valueForKeyPath:@"is_flat_rate"])
+            event.isFlatRate = [eventDictionary valueForKey:@"is_flat_rate"];
+        
+        if ([eventDictionary valueForKeyPath:@"is_drop_ship"])
+            event.isDropShip = [eventDictionary valueForKey:@"is_drop_ship"];
+        
+        if ([eventDictionary valueForKeyPath:@"is_white_glove"])
+            event.isWhiteGlove = [eventDictionary valueForKey:@"is_white_glove"];
+        
+        if ([eventDictionary valueForKeyPath:@"top_performers"])
+            event.topPerformers = [eventDictionary valueForKey:@"top_performers"];
+        
+        if ([eventDictionary valueForKeyPath:@"name"])
+            event.eventName = [eventDictionary valueForKey:@"name"];
+        
+        if ([eventDictionary valueForKeyPath:@"active"])
+            event.activeEvent = [eventDictionary valueForKey:@"active"];
+        
+        if ([eventDictionary valueForKeyPath:@"special_note"])
+            event.specialNote = [eventDictionary valueForKey:@"special_note"];
+        
+        if ([eventDictionary valueForKeyPath:@"po_status"])
+            event.poStatus = [eventDictionary valueForKey:@"po_status"];
+        
+        if ([eventDictionary valueForKeyPath:@"tags"])
+            event.eventTags = [eventDictionary valueForKey:@"tags"];
+
+        if ([eventDictionary valueForKeyPath:@"outfit_flag"])
+            event.outfitFlag = [eventDictionary valueForKey:@"outfit_flag"];
+            
+        if ([eventDictionary valueForKeyPath:@"category_list"])
+            event.categoryList = [eventDictionary valueForKey:@"category_list"];
+        
+        if ([eventDictionary valueForKeyPath:@"live_upcoming"])
+            event.liveUpcoming = [eventDictionary valueForKey:@"live_upcoming"];
+        
+        if ([eventDictionary valueForKeyPath:@"item_limit"])
+            event.itemLimit = [eventDictionary valueForKey:@"item_limit"];
+        
+        if ([eventDictionary valueForKeyPath:@"include_brand_name"])
+            event.includeBrandName = [eventDictionary valueForKey:@"include_brand_name"];
+        
+        if ([eventDictionary valueForKeyPath:@"show_min_qty_flag"])
+            event.showMinQtyFlag = [eventDictionary valueForKey:@"show_min_qty_flag"];
+        
+        if ([eventDictionary valueForKeyPath:@"show_min_qty_minutes"])
+            event.showMinQtyMinutes = [eventDictionary valueForKey:@"show_min_qty_minutes"];
+  
+                    
         /*
-        
-        @property (nonatomic, retain) NSString * categoryId;
-        @property (nonatomic, retain) NSString * discount;
-        @property (nonatomic, retain) NSString * eventDescription;
-        @property (nonatomic, retain) NSString * eventId;
-        @property (nonatomic, retain) NSDate * expiryDateTime;
-        @property (nonatomic, retain) NSString * imageName;
-        @property (nonatomic, retain) NSString * saveUpTo;
-        @property (nonatomic, retain) NSString * title;
-        
+         @dynamic expiryDateTime;
+         @dynamic startDateTime;
+         @dynamic endDateTime;
         */
         
         
@@ -96,6 +150,77 @@
         
         if ([eventDictionary[@"images"]  valueForKey:@"470x230"])
             event.imageName = [eventDictionary[@"images"]  valueForKey:@"470x230"];
+        
+        if ([eventDictionary valueForKeyPath:@"short_desc"])
+            event.shortEventDescription = [eventDictionary valueForKey:@"short_desc"];
+        
+        if ([eventDictionary valueForKeyPath:@"long_desc"])
+            event.longEventDescription = [eventDictionary valueForKey:@"long_desc"];
+        
+        if ([eventDictionary valueForKeyPath:@"keyword"])
+            event.keyword = [eventDictionary valueForKey:@"keyword"];
+        
+        if ([eventDictionary valueForKeyPath:@"importance"])
+            event.importance = [eventDictionary valueForKey:@"importance"];
+        
+        if ([eventDictionary valueForKeyPath:@"type"])
+            event.eventType = [eventDictionary valueForKey:@"type"];
+        
+        if ([eventDictionary valueForKeyPath:@"is_flat_rate"])
+            event.isFlatRate = [eventDictionary valueForKey:@"is_flat_rate"];
+        
+        if ([eventDictionary valueForKeyPath:@"is_drop_ship"])
+            event.isDropShip = [eventDictionary valueForKey:@"is_drop_ship"];
+        
+        if ([eventDictionary valueForKeyPath:@"is_white_glove"])
+            event.isWhiteGlove = [eventDictionary valueForKey:@"is_white_glove"];
+        
+        if ([eventDictionary valueForKeyPath:@"top_performers"])
+            event.topPerformers = [eventDictionary valueForKey:@"top_performers"];
+        
+        if ([eventDictionary valueForKeyPath:@"name"])
+            event.eventName = [eventDictionary valueForKey:@"name"];
+        
+        if ([eventDictionary valueForKeyPath:@"active"])
+            event.activeEvent = [eventDictionary valueForKey:@"active"];
+        
+        if ([eventDictionary valueForKeyPath:@"special_note"])
+            event.specialNote = [eventDictionary valueForKey:@"special_note"];
+        
+        if ([eventDictionary valueForKeyPath:@"po_status"])
+            event.poStatus = [eventDictionary valueForKey:@"po_status"];
+        
+        if ([eventDictionary valueForKeyPath:@"tags"])
+            event.eventTags = [eventDictionary valueForKey:@"tags"];
+        
+        if ([eventDictionary valueForKeyPath:@"outfit_flag"])
+            event.outfitFlag = [eventDictionary valueForKey:@"outfit_flag"];
+        
+        if ([eventDictionary valueForKeyPath:@"category_list"])
+            event.categoryList = [eventDictionary valueForKey:@"category_list"];
+        
+        if ([eventDictionary valueForKeyPath:@"live_upcoming"])
+            event.liveUpcoming = [eventDictionary valueForKey:@"live_upcoming"];
+        
+        if ([eventDictionary valueForKeyPath:@"item_limit"])
+            event.itemLimit = [eventDictionary valueForKey:@"item_limit"];
+        
+        if ([eventDictionary valueForKeyPath:@"include_brand_name"])
+            event.includeBrandName = [eventDictionary valueForKey:@"include_brand_name"];
+        
+        if ([eventDictionary valueForKeyPath:@"show_min_qty_flag"])
+            event.showMinQtyFlag = [eventDictionary valueForKey:@"show_min_qty_flag"];
+        
+        if ([eventDictionary valueForKeyPath:@"show_min_qty_minutes"])
+            event.showMinQtyMinutes = [eventDictionary valueForKey:@"show_min_qty_minutes"];
+        
+        
+        /*
+         @dynamic expiryDateTime;
+         @dynamic startDateTime;
+         @dynamic endDateTime;
+         */
+        
 
     }
     
