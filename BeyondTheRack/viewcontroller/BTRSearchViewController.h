@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRSearchViewController : UIViewController
+@interface BTRSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

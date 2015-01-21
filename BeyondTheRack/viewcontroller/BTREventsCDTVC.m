@@ -145,7 +145,7 @@
                                   UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
                                   if (!strongImageView) return;
                                   
-                                  weakImageView.alpha = 0.0;
+                                  weakImageView.alpha = 0.3;
                                   weakImageView.image = image;
         
                                   [UIView animateWithDuration:0.5

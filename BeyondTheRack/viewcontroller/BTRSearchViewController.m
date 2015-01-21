@@ -7,15 +7,20 @@
 //
 
 #import "BTRSearchViewController.h"
+#import "Item+AppServer.h"
 
 @interface BTRSearchViewController ()
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-
+@property (strong,nonatomic) NSArray *resultsArray;
 
 @end
 
+
 @implementation BTRSearchViewController
+
+@synthesize resultsArray;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,6 +69,36 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [resultsArray count];
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 161;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"EventCellIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+
+    
+    return cell;
+}
+
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cell Tapped" message:[NSString stringWithFormat:@"Cell %ld tapped", (long)indexPath.row] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+    [alert show];
+}
 
 #pragma mark - Navigation
 
