@@ -12,14 +12,38 @@
         <attribute name="usernameId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Event" representedClassName="Event" syncable="YES">
-        <attribute name="categoryId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="activeEvent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryList" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="discount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="endDateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="eventDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventTags" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expiryDateTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="generalAttribute1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="generalAttribute2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="generalAttribute3" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="importance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="includeBrandName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isDropShip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isFlatRate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isWhiteGlove" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemLimit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="keyword" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="liveUpcoming" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longEventDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="outfitFlag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="poStatus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="saveUpTo" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shortEventDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="showMinQtyFlag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="showMinQtyMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="specialNote" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDateTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="topPerformers" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="General1" representedClassName="General1" syncable="YES">
         <attribute name="attribute" optional="YES" attributeType="String" syncable="YES"/>
@@ -52,14 +76,49 @@
         <attribute name="attribute7" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES">
+        <attribute name="attributeList" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="brand" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryList" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="clearancePriceCAD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="clearancePriceUSD" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="discount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dropShip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="employeePriceCAD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="employeePriceUSD" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expiryDateTime" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="generalAttribute1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="generalAttribute2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="generalAttribute3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="generalNote" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageName1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageName2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageName3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageName4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageName5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageName6" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longItemDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="priceCAD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="priceUSD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="priorityA" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="priorityB" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="relatedSkuslist" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="retailCAD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="retailUSD" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="saveUpTo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shipTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="shortItemDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sku" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="specialNote" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vendorId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoName1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoName2" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Order" representedClassName="Order" syncable="YES">
         <attribute name="confirmDateTime" optional="YES" attributeType="Date" syncable="YES"/>
@@ -130,11 +189,11 @@
     </entity>
     <elements>
         <element name="BagItem" positionX="151" positionY="-9" width="128" height="180"/>
-        <element name="Event" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="General1" positionX="-414" positionY="-63" width="128" height="165"/>
+        <element name="Event" positionX="-1010" positionY="-63" width="128" height="523"/>
+        <element name="General1" positionX="-477" positionY="-72" width="128" height="165"/>
         <element name="General2" positionX="-81" positionY="-63" width="128" height="165"/>
         <element name="General3" positionX="-621" positionY="240" width="128" height="165"/>
-        <element name="Item" positionX="-513" positionY="60" width="128" height="165"/>
+        <element name="Item" positionX="-839" positionY="-117" width="128" height="688"/>
         <element name="Order" positionX="-135" positionY="135" width="128" height="193"/>
         <element name="PaymentDetail" positionX="88" positionY="132" width="128" height="253"/>
         <element name="ShippingAddress" positionX="-270" positionY="-72" width="128" height="195"/>

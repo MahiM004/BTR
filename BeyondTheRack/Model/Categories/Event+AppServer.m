@@ -57,6 +57,27 @@
         if ([eventDictionary[@"images"]  valueForKey:@"470x230"])
             event.imageName = [eventDictionary[@"images"]  valueForKey:@"470x230"];
         
+        
+        
+        
+        /*
+        
+        @property (nonatomic, retain) NSString * categoryId;
+        @property (nonatomic, retain) NSString * discount;
+        @property (nonatomic, retain) NSString * eventDescription;
+        @property (nonatomic, retain) NSString * eventId;
+        @property (nonatomic, retain) NSDate * expiryDateTime;
+        @property (nonatomic, retain) NSString * imageName;
+        @property (nonatomic, retain) NSString * saveUpTo;
+        @property (nonatomic, retain) NSString * title;
+        
+        */
+        
+        
+        
+        
+        
+        
     } else if ([matches count] == 0 || [matches count] > 1 ) {
         
         if([matches count] > 1) {
