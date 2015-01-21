@@ -92,55 +92,66 @@
         if ([itemDictionary valueForKeyPath:@"general_notes"])
             item.generalNote = [itemDictionary valueForKey:@"general_notes"];
         
-        if ([itemDictionary valueForKeyPath:@"id"])
-            if ([itemDictionary valueForKeyPath:@"id"])
-                if ([itemDictionary valueForKeyPath:@"id"])
-                    if ([itemDictionary valueForKeyPath:@"id"])
-                        if ([itemDictionary valueForKeyPath:@"id"])
-                            ;
+        if ([itemDictionary valueForKeyPath:@"image_count"])
+            item.imageCount = [itemDictionary valueForKey:@"image_count"];
 
+        if ([itemDictionary[@"images"] valueForKeyPath:@"small"])
+            item.imageName1 = [itemDictionary[@"images"] valueForKey:@"small"];
         
-        if ([itemDictionary valueForKeyPath:@"id"])
-            if ([itemDictionary valueForKeyPath:@"id"])
-                if ([itemDictionary valueForKeyPath:@"id"])
-                    if ([itemDictionary valueForKeyPath:@"id"])
-                        if ([itemDictionary valueForKeyPath:@"id"])
-                            if ([itemDictionary valueForKeyPath:@"id"])
-                                if ([itemDictionary valueForKeyPath:@"id"])
-                                    if ([itemDictionary valueForKeyPath:@"id"])
-                                        if ([itemDictionary valueForKeyPath:@"id"])
-                                            
-                                            ;
+        if ([itemDictionary[@"images"] valueForKeyPath:@"medium"])
+            item.imageName2 = [itemDictionary[@"images"] valueForKey:@"medium"];
+        
+        if ([itemDictionary[@"images"] valueForKeyPath:@"large"])
+            item.imageName3 = [itemDictionary[@"images"] valueForKey:@"large"];
+        
+        if ([itemDictionary valueForKeyPath:@"retail_usd"])
+            item.retailUSD = [itemDictionary valueForKey:@"retail_usd"];
+        
+        if ([itemDictionary valueForKeyPath:@"retail_cad"])
+            item.retailCAD = [itemDictionary valueForKey:@"retail_cad"];
+        
+        if ([itemDictionary valueForKeyPath:@"price_usd"])
+            item.priceUSD = [itemDictionary valueForKey:@"price_usd"];
+        
+        if ([itemDictionary valueForKeyPath:@"price_cad"])
+            item.priceCAD = [itemDictionary valueForKey:@"price_cad"];
+        
+        if ([itemDictionary valueForKeyPath:@"employee_price_usd"])
+            item.employeePriceUSD = [itemDictionary valueForKey:@"employee_price_usd"];
+        
+        if ([itemDictionary valueForKeyPath:@"employee_price_cad"])
+            item.employeePriceCAD = [itemDictionary valueForKey:@"employee_price_cad"];
+        
+        if ([itemDictionary valueForKeyPath:@"clearance_price_usd"])
+            item.clearancePriceUSD = [itemDictionary valueForKey:@"clearance_price_usd"];
+        
+        if ([itemDictionary valueForKeyPath:@"clearance_price_cad"])
+            item.clearancePriceCAD = [itemDictionary valueForKey:@"clearance_price_cad"];
+        
+        if ([itemDictionary valueForKeyPath:@"vendor_id"])
+            item.vendorId = [itemDictionary valueForKey:@"vendor_id"];
+        
+        if ([itemDictionary valueForKeyPath:@"drop_ship"])
+            item.dropShip = [itemDictionary valueForKey:@"drop_ship"];
+        
+        if ([itemDictionary valueForKeyPath:@"clearance_price_cad"])
+            item.clearancePriceCAD = [itemDictionary valueForKey:@"clearance_price_cad"];
+        
+        
         /*
+        if ([itemDictionary[@"images"] valueForKeyPath:@"small"])
+            item.imageName4 = [itemDictionary[@"images"] valueForKey:@"small"];
+        
+        if ([itemDictionary[@"images"] valueForKeyPath:@"medium"])
+            item.imageName5 = [itemDictionary[@"images"] valueForKey:@"medium"];
+        
+        if ([itemDictionary[@"images"] valueForKeyPath:@"large"])
+            item.imageName6 = [itemDictionary[@"images"] valueForKey:@"large"];
         
         @dynamic expiryDateTime;
-        @dynamic imageName1;
-
-        @dynamic imageCount;
-        @dynamic imageName5;
-        @dynamic imageName6;
-        @dynamic imageName2;
-        @dynamic imageName3;
-        @dynamic imageName4;
-        @dynamic videoCount;
-        @dynamic videoName2;
-
-
-        @dynamic retailUSD;
         @dynamic videoName1;
-        @dynamic retailCAD;
-        @dynamic priceUSD;
-        @dynamic priceCAD;
-        @dynamic employeePriceUSD;
-        @dynamic employeePriceCAD;
-        @dynamic clearancePriceUSD;
-        @dynamic clearancePriceCAD;
-        @dynamic vendorId;
-    
-        @dynamic specialNote;
-        @dynamic generalNote;
+        @dynamic videoName2;
         @dynamic shipTime;
-        @dynamic dropShip;
         
         */
         
@@ -160,8 +171,111 @@
         item = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
                                                         inManagedObjectContext:context];
         
-        if ([[itemDictionary valueForKeyPath:@"id"] stringValue])
-            item.itemId = [[itemDictionary valueForKeyPath:@"id"] stringValue];
+        
+        if ([itemDictionary valueForKeyPath:@"event_id"])
+            item.eventId = [itemDictionary valueForKeyPath:@"event_id"];
+        
+        if ([itemDictionary valueForKeyPath:@"short_decs"])
+            item.shortItemDescription = [itemDictionary valueForKey:@"short_decs"];
+        
+        if ([itemDictionary valueForKeyPath:@"long_desc"])
+            item.longItemDescription = [itemDictionary valueForKey:@"long_desc"];
+        
+        if ([itemDictionary valueForKeyPath:@"image_count"])
+            item.imageCount = [itemDictionary valueForKey:@"image_count"];
+        
+        if ([itemDictionary valueForKeyPath:@"sku"])
+            item.sku = [itemDictionary valueForKey:@"sku"];
+        
+        if ([itemDictionary valueForKeyPath:@"priority_a"])
+            item.priorityA = [itemDictionary valueForKey:@"priority_a"];
+        
+        if ([itemDictionary valueForKeyPath:@"priority_b"])
+            item.priorityB = [itemDictionary valueForKey:@"priority_b"];
+        
+        if ([itemDictionary valueForKeyPath:@"brand"])
+            item.brand = [itemDictionary valueForKey:@"brand"];
+        
+        if ([itemDictionary valueForKeyPath:@"attribute_list"])
+            item.attributeList = [itemDictionary valueForKey:@"attribute_list"];
+        
+        if ([itemDictionary valueForKeyPath:@"product_type"])
+            item.productType = [itemDictionary valueForKey:@"product_type"];
+        
+        if ([itemDictionary valueForKeyPath:@"category_list"])
+            item.categoryList = [itemDictionary valueForKey:@"category_list"];
+        
+        if ([itemDictionary valueForKeyPath:@"related_skus_list"])
+            item.relatedSkuslist = [itemDictionary valueForKey:@"related_skus_list"];
+        
+        if ([itemDictionary valueForKeyPath:@"special_notes"])
+            item.specialNote = [itemDictionary valueForKey:@"special_notes"];
+        
+        if ([itemDictionary valueForKeyPath:@"general_notes"])
+            item.generalNote = [itemDictionary valueForKey:@"general_notes"];
+        
+        if ([itemDictionary valueForKeyPath:@"image_count"])
+            item.imageCount = [itemDictionary valueForKey:@"image_count"];
+        
+        if ([itemDictionary[@"images"] valueForKeyPath:@"small"])
+            item.imageName1 = [itemDictionary[@"images"] valueForKey:@"small"];
+        
+        if ([itemDictionary[@"images"] valueForKeyPath:@"medium"])
+            item.imageName2 = [itemDictionary[@"images"] valueForKey:@"medium"];
+        
+        if ([itemDictionary[@"images"] valueForKeyPath:@"large"])
+            item.imageName3 = [itemDictionary[@"images"] valueForKey:@"large"];
+        
+        if ([itemDictionary valueForKeyPath:@"retail_usd"])
+            item.retailUSD = [itemDictionary valueForKey:@"retail_usd"];
+        
+        if ([itemDictionary valueForKeyPath:@"retail_cad"])
+            item.retailCAD = [itemDictionary valueForKey:@"retail_cad"];
+        
+        if ([itemDictionary valueForKeyPath:@"price_usd"])
+            item.priceUSD = [itemDictionary valueForKey:@"price_usd"];
+        
+        if ([itemDictionary valueForKeyPath:@"price_cad"])
+            item.priceCAD = [itemDictionary valueForKey:@"price_cad"];
+        
+        if ([itemDictionary valueForKeyPath:@"employee_price_usd"])
+            item.employeePriceUSD = [itemDictionary valueForKey:@"employee_price_usd"];
+        
+        if ([itemDictionary valueForKeyPath:@"employee_price_cad"])
+            item.employeePriceCAD = [itemDictionary valueForKey:@"employee_price_cad"];
+        
+        if ([itemDictionary valueForKeyPath:@"clearance_price_usd"])
+            item.clearancePriceUSD = [itemDictionary valueForKey:@"clearance_price_usd"];
+        
+        if ([itemDictionary valueForKeyPath:@"clearance_price_cad"])
+            item.clearancePriceCAD = [itemDictionary valueForKey:@"clearance_price_cad"];
+        
+        if ([itemDictionary valueForKeyPath:@"vendor_id"])
+            item.vendorId = [itemDictionary valueForKey:@"vendor_id"];
+        
+        if ([itemDictionary valueForKeyPath:@"drop_ship"])
+            item.dropShip = [itemDictionary valueForKey:@"drop_ship"];
+        
+        if ([itemDictionary valueForKeyPath:@"clearance_price_cad"])
+            item.clearancePriceCAD = [itemDictionary valueForKey:@"clearance_price_cad"];
+        
+        
+        /*
+         if ([itemDictionary[@"images"] valueForKeyPath:@"small"])
+         item.imageName4 = [itemDictionary[@"images"] valueForKey:@"small"];
+         
+         if ([itemDictionary[@"images"] valueForKeyPath:@"medium"])
+         item.imageName5 = [itemDictionary[@"images"] valueForKey:@"medium"];
+         
+         if ([itemDictionary[@"images"] valueForKeyPath:@"large"])
+         item.imageName6 = [itemDictionary[@"images"] valueForKey:@"large"];
+         
+         @dynamic expiryDateTime;
+         @dynamic videoName1;
+         @dynamic videoName2;
+         @dynamic shipTime;
+         
+         */
     }
     
     return item;
