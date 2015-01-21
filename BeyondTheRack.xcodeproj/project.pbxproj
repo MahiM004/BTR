@@ -20,11 +20,9 @@
 		69869F671A6075E900F986BC /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F661A6075E900F986BC /* Order.m */; };
 		69869F6A1A6075E900F986BC /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F691A6075E900F986BC /* BagItem.m */; };
 		69869F6D1A6075E900F986BC /* General1.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F6C1A6075E900F986BC /* General1.m */; };
-		69869F701A6075EA00F986BC /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F6F1A6075EA00F986BC /* Item.m */; };
 		69869F731A6075EA00F986BC /* ShippingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F721A6075EA00F986BC /* ShippingAddress.m */; };
 		69869F761A6075EA00F986BC /* General2.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F751A6075EA00F986BC /* General2.m */; };
 		69869F791A6075EA00F986BC /* General3.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F781A6075EA00F986BC /* General3.m */; };
-		69869F7C1A6075EA00F986BC /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F7B1A6075EA00F986BC /* Event.m */; };
 		69869F7F1A6075EA00F986BC /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F7E1A6075EA00F986BC /* User.m */; };
 		69869F821A6075EA00F986BC /* UserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F811A6075EA00F986BC /* UserNotifications.m */; };
 		69869F981A63FB2100F986BC /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F861A63FB2100F986BC /* AFHTTPRequestOperation.m */; };
@@ -52,6 +50,8 @@
 		69AB98301A6D441700EDB1E6 /* eventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB982F1A6D441700EDB1E6 /* eventView.m */; };
 		69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98381A6E95C300EDB1E6 /* searchglass.png */; };
 		69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */; };
+		69AB983F1A7006EE00EDB1E6 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983E1A7006EE00EDB1E6 /* Item.m */; };
+		69AB98421A7006EF00EDB1E6 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98411A7006EF00EDB1E6 /* Event.m */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
 		69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C981A5DA23100040C86 /* TTSlidingPage.m */; };
@@ -113,16 +113,12 @@
 		69869F691A6075E900F986BC /* BagItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItem.m; sourceTree = "<group>"; };
 		69869F6B1A6075E900F986BC /* General1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General1.h; sourceTree = "<group>"; };
 		69869F6C1A6075E900F986BC /* General1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General1.m; sourceTree = "<group>"; };
-		69869F6E1A6075EA00F986BC /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		69869F6F1A6075EA00F986BC /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		69869F711A6075EA00F986BC /* ShippingAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingAddress.h; sourceTree = "<group>"; };
 		69869F721A6075EA00F986BC /* ShippingAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingAddress.m; sourceTree = "<group>"; };
 		69869F741A6075EA00F986BC /* General2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General2.h; sourceTree = "<group>"; };
 		69869F751A6075EA00F986BC /* General2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General2.m; sourceTree = "<group>"; };
 		69869F771A6075EA00F986BC /* General3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General3.h; sourceTree = "<group>"; };
 		69869F781A6075EA00F986BC /* General3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General3.m; sourceTree = "<group>"; };
-		69869F7A1A6075EA00F986BC /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		69869F7B1A6075EA00F986BC /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		69869F7D1A6075EA00F986BC /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		69869F7E1A6075EA00F986BC /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		69869F801A6075EA00F986BC /* UserNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotifications.h; sourceTree = "<group>"; };
@@ -178,6 +174,10 @@
 		69AB98381A6E95C300EDB1E6 /* searchglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchglass.png; sourceTree = "<group>"; };
 		69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchViewController.h; sourceTree = "<group>"; };
 		69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchViewController.m; sourceTree = "<group>"; };
+		69AB983D1A7006EE00EDB1E6 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		69AB983E1A7006EE00EDB1E6 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		69AB98401A7006EF00EDB1E6 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		69AB98411A7006EF00EDB1E6 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
 		69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollSlidingPagesController.m; sourceTree = "<group>"; };
 		69B02C941A5DA23100040C86 /* TTScrollViewWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollViewWrapper.h; sourceTree = "<group>"; };
@@ -413,20 +413,20 @@
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
 				69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */,
+				69AB98401A7006EF00EDB1E6 /* Event.h */,
+				69AB98411A7006EF00EDB1E6 /* Event.m */,
+				69AB983D1A7006EE00EDB1E6 /* Item.h */,
+				69AB983E1A7006EE00EDB1E6 /* Item.m */,
 				69869F801A6075EA00F986BC /* UserNotifications.h */,
 				69869F811A6075EA00F986BC /* UserNotifications.m */,
 				69869F7D1A6075EA00F986BC /* User.h */,
 				69869F7E1A6075EA00F986BC /* User.m */,
-				69869F7A1A6075EA00F986BC /* Event.h */,
-				69869F7B1A6075EA00F986BC /* Event.m */,
 				69869F771A6075EA00F986BC /* General3.h */,
 				69869F781A6075EA00F986BC /* General3.m */,
 				69869F741A6075EA00F986BC /* General2.h */,
 				69869F751A6075EA00F986BC /* General2.m */,
 				69869F711A6075EA00F986BC /* ShippingAddress.h */,
 				69869F721A6075EA00F986BC /* ShippingAddress.m */,
-				69869F6E1A6075EA00F986BC /* Item.h */,
-				69869F6F1A6075EA00F986BC /* Item.m */,
 				69869F6B1A6075E900F986BC /* General1.h */,
 				69869F6C1A6075E900F986BC /* General1.m */,
 				69869F681A6075E900F986BC /* BagItem.h */,
@@ -646,19 +646,20 @@
 				69869FAF1A640C0600F986BC /* BTRDocumentHandler.m in Sources */,
 				69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
+				69AB983F1A7006EE00EDB1E6 /* Item.m in Sources */,
 				69869F6A1A6075E900F986BC /* BagItem.m in Sources */,
 				69869F821A6075EA00F986BC /* UserNotifications.m in Sources */,
 				69869F9D1A63FB2100F986BC /* AFURLConnectionOperation.m in Sources */,
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
 				695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */,
 				69869FC21A640F0000F986BC /* AFNetworkActivityIndicatorManager.m in Sources */,
+				69AB98421A7006EF00EDB1E6 /* Event.m in Sources */,
 				69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */,
 				69869FA01A63FB2100F986BC /* AFURLSessionManager.m in Sources */,
 				69869F671A6075E900F986BC /* Order.m in Sources */,
 				69869F991A63FB2100F986BC /* AFHTTPRequestOperationManager.m in Sources */,
 				69869FA31A63FCA500F986BC /* BTRFetcher.m in Sources */,
 				69869FC41A640F0000F986BC /* UIAlertView+AFNetworking.m in Sources */,
-				69869F7C1A6075EA00F986BC /* Event.m in Sources */,
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				69869F9B1A63FB2100F986BC /* AFNetworkReachabilityManager.m in Sources */,
 				69B02CFB1A605A7500040C86 /* General3+AppServer.m in Sources */,
@@ -674,7 +675,6 @@
 				69869FC51A640F0000F986BC /* UIButton+AFNetworking.m in Sources */,
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
 				69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */,
-				69869F701A6075EA00F986BC /* Item.m in Sources */,
 				69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */,
 				69869F761A6075EA00F986BC /* General2.m in Sources */,
 				69869FC61A640F0000F986BC /* UIImageView+AFNetworking.m in Sources */,
