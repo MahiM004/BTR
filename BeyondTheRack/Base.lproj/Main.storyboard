@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="077B03E9-89CC-4605-A30C-C760FDDD421B" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="6E679378-C034-4070-A740-8A1425904865" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -506,7 +506,7 @@
                                         </connections>
                                     </button>
                                     <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" text="" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="sgO-aW-sYA">
-                                        <rect key="frame" x="43" y="1" width="234" height="44"/>
+                                        <rect key="frame" x="34" y="1" width="200" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="barTintColor" red="0.4392156862745098" green="0.50196078431372548" blue="0.56470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -515,6 +515,9 @@
                                             <outlet property="delegate" destination="stj-io-MRf" id="Ag3-m9-hHj"/>
                                         </connections>
                                     </searchBar>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="filtericon.png" translatesAutoresizingMaskIntoConstraints="NO" id="THC-JQ-zyr">
+                                        <rect key="frame" x="234" y="3" width="34" height="42"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -918,7 +921,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="077B03E9-89CC-4605-A30C-C760FDDD421B" width="30" height="30">
+        <image name="6E679378-C034-4070-A740-8A1425904865" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -977,6 +980,7 @@ RgAAAAAAAAAAAAAAAAAAC5U
         </image>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>
+        <image name="filtericon.png" width="420" height="490"/>
         <image name="neulogo.png" width="925" height="125"/>
         <image name="neumyaccount.png" width="600" height="700"/>
         <image name="searchglass.png" width="500" height="583"/>

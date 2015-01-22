@@ -53,6 +53,7 @@
 		69AB983F1A7006EE00EDB1E6 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983E1A7006EE00EDB1E6 /* Item.m */; };
 		69AB98421A7006EF00EDB1E6 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98411A7006EF00EDB1E6 /* Event.m */; };
 		69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */; };
+		69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98491A71A50400EDB1E6 /* filtericon.png */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
 		69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C981A5DA23100040C86 /* TTSlidingPage.m */; };
@@ -181,6 +182,7 @@
 		69AB98411A7006EF00EDB1E6 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		69AB98461A71877E00EDB1E6 /* BTRItemFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRItemFetcher.h; sourceTree = "<group>"; };
 		69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRItemFetcher.m; sourceTree = "<group>"; };
+		69AB98491A71A50400EDB1E6 /* filtericon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filtericon.png; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
 		69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollSlidingPagesController.m; sourceTree = "<group>"; };
 		69B02C941A5DA23100040C86 /* TTScrollViewWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollViewWrapper.h; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				69AB98491A71A50400EDB1E6 /* filtericon.png */,
 				69AB98381A6E95C300EDB1E6 /* searchglass.png */,
 				69867A0A1A446FCA003CE59C /* backarrowcool.png */,
 				69867A061A438A8C003CE59C /* bagicon.png */,
@@ -620,6 +623,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */,
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
