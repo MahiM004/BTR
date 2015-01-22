@@ -18,7 +18,6 @@
 @property (strong,nonatomic) NSMutableArray *filteredItemArray;
 @property (strong, nonatomic) NSMutableArray *itemArray;
 
-
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
@@ -127,20 +126,18 @@
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
     
     
-    NSLog(@"Search Clicked");
-    
-    
-    
-    NSArray *results = self.itemArray;// = [SomeService doSearch:searchBar.text];
+    //NSArray *results = self.itemArray;// = [SomeService doSearch:searchBar.text];
     
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
+   
+    /*
     self.tableView.allowsSelection = YES;
     self.tableView.scrollEnabled = YES;
     
     [self.filteredItemArray removeAllObjects];
     [self.filteredItemArray addObjectsFromArray:results];
-    [self.tableView reloadData];
+    [self.tableView reloadData];*/
 }
 
 - (void)searchBar:(UISearchBar *)searchBar
