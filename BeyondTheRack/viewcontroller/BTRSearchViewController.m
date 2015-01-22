@@ -15,8 +15,8 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (strong,nonatomic) NSArray *itemArray;
 @property (strong,nonatomic) NSMutableArray *filteredItemArray;
+@property (strong, nonatomic) NSMutableArray *itemArray;
 
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
@@ -28,8 +28,16 @@
 
 @implementation BTRSearchViewController
 
-@synthesize itemArray;
 @synthesize searchBar;
+
+- (NSMutableArray *)itemArray{
+    if (!_itemArray)
+        _itemArray = [[NSMutableArray alloc] init];
+    
+    
+    return _itemArray;
+}
+
 
 - (void)viewDidLoad {
     
@@ -64,7 +72,6 @@
     [self.searchBar setSearchFieldBackgroundImage:image forState:UIControlStateNormal];
     
     
-    self.filteredItemArray = [NSMutableArray arrayWithCapacity:[itemArray count]];
 }
 
 
@@ -80,12 +87,12 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // Dispose of any resources that can recreated.
 }
 
 
 #pragma mark Content Filtering
-
+/*
 -(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
     
     [self.filteredItemArray removeAllObjects];
@@ -111,7 +118,7 @@
     // Return YES to cause the search result table view to be reloaded.
     return YES;
 }
-
+*/
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
     // use some multithreading here
@@ -122,7 +129,9 @@
     
     NSLog(@"Search Clicked");
     
-    NSArray *results;// = [SomeService doSearch:searchBar.text];
+    
+    
+    NSArray *results = self.itemArray;// = [SomeService doSearch:searchBar.text];
     
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
@@ -162,7 +171,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.filteredItemArray count];
+    return [self.itemArray count];
 }
 
 
@@ -175,8 +184,10 @@
 {
     static NSString *CellIdentifier = @"SearchResultCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+
     
-    
+    cell.textLabel.text = [(Item *)[self.itemArray objectAtIndex:indexPath.row] sku];
     //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
     return cell;
@@ -223,14 +234,15 @@
                                                                           options:0
                                                                             error:NULL];
          
-         [Item loadItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
+         self.itemArray = [Item loadItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
+         
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
          [self.tableView reloadData];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
-         //NSLog(@"Error: %@", error);
+         NSLog(@"Error: %@", error);
      }];
     
 }

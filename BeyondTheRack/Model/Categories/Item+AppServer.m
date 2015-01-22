@@ -27,7 +27,7 @@
                                inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Item *item = nil;
-    NSString *unique = itemDictionary[@"id"];
+    NSString *unique = itemDictionary[@"sku"];
     
     if(!unique)
         return nil;
@@ -280,11 +280,12 @@
     for (NSDictionary *item in items) {
         
         NSObject *someObject = [self itemWithAppServerInfo:item inManagedObjectContext:context];
+        
         if (someObject)
             [itemArray addObject:someObject];
         
     }
-    
+
     return itemArray;
 }
 
