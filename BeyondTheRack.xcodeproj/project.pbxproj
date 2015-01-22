@@ -52,6 +52,7 @@
 		69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */; };
 		69AB983F1A7006EE00EDB1E6 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983E1A7006EE00EDB1E6 /* Item.m */; };
 		69AB98421A7006EF00EDB1E6 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98411A7006EF00EDB1E6 /* Event.m */; };
+		69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
 		69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C981A5DA23100040C86 /* TTSlidingPage.m */; };
@@ -178,6 +179,8 @@
 		69AB983E1A7006EE00EDB1E6 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		69AB98401A7006EF00EDB1E6 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		69AB98411A7006EF00EDB1E6 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		69AB98461A71877E00EDB1E6 /* BTRItemFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRItemFetcher.h; sourceTree = "<group>"; };
+		69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRItemFetcher.m; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
 		69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollSlidingPagesController.m; sourceTree = "<group>"; };
 		69B02C941A5DA23100040C86 /* TTScrollViewWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollViewWrapper.h; sourceTree = "<group>"; };
@@ -322,6 +325,8 @@
 				69869FA21A63FCA500F986BC /* BTRFetcher.m */,
 				69869FA41A63FD6B00F986BC /* BTREventFetcher.h */,
 				69869FA51A63FD6B00F986BC /* BTREventFetcher.m */,
+				69AB98461A71877E00EDB1E6 /* BTRItemFetcher.h */,
+				69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */,
 			);
 			path = Fetcher;
 			sourceTree = "<group>";
@@ -657,6 +662,7 @@
 				69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */,
 				69869FA01A63FB2100F986BC /* AFURLSessionManager.m in Sources */,
 				69869F671A6075E900F986BC /* Order.m in Sources */,
+				69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */,
 				69869F991A63FB2100F986BC /* AFHTTPRequestOperationManager.m in Sources */,
 				69869FA31A63FCA500F986BC /* BTRFetcher.m in Sources */,
 				69869FC41A640F0000F986BC /* UIAlertView+AFNetworking.m in Sources */,

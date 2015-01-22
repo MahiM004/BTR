@@ -33,7 +33,7 @@
         return nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Item"];
-    request.predicate = [NSPredicate predicateWithFormat:@"itemId = %@", unique];
+    request.predicate = [NSPredicate predicateWithFormat:@"sku = %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
