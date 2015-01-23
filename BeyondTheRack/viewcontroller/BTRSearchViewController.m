@@ -186,7 +186,8 @@
 
     BTRItemShowcaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 
-    
+    //cell = [[BTRItemShowcaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+
     
     if ( cell == nil )
     {
@@ -196,42 +197,9 @@
     cell.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
 
     
-   // [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:indexPath.row] sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+   [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:indexPath.row] sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
 
 
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 240)];
-    
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:indexPath.row] sku]]];
-    
-    __weak UIImageView *weakImageView = imageView;
-    [imageView setImageWithURLRequest:urlRequest placeholderImage:[UIImage imageNamed:@"neulogo.png"]
-     
-                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                  
-                                  UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
-                                  if (!strongImageView) return;
-                                  
-                                  weakImageView.alpha = 0.3;
-                                  weakImageView.image = image;
-                                  
-                                  [UIView animateWithDuration:0.5
-                                                   animations:^{
-                                                       weakImageView.alpha = 1;
-                                                   }
-                                   
-                                                   completion:nil];
-                                  
-                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                  
-                                //  weakImageView.image = [UIImage imageNamed:@"neulogo.png"];
-                                  
-                              }];
-    
-    [cell.leftView addSubview:imageView];
-    //cell.leftImageView = imageView;
-    
-    
-    
     
     return cell;
 }
@@ -310,46 +278,6 @@
  */
 
 @end
-
-
-
-
-
-/*
- NSString *imageName = [NSString stringWithFormat:@"profilePicture%@.PNG", [friendRelation friendProfileId]];
- UIImage *img = [SVJMyUtility imageWithFilename:imageName];
- 
- if (img == nil)
- {
- */
-
-/*
- NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTRItemFetcher URLforItemWithSku:[(Item *)[self.itemArray objectAtIndex:indexPath.row] sku]]];
- AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
- requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
- [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
- 
- cell.leftImageView.image = responseObject;
- //[SVJMyUtility saveImage:responseObject withFilename:imageName];
- 
- 
- } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
- 
- }];
- [requestOperation start];
- */
-/*
- }
- else {
- cell.profileImage.image = img;
- }
- 
- cell.leftImageView = [SVJMyUtility roundTheCornersForImageView:cell.profileImage withCornerRadius:8.0];
- */
-
-
-
-
 
 
 
