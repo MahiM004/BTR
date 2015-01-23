@@ -26,4 +26,7 @@
  http://172.30.101.26/apisite/eventsku/25904
  http://172.30.101.26/apisite/eventsku/25904/BUC17459BK
  
+ http://static.beyondtherack.com/productimages/MOOB2025FL/large/MOOB2025FL_1.jpg
+ 
+ 
  */

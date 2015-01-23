@@ -36,8 +36,6 @@
 {
     [super viewWillAppear:animated];
     
-    
-
     // handling boundry indexes for category titles
 }
 

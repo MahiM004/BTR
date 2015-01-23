@@ -121,7 +121,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
     // use some multithreading here
-    
+    [self.itemArray removeAllObjects];
     
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
     
@@ -136,8 +136,8 @@
     self.tableView.scrollEnabled = YES;
     
     [self.filteredItemArray removeAllObjects];
-    [self.filteredItemArray addObjectsFromArray:results];
-    [self.tableView reloadData];*/
+    [self.filteredItemArray addObjectsFromArray:results];*/
+    [self.tableView reloadData];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar
@@ -174,18 +174,55 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 161;
+    return 322;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"SearchResultCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 
     
-    cell.textLabel.text = [(Item *)[self.itemArray objectAtIndex:indexPath.row] sku];
-    //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    
+    
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 322)];
+    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:indexPath.row] sku]]];
+    
+    __weak UIImageView *weakImageView = imageView;
+    [imageView setImageWithURLRequest:urlRequest placeholderImage:nil
+     
+                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                  
+                                  UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
+                                  if (!strongImageView) return;
+                                  
+                                  weakImageView.alpha = 0.3;
+                                  weakImageView.image = image;
+                                  
+                                  [UIView animateWithDuration:0.5
+                                                   animations:^{
+                                                       weakImageView.alpha = 1;
+                                                   }
+                                   
+                                                   completion:nil];
+                                  
+                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                  
+                                  
+                                  weakImageView.image = [UIImage imageNamed:@"neulogo.png"];
+                                  
+                              }];
+    
+    [cell addSubview:imageView];
+    
+    
+    
+    //cell.imageView.image = imageView.image;
+
     
     return cell;
 }

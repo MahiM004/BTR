@@ -29,9 +29,8 @@
 
 + (NSURL *)URLforItemImageForSku:(NSString *)sku
 {
-    
-    return [self URLForQuery:[NSString stringWithFormat:@"http:%@", sku]];
-    //return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@", BASEURL, imageId]];
+
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/productimages/%@/medium/%@_1.jpg", STATICURL,sku, sku]];
 }
 
 
