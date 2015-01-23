@@ -32,10 +32,10 @@
 @synthesize searchBar;
 
 - (NSMutableArray *)itemArray{
+
     if (!_itemArray)
         _itemArray = [[NSMutableArray alloc] init];
-    
-    
+
     return _itemArray;
 }
 
@@ -71,7 +71,6 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [self.searchBar setSearchFieldBackgroundImage:image forState:UIControlStateNormal];
-    
     
 }
 
@@ -175,28 +174,18 @@
 }
 
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 240;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     static NSString *CellIdentifier = @"SearchResultCellIdentifier";
-
     BTRItemShowcaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    //cell = [[BTRItemShowcaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 
     
     if ( cell == nil )
     {
         cell = [[BTRItemShowcaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
 
-    
    [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:2*(indexPath.row)] sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
 
     [cell.rightImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:2*(indexPath.row) + 1] sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
