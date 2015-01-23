@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="871F1C48-8A4F-453B-9D10-89999DFB8E53" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="E02C9B13-DC49-4FD3-8FDF-56BF5E261365" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -553,6 +553,7 @@
                         <color key="backgroundColor" red="0.12941176470588237" green="0.12941176470588237" blue="0.12941176470588237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.43921568630000002" green="0.50196078430000002" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Ou7-dM-F5U"/>
                     <connections>
                         <outlet property="searchBar" destination="sgO-aW-sYA" id="vhE-2p-Cbg"/>
                         <outlet property="searchDisplayController" destination="ilG-4o-X26" id="0kB-xY-X0X"/>
@@ -570,7 +571,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="638" y="-1214"/>
+            <point key="canvasLocation" x="1286" y="-1190"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hKI-X9-0EH">
@@ -623,7 +624,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="stj-io-MRf" kind="modal" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" animates="NO" id="Zbn-7s-yXL"/>
+                                            <segue destination="wJk-5F-LvA" kind="modal" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" animates="NO" id="Zbn-7s-yXL"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -763,7 +764,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wxx-54-p0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1763" y="-885"/>
+            <point key="canvasLocation" x="2295" y="-885"/>
         </scene>
         <!--Approve Purchase View Controller-->
         <scene sceneID="ohB-Tf-V6s">
@@ -837,7 +838,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3k-r8-R5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5Wd-id-3W3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2187" y="-885"/>
+            <point key="canvasLocation" x="2719" y="-885"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="PET-gF-tHv">
@@ -879,7 +880,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6qf-vA-iqF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2667" y="-839.5"/>
+            <point key="canvasLocation" x="3199" y="-839.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x8v-mg-mc8">
@@ -919,9 +920,30 @@
             </objects>
             <point key="canvasLocation" x="849" y="-430"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Lvt-wn-93T">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="wJk-5F-LvA" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ujs-tS-3fA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="stj-io-MRf" kind="relationship" relationship="rootViewController" id="i3x-ti-uGe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Ly-6t-PZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="754" y="-1190"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="871F1C48-8A4F-453B-9D10-89999DFB8E53" width="30" height="30">
+        <image name="E02C9B13-DC49-4FD3-8FDF-56BF5E261365" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
