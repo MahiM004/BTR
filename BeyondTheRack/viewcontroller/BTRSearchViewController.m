@@ -46,7 +46,7 @@
     
     [self setupDocument];
     
-    self.view.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
+    //self.view.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
 
     searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
@@ -170,7 +170,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.itemArray count];//(NSInteger)([self.itemArray count]/2 +1);
+    NSInteger tableSize = (NSInteger)((int)[self.itemArray count]/ (int)2);
+    return tableSize;
 }
 
 
@@ -194,12 +195,11 @@
         cell = [[BTRItemShowcaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
 
     
-   [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:indexPath.row] sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+   [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:2*(indexPath.row)] sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
 
-
+    [cell.rightImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:2*(indexPath.row) + 1] sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
     
     return cell;
 }
