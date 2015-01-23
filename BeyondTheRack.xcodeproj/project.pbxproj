@@ -47,13 +47,13 @@
 		69869FC71A640F0000F986BC /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FBD1A640EFF00F986BC /* UIProgressView+AFNetworking.m */; };
 		69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FBF1A640EFF00F986BC /* UIRefreshControl+AFNetworking.m */; };
 		69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */; };
-		69AB98301A6D441700EDB1E6 /* eventView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB982F1A6D441700EDB1E6 /* eventView.m */; };
 		69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98381A6E95C300EDB1E6 /* searchglass.png */; };
 		69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */; };
 		69AB983F1A7006EE00EDB1E6 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983E1A7006EE00EDB1E6 /* Item.m */; };
 		69AB98421A7006EF00EDB1E6 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98411A7006EF00EDB1E6 /* Event.m */; };
 		69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */; };
 		69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98491A71A50400EDB1E6 /* filtericon.png */; };
+		69AB984D1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB984C1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
 		69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C981A5DA23100040C86 /* TTSlidingPage.m */; };
@@ -171,8 +171,6 @@
 		69869FBF1A640EFF00F986BC /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		69869FC01A640F0000F986BC /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		69AB982E1A6D441700EDB1E6 /* eventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventView.h; sourceTree = "<group>"; };
-		69AB982F1A6D441700EDB1E6 /* eventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eventView.m; sourceTree = "<group>"; };
 		69AB98381A6E95C300EDB1E6 /* searchglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchglass.png; sourceTree = "<group>"; };
 		69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchViewController.h; sourceTree = "<group>"; };
 		69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchViewController.m; sourceTree = "<group>"; };
@@ -183,6 +181,8 @@
 		69AB98461A71877E00EDB1E6 /* BTRItemFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRItemFetcher.h; sourceTree = "<group>"; };
 		69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRItemFetcher.m; sourceTree = "<group>"; };
 		69AB98491A71A50400EDB1E6 /* filtericon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filtericon.png; sourceTree = "<group>"; };
+		69AB984B1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRItemShowcaseTableViewCell.h; sourceTree = "<group>"; };
+		69AB984C1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRItemShowcaseTableViewCell.m; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
 		69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollSlidingPagesController.m; sourceTree = "<group>"; };
 		69B02C941A5DA23100040C86 /* TTScrollViewWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollViewWrapper.h; sourceTree = "<group>"; };
@@ -270,8 +270,8 @@
 		697E057B1A432FCD000146C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				69AB982E1A6D441700EDB1E6 /* eventView.h */,
-				69AB982F1A6D441700EDB1E6 /* eventView.m */,
+				69AB984B1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.h */,
+				69AB984C1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m */,
 			);
 			name = View;
 			path = view;
@@ -693,7 +693,7 @@
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
 				69869FC31A640F0000F986BC /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				69869FAC1A6408D200F986BC /* CoreDataTableViewController.m in Sources */,
-				69AB98301A6D441700EDB1E6 /* eventView.m in Sources */,
+				69AB984D1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
 				69869FA91A64028300F986BC /* BTRAppDelegate+MOC.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,

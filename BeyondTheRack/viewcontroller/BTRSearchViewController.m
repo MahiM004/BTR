@@ -7,6 +7,8 @@
 //
 
 #import "BTRSearchViewController.h"
+#import "BTRItemShowcaseTableViewCell.h"
+
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
 
@@ -168,31 +170,41 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.itemArray count];
+    return [self.itemArray count];//(NSInteger)([self.itemArray count]/2 +1);
 }
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 322;
+    return 240;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *CellIdentifier = @"SearchResultCellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 
+    BTRItemShowcaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+
+    
+    
+    if ( cell == nil )
+    {
+        cell = [[BTRItemShowcaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
     cell.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
+
     
-    
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 322)];
+   // [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:indexPath.row] sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+
+
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 240)];
     
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTRItemFetcher URLforItemImageForSku:[(Item *)[self.itemArray objectAtIndex:indexPath.row] sku]]];
     
     __weak UIImageView *weakImageView = imageView;
-    [imageView setImageWithURLRequest:urlRequest placeholderImage:nil
+    [imageView setImageWithURLRequest:urlRequest placeholderImage:[UIImage imageNamed:@"neulogo.png"]
      
                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                   
@@ -211,11 +223,14 @@
                                   
                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                   
-                                  weakImageView.image = [UIImage imageNamed:@"neulogo.png"];
+                                //  weakImageView.image = [UIImage imageNamed:@"neulogo.png"];
                                   
                               }];
     
-    [cell addSubview:imageView];
+    [cell.leftView addSubview:imageView];
+    //cell.leftImageView = imageView;
+    
+    
     
     
     return cell;
@@ -295,3 +310,56 @@
  */
 
 @end
+
+
+
+
+
+/*
+ NSString *imageName = [NSString stringWithFormat:@"profilePicture%@.PNG", [friendRelation friendProfileId]];
+ UIImage *img = [SVJMyUtility imageWithFilename:imageName];
+ 
+ if (img == nil)
+ {
+ */
+
+/*
+ NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTRItemFetcher URLforItemWithSku:[(Item *)[self.itemArray objectAtIndex:indexPath.row] sku]]];
+ AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+ requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+ [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+ 
+ cell.leftImageView.image = responseObject;
+ //[SVJMyUtility saveImage:responseObject withFilename:imageName];
+ 
+ 
+ } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+ 
+ }];
+ [requestOperation start];
+ */
+/*
+ }
+ else {
+ cell.profileImage.image = img;
+ }
+ 
+ cell.leftImageView = [SVJMyUtility roundTheCornersForImageView:cell.profileImage withCornerRadius:8.0];
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
