@@ -14,5 +14,6 @@
     UIImageView *imageView;
 }
 
+@property (strong, nonatomic) NSString *categoryName;
 
 @end

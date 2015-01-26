@@ -24,7 +24,7 @@
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery forCountry:(NSString *)country andPageNumber:(NSUInteger)pageNumber
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/mobile/?q=%@&country=%@&page=%d", RC03URL, searchQuery, country, pageNumber]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/mobile/?q=%@&country=%@&page=%lu", RC03URL, searchQuery, country, (unsigned long)pageNumber]];
 }
 
 + (NSURL *)URLforItemImageForSku:(NSString *)sku
