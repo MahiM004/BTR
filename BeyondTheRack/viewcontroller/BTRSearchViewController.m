@@ -46,6 +46,13 @@
     
     [self setupDocument];
     
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+    
     //self.view.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
 
     searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -54,8 +61,8 @@
     /*
      * Getting rid of the magnifying glass in the text area
      */
-    [searchBar setImage:[UIImage new] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    [[UISearchBar appearance] setPositionAdjustment:UIOffsetMake(-10, 0) forSearchBarIcon:UISearchBarIconSearch];
+    //[searchBar setImage:[UIImage new] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    //[[UISearchBar appearance] setPositionAdjustment:UIOffsetMake(-10, 0) forSearchBarIcon:UISearchBarIconSearch];
     
     /*
      * Changing the background color of the SearchBar Text area
@@ -74,6 +81,9 @@
     
 }
 
+-(void)dismissKeyboard {
+    [searchBar resignFirstResponder];
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
