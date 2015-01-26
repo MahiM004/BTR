@@ -16,6 +16,7 @@
 #define BASEURL @"http://172.30.101.26/apisite"
 #define RC03URL @"http://www.rc03.beyondtherack.com"
 #define STATICURL @"http://static.beyondtherack.com"
+#define LIVEURL @"http://www.beyondtherack.com"
 
 
 // Include any system framework and library headers here that should be included in all compilation units.

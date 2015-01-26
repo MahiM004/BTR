@@ -53,4 +53,25 @@
     return [UIImage imageWithContentsOfFile:path];
 }
 
+
+
++(NSAttributedString *)crossedOffTextFrom:(NSString *)someText
+{
+    UIFont *priceFont = [UIFont fontWithName:@"STHeitiSC-Light" size:15.0];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = NSTextAlignmentRight;
+    
+    NSAttributedString *corssedOffText = [[NSAttributedString alloc] initWithString:someText 
+                                                                          attributes:@{
+                                                                                       NSStrikethroughStyleAttributeName:
+                                                                                           [NSNumber numberWithInteger:NSUnderlineStyleSingle],
+                                                                                       NSParagraphStyleAttributeName: paragraphStyle,
+                                                                                       NSFontAttributeName:priceFont
+                                                                                       }];
+    
+    
+    return corssedOffText;
+}
+
+
 @end

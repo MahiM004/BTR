@@ -16,4 +16,7 @@
 
 + (UIImage *)imageWithFilename:(NSString *)filename;
 
++(NSAttributedString *)crossedOffTextFrom:(NSString *)someText;
+
+
 @end
