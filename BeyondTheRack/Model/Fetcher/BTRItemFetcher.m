@@ -22,9 +22,9 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@", BASEURL, eventId]];
 }
 
-+ (NSURL *)URLforSearchQuery:(NSString *)searchQuery
++ (NSURL *)URLforSearchQuery:(NSString *)searchQuery forCountry:(NSString *)country andPageNumber:(NSUInteger)pageNumber
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/mobile/?q=%@", RC03URL, searchQuery]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/mobile/?q=%@&country=%@&page=%d", RC03URL, searchQuery, country, pageNumber]];
 }
 
 + (NSURL *)URLforItemImageForSku:(NSString *)sku

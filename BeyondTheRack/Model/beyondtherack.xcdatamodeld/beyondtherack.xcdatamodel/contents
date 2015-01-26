@@ -79,12 +79,12 @@
         <attribute name="attributeList" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="brand" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="categoryList" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="clearancePriceCAD" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="clearancePriceUSD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="clearancePriceCAD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="clearancePriceUSD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="discount" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dropShip" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="employeePriceCAD" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="employeePriceUSD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="employeePriceCAD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="employeePriceUSD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expiryDateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="generalAttribute1" optional="YES" attributeType="String" syncable="YES"/>
@@ -101,15 +101,15 @@
         <attribute name="itemDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longItemDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="priceCAD" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="priceUSD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="priceCAD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="priceUSD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="priorityA" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="priorityB" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="relatedSkuslist" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="retailCAD" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="retailUSD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="retailCAD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="retailUSD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="saveUpTo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shipTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="shortItemDescription" optional="YES" attributeType="String" syncable="YES"/>

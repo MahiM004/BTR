@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "BTRFetcher.h"
 
+
 @interface BTRItemFetcher : BTRFetcher
 
 + (NSURL *)URLforItemWithSku:(NSString *)sku;
 + (NSURL *)URLforRecentItemsForEventId:(NSString *)eventId;
-+ (NSURL *)URLforSearchQuery:(NSString *)searchQuery;
++ (NSURL *)URLforSearchQuery:(NSString *)searchQuery forCountry:(NSString *)country andPageNumber:(NSUInteger)pageNumber;
 + (NSURL *)URLforItemImageForSku:(NSString *)sku;
 
 @end

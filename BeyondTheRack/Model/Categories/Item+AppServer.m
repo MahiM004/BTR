@@ -102,28 +102,28 @@
             item.imageName3 = [itemDictionary[@"images"] valueForKey:@"large"];
         
         if ([itemDictionary valueForKeyPath:@"price_retail_us"] && [itemDictionary valueForKeyPath:@"price_retail_us"] != [NSNull null])
-            item.retailUSD = [[itemDictionary valueForKey:@"price_retail_us"] stringValue];
+            item.retailUSD = [itemDictionary valueForKey:@"price_retail_us"];
         
         if ([itemDictionary valueForKeyPath:@"price_retail_ca"] && [itemDictionary valueForKeyPath:@"price_retail_ca"] != [NSNull null])
-            item.retailCAD = [[itemDictionary valueForKey:@"price_retail_ca"] stringValue];
+            item.retailCAD = [itemDictionary valueForKey:@"price_retail_ca"];
         
         if ([itemDictionary valueForKeyPath:@"price_reg_us"] && [itemDictionary valueForKeyPath:@"price_reg_us"] != [NSNull null])
-            item.priceUSD = [[itemDictionary valueForKey:@"price_reg_us"] stringValue];
+            item.priceUSD = [itemDictionary valueForKey:@"price_reg_us"];
         
         if ([itemDictionary valueForKeyPath:@"price_reg_ca"] && [itemDictionary valueForKeyPath:@"price_reg_ca"] != [NSNull null])
-            item.priceCAD = [[itemDictionary valueForKey:@"price_reg_ca"] stringValue];
+            item.priceCAD = [itemDictionary valueForKey:@"price_reg_ca"];
         
         if ([itemDictionary valueForKeyPath:@"price_emp_us"] && [itemDictionary valueForKeyPath:@"price_emp_us"] != [NSNull null])
-            item.employeePriceUSD = [[itemDictionary valueForKey:@"price_emp_us"] stringValue];
+            item.employeePriceUSD = [itemDictionary valueForKey:@"price_emp_us"];
         
         if ([itemDictionary valueForKeyPath:@"price_emp_ca"] && [itemDictionary valueForKeyPath:@"price_emp_ca"] != [NSNull null])
-            item.employeePriceCAD = [[itemDictionary valueForKey:@"price_emp_ca"] stringValue];
+            item.employeePriceCAD = [itemDictionary valueForKey:@"price_emp_ca"];
         
         if ([itemDictionary valueForKeyPath:@"price_clear_us"] && [itemDictionary valueForKeyPath:@"price_clear_us"] != [NSNull null])
-            item.clearancePriceUSD = [[itemDictionary valueForKey:@"price_clear_us"] stringValue];
+            item.clearancePriceUSD = [itemDictionary valueForKey:@"price_clear_us"];
         
         if ([itemDictionary valueForKeyPath:@"price_clear_ca"] && [itemDictionary valueForKeyPath:@"price_clear_ca"] != [NSNull null])
-            item.clearancePriceCAD = [[itemDictionary valueForKey:@"price_clear_ca"] stringValue];
+            item.clearancePriceCAD = [itemDictionary valueForKey:@"price_clear_ca"];
         
         if ([itemDictionary valueForKeyPath:@"vendor_id"] && [itemDictionary valueForKeyPath:@"vendor_id"] != [NSNull null])
             item.vendorId = [itemDictionary valueForKey:@"vendor_id"];
@@ -218,34 +218,36 @@
             item.imageName3 = [itemDictionary[@"images"] valueForKey:@"large"];
         
         if ([itemDictionary valueForKeyPath:@"price_retail_us"] && [itemDictionary valueForKeyPath:@"price_retail_us"] != [NSNull null])
-            item.retailUSD = [[itemDictionary valueForKey:@"price_retail_us"] stringValue];
+            item.retailUSD = [itemDictionary valueForKey:@"price_retail_us"];
         
         if ([itemDictionary valueForKeyPath:@"price_retail_ca"] && [itemDictionary valueForKeyPath:@"price_retail_ca"] != [NSNull null])
-            item.retailCAD = [[itemDictionary valueForKey:@"price_retail_ca"] stringValue];
+            item.retailCAD = [itemDictionary valueForKey:@"price_retail_ca"];
         
         if ([itemDictionary valueForKeyPath:@"price_reg_us"] && [itemDictionary valueForKeyPath:@"price_reg_us"] != [NSNull null])
-            item.priceUSD = [[itemDictionary valueForKey:@"price_reg_us"] stringValue];
+            item.priceUSD = [itemDictionary valueForKey:@"price_reg_us"];
         
         if ([itemDictionary valueForKeyPath:@"price_reg_ca"] && [itemDictionary valueForKeyPath:@"price_reg_ca"] != [NSNull null])
-            item.priceCAD = [[itemDictionary valueForKey:@"price_reg_ca"] stringValue];
+            item.priceCAD = [itemDictionary valueForKey:@"price_reg_ca"];
         
         if ([itemDictionary valueForKeyPath:@"price_emp_us"] && [itemDictionary valueForKeyPath:@"price_emp_us"] != [NSNull null])
-            item.employeePriceUSD = [[itemDictionary valueForKey:@"price_emp_us"] stringValue];
+            item.employeePriceUSD = [itemDictionary valueForKey:@"price_emp_us"];
         
         if ([itemDictionary valueForKeyPath:@"price_emp_ca"] && [itemDictionary valueForKeyPath:@"price_emp_ca"] != [NSNull null])
-            item.employeePriceCAD = [[itemDictionary valueForKey:@"price_emp_ca"] stringValue];
+            item.employeePriceCAD = [itemDictionary valueForKey:@"price_emp_ca"];
         
         if ([itemDictionary valueForKeyPath:@"price_clear_us"] && [itemDictionary valueForKeyPath:@"price_clear_us"] != [NSNull null])
-            item.clearancePriceUSD = [[itemDictionary valueForKey:@"price_clear_us"] stringValue];
+            item.clearancePriceUSD = [itemDictionary valueForKey:@"price_clear_us"];
         
         if ([itemDictionary valueForKeyPath:@"price_clear_ca"] && [itemDictionary valueForKeyPath:@"price_clear_ca"] != [NSNull null])
-            item.clearancePriceCAD = [[itemDictionary valueForKey:@"price_clear_ca"] stringValue];
+            item.clearancePriceCAD = [itemDictionary valueForKey:@"price_clear_ca"];
         
         if ([itemDictionary valueForKeyPath:@"vendor_id"] && [itemDictionary valueForKeyPath:@"vendor_id"] != [NSNull null])
             item.vendorId = [itemDictionary valueForKey:@"vendor_id"];
         
         if ([itemDictionary valueForKeyPath:@"drop_ship"] && [itemDictionary valueForKeyPath:@"drop_ship"] != [NSNull null])
             item.dropShip = [itemDictionary valueForKey:@"drop_ship"];
+        
+        
         
         /*
          if ([itemDictionary[@"images"] valueForKeyPath:@"small"])

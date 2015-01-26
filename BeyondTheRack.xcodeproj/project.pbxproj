@@ -49,7 +49,6 @@
 		69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */; };
 		69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98381A6E95C300EDB1E6 /* searchglass.png */; };
 		69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */; };
-		69AB983F1A7006EE00EDB1E6 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983E1A7006EE00EDB1E6 /* Item.m */; };
 		69AB98421A7006EF00EDB1E6 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98411A7006EF00EDB1E6 /* Event.m */; };
 		69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */; };
 		69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98491A71A50400EDB1E6 /* filtericon.png */; };
@@ -60,6 +59,7 @@
 		69AB985D1A76AB2200EDB1E6 /* twittericonalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB985A1A76AB2200EDB1E6 /* twittericonalpha.png */; };
 		69AB985E1A76AB2200EDB1E6 /* facebookiconalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB985B1A76AB2200EDB1E6 /* facebookiconalpha.png */; };
 		69AB985F1A76AB2200EDB1E6 /* pinteresticonalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB985C1A76AB2200EDB1E6 /* pinteresticonalpha.png */; };
+		69AB98621A76E33A00EDB1E6 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98611A76E33A00EDB1E6 /* Item.m */; };
 		69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */; };
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
 		69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C981A5DA23100040C86 /* TTSlidingPage.m */; };
@@ -180,8 +180,6 @@
 		69AB98381A6E95C300EDB1E6 /* searchglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchglass.png; sourceTree = "<group>"; };
 		69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchViewController.h; sourceTree = "<group>"; };
 		69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchViewController.m; sourceTree = "<group>"; };
-		69AB983D1A7006EE00EDB1E6 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		69AB983E1A7006EE00EDB1E6 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		69AB98401A7006EF00EDB1E6 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		69AB98411A7006EF00EDB1E6 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		69AB98461A71877E00EDB1E6 /* BTRItemFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRItemFetcher.h; sourceTree = "<group>"; };
@@ -195,6 +193,8 @@
 		69AB985A1A76AB2200EDB1E6 /* twittericonalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twittericonalpha.png; sourceTree = "<group>"; };
 		69AB985B1A76AB2200EDB1E6 /* facebookiconalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookiconalpha.png; sourceTree = "<group>"; };
 		69AB985C1A76AB2200EDB1E6 /* pinteresticonalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinteresticonalpha.png; sourceTree = "<group>"; };
+		69AB98601A76E33A00EDB1E6 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		69AB98611A76E33A00EDB1E6 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		69B02C921A5DA23100040C86 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
 		69B02C931A5DA23100040C86 /* TTScrollSlidingPagesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollSlidingPagesController.m; sourceTree = "<group>"; };
 		69B02C941A5DA23100040C86 /* TTScrollViewWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollViewWrapper.h; sourceTree = "<group>"; };
@@ -439,10 +439,10 @@
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
 				69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */,
+				69AB98601A76E33A00EDB1E6 /* Item.h */,
+				69AB98611A76E33A00EDB1E6 /* Item.m */,
 				69AB98401A7006EF00EDB1E6 /* Event.h */,
 				69AB98411A7006EF00EDB1E6 /* Event.m */,
-				69AB983D1A7006EE00EDB1E6 /* Item.h */,
-				69AB983E1A7006EE00EDB1E6 /* Item.m */,
 				69869F801A6075EA00F986BC /* UserNotifications.h */,
 				69869F811A6075EA00F986BC /* UserNotifications.m */,
 				69869F7D1A6075EA00F986BC /* User.h */,
@@ -679,11 +679,11 @@
 				69869FAF1A640C0600F986BC /* BTRDocumentHandler.m in Sources */,
 				69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
-				69AB983F1A7006EE00EDB1E6 /* Item.m in Sources */,
 				69869F6A1A6075E900F986BC /* BagItem.m in Sources */,
 				69869F821A6075EA00F986BC /* UserNotifications.m in Sources */,
 				69869F9D1A63FB2100F986BC /* AFURLConnectionOperation.m in Sources */,
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
+				69AB98621A76E33A00EDB1E6 /* Item.m in Sources */,
 				695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */,
 				69869FC21A640F0000F986BC /* AFNetworkActivityIndicatorManager.m in Sources */,
 				69AB98421A7006EF00EDB1E6 /* Event.m in Sources */,
