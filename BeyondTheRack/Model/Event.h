@@ -2,7 +2,7 @@
 //  Event.h
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-01-21.
+//  Created by Hadi Kheyruri on 2015-01-27.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
@@ -44,5 +44,6 @@
 @property (nonatomic, retain) NSString * generalAttribute1;
 @property (nonatomic, retain) NSString * generalAttribute2;
 @property (nonatomic, retain) NSString * generalAttribute3;
+@property (nonatomic, retain) NSString * myCategoryName;
 
 @end

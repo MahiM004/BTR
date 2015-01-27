@@ -43,6 +43,11 @@
     return _itemArray;
 }
 
+- (void) awakeFromNib
+{
+    [[self itemArray] removeAllObjects];
+}
+
 
 - (void)viewDidLoad {
     

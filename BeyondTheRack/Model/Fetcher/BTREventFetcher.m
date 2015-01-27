@@ -10,11 +10,9 @@
 
 @implementation BTREventFetcher
 
-
-
-+ (NSURL *)URLforRecentEventsForCategoryId:(NSString *)categoryId
++ (NSURL *)URLforRecentEventsForURLCategoryName:(NSString *)urlCategoryName
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@", BASEURL, categoryId]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@", BASEURL, urlCategoryName]];
 }
 
 + (NSURL *)URLforAllRecentEvents
@@ -24,9 +22,7 @@
 
 + (NSURL *)URLforEventImageWithId:(NSString *)imageId
 {
-    
     return [self URLForQuery:[NSString stringWithFormat:@"http:%@", imageId]];
-    //return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@", BASEURL, imageId]];
 }
 
 @end

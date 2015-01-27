@@ -2,7 +2,7 @@
 //  Event.m
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-01-21.
+//  Created by Hadi Kheyruri on 2015-01-27.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
@@ -43,5 +43,6 @@
 @dynamic generalAttribute1;
 @dynamic generalAttribute2;
 @dynamic generalAttribute3;
+@dynamic myCategoryName;
 
 @end

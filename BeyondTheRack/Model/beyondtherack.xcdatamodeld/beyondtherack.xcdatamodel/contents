@@ -35,6 +35,7 @@
         <attribute name="keyword" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="liveUpcoming" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longEventDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="myCategoryName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="outfitFlag" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="poStatus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="saveUpTo" optional="YES" attributeType="String" syncable="YES"/>
@@ -189,7 +190,7 @@
     </entity>
     <elements>
         <element name="BagItem" positionX="151" positionY="-9" width="128" height="180"/>
-        <element name="Event" positionX="-1010" positionY="-63" width="128" height="523"/>
+        <element name="Event" positionX="-1010" positionY="-63" width="128" height="538"/>
         <element name="General1" positionX="-477" positionY="-72" width="128" height="165"/>
         <element name="General2" positionX="-81" positionY="-63" width="128" height="165"/>
         <element name="General3" positionX="-621" positionY="240" width="128" height="165"/>

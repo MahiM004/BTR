@@ -14,10 +14,10 @@
 + (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
 
 
-+ (Event *)eventWithAppServerInfo:(NSDictionary *)eventDictionary
-                               inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Event *)eventWithAppServerInfo:(NSDictionary *)eventDictionary andCategoryName:(NSString *)myCategoryName
+           inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (NSMutableArray *)loadEventsFromAppServerArray:(NSArray *)events // of AppServer Event NSDictionary
++ (NSMutableArray *)loadEventsFromAppServerArray:(NSArray *)events andCategoryName:(NSString *)myCategoryName// of AppServer Event NSDictionary
                                    intoManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

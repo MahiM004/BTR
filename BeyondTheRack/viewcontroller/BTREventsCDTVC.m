@@ -29,6 +29,8 @@
 {
     [super viewWillAppear:YES];
     
+    NSLog(@"cat name : %@", [self categoryName]);
+
 }
 
 - (void)viewDidLoad {
@@ -80,7 +82,7 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTREventFetcher URLforAllRecentEvents]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName]]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
@@ -89,7 +91,7 @@
                                                                           options:0
                                                                             error:NULL];
          
-         [Event loadEventsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
+         [Event loadEventsFromAppServerArray:entitiesPropertyList andCategoryName:[self urlCategoryName] intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -105,8 +107,8 @@
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"imageName" ascending:YES]];
-    
-    
+    [request setPredicate:[NSPredicate predicateWithFormat:@"myCategoryName==%@", [self urlCategoryName]]];
+
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil

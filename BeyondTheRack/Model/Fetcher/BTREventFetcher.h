@@ -11,7 +11,7 @@
 
 @interface BTREventFetcher : BTRFetcher
 
-+ (NSURL *)URLforRecentEventsForCategoryId:(NSString *)categoryId;
++ (NSURL *)URLforRecentEventsForURLCategoryName:(NSString *)urlCategoryName;
 + (NSURL *)URLforAllRecentEvents;
 + (NSURL *)URLforEventImageWithId:(NSString *)imageId;
 

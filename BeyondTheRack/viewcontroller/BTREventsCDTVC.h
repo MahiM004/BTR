@@ -15,5 +15,7 @@
 }
 
 @property (strong, nonatomic) NSString *categoryName;
+@property (strong, nonatomic) NSString *urlCategoryName;
+
 
 @end

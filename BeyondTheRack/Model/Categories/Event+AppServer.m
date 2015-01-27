@@ -23,7 +23,7 @@
 }
 
 
-+ (Event *)eventWithAppServerInfo:(NSDictionary *)eventDictionary
++ (Event *)eventWithAppServerInfo:(NSDictionary *)eventDictionary andCategoryName:(NSString *)myCategoryName
                                inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Event *event = nil;
@@ -34,7 +34,7 @@
         return nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
-    request.predicate = [NSPredicate predicateWithFormat:@"eventId = %@", unique];
+    request.predicate = [NSPredicate predicateWithFormat:@"eventId == %@ AND myCategoryName == %@", unique, myCategoryName];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
@@ -51,6 +51,8 @@
         
         event = [matches firstObject];
         
+        if (myCategoryName)
+            event.myCategoryName = myCategoryName;
         
         if ([eventDictionary valueForKeyPath:@"event_id"] && [eventDictionary valueForKeyPath:@"event_id"] != [NSNull null])
             event.eventId = [eventDictionary valueForKeyPath:@"event_id"];
@@ -128,9 +130,6 @@
          @dynamic endDateTime;
          */
         
-        
-        
-        
     } else if ([matches count] == 0 || [matches count] > 1 ) {
         
         if([matches count] > 1) {
@@ -143,6 +142,10 @@
         event = [NSEntityDescription insertNewObjectForEntityForName:@"Event"
                                                         inManagedObjectContext:context];
         
+        
+        
+        if (myCategoryName)
+            event.myCategoryName = myCategoryName;
         
         if ([eventDictionary valueForKeyPath:@"event_id"] && [eventDictionary valueForKeyPath:@"event_id"] != [NSNull null])
             event.eventId = [eventDictionary valueForKeyPath:@"event_id"];
@@ -226,8 +229,8 @@
     return event;
 }
 
-+ (NSMutableArray *)loadEventsFromAppServerArray:(NSArray *)events // of AppServer Event NSDictionary
-                                   intoManagedObjectContext:(NSManagedObjectContext *)context
++ (NSMutableArray *)loadEventsFromAppServerArray:(NSArray *)events andCategoryName:(NSString *)myCategoryName// of AppServer Event NSDictionary
+                        intoManagedObjectContext:(NSManagedObjectContext *)context
 {
     
     NSMutableArray *eventArray = [[NSMutableArray alloc] init];
@@ -235,7 +238,7 @@
     
     for (NSDictionary *event in events) {
         
-        NSObject *someObject = [self eventWithAppServerInfo:event inManagedObjectContext:context];
+        NSObject *someObject = [self eventWithAppServerInfo:event andCategoryName:myCategoryName inManagedObjectContext:context];
         if (someObject)
             [eventArray addObject:someObject];
         

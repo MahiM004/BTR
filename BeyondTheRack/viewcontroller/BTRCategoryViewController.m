@@ -27,7 +27,9 @@
 
 -(void)initData {
     
-    self.categoryNames = [[NSMutableArray alloc] initWithObjects:@"Women", @"Men", @"Your Catalog", @"Home", @"Kids", @"Outlet", @"Curvey Closet", nil];
+    self.categoryNames = [[NSMutableArray alloc] initWithObjects:@"Women", @"Men", @"Your Catalog", @"Home", @"Kids", @"Outlet", @"My Curvey Closet", nil];
+    self.urlCategoryNames = [[NSMutableArray alloc] initWithObjects:@"women", @"men", @"all", @"Home", @"kids", @"outlet", @"mycurveycloset", nil];
+
 }
 
 - (void)viewDidLoad {
@@ -95,6 +97,8 @@
     
     BTREventsCDTVC *myVC  = [[BTREventsCDTVC alloc] init];
     viewController = myVC;
+    myVC.categoryName = [[self categoryNames] objectAtIndex:index];
+    myVC.urlCategoryName = [[self urlCategoryNames] objectAtIndex:index];
     
     return [[TTSlidingPage alloc] initWithContentViewController:viewController];
 }

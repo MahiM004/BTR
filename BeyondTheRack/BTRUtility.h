@@ -10,6 +10,7 @@
 
 @interface BTRUtility : NSObject
 
+
 + (UIImage *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;
 
 + (void)saveImage:(UIImage *)image withFilename:(NSString *)filename;
