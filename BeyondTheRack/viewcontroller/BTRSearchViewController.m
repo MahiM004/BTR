@@ -11,21 +11,14 @@
 
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
+#import "BTRSearchFilterViewController.h"
 
 @interface BTRSearchViewController ()
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (strong,nonatomic) NSMutableArray *filteredItemArray;
-@property (strong, nonatomic) NSMutableArray *itemArray;
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-
-
-
 
 
 @end
@@ -41,13 +34,6 @@
         _itemArray = [[NSMutableArray alloc] init];
 
     return _itemArray;
-}
-
-- (void) awakeFromNib
-{
-    [[self itemArray] removeAllObjects];
-    [self.tableView reloadData];
-    [searchBar becomeFirstResponder];
 }
 
 
@@ -92,6 +78,65 @@
     
 }
 
+
+- (IBAction)filterButtonTapped:(UIButton *)sender {
+   
+    BTRSearchFilterViewController *searchVC = [[BTRSearchFilterViewController alloc] init];
+
+    
+    
+    [self.view addSubview:searchVC.view];
+    
+    /*
+    self.navigationController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    [self presentModalViewController:searchVC animated:NO];
+    searchVC.view.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        searchVC.view.alpha = 0.5;
+    }];
+    */
+    
+    
+    
+    
+    /*
+    UIView *modalView =
+    [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+     modalView.opaque = NO;
+    modalView.backgroundColor =
+    [[UIColor blackColor] colorWithAlphaComponent:0.5f];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text = @"Modal View";
+    label.textColor = [UIColor whiteColor];
+    label.backgroundColor = [UIColor clearColor];
+    label.opaque = NO;
+    [label sizeToFit];
+    [label setCenter:CGPointMake(modalView.frame.size.width / 2,
+                                 modalView.frame.size.height / 2)];
+    [modalView addSubview:label];
+    
+    [self.view addSubview:modalView];
+    */
+    
+    
+    
+    /*
+    BTRSearchFilterViewController *searchVC = [[BTRSearchFilterViewController alloc] init];
+    
+    
+    [self.navigationController presentViewController:searchVC animated:NO completion:^{
+        dispatch_after(0, dispatch_get_main_queue(), ^{
+            [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+        });
+    }];
+    
+*/
+
+}
+
+
 -(void)dismissKeyboard {
     [searchBar resignFirstResponder];
 }
@@ -101,8 +146,15 @@
     [self.searchBar becomeFirstResponder];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
+    NSLog(@"disappear");
+
+
     [self.searchBar resignFirstResponder];
 }
 
@@ -210,12 +262,8 @@
     
     Item *letftItem =  (Item *)[self.itemArray objectAtIndex:2*(indexPath.row)];
     
-
-    
-    
     if (letftItem)
     {
-        
         [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[letftItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
         [cell.leftBrand setText:[letftItem brand]];
         [cell.leftDescription setText:[letftItem shortItemDescription]];
@@ -284,6 +332,7 @@
                                                                           options:0
                                                                             error:NULL];
          
+         [[self itemArray] removeAllObjects];
          self.itemArray = [Item loadItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
          
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];

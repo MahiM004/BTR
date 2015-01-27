@@ -27,9 +27,8 @@
 
 -(void)initData {
     
-    self.categoryNames = [[NSMutableArray alloc] initWithObjects:@"Women", @"Men", @"Your Catalog", @"Home", @"Kids", @"Outlet", @"My Curvey Closet", nil];
-    self.urlCategoryNames = [[NSMutableArray alloc] initWithObjects:@"women", @"men", @"all", @"Home", @"kids", @"outlet", @"mycurveycloset", nil];
-
+    self.categoryNames = [[NSMutableArray alloc] initWithObjects:@"Women", @"Men", @"Your Catalog", @"Home", @"Kids", @"Outlet", @"My Curvy Closet", nil];
+    self.urlCategoryNames = [[NSMutableArray alloc] initWithObjects:@"women", @"men", @"all", @"home", @"kids", @"stockroom", @"curvy_closet", nil];
 }
 
 - (void)viewDidLoad {
