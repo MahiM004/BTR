@@ -33,7 +33,7 @@
         return nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserNotifications"];
-    request.predicate = [NSPredicate predicateWithFormat:@"userNotificationsId = %@", unique];
+    request.predicate = [NSPredicate predicateWithFormat:@"userNotificationsId == %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];

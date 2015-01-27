@@ -33,7 +33,7 @@
         return nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    request.predicate = [NSPredicate predicateWithFormat:@"usernameId = %@", unique];
+    request.predicate = [NSPredicate predicateWithFormat:@"usernameId == %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];

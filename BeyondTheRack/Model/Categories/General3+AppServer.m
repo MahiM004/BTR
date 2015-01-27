@@ -32,7 +32,7 @@
         return nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"General3"];
-    request.predicate = [NSPredicate predicateWithFormat:@"attribute = %@", unique];
+    request.predicate = [NSPredicate predicateWithFormat:@"attribute == %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];

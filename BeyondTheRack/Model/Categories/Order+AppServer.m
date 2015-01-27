@@ -33,7 +33,7 @@
         return nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Order"];
-    request.predicate = [NSPredicate predicateWithFormat:@"orderId = %@", unique];
+    request.predicate = [NSPredicate predicateWithFormat:@"orderId == %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];

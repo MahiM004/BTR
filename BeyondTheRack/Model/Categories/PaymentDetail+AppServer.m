@@ -33,7 +33,7 @@
         return nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"PaymentDetail"];
-    request.predicate = [NSPredicate predicateWithFormat:@"paymentDetailId = %@", unique];
+    request.predicate = [NSPredicate predicateWithFormat:@"paymentDetailId == %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];

@@ -28,9 +28,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    
-    NSLog(@"cat name : %@", [self categoryName]);
-
 }
 
 - (void)viewDidLoad {
