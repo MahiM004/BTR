@@ -46,6 +46,7 @@
 - (void) awakeFromNib
 {
     [[self itemArray] removeAllObjects];
+    [self.tableView reloadData];
     [searchBar becomeFirstResponder];
 }
 
