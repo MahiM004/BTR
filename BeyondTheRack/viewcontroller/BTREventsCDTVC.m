@@ -36,7 +36,7 @@
 
     
     self.tableView.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
-    self.tableView.separatorColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
+    self.tableView.separatorColor = [UIColor clearColor];//[UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self setupDocument];
     }];
@@ -129,12 +129,12 @@
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 
     //cell.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
-    cell.backgroundColor = [UIColor lightGrayColor];
+    cell.backgroundColor = [UIColor darkGrayColor];
     
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
     imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
-
+    imageView.backgroundColor = [UIColor whiteColor];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]];
 
     __weak UIImageView *weakImageView = imageView;
@@ -145,10 +145,10 @@
                                   UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
                                   if (!strongImageView) return;
                                   
-                                  weakImageView.alpha = 0.3;
+                                  weakImageView.alpha = 0.9;
                                   weakImageView.image = image;
         
-                                  [UIView animateWithDuration:0.5
+                                  [UIView animateWithDuration:0.6
                                                    animations:^{
                                                     weakImageView.alpha = 1;
                                                    }
