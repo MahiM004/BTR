@@ -10,7 +10,11 @@
 
 #import "BTRAppDelegate+MOC.h"
 #import "BTREventFetcher.h"
+
 #import "Event+AppServer.h"
+#import "Item+AppServer.h"
+
+
 //#import "BTRDatabaseAvailibility.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
@@ -50,7 +54,9 @@
                 
                 if (![firstTime isEqualToString:@"FALSE"]){
                     
+                    
                     [Event initInManagedObjectContext:[document managedObjectContext]];
+                    [Item initInManagedObjectContext:[document managedObjectContext]];                    
                     [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
                     
                     [self deleteAllObjectsInContext:[[self beyondTheRackDocument] managedObjectContext] usingModel:[[self beyondTheRackDocument] managedObjectModel]];

@@ -152,7 +152,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    NSLog(@"disappear");
 
 
     [self.searchBar resignFirstResponder];
@@ -252,30 +251,32 @@
 {
     static NSString *CellIdentifier = @"SearchResultCellIdentifier";
     BTRItemShowcaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
     
     if ( cell == nil )
     {
         cell = [[BTRItemShowcaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
+    Item *letftItem = [self.itemArray objectAtIndex:2*(indexPath.row)];
     
-    Item *letftItem =  (Item *)[self.itemArray objectAtIndex:2*(indexPath.row)];
-    
-    if (letftItem)
-    {
+    if ([letftItem sku])
+    {        
         [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[letftItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
         [cell.leftBrand setText:[letftItem brand]];
         [cell.leftDescription setText:[letftItem shortItemDescription]];
         [cell.leftPrice setText:[NSString stringWithFormat:@"$%@",[letftItem priceCAD]]];
 
         [cell.leftCrossedOffPrice setAttributedText:[BTRUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[letftItem retailCAD]]]];
+    
+    } else {
+        
+        [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
     }
     
-    Item *rightItem =  (Item *)[self.itemArray objectAtIndex:2*(indexPath.row) + 1];
+    Item *rightItem = [self.itemArray objectAtIndex:2*(indexPath.row) + 1];
 
     
-    if (rightItem)
+    if ([rightItem sku])
     {
         [cell.rightImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[rightItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
         [cell.rightBrand setText:[rightItem brand]];
@@ -283,9 +284,11 @@
         [cell.rightPrice setText:[NSString stringWithFormat:@"$%@",[rightItem priceCAD]]];
         
         [cell.rightCrossedOffPrice setAttributedText:[BTRUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[rightItem retailCAD]]]];
+  
+    } else {
         
+        [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
     }
-    
     
     return cell;
 }
@@ -333,7 +336,7 @@
                                                                             error:NULL];
          
          [[self itemArray] removeAllObjects];
-         self.itemArray = [Item loadItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
+         [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
          
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
