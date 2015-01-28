@@ -6,9 +6,14 @@
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
+#import "BTRSearchFilterView.h"
+
+
 #import <UIKit/UIKit.h>
 
-@interface BTRSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface BTRSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate> {
+    BTRSearchFilterView *modalView;
+}
 
 
 @property (strong,nonatomic) NSMutableArray *filteredItemArray;
