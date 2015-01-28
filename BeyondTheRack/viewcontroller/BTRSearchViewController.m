@@ -77,21 +77,13 @@
 
 - (IBAction)filterButtonTapped:(UIButton *)sender {
    
-
     [searchBar resignFirstResponder];
     
     modalView = [[BTRSearchFilterView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     modalView.opaque = NO;
     modalView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.83f];
-
     
     [self.view addSubview:modalView];
-}
-
-- (IBAction)cancelTapped:(id)sender {
-    
-    NSLog(@"cancel tapped");
-    [modalView removeFromSuperview];
 }
 
 -(void)dismissKeyboard {
