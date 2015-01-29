@@ -53,9 +53,6 @@
 		69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */; };
 		69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98491A71A50400EDB1E6 /* filtericon.png */; };
 		69AB984D1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB984C1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m */; };
-		69AB98511A7697FD00EDB1E6 /* facebookicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB984E1A7697FD00EDB1E6 /* facebookicon.png */; };
-		69AB98521A7697FD00EDB1E6 /* pinteresticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB984F1A7697FD00EDB1E6 /* pinteresticon.png */; };
-		69AB98531A7697FD00EDB1E6 /* twittericon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98501A7697FD00EDB1E6 /* twittericon.png */; };
 		69AB985D1A76AB2200EDB1E6 /* twittericonalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB985A1A76AB2200EDB1E6 /* twittericonalpha.png */; };
 		69AB985E1A76AB2200EDB1E6 /* facebookiconalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB985B1A76AB2200EDB1E6 /* facebookiconalpha.png */; };
 		69AB985F1A76AB2200EDB1E6 /* pinteresticonalpha.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB985C1A76AB2200EDB1E6 /* pinteresticonalpha.png */; };
@@ -189,9 +186,6 @@
 		69AB98491A71A50400EDB1E6 /* filtericon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filtericon.png; sourceTree = "<group>"; };
 		69AB984B1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRItemShowcaseTableViewCell.h; sourceTree = "<group>"; };
 		69AB984C1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRItemShowcaseTableViewCell.m; sourceTree = "<group>"; };
-		69AB984E1A7697FD00EDB1E6 /* facebookicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookicon.png; sourceTree = "<group>"; };
-		69AB984F1A7697FD00EDB1E6 /* pinteresticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinteresticon.png; sourceTree = "<group>"; };
-		69AB98501A7697FD00EDB1E6 /* twittericon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twittericon.png; sourceTree = "<group>"; };
 		69AB985A1A76AB2200EDB1E6 /* twittericonalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twittericonalpha.png; sourceTree = "<group>"; };
 		69AB985B1A76AB2200EDB1E6 /* facebookiconalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookiconalpha.png; sourceTree = "<group>"; };
 		69AB985C1A76AB2200EDB1E6 /* pinteresticonalpha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinteresticonalpha.png; sourceTree = "<group>"; };
@@ -322,9 +316,6 @@
 				69AB985A1A76AB2200EDB1E6 /* twittericonalpha.png */,
 				69AB985B1A76AB2200EDB1E6 /* facebookiconalpha.png */,
 				69AB985C1A76AB2200EDB1E6 /* pinteresticonalpha.png */,
-				69AB984E1A7697FD00EDB1E6 /* facebookicon.png */,
-				69AB984F1A7697FD00EDB1E6 /* pinteresticon.png */,
-				69AB98501A7697FD00EDB1E6 /* twittericon.png */,
 				69AB98491A71A50400EDB1E6 /* filtericon.png */,
 				69AB98381A6E95C300EDB1E6 /* searchglass.png */,
 				69867A0A1A446FCA003CE59C /* backarrowcool.png */,
@@ -660,14 +651,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */,
-				69AB98531A7697FD00EDB1E6 /* twittericon.png in Resources */,
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
-				69AB98511A7697FD00EDB1E6 /* facebookicon.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
-				69AB98521A7697FD00EDB1E6 /* pinteresticon.png in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
 				69AB985F1A76AB2200EDB1E6 /* pinteresticonalpha.png in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
