@@ -8,6 +8,7 @@
 
 #import "BTRSearchViewController.h"
 #import "BTRItemShowcaseTableViewCell.h"
+#import "BTRSearchFilterViewController.h"
 
 
 #import "Item+AppServer.h"
@@ -79,51 +80,6 @@
     
 }
 
-
-- (IBAction)filterButtonTapped:(UIButton *)sender {
-   
-    /*
-     myView.backgroundColor = [UIColor clearColor];
-     UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
-     bgToolbar.barStyle = UIBarStyleDefault;
-     [myView.superview insertSubview:bgToolbar belowSubview:myView];
-     */
-    
-    /*
-    UIGraphicsBeginImageContext(self.window.bounds.size);
-    [self.window.layer renderInContext:UIGraphicsGetCurrentContext()];
-    */
-    
-    /*
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
-        UIGraphicsBeginImageContextWithOptions(self.window.bounds.size, NO, [UIScreen mainScreen].scale);
-    else
-        UIGraphicsBeginImageContext(self.window.bounds.size);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    NSData * data = UIImagePNGRepresentation(image);
-    //[data writeToFile:@"screenshot.png" atomically:YES];
-    */
-    
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    UIGraphicsBeginImageContextWithOptions(screenSize, NO, [UIScreen mainScreen].scale);
-    CGRect rec = CGRectMake(0, 0, screenSize.width, screenSize.height);
-    [self.view drawViewHierarchyInRect:rec afterScreenUpdates:YES];
-    UIImage *screenShotImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    
-    
-    [searchBar resignFirstResponder];
-    modalView = [[BTRSearchFilterView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    modalView.backgroundImage = screenShotImage;
-    modalView.opaque = NO;
-    modalView.backgroundColor = [UIColor clearColor];//[[UIColor blackColor] colorWithAlphaComponent:0.83f];
-    
-    [self.view addSubview:modalView];
-    
-}
 
 -(void)dismissKeyboard {
     [searchBar resignFirstResponder];
@@ -348,7 +304,26 @@
 }
 
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    if ([[segue identifier] isEqualToString:@"BTRSearchFilterSegue"])
+    {
+        CGSize screenSize = [UIScreen mainScreen].bounds.size;
+        UIGraphicsBeginImageContextWithOptions(screenSize, NO, [UIScreen mainScreen].scale);
+        CGRect rec = CGRectMake(0, 0, screenSize.width, screenSize.height);
+        [self.view drawViewHierarchyInRect:rec afterScreenUpdates:YES];
+        UIImage *screenShotImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        
+        BTRSearchFilterViewController *searchFilterVC = [segue destinationViewController];
 
+        searchFilterVC.backgroundImage = screenShotImage;
+    }
+    
+
+}
 
 @end
 
@@ -406,6 +381,43 @@ blurredImageView.image = blurredImage;
 
 
 
+/*
+ myView.backgroundColor = [UIColor clearColor];
+ UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
+ bgToolbar.barStyle = UIBarStyleDefault;
+ [myView.superview insertSubview:bgToolbar belowSubview:myView];
+ */
 
+/*
+ UIGraphicsBeginImageContext(self.window.bounds.size);
+ [self.window.layer renderInContext:UIGraphicsGetCurrentContext()];
+ */
+
+/*
+ if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+ UIGraphicsBeginImageContextWithOptions(self.window.bounds.size, NO, [UIScreen mainScreen].scale);
+ else
+ UIGraphicsBeginImageContext(self.window.bounds.size);
+ 
+ UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+ UIGraphicsEndImageContext();
+ NSData * data = UIImagePNGRepresentation(image);
+ //[data writeToFile:@"screenshot.png" atomically:YES];
+ */
+/*
+ CGSize screenSize = [UIScreen mainScreen].bounds.size;
+ UIGraphicsBeginImageContextWithOptions(screenSize, NO, [UIScreen mainScreen].scale);
+ CGRect rec = CGRectMake(0, 0, screenSize.width, screenSize.height);
+ [self.view drawViewHierarchyInRect:rec afterScreenUpdates:YES];
+ UIImage *screenShotImage = UIGraphicsGetImageFromCurrentImageContext();
+ UIGraphicsEndImageContext();
+ 
+ [searchBar resignFirstResponder];
+ modalView = [[BTRSearchFilterView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+ modalView.backgroundImage = screenShotImage;
+ modalView.opaque = NO;
+ modalView.backgroundColor = [UIColor clearColor];//[[UIColor blackColor] colorWithAlphaComponent:0.83f];
+ */
+//[self.view addSubview:modalView];
 
 

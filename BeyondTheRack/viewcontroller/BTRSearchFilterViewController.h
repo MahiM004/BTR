@@ -1,0 +1,19 @@
+//
+//  BTRSearchFilterViewController.h
+//  BeyondTheRack
+//
+//  Created by Hadi Kheyruri on 2015-01-29.
+//  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
+//
+
+#import "UIImage+ImageEffects.h"
+
+
+
+#import <UIKit/UIKit.h>
+
+@interface BTRSearchFilterViewController : UIViewController
+
+@property (strong, nonatomic) UIImage *backgroundImage;
+
+@end

@@ -1,21 +1,24 @@
 //
-//  BTRSearchFilterView.m
+//  BTRSearchFilterViewController.m
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-01-28.
+//  Created by Hadi Kheyruri on 2015-01-29.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "BTRSearchFilterView.h"
-#import "UIImage+ImageEffects.h"
+#import "BTRSearchFilterViewController.h"
 
-@implementation BTRSearchFilterView
+@interface BTRSearchFilterViewController ()
+
+@end
+
+@implementation BTRSearchFilterViewController
 
 @synthesize backgroundImage;
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
 
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
@@ -23,43 +26,29 @@
     headerView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];// blackColor];
     headerView.opaque = NO;
     
-    
     headerView.backgroundColor = [UIColor clearColor];
     UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:headerView.frame];
     bgToolbar.barStyle = UIBarStyleDefault;
     [headerView.superview insertSubview:bgToolbar belowSubview:headerView];
     
-    
-    
-    
-    
-    
     UIImageView *backgroundImageView = [[UIImageView alloc ] initWithFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
     //backgroundImageView.image = [self.backgroundImage applyBTRSearchFilterLightEffect];
     backgroundImageView.image = [self.backgroundImage applyDarkEffect];
-    [self addSubview:backgroundImageView];
-
-    
-    
-    
-    
-    
-    
+    [self.view addSubview:backgroundImageView];
     
     UILabel *pageTitleLabel = [[UILabel alloc] init];
     pageTitleLabel.text = @"Refine Results";
     pageTitleLabel.backgroundColor = [UIColor clearColor];
     pageTitleLabel.opaque = NO;
     [pageTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18]];
-    [pageTitleLabel setCenter:CGPointMake(self.frame.size.width, self.frame.size.height)];
+    [pageTitleLabel setCenter:CGPointMake(self.view.frame.size.width, self.view.frame.size.height)];
     [pageTitleLabel setFrame:CGRectMake(110, 25, 200, 34)];
     [pageTitleLabel setTextColor:[UIColor whiteColor]];
-    
     
     UIButton *cancelButton = [[UIButton alloc] init];
     cancelButton.backgroundColor = [UIColor clearColor];
     cancelButton.opaque = NO;
-    [cancelButton setCenter:CGPointMake(self.frame.size.width,self.frame.size.height)];
+    [cancelButton setCenter:CGPointMake(self.view.frame.size.width,self.view.frame.size.height)];
     [cancelButton setTitleColor:[UIColor colorWithWhite:255.0/255.0 alpha:0.649999976158142] forState:UIControlStateNormal];
     [cancelButton setTintColor:[UIColor blueColor]];
     [cancelButton setTitle:@"Close" forState:UIControlStateNormal];
@@ -72,17 +61,34 @@
            forControlEvents:UIControlEventTouchUpInside];
     
     
+    
     [headerView addSubview:pageTitleLabel];
     [headerView addSubview:cancelButton];
-
-    [self addSubview:headerView];
     
+    [self.view addSubview:headerView];
 }
+
+
 
 - (IBAction)cancelTapped:(id)sender {
     
-    [self removeFromSuperview];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end
