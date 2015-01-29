@@ -16,4 +16,5 @@
 
 @property (strong, nonatomic) UIImage *backgroundImage;
 
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @end

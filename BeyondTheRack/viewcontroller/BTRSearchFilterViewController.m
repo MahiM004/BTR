@@ -17,55 +17,23 @@
 @synthesize backgroundImage;
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-
 
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, 70)];//initWithFrame:[[UIScreen mainScreen] bounds]];
-    headerView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];// blackColor];
-    headerView.opaque = NO;
+    self.headerView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];// blackColor];
+    self.headerView.opaque = NO;
     
-    headerView.backgroundColor = [UIColor clearColor];
-    UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:headerView.frame];
+    self.headerView.backgroundColor = [UIColor clearColor];
+    UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:self.headerView.frame];
     bgToolbar.barStyle = UIBarStyleDefault;
-    [headerView.superview insertSubview:bgToolbar belowSubview:headerView];
+    [self.headerView.superview insertSubview:bgToolbar belowSubview:self.headerView];
     
     UIImageView *backgroundImageView = [[UIImageView alloc ] initWithFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
-    //backgroundImageView.image = [self.backgroundImage applyBTRSearchFilterLightEffect];
     backgroundImageView.image = [self.backgroundImage applyDarkEffect];
-    [self.view addSubview:backgroundImageView];
+    [self.view insertSubview:backgroundImageView belowSubview:[self headerView]];
     
-    UILabel *pageTitleLabel = [[UILabel alloc] init];
-    pageTitleLabel.text = @"Refine Results";
-    pageTitleLabel.backgroundColor = [UIColor clearColor];
-    pageTitleLabel.opaque = NO;
-    [pageTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18]];
-    [pageTitleLabel setCenter:CGPointMake(self.view.frame.size.width, self.view.frame.size.height)];
-    [pageTitleLabel setFrame:CGRectMake(110, 25, 200, 34)];
-    [pageTitleLabel setTextColor:[UIColor whiteColor]];
-    
-    UIButton *cancelButton = [[UIButton alloc] init];
-    cancelButton.backgroundColor = [UIColor clearColor];
-    cancelButton.opaque = NO;
-    [cancelButton setCenter:CGPointMake(self.view.frame.size.width,self.view.frame.size.height)];
-    [cancelButton setTitleColor:[UIColor colorWithWhite:255.0/255.0 alpha:0.649999976158142] forState:UIControlStateNormal];
-    [cancelButton setTintColor:[UIColor blueColor]];
-    [cancelButton setTitle:@"Close" forState:UIControlStateNormal];
-    [cancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
-    [cancelButton setFrame:CGRectMake(0, 25, 100, 34)];
-    cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    
-    [cancelButton addTarget:self
-                     action:@selector(cancelTapped:)
-           forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    
-    [headerView addSubview:pageTitleLabel];
-    [headerView addSubview:cancelButton];
-    
-    [self.view addSubview:headerView];
 }
 
 
@@ -92,3 +60,49 @@
 */
 
 @end
+
+
+
+
+
+
+/*
+ UILabel *pageTitleLabel = [[UILabel alloc] init];
+ pageTitleLabel.text = @"Refine Results";
+ pageTitleLabel.backgroundColor = [UIColor clearColor];
+ pageTitleLabel.opaque = NO;
+ [pageTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18]];
+ [pageTitleLabel setCenter:CGPointMake(self.view.frame.size.width, self.view.frame.size.height)];
+ [pageTitleLabel setFrame:CGRectMake(110, 25, 200, 34)];
+ [pageTitleLabel setTextColor:[UIColor whiteColor]];
+ 
+ UIButton *cancelButton = [[UIButton alloc] init];
+ cancelButton.backgroundColor = [UIColor clearColor];
+ cancelButton.opaque = NO;
+ [cancelButton setCenter:CGPointMake(self.view.frame.size.width,self.view.frame.size.height)];
+ [cancelButton setTitleColor:[UIColor colorWithWhite:255.0/255.0 alpha:0.649999976158142] forState:UIControlStateNormal];
+ [cancelButton setTintColor:[UIColor blueColor]];
+ [cancelButton setTitle:@"Close" forState:UIControlStateNormal];
+ [cancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
+ [cancelButton setFrame:CGRectMake(0, 25, 100, 34)];
+ cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+ 
+ [cancelButton addTarget:self
+ action:@selector(cancelTapped:)
+ forControlEvents:UIControlEventTouchUpInside];
+ */
+
+
+//[headerView addSubview:pageTitleLabel];
+//[headerView addSubview:cancelButton];
+
+
+
+
+
+
+
+
+
+
+
