@@ -10,4 +10,6 @@
 
 @interface BTRSearchFilterView : UIView
 
+@property (strong, nonatomic) UIImage *backgroundImage;
+
 @end

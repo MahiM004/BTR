@@ -7,9 +7,11 @@
 //
 
 #import "BTRSearchFilterView.h"
+#import "UIImage+ImageEffects.h"
 
 @implementation BTRSearchFilterView
 
+@synthesize backgroundImage;
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -17,12 +19,30 @@
 
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, 72)];//initWithFrame:[[UIScreen mainScreen] bounds]];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, 70)];//initWithFrame:[[UIScreen mainScreen] bounds]];
     headerView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];// blackColor];
     headerView.opaque = NO;
     
+    
+    headerView.backgroundColor = [UIColor clearColor];
+    UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:headerView.frame];
+    bgToolbar.barStyle = UIBarStyleDefault;
+    [headerView.superview insertSubview:bgToolbar belowSubview:headerView];
+    
+    
+    UIImageView *backgroundImageView = [[UIImageView alloc ] initWithFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
+    backgroundImageView.image = [self.backgroundImage applyBTRSearchFilterLightEffect];
+    [self addSubview:backgroundImageView];
+    
+    
+    
+    
+    
+    
+    
+    
     UILabel *pageTitleLabel = [[UILabel alloc] init];
-    pageTitleLabel.text = @"Filter Results";
+    pageTitleLabel.text = @"Refine Results";
     pageTitleLabel.backgroundColor = [UIColor clearColor];
     pageTitleLabel.opaque = NO;
     [pageTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18]];
@@ -45,9 +65,6 @@
     [cancelButton addTarget:self
                      action:@selector(cancelTapped:)
            forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    
     
     
     [headerView addSubview:pageTitleLabel];
