@@ -9,8 +9,13 @@
 #import "BTRSearchViewController.h"
 #import "BTRItemShowcaseTableViewCell.h"
 
+
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
+
+
+
+
 
 @interface BTRSearchViewController ()
 
@@ -101,7 +106,6 @@
     //[data writeToFile:@"screenshot.png" atomically:YES];
     */
     
-    
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     UIGraphicsBeginImageContextWithOptions(screenSize, NO, [UIScreen mainScreen].scale);
     CGRect rec = CGRectMake(0, 0, screenSize.width, screenSize.height);
@@ -114,7 +118,7 @@
     [searchBar resignFirstResponder];
     modalView = [[BTRSearchFilterView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     modalView.backgroundImage = screenShotImage;
-    //modalView.opaque = NO;
+    modalView.opaque = NO;
     modalView.backgroundColor = [UIColor clearColor];//[[UIColor blackColor] colorWithAlphaComponent:0.83f];
     
     [self.view addSubview:modalView];
@@ -354,6 +358,51 @@
 
 
 
+
+
+/*
+
+// create image of a view
+CGFloat scale = [[UIScreen mainScreen] scale];
+UIGraphicsBeginImageContextWithOptions(self.view.frame.size, YES, scale);
+[self.view drawViewHierarchyInRect:self.view.frame afterScreenUpdates:NO];
+UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+UIGraphicsEndImageContext();
+// create dark blurred image, requires UIImage+ImageEffects
+UIImage *blurredImage = [image applyDarkEffect];
+
+UIImageView *blurredImageView = [[UIImageView alloc] initWithFrame: CGRectMake(0.0, screenSize.height, screenSize.width, 0.0)];
+blurredImageView.clipsToBounds = YES;
+blurredImageView.contentMode = UIViewContentModeBottom;
+UIGraphicsBeginImageContextWithOptions(screenSize, YES, [[UIScreen mainScreen] scale]);
+[self.view drawViewHierarchyInRect:self.view.frame afterScreenUpdates:NO];
+
+ UIImage *sourceViewImage = UIGraphicsGetImageFromCurrentImageContext();
+ UIGraphicsEndImageContext();
+ UIImage *blurredImage = [sourceViewImage applyDarkEffect];
+ blurredImageView.image = blurredSourceImage;
+ [sourceView addSubview:blurredImageView];
+ 
+
+BTRSearchFilterTVC *destinationViewController = [[BTRSearchFilterTVC alloc] init];
+
+UIImage *sourceViewImage = UIGraphicsGetImageFromCurrentImageContext();
+UIGraphicsEndImageContext();
+blurredImageView.image = blurredImage;
+[self.view addSubview:blurredImageView];
+
+[UIView animateWithDuration:0.6 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    // destinationView.center = destinationCenter;
+    //    blurredImageView.frame = sourceView.frame;
+}
+                 completion:^(BOOL finished){
+                     [blurredImageView removeFromSuperview];
+                     //   [destinationView removeFromSuperview];
+                     //  [destinationView insertSubview:blurredImageView atIndex:0];
+                     [self presentViewController:destinationViewController animated:NO completion:NULL];
+                 }];
+
+*/
 
 
 

@@ -30,10 +30,15 @@
     [headerView.superview insertSubview:bgToolbar belowSubview:headerView];
     
     
-    UIImageView *backgroundImageView = [[UIImageView alloc ] initWithFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
-    backgroundImageView.image = [self.backgroundImage applyBTRSearchFilterLightEffect];
-    [self addSubview:backgroundImageView];
     
+    
+    
+    
+    UIImageView *backgroundImageView = [[UIImageView alloc ] initWithFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
+    //backgroundImageView.image = [self.backgroundImage applyBTRSearchFilterLightEffect];
+    backgroundImageView.image = [self.backgroundImage applyDarkEffect];
+    [self addSubview:backgroundImageView];
+
     
     
     
