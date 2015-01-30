@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		69385FBE1A7AD2B70074FE33 /* BTRSearchFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FBD1A7AD2B70074FE33 /* BTRSearchFilterViewController.m */; };
+		69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */; };
 		695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */; };
 		69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */; };
 		697E05811A434121000146C6 /* BTRUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 697E05801A434121000146C6 /* BTRUtility.m */; };
@@ -100,6 +101,8 @@
 /* Begin PBXFileReference section */
 		69385FBC1A7AD2B70074FE33 /* BTRSearchFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchFilterViewController.h; sourceTree = "<group>"; };
 		69385FBD1A7AD2B70074FE33 /* BTRSearchFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchFilterViewController.m; sourceTree = "<group>"; };
+		69385FC31A7BF40A0074FE33 /* BTRSearchFilterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchFilterTVC.h; sourceTree = "<group>"; };
+		69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchFilterTVC.m; sourceTree = "<group>"; };
 		695F99E21A573DB700A80D12 /* BTRApprovePurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRApprovePurchaseViewController.h; sourceTree = "<group>"; };
 		695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRApprovePurchaseViewController.m; sourceTree = "<group>"; };
 		69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMyAccountViewController.h; sourceTree = "<group>"; };
@@ -268,6 +271,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		69385FBF1A7BF3830074FE33 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */,
+				69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */,
+				69385FBC1A7AD2B70074FE33 /* BTRSearchFilterViewController.h */,
+				69385FBD1A7AD2B70074FE33 /* BTRSearchFilterViewController.m */,
+				69385FC31A7BF40A0074FE33 /* BTRSearchFilterTVC.h */,
+				69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
 		695F99D81A573D1500A80D12 /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,10 +316,7 @@
 				69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */,
 				69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */,
 				69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */,
-				69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */,
-				69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */,
-				69385FBC1A7AD2B70074FE33 /* BTRSearchFilterViewController.h */,
-				69385FBD1A7AD2B70074FE33 /* BTRSearchFilterViewController.m */,
+				69385FBF1A7BF3830074FE33 /* Search */,
 				695F99D81A573D1500A80D12 /* Checkout */,
 			);
 			name = ViewController;
@@ -680,6 +693,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */,
 				69B02CF51A605A4400040C86 /* General1+AppServer.m in Sources */,
 				69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */,
 				69869FAF1A640C0600F986BC /* BTRDocumentHandler.m in Sources */,
