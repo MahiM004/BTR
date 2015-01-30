@@ -315,6 +315,16 @@
 			path = CMRangeSlider;
 			sourceTree = "<group>";
 		};
+		69659F151A7C326800C52FC5 /* slidericons */ = {
+			isa = PBXGroup;
+			children = (
+				69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */,
+				69659F071A7C240F00C52FC5 /* fillrange.png */,
+				69659F081A7C240F00C52FC5 /* fullrange.png */,
+			);
+			name = slidericons;
+			sourceTree = "<group>";
+		};
 		697E057B1A432FCD000146C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,9 +356,6 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */,
-				69659F071A7C240F00C52FC5 /* fillrange.png */,
-				69659F081A7C240F00C52FC5 /* fullrange.png */,
 				69659F091A7C240F00C52FC5 /* rangethumb.png */,
 				69AB985A1A76AB2200EDB1E6 /* twittericonalpha.png */,
 				69AB985B1A76AB2200EDB1E6 /* facebookiconalpha.png */,
@@ -360,6 +367,7 @@
 				69867A041A43894B003CE59C /* neumyaccount.png */,
 				698679FC1A4351A4003CE59C /* neulogocentered.png */,
 				69807AE91A4210740001A154 /* neulogo.png */,
+				69659F151A7C326800C52FC5 /* slidericons */,
 			);
 			path = images;
 			sourceTree = "<group>";

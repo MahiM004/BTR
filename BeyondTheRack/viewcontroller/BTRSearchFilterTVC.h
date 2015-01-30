@@ -11,10 +11,9 @@
 
 @interface BTRSearchFilterTVC : UITableViewController {
     RangeSlider *slider;
-    UILabel *reportLabel;
+  //  UILabel *reportLabel;
 }
 
-
-@property (weak, nonatomic) IBOutlet UIView *sliderView;
+@property (weak, nonatomic) IBOutlet UITableViewCell *priceRangeCell;
 
 @end

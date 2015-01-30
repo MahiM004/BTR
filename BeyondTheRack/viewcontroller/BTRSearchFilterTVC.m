@@ -35,7 +35,7 @@
     [self performSelector:@selector(updateState) withObject:nil afterDelay:1.0f];
     */
     
-    
+    //self.sliderView.backgroundColor = [UIColor clearColor];
     slider = [[RangeSlider alloc] initWithFrame:CGRectMake(10, 100, 300, 30)]; // the slider enforces a height of 30, although I'm not sure that this is necessary
     
     slider.minimumRangeLength = .03; // this property enforces a minimum range size. By default it is set to 0.0
@@ -55,14 +55,14 @@
     [slider addTarget:self action:@selector(slideValueChanged:) forControlEvents:UIControlEventValueChanged]; // The slider sends actions when the value of the minimum or maximum changes
     
     
-    reportLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 310, 30)]; // a label to see the values of the slider in this demo
-    reportLabel.adjustsFontSizeToFitWidth = YES;
-    reportLabel.textAlignment = NSTextAlignmentCenter;
-    [self.sliderView addSubview:reportLabel];
-    NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", slider.min, slider.max];
-    reportLabel.text = report;
+    //reportLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 310, 30)]; // a label to see the values of the slider in this demo
+    //reportLabel.adjustsFontSizeToFitWidth = YES;
+    //reportLabel.textAlignment = NSTextAlignmentCenter;
+    //[self.sliderView addSubview:reportLabel];
+    //NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", slider.min, slider.max];
+    //reportLabel.text = report;
     
-    [self.sliderView addSubview:slider];
+    [self.priceRangeCell addSubview:slider];
     
 }
 
@@ -70,8 +70,8 @@
 
 - (void)slideValueChanged:(RangeSlider *)sender {
 
-    NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", sender.min, sender.max];
-    reportLabel.text = report;
+   // NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", sender.min, sender.max];
+    //reportLabel.text = report;
 }
 
 

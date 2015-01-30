@@ -86,7 +86,7 @@
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                             </attributes>
                                         </fragment>
-                                        <fragment content="Alain Henein">
+                                        <fragment content="David Saakian">
                                             <attributes>
                                                 <color key="NSColor" red="0.12941176470588237" green="0.12941176470588237" blue="0.12941176470588237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="16" name="HelveticaNeue"/>
@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="306C27C8-D1A8-419B-854D-B8CC88631AD0" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="3CB9AA61-FA69-412D-94E0-91F6C63C2E75" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -889,37 +889,17 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="398" id="wt2-gq-ub1">
+                                    <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="158" id="wt2-gq-ub1">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wt2-gq-ub1" id="kJ3-gm-YDB">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price Ranges" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKg-UT-to6">
-                                                    <rect key="frame" x="35" y="8" width="102" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price Range" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKg-UT-to6">
+                                                    <rect key="frame" x="35" y="8" width="94" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Krn-Kx-hMg">
-                                                    <rect key="frame" x="228" y="20" width="51" height="31"/>
-                                                    <color key="onTintColor" white="1" alpha="0.70999999999999996" colorSpace="calibratedWhite"/>
-                                                </switch>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cMa-BS-QGp">
-                                                    <rect key="frame" x="228" y="137" width="51" height="31"/>
-                                                    <color key="onTintColor" white="1" alpha="0.70999999999999996" colorSpace="calibratedWhite"/>
-                                                </switch>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Uib-Ep-21V">
-                                                    <rect key="frame" x="228" y="98" width="51" height="31"/>
-                                                    <color key="onTintColor" white="1" alpha="0.70999999999999996" colorSpace="calibratedWhite"/>
-                                                </switch>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ktp-NX-BAN">
-                                                    <rect key="frame" x="228" y="59" width="51" height="31"/>
-                                                    <color key="onTintColor" white="1" alpha="0.70999999999999996" colorSpace="calibratedWhite"/>
-                                                </switch>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n1R-aH-SIu">
-                                                    <rect key="frame" x="0.0" y="181" width="320" height="209"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
@@ -967,7 +947,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="sliderView" destination="n1R-aH-SIu" id="1XG-AN-aQj"/>
+                        <outlet property="priceRangeCell" destination="wt2-gq-ub1" id="pxe-Xs-HxP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pFN-Rz-Dsg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1165,7 +1145,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wxx-54-p0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2295" y="-885"/>
+            <point key="canvasLocation" x="2135" y="-486"/>
         </scene>
         <!--Approve Purchase View Controller-->
         <scene sceneID="ohB-Tf-V6s">
@@ -1239,7 +1219,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3k-r8-R5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5Wd-id-3W3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2719" y="-885"/>
+            <point key="canvasLocation" x="2559" y="-486"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="PET-gF-tHv">
@@ -1281,7 +1261,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6qf-vA-iqF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3199" y="-839.5"/>
+            <point key="canvasLocation" x="3039" y="-440.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x8v-mg-mc8">
@@ -1344,7 +1324,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="306C27C8-D1A8-419B-854D-B8CC88631AD0" width="30" height="30">
+        <image name="3CB9AA61-FA69-412D-94E0-91F6C63C2E75" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
