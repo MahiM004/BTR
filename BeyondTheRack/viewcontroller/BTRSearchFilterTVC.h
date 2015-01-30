@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RangeSlider.h"
 
-@interface BTRSearchFilterTVC : UITableViewController
+@interface BTRSearchFilterTVC : UITableViewController {
+    RangeSlider *slider;
+    UILabel *reportLabel;
+}
+
+
+@property (weak, nonatomic) IBOutlet UIView *sliderView;
 
 @end

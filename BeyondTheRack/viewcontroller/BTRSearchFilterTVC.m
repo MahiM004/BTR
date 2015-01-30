@@ -8,21 +8,73 @@
 
 #import "BTRSearchFilterTVC.h"
 
+
 @interface BTRSearchFilterTVC ()
 
 @end
 
 @implementation BTRSearchFilterTVC
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    /*
+    self.sliderView.backgroundColor = [UIColor clearColor];
+    NSUInteger margin = 20;
+    CGRect sliderFrame = CGRectMake(margin, margin, self.view.frame.size.width - margin * 2, 30);
+    _rangeSlider = [[CERangeSlider alloc] initWithFrame:sliderFrame];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.sliderView addSubview:_rangeSlider];
+    
+    [_rangeSlider addTarget:self
+                     action:@selector(slideValueChanged:)
+           forControlEvents:UIControlEventValueChanged];
+    
+    [self performSelector:@selector(updateState) withObject:nil afterDelay:1.0f];
+    */
+    
+    
+    slider = [[RangeSlider alloc] initWithFrame:CGRectMake(10, 100, 300, 30)]; // the slider enforces a height of 30, although I'm not sure that this is necessary
+    
+    slider.minimumRangeLength = .03; // this property enforces a minimum range size. By default it is set to 0.0
+    
+    [slider setMinThumbImage:[UIImage imageNamed:@"rangethumb.png"]]; // the two thumb controls are given custom images
+    [slider setMaxThumbImage:[UIImage imageNamed:@"rangethumb.png"]];
+    
+    
+    UIImage *image; // there are two track images, one for the range "track", and one for the filled in region of the track between the slider thumbs
+    
+    [slider setTrackImage:[[UIImage imageNamed:@"fullrange.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9.0, 9.0, 9.0, 9.0)]];
+    
+    image = [UIImage imageNamed:@"fillrangeblue.png"];
+    [slider setInRangeTrackImage:image];
+    
+    
+    [slider addTarget:self action:@selector(slideValueChanged:) forControlEvents:UIControlEventValueChanged]; // The slider sends actions when the value of the minimum or maximum changes
+    
+    
+    reportLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 310, 30)]; // a label to see the values of the slider in this demo
+    reportLabel.adjustsFontSizeToFitWidth = YES;
+    reportLabel.textAlignment = NSTextAlignmentCenter;
+    [self.sliderView addSubview:reportLabel];
+    NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", slider.min, slider.max];
+    reportLabel.text = report;
+    
+    [self.sliderView addSubview:slider];
+    
 }
+
+
+
+- (void)slideValueChanged:(RangeSlider *)sender {
+
+    NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", sender.min, sender.max];
+    reportLabel.text = report;
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -96,3 +148,13 @@
 */
 
 @end
+
+
+
+
+
+
+
+
+
+
