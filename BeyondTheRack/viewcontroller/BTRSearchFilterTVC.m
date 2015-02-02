@@ -12,6 +12,7 @@
 
 @interface BTRSearchFilterTVC () {
     int selectedSortIndex;
+  //  NSMutableArray *selectedPriceFilters;
 }
 
 @end
@@ -140,10 +141,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0)
-    {
+    if (indexPath.section == 0) {
      
-        selectedSortIndex = indexPath.row;
+        selectedSortIndex = (int)indexPath.row;
 
         UITableViewCell *sortCell = [self.tableView cellForRowAtIndexPath:indexPath];
         
@@ -151,11 +151,11 @@
             
             sortCell.textLabel.textColor = [UIColor whiteColor];
             sortCell.accessoryType = UITableViewCellAccessoryCheckmark;
-            
         }
         
-        [self.tableView reloadData];
     }
+    
+    [self.tableView reloadData];
 }
 
 
@@ -173,26 +173,6 @@
         }
         
         
-        
-  
-
-        /*
-        if ([self isTagSelected:[[self cvsArray] objectAtIndex:indexPath.row]]){
-            
-            cell.backgroundColor = [UIColor lightGrayColor];
-            cell.detailTextLabel.text = @"already tagged";
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            self.chosenIndexPath = indexPath;
-            
-        } else {
-            
-            cell.detailTextLabel.text = @" ";
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.backgroundColor = [UIColor whiteColor];
-        }
-        */
-        
-        
         if (selectedSortIndex != indexPath.row) {
             
             sortCell.accessoryType = UITableViewCellAccessoryNone;
@@ -203,10 +183,6 @@
             sortCell.accessoryType = UITableViewCellAccessoryCheckmark;
             sortCell.textLabel.textColor = [UIColor whiteColor];
         }
-        
-        
-    
-        
         
         switch (indexPath.row) {
                 
@@ -241,7 +217,8 @@
             filterCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
         }
         
-        filterCell.filterValueLabel.text = [NSString stringWithFormat:@"Just Some Value %d", [indexPath row]];
+        filterCell.filterValueLabel.text = [NSString stringWithFormat:@"Just Some Value %ld", (long)[indexPath row]];
+        
         cell = filterCell;
     
     } else if (indexPath.section == 3) {
@@ -253,18 +230,13 @@
             filterCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
         }
         
-        filterCell.filterValueLabel.text = [NSString stringWithFormat:@"Just Some Value %d", [indexPath row]];
+        filterCell.filterValueLabel.text = [NSString stringWithFormat:@"Just Some Value %ld", (long)[indexPath row]];
         cell = filterCell;
     }
-    
-    
-    
-
     
     return cell;
 }
 
-//- (UITableViewCell *)getCellFor
 
 
 /*
