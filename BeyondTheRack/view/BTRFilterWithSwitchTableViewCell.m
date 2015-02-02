@@ -20,4 +20,17 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)switchValueChanged:(UISwitch *)sender {
+    
+    if (sender.on) {
+        
+        self.filterValueLabel.textColor = [UIColor whiteColor];
+        
+    } else {
+        
+        self.filterValueLabel.textColor = [UIColor lightGrayColor];
+    }
+}
+
+
 @end

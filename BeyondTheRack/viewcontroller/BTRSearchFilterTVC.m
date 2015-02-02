@@ -10,7 +10,9 @@
 #import "BTRFilterWithSwitchTableViewCell.h"
 
 
-@interface BTRSearchFilterTVC ()
+@interface BTRSearchFilterTVC () {
+    int selectedSortIndex;
+}
 
 @end
 
@@ -19,10 +21,11 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    
 
-    
+    selectedSortIndex = 0;
+
 }
 
 
@@ -64,7 +67,7 @@
             break;
         
         case 3:
-            return 0;
+            return 4;
             break;
             
         case 4:
@@ -118,12 +121,41 @@
     
 }
 
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    view.tintColor = [UIColor blueColor];
+    
+    UITableViewHeaderFooterView *headerIndexText = (UITableViewHeaderFooterView *)view;
+    [headerIndexText.textLabel setTextColor:[UIColor colorWithWhite:0 alpha:0.8]];
+    
+}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section ==0 )
-        return 40;
+    return 50;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 80;
+    if (indexPath.section == 0)
+    {
+     
+        selectedSortIndex = indexPath.row;
+
+        UITableViewCell *sortCell = [self.tableView cellForRowAtIndexPath:indexPath];
+        
+        if (sortCell.textLabel.textColor != [UIColor whiteColor]) {
+            
+            sortCell.textLabel.textColor = [UIColor whiteColor];
+            sortCell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+        }
+        
+        [self.tableView reloadData];
+    }
 }
 
 
@@ -140,6 +172,42 @@
             sortCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRRefineSortCellIdentifier"];
         }
         
+        
+        
+  
+
+        /*
+        if ([self isTagSelected:[[self cvsArray] objectAtIndex:indexPath.row]]){
+            
+            cell.backgroundColor = [UIColor lightGrayColor];
+            cell.detailTextLabel.text = @"already tagged";
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            self.chosenIndexPath = indexPath;
+            
+        } else {
+            
+            cell.detailTextLabel.text = @" ";
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.backgroundColor = [UIColor whiteColor];
+        }
+        */
+        
+        
+        if (selectedSortIndex != indexPath.row) {
+            
+            sortCell.accessoryType = UITableViewCellAccessoryNone;
+            sortCell.textLabel.textColor = [UIColor lightGrayColor];
+            
+        } else if (selectedSortIndex == indexPath.row) {
+            
+            sortCell.accessoryType = UITableViewCellAccessoryCheckmark;
+            sortCell.textLabel.textColor = [UIColor whiteColor];
+        }
+        
+        
+    
+        
+        
         switch (indexPath.row) {
                 
             case 0:
@@ -148,13 +216,11 @@
                 
             case 1:
                 sortCell.textLabel.text = @"Highest to Lowest Price";
-                sortCell.textLabel.textColor = [UIColor lightGrayColor];
                 break;
                 
                 
             case 2:
                 sortCell.textLabel.text = @"Lowest to Highest Price";
-                sortCell.textLabel.textColor = [UIColor lightGrayColor];
                 break;
                 
             default:
@@ -162,6 +228,7 @@
                 
                 
         }
+     
         
         cell = sortCell;
 
@@ -170,15 +237,29 @@
     
         BTRFilterWithSwitchTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
 
-        if (filterCell == nil)
-        {
+        if (filterCell == nil) {
             filterCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
         }
         
         filterCell.filterValueLabel.text = [NSString stringWithFormat:@"Just Some Value %d", [indexPath row]];
         cell = filterCell;
     
+    } else if (indexPath.section == 3) {
+    
+        BTRFilterWithSwitchTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
+        
+        if (filterCell == nil) {
+            
+            filterCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
+        }
+        
+        filterCell.filterValueLabel.text = [NSString stringWithFormat:@"Just Some Value %d", [indexPath row]];
+        cell = filterCell;
     }
+    
+    
+    
+
     
     return cell;
 }
@@ -260,8 +341,47 @@ image = [UIImage imageNamed:@"fillrangeblue.png"];
 
 
 
-
-
+/*
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
+    
+    [headerView setBackgroundColor:[UIColor clearColor]];
+    
+    UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
+    
+    switch (section) {
+            
+        case 0:
+            sectionLabel.text = @"        SORT ITEMS";
+            break;
+            
+        case 1:
+            sectionLabel.text = @"        FILTER BY PRICE";
+            break;
+            
+        case 2:
+            sectionLabel.text = @"        FILTER BY CATEGORY";
+            break;
+            
+        case 3:
+            sectionLabel.text = @"        FILTER BY COLOR";
+            break;
+            
+        case 4:
+            sectionLabel.text = @"        FILTER BY BRAND";
+            break;
+            
+        default:
+            break;
+    }
+    
+    sectionLabel.textColor = [UIColor colorWithWhite:255.0 alpha:0.5];
+    
+    [headerView addSubview:sectionLabel];
+    
+    return headerView;
+}*/
 
 
 

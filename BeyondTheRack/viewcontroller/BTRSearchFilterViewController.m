@@ -20,12 +20,8 @@
     
     [super viewDidLoad];
 
-    
-    self.view.backgroundColor = [UIColor clearColor];
-    
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
-    self.headerView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];// blackColor];
     self.headerView.opaque = NO;
     
     self.headerView.backgroundColor = [UIColor clearColor];
