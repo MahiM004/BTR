@@ -82,26 +82,141 @@
 }
 
 #pragma mark - Table view data source
-/*
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 0;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
+    
+    switch (section) {
+        case 0:
+            return 3;
+            break;
+        
+        case 1:
+            return 4;
+            break;
+        
+        case 2:
+            return 0;
+            break;
+        
+        case 3:
+            return 0;
+            break;
+            
+        case 4:
+            return 0;
+            break;
+
+        case 5:
+            return 0;
+            break;
+            
+        default:
+            break;
+    }
+    
     return 0;
 }
-*/
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
     
-    // Configure the cell...
+    switch (section) {
+        case 0:
+            return @"        SORT ITEMS";
+            break;
+            
+        case 1:
+            return @"        FILTER BY PRICE";
+            break;
+            
+        case 2:
+            return @"        FILTER BY CATEGORY";
+            break;
+            
+        case 3:
+            return @"        FILTER BY COLOR";
+            break;
+            
+        case 4:
+            return @"        FILTER BY BRAND";
+            break;
+            
+        case 5:
+            return @"        FILTER BY SIZE";
+            break;
+            
+        default:
+            break;
+    }
+    
+    return 0;
+    
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = nil;
+    
+    if (indexPath.section == 0) {
+        
+        UITableViewCell *sortCell = [tableView dequeueReusableCellWithIdentifier:@"BTRRefineSortCellIdentifier" forIndexPath:indexPath];
+        
+        if (sortCell == nil)
+        {
+            sortCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRRefineSortCellIdentifier"];
+        }
+        
+        switch (indexPath.row) {
+                
+            case 0:
+                sortCell.textLabel.text = @"Best Match";
+                break;
+                
+            case 1:
+                sortCell.textLabel.text = @"Highest to Lowest Price";
+                sortCell.textLabel.textColor = [UIColor lightGrayColor];
+                break;
+                
+                
+            case 2:
+                sortCell.textLabel.text = @"Lowest to Highest Price";
+                sortCell.textLabel.textColor = [UIColor lightGrayColor];
+                break;
+                
+            default:
+                break;
+                
+                
+        }
+        
+        cell = sortCell;
+
+        
+    } else if (indexPath.section == 1) {
+    
+        UITableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
+
+        if (filterCell == nil)
+        {
+            filterCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
+        }
+        
+        cell = filterCell;
+    
+    }
     
     return cell;
 }
-*/
+
+//- (UITableViewCell *)getCellFor
+
 
 /*
 // Override to support conditional editing of the table view.
