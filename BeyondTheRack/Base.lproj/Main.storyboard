@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="C01B049E-DFA4-456B-83B6-8FA7B6DE7672" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="3ADBADB3-A538-4E55-AC2B-55AF5E09E6B2" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -818,20 +818,30 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableViewCell>
-                            <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BTRFilterByPriceCellIdentifier" rowHeight="40" id="PwQ-ZW-ugI">
+                            <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BTRFilterByPriceCellIdentifier" rowHeight="60" id="PwQ-ZW-ugI" customClass="BTRFilterWithSwitchTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PwQ-ZW-ugI" id="AJJ-jc-X3u">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kQB-Ns-H7L">
-                                            <rect key="frame" x="246" y="4" width="51" height="31"/>
+                                            <rect key="frame" x="244" y="14" width="51" height="31"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="onTintColor" red="0.9737979964720157" green="1" blue="0.82240623429278814" alpha="1" colorSpace="calibratedRGB"/>
                                         </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XhQ-ac-EoY">
+                                            <rect key="frame" x="19" y="13" width="217" height="33"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="filterSwitch" destination="kQB-Ns-H7L" id="oxN-or-vFI"/>
+                                    <outlet property="filterValueLabel" destination="XhQ-ac-EoY" id="vm7-JQ-7iI"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BTRFilterBySizeCellIdentifier" rowHeight="40" id="Mle-0L-Qf3">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1255,7 +1265,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="C01B049E-DFA4-456B-83B6-8FA7B6DE7672" width="30" height="30">
+        <image name="3ADBADB3-A538-4E55-AC2B-55AF5E09E6B2" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

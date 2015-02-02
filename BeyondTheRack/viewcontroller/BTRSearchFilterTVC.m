@@ -7,6 +7,7 @@
 //
 
 #import "BTRSearchFilterTVC.h"
+#import "BTRFilterWithSwitchTableViewCell.h"
 
 
 @interface BTRSearchFilterTVC ()
@@ -20,49 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    /*
-    self.sliderView.backgroundColor = [UIColor clearColor];
-    NSUInteger margin = 20;
-    CGRect sliderFrame = CGRectMake(margin, margin, self.view.frame.size.width - margin * 2, 30);
-    _rangeSlider = [[CERangeSlider alloc] initWithFrame:sliderFrame];
-    
-    [self.sliderView addSubview:_rangeSlider];
-    
-    [_rangeSlider addTarget:self
-                     action:@selector(slideValueChanged:)
-           forControlEvents:UIControlEventValueChanged];
-    
-    [self performSelector:@selector(updateState) withObject:nil afterDelay:1.0f];
-    */
-    
-    //self.sliderView.backgroundColor = [UIColor clearColor];
-    slider = [[RangeSlider alloc] initWithFrame:CGRectMake(10, 100, 300, 30)]; // the slider enforces a height of 30, although I'm not sure that this is necessary
-    
-    slider.minimumRangeLength = .03; // this property enforces a minimum range size. By default it is set to 0.0
-    
-    [slider setMinThumbImage:[UIImage imageNamed:@"rangethumb.png"]]; // the two thumb controls are given custom images
-    [slider setMaxThumbImage:[UIImage imageNamed:@"rangethumb.png"]];
-    
-    
-    UIImage *image; // there are two track images, one for the range "track", and one for the filled in region of the track between the slider thumbs
-    
-    [slider setTrackImage:[[UIImage imageNamed:@"fullrange.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9.0, 9.0, 9.0, 9.0)]];
-    
-    image = [UIImage imageNamed:@"fillrangeblue.png"];
-    [slider setInRangeTrackImage:image];
-    
-    
-    [slider addTarget:self action:@selector(slideValueChanged:) forControlEvents:UIControlEventValueChanged]; // The slider sends actions when the value of the minimum or maximum changes
-    
-    
-    //reportLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 310, 30)]; // a label to see the values of the slider in this demo
-    //reportLabel.adjustsFontSizeToFitWidth = YES;
-    //reportLabel.textAlignment = NSTextAlignmentCenter;
-    //[self.sliderView addSubview:reportLabel];
-    //NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", slider.min, slider.max];
-    //reportLabel.text = report;
-    
-    [self.priceRangeCell addSubview:slider];
+
     
 }
 
@@ -159,6 +118,14 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section ==0 )
+        return 40;
+    
+    return 80;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -201,13 +168,14 @@
         
     } else if (indexPath.section == 1) {
     
-        UITableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
+        BTRFilterWithSwitchTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
 
         if (filterCell == nil)
         {
-            filterCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
+            filterCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
         }
         
+        filterCell.filterValueLabel.text = [NSString stringWithFormat:@"Just Some Value %d", [indexPath row]];
         cell = filterCell;
     
     }
@@ -265,11 +233,61 @@
 @end
 
 
+//self.sliderView.backgroundColor = [UIColor clearColor];
+/*
+slider = [[RangeSlider alloc] initWithFrame:CGRectMake(10, 100, 300, 30)]; // the slider enforces a height of 30, although I'm not sure that this is necessary
+slider.minimumRangeLength = .03; // this property enforces a minimum range size. By default it is set to 0.0
+
+[slider setMinThumbImage:[UIImage imageNamed:@"rangethumb.png"]]; // the two thumb controls are given custom images
+[slider setMaxThumbImage:[UIImage imageNamed:@"rangethumb.png"]];
+
+
+UIImage *image; // there are two track images, one for the range "track", and one for the filled in region of the track between the slider thumbs
+
+[slider setTrackImage:[[UIImage imageNamed:@"fullrange.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9.0, 9.0, 9.0, 9.0)]];
+
+image = [UIImage imageNamed:@"fillrangeblue.png"];
+[slider setInRangeTrackImage:image];
+
+
+[slider addTarget:self action:@selector(slideValueChanged:) forControlEvents:UIControlEventValueChanged]; // The slider sends actions when the value of the minimum or maximum changes
+
+*/
+
+
+// [self.priceRangeCell addSubview:slider];
 
 
 
 
 
+
+
+
+
+/*
+ self.sliderView.backgroundColor = [UIColor clearColor];
+ NSUInteger margin = 20;
+ CGRect sliderFrame = CGRectMake(margin, margin, self.view.frame.size.width - margin * 2, 30);
+ _rangeSlider = [[CERangeSlider alloc] initWithFrame:sliderFrame];
+ 
+ [self.sliderView addSubview:_rangeSlider];
+ 
+ [_rangeSlider addTarget:self
+ action:@selector(slideValueChanged:)
+ forControlEvents:UIControlEventValueChanged];
+ 
+ [self performSelector:@selector(updateState) withObject:nil afterDelay:1.0f];
+ */
+
+
+
+//reportLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 310, 30)]; // a label to see the values of the slider in this demo
+//reportLabel.adjustsFontSizeToFitWidth = YES;
+//reportLabel.textAlignment = NSTextAlignmentCenter;
+//[self.sliderView addSubview:reportLabel];
+//NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", slider.min, slider.max];
+//reportLabel.text = report;
 
 
 

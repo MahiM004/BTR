@@ -14,6 +14,5 @@
   //  UILabel *reportLabel;
 }
 
-@property (weak, nonatomic) IBOutlet UITableViewCell *priceRangeCell;
 
 @end

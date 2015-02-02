@@ -15,6 +15,7 @@
 		69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F081A7C240F00C52FC5 /* fullrange.png */; };
 		69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F091A7C240F00C52FC5 /* rangethumb.png */; };
 		69659F0E1A7C259F00C52FC5 /* fillrangeblue.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */; };
+		69659F181A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F171A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m */; };
 		69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */; };
 		697E05811A434121000146C6 /* BTRUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 697E05801A434121000146C6 /* BTRUtility.m */; };
 		69807AEA1A4210740001A154 /* neulogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AE91A4210740001A154 /* neulogo.png */; };
@@ -116,6 +117,8 @@
 		69659F081A7C240F00C52FC5 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullrange.png; sourceTree = "<group>"; };
 		69659F091A7C240F00C52FC5 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rangethumb.png; sourceTree = "<group>"; };
 		69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillrangeblue.png; sourceTree = "<group>"; };
+		69659F161A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterWithSwitchTableViewCell.h; sourceTree = "<group>"; };
+		69659F171A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterWithSwitchTableViewCell.m; sourceTree = "<group>"; };
 		69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMyAccountViewController.h; sourceTree = "<group>"; };
 		69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMyAccountViewController.m; sourceTree = "<group>"; };
 		697E057F1A434121000146C6 /* BTRUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRUtility.h; sourceTree = "<group>"; };
@@ -330,6 +333,8 @@
 			children = (
 				69AB984B1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.h */,
 				69AB984C1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m */,
+				69659F161A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.h */,
+				69659F171A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m */,
 			);
 			name = View;
 			path = view;
@@ -758,6 +763,7 @@
 				69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */,
 				69869F981A63FB2100F986BC /* AFHTTPRequestOperation.m in Sources */,
 				69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */,
+				69659F181A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m in Sources */,
 				69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */,
 				69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */,
 				69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */,
