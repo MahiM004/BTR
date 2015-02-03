@@ -15,10 +15,15 @@
   //  NSMutableArray *selectedPriceFilters;
 }
 
+@property (strong, nonatomic) NSMutableDictionary *facets;
+@property (strong, nonatomic) NSMutableArray *titles;
+
+
 @end
 
 @implementation BTRSearchFilterTVC
 
+@synthesize facets;
 
 
 - (void)viewDidLoad {
@@ -26,6 +31,23 @@
     [super viewDidLoad];
 
     selectedSortIndex = 0;
+    self.facets = [NSMutableDictionary dictionary];
+    
+    self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", @"FILTER BY PRICE", @"FILTER BY CATEGORY", @"FILTER BY COLOR", @"FILTER BY BRAND", @"FILTER BY SIZE"]];
+
+    NSMutableArray *threeStrings = [[NSMutableArray alloc] initWithArray:@[@"Some Value 1", @"Some Other Value 2", @"Last Value 3"]];
+    
+    
+    for (int i = 0; i < [self.titles count]; i++)
+    {
+        [self.facets setObject:threeStrings forKey:[self.titles objectAtIndex:i]];
+    }
+    
+//    NSMutableArray *eventsOnThisDay = [self.sections objectForKey:dateRepresentingThisDay];
+
+    // Use the reduced date as dictionary key to later retrieve the event list this day
+    //[self.sections setObject:eventsOnThisDay forKey:dateRepresentingThisDay];
+
 
 }
 
@@ -47,79 +69,29 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+ 
     // Return the number of sections.
-    return 6;
+    return [self.titles count];//[self.facets count] + 1;
+;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     
-    switch (section) {
-        case 0:
-            return 3;
-            break;
-        
-        case 1:
-            return 4;
-            break;
-        
-        case 2:
-            return 0;
-            break;
-        
-        case 3:
-            return 4;
-            break;
-            
-        case 4:
-            return 0;
-            break;
-
-        case 5:
-            return 0;
-            break;
-            
-        default:
-            break;
-    }
     
-    return 0;
+    if (section == 0)
+        return 3;
+
+    NSArray *someFacet = [self.facets objectForKey:[self.titles objectAtIndex:section]];
+    
+    return [someFacet count];
 }
+
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    
-    switch (section) {
-        case 0:
-            return @"        SORT ITEMS";
-            break;
-            
-        case 1:
-            return @"        FILTER BY PRICE";
-            break;
-            
-        case 2:
-            return @"        FILTER BY CATEGORY";
-            break;
-            
-        case 3:
-            return @"        FILTER BY COLOR";
-            break;
-            
-        case 4:
-            return @"        FILTER BY BRAND";
-            break;
-            
-        case 5:
-            return @"        FILTER BY SIZE";
-            break;
-            
-        default:
-            break;
-    }
-    
-    return 0;
-    
+
+    return [NSString stringWithFormat:@"        %@", [self.titles objectAtIndex:section]];
 }
 
 
@@ -209,19 +181,20 @@
         cell = sortCell;
 
         
-    } else if (indexPath.section == 1) {
+    } else if (indexPath.section == 1 || indexPath.section == 2) {
     
-        BTRFilterWithSwitchTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
+        BTRFilterWithSwitchTableViewCell *filteSwitchrCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
 
-        if (filterCell == nil) {
-            filterCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
+        if (filteSwitchrCell == nil) {
+            filteSwitchrCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
         }
         
-        filterCell.filterValueLabel.text = [NSString stringWithFormat:@"Just Some Value %ld", (long)[indexPath row]];
+        NSArray *someFacet = [self.facets objectForKey:[self.titles objectAtIndex:indexPath.section]];
+        filteSwitchrCell.filterValueLabel.text = [someFacet objectAtIndex:indexPath.row];//[NSString stringWithFormat:@"Just Some Value %ld", (long)[indexPath row]];
         
-        cell = filterCell;
+        cell = filteSwitchrCell;
     
-    } else if (indexPath.section == 3) {
+    } else if (indexPath.section == 3 || indexPath.section == 4 || indexPath.section == 5) {
     
         BTRFilterWithSwitchTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
         
