@@ -8,11 +8,14 @@
 
 #import "BTRSearchFilterTVC.h"
 #import "BTRFilterWithSwitchTableViewCell.h"
+#import "BTRFilterWithModalTableViewCell.h"
+
 
 
 @interface BTRSearchFilterTVC () {
     int selectedSortIndex;
   //  NSMutableArray *selectedPriceFilters;
+
 }
 
 @property (strong, nonatomic) NSMutableDictionary *facets;
@@ -30,10 +33,14 @@
     
     [super viewDidLoad];
 
+
     selectedSortIndex = 0;
-    self.facets = [NSMutableDictionary dictionary];
     
-    self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", @"FILTER BY PRICE", @"FILTER BY CATEGORY", @"FILTER BY COLOR", @"FILTER BY BRAND", @"FILTER BY SIZE"]];
+    self.facets = [NSMutableDictionary dictionary];
+
+    self.selectedSizes = [[NSMutableArray alloc] initWithArray:@[@"RED", @"GREEN"]];
+    
+    self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", @"FILTER BY PRICE", @"FILTER BY CATEGORY", @"FILTER BY BRANDS", @"FILTER BY COLORS", @"FILTER BY SIZES"]];
 
     NSMutableArray *threeStrings = [[NSMutableArray alloc] initWithArray:@[@"Some Value 1", @"Some Other Value 2", @"Last Value 3"]];
     
@@ -42,23 +49,17 @@
     {
         [self.facets setObject:threeStrings forKey:[self.titles objectAtIndex:i]];
     }
-    
-//    NSMutableArray *eventsOnThisDay = [self.sections objectForKey:dateRepresentingThisDay];
-
-    // Use the reduced date as dictionary key to later retrieve the event list this day
-    //[self.sections setObject:eventsOnThisDay forKey:dateRepresentingThisDay];
-
 
 }
 
 
-
+/*
 - (void)slideValueChanged:(RangeSlider *)sender {
 
    // NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", sender.min, sender.max];
     //reportLabel.text = report;
 }
-
+*/
 
 
 - (void)didReceiveMemoryWarning {
@@ -79,14 +80,44 @@
     // Return the number of rows in the section.
     
     
-    if (section == 0)
-        return 3;
+    if (section == 0 || section == 3 || section == 4 || section == 5)
+        return [self numberOfRowsInSection:section];
 
     NSArray *someFacet = [self.facets objectForKey:[self.titles objectAtIndex:section]];
-    
     return [someFacet count];
 }
 
+
+- (NSInteger)numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0)  // for SORT ITEMS
+
+        return 3;
+
+    else if (section == 3)
+    {
+        if ([self.selectedBrands count] != 0)
+            return [self.selectedBrands count];
+        else
+            return 1;
+        
+    } else if (section == 4) {
+        
+        if ([self.selectedColors count] != 0)
+            return [self.selectedColors count];
+        else
+            return 1;
+        
+    } else if (section == 5) {
+        
+        if ([self.selectedSizes count] != 0)
+            return [self.selectedSizes count];
+        else
+            return 1;
+    }
+    
+    return 1;
+}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
@@ -183,10 +214,10 @@
         
     } else if (indexPath.section == 1 || indexPath.section == 2) {
     
-        BTRFilterWithSwitchTableViewCell *filteSwitchrCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
+        BTRFilterWithSwitchTableViewCell *filteSwitchrCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterBySwitchCellIdentifier" forIndexPath:indexPath];
 
         if (filteSwitchrCell == nil) {
-            filteSwitchrCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
+            filteSwitchrCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterBySwitchCellIdentifier"];
         }
         
         NSArray *someFacet = [self.facets objectForKey:[self.titles objectAtIndex:indexPath.section]];
@@ -196,14 +227,38 @@
     
     } else if (indexPath.section == 3 || indexPath.section == 4 || indexPath.section == 5) {
     
-        BTRFilterWithSwitchTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
+        BTRFilterWithModalTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByModalCellIdentifier" forIndexPath:indexPath];
         
         if (filterCell == nil) {
             
-            filterCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
+            filterCell = [[BTRFilterWithModalTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByModalCellIdentifier"];
         }
         
-        filterCell.filterValueLabel.text = [NSString stringWithFormat:@"Just Some Value %ld", (long)[indexPath row]];
+        if (indexPath.section == 3) {
+            
+            if ([self.selectedBrands count] == 0)
+                filterCell.rowLabel.text = [NSString stringWithFormat:@"All Brands"];
+            else
+                filterCell.rowLabel.text = [self.selectedBrands objectAtIndex:indexPath.row];
+        
+        } else if (indexPath.section == 4) {
+            
+            if ([self.selectedColors count] == 0)
+                filterCell.rowLabel.text = [NSString stringWithFormat:@"All Colors"];
+            else
+                filterCell.rowLabel.text = [self.selectedColors objectAtIndex:indexPath.row];
+        
+        } else if (indexPath.section == 5) {
+            
+            if ([self.selectedSizes count] == 0)
+                filterCell.rowLabel.text = [NSString stringWithFormat:@"All Sizes"];
+            else
+                filterCell.rowLabel.text = [self.selectedSizes objectAtIndex:indexPath.row];
+        }
+        
+        
+        filterCell.textLabel.textColor = [UIColor colorWithWhite:255.0 alpha:0.7];
+        
         cell = filterCell;
     }
     
@@ -246,15 +301,28 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
+
+
+
+
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
+
+
+
+- (IBAction)unwindFromModalSelectionTVC:(UIStoryboardSegue *)unwindSegue
+{
+    
+}
+
+
 
 @end
 

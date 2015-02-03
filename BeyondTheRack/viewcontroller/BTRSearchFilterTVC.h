@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RangeSlider.h"
+//#import "RangeSlider.h"
 
 @interface BTRSearchFilterTVC : UITableViewController {
-    RangeSlider *slider;
+   // RangeSlider *slider;
   //  UILabel *reportLabel;
 }
+
+@property (strong, nonatomic) NSMutableArray *selectedBrands;
+@property (strong, nonatomic) NSMutableArray *selectedColors;
+@property (strong, nonatomic) NSMutableArray *selectedSizes;
 
 
 @end
