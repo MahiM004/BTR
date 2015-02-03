@@ -48,9 +48,71 @@
     
     cell.textLabel.text = [self.itemsArray objectAtIndex:indexPath.row];
     
+    
+    if ([self isItemSelected:[[self selectedItemsArray] objectAtIndex:indexPath.row]] >= 0){
+        
+        cell.backgroundColor = [UIColor colorWithRed:76.0/255.0 green:136.0/255.0 blue:192.0/255.0 alpha:1.0];
+        cell.tintColor = [UIColor whiteColor];
+        cell.textLabel.textColor = [UIColor whiteColor];
+        
+        cell.detailTextLabel.text = @"already tagged";
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+    } else {
+        
+        cell.detailTextLabel.text = @" ";
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+    
+    
     return cell;
 }
 
+
+
+- (int)isItemSelected:(NSString *)itemString
+{
+    if ([[self selectedItemsArray] count] == 0)
+        return -1;
+    
+    for(NSString *item in [self selectedItemsArray]) {
+        
+        if([itemString isEqualToString:item]) {
+            
+            return 1;
+        }
+    }
+    
+    return -1;
+}
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    if (cell.accessoryType == UITableViewCellAccessoryNone) {
+        
+        cell.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+        [[self selectedItemsArray] addObject:[[cell textLabel] text]];
+        
+    } else {
+        
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+
+        
+        [[self selectedItemsArray] removeObject:[[cell textLabel] text]];
+    }
+    
+
+   // [self.tableView reloadData];
+
+}
 /*
 #pragma mark - Navigation
 
