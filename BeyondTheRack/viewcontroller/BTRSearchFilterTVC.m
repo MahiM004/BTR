@@ -13,6 +13,9 @@
 #import "BTRFilterWithModalTableViewCell.h"
 
 
+#define BRAND_FILTER 3
+#define COLOR_FILTER 4
+#define SIZE_FILTER 5
 
 @interface BTRSearchFilterTVC () {
     int selectedSortIndex;
@@ -78,7 +81,7 @@
     // Return the number of rows in the section.
     
     
-    if (section == 0 || section == 3 || section == 4 || section == 5)
+    if (section == 0 || section == BRAND_FILTER || section == COLOR_FILTER || section == SIZE_FILTER)
         return [self numberOfRowsInSection:section];
 
     NSArray *someFacet = [self.facets objectForKey:[self.titles objectAtIndex:section]];
@@ -92,21 +95,21 @@
 
         return 3;
 
-    else if (section == 3)
+    else if (section == BRAND_FILTER)
     {
         if ([self.selectedBrands count] != 0)
             return [self.selectedBrands count];
         else
             return 1;
         
-    } else if (section == 4) {
+    } else if (section == COLOR_FILTER) {
         
         if ([self.selectedColors count] != 0)
             return [self.selectedColors count];
         else
             return 1;
         
-    } else if (section == 5) {
+    } else if (section == SIZE_FILTER) {
         
         if ([self.selectedSizes count] != 0)
             return [self.selectedSizes count];
@@ -232,26 +235,32 @@
             filterCell = [[BTRFilterWithModalTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByModalCellIdentifier"];
         }
         
-        if (indexPath.section == 3) {
+        if (indexPath.section == BRAND_FILTER) {
             
             if ([self.selectedBrands count] == 0)
                 filterCell.rowLabel.text = [NSString stringWithFormat:@"All Brands"];
             else
                 filterCell.rowLabel.text = [self.selectedBrands objectAtIndex:indexPath.row];
             
-        } else if (indexPath.section == 4) {
+            filterCell.rowButton.tag = BRAND_FILTER;
+            
+        } else if (indexPath.section == COLOR_FILTER) {
             
             if ([self.selectedColors count] == 0)
                 filterCell.rowLabel.text = [NSString stringWithFormat:@"All Colors"];
             else
                 filterCell.rowLabel.text = [self.selectedColors objectAtIndex:indexPath.row];
         
-        } else if (indexPath.section == 5) {
+            filterCell.rowButton.tag = COLOR_FILTER;
+            
+        } else if (indexPath.section == SIZE_FILTER) {
             
             if ([self.selectedSizes count] == 0)
                 filterCell.rowLabel.text = [NSString stringWithFormat:@"All Sizes"];
             else
                 filterCell.rowLabel.text = [self.selectedSizes objectAtIndex:indexPath.row];
+            
+            filterCell.rowButton.tag = SIZE_FILTER;
         }
         
         
@@ -310,24 +319,32 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
    
-    
-    if ([segue.identifier isEqualToString:@"ModalSelectionSegueIdentifier"]) {
-    
-        BTRModalFilterSelectionVC *destModalVC = [segue destinationViewController];
+    if([sender isKindOfClass:[UIButton class]])
+
+        if ([segue.identifier isEqualToString:@"ModalSelectionSegueIdentifier"]) {
+            
+            BTRModalFilterSelectionVC *destModalVC = [segue destinationViewController];
         
-        
-        destModalVC.itemsArray = [[NSMutableArray alloc] initWithArray:@[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9"]];
-        
-        if([sender isKindOfClass:[UITableViewCell class]])
-            NSLog(@"cell");
-        
-        
-        if([sender isKindOfClass:[UIButton class]])
-            NSLog(@"button");
-        
-        
-        
-    }
+
+            if ([(UIButton *)sender tag] == BRAND_FILTER ) {
+                
+                destModalVC.itemsArray = [[NSMutableArray alloc] initWithArray:@[@"B 1",@"B 2",@"B 3",@"B 4",@"B 5", @"B 6", @"B 7", @"B 8", @"B 9"]];
+                
+                destModalVC.headerTitle = @"Select Brands";
+            }
+            else if ([(UIButton *)sender tag] == COLOR_FILTER ) {
+             
+                destModalVC.itemsArray = [[NSMutableArray alloc] initWithArray:@[@"C 1",@"C 2",@"C 3",@"C 4",@"C 5", @"C 6", @"C 7", @"C 8", @"C 9"]];
+                destModalVC.headerTitle = @"Select Colors";
+            }
+            else if ([(UIButton *)sender tag] == SIZE_FILTER ) {
+                
+                destModalVC.itemsArray = [[NSMutableArray alloc] initWithArray:@[@"S 1",@"S 2",@"S 3",@"S 4",@"S 5",@"S 6",@"S 7",@"S 8",@"S 9"]];
+                destModalVC.headerTitle = @"Select Sizes";
+
+            }
+            
+        }
 }
 
 

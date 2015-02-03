@@ -10,9 +10,10 @@
 
 @interface BTRModalFilterSelectionVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-
+@property (strong, nonatomic) NSString *headerTitle;
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSMutableArray *selectedItemsArray;
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
