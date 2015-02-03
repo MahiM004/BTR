@@ -8,15 +8,24 @@
 
 #import "BTRModalFilterSelectionVC.h"
 
+
 @interface BTRModalFilterSelectionVC ()
 
 @end
 
 @implementation BTRModalFilterSelectionVC
 
+- (NSMutableArray *)selectedItemsArray {
+    
+    if (!_selectedItemsArray) _selectedItemsArray = [[NSMutableArray alloc] init];
+    return _selectedItemsArray;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.selectedItemsArray = [[NSMutableArray alloc] init];
     self.titleLabel.text = [self headerTitle];
 
 }
@@ -48,21 +57,15 @@
     
     cell.textLabel.text = [self.itemsArray objectAtIndex:indexPath.row];
     
-    
-    if ([self isItemSelected:[[self selectedItemsArray] objectAtIndex:indexPath.row]] >= 0){
+    if ([self isItemSelected:[self.itemsArray objectAtIndex:indexPath.row]] >= 0){
         
-        cell.backgroundColor = [UIColor colorWithRed:76.0/255.0 green:136.0/255.0 blue:192.0/255.0 alpha:1.0];
-        cell.tintColor = [UIColor whiteColor];
-        cell.textLabel.textColor = [UIColor whiteColor];
-        
-        cell.detailTextLabel.text = @"already tagged";
+        cell.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
     } else {
-        
-        cell.detailTextLabel.text = @" ";
-        cell.accessoryType = UITableViewCellAccessoryNone;
+
         cell.backgroundColor = [UIColor whiteColor];
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
     
@@ -73,14 +76,15 @@
 
 - (int)isItemSelected:(NSString *)itemString
 {
-    if ([[self selectedItemsArray] count] == 0)
+    if ([self.selectedItemsArray count] == 0)
         return -1;
     
-    for(NSString *item in [self selectedItemsArray]) {
+    for(NSString *item in  self.selectedItemsArray) {
         
         if([itemString isEqualToString:item]) {
             
             return 1;
+            break;
         }
     }
     
@@ -98,20 +102,16 @@
         cell.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
-        [[self selectedItemsArray] addObject:[[cell textLabel] text]];
+        [self.selectedItemsArray addObject:[[cell textLabel] text]];
         
     } else {
         
         cell.backgroundColor = [UIColor whiteColor];
         cell.accessoryType = UITableViewCellAccessoryNone;
 
-        
-        [[self selectedItemsArray] removeObject:[[cell textLabel] text]];
+        [self.selectedItemsArray removeObject:[[cell textLabel] text]];
     }
     
-
-   // [self.tableView reloadData];
-
 }
 /*
 #pragma mark - Navigation
@@ -124,3 +124,15 @@
 */
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
