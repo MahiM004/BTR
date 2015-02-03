@@ -7,6 +7,8 @@
 //
 
 #import "BTRSearchFilterTVC.h"
+#import "BTRModalFilterSelectionVC.h"
+
 #import "BTRFilterWithSwitchTableViewCell.h"
 #import "BTRFilterWithModalTableViewCell.h"
 
@@ -236,7 +238,7 @@
                 filterCell.rowLabel.text = [NSString stringWithFormat:@"All Brands"];
             else
                 filterCell.rowLabel.text = [self.selectedBrands objectAtIndex:indexPath.row];
-        
+            
         } else if (indexPath.section == 4) {
             
             if ([self.selectedColors count] == 0)
@@ -306,8 +308,26 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+   
+    
+    if ([segue.identifier isEqualToString:@"ModalSelectionSegueIdentifier"]) {
+    
+        BTRModalFilterSelectionVC *destModalVC = [segue destinationViewController];
+        
+        
+        destModalVC.itemsArray = [[NSMutableArray alloc] initWithArray:@[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9"]];
+        
+        if([sender isKindOfClass:[UITableViewCell class]])
+            NSLog(@"cell");
+        
+        
+        if([sender isKindOfClass:[UIButton class]])
+            NSLog(@"button");
+        
+        
+        
+    }
 }
 
 
