@@ -33,17 +33,13 @@
     
     [super viewDidLoad];
 
+    //self.selectedColors = [[NSMutableArray alloc] initWithArray:@[@"RED", @"GREEN"]];
 
     selectedSortIndex = 0;
-    
     self.facets = [NSMutableDictionary dictionary];
-
-    self.selectedSizes = [[NSMutableArray alloc] initWithArray:@[@"RED", @"GREEN"]];
-    
     self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", @"FILTER BY PRICE", @"FILTER BY CATEGORY", @"FILTER BY BRANDS", @"FILTER BY COLORS", @"FILTER BY SIZES"]];
 
     NSMutableArray *threeStrings = [[NSMutableArray alloc] initWithArray:@[@"Some Value 1", @"Some Other Value 2", @"Last Value 3"]];
-    
     
     for (int i = 0; i < [self.titles count]; i++)
     {
