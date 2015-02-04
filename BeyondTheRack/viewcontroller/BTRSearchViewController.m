@@ -324,7 +324,9 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"]; // TODO : change text/html to application/json
+
+    //    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
@@ -333,15 +335,17 @@
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
          
-         NSArray * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                           options:0
                                                                             error:NULL];
-         
+
+         NSDictionary *myTempDictionary = entitiesPropertyList[@"response"];
+     
+         NSMutableArray * arrayToPass = [myTempDictionary valueForKey:@"docs"];
+ 
          [[self itemArray] removeAllObjects];
-         [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
-         
+         [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-         
          [self.tableView reloadData];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

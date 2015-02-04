@@ -13,7 +13,7 @@
 
 + (NSURL *)URLforItemWithSku:(NSString *)sku
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/mobile/%@", LIVEURL, sku]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/mobile/%@", RC03URL, sku]];
 }
 
 
@@ -24,7 +24,9 @@
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery forCountry:(NSString *)country andPageNumber:(NSUInteger)pageNumber
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/mobile/?q=%@&country=%@&page=%lu", LIVEURL, searchQuery, country, (unsigned long)pageNumber]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&country=%@&page=%lu", RC03URL, searchQuery, country, (unsigned long)pageNumber]];
+
+ //   return [self URLForQuery:[NSString stringWithFormat:@"%@/search/mobile/?q=%@&country=%@&page=%lu", RC03URL, searchQuery, country, (unsigned long)pageNumber]];
 }
 
 + (NSURL *)URLforItemImageForSku:(NSString *)sku
