@@ -59,6 +59,9 @@
         [self.facets setObject:threeStrings forKey:[self.titles objectAtIndex:i]];
     }
 
+  
+
+    
 
 }
 

@@ -14,5 +14,7 @@
 @property (strong, nonatomic) NSMutableArray *itemArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *filterIconImageView;
+@property (weak, nonatomic) IBOutlet UIButton *filterButton;
 
 @end

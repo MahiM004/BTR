@@ -40,15 +40,17 @@
 }
 
 
+
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     [self setupDocument];
     
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
+    
     
     [self.view addGestureRecognizer:tap];
     
@@ -147,7 +149,7 @@
     
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
-   
+    
     /*
     self.tableView.allowsSelection = YES;
     self.tableView.scrollEnabled = YES;
@@ -165,7 +167,7 @@
     // you would do that here.
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     // searchBarTextDidBeginEditing is called whenever
     // focus is given to the UISearchBar
     // call our activate method so that we can do some
@@ -173,7 +175,7 @@
     
     
     //[self searchBar:searchBar activate:YES];
-}
+//}
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     // searchBarTextDidEndEditing is fired whenever the
@@ -185,6 +187,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if ([self.itemArray  count] > 0) {
+        
+        self.filterIconImageView.hidden = NO;
+        self.filterButton.enabled = YES;
+   
+    } else {
+   
+        self.filterIconImageView.hidden = YES;
+        self.filterButton.enabled = NO;
+    }
+    
     NSInteger tableSize = (NSInteger)((int)[self.itemArray count]/ (int)2);
     return tableSize;
 }
