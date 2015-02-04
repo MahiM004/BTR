@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="69D3322F-CBBE-4D0A-928A-F404B7D7C64A" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="419FCB12-0B42-4D20-87AB-71A7830D46BB" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -506,7 +506,7 @@
                                         </connections>
                                     </button>
                                     <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" text="" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="sgO-aW-sYA">
-                                        <rect key="frame" x="34" y="1" width="200" height="44"/>
+                                        <rect key="frame" x="42" y="1" width="234" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="barTintColor" red="0.4392156862745098" green="0.50196078431372548" blue="0.56470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1335,7 +1335,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="69D3322F-CBBE-4D0A-928A-F404B7D7C64A" width="30" height="30">
+        <image name="419FCB12-0B42-4D20-87AB-71A7830D46BB" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

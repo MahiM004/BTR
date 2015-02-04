@@ -150,6 +150,11 @@
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
     
+    
+    [self.searchBar setFrame:CGRectMake(34,1,200,44)];
+
+    
+    
     /*
     self.tableView.allowsSelection = YES;
     self.tableView.scrollEnabled = YES;
@@ -191,11 +196,15 @@
         
         self.filterIconImageView.hidden = NO;
         self.filterButton.enabled = YES;
+        [self.searchBar setFrame:CGRectMake(34,1,200,44)];
+
    
     } else {
    
         self.filterIconImageView.hidden = YES;
         self.filterButton.enabled = NO;
+        [self.searchBar setFrame:CGRectMake(42,1,234,44)];
+
     }
     
     NSInteger tableSize = (NSInteger)((int)[self.itemArray count]/ (int)2);
