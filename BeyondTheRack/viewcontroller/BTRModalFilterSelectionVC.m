@@ -26,7 +26,7 @@
     [super viewDidLoad];
 
     self.selectedItemsArray = [[NSMutableArray alloc] init];
-    self.titleLabel.text = [self headerTitle];
+    self.titleLabel.text = [NSString stringWithFormat:@"Select %@", [self headerTitle]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -125,8 +125,8 @@
     }*/
     
     
-    if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:)]) {
-        [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedItemsArray]];
+    if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
+        [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedItemsArray] withTitle:[self headerTitle]];
     }
     
     [self dismissViewControllerAnimated:YES completion:NULL];
