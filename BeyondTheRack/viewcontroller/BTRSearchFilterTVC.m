@@ -17,7 +17,7 @@
 #define COLOR_FILTER 4
 #define SIZE_FILTER 5
 
-@interface BTRSearchFilterTVC () {
+@interface BTRSearchFilterTVC () <BTRModalFilterSelectionDelegate> {
     int selectedSortIndex;
   //  NSMutableArray *selectedPriceFilters;
 
@@ -51,17 +51,8 @@
         [self.facets setObject:threeStrings forKey:[self.titles objectAtIndex:i]];
     }
 
+
 }
-
-
-/*
-- (void)slideValueChanged:(RangeSlider *)sender {
-
-   // NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", sender.min, sender.max];
-    //reportLabel.text = report;
-}
-*/
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -264,7 +255,7 @@
         }
         
         
-        filterCell.textLabel.textColor = [UIColor colorWithWhite:255.0 alpha:0.7];
+        filterCell.textLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
         
         cell = filterCell;
     }
@@ -274,46 +265,9 @@
 
 
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark - Navigation
-
-
-
-
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -344,6 +298,8 @@
 
             }
             
+            destModalVC.modalDelegate = self;
+            
         }
 }
 
@@ -356,8 +312,40 @@
 }
 
 
+#pragma mark - BTRModalFilterSelectionDelegate
+
+
+- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray
+{
+    NSLog(@"selected count: %d", [selectedItemsArray count]);
+    
+}
+
+
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //self.sliderView.backgroundColor = [UIColor clearColor];
@@ -456,4 +444,50 @@ image = [UIImage imageNamed:@"fillrangeblue.png"];
 //reportLabel.text = report;
 
 
+
+
+
+
+/*
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
+
+/*
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+
+/*
+ - (void)slideValueChanged:(RangeSlider *)sender {
+ 
+ // NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", sender.min, sender.max];
+ //reportLabel.text = report;
+ }
+ */
 

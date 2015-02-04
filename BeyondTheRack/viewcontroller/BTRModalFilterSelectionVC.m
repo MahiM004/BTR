@@ -27,7 +27,6 @@
 
     self.selectedItemsArray = [[NSMutableArray alloc] init];
     self.titleLabel.text = [self headerTitle];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -113,15 +112,29 @@
     }
     
 }
-/*
+
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+- (IBAction)backToRefineResults:(UIButton *)sender {
+    
+    /*if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCWillBeDismissed:)]) {
+        [self.modalDelegate modalFilterSelectionVCWillBeDismissed:self];
+    }*/
+    
+    
+    if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:)]) {
+        [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedItemsArray]];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
-*/
+
+
+
+
 
 @end
 

@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol BTRModalFilterSelectionDelegate;
+
+
 @interface BTRModalFilterSelectionVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+
+@property (nonatomic, weak) id<BTRModalFilterSelectionDelegate> modalDelegate;
+
 
 @property (strong, nonatomic) NSString *headerTitle;
 @property (strong, nonatomic) NSMutableArray *itemsArray;
@@ -16,6 +24,18 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+
+@end
+
+
+
+@protocol BTRModalFilterSelectionDelegate <NSObject>
+
+@optional
+
+- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray;
+//- (void)modalFilterSelectionVCWillBeDismissed:(BTRModalFilterSelectionVC *)modalVC;
 
 
 @end
