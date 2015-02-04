@@ -281,7 +281,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
    
-    if([sender isKindOfClass:[UIButton class]])
+    if([sender isKindOfClass:[UIButton class]]) {
 
         if ([segue.identifier isEqualToString:@"ModalSelectionSegueIdentifier"]) {
             
@@ -308,8 +308,10 @@
             }
             
             destModalVC.modalDelegate = self;
-            
         }
+    }
+    
+    
 }
 
 
@@ -330,7 +332,7 @@
     else if ([titleString isEqualToString:COLOR_TITLE])
         self.selectedColors = selectedItemsArray;
     else if ([titleString isEqualToString:SIZE_TITLE])
-        self.selectedColors = selectedItemsArray;
+        self.selectedSizes = selectedItemsArray;
 
     [self.tableView reloadData];
 }

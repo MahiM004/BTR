@@ -25,7 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.selectedItemsArray = [[NSMutableArray alloc] init];
     self.titleLabel.text = [NSString stringWithFormat:@"Select %@", [self headerTitle]];
 }
 
