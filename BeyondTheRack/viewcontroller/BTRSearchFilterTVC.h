@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "RangeSlider.h"
 
 @interface BTRSearchFilterTVC : UITableViewController {
-   // RangeSlider *slider;
-  //  UILabel *reportLabel;
+
 }
 
 @property (strong, nonatomic) NSMutableArray *selectedBrands;

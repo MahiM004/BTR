@@ -10,7 +10,6 @@
 		69385FBE1A7AD2B70074FE33 /* BTRSearchFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FBD1A7AD2B70074FE33 /* BTRSearchFilterViewController.m */; };
 		69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */; };
 		695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */; };
-		69659F061A7C225A00C52FC5 /* RangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F051A7C225A00C52FC5 /* RangeSlider.m */; };
 		69659F0A1A7C240F00C52FC5 /* fillrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F071A7C240F00C52FC5 /* fillrange.png */; };
 		69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F081A7C240F00C52FC5 /* fullrange.png */; };
 		69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F091A7C240F00C52FC5 /* rangethumb.png */; };
@@ -113,8 +112,6 @@
 		69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchFilterTVC.m; sourceTree = "<group>"; };
 		695F99E21A573DB700A80D12 /* BTRApprovePurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRApprovePurchaseViewController.h; sourceTree = "<group>"; };
 		695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRApprovePurchaseViewController.m; sourceTree = "<group>"; };
-		69659F041A7C225A00C52FC5 /* RangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeSlider.h; sourceTree = "<group>"; };
-		69659F051A7C225A00C52FC5 /* RangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RangeSlider.m; sourceTree = "<group>"; };
 		69659F071A7C240F00C52FC5 /* fillrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillrange.png; sourceTree = "<group>"; };
 		69659F081A7C240F00C52FC5 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullrange.png; sourceTree = "<group>"; };
 		69659F091A7C240F00C52FC5 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rangethumb.png; sourceTree = "<group>"; };
@@ -317,15 +314,6 @@
 			name = Checkout;
 			sourceTree = "<group>";
 		};
-		69659F031A7C225A00C52FC5 /* CMRangeSlider */ = {
-			isa = PBXGroup;
-			children = (
-				69659F041A7C225A00C52FC5 /* RangeSlider.h */,
-				69659F051A7C225A00C52FC5 /* RangeSlider.m */,
-			);
-			path = CMRangeSlider;
-			sourceTree = "<group>";
-		};
 		69659F151A7C326800C52FC5 /* slidericons */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,7 +378,6 @@
 		69867A0F1A4480C7003CE59C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				69659F031A7C225A00C52FC5 /* CMRangeSlider */,
 				69D5663C1A7A8F2300FAEDE2 /* UIImageEffects */,
 				69AB98311A6D50E300EDB1E6 /* BTRHelpClasses */,
 				69869FB01A640EFF00F986BC /* UIKit+AFNetworking */,
@@ -745,7 +732,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69659F061A7C225A00C52FC5 /* RangeSlider.m in Sources */,
 				69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */,
 				69B02CF51A605A4400040C86 /* General1+AppServer.m in Sources */,
 				69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */,
