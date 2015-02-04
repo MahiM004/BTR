@@ -79,6 +79,24 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [self.searchBar setSearchFieldBackgroundImage:image forState:UIControlStateNormal];
+
+    
+    
+    CGSize size2 = CGSizeMake(1, 1);
+    // create context with transparent background
+    UIGraphicsBeginImageContextWithOptions(size2, NO, 1);
+    // Add a clip before drawing anything, in the shape of an rounded rect
+    [[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0,0,1,1)
+                                cornerRadius:5.0] addClip];
+    [[UIColor colorWithRed:112.0/255.0 green:128.0/255.0 blue:144.0/255.0 alpha:0.4] setFill];
+    UIRectFill(CGRectMake(0, 0, size.width, size.height));
+    UIImage *image2 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    //UIImage *imgClear = [UIImage imageNamed:@"clear"];
+    //[self.searchBar setImage:imgClear forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
+    [self.searchBar setImage:image2 forSearchBarIcon:UISearchBarIconClear state:UIControlStateHighlighted];
+    [self.searchBar setImage:image2 forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     
 }
 
@@ -151,7 +169,6 @@
     [self.searchBar resignFirstResponder];
     
     
-    [self.searchBar setFrame:CGRectMake(34,1,200,44)];
 
     
     
@@ -192,19 +209,38 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+   
     if ([self.itemArray  count] > 0) {
         
         self.filterIconImageView.hidden = NO;
         self.filterButton.enabled = YES;
-        [self.searchBar setFrame:CGRectMake(34,1,200,44)];
 
-   
+        
+        [UIView animateWithDuration:0.4
+                              delay:0
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:^ {
+
+                             [self.searchBar setFrame:CGRectMake(34,1,200,44)];
+                             
+                         }completion:^(BOOL finished) {
+                             
+                         }];
     } else {
    
         self.filterIconImageView.hidden = YES;
         self.filterButton.enabled = NO;
-        [self.searchBar setFrame:CGRectMake(42,1,234,44)];
+        
+        [UIView animateWithDuration:0.4
+                              delay:0
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:^ {
 
+                             [self.searchBar setFrame:CGRectMake(40,1,234,44)];
+                             
+                         }completion:^(BOOL finished) {
+                             
+                         }];
     }
     
     NSInteger tableSize = (NSInteger)((int)[self.itemArray count]/ (int)2);
