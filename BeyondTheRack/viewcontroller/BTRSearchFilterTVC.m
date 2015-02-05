@@ -25,11 +25,8 @@
 
 @interface BTRSearchFilterTVC () <BTRModalFilterSelectionDelegate> {
     int selectedSortIndex;
-  //  NSMutableArray *selectedPriceFilters;
-
 }
 
-//@property (strong, nonatomic) NSMutableDictionary *facets;
 @property (strong, nonatomic) NSMutableArray *titles;
 
 
@@ -37,23 +34,39 @@
 
 @implementation BTRSearchFilterTVC
 
-//@synthesize facets;
 @synthesize selectedBrands;
 @synthesize selectedColors;
 @synthesize selectedSizes;
+
+- (NSMutableArray *)colorsArray {
+    
+    if (!_colorsArray) _colorsArray = [[NSMutableArray alloc] init];
+    return _colorsArray;
+}
+
+- (NSMutableArray *)brandsArray {
+    
+    if (!_brandsArray) _brandsArray = [[NSMutableArray alloc] init];
+    return _brandsArray;
+}
+
+- (NSMutableArray *)sizesArray {
+    
+    if (!_sizesArray) _sizesArray = [[NSMutableArray alloc] init];
+    return _sizesArray;
+}
+
 
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
 
-    //self.selectedColors = [[NSMutableArray alloc] initWithArray:@[@"RED", @"GREEN"]];
-
     selectedSortIndex = 0;
-    //self.facets = [NSMutableDictionary dictionary];
     self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", @"FILTER BY PRICE", @"FILTER BY CATEGORY", @"FILTER BY BRANDS", @"FILTER BY COLORS", @"FILTER BY SIZES"]];
 
-    }
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -163,6 +176,8 @@
     
     UITableViewCell *cell = nil;
     
+    cell.userInteractionEnabled = TRUE;
+    
     if (indexPath.section == 0) {
         
         UITableViewCell *sortCell = [tableView dequeueReusableCellWithIdentifier:@"BTRRefineSortCellIdentifier" forIndexPath:indexPath];
@@ -214,6 +229,8 @@
         if (filteSwitchrCell == nil) {
             filteSwitchrCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterBySwitchCellIdentifier"];
         }
+        
+        filteSwitchrCell.filterSwitch.enabled = TRUE;
 
         if (indexPath.section == PRICE_FILTER) {
             
@@ -251,16 +268,21 @@
             filterCell = [[BTRFilterWithModalTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByModalCellIdentifier"];
         }
         
+        filterCell.rowLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
+        filterCell.rowButton.enabled = TRUE;
+        
         if (indexPath.section == BRAND_FILTER) {
          
             if ([self.brandsArray count] > 0) {
                 
-                if ([self.selectedBrands count] == 0)
+                if ([self.selectedBrands count] == 0) {
                     filterCell.rowLabel.text = [NSString stringWithFormat:@"All Brands"];
-                else
+                }
+                else {
                     filterCell.rowLabel.text = [self.selectedBrands objectAtIndex:indexPath.row];
+                }
         
-            } else {
+            } else if ([self.brandsArray count] == 0) {
                 
                 filterCell.rowLabel.text = [NSString stringWithFormat:@"No Brand Selection Available"];
                 filterCell.rowLabel.textColor = [UIColor lightGrayColor];
@@ -272,28 +294,38 @@
             
             if ([self.colorsArray count] > 0) {
                 
-                if ([self.selectedColors count] == 0)
+                if ([self.selectedColors count] == 0) {
                     filterCell.rowLabel.text = [NSString stringWithFormat:@"All Colors"];
-                else
+                }
+                else {
+                 
                     filterCell.rowLabel.text = [self.selectedColors objectAtIndex:indexPath.row];
+                }
                 
-            } else {
+                
+            } else if ([self.colorsArray count] == 0) {
                 
                 filterCell.rowLabel.text = [NSString stringWithFormat:@"No Color Selection Available"];
                 filterCell.rowLabel.textColor = [UIColor lightGrayColor];
                 filterCell.rowButton.enabled = FALSE;
             }
+            
             filterCell.rowButton.tag = COLOR_FILTER;
             
         } else if (indexPath.section == SIZE_FILTER) {
             
             if ([self.sizesArray count] > 0) {
               
-                if ([self.selectedSizes count] == 0)
+                if ([self.selectedSizes count] == 0) {
+                 
                     filterCell.rowLabel.text = [NSString stringWithFormat:@"All Sizes"];
-                else
+                }
+                else {
+                    
                     filterCell.rowLabel.text = [self.selectedSizes objectAtIndex:indexPath.row];
-            } else {
+                }
+                
+            } else if([self.sizesArray count] == 0) {
              
                 filterCell.rowLabel.text = [NSString stringWithFormat:@"No Size Selection Available"];
                 filterCell.rowLabel.textColor = [UIColor lightGrayColor];

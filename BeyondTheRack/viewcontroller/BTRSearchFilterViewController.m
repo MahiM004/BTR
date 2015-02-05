@@ -96,7 +96,7 @@
 
 
 - (BOOL) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetQueriesDictionary andFacetFields:(NSDictionary *)facetFieldsDictionary {
-    
+
     
     [self.priceFilter removeAllObjects];
     [self.sortOptions removeAllObjects];
@@ -104,6 +104,8 @@
     [self.brandFilter removeAllObjects];
     [self.colorFilter removeAllObjects];
     [self.sizeFilter removeAllObjects];
+    
+    NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
     
     NSString *tempString = [NSString stringWithFormat:@"[0 TO 200]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"] ];
     [self.priceFilter addObject:tempString];
@@ -136,6 +138,12 @@
     for (NSString *item in sizeDictionary)
         [self.sizeFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)sizeDictionary[item]] ];
     
+    
+    [self.brandFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    [self.categoryFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    [self.colorFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    [self.sizeFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+
     return TRUE;
 }
 
