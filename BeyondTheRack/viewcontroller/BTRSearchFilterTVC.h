@@ -13,6 +13,7 @@
 }
 
 
+@property (strong, nonatomic) NSMutableArray *pricesArray;
 @property (strong, nonatomic) NSMutableArray *brandsArray;
 @property (strong, nonatomic) NSMutableArray *colorsArray;
 @property (strong, nonatomic) NSMutableArray *sizesArray;

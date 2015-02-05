@@ -12,7 +12,8 @@
 #import "BTRFilterWithSwitchTableViewCell.h"
 #import "BTRFilterWithModalTableViewCell.h"
 
-
+#define PRICE_FILTER 1
+#define CATEGORY_FILTER 2
 #define BRAND_FILTER 3
 #define COLOR_FILTER 4
 #define SIZE_FILTER 5
@@ -28,7 +29,7 @@
 
 }
 
-@property (strong, nonatomic) NSMutableDictionary *facets;
+//@property (strong, nonatomic) NSMutableDictionary *facets;
 @property (strong, nonatomic) NSMutableArray *titles;
 
 
@@ -36,7 +37,7 @@
 
 @implementation BTRSearchFilterTVC
 
-@synthesize facets;
+//@synthesize facets;
 @synthesize selectedBrands;
 @synthesize selectedColors;
 @synthesize selectedSizes;
@@ -49,18 +50,10 @@
     //self.selectedColors = [[NSMutableArray alloc] initWithArray:@[@"RED", @"GREEN"]];
 
     selectedSortIndex = 0;
-    self.facets = [NSMutableDictionary dictionary];
+    //self.facets = [NSMutableDictionary dictionary];
     self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", @"FILTER BY PRICE", @"FILTER BY CATEGORY", @"FILTER BY BRANDS", @"FILTER BY COLORS", @"FILTER BY SIZES"]];
 
-    NSMutableArray *threeStrings = [[NSMutableArray alloc] initWithArray:@[@"Some Value 1", @"Some Other Value 2", @"Last Value 3"]];
-    
-    for (int i = 0; i < [self.titles count]; i++)
-    {
-        [self.facets setObject:threeStrings forKey:[self.titles objectAtIndex:i]];
     }
-
-  
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -77,25 +70,27 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    
-    
-    if (section == 0 || section == BRAND_FILTER || section == COLOR_FILTER || section == SIZE_FILTER)
-        return [self numberOfRowsInSection:section];
 
-    NSArray *someFacet = [self.facets objectForKey:[self.titles objectAtIndex:section]];
-    return [someFacet count];
-}
-
-
-- (NSInteger)numberOfRowsInSection:(NSInteger)section
-{
     if (section == 0)  // for SORT ITEMS
-
+        
         return 3;
-
-    else if (section == BRAND_FILTER)
-    {
+    
+    else if (section == PRICE_FILTER) {
+        
+        if ([self.pricesArray count] != 0)
+            return [self.pricesArray count];
+        else
+            return 1;
+        
+    } else if (section == CATEGORY_FILTER) {
+        
+        if ([self.categoriesArray count] != 0)
+            return [self.categoriesArray count];
+        else
+            return 1;
+        
+    } else if (section == BRAND_FILTER) {
+        
         if ([self.selectedBrands count] != 0)
             return [self.selectedBrands count];
         else
@@ -117,7 +112,9 @@
     }
     
     return 1;
+
 }
+
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
@@ -205,27 +202,47 @@
             default:
                 break;
                 
-                
         }
      
-        
         cell = sortCell;
 
         
-    } else if (indexPath.section == 1 || indexPath.section == 2) {
+    } else if (indexPath.section == PRICE_FILTER || indexPath.section == CATEGORY_FILTER) {
     
         BTRFilterWithSwitchTableViewCell *filteSwitchrCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterBySwitchCellIdentifier" forIndexPath:indexPath];
 
         if (filteSwitchrCell == nil) {
             filteSwitchrCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterBySwitchCellIdentifier"];
         }
-        
-        NSArray *someFacet = [self.facets objectForKey:[self.titles objectAtIndex:indexPath.section]];
-        filteSwitchrCell.filterValueLabel.text = [someFacet objectAtIndex:indexPath.row];//[NSString stringWithFormat:@"Just Some Value %ld", (long)[indexPath row]];
+
+        if (indexPath.section == PRICE_FILTER) {
+            
+            if ([self.pricesArray count] == 0) {
+                
+                filteSwitchrCell.filterValueLabel.text = [NSString stringWithFormat:@"No Price Selection Available"];
+                filteSwitchrCell.filterSwitch.enabled = FALSE;
+                
+            } else
+                filteSwitchrCell.filterValueLabel.text = [self.pricesArray objectAtIndex:indexPath.row];
+            
+            filteSwitchrCell.filterSwitch.tag = PRICE_FILTER;
+            
+        } else if (indexPath.section == CATEGORY_FILTER) {
+            
+            if ([self.categoriesArray count] == 0) {
+                
+                filteSwitchrCell.filterValueLabel.text = [NSString stringWithFormat:@"No Category Selection Available"];
+                filteSwitchrCell.filterSwitch.enabled = FALSE;
+            
+            } else
+                filteSwitchrCell.filterValueLabel.text = [self.categoriesArray objectAtIndex:indexPath.row];
+            
+            filteSwitchrCell.filterSwitch.tag = CATEGORY_FILTER;
+        }
         
         cell = filteSwitchrCell;
     
-    } else if (indexPath.section == 3 || indexPath.section == 4 || indexPath.section == 5) {
+    } else if (indexPath.section == BRAND_FILTER || indexPath.section == COLOR_FILTER || indexPath.section == SIZE_FILTER) {
     
         BTRFilterWithModalTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByModalCellIdentifier" forIndexPath:indexPath];
         
@@ -235,30 +252,53 @@
         }
         
         if (indexPath.section == BRAND_FILTER) {
-            
-            if ([self.selectedBrands count] == 0)
-                filterCell.rowLabel.text = [NSString stringWithFormat:@"All Brands"];
-            else
-                filterCell.rowLabel.text = [self.selectedBrands objectAtIndex:indexPath.row];
-            
+         
+            if ([self.brandsArray count] > 0) {
+                
+                if ([self.selectedBrands count] == 0)
+                    filterCell.rowLabel.text = [NSString stringWithFormat:@"All Brands"];
+                else
+                    filterCell.rowLabel.text = [self.selectedBrands objectAtIndex:indexPath.row];
+        
+            } else {
+                
+                filterCell.rowLabel.text = [NSString stringWithFormat:@"No Brand Selection Available"];
+                filterCell.rowLabel.textColor = [UIColor lightGrayColor];
+                filterCell.rowButton.enabled = FALSE;
+            }
             filterCell.rowButton.tag = BRAND_FILTER;
-            
+
         } else if (indexPath.section == COLOR_FILTER) {
             
-            if ([self.selectedColors count] == 0)
-                filterCell.rowLabel.text = [NSString stringWithFormat:@"All Colors"];
-            else
-                filterCell.rowLabel.text = [self.selectedColors objectAtIndex:indexPath.row];
-        
+            if ([self.colorsArray count] > 0) {
+                
+                if ([self.selectedColors count] == 0)
+                    filterCell.rowLabel.text = [NSString stringWithFormat:@"All Colors"];
+                else
+                    filterCell.rowLabel.text = [self.selectedColors objectAtIndex:indexPath.row];
+                
+            } else {
+                
+                filterCell.rowLabel.text = [NSString stringWithFormat:@"No Color Selection Available"];
+                filterCell.rowLabel.textColor = [UIColor lightGrayColor];
+                filterCell.rowButton.enabled = FALSE;
+            }
             filterCell.rowButton.tag = COLOR_FILTER;
             
         } else if (indexPath.section == SIZE_FILTER) {
             
-            if ([self.selectedSizes count] == 0)
-                filterCell.rowLabel.text = [NSString stringWithFormat:@"All Sizes"];
-            else
-                filterCell.rowLabel.text = [self.selectedSizes objectAtIndex:indexPath.row];
-            
+            if ([self.sizesArray count] > 0) {
+              
+                if ([self.selectedSizes count] == 0)
+                    filterCell.rowLabel.text = [NSString stringWithFormat:@"All Sizes"];
+                else
+                    filterCell.rowLabel.text = [self.selectedSizes objectAtIndex:indexPath.row];
+            } else {
+             
+                filterCell.rowLabel.text = [NSString stringWithFormat:@"No Size Selection Available"];
+                filterCell.rowLabel.textColor = [UIColor lightGrayColor];
+                filterCell.rowButton.enabled = FALSE;
+            }
             filterCell.rowButton.tag = SIZE_FILTER;
         }
         
