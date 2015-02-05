@@ -185,78 +185,20 @@
             sortCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRRefineSortCellIdentifier"];
         }
         
-        
-        if (selectedSortIndex != indexPath.row) {
-            
-            sortCell.accessoryType = UITableViewCellAccessoryNone;
-            sortCell.textLabel.textColor = [UIColor lightGrayColor];
-            
-        } else if (selectedSortIndex == indexPath.row) {
-            
-            sortCell.accessoryType = UITableViewCellAccessoryCheckmark;
-            sortCell.textLabel.textColor = [UIColor whiteColor];
-        }
-        
-        switch (indexPath.row) {
-                
-            case 0:
-                sortCell.textLabel.text = @"Best Match";
-                break;
-                
-            case 1:
-                sortCell.textLabel.text = @"Highest to Lowest Price";
-                break;
-                
-                
-            case 2:
-                sortCell.textLabel.text = @"Lowest to Highest Price";
-                break;
-                
-            default:
-                break;
-                
-        }
-     
-        cell = sortCell;
+        cell = [self configureSortCell:sortCell forIndexPath:indexPath];
 
-        
     } else if (indexPath.section == PRICE_FILTER || indexPath.section == CATEGORY_FILTER) {
     
         BTRFilterWithSwitchTableViewCell *filteSwitchrCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterBySwitchCellIdentifier" forIndexPath:indexPath];
 
         if (filteSwitchrCell == nil) {
+            
             filteSwitchrCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterBySwitchCellIdentifier"];
         }
         
-        filteSwitchrCell.filterSwitch.enabled = TRUE;
-
-        if (indexPath.section == PRICE_FILTER) {
-            
-            if ([self.pricesArray count] == 0) {
-                
-                filteSwitchrCell.filterValueLabel.text = [NSString stringWithFormat:@"No Price Selection Available"];
-                filteSwitchrCell.filterSwitch.enabled = FALSE;
-                
-            } else
-                filteSwitchrCell.filterValueLabel.text = [self.pricesArray objectAtIndex:indexPath.row];
-            
-            filteSwitchrCell.filterSwitch.tag = PRICE_FILTER;
-            
-        } else if (indexPath.section == CATEGORY_FILTER) {
-            
-            if ([self.categoriesArray count] == 0) {
-                
-                filteSwitchrCell.filterValueLabel.text = [NSString stringWithFormat:@"No Category Selection Available"];
-                filteSwitchrCell.filterSwitch.enabled = FALSE;
-            
-            } else
-                filteSwitchrCell.filterValueLabel.text = [self.categoriesArray objectAtIndex:indexPath.row];
-            
-            filteSwitchrCell.filterSwitch.tag = CATEGORY_FILTER;
-        }
-        
-        cell = filteSwitchrCell;
+        cell =  [self configureFilterSwitchCell:filteSwitchrCell forIndexPath:indexPath];
     
+        
     } else if (indexPath.section == BRAND_FILTER || indexPath.section == COLOR_FILTER || indexPath.section == SIZE_FILTER) {
     
         BTRFilterWithModalTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByModalCellIdentifier" forIndexPath:indexPath];
@@ -266,83 +208,157 @@
             filterCell = [[BTRFilterWithModalTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByModalCellIdentifier"];
         }
         
-        filterCell.rowLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
-        filterCell.rowButton.enabled = TRUE;
-        
-        if (indexPath.section == BRAND_FILTER) {
-         
-            if ([self.brandsArray count] > 0) {
-                
-                if ([self.selectedBrands count] == 0) {
-                    filterCell.rowLabel.text = [NSString stringWithFormat:@"All Brands"];
-                }
-                else {
-                    filterCell.rowLabel.text = [self.selectedBrands objectAtIndex:indexPath.row];
-                }
-        
-            } else if ([self.brandsArray count] == 0) {
-                
-                filterCell.rowLabel.text = [NSString stringWithFormat:@"No Brand Selection Available"];
-                filterCell.rowLabel.textColor = [UIColor lightGrayColor];
-                filterCell.rowButton.enabled = FALSE;
-            }
-            filterCell.rowButton.tag = BRAND_FILTER;
-
-        } else if (indexPath.section == COLOR_FILTER) {
-            
-            if ([self.colorsArray count] > 0) {
-                
-                if ([self.selectedColors count] == 0) {
-                    filterCell.rowLabel.text = [NSString stringWithFormat:@"All Colors"];
-                }
-                else {
-                 
-                    filterCell.rowLabel.text = [self.selectedColors objectAtIndex:indexPath.row];
-                }
-                
-                
-            } else if ([self.colorsArray count] == 0) {
-                
-                filterCell.rowLabel.text = [NSString stringWithFormat:@"No Color Selection Available"];
-                filterCell.rowLabel.textColor = [UIColor lightGrayColor];
-                filterCell.rowButton.enabled = FALSE;
-            }
-            
-            filterCell.rowButton.tag = COLOR_FILTER;
-            
-        } else if (indexPath.section == SIZE_FILTER) {
-            
-            if ([self.sizesArray count] > 0) {
-              
-                if ([self.selectedSizes count] == 0) {
-                 
-                    filterCell.rowLabel.text = [NSString stringWithFormat:@"All Sizes"];
-                }
-                else {
-                    
-                    filterCell.rowLabel.text = [self.selectedSizes objectAtIndex:indexPath.row];
-                }
-                
-            } else if([self.sizesArray count] == 0) {
-             
-                filterCell.rowLabel.text = [NSString stringWithFormat:@"No Size Selection Available"];
-                filterCell.rowLabel.textColor = [UIColor lightGrayColor];
-                filterCell.rowButton.enabled = FALSE;
-            }
-            filterCell.rowButton.tag = SIZE_FILTER;
-        }
-        
-        
-        filterCell.textLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
-        
-        cell = filterCell;
+        cell = [self configureFilterModalCell:filterCell forIndexPath:indexPath];
     }
     
     return cell;
 }
 
 
+- (UITableViewCell *)configureSortCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+    
+    if (selectedSortIndex != indexPath.row) {
+        
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.textLabel.textColor = [UIColor lightGrayColor];
+        
+    } else if (selectedSortIndex == indexPath.row) {
+        
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell.textLabel.textColor = [UIColor whiteColor];
+    }
+    
+    switch (indexPath.row) {
+            
+        case 0:
+            cell.textLabel.text = @"Best Match";
+            break;
+            
+        case 1:
+            cell.textLabel.text = @"Highest to Lowest Price";
+            break;
+            
+            
+        case 2:
+            cell.textLabel.text = @"Lowest to Highest Price";
+            break;
+            
+        default:
+            break;
+            
+    }
+    
+    return  cell;
+    
+}
 
+- (UITableViewCell *)configureFilterSwitchCell:(BTRFilterWithSwitchTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+    
+    cell.filterSwitch.enabled = TRUE;
+    
+    if (indexPath.section == PRICE_FILTER) {
+        
+        if ([self.pricesArray count] == 0) {
+            
+            cell.filterValueLabel.text = [NSString stringWithFormat:@"No Price Selection Available"];
+            cell.filterSwitch.enabled = FALSE;
+            
+        } else
+            cell.filterValueLabel.text = [self.pricesArray objectAtIndex:indexPath.row];
+        
+        cell.filterSwitch.tag = PRICE_FILTER;
+        
+    } else if (indexPath.section == CATEGORY_FILTER) {
+        
+        if ([self.categoriesArray count] == 0) {
+            
+            cell.filterValueLabel.text = [NSString stringWithFormat:@"No Category Selection Available"];
+            cell.filterSwitch.enabled = FALSE;
+            
+        } else
+            cell.filterValueLabel.text = [self.categoriesArray objectAtIndex:indexPath.row];
+        
+        cell.filterSwitch.tag = CATEGORY_FILTER;
+    }
+    
+    return cell;
+}
+
+
+- (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+
+    
+    cell.rowLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
+    cell.rowButton.enabled = TRUE;
+    
+    if (indexPath.section == BRAND_FILTER) {
+        
+        if ([self.brandsArray count] > 0) {
+            
+            if ([self.selectedBrands count] == 0) {
+                cell.rowLabel.text = [NSString stringWithFormat:@"All Brands"];
+            }
+            else {
+                cell.rowLabel.text = [self.selectedBrands objectAtIndex:indexPath.row];
+            }
+            
+        } else if ([self.brandsArray count] == 0) {
+            
+            cell.rowLabel.text = [NSString stringWithFormat:@"No Brand Selection Available"];
+            cell.rowLabel.textColor = [UIColor lightGrayColor];
+            cell.rowButton.enabled = FALSE;
+        }
+        cell.rowButton.tag = BRAND_FILTER;
+        
+    } else if (indexPath.section == COLOR_FILTER) {
+        
+        if ([self.colorsArray count] > 0) {
+            
+            if ([self.selectedColors count] == 0) {
+                cell.rowLabel.text = [NSString stringWithFormat:@"All Colors"];
+            }
+            else {
+                
+                cell.rowLabel.text = [self.selectedColors objectAtIndex:indexPath.row];
+            }
+            
+        } else if ([self.colorsArray count] == 0) {
+            
+            cell.rowLabel.text = [NSString stringWithFormat:@"No Color Selection Available"];
+            cell.rowLabel.textColor = [UIColor lightGrayColor];
+            cell.rowButton.enabled = FALSE;
+        }
+        
+        cell.rowButton.tag = COLOR_FILTER;
+        
+    } else if (indexPath.section == SIZE_FILTER) {
+        
+        if ([self.sizesArray count] > 0) {
+            
+            if ([self.selectedSizes count] == 0) {
+                
+                cell.rowLabel.text = [NSString stringWithFormat:@"All Sizes"];
+            }
+            else {
+                
+                cell.rowLabel.text = [self.selectedSizes objectAtIndex:indexPath.row];
+            }
+            
+        } else if([self.sizesArray count] == 0) {
+            
+            cell.rowLabel.text = [NSString stringWithFormat:@"No Size Selection Available"];
+            cell.rowLabel.textColor = [UIColor lightGrayColor];
+            cell.rowButton.enabled = FALSE;
+        }
+        cell.rowButton.tag = SIZE_FILTER;
+    }
+    
+    
+    cell.textLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
+
+
+    return cell;
+}
 
 
 #pragma mark - Navigation
