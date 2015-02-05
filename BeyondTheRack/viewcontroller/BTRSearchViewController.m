@@ -28,12 +28,8 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
-@property (strong, nonatomic) NSMutableArray *priceFilter;
-@property (strong, nonatomic) NSMutableArray *sortOptions;
-@property (strong, nonatomic) NSMutableArray *categoryFilter;
-@property (strong, nonatomic) NSMutableArray *brandFilter;
-@property (strong, nonatomic) NSMutableArray *colorFilter;
-@property (strong, nonatomic) NSMutableArray *sizeFilter;
+@property (strong, nonatomic) NSDictionary *facetQueriesDictionary;
+@property (strong, nonatomic) NSDictionary *facetFieldsDictionary;
 
 @end
 
@@ -42,46 +38,25 @@
 
 @synthesize searchBar;
 
+
+- (NSDictionary *)facetQueriesDictionary {
+    
+    if (!_facetQueriesDictionary) _facetQueriesDictionary = [[NSDictionary alloc] init];
+    return _facetQueriesDictionary;
+}
+
+
+- (NSDictionary *)facetFieldsDictionary {
+    
+    if (!_facetFieldsDictionary) _facetFieldsDictionary = [[NSDictionary alloc] init];
+    return _facetFieldsDictionary;
+}
+
+
 - (NSMutableArray *)itemArray{
 
     if (!_itemArray) _itemArray = [[NSMutableArray alloc] init];
     return _itemArray;
-}
-
-- (NSMutableArray *)priceFilter{
-    
-    if (!_priceFilter) _priceFilter = [[NSMutableArray alloc] init];
-    return _priceFilter;
-}
-
-- (NSMutableArray *)sortOptions{
-    
-    if (!_sortOptions) _sortOptions = [[NSMutableArray alloc] init];
-    return _sortOptions;
-}
-
-- (NSMutableArray *)categoryFilter{
-    
-    if (!_categoryFilter) _categoryFilter = [[NSMutableArray alloc] init];
-    return _categoryFilter;
-}
-
-- (NSMutableArray *)brandFilter{
-    
-    if (!_brandFilter) _brandFilter = [[NSMutableArray alloc] init];
-    return _brandFilter;
-}
-
-- (NSMutableArray *)colorFilter{
-    
-    if (!_colorFilter) _colorFilter = [[NSMutableArray alloc] init];
-    return _colorFilter;
-}
-
-- (NSMutableArray *)sizeFilter{
-    
-    if (!_sizeFilter) _sizeFilter = [[NSMutableArray alloc] init];
-    return _sizeFilter;
 }
 
 
@@ -401,11 +376,10 @@
                                                                             error:NULL];
 
          NSDictionary *responseDictionary = entitiesPropertyList[@"response"];
-         NSDictionary *facetQueriesDictionary = ((NSDictionary *)entitiesPropertyList[@"facet_counts"])[@"facet_queries"];
-         NSDictionary *facetFieldsDictionary = entitiesPropertyList[@"facet_fielsss"];
          
-         [self extractFilterFacetsWithFacetQueries:facetQueriesDictionary andFacetFields:facetFieldsDictionary];
-        
+         self.facetQueriesDictionary = ((NSDictionary *)entitiesPropertyList[@"facet_counts"])[@"facet_queries"];
+         self.facetFieldsDictionary =  ((NSDictionary *)entitiesPropertyList[@"facet_counts"])[@"facet_fields"];
+         
          NSMutableArray * arrayToPass = [responseDictionary valueForKey:@"docs"];
          unsigned long int numFound = [[responseDictionary valueForKey:@"numFound"] integerValue];
          
@@ -425,25 +399,6 @@
     
 }
 
-
-- (BOOL) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetQueriesDictionary andFacetFields:(NSDictionary *)facetFieldsDictionary {
-    
-    
-    if ([facetFieldsDictionary count] && [facetFieldsDictionary count] )
-        return FALSE;
-    
-        
-    for (NSString *item in facetQueriesDictionary)
-    {
-        NSLog(@"log: %@", item);
-    }
-    
-    
-    NSLog(@"size: %d", [facetFieldsDictionary count]);
-    
-    
-    return TRUE;
-}
 
 
 #pragma mark - Navigation
@@ -472,6 +427,8 @@
         BTRSearchFilterViewController *searchFilterVC = [segue destinationViewController];
 
         searchFilterVC.backgroundImage = screenShotImage;
+        searchFilterVC.facetQueriesDictionary = [self facetQueriesDictionary];
+        searchFilterVC.facetFieldsDictionary = [self facetFieldsDictionary];
     }
     
 

@@ -17,4 +17,9 @@
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
+
+@property (strong, nonatomic) NSDictionary *facetQueriesDictionary;
+@property (strong, nonatomic) NSDictionary *facetFieldsDictionary;
+
+
 @end
