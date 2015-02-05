@@ -28,6 +28,13 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
+@property (strong, nonatomic) NSMutableArray *priceFilter;
+@property (strong, nonatomic) NSMutableArray *sortOptions;
+@property (strong, nonatomic) NSMutableArray *categoryFilter;
+@property (strong, nonatomic) NSMutableArray *brandFilter;
+@property (strong, nonatomic) NSMutableArray *colorFilter;
+@property (strong, nonatomic) NSMutableArray *sizeFilter;
+
 @end
 
 
@@ -41,7 +48,41 @@
     return _itemArray;
 }
 
+- (NSMutableArray *)priceFilter{
+    
+    if (!_priceFilter) _priceFilter = [[NSMutableArray alloc] init];
+    return _priceFilter;
+}
 
+- (NSMutableArray *)sortOptions{
+    
+    if (!_sortOptions) _sortOptions = [[NSMutableArray alloc] init];
+    return _sortOptions;
+}
+
+- (NSMutableArray *)categoryFilter{
+    
+    if (!_categoryFilter) _categoryFilter = [[NSMutableArray alloc] init];
+    return _categoryFilter;
+}
+
+- (NSMutableArray *)brandFilter{
+    
+    if (!_brandFilter) _brandFilter = [[NSMutableArray alloc] init];
+    return _brandFilter;
+}
+
+- (NSMutableArray *)colorFilter{
+    
+    if (!_colorFilter) _colorFilter = [[NSMutableArray alloc] init];
+    return _colorFilter;
+}
+
+- (NSMutableArray *)sizeFilter{
+    
+    if (!_sizeFilter) _sizeFilter = [[NSMutableArray alloc] init];
+    return _sizeFilter;
+}
 
 
 - (void)viewDidLoad {
@@ -171,10 +212,6 @@
     
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
-    
-    
-
-    
     
     /*
     self.tableView.allowsSelection = YES;
@@ -307,7 +344,7 @@
             [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
         }
         
-    } else if (oddNumberOfResults) {
+    } else if (oddNumberOfResults && indexPath.row == [self.tableView numberOfRowsInSection:0] - 1) {
         
         cell.rightImageView.hidden = TRUE;
         cell.rightDetailView.hidden = TRUE;
@@ -363,14 +400,16 @@
                                                                           options:0
                                                                             error:NULL];
 
-         NSDictionary *myTempDictionary = entitiesPropertyList[@"response"];
-     
-         NSMutableArray * arrayToPass = [myTempDictionary valueForKey:@"docs"];
-         unsigned long int numFound = [[myTempDictionary valueForKey:@"numFound"] integerValue];
- 
-         NSLog(@"number : %lu", numFound);
+         NSDictionary *responseDictionary = entitiesPropertyList[@"response"];
+         NSDictionary *facetQueriesDictionary = ((NSDictionary *)entitiesPropertyList[@"facet_counts"])[@"facet_queries"];
+         NSDictionary *facetFieldsDictionary = entitiesPropertyList[@"facet_fielsss"];
          
-         if (numFound) {
+         [self extractFilterFacetsWithFacetQueries:facetQueriesDictionary andFacetFields:facetFieldsDictionary];
+        
+         NSMutableArray * arrayToPass = [responseDictionary valueForKey:@"docs"];
+         unsigned long int numFound = [[responseDictionary valueForKey:@"numFound"] integerValue];
+         
+         if (numFound && [arrayToPass count]) {
          
              [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
              [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -384,6 +423,26 @@
          NSLog(@"Error: %@", error);
      }];
     
+}
+
+
+- (BOOL) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetQueriesDictionary andFacetFields:(NSDictionary *)facetFieldsDictionary {
+    
+    
+    if ([facetFieldsDictionary count] && [facetFieldsDictionary count] )
+        return FALSE;
+    
+        
+    for (NSString *item in facetQueriesDictionary)
+    {
+        NSLog(@"log: %@", item);
+    }
+    
+    
+    NSLog(@"size: %d", [facetFieldsDictionary count]);
+    
+    
+    return TRUE;
 }
 
 
