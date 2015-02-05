@@ -18,7 +18,9 @@
 
 
 
-@interface BTRSearchViewController ()
+@interface BTRSearchViewController () {
+    bool oddNumberOfResults;
+}
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -46,6 +48,8 @@
     
     [super viewDidLoad];
     [self setupDocument];
+    
+    oddNumberOfResults = NO;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -244,6 +248,14 @@
     }
     
     NSInteger tableSize = (NSInteger)((int)[self.itemArray count]/ (int)2);
+    
+    
+    if ([self.itemArray count] % 2)
+    {
+        oddNumberOfResults = YES;
+        return tableSize + 1;
+    }
+    
     return tableSize;
 }
 
@@ -275,21 +287,30 @@
         [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
     }
     
-    Item *rightItem = [self.itemArray objectAtIndex:2*(indexPath.row) + 1];
 
-    
-    if ([rightItem sku])
+    if (!oddNumberOfResults)
     {
-        [cell.rightImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[rightItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-        [cell.rightBrand setText:[rightItem brand]];
-        [cell.rightDescription setText:[rightItem shortItemDescription]];
-        [cell.rightPrice setText:[NSString stringWithFormat:@"$%@",[rightItem priceCAD]]];
+
+        Item *rightItem = [self.itemArray objectAtIndex:2*(indexPath.row) + 1];
         
-        [cell.rightCrossedOffPrice setAttributedText:[BTRUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[rightItem retailCAD]]]];
-  
-    } else {
+        if ([rightItem sku])
+        {
+            [cell.rightImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[rightItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+            [cell.rightBrand setText:[rightItem brand]];
+            [cell.rightDescription setText:[rightItem shortItemDescription]];
+            [cell.rightPrice setText:[NSString stringWithFormat:@"$%@",[rightItem priceCAD]]];
+            
+            [cell.rightCrossedOffPrice setAttributedText:[BTRUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[rightItem retailCAD]]]];
+            
+        } else {
+            
+            [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
+        }
         
-        [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
+    } else if (oddNumberOfResults) {
+        
+        cell.rightImageView.hidden = TRUE;
+        cell.rightDetailView.hidden = TRUE;
     }
     
     return cell;
@@ -335,6 +356,9 @@
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
          
+         [[self itemArray] removeAllObjects];
+
+         
          NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                           options:0
                                                                             error:NULL];
@@ -342,10 +366,17 @@
          NSDictionary *myTempDictionary = entitiesPropertyList[@"response"];
      
          NSMutableArray * arrayToPass = [myTempDictionary valueForKey:@"docs"];
+         unsigned long int numFound = [[myTempDictionary valueForKey:@"numFound"] integerValue];
  
-         [[self itemArray] removeAllObjects];
-         [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
-         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         NSLog(@"number : %lu", numFound);
+         
+         if (numFound) {
+         
+             [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+             [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         }
+         
+         
          [self.tableView reloadData];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

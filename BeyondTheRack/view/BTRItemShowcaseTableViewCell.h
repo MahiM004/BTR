@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *rightDescription;
 @property (weak, nonatomic) IBOutlet UILabel *rightPrice;
 @property (weak, nonatomic) IBOutlet UILabel *rightCrossedOffPrice;
+@property (weak, nonatomic) IBOutlet UIView *rightDetailView;
 
 
 @property (weak, nonatomic) IBOutlet UIView *leftView;
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *leftDescription;
 @property (weak, nonatomic) IBOutlet UILabel *leftPrice;
 @property (weak, nonatomic) IBOutlet UILabel *leftCrossedOffPrice;
+@property (weak, nonatomic) IBOutlet UIView *leftDetailView;
 
 
 
