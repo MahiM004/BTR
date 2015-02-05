@@ -176,8 +176,6 @@
     
     UITableViewCell *cell = nil;
     
-    cell.userInteractionEnabled = TRUE;
-    
     if (indexPath.section == 0) {
         
         UITableViewCell *sortCell = [tableView dequeueReusableCellWithIdentifier:@"BTRRefineSortCellIdentifier" forIndexPath:indexPath];
