@@ -7,20 +7,19 @@
 //
 
 #import "BTRSearchFilterViewController.h"
+#import "BTRSearchFilterTVC.h"
+
+
 
 @interface BTRSearchFilterViewController ()
 
 
-@property (strong, nonatomic) NSMutableArray *priceFilterCounter;
+@property (strong, nonatomic) NSMutableArray *priceFilter;
 @property (strong, nonatomic) NSMutableArray *sortOptions;
 @property (strong, nonatomic) NSMutableArray *categoryFilter;
-@property (strong, nonatomic) NSMutableArray *categoryFilterCounter;
 @property (strong, nonatomic) NSMutableArray *brandFilter;
-@property (strong, nonatomic) NSMutableArray *brandFilterCounter;
 @property (strong, nonatomic) NSMutableArray *colorFilter;
-@property (strong, nonatomic) NSMutableArray *colorFilterCounter;
 @property (strong, nonatomic) NSMutableArray *sizeFilter;
-@property (strong, nonatomic) NSMutableArray *sizeFilterCounter;
 
 
 @end
@@ -29,10 +28,10 @@
 
 @synthesize backgroundImage;
 
-- (NSMutableArray *)_priceFilterCounter{
+- (NSMutableArray *)_priceFilter {
     
-    if (!_priceFilterCounter) _priceFilterCounter = [[NSMutableArray alloc] init];
-    return _priceFilterCounter;
+    if (!_priceFilter) _priceFilter = [[NSMutableArray alloc] init];
+    return _priceFilter;
 }
 
 - (NSMutableArray *)sortOptions{
@@ -63,31 +62,6 @@
     
     if (!_sizeFilter) _sizeFilter = [[NSMutableArray alloc] init];
     return _sizeFilter;
-}
-
-
-- (NSMutableArray *)categoryFilterCounter{
-    
-    if (!_categoryFilterCounter) _categoryFilterCounter = [[NSMutableArray alloc] init];
-    return _categoryFilterCounter;
-}
-
-- (NSMutableArray *)brandFilterCounter{
-    
-    if (!_brandFilterCounter) _brandFilterCounter = [[NSMutableArray alloc] init];
-    return _brandFilterCounter;
-}
-
-- (NSMutableArray *)colorFilterCounter{
-    
-    if (!_colorFilterCounter) _colorFilterCounter = [[NSMutableArray alloc] init];
-    return _colorFilterCounter;
-}
-
-- (NSMutableArray *)sizeFilterCounter{
-    
-    if (!_sizeFilter) _sizeFilterCounter = [[NSMutableArray alloc] init];
-    return _sizeFilterCounter;
 }
 
 
@@ -124,58 +98,43 @@
 - (BOOL) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetQueriesDictionary andFacetFields:(NSDictionary *)facetFieldsDictionary {
     
     
-    [self.priceFilterCounter removeAllObjects];
+    [self.priceFilter removeAllObjects];
     [self.sortOptions removeAllObjects];
     [self.categoryFilter removeAllObjects];
-    [self.categoryFilterCounter removeAllObjects];
     [self.brandFilter removeAllObjects];
-    [self.brandFilterCounter removeAllObjects];
     [self.colorFilter removeAllObjects];
-    [self.colorFilterCounter removeAllObjects];
     [self.sizeFilter removeAllObjects];
-    [self.sizeFilterCounter removeAllObjects];
     
-    NSNumber *tempNum = (NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"];
-    [self.priceFilterCounter addObject:tempNum];
-    tempNum = (NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"];
-    [self.priceFilterCounter addObject:tempNum];
-    tempNum = (NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"];
-    [self.priceFilterCounter addObject:tempNum];
-    tempNum = (NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"];
-    [self.priceFilterCounter addObject:tempNum];
-    tempNum = (NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"];
-    [self.priceFilterCounter addObject:tempNum];
-    tempNum = (NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"];
-    [self.priceFilterCounter addObject:tempNum];
-    
+    NSString *tempString = [NSString stringWithFormat:@"[0 TO 200]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"] ];
+    [self.priceFilter addObject:tempString];
+    tempString = [NSString stringWithFormat:@"[200 TO 400]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"] ];
+    [self.priceFilter addObject:tempString];
+    tempString = [NSString stringWithFormat:@"[400 TO 600]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"] ];
+    [self.priceFilter addObject:tempString];
+    tempString = [NSString stringWithFormat:@"[600 TO 800]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"] ];
+    [self.priceFilter addObject:tempString];
+    tempString = [NSString stringWithFormat:@"[800 TO 1000]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"] ];
+    [self.priceFilter addObject:tempString];
+    tempString = [NSString stringWithFormat:@"[1000 TO *]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"] ];
+    [self.priceFilter addObject:tempString];
     
     NSDictionary *brandDictionary = facetFieldsDictionary[@"brand"];
     for (NSString *item in brandDictionary) {
-        
-        [self.brandFilter addObject:item];
-        [self.brandFilterCounter addObject:(NSNumber *)brandDictionary[item]];
+        [self.brandFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)brandDictionary[item]] ];
     }
     
     NSDictionary *categoryDictionary = facetFieldsDictionary[@"cat_1"];
-    for (NSString *item in categoryDictionary) {
-        
-        [self.categoryFilter addObject:item];
-        [self.categoryFilterCounter addObject:(NSNumber *)categoryDictionary[item]];
-    }
+    for (NSString *item in categoryDictionary)
+        [self.categoryFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)categoryDictionary[item]] ];
     
     NSDictionary *colorDictionary = facetFieldsDictionary[@"att_color"];
-    for (NSString *item in colorDictionary) {
-        
-        [self.colorFilter addObject:item];
-        [self.colorFilterCounter addObject:(NSNumber *)colorDictionary[item]];
-    }
+    for (NSString *item in colorDictionary)
+        [self.colorFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)colorDictionary[item]] ];
+    
     
     NSDictionary *sizeDictionary = facetFieldsDictionary[@"variant"];
-    for (NSString *item in sizeDictionary) {
-        
-        [self.sizeFilter addObject:item];
-        [self.sizeFilterCounter addObject:(NSNumber *)sizeDictionary[item]];
-    }
+    for (NSString *item in sizeDictionary)
+        [self.sizeFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)sizeDictionary[item]] ];
     
     return TRUE;
 }
@@ -190,16 +149,46 @@
 }
 
 
-/*
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+    
+    
+    
+
+    if ([[segue identifier] isEqualToString:@"EmbededdFilterSegue"]) {
+     
+        BTRSearchFilterTVC *embedTVC = segue.destinationViewController;
+
+        embedTVC.brandsArray = self.brandFilter;
+        embedTVC.colorsArray = self.colorFilter;
+        embedTVC.categoriesArray = self.categoryFilter;
+     
+    }
+    
 }
-*/
+
+
+
+
+
+
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

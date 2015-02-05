@@ -60,9 +60,6 @@
     }
 
   
-
-    
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -293,19 +290,19 @@
 
             if ([(UIButton *)sender tag] == BRAND_FILTER ) {
                 
-                destModalVC.itemsArray = [[NSMutableArray alloc] initWithArray:@[@"B 1",@"B 2",@"B 3",@"B 4",@"B 5", @"B 6", @"B 7", @"B 8", @"B 9"]];
+                destModalVC.itemsArray = [self brandsArray];
                 destModalVC.selectedItemsArray = [self selectedBrands];
                 destModalVC.headerTitle = BRAND_TITLE;
             }
             else if ([(UIButton *)sender tag] == COLOR_FILTER ) {
              
-                destModalVC.itemsArray = [[NSMutableArray alloc] initWithArray:@[@"C 1",@"C 2",@"C 3",@"C 4",@"C 5", @"C 6", @"C 7", @"C 8", @"C 9"]];
+                destModalVC.itemsArray = [self colorsArray];
                 destModalVC.selectedItemsArray = [self selectedColors];
                 destModalVC.headerTitle = COLOR_TITLE;
             }
             else if ([(UIButton *)sender tag] == SIZE_FILTER ) {
                 
-                destModalVC.itemsArray = [[NSMutableArray alloc] initWithArray:@[@"S 1",@"S 2",@"S 3",@"S 4",@"S 5",@"S 6",@"S 7",@"S 8",@"S 9"]];
+                destModalVC.itemsArray = [self sizesArray];
                 destModalVC.selectedItemsArray = [self selectedSizes];
                 destModalVC.headerTitle = SIZE_TITLE;
             }
