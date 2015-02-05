@@ -121,9 +121,8 @@
     [self.priceFilter addObject:tempString];
     
     NSDictionary *brandDictionary = facetFieldsDictionary[@"brand"];
-    for (NSString *item in brandDictionary) {
+    for (NSString *item in brandDictionary)
         [self.brandFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)brandDictionary[item]] ];
-    }
     
     NSDictionary *categoryDictionary = facetFieldsDictionary[@"cat_1"];
     for (NSString *item in categoryDictionary)
@@ -132,7 +131,6 @@
     NSDictionary *colorDictionary = facetFieldsDictionary[@"att_color"];
     for (NSString *item in colorDictionary)
         [self.colorFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)colorDictionary[item]] ];
-    
     
     NSDictionary *sizeDictionary = facetFieldsDictionary[@"variant"];
     for (NSString *item in sizeDictionary)

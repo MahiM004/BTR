@@ -404,6 +404,9 @@
 
 
 - (IBAction)unwindFromModalSelectionTVC:(UIStoryboardSegue *)unwindSegue {
+ 
+    
+    
     
 }
 
@@ -412,6 +415,7 @@
 
 
 - (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString{
+
     
     if ([titleString isEqualToString:BRAND_TITLE])
         self.selectedBrands = selectedItemsArray;
@@ -419,7 +423,15 @@
         self.selectedColors = selectedItemsArray;
     else if ([titleString isEqualToString:SIZE_TITLE])
         self.selectedSizes = selectedItemsArray;
-
+    
+    
+    // 1. construct the string 2. setup delegates 3. perform the request
+    
+    for (int i = 0; i < [self.selectedBrands count]; i++)
+    {
+        NSLog(@"se: %@", [self.selectedBrands objectAtIndex:i]);
+    }
+        
     [self.tableView reloadData];
 }
 
