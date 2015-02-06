@@ -236,6 +236,8 @@
         cell = [self configureFilterModalCell:filterCell forIndexPath:indexPath];
     }
     
+
+    
     return cell;
 }
 
@@ -310,12 +312,10 @@
         
         cell.filterSwitch.tag = CATEGORY_FILTER;
     
-    
-    
     }
     
     cell.filterSwitch.enabled = TRUE;
-    [cell.filterSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
+    //[cell.filterSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
     
     return cell;
 }
