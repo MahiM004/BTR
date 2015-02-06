@@ -8,7 +8,7 @@
 
 #import "BTRSearchViewController.h"
 #import "BTRItemShowcaseTableViewCell.h"
-#import "BTRSearchFilterViewController.h"
+#import "BTRRefineResultsViewController.h"
 
 
 #import "Item+AppServer.h"
@@ -357,7 +357,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"]; // TODO : change text/html to application/json
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"]; // TODO: change text/html to application/json AFTER it is moved to production
 
     //    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = serializer;
@@ -424,7 +424,7 @@
         UIGraphicsEndImageContext();
         
         
-        BTRSearchFilterViewController *searchFilterVC = [segue destinationViewController];
+        BTRRefineResultsViewController *searchFilterVC = [segue destinationViewController];
 
         searchFilterVC.backgroundImage = screenShotImage;
         searchFilterVC.facetQueriesDictionary = [self facetQueriesDictionary];
@@ -440,93 +440,5 @@
 
 
 
-
-
-
-
-/*
-
-// create image of a view
-CGFloat scale = [[UIScreen mainScreen] scale];
-UIGraphicsBeginImageContextWithOptions(self.view.frame.size, YES, scale);
-[self.view drawViewHierarchyInRect:self.view.frame afterScreenUpdates:NO];
-UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-UIGraphicsEndImageContext();
-// create dark blurred image, requires UIImage+ImageEffects
-UIImage *blurredImage = [image applyDarkEffect];
-
-UIImageView *blurredImageView = [[UIImageView alloc] initWithFrame: CGRectMake(0.0, screenSize.height, screenSize.width, 0.0)];
-blurredImageView.clipsToBounds = YES;
-blurredImageView.contentMode = UIViewContentModeBottom;
-UIGraphicsBeginImageContextWithOptions(screenSize, YES, [[UIScreen mainScreen] scale]);
-[self.view drawViewHierarchyInRect:self.view.frame afterScreenUpdates:NO];
-
- UIImage *sourceViewImage = UIGraphicsGetImageFromCurrentImageContext();
- UIGraphicsEndImageContext();
- UIImage *blurredImage = [sourceViewImage applyDarkEffect];
- blurredImageView.image = blurredSourceImage;
- [sourceView addSubview:blurredImageView];
- 
-
-BTRSearchFilterTVC *destinationViewController = [[BTRSearchFilterTVC alloc] init];
-
-UIImage *sourceViewImage = UIGraphicsGetImageFromCurrentImageContext();
-UIGraphicsEndImageContext();
-blurredImageView.image = blurredImage;
-[self.view addSubview:blurredImageView];
-
-[UIView animateWithDuration:0.6 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-    // destinationView.center = destinationCenter;
-    //    blurredImageView.frame = sourceView.frame;
-}
-                 completion:^(BOOL finished){
-                     [blurredImageView removeFromSuperview];
-                     //   [destinationView removeFromSuperview];
-                     //  [destinationView insertSubview:blurredImageView atIndex:0];
-                     [self presentViewController:destinationViewController animated:NO completion:NULL];
-                 }];
-
-*/
-
-
-
-/*
- myView.backgroundColor = [UIColor clearColor];
- UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
- bgToolbar.barStyle = UIBarStyleDefault;
- [myView.superview insertSubview:bgToolbar belowSubview:myView];
- */
-
-/*
- UIGraphicsBeginImageContext(self.window.bounds.size);
- [self.window.layer renderInContext:UIGraphicsGetCurrentContext()];
- */
-
-/*
- if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
- UIGraphicsBeginImageContextWithOptions(self.window.bounds.size, NO, [UIScreen mainScreen].scale);
- else
- UIGraphicsBeginImageContext(self.window.bounds.size);
- 
- UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
- UIGraphicsEndImageContext();
- NSData * data = UIImagePNGRepresentation(image);
- //[data writeToFile:@"screenshot.png" atomically:YES];
- */
-/*
- CGSize screenSize = [UIScreen mainScreen].bounds.size;
- UIGraphicsBeginImageContextWithOptions(screenSize, NO, [UIScreen mainScreen].scale);
- CGRect rec = CGRectMake(0, 0, screenSize.width, screenSize.height);
- [self.view drawViewHierarchyInRect:rec afterScreenUpdates:YES];
- UIImage *screenShotImage = UIGraphicsGetImageFromCurrentImageContext();
- UIGraphicsEndImageContext();
- 
- [searchBar resignFirstResponder];
- modalView = [[BTRSearchFilterView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
- modalView.backgroundImage = screenShotImage;
- modalView.opaque = NO;
- modalView.backgroundColor = [UIColor clearColor];//[[UIColor blackColor] colorWithAlphaComponent:0.83f];
- */
-//[self.view addSubview:modalView];
 
 

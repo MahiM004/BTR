@@ -1,17 +1,17 @@
 //
-//  BTRSearchFilterViewController.m
+//  BTRRefineResultsViewController.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-29.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "BTRSearchFilterViewController.h"
+#import "BTRRefineResultsViewController.h"
 #import "BTRSearchFilterTVC.h"
 
 
 
-@interface BTRSearchFilterViewController ()
+@interface BTRRefineResultsViewController ()
 
 
 @property (strong, nonatomic) NSMutableArray *priceFilter;
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation BTRSearchFilterViewController
+@implementation BTRRefineResultsViewController
 
 @synthesize backgroundImage;
 

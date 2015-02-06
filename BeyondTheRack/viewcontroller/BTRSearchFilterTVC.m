@@ -38,6 +38,12 @@
 @synthesize selectedColors;
 @synthesize selectedSizes;
 
+- (NSMutableArray *)queryRefineArray {
+    
+    if (!_queryRefineArray) _queryRefineArray = [[NSMutableArray alloc] init];
+    return _queryRefineArray;
+}
+
 - (NSMutableArray *)colorsArray {
     
     if (!_colorsArray) _colorsArray = [[NSMutableArray alloc] init];
@@ -350,6 +356,7 @@
             cell.rowLabel.textColor = [UIColor lightGrayColor];
             cell.rowButton.enabled = FALSE;
         }
+        
         cell.rowButton.tag = SIZE_FILTER;
     }
     
@@ -373,7 +380,6 @@
             
             BTRModalFilterSelectionVC *destModalVC = [segue destinationViewController];
         
-
             if ([(UIButton *)sender tag] == BRAND_FILTER ) {
                 
                 destModalVC.itemsArray = [self brandsArray];
@@ -401,12 +407,51 @@
 }
 
 
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    // 1. construct the string 2. setup delegates 3. perform the request
+    
+    NSMutableArray *brandsArray = [[NSMutableArray alloc] init];
+
+    for (int i = 0; i < [self.selectedBrands count]; i++)
+        [brandsArray addObject:[[self.selectedBrands objectAtIndex:i] componentsSeparatedByString:@":"][0]];
+    
+    NSMutableArray *colorsArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [self.selectedColors count]; i++)
+        [colorsArray addObject:[[self.selectedColors objectAtIndex:i] componentsSeparatedByString:@":"][0]];
+    
+    NSMutableArray *sizesArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [self.selectedSizes count]; i++)
+        [sizesArray addObject:[[self.selectedSizes objectAtIndex:i] componentsSeparatedByString:@":"][0]];
+    
+    NSMutableArray *categoriesArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [self.selectedBrands count]; i++)
+        [categoriesArray addObject:[[self.selectedBrands objectAtIndex:i] componentsSeparatedByString:@":"][0]];
+    
+    NSMutableArray *pricesArray = [[NSMutableArray alloc] init];
+  
+    for (int i = 0; i < [self.selectedBrands count]; i++)
+        [pricesArray addObject:[[self.selectedBrands objectAtIndex:i] componentsSeparatedByString:@":"][0]];
+    
+    NSMutableArray *sortArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [self.selectedBrands count]; i++)
+        [sortArray addObject:[[self.selectedBrands objectAtIndex:i] componentsSeparatedByString:@":"][0]];
+    
+    
+    [self.queryRefineArray addObject:pricesArray];
+    [self.queryRefineArray addObject:categoriesArray];
+    [self.queryRefineArray addObject:brandsArray];
+    [self.queryRefineArray addObject:colorsArray];
+    [self.queryRefineArray addObject:sizesArray];
+    
+}
 
 
 - (IBAction)unwindFromModalSelectionTVC:(UIStoryboardSegue *)unwindSegue {
- 
-    
-    
     
 }
 
@@ -424,14 +469,7 @@
     else if ([titleString isEqualToString:SIZE_TITLE])
         self.selectedSizes = selectedItemsArray;
     
-    
-    // 1. construct the string 2. setup delegates 3. perform the request
-    
-    for (int i = 0; i < [self.selectedBrands count]; i++)
-    {
-        NSLog(@"se: %@", [self.selectedBrands objectAtIndex:i]);
-    }
-        
+
     [self.tableView reloadData];
 }
 

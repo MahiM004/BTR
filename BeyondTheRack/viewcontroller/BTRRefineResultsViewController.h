@@ -1,5 +1,5 @@
 //
-//  BTRSearchFilterViewController.h
+//  BTRRefineResultsViewController.h
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-29.
@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRSearchFilterViewController : UIViewController
+@interface BTRRefineResultsViewController : UIViewController
 
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (weak, nonatomic) IBOutlet UIView *headerView;

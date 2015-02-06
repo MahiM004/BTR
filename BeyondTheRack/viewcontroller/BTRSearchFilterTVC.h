@@ -19,10 +19,10 @@
 @property (strong, nonatomic) NSMutableArray *sizesArray;
 @property (strong, nonatomic) NSMutableArray *categoriesArray;
 
-
 @property (strong, nonatomic) NSMutableArray *selectedBrands;
 @property (strong, nonatomic) NSMutableArray *selectedColors;
 @property (strong, nonatomic) NSMutableArray *selectedSizes;
 
+@property (strong, nonatomic) NSMutableArray *queryRefineArray;
 
 @end

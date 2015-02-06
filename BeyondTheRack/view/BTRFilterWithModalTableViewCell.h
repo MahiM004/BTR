@@ -12,4 +12,5 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *rowButton;
 @property (weak, nonatomic) IBOutlet UILabel *rowLabel;
+
 @end
