@@ -11,7 +11,7 @@
 
 
 
-@interface BTRRefineResultsViewController ()
+@interface BTRRefineResultsViewController () <BTRSearchFilterTableDelegate>
 
 
 @property (strong, nonatomic) NSMutableArray *priceFilter;
@@ -164,18 +164,34 @@
     if ([[segue identifier] isEqualToString:@"EmbededdFilterSegue"]) {
      
         BTRSearchFilterTVC *embedTVC = segue.destinationViewController;
+     
         embedTVC.pricesArray = self.priceFilter;
         embedTVC.brandsArray = self.brandFilter;
         embedTVC.colorsArray = self.colorFilter;
         embedTVC.categoriesArray = self.categoryFilter;
-     
+        
+        embedTVC.delegate = self;
     }
     
 }
 
 
+#pragma mark - BTRSearchFilterTableDelegate
 
-
+- (void)searchRefineOptionChosen:(NSMutableArray *)searchRefineArray {
+    
+    for (NSMutableArray *someArray in searchRefineArray) {
+        
+        NSLog(@"-----------------------------------------------");
+        
+        for (NSString *someString in someArray) {
+            NSLog(@"%@",someString);
+        }
+    }
+    
+    // construct the query here!
+    
+}
 
 
 

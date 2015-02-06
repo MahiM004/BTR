@@ -19,10 +19,11 @@
 #define COLOR_FILTER 4
 #define SIZE_FILTER 5
 
-
 #define BRAND_TITLE @"Brand"
 #define COLOR_TITLE @"Color"
 #define SIZE_TITLE @"Size"
+
+
 
 @interface BTRSearchFilterTVC () <BTRModalFilterSelectionDelegate> {
     int selectedSortIndex;
@@ -305,7 +306,25 @@
     
     if (tempSwitch.on) {
 
-        NSLog(@"switched on: %@", [tempSwitch stringValue]);
+        if (![tempSwitch.stringValue containsString:@"$"])
+        {
+            [self.selectedCategories addObject:[tempSwitch stringValue]];
+        
+        } else {
+            
+            [self.selectedPrices addObject:[tempSwitch stringValue]];
+        }
+    
+    } else if (!tempSwitch.on){
+        
+        if (![tempSwitch.stringValue containsString:@"$"])
+        {
+            [self.selectedCategories removeObject:[tempSwitch stringValue]];
+            
+        } else {
+            
+            [self.selectedPrices removeObject:[tempSwitch stringValue]];
+        }
     }
     
 }
@@ -466,6 +485,10 @@
     [self.queryRefineArray addObject:brandsArray];
     [self.queryRefineArray addObject:colorsArray];
     [self.queryRefineArray addObject:sizesArray];
+    
+    if ([self.delegate respondsToSelector:@selector(searchRefineOptionChosen:)]) {
+        [self.delegate searchRefineOptionChosen:[self queryRefineArray]];
+    }
     
 }
 

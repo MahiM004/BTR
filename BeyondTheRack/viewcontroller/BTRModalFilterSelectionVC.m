@@ -119,11 +119,6 @@
 
 - (IBAction)backToRefineResults:(UIButton *)sender {
     
-    /*if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCWillBeDismissed:)]) {
-        [self.modalDelegate modalFilterSelectionVCWillBeDismissed:self];
-    }*/
-    
-    
     if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
         [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedItemsArray] withTitle:[self headerTitle]];
     }

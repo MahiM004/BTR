@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRSearchFilterTVC : UITableViewController {
 
-}
+@protocol BTRSearchFilterTableDelegate;
+
+
+@interface BTRSearchFilterTVC : UITableViewController
+
+
+@property (nonatomic, weak) id<BTRSearchFilterTableDelegate> delegate;
 
 
 @property (strong, nonatomic) NSMutableArray *pricesArray;
@@ -27,5 +32,14 @@
 
 
 @property (strong, nonatomic) NSMutableArray *queryRefineArray;
+
+@end
+
+
+@protocol BTRSearchFilterTableDelegate <NSObject>
+
+@optional
+
+- (void)searchRefineOptionChosen:(NSMutableArray *)searchRefineArray;
 
 @end
