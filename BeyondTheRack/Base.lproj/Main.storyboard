@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="73F2F9B3-E04B-4C16-8B4C-F5690F4E1544" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="AE1D2ADF-3B6B-407A-BD89-B54D503EBB88" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -730,7 +730,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1178" y="-1312"/>
+            <point key="canvasLocation" x="1248" y="-1326"/>
         </scene>
         <!--Refine Results View Controller-->
         <scene sceneID="Nfn-Li-jLP">
@@ -1337,7 +1337,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="73F2F9B3-E04B-4C16-8B4C-F5690F4E1544" width="30" height="30">
+        <image name="AE1D2ADF-3B6B-407A-BD89-B54D503EBB88" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

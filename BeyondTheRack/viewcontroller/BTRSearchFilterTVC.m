@@ -79,6 +79,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -262,6 +263,8 @@
     
     cell.filterSwitch.enabled = TRUE;
     
+    [cell.filterSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
+    
     if (indexPath.section == PRICE_FILTER) {
         
         if ([self.pricesArray count] == 0) {
@@ -290,6 +293,11 @@
     return cell;
 }
 
+
+- (void)toggleCustomSwitch:(id)sender {
+//    UISwitch *tempSwitch = (UISwitch *)sender;
+    NSLog(@"switched");
+}
 
 - (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
 
