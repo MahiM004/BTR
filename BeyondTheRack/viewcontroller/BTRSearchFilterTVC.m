@@ -39,6 +39,8 @@
 @synthesize selectedBrands;
 @synthesize selectedColors;
 @synthesize selectedSizes;
+@synthesize selectedCategories;
+@synthesize selectedPrices;
 
 - (NSMutableArray *)queryRefineArray {
     
@@ -62,6 +64,20 @@
     
     if (!_sizesArray) _sizesArray = [[NSMutableArray alloc] init];
     return _sizesArray;
+}
+
+
+- (NSMutableArray *)categoriesArray {
+    
+    if (!_categoriesArray) _categoriesArray = [[NSMutableArray alloc] init];
+    return _categoriesArray;
+}
+
+
+- (NSMutableArray *)pricesArray {
+    
+    if (!_pricesArray) _pricesArray = [[NSMutableArray alloc] init];
+    return _pricesArray;
 }
 
 
@@ -185,7 +201,7 @@
     
     UITableViewCell *cell = nil;
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == SORT_SECTION) {
         
         UITableViewCell *sortCell = [tableView dequeueReusableCellWithIdentifier:@"BTRRefineSortCellIdentifier" forIndexPath:indexPath];
         
@@ -263,8 +279,7 @@
 
 - (UITableViewCell *)configureFilterSwitchCell:(BTRFilterWithSwitchTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     
-    cell.filterSwitch.enabled = TRUE;
-    [cell.filterSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
+
     
     
     if (indexPath.section == PRICE_FILTER) {
@@ -294,7 +309,13 @@
         }
         
         cell.filterSwitch.tag = CATEGORY_FILTER;
+    
+    
+    
     }
+    
+    cell.filterSwitch.enabled = TRUE;
+    [cell.filterSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
     
     return cell;
 }
