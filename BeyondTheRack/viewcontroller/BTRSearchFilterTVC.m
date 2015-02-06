@@ -87,7 +87,7 @@
     [super viewDidLoad];
 
     selectedSortIndex = 0;
-    self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", @"FILTER BY PRICE", @"FILTER BY CATEGORY", @"FILTER BY BRANDS", @"FILTER BY COLORS", @"FILTER BY SIZES"]];
+    self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", @"FILTER BY PRICE", @"FILTER BY CATEGORY", @"FILTER BY BRANDS", @"FILTER BY COLORS", @"FILTER BY SIZE"]];
 
     
 }
@@ -103,14 +103,13 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
  
     // Return the number of sections.
-    return [self.titles count];//[self.facets count] + 1;
+    return 6;
 ;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    if (section == SORT_SECTION)  // for SORT ITEMS
-        
+    if (section == SORT_SECTION)
         return 3;
     
     else if (section == PRICE_FILTER) {
@@ -210,18 +209,23 @@
             sortCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRRefineSortCellIdentifier"];
         }
         
-        cell = [self configureSortCell:sortCell forIndexPath:indexPath];
+        return  [self configureSortCell:sortCell forIndexPath:indexPath];
 
-    } else if (indexPath.section == PRICE_FILTER || indexPath.section == CATEGORY_FILTER) {
+    } else if (indexPath.section == PRICE_FILTER  || indexPath.section == CATEGORY_FILTER) {
     
-        BTRFilterWithSwitchTableViewCell *filteSwitchrCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterBySwitchCellIdentifier" forIndexPath:indexPath];
+        
+        BTRFilterWithSwitchTableViewCell *filterSwitchCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterBySwitchCellIdentifier" forIndexPath:indexPath];
 
-        if (filteSwitchrCell == nil) {
+        if (filterSwitchCell == nil) {
             
-            filteSwitchrCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterBySwitchCellIdentifier"];
+            filterSwitchCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterBySwitchCellIdentifier"];
         }
         
-        cell =  [self configureFilterSwitchCell:filteSwitchrCell forIndexPath:indexPath];
+        
+        if (filterSwitchCell.filterSwitch.on)
+            NSLog(@"row: %ld from section:%ld is on", (long)[indexPath row], (long)[indexPath section]);
+        
+        cell =  [self configureFilterSwitchCell:filterSwitchCell forIndexPath:indexPath];
     
         
     } else if (indexPath.section == BRAND_FILTER || indexPath.section == COLOR_FILTER || indexPath.section == SIZE_FILTER) {
@@ -315,7 +319,7 @@
     }
     
     cell.filterSwitch.enabled = TRUE;
-    //[cell.filterSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
+    [cell.filterSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
     
     return cell;
 }
