@@ -56,6 +56,7 @@
 		69869FC71A640F0000F986BC /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FBD1A640EFF00F986BC /* UIProgressView+AFNetworking.m */; };
 		69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FBF1A640EFF00F986BC /* UIRefreshControl+AFNetworking.m */; };
 		69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */; };
+		69A6852E1A852F6B00F870E5 /* BTRFilterSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A6852D1A852F6B00F870E5 /* BTRFilterSwitch.m */; };
 		69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98381A6E95C300EDB1E6 /* searchglass.png */; };
 		69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */; };
 		69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */; };
@@ -198,6 +199,8 @@
 		69869FBF1A640EFF00F986BC /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		69869FC01A640F0000F986BC /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		69A6852C1A852F6B00F870E5 /* BTRFilterSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterSwitch.h; sourceTree = "<group>"; };
+		69A6852D1A852F6B00F870E5 /* BTRFilterSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterSwitch.m; sourceTree = "<group>"; };
 		69AB98381A6E95C300EDB1E6 /* searchglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchglass.png; sourceTree = "<group>"; };
 		69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchViewController.h; sourceTree = "<group>"; };
 		69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchViewController.m; sourceTree = "<group>"; };
@@ -334,6 +337,8 @@
 				69659F171A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m */,
 				69659F191A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.h */,
 				69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */,
+				69A6852C1A852F6B00F870E5 /* BTRFilterSwitch.h */,
+				69A6852D1A852F6B00F870E5 /* BTRFilterSwitch.m */,
 			);
 			name = View;
 			path = view;
@@ -768,6 +773,7 @@
 				69B02CAD1A5DA70700040C86 /* BTREventsCDTVC.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				69869F9C1A63FB2100F986BC /* AFSecurityPolicy.m in Sources */,
+				69A6852E1A852F6B00F870E5 /* BTRFilterSwitch.m in Sources */,
 				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,
 				69869FC51A640F0000F986BC /* UIButton+AFNetworking.m in Sources */,
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,

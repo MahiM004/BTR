@@ -22,6 +22,9 @@
 @property (strong, nonatomic) NSMutableArray *selectedBrands;
 @property (strong, nonatomic) NSMutableArray *selectedColors;
 @property (strong, nonatomic) NSMutableArray *selectedSizes;
+@property (strong, nonatomic) NSMutableArray *selectedCategories;
+@property (strong, nonatomic) NSMutableArray *selectedPrices;
+
 
 @property (strong, nonatomic) NSMutableArray *queryRefineArray;
 

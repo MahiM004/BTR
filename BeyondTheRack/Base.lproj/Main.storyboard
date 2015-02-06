@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="AE1D2ADF-3B6B-407A-BD89-B54D503EBB88" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="02BD4440-F140-4008-B1D8-39CA76F00DC3" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -828,12 +828,12 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PwQ-ZW-ugI" id="AJJ-jc-X3u">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kQB-Ns-H7L">
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kQB-Ns-H7L" customClass="BTRFilterSwitch">
                                             <rect key="frame" x="250" y="9" width="51" height="31"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="onTintColor" red="0.9737979964720157" green="1" blue="0.82240623429278814" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <action selector="switchValueChanged:" destination="PwQ-ZW-ugI" eventType="valueChanged" id="Yj0-A6-pd8"/>
+                                                <action selector="switchValueChanged:" destination="PwQ-ZW-ugI" eventType="valueChanged" id="JU6-js-1FK"/>
                                             </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XhQ-ac-EoY">
@@ -847,7 +847,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="filterSwitch" destination="kQB-Ns-H7L" id="oxN-or-vFI"/>
+                                    <outlet property="filterSwitch" destination="kQB-Ns-H7L" id="NYx-OR-54I"/>
                                     <outlet property="filterValueLabel" destination="XhQ-ac-EoY" id="vm7-JQ-7iI"/>
                                 </connections>
                             </tableViewCell>
@@ -1337,7 +1337,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AE1D2ADF-3B6B-407A-BD89-B54D503EBB88" width="30" height="30">
+        <image name="02BD4440-F140-4008-B1D8-39CA76F00DC3" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

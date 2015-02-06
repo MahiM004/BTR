@@ -28,7 +28,7 @@
 
 @synthesize backgroundImage;
 
-- (NSMutableArray *)_priceFilter {
+- (NSMutableArray *)priceFilter {
     
     if (!_priceFilter) _priceFilter = [[NSMutableArray alloc] init];
     return _priceFilter;
@@ -107,18 +107,19 @@
     
     NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
     
-    NSString *tempString = [NSString stringWithFormat:@"[0 TO 200]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"] ];
+    NSString *tempString = [NSString stringWithFormat:@"$0 to $200: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"] ];
     [self.priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"[200 TO 400]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"] ];
+    tempString = [NSString stringWithFormat:@"$200 to $400: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"] ];
     [self.priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"[400 TO 600]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"] ];
+    tempString = [NSString stringWithFormat:@"$400 to $600: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"] ];
     [self.priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"[600 TO 800]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"] ];
+    tempString = [NSString stringWithFormat:@"$600 to $800: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"] ];
     [self.priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"[800 TO 1000]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"] ];
+    tempString = [NSString stringWithFormat:@"$800 to $1000: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"] ];
     [self.priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"[1000 TO *]: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"] ];
+    tempString = [NSString stringWithFormat:@"$1000 to *: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"] ];
     [self.priceFilter addObject:tempString];
+
     
     NSDictionary *brandDictionary = facetFieldsDictionary[@"brand"];
     for (NSString *item in brandDictionary)

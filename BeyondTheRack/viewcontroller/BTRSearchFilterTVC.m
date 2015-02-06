@@ -12,6 +12,7 @@
 #import "BTRFilterWithSwitchTableViewCell.h"
 #import "BTRFilterWithModalTableViewCell.h"
 
+#define SORT_SECTION 0
 #define PRICE_FILTER 1
 #define CATEGORY_FILTER 2
 #define BRAND_FILTER 3
@@ -91,7 +92,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    if (section == 0)  // for SORT ITEMS
+    if (section == SORT_SECTION)  // for SORT ITEMS
         
         return 3;
     
@@ -161,7 +162,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == SORT_SECTION) {
      
         selectedSortIndex = (int)indexPath.row;
 
@@ -172,8 +173,8 @@
             sortCell.textLabel.textColor = [UIColor whiteColor];
             sortCell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
-        
     }
+    
     
     [self.tableView reloadData];
 }
@@ -262,8 +263,8 @@
 - (UITableViewCell *)configureFilterSwitchCell:(BTRFilterWithSwitchTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     
     cell.filterSwitch.enabled = TRUE;
-    
     [cell.filterSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
+    
     
     if (indexPath.section == PRICE_FILTER) {
         
@@ -272,8 +273,10 @@
             cell.filterValueLabel.text = [NSString stringWithFormat:@"No Price Selection Available"];
             cell.filterSwitch.enabled = FALSE;
             
-        } else
+        } else {
             cell.filterValueLabel.text = [self.pricesArray objectAtIndex:indexPath.row];
+            cell.filterSwitch.stringValue = [self.pricesArray objectAtIndex:indexPath.row];
+        }
         
         cell.filterSwitch.tag = PRICE_FILTER;
         
@@ -284,8 +287,10 @@
             cell.filterValueLabel.text = [NSString stringWithFormat:@"No Category Selection Available"];
             cell.filterSwitch.enabled = FALSE;
             
-        } else
+        } else {
             cell.filterValueLabel.text = [self.categoriesArray objectAtIndex:indexPath.row];
+            cell.filterSwitch.stringValue = [self.categoriesArray objectAtIndex:indexPath.row];
+        }
         
         cell.filterSwitch.tag = CATEGORY_FILTER;
     }
@@ -295,8 +300,14 @@
 
 
 - (void)toggleCustomSwitch:(id)sender {
-//    UISwitch *tempSwitch = (UISwitch *)sender;
-    NSLog(@"switched");
+    
+    BTRFilterSwitch *tempSwitch = (BTRFilterSwitch *)sender;
+    
+    if (tempSwitch.on) {
+
+        NSLog(@"switched on: %@", [tempSwitch stringValue]);
+    }
+    
 }
 
 - (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
@@ -436,13 +447,13 @@
     
     NSMutableArray *categoriesArray = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < [self.selectedBrands count]; i++)
-        [categoriesArray addObject:[[self.selectedBrands objectAtIndex:i] componentsSeparatedByString:@":"][0]];
+    for (int i = 0; i < [self.selectedCategories count]; i++)
+        [categoriesArray addObject:[[self.selectedCategories objectAtIndex:i] componentsSeparatedByString:@":"][0]];
     
     NSMutableArray *pricesArray = [[NSMutableArray alloc] init];
   
-    for (int i = 0; i < [self.selectedBrands count]; i++)
-        [pricesArray addObject:[[self.selectedBrands objectAtIndex:i] componentsSeparatedByString:@":"][0]];
+    for (int i = 0; i < [self.selectedPrices count]; i++)
+        [pricesArray addObject:[[self.selectedPrices objectAtIndex:i] componentsSeparatedByString:@":"][0]];
     
     NSMutableArray *sortArray = [[NSMutableArray alloc] init];
     
