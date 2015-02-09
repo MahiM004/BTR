@@ -12,7 +12,7 @@
 
 @interface BTRFilterByCategoryTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *filterValueLabel;
-@property (weak, nonatomic) IBOutlet BTRFilterSwitch *filterSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
+@property (weak, nonatomic) IBOutlet BTRFilterSwitch *categorySwitch;
 
 @end

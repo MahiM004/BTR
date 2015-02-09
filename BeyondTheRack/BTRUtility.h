@@ -17,7 +17,11 @@
 
 + (UIImage *)imageWithFilename:(NSString *)filename;
 
-+(NSAttributedString *)crossedOffTextFrom:(NSString *)someText;
++ (NSAttributedString *)crossedOffTextFrom:(NSString *)someText;
+
++ (NSString *)priceRangeForHumanReadableFrom:(NSString *)priceString;
+
++ (NSString *)priceRangeForAPIReadableFrom:(NSString *)priceString;
 
 
 @end

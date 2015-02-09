@@ -37,11 +37,11 @@
     
     if (sender.on) {
         
-        self.filterValueLabel.textColor = [UIColor whiteColor];
+        self.categoryLabel.textColor = [UIColor whiteColor];
         
     } else {
         
-        self.filterValueLabel.textColor = [UIColor lightGrayColor];
+        self.categoryLabel.textColor = [UIColor lightGrayColor];
     }
 }
 

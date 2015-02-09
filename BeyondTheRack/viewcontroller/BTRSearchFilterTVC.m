@@ -350,20 +350,20 @@
         
         if ([self.categoriesArray count] == 0) {
             
-            cell.filterValueLabel.text = [NSString stringWithFormat:@"No Category Selection Available"];
-            cell.filterSwitch.enabled = FALSE;
+            cell.categoryLabel.text = [NSString stringWithFormat:@"No Category Selection Available"];
+            cell.categorySwitch.enabled = FALSE;
             
         } else {
-            cell.filterValueLabel.text = [self.categoriesArray objectAtIndex:indexPath.row];
-            cell.filterSwitch.stringValue = [self.categoriesArray objectAtIndex:indexPath.row];
+            cell.categoryLabel.text = [self.categoriesArray objectAtIndex:indexPath.row];
+            cell.categorySwitch.stringValue = [self.categoriesArray objectAtIndex:indexPath.row];
         }
         
-        cell.filterSwitch.tag = CATEGORY_FILTER;
+        cell.categorySwitch.tag = CATEGORY_FILTER;
     
     }
     
-    cell.filterSwitch.enabled = TRUE;
-    [cell.filterSwitch addTarget:self action:@selector(toggleCategorySwitch:) forControlEvents:UIControlEventValueChanged];
+    cell.categorySwitch.enabled = TRUE;
+    [cell.categorySwitch addTarget:self action:@selector(toggleCategorySwitch:) forControlEvents:UIControlEventValueChanged];
     
     return cell;
 }
