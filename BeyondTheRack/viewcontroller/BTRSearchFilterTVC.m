@@ -37,11 +37,38 @@
 
 @implementation BTRSearchFilterTVC
 
-@synthesize selectedBrands;
-@synthesize selectedColors;
-@synthesize selectedSizes;
-@synthesize selectedCategories;
-@synthesize selectedPrices;
+- (NSMutableArray *)selectedBrands {
+    
+    if (!_selectedBrands) _selectedBrands = [[NSMutableArray alloc] init];
+    return _selectedBrands;
+}
+
+- (NSMutableArray *)selectedColors {
+    
+    if (!_selectedColors) _selectedColors = [[NSMutableArray alloc] init];
+    return _selectedColors;
+}
+
+- (NSMutableArray *)selectedSizes {
+    
+    if (!_selectedSizes) _selectedSizes = [[NSMutableArray alloc] init];
+    return _selectedSizes;
+}
+
+- (NSMutableArray *)selectedCategories {
+    
+    if (!_selectedCategories) _selectedCategories = [[NSMutableArray alloc] init];
+    return _selectedCategories;
+}
+
+
+
+- (NSMutableArray *)selectedPrices {
+    
+    if (!_selectedPrices) _selectedPrices = [[NSMutableArray alloc] init];
+    return _selectedPrices;
+}
+
 
 - (NSMutableArray *)queryRefineArray {
     
@@ -309,7 +336,7 @@
     }
     
     cell.priceSwitch.enabled = TRUE;
-    [cell.priceSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
+    [cell.priceSwitch addTarget:self action:@selector(togglePriceSwitch:) forControlEvents:UIControlEventValueChanged];
     
     return cell;
 }
@@ -336,43 +363,45 @@
     }
     
     cell.filterSwitch.enabled = TRUE;
-    [cell.filterSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
+    [cell.filterSwitch addTarget:self action:@selector(toggleCategorySwitch:) forControlEvents:UIControlEventValueChanged];
     
     return cell;
 }
 
 
-- (void)toggleCustomSwitch:(id)sender {
+- (void)toggleCategorySwitch:(id)sender {
     
     BTRFilterSwitch *tempSwitch = (BTRFilterSwitch *)sender;
     
     if (tempSwitch.on) {
 
-        if (![tempSwitch.stringValue containsString:@"$"])
-        {
             [self.selectedCategories addObject:[tempSwitch stringValue]];
+    }
+    else if (!tempSwitch.on){
         
-        } else {
-            
-            [self.selectedPrices addObject:[tempSwitch stringValue]];
-        }
-    
-    } else if (!tempSwitch.on){
-        
-        if (![tempSwitch.stringValue containsString:@"$"])
-        {
-            [self.selectedCategories removeObject:[tempSwitch stringValue]];
-            
-        } else {
-            
-            [self.selectedPrices removeObject:[tempSwitch stringValue]];
-        }
+        [self.selectedCategories removeObject:[tempSwitch stringValue]];
     }
     
 }
 
-- (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+- (void)togglePriceSwitch:(id)sender {
+    
+    BTRFilterSwitch *tempSwitch = (BTRFilterSwitch *)sender;
+    
+    if (tempSwitch.on) {
+        
+        [self.selectedPrices addObject:[tempSwitch stringValue]];
+    }
+    else if (!tempSwitch.on){
+        
+        [self.selectedPrices removeObject:[tempSwitch stringValue]];
+        
+    }
+    
+}
 
+
+- (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     
     cell.rowLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
     cell.rowButton.enabled = TRUE;
@@ -401,6 +430,7 @@
         if ([self.colorsArray count] > 0) {
             
             if ([self.selectedColors count] == 0) {
+                
                 cell.rowLabel.text = [NSString stringWithFormat:@"All Colors"];
             }
             else {
