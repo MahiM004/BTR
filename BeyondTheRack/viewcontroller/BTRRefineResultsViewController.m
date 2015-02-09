@@ -182,7 +182,6 @@
     
     for (NSMutableArray *someArray in searchRefineArray) {
         
-        NSLog(@"-----------------------------------------------");
         
         for (NSString *someString in someArray) {
             NSLog(@"%@",someString);

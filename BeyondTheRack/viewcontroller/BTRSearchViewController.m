@@ -18,9 +18,7 @@
 
 
 
-@interface BTRSearchViewController () {
-    bool oddNumberOfResults;
-}
+@interface BTRSearchViewController ()
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -30,6 +28,7 @@
 
 @property (strong, nonatomic) NSDictionary *facetQueriesDictionary;
 @property (strong, nonatomic) NSDictionary *facetFieldsDictionary;
+@property (nonatomic) BOOL oddNumberOfResults;
 
 @end
 
@@ -37,7 +36,8 @@
 @implementation BTRSearchViewController
 
 @synthesize searchBar;
-
+@synthesize oddNumberOfResults;
+@synthesize keyboardShow;
 
 - (NSDictionary *)facetQueriesDictionary {
     
@@ -127,7 +127,9 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.searchBar becomeFirstResponder];
+    if (![self.itemArray count])
+        [self.searchBar becomeFirstResponder];
+ 
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -148,6 +150,7 @@
 
 
 #pragma mark Content Filtering
+
 /*
 -(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
     
@@ -175,6 +178,8 @@
     return YES;
 }
 */
+
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
     // use some multithreading here
