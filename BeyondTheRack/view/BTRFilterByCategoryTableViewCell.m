@@ -1,14 +1,14 @@
 //
-//  BTRFilterWithSwitchTableViewCell.m
+//  BTRFilterByCategoryTableViewCell.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-02-02.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "BTRFilterWithSwitchTableViewCell.h"
+#import "BTRFilterByCategoryTableViewCell.h"
 
-@implementation BTRFilterWithSwitchTableViewCell
+@implementation BTRFilterByCategoryTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -19,10 +19,13 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
         // Initialization code
     }
     return self;
 }
+
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

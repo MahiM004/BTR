@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="A0A63E48-ADAC-4F09-B98E-5F5DF03E5118" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="62EA64FF-A04D-40D1-9988-2B2BAE6B68FB" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -823,7 +823,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableViewCell>
-                            <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BTRFilterBySwitchCellIdentifier" rowHeight="50" id="PwQ-ZW-ugI" customClass="BTRFilterWithSwitchTableViewCell">
+                            <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BTRFilterBySwitchCellIdentifier" rowHeight="50" id="PwQ-ZW-ugI" customClass="BTRFilterByCategoryTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PwQ-ZW-ugI" id="AJJ-jc-X3u">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1365,7 +1365,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="A0A63E48-ADAC-4F09-B98E-5F5DF03E5118" width="30" height="30">
+        <image name="62EA64FF-A04D-40D1-9988-2B2BAE6B68FB" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

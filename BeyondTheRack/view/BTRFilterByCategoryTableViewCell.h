@@ -1,5 +1,5 @@
 //
-//  BTRFilterWithSwitchTableViewCell.h
+//  BTRFilterByCategoryTableViewCell.h
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-02-02.
@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "BTRFilterSwitch.h"
 
-@interface BTRFilterWithSwitchTableViewCell : UITableViewCell
+@interface BTRFilterByCategoryTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *filterValueLabel;
 @property (weak, nonatomic) IBOutlet BTRFilterSwitch *filterSwitch;

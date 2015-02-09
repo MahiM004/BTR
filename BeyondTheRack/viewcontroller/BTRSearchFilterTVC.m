@@ -9,7 +9,7 @@
 #import "BTRSearchFilterTVC.h"
 #import "BTRModalFilterSelectionVC.h"
 
-#import "BTRFilterWithSwitchTableViewCell.h"
+#import "BTRFilterByCategoryTableViewCell.h"
 #import "BTRFilterWithModalTableViewCell.h"
 #import "BTRFilterByPriceTableViewCell.h"
 
@@ -253,11 +253,11 @@
     } else if (indexPath.section == CATEGORY_FILTER) {
         
         
-        BTRFilterWithSwitchTableViewCell *filterSwitchCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterBySwitchCellIdentifier" forIndexPath:indexPath];
+        BTRFilterByCategoryTableViewCell *filterSwitchCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterBySwitchCellIdentifier" forIndexPath:indexPath];
         
         if (filterSwitchCell == nil) {
             
-            filterSwitchCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterBySwitchCellIdentifier"];
+            filterSwitchCell = [[BTRFilterByCategoryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterBySwitchCellIdentifier"];
         }
         
         cell =  [self configureFilterSwitchCell:filterSwitchCell forIndexPath:indexPath];
@@ -343,7 +343,7 @@
 
 
 
-- (UITableViewCell *)configureFilterSwitchCell:(BTRFilterWithSwitchTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)configureFilterSwitchCell:(BTRFilterByCategoryTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     
     
   if (indexPath.section == CATEGORY_FILTER) {

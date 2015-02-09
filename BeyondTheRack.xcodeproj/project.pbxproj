@@ -14,7 +14,7 @@
 		69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F081A7C240F00C52FC5 /* fullrange.png */; };
 		69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F091A7C240F00C52FC5 /* rangethumb.png */; };
 		69659F0E1A7C259F00C52FC5 /* fillrangeblue.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */; };
-		69659F181A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F171A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m */; };
+		69659F181A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F171A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.m */; };
 		69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */; };
 		69659F1E1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F1D1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m */; };
 		69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */; };
@@ -118,8 +118,8 @@
 		69659F081A7C240F00C52FC5 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullrange.png; sourceTree = "<group>"; };
 		69659F091A7C240F00C52FC5 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rangethumb.png; sourceTree = "<group>"; };
 		69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillrangeblue.png; sourceTree = "<group>"; };
-		69659F161A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterWithSwitchTableViewCell.h; sourceTree = "<group>"; };
-		69659F171A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterWithSwitchTableViewCell.m; sourceTree = "<group>"; };
+		69659F161A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterByCategoryTableViewCell.h; sourceTree = "<group>"; };
+		69659F171A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterByCategoryTableViewCell.m; sourceTree = "<group>"; };
 		69659F191A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterWithModalTableViewCell.h; sourceTree = "<group>"; };
 		69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterWithModalTableViewCell.m; sourceTree = "<group>"; };
 		69659F1C1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRModalFilterSelectionVC.h; sourceTree = "<group>"; };
@@ -336,8 +336,8 @@
 			children = (
 				69AB984B1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.h */,
 				69AB984C1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m */,
-				69659F161A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.h */,
-				69659F171A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m */,
+				69659F161A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.h */,
+				69659F171A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.m */,
 				69659F191A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.h */,
 				69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */,
 				69A6852C1A852F6B00F870E5 /* BTRFilterSwitch.h */,
@@ -771,7 +771,7 @@
 				69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */,
 				69869F981A63FB2100F986BC /* AFHTTPRequestOperation.m in Sources */,
 				69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */,
-				69659F181A7FE28500C52FC5 /* BTRFilterWithSwitchTableViewCell.m in Sources */,
+				69659F181A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.m in Sources */,
 				69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */,
 				69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */,
 				69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */,
