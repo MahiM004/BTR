@@ -11,6 +11,7 @@
 
 #import "BTRFilterWithSwitchTableViewCell.h"
 #import "BTRFilterWithModalTableViewCell.h"
+#import "BTRFilterByPriceTableViewCell.h"
 
 #define SORT_SECTION 0
 #define PRICE_FILTER 1
@@ -211,22 +212,29 @@
         
         return  [self configureSortCell:sortCell forIndexPath:indexPath];
 
-    } else if (indexPath.section == PRICE_FILTER  || indexPath.section == CATEGORY_FILTER) {
-    
+    } else if (indexPath.section == PRICE_FILTER ) {
+        
+        BTRFilterByPriceTableViewCell *priceCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
+        
+        if (priceCell == nil) {
+            
+            priceCell = [[BTRFilterByPriceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
+        }
+        
+        cell =  [self configureFilterByPriceCell:priceCell forIndexPath:indexPath];
+        
+    } else if (indexPath.section == CATEGORY_FILTER) {
+        
         
         BTRFilterWithSwitchTableViewCell *filterSwitchCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterBySwitchCellIdentifier" forIndexPath:indexPath];
-
+        
         if (filterSwitchCell == nil) {
             
             filterSwitchCell = [[BTRFilterWithSwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterBySwitchCellIdentifier"];
         }
         
-        
-        if (filterSwitchCell.filterSwitch.on)
-            NSLog(@"row: %ld from section:%ld is on", (long)[indexPath row], (long)[indexPath section]);
-        
         cell =  [self configureFilterSwitchCell:filterSwitchCell forIndexPath:indexPath];
-    
+        
         
     } else if (indexPath.section == BRAND_FILTER || indexPath.section == COLOR_FILTER || indexPath.section == SIZE_FILTER) {
     
@@ -239,9 +247,7 @@
         
         cell = [self configureFilterModalCell:filterCell forIndexPath:indexPath];
     }
-    
 
-    
     return cell;
 }
 
@@ -283,26 +289,37 @@
     
 }
 
-- (UITableViewCell *)configureFilterSwitchCell:(BTRFilterWithSwitchTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
-    
 
+- (UITableViewCell *)configureFilterByPriceCell:(BTRFilterByPriceTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     
     
     if (indexPath.section == PRICE_FILTER) {
         
         if ([self.pricesArray count] == 0) {
             
-            cell.filterValueLabel.text = [NSString stringWithFormat:@"No Price Selection Available"];
-            cell.filterSwitch.enabled = FALSE;
+            cell.priceLabel.text = [NSString stringWithFormat:@"No Price Selection Available"];
+            cell.priceSwitch.enabled = FALSE;
             
         } else {
-            cell.filterValueLabel.text = [self.pricesArray objectAtIndex:indexPath.row];
-            cell.filterSwitch.stringValue = [self.pricesArray objectAtIndex:indexPath.row];
+            cell.priceLabel.text = [self.pricesArray objectAtIndex:indexPath.row];
+            cell.priceSwitch.stringValue = [self.pricesArray objectAtIndex:indexPath.row];
         }
         
-        cell.filterSwitch.tag = PRICE_FILTER;
-        
-    } else if (indexPath.section == CATEGORY_FILTER) {
+        cell.priceSwitch.tag = PRICE_FILTER;
+    }
+    
+    cell.priceSwitch.enabled = TRUE;
+    [cell.priceSwitch addTarget:self action:@selector(toggleCustomSwitch:) forControlEvents:UIControlEventValueChanged];
+    
+    return cell;
+}
+
+
+
+- (UITableViewCell *)configureFilterSwitchCell:(BTRFilterWithSwitchTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+    
+    
+  if (indexPath.section == CATEGORY_FILTER) {
         
         if ([self.categoriesArray count] == 0) {
             

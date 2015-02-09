@@ -57,6 +57,7 @@
 		69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FBF1A640EFF00F986BC /* UIRefreshControl+AFNetworking.m */; };
 		69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */; };
 		69A6852E1A852F6B00F870E5 /* BTRFilterSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A6852D1A852F6B00F870E5 /* BTRFilterSwitch.m */; };
+		69A685341A89070200F870E5 /* BTRFilterByPriceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A685331A89070200F870E5 /* BTRFilterByPriceTableViewCell.m */; };
 		69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98381A6E95C300EDB1E6 /* searchglass.png */; };
 		69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */; };
 		69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */; };
@@ -201,6 +202,8 @@
 		69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		69A6852C1A852F6B00F870E5 /* BTRFilterSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterSwitch.h; sourceTree = "<group>"; };
 		69A6852D1A852F6B00F870E5 /* BTRFilterSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterSwitch.m; sourceTree = "<group>"; };
+		69A685321A89070200F870E5 /* BTRFilterByPriceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterByPriceTableViewCell.h; sourceTree = "<group>"; };
+		69A685331A89070200F870E5 /* BTRFilterByPriceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterByPriceTableViewCell.m; sourceTree = "<group>"; };
 		69AB98381A6E95C300EDB1E6 /* searchglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchglass.png; sourceTree = "<group>"; };
 		69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchViewController.h; sourceTree = "<group>"; };
 		69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchViewController.m; sourceTree = "<group>"; };
@@ -339,6 +342,8 @@
 				69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */,
 				69A6852C1A852F6B00F870E5 /* BTRFilterSwitch.h */,
 				69A6852D1A852F6B00F870E5 /* BTRFilterSwitch.m */,
+				69A685321A89070200F870E5 /* BTRFilterByPriceTableViewCell.h */,
+				69A685331A89070200F870E5 /* BTRFilterByPriceTableViewCell.m */,
 			);
 			name = View;
 			path = view;
@@ -762,6 +767,7 @@
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				69869F9B1A63FB2100F986BC /* AFNetworkReachabilityManager.m in Sources */,
 				69B02CFB1A605A7500040C86 /* General3+AppServer.m in Sources */,
+				69A685341A89070200F870E5 /* BTRFilterByPriceTableViewCell.m in Sources */,
 				69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */,
 				69869F981A63FB2100F986BC /* AFHTTPRequestOperation.m in Sources */,
 				69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */,
