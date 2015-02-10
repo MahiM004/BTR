@@ -243,7 +243,7 @@
 
     }
 
-    else if (indexPath.section != SORT_SECTION /*indexPath.section == BRAND_FILTER || indexPath.section == COLOR_FILTER || indexPath.section == SIZE_FILTER*/) {
+    else if (indexPath.section != SORT_SECTION) {
     
         BTRFilterWithModalTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByModalCellIdentifier" forIndexPath:indexPath];
         
@@ -430,34 +430,23 @@
         
             if ([[[(UIButton *)sender titleLabel] text] isEqualToString:BRAND_TITLE]) {
                 
-                destModalVC.itemsArray = [self brandsArray];
-                destModalVC.selectedItemsArray = [self selectedBrands];
-                destModalVC.headerTitle = BRAND_TITLE;
+                [self prepareModalVC:destModalVC withItemsArray:[self brandsArray] withSelectedItemsArray:[self selectedBrands] andTitle:BRAND_TITLE];
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:COLOR_TITLE]) {
              
-                destModalVC.itemsArray = [self colorsArray];
-                destModalVC.selectedItemsArray = [self selectedColors];
-                destModalVC.headerTitle = COLOR_TITLE;
+                [self prepareModalVC:destModalVC withItemsArray:[self colorsArray] withSelectedItemsArray:[self selectedColors] andTitle:COLOR_TITLE];
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:SIZE_TITLE]) {
                 
-                destModalVC.itemsArray = [self sizesArray];
-                destModalVC.selectedItemsArray = [self selectedSizes];
-                destModalVC.headerTitle = SIZE_TITLE;
-        
+                [self prepareModalVC:destModalVC withItemsArray:[self sizesArray] withSelectedItemsArray:[self selectedSizes] andTitle:SIZE_TITLE];
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:CATEGORY_TITLE]) {
                 
-                destModalVC.itemsArray = [self categoriesArray];
-                destModalVC.selectedItemsArray = [self selectedCategories];
-                destModalVC.headerTitle = CATEGORY_TITLE;
+                [self prepareModalVC:destModalVC withItemsArray:[self categoriesArray] withSelectedItemsArray:[self selectedCategories] andTitle:CATEGORY_TITLE];
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:PRICE_TITLE]) {
                 
-                destModalVC.itemsArray = [self pricesArray];
-                destModalVC.selectedItemsArray = [self selectedPrices];
-                destModalVC.headerTitle = PRICE_TITLE;
+                [self prepareModalVC:destModalVC withItemsArray:[self pricesArray] withSelectedItemsArray:[self selectedPrices] andTitle:PRICE_TITLE];
             }
         
             destModalVC.modalDelegate = self;
@@ -467,7 +456,14 @@
     
 }
 
-
+- (BTRModalFilterSelectionVC *)prepareModalVC:(BTRModalFilterSelectionVC *)destModalVC withItemsArray:(NSMutableArray *)itemsArray withSelectedItemsArray:(NSMutableArray *)selectedItemArray andTitle:(NSString *)title {
+    
+    destModalVC.itemsArray = itemsArray;
+    destModalVC.selectedItemsArray = selectedItemArray;
+    destModalVC.headerTitle = title;
+    
+    return destModalVC;
+}
 - (void)viewWillDisappear:(BOOL)animated {
     
     
