@@ -244,35 +244,7 @@
         return  [self configureSortCell:sortCell forIndexPath:indexPath];
 
     }
-    /*
-    else if (indexPath.section == PRICE_FILTER ) {
-        
-        BTRFilterByPriceTableViewCell *priceCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
-        
-        if (priceCell == nil) {
-            
-            priceCell = [[BTRFilterByPriceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByPriceCellIdentifier"];
-        }
-        
-        cell =  [self configureFilterByPriceCell:priceCell forIndexPath:indexPath];
-        
-    }
-    
-    else if (indexPath.section == CATEGORY_FILTER) {
-        
-        
-        BTRFilterByCategoryTableViewCell *filterSwitchCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterBySwitchCellIdentifier" forIndexPath:indexPath];
-        
-        if (filterSwitchCell == nil) {
-            
-            filterSwitchCell = [[BTRFilterByCategoryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterBySwitchCellIdentifier"];
-        }
-        
-        cell =  [self configureFilterSwitchCell:filterSwitchCell forIndexPath:indexPath];
-        
-        
-    }
-    */
+
     else if (indexPath.section != SORT_SECTION /*indexPath.section == BRAND_FILTER || indexPath.section == COLOR_FILTER || indexPath.section == SIZE_FILTER*/) {
     
         BTRFilterWithModalTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByModalCellIdentifier" forIndexPath:indexPath];
@@ -519,13 +491,13 @@
                 
                 destModalVC.itemsArray = [self categoriesArray];
                 destModalVC.selectedItemsArray = [self selectedCategories];
-                destModalVC.headerTitle = SIZE_TITLE;
+                destModalVC.headerTitle = CATEGORY_TITLE;
             }
             else if ([(UIButton *)sender tag] == PRICE_FILTER ) {
                 
                 destModalVC.itemsArray = [self pricesArray];
                 destModalVC.selectedItemsArray = [self selectedPrices];
-                destModalVC.headerTitle = SIZE_TITLE;
+                destModalVC.headerTitle = PRICE_TITLE;
             }
         
             destModalVC.modalDelegate = self;
