@@ -401,7 +401,7 @@
 }
 
 
-+ (NSString *)priceRangeForAPIReadableFromLabelString:(NSString *)labelString {
+- (NSString *)priceRangeForAPIReadableFromLabelString:(NSString *)labelString {
     
     
     if ([labelString containsString:@"$0 to $200"]) {
