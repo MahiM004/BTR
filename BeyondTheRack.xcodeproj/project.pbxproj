@@ -14,7 +14,6 @@
 		69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F081A7C240F00C52FC5 /* fullrange.png */; };
 		69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F091A7C240F00C52FC5 /* rangethumb.png */; };
 		69659F0E1A7C259F00C52FC5 /* fillrangeblue.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */; };
-		69659F181A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F171A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.m */; };
 		69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */; };
 		69659F1E1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F1D1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m */; };
 		69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */; };
@@ -56,8 +55,6 @@
 		69869FC71A640F0000F986BC /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FBD1A640EFF00F986BC /* UIProgressView+AFNetworking.m */; };
 		69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FBF1A640EFF00F986BC /* UIRefreshControl+AFNetworking.m */; };
 		69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */; };
-		69A6852E1A852F6B00F870E5 /* BTRFilterSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A6852D1A852F6B00F870E5 /* BTRFilterSwitch.m */; };
-		69A685341A89070200F870E5 /* BTRFilterByPriceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A685331A89070200F870E5 /* BTRFilterByPriceTableViewCell.m */; };
 		69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98381A6E95C300EDB1E6 /* searchglass.png */; };
 		69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */; };
 		69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB98471A71877E00EDB1E6 /* BTRItemFetcher.m */; };
@@ -118,8 +115,6 @@
 		69659F081A7C240F00C52FC5 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullrange.png; sourceTree = "<group>"; };
 		69659F091A7C240F00C52FC5 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rangethumb.png; sourceTree = "<group>"; };
 		69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillrangeblue.png; sourceTree = "<group>"; };
-		69659F161A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterByCategoryTableViewCell.h; sourceTree = "<group>"; };
-		69659F171A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterByCategoryTableViewCell.m; sourceTree = "<group>"; };
 		69659F191A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterWithModalTableViewCell.h; sourceTree = "<group>"; };
 		69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterWithModalTableViewCell.m; sourceTree = "<group>"; };
 		69659F1C1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRModalFilterSelectionVC.h; sourceTree = "<group>"; };
@@ -200,10 +195,6 @@
 		69869FBF1A640EFF00F986BC /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		69869FC01A640F0000F986BC /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		69869FC11A640F0000F986BC /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		69A6852C1A852F6B00F870E5 /* BTRFilterSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterSwitch.h; sourceTree = "<group>"; };
-		69A6852D1A852F6B00F870E5 /* BTRFilterSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterSwitch.m; sourceTree = "<group>"; };
-		69A685321A89070200F870E5 /* BTRFilterByPriceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterByPriceTableViewCell.h; sourceTree = "<group>"; };
-		69A685331A89070200F870E5 /* BTRFilterByPriceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterByPriceTableViewCell.m; sourceTree = "<group>"; };
 		69AB98381A6E95C300EDB1E6 /* searchglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchglass.png; sourceTree = "<group>"; };
 		69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchViewController.h; sourceTree = "<group>"; };
 		69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchViewController.m; sourceTree = "<group>"; };
@@ -336,14 +327,8 @@
 			children = (
 				69AB984B1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.h */,
 				69AB984C1A72AE4C00EDB1E6 /* BTRItemShowcaseTableViewCell.m */,
-				69659F161A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.h */,
-				69659F171A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.m */,
 				69659F191A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.h */,
 				69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */,
-				69A6852C1A852F6B00F870E5 /* BTRFilterSwitch.h */,
-				69A6852D1A852F6B00F870E5 /* BTRFilterSwitch.m */,
-				69A685321A89070200F870E5 /* BTRFilterByPriceTableViewCell.h */,
-				69A685331A89070200F870E5 /* BTRFilterByPriceTableViewCell.m */,
 			);
 			name = View;
 			path = view;
@@ -775,11 +760,9 @@
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				69869F9B1A63FB2100F986BC /* AFNetworkReachabilityManager.m in Sources */,
 				69B02CFB1A605A7500040C86 /* General3+AppServer.m in Sources */,
-				69A685341A89070200F870E5 /* BTRFilterByPriceTableViewCell.m in Sources */,
 				69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */,
 				69869F981A63FB2100F986BC /* AFHTTPRequestOperation.m in Sources */,
 				69B02CEF1A605A0400040C86 /* ShippingAddress+AppServer.m in Sources */,
-				69659F181A7FE28500C52FC5 /* BTRFilterByCategoryTableViewCell.m in Sources */,
 				69869FC91A640F0000F986BC /* UIWebView+AFNetworking.m in Sources */,
 				69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */,
 				69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */,
@@ -787,7 +770,6 @@
 				69B02CAD1A5DA70700040C86 /* BTREventsCDTVC.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				69869F9C1A63FB2100F986BC /* AFSecurityPolicy.m in Sources */,
-				69A6852E1A852F6B00F870E5 /* BTRFilterSwitch.m in Sources */,
 				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,
 				69869FC51A640F0000F986BC /* UIButton+AFNetworking.m in Sources */,
 				697E05811A434121000146C6 /* BTRUtility.m in Sources */,

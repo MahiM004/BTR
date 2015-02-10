@@ -9,9 +9,7 @@
 #import "BTRSearchFilterTVC.h"
 #import "BTRModalFilterSelectionVC.h"
 
-#import "BTRFilterByCategoryTableViewCell.h"
 #import "BTRFilterWithModalTableViewCell.h"
-#import "BTRFilterByPriceTableViewCell.h"
 
 #define SORT_SECTION 0
 #define PRICE_FILTER 1
@@ -23,7 +21,7 @@
 #define BRAND_TITLE @"Brand"
 #define COLOR_TITLE @"Color"
 #define SIZE_TITLE @"Size"
-#define CATEGORY_TITLE @"Category"
+#define CATEGORY_TITLE @"Type"
 #define PRICE_TITLE @"Price"
 
 
@@ -117,7 +115,7 @@
     [super viewDidLoad];
 
     selectedSortIndex = 0;
-    self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", @"FILTER BY PRICE", @"FILTER BY CATEGORY", @"FILTER BY BRANDS", @"FILTER BY COLORS", @"FILTER BY SIZE"]];
+    self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", PRICE_TITLE, CATEGORY_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
 
     
 }
@@ -187,10 +185,10 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-
-    return [NSString stringWithFormat:@"        %@", [self.titles objectAtIndex:section]];
+    if (section == SORT_SECTION)
+        return [NSString stringWithFormat:@"        %@", [self.titles objectAtIndex:section]];
+    return [NSString stringWithFormat:@"        FILTER BY %@", [self.titles objectAtIndex:section]];
 }
-
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
@@ -339,119 +337,81 @@
 
 - (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     
-    cell.rowLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
-    cell.rowButton.enabled = TRUE;
-    
     if (indexPath.section == BRAND_FILTER) {
         
-        if ([self.brandsArray count] > 0) {
-            
-            if ([self.selectedBrands count] == 0) {
-                cell.rowLabel.text = [NSString stringWithFormat:@"All Brands"];
-            }
-            else {
-                cell.rowLabel.text = [self.selectedBrands objectAtIndex:indexPath.row];
-            }
-            
-        } else if ([self.brandsArray count] == 0) {
-            
-            cell.rowLabel.text = [NSString stringWithFormat:@"No Brand Selection Available"];
-            cell.rowLabel.textColor = [UIColor lightGrayColor];
-            cell.rowButton.enabled = FALSE;
-        }
-        cell.rowButton.tag = BRAND_FILTER;
+        cell = [self configureCellForCell:cell
+                        withSectionString:BRAND_TITLE
+                       withSelectionArray:[self selectedBrands]
+                                withIndex:indexPath.row
+                          selectionExists:(BOOL)[[self brandsArray] count]];
         
     } else if (indexPath.section == COLOR_FILTER) {
         
-        if ([self.colorsArray count] > 0) {
-            
-            if ([self.selectedColors count] == 0) {
-                
-                cell.rowLabel.text = [NSString stringWithFormat:@"All Colors"];
-            }
-            else {
-                
-                cell.rowLabel.text = [self.selectedColors objectAtIndex:indexPath.row];
-            }
-            
-        } else if ([self.colorsArray count] == 0) {
-            
-            cell.rowLabel.text = [NSString stringWithFormat:@"No Color Selection Available"];
-            cell.rowLabel.textColor = [UIColor lightGrayColor];
-            cell.rowButton.enabled = FALSE;
-        }
-        
-        cell.rowButton.tag = COLOR_FILTER;
+        cell = [self configureCellForCell:cell
+                        withSectionString:COLOR_TITLE
+                       withSelectionArray:[self selectedColors]
+                                withIndex:indexPath.row
+                          selectionExists:(BOOL)[[self colorsArray] count]];
         
     } else if (indexPath.section == SIZE_FILTER) {
         
-        if ([self.sizesArray count] > 0) {
-            
-            if ([self.selectedSizes count] == 0) {
-                
-                cell.rowLabel.text = [NSString stringWithFormat:@"All Sizes"];
-            }
-            else {
-                
-                cell.rowLabel.text = [self.selectedSizes objectAtIndex:indexPath.row];
-            }
-            
-        } else if([self.sizesArray count] == 0) {
-            
-            cell.rowLabel.text = [NSString stringWithFormat:@"No Size Selection Available"];
-            cell.rowLabel.textColor = [UIColor lightGrayColor];
-            cell.rowButton.enabled = FALSE;
-        }
-        
-        cell.rowButton.tag = SIZE_FILTER;
+        cell = [self configureCellForCell:cell
+                        withSectionString:SIZE_TITLE
+                       withSelectionArray:[self selectedSizes]
+                                withIndex:indexPath.row
+                          selectionExists:(BOOL)[[self sizesArray] count]];
 
     } else if (indexPath.section == CATEGORY_FILTER) {
         
-        if ([self.categoriesArray count] > 0) {
-            
-            if ([self.selectedCategories count] == 0) {
-                
-                cell.rowLabel.text = [NSString stringWithFormat:@"All Categories"];
-            }
-            else {
-                
-                cell.rowLabel.text = [self.selectedCategories objectAtIndex:indexPath.row];
-            }
-            
-        } else if([self.categoriesArray count] == 0) {
-            
-            cell.rowLabel.text = [NSString stringWithFormat:@"No Category Selection Available"];
-            cell.rowLabel.textColor = [UIColor lightGrayColor];
-            cell.rowButton.enabled = FALSE;
-        }
-        
-        cell.rowButton.tag = CATEGORY_FILTER;
+        cell = [self configureCellForCell:cell
+                        withSectionString:CATEGORY_TITLE
+                       withSelectionArray:[self selectedCategories]
+                                withIndex:indexPath.row
+                          selectionExists:(BOOL)[[self categoriesArray] count]];
         
     } else if (indexPath.section == PRICE_FILTER) {
         
-        if ([self.pricesArray count] > 0) {
-            
-            if ([self.selectedPrices count] == 0) {
-                
-                cell.rowLabel.text = [NSString stringWithFormat:@"All Price Ranges"];
-            }
-            else {
-                
-                cell.rowLabel.text = [self.selectedPrices objectAtIndex:indexPath.row];
-            }
-            
-        } else if([self.pricesArray count] == 0) {
-            
-            cell.rowLabel.text = [NSString stringWithFormat:@"No Price Range Selection Available"];
-            cell.rowLabel.textColor = [UIColor lightGrayColor];
-            cell.rowButton.enabled = FALSE;
+        cell = [self configureCellForCell:cell
+                        withSectionString:PRICE_TITLE
+                       withSelectionArray:[self selectedPrices]
+                                withIndex:indexPath.row
+                          selectionExists:(BOOL)[[self pricesArray] count]];
+    }
+    
+
+    return cell;
+}
+
+
+- (BTRFilterWithModalTableViewCell *)configureCellForCell:(BTRFilterWithModalTableViewCell *)cell withSectionString:(NSString *)sectionString withSelectionArray:(NSArray *)selectionArray withIndex:(NSUInteger)index selectionExists:(BOOL)selectionExists {
+    
+    
+    cell.rowLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
+    cell.rowButton.enabled = TRUE;
+    
+    if (selectionExists) {
+        
+        if ([selectionArray count] == 0) {
+            cell.rowLabel.text = [NSString stringWithFormat:@"All %@s", sectionString];
+        }
+        else {
+            cell.rowLabel.text = [selectionArray objectAtIndex:index];
         }
         
-        cell.rowButton.tag = PRICE_FILTER;
+    } else if (!selectionExists) {
+        
+        cell.rowLabel.text = [NSString stringWithFormat:@"No %@ Selection Available", sectionString];
+        cell.rowLabel.textColor = [UIColor lightGrayColor];
+        cell.rowButton.enabled = FALSE;
     }
+    
+    cell.rowButton.titleLabel.text = sectionString;
+    cell.rowButton.titleLabel.textColor = [UIColor clearColor];
+    
     
     cell.textLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
 
+    
     return cell;
 }
 
@@ -468,32 +428,32 @@
             
             BTRModalFilterSelectionVC *destModalVC = [segue destinationViewController];
         
-            if ([(UIButton *)sender tag] == BRAND_FILTER ) {
+            if ([[[(UIButton *)sender titleLabel] text] isEqualToString:BRAND_TITLE]) {
                 
                 destModalVC.itemsArray = [self brandsArray];
                 destModalVC.selectedItemsArray = [self selectedBrands];
                 destModalVC.headerTitle = BRAND_TITLE;
             }
-            else if ([(UIButton *)sender tag] == COLOR_FILTER ) {
+            else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:COLOR_TITLE]) {
              
                 destModalVC.itemsArray = [self colorsArray];
                 destModalVC.selectedItemsArray = [self selectedColors];
                 destModalVC.headerTitle = COLOR_TITLE;
             }
-            else if ([(UIButton *)sender tag] == SIZE_FILTER ) {
+            else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:SIZE_TITLE]) {
                 
                 destModalVC.itemsArray = [self sizesArray];
                 destModalVC.selectedItemsArray = [self selectedSizes];
                 destModalVC.headerTitle = SIZE_TITLE;
         
             }
-            else if ([(UIButton *)sender tag] == CATEGORY_FILTER ) {
+            else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:CATEGORY_TITLE]) {
                 
                 destModalVC.itemsArray = [self categoriesArray];
                 destModalVC.selectedItemsArray = [self selectedCategories];
                 destModalVC.headerTitle = CATEGORY_TITLE;
             }
-            else if ([(UIButton *)sender tag] == PRICE_FILTER ) {
+            else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:PRICE_TITLE]) {
                 
                 destModalVC.itemsArray = [self pricesArray];
                 destModalVC.selectedItemsArray = [self selectedPrices];
