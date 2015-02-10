@@ -23,6 +23,8 @@
 #define BRAND_TITLE @"Brand"
 #define COLOR_TITLE @"Color"
 #define SIZE_TITLE @"Size"
+#define CATEGORY_TITLE @"Category"
+#define PRICE_TITLE @"Price"
 
 
 
@@ -140,17 +142,25 @@
     if (section == SORT_SECTION)
         return 3;
     
+    else if (section == SIZE_FILTER) {
+        
+        if ([self.selectedSizes count] != 0)
+            return [self.selectedSizes count];
+        else
+            return 1;
+    }
+    
     else if (section == PRICE_FILTER) {
         
-        if ([self.pricesArray count] != 0)
-            return [self.pricesArray count];
+        if ([self.selectedPrices count] != 0)
+            return [self.selectedPrices count];
         else
             return 1;
         
     } else if (section == CATEGORY_FILTER) {
         
-        if ([self.categoriesArray count] != 0)
-            return [self.categoriesArray count];
+        if ([self.selectedCategories count] != 0)
+            return [self.selectedCategories count];
         else
             return 1;
         
@@ -167,14 +177,8 @@
             return [self.selectedColors count];
         else
             return 1;
-        
-    } else if (section == SIZE_FILTER) {
-        
-        if ([self.selectedSizes count] != 0)
-            return [self.selectedSizes count];
-        else
-            return 1;
     }
+    
     
     return 1;
 
@@ -239,7 +243,9 @@
         
         return  [self configureSortCell:sortCell forIndexPath:indexPath];
 
-    } else if (indexPath.section == PRICE_FILTER ) {
+    }
+    /*
+    else if (indexPath.section == PRICE_FILTER ) {
         
         BTRFilterByPriceTableViewCell *priceCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByPriceCellIdentifier" forIndexPath:indexPath];
         
@@ -250,7 +256,9 @@
         
         cell =  [self configureFilterByPriceCell:priceCell forIndexPath:indexPath];
         
-    } else if (indexPath.section == CATEGORY_FILTER) {
+    }
+    
+    else if (indexPath.section == CATEGORY_FILTER) {
         
         
         BTRFilterByCategoryTableViewCell *filterSwitchCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterBySwitchCellIdentifier" forIndexPath:indexPath];
@@ -263,7 +271,9 @@
         cell =  [self configureFilterSwitchCell:filterSwitchCell forIndexPath:indexPath];
         
         
-    } else if (indexPath.section == BRAND_FILTER || indexPath.section == COLOR_FILTER || indexPath.section == SIZE_FILTER) {
+    }
+    */
+    else if (indexPath.section != SORT_SECTION /*indexPath.section == BRAND_FILTER || indexPath.section == COLOR_FILTER || indexPath.section == SIZE_FILTER*/) {
     
         BTRFilterWithModalTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByModalCellIdentifier" forIndexPath:indexPath];
         
@@ -313,90 +323,6 @@
     }
     
     return  cell;
-    
-}
-
-
-- (UITableViewCell *)configureFilterByPriceCell:(BTRFilterByPriceTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
-    
-    
-    if (indexPath.section == PRICE_FILTER) {
-        
-        if ([self.pricesArray count] == 0) {
-            
-            cell.priceLabel.text = [NSString stringWithFormat:@"No Price Selection Available"];
-            cell.priceSwitch.enabled = FALSE;
-            
-        } else {
-            cell.priceLabel.text = [self.pricesArray objectAtIndex:indexPath.row];
-            cell.priceSwitch.stringValue = [self.pricesArray objectAtIndex:indexPath.row];
-        }
-        
-        cell.priceSwitch.tag = PRICE_FILTER;
-    }
-    
-    cell.priceSwitch.enabled = TRUE;
-    [cell.priceSwitch addTarget:self action:@selector(togglePriceSwitch:) forControlEvents:UIControlEventValueChanged];
-    
-    return cell;
-}
-
-
-
-- (UITableViewCell *)configureFilterSwitchCell:(BTRFilterByCategoryTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
-    
-    
-  if (indexPath.section == CATEGORY_FILTER) {
-        
-        if ([self.categoriesArray count] == 0) {
-            
-            cell.categoryLabel.text = [NSString stringWithFormat:@"No Category Selection Available"];
-            cell.categorySwitch.enabled = FALSE;
-            
-        } else {
-            cell.categoryLabel.text = [self.categoriesArray objectAtIndex:indexPath.row];
-            cell.categorySwitch.stringValue = [self.categoriesArray objectAtIndex:indexPath.row];
-        }
-        
-        cell.categorySwitch.tag = CATEGORY_FILTER;
-    
-    }
-    
-    cell.categorySwitch.enabled = TRUE;
-    [cell.categorySwitch addTarget:self action:@selector(toggleCategorySwitch:) forControlEvents:UIControlEventValueChanged];
-    
-    return cell;
-}
-
-
-- (void)toggleCategorySwitch:(id)sender {
-    
-    BTRFilterSwitch *tempSwitch = (BTRFilterSwitch *)sender;
-    
-    if (tempSwitch.on) {
-
-            [self.selectedCategories addObject:[tempSwitch stringValue]];
-    }
-    else if (!tempSwitch.on){
-        
-        [self.selectedCategories removeObject:[tempSwitch stringValue]];
-    }
-    
-}
-
-- (void)togglePriceSwitch:(id)sender {
-    
-    BTRFilterSwitch *tempSwitch = (BTRFilterSwitch *)sender;
-    
-    if (tempSwitch.on) {
-        
-        [self.selectedPrices addObject:[self priceRangeForAPIReadableFromLabelString:[[tempSwitch stringValue] componentsSeparatedByString:@":"][0]]];
-    }
-    else if (!tempSwitch.on){
-
-        [self.selectedPrices removeObject:[self priceRangeForAPIReadableFromLabelString:[[tempSwitch stringValue] componentsSeparatedByString:@":"][0]]];
-        
-    }
     
 }
 
@@ -506,11 +432,53 @@
         }
         
         cell.rowButton.tag = SIZE_FILTER;
+
+    } else if (indexPath.section == CATEGORY_FILTER) {
+        
+        if ([self.categoriesArray count] > 0) {
+            
+            if ([self.selectedCategories count] == 0) {
+                
+                cell.rowLabel.text = [NSString stringWithFormat:@"All Categories"];
+            }
+            else {
+                
+                cell.rowLabel.text = [self.selectedCategories objectAtIndex:indexPath.row];
+            }
+            
+        } else if([self.categoriesArray count] == 0) {
+            
+            cell.rowLabel.text = [NSString stringWithFormat:@"No Category Selection Available"];
+            cell.rowLabel.textColor = [UIColor lightGrayColor];
+            cell.rowButton.enabled = FALSE;
+        }
+        
+        cell.rowButton.tag = CATEGORY_FILTER;
+        
+    } else if (indexPath.section == PRICE_FILTER) {
+        
+        if ([self.pricesArray count] > 0) {
+            
+            if ([self.selectedPrices count] == 0) {
+                
+                cell.rowLabel.text = [NSString stringWithFormat:@"All Price Ranges"];
+            }
+            else {
+                
+                cell.rowLabel.text = [self.selectedPrices objectAtIndex:indexPath.row];
+            }
+            
+        } else if([self.pricesArray count] == 0) {
+            
+            cell.rowLabel.text = [NSString stringWithFormat:@"No Price Range Selection Available"];
+            cell.rowLabel.textColor = [UIColor lightGrayColor];
+            cell.rowButton.enabled = FALSE;
+        }
+        
+        cell.rowButton.tag = PRICE_FILTER;
     }
     
-    
     cell.textLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
-
 
     return cell;
 }
@@ -545,8 +513,21 @@
                 destModalVC.itemsArray = [self sizesArray];
                 destModalVC.selectedItemsArray = [self selectedSizes];
                 destModalVC.headerTitle = SIZE_TITLE;
+        
             }
-            
+            else if ([(UIButton *)sender tag] == CATEGORY_FILTER ) {
+                
+                destModalVC.itemsArray = [self categoriesArray];
+                destModalVC.selectedItemsArray = [self selectedCategories];
+                destModalVC.headerTitle = SIZE_TITLE;
+            }
+            else if ([(UIButton *)sender tag] == PRICE_FILTER ) {
+                
+                destModalVC.itemsArray = [self pricesArray];
+                destModalVC.selectedItemsArray = [self selectedPrices];
+                destModalVC.headerTitle = SIZE_TITLE;
+            }
+        
             destModalVC.modalDelegate = self;
         }
     }
@@ -583,17 +564,10 @@
     for (int i = 0; i < [self.selectedPrices count]; i++)
         [pricesArray addObject:[[self.selectedPrices objectAtIndex:i] componentsSeparatedByString:@":"][0]];
     
-    NSMutableArray *sortArray = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < [self.selectedBrands count]; i++)
-        [sortArray addObject:[[self.selectedBrands objectAtIndex:i] componentsSeparatedByString:@":"][0]];
-    
-    
     [self.queryRefineArray addObject:pricesArray];
     [self.queryRefineArray addObject:categoriesArray];
     [self.queryRefineArray addObject:brandsArray];
     [self.queryRefineArray addObject:colorsArray];
-    [self.queryRefineArray addObject:sizesArray];
     
     if ([self.delegate respondsToSelector:@selector(searchRefineOptionChosen:)]) {
         [self.delegate searchRefineOptionChosen:[self queryRefineArray]];
@@ -619,7 +593,10 @@
         self.selectedColors = selectedItemsArray;
     else if ([titleString isEqualToString:SIZE_TITLE])
         self.selectedSizes = selectedItemsArray;
-    
+    else if ([titleString isEqualToString:CATEGORY_TITLE])
+        self.selectedCategories = selectedItemsArray;
+    else if ([titleString isEqualToString:PRICE_TITLE])
+            self.selectedPrices = selectedItemsArray;
 
     [self.tableView reloadData];
 }

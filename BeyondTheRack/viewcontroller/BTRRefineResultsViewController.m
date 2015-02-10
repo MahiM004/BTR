@@ -28,16 +28,18 @@
 
 @synthesize backgroundImage;
 
-- (NSMutableArray *)priceFilter {
-    
-    if (!_priceFilter) _priceFilter = [[NSMutableArray alloc] init];
-    return _priceFilter;
-}
+
 
 - (NSMutableArray *)sortOptions{
     
     if (!_sortOptions) _sortOptions = [[NSMutableArray alloc] init];
     return _sortOptions;
+}
+
+- (NSMutableArray *)priceFilter {
+    
+    if (!_priceFilter) _priceFilter = [[NSMutableArray alloc] init];
+    return _priceFilter;
 }
 
 - (NSMutableArray *)categoryFilter{
@@ -70,9 +72,6 @@
     [super viewDidLoad];
 
     [self extractFilterFacetsWithFacetQueries:[self facetQueriesDictionary] andFacetFields:[self facetFieldsDictionary]];
-
-    
-    
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
     self.headerView.opaque = NO;
@@ -169,7 +168,7 @@
         embedTVC.brandsArray = self.brandFilter;
         embedTVC.colorsArray = self.colorFilter;
         embedTVC.categoriesArray = self.categoryFilter;
-        
+        embedTVC.sizesArray = self.sizeFilter;
         embedTVC.delegate = self;
     }
     

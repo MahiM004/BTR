@@ -460,6 +460,14 @@
 			path = "UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
+		69A685351A8A65F300F870E5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				69B02CBF1A60304000040C86 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		69AB98311A6D50E300EDB1E6 /* BTRHelpClasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -565,7 +573,7 @@
 			isa = PBXGroup;
 			children = (
 				69FF40651A3F8939000BD092 /* BeyondTheRack */,
-				69B02CBF1A60304000040C86 /* CoreData.framework */,
+				69A685351A8A65F300F870E5 /* Frameworks */,
 				69FF40821A3F8939000BD092 /* BeyondTheRackTests */,
 				69FF40641A3F8939000BD092 /* Products */,
 			);
