@@ -390,15 +390,53 @@
     
     if (tempSwitch.on) {
         
-        [self.selectedPrices addObject:[tempSwitch stringValue]];
+        [self.selectedPrices addObject:[self priceRangeForAPIReadableFromLabelString:[[tempSwitch stringValue] componentsSeparatedByString:@":"][0]]];
     }
     else if (!tempSwitch.on){
-        
-        [self.selectedPrices removeObject:[tempSwitch stringValue]];
+
+        [self.selectedPrices removeObject:[self priceRangeForAPIReadableFromLabelString:[[tempSwitch stringValue] componentsSeparatedByString:@":"][0]]];
         
     }
     
 }
+
+
++ (NSString *)priceRangeForAPIReadableFromLabelString:(NSString *)labelString {
+    
+    
+    if ([labelString containsString:@"$0 to $200"]) {
+        
+        return @"[0 TO 200]";
+    }
+    else if ([labelString containsString:@"$200 to $400"]) {
+        
+        return @"[200 TO 400]";
+        
+    }
+    else if ([labelString containsString:@"$400 to $600"]) {
+        
+        return @"[400 TO 600]";
+        
+    }
+    else if ([labelString containsString:@"$600 to $800"]) {
+        
+        return @"[600 TO 800]";
+        
+    }
+    else if ([labelString containsString:@"$800 to $1000"]) {
+        
+        return @"[800 TO 1000]";
+        
+    }
+    else if ([labelString containsString:@"$1000 to *"]) {
+        
+        return @"[1000 TO *]";
+    }
+    
+    return nil;
+    
+}
+
 
 
 - (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
@@ -519,7 +557,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     
-    // 1. construct the string 2. setup delegates 3. perform the request
     
     NSMutableArray *brandsArray = [[NSMutableArray alloc] init];
 
