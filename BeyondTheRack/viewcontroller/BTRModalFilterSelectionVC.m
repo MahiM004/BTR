@@ -14,16 +14,15 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
-@property (strong, nonatomic) NSDictionary *facetsDictionary;
 
 @end
 
 @implementation BTRModalFilterSelectionVC
 
-- (NSMutableArray *)selectedItemsArray {
+- (NSMutableArray *)selectedOptionsArray {
     
-    if (!_selectedItemsArray) _selectedItemsArray = [[NSMutableArray alloc] init];
-    return _selectedItemsArray;
+    if (!_selectedOptionsArray) _selectedOptionsArray = [[NSMutableArray alloc] init];
+    return _selectedOptionsArray;
 }
 
 
@@ -44,7 +43,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     
-    return [[self itemsArray] count];
+    return [[self optionsArray] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -58,9 +57,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [self.itemsArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [self.optionsArray objectAtIndex:indexPath.row];
     
-    if ([self isItemSelected:[self.itemsArray objectAtIndex:indexPath.row]] >= 0){
+    if ([self isOptionSelected:[self.optionsArray objectAtIndex:indexPath.row]] >= 0){
         
         cell.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -77,14 +76,14 @@
 
 
 
-- (int)isItemSelected:(NSString *)itemString
+- (int)isOptionSelected:(NSString *)optionString
 {
-    if ([self.selectedItemsArray count] == 0)
+    if ([self.selectedOptionsArray count] == 0)
         return -1;
     
-    for(NSString *item in  self.selectedItemsArray) {
+    for(NSString *item in  self.selectedOptionsArray) {
         
-        if([itemString isEqualToString:item]) {
+        if([optionString isEqualToString:item]) {
             
             return 1;
             break;
@@ -105,14 +104,14 @@
         cell.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
-        [self.selectedItemsArray addObject:[[cell textLabel] text]];
+        [self.selectedOptionsArray addObject:[[cell textLabel] text]];
         
     } else {
         
         cell.backgroundColor = [UIColor whiteColor];
         cell.accessoryType = UITableViewCellAccessoryNone;
 
-        [self.selectedItemsArray removeObject:[[cell textLabel] text]];
+        [self.selectedOptionsArray removeObject:[[cell textLabel] text]];
     }
     
 }
@@ -130,10 +129,10 @@
     
      */
     
-    [self.selectedItemsArray removeAllObjects];
+    [self.selectedOptionsArray removeAllObjects];
     
     if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
-        [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedItemsArray] withTitle:[self headerTitle]];
+        [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];
     }
 
     [self dismissViewControllerAnimated:YES completion:NULL];
@@ -148,7 +147,7 @@
      */
     
     if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
-        [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedItemsArray] withTitle:[self headerTitle]];
+        [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];
     }
     
     [self dismissViewControllerAnimated:YES completion:NULL];

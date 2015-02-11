@@ -458,8 +458,8 @@
 
 - (BTRModalFilterSelectionVC *)prepareModalVC:(BTRModalFilterSelectionVC *)destModalVC withItemsArray:(NSMutableArray *)itemsArray withSelectedItemsArray:(NSMutableArray *)selectedItemArray andTitle:(NSString *)title {
     
-    destModalVC.itemsArray = itemsArray;
-    destModalVC.selectedItemsArray = selectedItemArray;
+    destModalVC.optionsArray = itemsArray;
+    destModalVC.selectedOptionsArray = selectedItemArray;
     destModalVC.headerTitle = title;
     
     return destModalVC;

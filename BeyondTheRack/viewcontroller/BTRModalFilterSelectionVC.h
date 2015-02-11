@@ -19,11 +19,14 @@
 
 
 @property (strong, nonatomic) NSString *headerTitle;
-@property (strong, nonatomic) NSMutableArray *itemsArray;
-@property (strong, nonatomic) NSMutableArray *selectedItemsArray;
+@property (strong, nonatomic) NSMutableArray *optionsArray;
+@property (strong, nonatomic) NSMutableArray *selectedOptionsArray;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+
+@property (strong, nonatomic) NSDictionary *facetsDictionary;
 
 
 @end
@@ -34,7 +37,7 @@
 
 @optional
 
-- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString;
+- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedOptionsArray  withTitle:(NSString *)titleString;
 //- (void)modalFilterSelectionVCWillBeDismissed:(BTRModalFilterSelectionVC *)modalVC;
 
 
