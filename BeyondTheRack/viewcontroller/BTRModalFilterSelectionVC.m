@@ -147,12 +147,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"]; // TODO: change text/html to application/json AFTER backend supports it in production
-    //serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery forCountry:@"ca" andPageNumber:0]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery andPageNumber:0]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
@@ -196,10 +195,6 @@
      */
     
     [self.selectedOptionsArray removeAllObjects];
-    
-    if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
-        [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];
-    }
 
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
@@ -208,9 +203,12 @@
     
     /*
      
-     perform the search REST query and pass back the new filters and the query result
+     perform the search REST query with chosen facets and pass back the new filters and the query result
     
      */
+    
+    [self.itemsArray removeAllObjects];
+    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:@"red"];
     
     if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
         [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];

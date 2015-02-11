@@ -22,12 +22,17 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@", BASEURL, eventId]];
 }
 
-+ (NSURL *)URLforSearchQuery:(NSString *)searchQuery forCountry:(NSString *)country andPageNumber:(NSUInteger)pageNumber
++ (NSURL *)URLforSearchQuery:(NSString *)searchQuery andPageNumber:(NSUInteger)pageNumber
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&country=%@&page=%lu", LIVEURL, searchQuery, country, (unsigned long)pageNumber]];
-
- //   return [self URLForQuery:[NSString stringWithFormat:@"%@/search/mobile/?q=%@&country=%@&page=%lu", RC03URL, searchQuery, country, (unsigned long)pageNumber]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu", LIVEURL, searchQuery, (unsigned long)pageNumber]];
 }
+
++ (NSURL *)URLforSearchQuery:(NSString *)searchQuery withFacets:(NSDictionary *)facetsDictionary andPageNumber:(NSUInteger)pageNumber {
+
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu", LIVEURL, searchQuery, (unsigned long)pageNumber]];
+}
+
+
 
 + (NSURL *)URLforItemImageForSku:(NSString *)sku
 {

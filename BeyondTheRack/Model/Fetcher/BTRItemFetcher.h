@@ -14,7 +14,8 @@
 
 + (NSURL *)URLforItemWithSku:(NSString *)sku;
 + (NSURL *)URLforRecentItemsForEventId:(NSString *)eventId;
-+ (NSURL *)URLforSearchQuery:(NSString *)searchQuery forCountry:(NSString *)country andPageNumber:(NSUInteger)pageNumber;
++ (NSURL *)URLforSearchQuery:(NSString *)searchQuery andPageNumber:(NSUInteger)pageNumber;
++ (NSURL *)URLforSearchQuery:(NSString *)searchQuery withFacets:(NSDictionary *)facetsDictionary andPageNumber:(NSUInteger)pageNumber;
 + (NSURL *)URLforItemImageForSku:(NSString *)sku;
 
 @end

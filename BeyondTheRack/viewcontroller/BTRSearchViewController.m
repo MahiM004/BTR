@@ -110,28 +110,26 @@
 
 
 -(void)dismissKeyboard {
+
     [searchBar resignFirstResponder];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
+    
     if (![self.itemArray count])
         [self.searchBar becomeFirstResponder];
- 
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-
+- (void)viewWillDisappear:(BOOL)animated {
 
     [self.searchBar resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
+
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can recreated.
 }
@@ -170,28 +168,16 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    // use some multithreading here
     [self.itemArray removeAllObjects];
-    
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
-    
-    
-    //NSArray *results = self.itemArray;// = [SomeService doSearch:searchBar.text];
     
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
     
-    /*
-    self.tableView.allowsSelection = YES;
-    self.tableView.scrollEnabled = YES;
-    
-    [self.filteredItemArray removeAllObjects];
-    [self.filteredItemArray addObjectsFromArray:results];*/
     [self.tableView reloadData];
 }
 
-- (void)searchBar:(UISearchBar *)searchBar
-    textDidChange:(NSString *)searchText {
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     // We don't want to do anything until the user clicks
     // the 'Search' button.
     // If you wanted to display results as the user types
@@ -359,20 +345,21 @@
 
 - (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
 {
-    
+    [[self itemArray] removeAllObjects];
+    [self.tableView reloadData];
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"]; // TODO: change text/html to application/json AFTER backend supports it in production
-    //serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery forCountry:@"ca" andPageNumber:0]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery andPageNumber:0]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
-         [[self itemArray] removeAllObjects];
+         
 
          NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                           options:0
@@ -381,11 +368,15 @@
          self.facetsDictionary = [BTRUtility extractFacetsFromResponse:entitiesPropertyList];
          NSMutableArray * arrayToPass = [BTRUtility extractItemDataFromResponse:entitiesPropertyList];
          
-         if ([arrayToPass count]) {
-         
-             [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
-             [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
+             
+             if ([arrayToPass count]) {
+                 
+                 [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+                 [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+             }
          }
+         
          
          [self.tableView reloadData];
          
