@@ -39,7 +39,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    [self setupDocument];
     self.titleLabel.text = [NSString stringWithFormat:@"Select %@", [self headerTitle]];
 }
 
@@ -146,7 +147,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"]; // TODO: change text/html to application/json AFTER backend supports it in production
+    serializer.acceptableContentTypes = [NSSet setWithObject:[BTRUtility contentTypeForSearchQuery]]; // TODO: change text/html to application/json AFTER backend supports it in production
     
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -209,6 +210,7 @@
     
     [self.itemsArray removeAllObjects];
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:@"red"];
+    
     
     if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
         [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];

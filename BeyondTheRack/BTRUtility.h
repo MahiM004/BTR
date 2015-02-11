@@ -18,9 +18,10 @@
 
 
 + (NSAttributedString *)crossedOffTextFrom:(NSString *)someText;
-    
 
 + (NSDictionary *)extractFacetsFromResponse:(NSDictionary *)responseDictionary;
 + (NSMutableArray *)extractItemDataFromResponse:(NSDictionary *)responseDictionary;
+
++ (NSString *)contentTypeForSearchQuery;
 
 @end
