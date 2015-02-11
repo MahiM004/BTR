@@ -55,7 +55,6 @@
     [super viewDidLoad];
     [self setupDocument];
     
-    oddNumberOfResults = NO;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -108,8 +107,14 @@
     
 }
 
+- (void)clearResults {
+    
+    
+    oddNumberOfResults = NO;
+    [self.itemArray removeAllObjects];
+}
 
--(void)dismissKeyboard {
+- (void)dismissKeyboard {
 
     [searchBar resignFirstResponder];
 }
@@ -168,7 +173,6 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    [self.itemArray removeAllObjects];
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
     
     [self.searchBar setShowsCancelButton:NO animated:YES];
@@ -241,8 +245,9 @@
     NSInteger tableSize = (NSInteger)((int)[self.itemArray count]/ (int)2);
     
     
-    if ([self.itemArray count] % 2)
+    if ([self.itemArray count] % 2 && [self.itemArray count] > 0)
     {
+      
         oddNumberOfResults = YES;
         return tableSize + 1;
     }
@@ -271,6 +276,7 @@
     } else {
         
         [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
+
     }
 
     if (!oddNumberOfResults) {
@@ -278,7 +284,9 @@
         Item *rightItem = [self.itemArray objectAtIndex:2*(indexPath.row) + 1];
         
         if ([rightItem sku]) {
-            
+        
+            cell.rightImageView.hidden = FALSE;
+            cell.rightDetailView.hidden = FALSE;
             cell = [self configureRightViewForCell:cell withItem:rightItem];
     
         } else {
@@ -345,7 +353,7 @@
 
 - (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
 {
-    [[self itemArray] removeAllObjects];
+    [self clearResults];//[[self itemArray] removeAllObjects];
     [self.tableView reloadData];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

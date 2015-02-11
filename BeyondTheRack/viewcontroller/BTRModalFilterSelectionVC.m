@@ -144,7 +144,8 @@
 
 - (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
 {
-    
+    [[self itemsArray] removeAllObjects];
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:[BTRUtility contentTypeForSearchQuery]]; // TODO: change text/html to application/json AFTER backend supports it in production
@@ -156,7 +157,6 @@
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
-         [[self itemsArray] removeAllObjects];
          
          NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                               options:0
@@ -171,7 +171,6 @@
              [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          }
          
-         [self.tableView reloadData];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -209,8 +208,8 @@
      */
     
     [self.itemsArray removeAllObjects];
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:@"red"];
-    
+    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:@"ted"];
+    NSLog(@"%lu",(unsigned long)[[self itemsArray]  count]);
     
     if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
         [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];
