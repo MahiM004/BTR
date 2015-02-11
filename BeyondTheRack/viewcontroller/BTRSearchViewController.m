@@ -279,7 +279,7 @@
 
     }
 
-    if (!oddNumberOfResults) {
+    if (!(oddNumberOfResults && indexPath.row == [self.tableView numberOfRowsInSection:0] - 1)) {
         
         Item *rightItem = [self.itemArray objectAtIndex:2*(indexPath.row) + 1];
         
