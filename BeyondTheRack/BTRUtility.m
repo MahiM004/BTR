@@ -87,7 +87,8 @@
 
 + (NSMutableArray *)extractItemDataFromResponse:(NSDictionary *)responseDictionary {
     
-    return [((NSDictionary *)responseDictionary[@"repsonse"]) valueForKey:@"docs"];
+    NSDictionary *tempDic = responseDictionary[@"response"];
+    return [tempDic valueForKey:@"docs"];
 }
 
 

@@ -8,6 +8,10 @@
 
 #import "BTRModalFilterSelectionVC.h"
 
+#import "Item+AppServer.h"
+#import "BTRItemFetcher.h"
+
+
 
 @interface BTRModalFilterSelectionVC ()
 
@@ -18,6 +22,13 @@
 @end
 
 @implementation BTRModalFilterSelectionVC
+
+
+- (NSMutableArray *)itemsArray {
+    
+    if (!_itemsArray) _itemsArray = [[NSMutableArray alloc] init];
+    return _itemsArray;
+}
 
 - (NSMutableArray *)selectedOptionsArray {
     
@@ -115,6 +126,61 @@
     }
     
 }
+
+
+
+#pragma mark - Load Results RESTful
+
+
+- (void)setupDocument
+{
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
+}
+
+- (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"]; // TODO: change text/html to application/json AFTER backend supports it in production
+    //serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery forCountry:@"ca" andPageNumber:0]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         [[self itemsArray] removeAllObjects];
+         
+         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                              options:0
+                                                                                error:NULL];
+         
+         self.facetsDictionary = [BTRUtility extractFacetsFromResponse:entitiesPropertyList];
+         NSMutableArray * arrayToPass = [BTRUtility extractItemDataFromResponse:entitiesPropertyList];
+         
+         if ([arrayToPass count]) {
+             
+             [self.itemsArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+             [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         }
+         
+         [self.tableView reloadData];
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         NSLog(@"Error: %@", error);
+     }];
+    
+}
+
+
 
 
 

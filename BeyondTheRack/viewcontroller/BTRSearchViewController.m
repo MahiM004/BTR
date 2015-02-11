@@ -16,8 +16,6 @@
 
 
 
-
-
 @interface BTRSearchViewController ()
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -379,15 +377,9 @@
          NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                           options:0
                                                                             error:NULL];
-/*
-         */
-         NSDictionary *responseDictionary = entitiesPropertyList[@"response"];
-        
-         self.facetsDictionary = entitiesPropertyList[@"facet_counts"];
-         
-         
-         NSMutableArray * arrayToPass = [responseDictionary valueForKey:@"docs"];
  
+         self.facetsDictionary = [BTRUtility extractFacetsFromResponse:entitiesPropertyList];
+         NSMutableArray * arrayToPass = [BTRUtility extractItemDataFromResponse:entitiesPropertyList];
          
          if ([arrayToPass count]) {
          
