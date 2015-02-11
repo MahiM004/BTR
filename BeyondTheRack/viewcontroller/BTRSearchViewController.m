@@ -37,9 +37,6 @@
 
 @synthesize searchBar;
 @synthesize oddNumberOfResults;
-@synthesize keyboardShow;
-
-
 
 - (NSDictionary *)facetsDictionary {
     
@@ -370,8 +367,8 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"]; // TODO: change text/html to application/json AFTER backend supports it in production
-
-    //    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
@@ -384,17 +381,17 @@
          NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                           options:0
                                                                             error:NULL];
-
+/*
+         */
          NSDictionary *responseDictionary = entitiesPropertyList[@"response"];
-         
-         
+        
          self.facetsDictionary = entitiesPropertyList[@"facet_counts"];
          
          
          NSMutableArray * arrayToPass = [responseDictionary valueForKey:@"docs"];
-         unsigned long int numFound = [[responseDictionary valueForKey:@"numFound"] integerValue];
+ 
          
-         if (numFound && [arrayToPass count]) {
+         if ([arrayToPass count]) {
          
              [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
              [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];

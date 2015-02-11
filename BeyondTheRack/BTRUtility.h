@@ -12,12 +12,14 @@
 
 
 + (UIImage *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;
-
 + (void)saveImage:(UIImage *)image withFilename:(NSString *)filename;
-
 + (UIImage *)imageWithFilename:(NSString *)filename;
+
 
 + (NSAttributedString *)crossedOffTextFrom:(NSString *)someText;
     
+
++ (NSDictionary *)extractFacetsFromResponse:(NSDictionary *)responseDictionary;
++ (NSMutableArray *)extractItemDataFromResponse:(NSDictionary *)responseDictionary;
 
 @end

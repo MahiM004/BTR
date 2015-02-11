@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+
 typedef void (^OnDocumentReady) (UIManagedDocument *document);
 
 @interface BTRDocumentHandler : NSObject

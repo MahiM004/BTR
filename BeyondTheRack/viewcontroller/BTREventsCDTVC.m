@@ -48,8 +48,6 @@
 
 - (void)setupDocument
 {
-    
-    
     if (!self.managedObjectContext) {
         
         self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
@@ -58,15 +56,11 @@
         [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
         [self.tableView reloadData];
         
-        
-        
     } else {
 
         [self fetchEventsDataIntoDocument:[self beyondTheRackDocument]];
         [self.tableView reloadData];
-        
     }
-
 }
 
 

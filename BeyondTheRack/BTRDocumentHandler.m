@@ -75,6 +75,8 @@ static BTRDocumentHandler *_sharedInstance;
     }
 }
 
+
+
 - (void)objectsDidChange:(NSNotification *)notification
 {
 #ifdef DEBUG

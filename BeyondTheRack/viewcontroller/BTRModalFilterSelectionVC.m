@@ -12,9 +12,9 @@
 @interface BTRModalFilterSelectionVC ()
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
-
+@property (strong, nonatomic) NSDictionary *facetsDictionary;
 
 @end
 

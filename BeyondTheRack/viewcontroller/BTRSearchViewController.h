@@ -17,6 +17,4 @@
 @property (weak, nonatomic) IBOutlet UIImageView *filterIconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *filterButton;
 
-@property (nonatomic) BOOL keyboardShow;
-
 @end

@@ -26,7 +26,7 @@
 {
     NSString *path;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    path = [paths[0] stringByAppendingPathComponent:@"ProfilePics/"];
+    path = [paths[0] stringByAppendingPathComponent:@"AppPics/"];
     
     BOOL isDir;
     
@@ -48,7 +48,7 @@
 {
     NSString *path;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    path = [paths[0] stringByAppendingPathComponent:@"ProfilePics"];
+    path = [paths[0] stringByAppendingPathComponent:@"AppPics"];
     path = [path stringByAppendingPathComponent:filename];
     
     return [UIImage imageWithContentsOfFile:path];
@@ -72,6 +72,17 @@
     
     
     return corssedOffText;
+}
+
+
++ (NSDictionary *)extractFacetsFromResponse:(NSDictionary *)responseDictionary {
+    
+    return ((NSDictionary *)responseDictionary[@"facet_counts"]);
+}
+
++ (NSMutableArray *)extractItemDataFromResponse:(NSDictionary *)responseDictionary {
+    
+    return [((NSDictionary *)responseDictionary[@"repsonse"]) valueForKey:@"docs"];
 }
 
 

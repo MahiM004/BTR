@@ -27,6 +27,12 @@
 
 -(void)initData {
     
+    
+    /* 
+     
+     TODO: the categoryNames and urlCategoryNames should be refactored into an editable config file 
+    
+     */
     self.categoryNames = [[NSMutableArray alloc] initWithObjects:@"Women", @"Men", @"Your Catalog", @"Home", @"Kids", @"Outlet", @"My Curvy Closet", nil];
     self.urlCategoryNames = [[NSMutableArray alloc] initWithObjects:@"women", @"men", @"all", @"home", @"kids", @"stockroom", @"curvy_closet", nil];
 }
