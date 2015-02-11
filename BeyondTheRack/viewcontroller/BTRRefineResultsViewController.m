@@ -67,11 +67,12 @@
 }
 
 
+
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
 
-    [self extractFilterFacetsWithFacetQueries:[self facetQueriesDictionary] andFacetFields:[self facetFieldsDictionary]];
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
     self.headerView.opaque = NO;
@@ -87,6 +88,13 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:YES];
+    
+    [self extractFilterFacetsWithFacetQueries:[self facetsDictionary]];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -94,7 +102,7 @@
 }
 
 
-- (BOOL) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetQueriesDictionary andFacetFields:(NSDictionary *)facetFieldsDictionary {
+- (void) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetsDictionary {
 
     
     [self.priceFilter removeAllObjects];
@@ -103,6 +111,10 @@
     [self.brandFilter removeAllObjects];
     [self.colorFilter removeAllObjects];
     [self.sizeFilter removeAllObjects];
+
+    
+    NSDictionary *facetQueriesDictionary = facetsDictionary[@"facet_queries"];
+    NSDictionary *facetFieldsDictionary =  facetsDictionary[@"facet_fields"];
     
     NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
     
@@ -142,16 +154,35 @@
     [self.colorFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
     [self.sizeFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
 
-    return TRUE;
 }
 
 
 #pragma mark - Navigation
 
 
-- (IBAction)cancelTapped:(id)sender {
+
+- (IBAction)applyButtonTapped:(UIButton *)sender {
+
+    /*
+     
+     handle the sort and pass back the query result
+    
+     */
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (IBAction)cancelTapped:(id)sender {
+    
+    /*
+     
+     clear selections and dismiss vc
+    
+     */
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 

@@ -11,6 +11,11 @@
 
 @interface BTRModalFilterSelectionVC ()
 
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+
+
 @end
 
 @implementation BTRModalFilterSelectionVC
@@ -117,7 +122,30 @@
 #pragma mark - Navigation
 
 
-- (IBAction)backToRefineResults:(UIButton *)sender {
+- (IBAction)clearTapped:(UIButton *)sender {
+    
+    /*
+     
+     clear filter selections and dismiss vc
+    
+     */
+    
+    [self.selectedItemsArray removeAllObjects];
+    
+    if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
+        [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedItemsArray] withTitle:[self headerTitle]];
+    }
+
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)selectTapped:(UIButton *)sender {
+    
+    /*
+     
+     perform the search REST query and pass back the new filters and the query result
+    
+     */
     
     if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
         [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedItemsArray] withTitle:[self headerTitle]];

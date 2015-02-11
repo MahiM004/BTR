@@ -26,8 +26,8 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
-@property (strong, nonatomic) NSDictionary *facetQueriesDictionary;
-@property (strong, nonatomic) NSDictionary *facetFieldsDictionary;
+@property (strong, nonatomic) NSDictionary *facetsDictionary;
+
 @property (nonatomic) BOOL oddNumberOfResults;
 
 @end
@@ -39,17 +39,12 @@
 @synthesize oddNumberOfResults;
 @synthesize keyboardShow;
 
-- (NSDictionary *)facetQueriesDictionary {
-    
-    if (!_facetQueriesDictionary) _facetQueriesDictionary = [[NSDictionary alloc] init];
-    return _facetQueriesDictionary;
-}
 
 
-- (NSDictionary *)facetFieldsDictionary {
+- (NSDictionary *)facetsDictionary {
     
-    if (!_facetFieldsDictionary) _facetFieldsDictionary = [[NSDictionary alloc] init];
-    return _facetFieldsDictionary;
+    if (!_facetsDictionary) _facetsDictionary = [[NSDictionary alloc] init];
+    return _facetsDictionary;
 }
 
 
@@ -283,42 +278,30 @@
     static NSString *CellIdentifier = @"SearchResultCellIdentifier";
     BTRItemShowcaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    if ( cell == nil )
-    {
+    if ( cell == nil ) {
+        
         cell = [[BTRItemShowcaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
     Item *letftItem = [self.itemArray objectAtIndex:2*(indexPath.row)];
     
-    if ([letftItem sku])
-    {
-        [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[letftItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-        [cell.leftBrand setText:[letftItem brand]];
-        [cell.leftDescription setText:[letftItem shortItemDescription]];
-        [cell.leftPrice setText:[NSString stringWithFormat:@"$%@",[letftItem priceCAD]]];
-
-        [cell.leftCrossedOffPrice setAttributedText:[BTRUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[letftItem retailCAD]]]];
+    if ([letftItem sku]) {
+        
+        cell = [self configureLeftViewForCell:cell withItem:letftItem];
     
     } else {
         
         [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
     }
-    
 
-    if (!oddNumberOfResults)
-    {
-
+    if (!oddNumberOfResults) {
+        
         Item *rightItem = [self.itemArray objectAtIndex:2*(indexPath.row) + 1];
         
-        if ([rightItem sku])
-        {
-            [cell.rightImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[rightItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-            [cell.rightBrand setText:[rightItem brand]];
-            [cell.rightDescription setText:[rightItem shortItemDescription]];
-            [cell.rightPrice setText:[NSString stringWithFormat:@"$%@",[rightItem priceCAD]]];
+        if ([rightItem sku]) {
             
-            [cell.rightCrossedOffPrice setAttributedText:[BTRUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[rightItem retailCAD]]]];
-            
+            cell = [self configureRightViewForCell:cell withItem:rightItem];
+    
         } else {
             
             [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
@@ -333,6 +316,30 @@
     return cell;
 }
 
+
+- (BTRItemShowcaseTableViewCell *)configureLeftViewForCell:(BTRItemShowcaseTableViewCell *)cell withItem:(Item *)letftItem {
+    
+    [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[letftItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    [cell.leftBrand setText:[letftItem brand]];
+    [cell.leftDescription setText:[letftItem shortItemDescription]];
+    [cell.leftPrice setText:[NSString stringWithFormat:@"$%@",[letftItem priceCAD]]];
+    
+    [cell.leftCrossedOffPrice setAttributedText:[BTRUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[letftItem retailCAD]]]];
+    
+    return cell;
+}
+
+- (BTRItemShowcaseTableViewCell *)configureRightViewForCell:(BTRItemShowcaseTableViewCell *)cell withItem:(Item *)rightItem {
+    
+    [cell.rightImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[rightItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    [cell.rightBrand setText:[rightItem brand]];
+    [cell.rightDescription setText:[rightItem shortItemDescription]];
+    [cell.rightPrice setText:[NSString stringWithFormat:@"$%@",[rightItem priceCAD]]];
+    
+    [cell.rightCrossedOffPrice setAttributedText:[BTRUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[rightItem retailCAD]]]];
+    
+    return cell;
+}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -380,8 +387,9 @@
 
          NSDictionary *responseDictionary = entitiesPropertyList[@"response"];
          
-         self.facetQueriesDictionary = ((NSDictionary *)entitiesPropertyList[@"facet_counts"])[@"facet_queries"];
-         self.facetFieldsDictionary =  ((NSDictionary *)entitiesPropertyList[@"facet_counts"])[@"facet_fields"];
+         
+         self.facetsDictionary = entitiesPropertyList[@"facet_counts"];
+         
          
          NSMutableArray * arrayToPass = [responseDictionary valueForKey:@"docs"];
          unsigned long int numFound = [[responseDictionary valueForKey:@"numFound"] integerValue];
@@ -429,8 +437,7 @@
         BTRRefineResultsViewController *searchFilterVC = [segue destinationViewController];
 
         searchFilterVC.backgroundImage = screenShotImage;
-        searchFilterVC.facetQueriesDictionary = [self facetQueriesDictionary];
-        searchFilterVC.facetFieldsDictionary = [self facetFieldsDictionary];
+        searchFilterVC.facetsDictionary = [self facetsDictionary];
     }
     
 
