@@ -11,8 +11,13 @@
 @implementation BTRUtility
 
 
-+ (UIImage *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
-{
++ (UIColor *)BTRBlack {
+    
+    return [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
+}
+
++ (UIImage *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize {
+    
     UIGraphicsBeginImageContext( newSize );
     [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -22,8 +27,8 @@
 }
 
 
-+ (void)saveImage:(UIImage *)image withFilename:(NSString *)filename
-{
++ (void)saveImage:(UIImage *)image withFilename:(NSString *)filename {
+    
     NSString *path;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     path = [paths[0] stringByAppendingPathComponent:@"AppPics/"];
@@ -44,8 +49,8 @@
     [imageData writeToFile:path atomically:YES];
 }
 
-+ (UIImage *)imageWithFilename:(NSString *)filename
-{
++ (UIImage *)imageWithFilename:(NSString *)filename {
+    
     NSString *path;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     path = [paths[0] stringByAppendingPathComponent:@"AppPics"];
@@ -56,8 +61,8 @@
 
 
 
-+ (NSAttributedString *)crossedOffTextFrom:(NSString *)someText
-{
++ (NSAttributedString *)crossedOffTextFrom:(NSString *)someText {
+    
     UIFont *priceFont = [UIFont fontWithName:@"STHeitiSC-Light" size:15.0];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentRight;

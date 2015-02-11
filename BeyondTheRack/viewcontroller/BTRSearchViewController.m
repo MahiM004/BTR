@@ -66,8 +66,6 @@
     
     [self.view addGestureRecognizer:tap];
     
-    //self.view.backgroundColor = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
-
     searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
 

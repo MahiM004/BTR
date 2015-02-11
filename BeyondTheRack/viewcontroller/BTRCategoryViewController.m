@@ -56,7 +56,7 @@
     self.slider.pagingEnabled = YES;
     self.slider.zoomOutAnimationDisabled = YES;
     self.slider.disableTitleShadow = YES;
-    self.slider.titleScrollerBackgroundColour = [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
+    self.slider.titleScrollerBackgroundColour = [BTRUtility BTRBlack];
     //self.slider.titleScrollerHidden = YES;
     //slider.titleScrollerHeight = 100;
     //slider.titleScrollerItemWidth=60;
