@@ -375,8 +375,8 @@
                                                                           options:0
                                                                             error:NULL];
  
-         self.facetsDictionary = [BTRUtility extractFacetsFromResponse:entitiesPropertyList];
-         NSMutableArray * arrayToPass = [BTRUtility extractItemDataFromResponse:entitiesPropertyList];
+         self.facetsDictionary = [BTRUtility getFacetsDictionaryFromResponse:entitiesPropertyList];
+         NSMutableArray * arrayToPass = [BTRUtility getItemDataArrayFromResponse:entitiesPropertyList];
          
          if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
              

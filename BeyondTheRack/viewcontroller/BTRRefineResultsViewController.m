@@ -74,6 +74,7 @@
     [super viewDidLoad];
     [self extractFilterFacetsWithFacetQueries:[self facetsDictionary]];
 
+    [BTRUtility extractFilterFacetsForQueriesFromResponse:[self facetsDictionary]];
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     

@@ -18,8 +18,6 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
-
-
 @end
 
 @implementation BTRModalFilterSelectionVC
@@ -85,7 +83,6 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    
     return cell;
 }
 
@@ -128,7 +125,6 @@
 
         [self.selectedOptionsArray removeObject:[[cell textLabel] text]];
     }
-    
 }
 
 
@@ -168,8 +164,8 @@
                                                                               options:0
                                                                                 error:NULL];
          
-         self.freshFacetsDictionary = [BTRUtility extractFacetsFromResponse:entitiesPropertyList];
-         NSMutableArray * arrayToPass = [BTRUtility extractItemDataFromResponse:entitiesPropertyList];
+         self.freshFacetsDictionary = [BTRUtility getFacetsDictionaryFromResponse:entitiesPropertyList];
+         NSMutableArray * arrayToPass = [BTRUtility getItemDataArrayFromResponse:entitiesPropertyList];
          
          if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
              

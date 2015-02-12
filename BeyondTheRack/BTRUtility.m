@@ -80,16 +80,7 @@
 }
 
 
-+ (NSDictionary *)extractFacetsFromResponse:(NSDictionary *)responseDictionary {
-    
-    return ((NSDictionary *)responseDictionary[@"facet_counts"]);
-}
 
-+ (NSMutableArray *)extractItemDataFromResponse:(NSDictionary *)responseDictionary {
-        
-    NSDictionary *tempDic = responseDictionary[@"response"];
-    return [tempDic valueForKey:@"docs"];
-}
 
 
 
@@ -97,6 +88,65 @@
     
     return @"text/html";
 }
+
+
++ (NSDictionary *)getFacetsDictionaryFromResponse:(NSDictionary *)responseDictionary {
+    
+    return ((NSDictionary *)responseDictionary[@"facet_counts"]);
+}
+
++ (NSMutableArray *)getItemDataArrayFromResponse:(NSDictionary *)responseDictionary {
+    
+    NSDictionary *tempDic = responseDictionary[@"response"];
+    return [tempDic valueForKey:@"docs"];
+}
+
+
++ (NSMutableArray *) extractFilterFacetsForDisplayFromResponse:(NSDictionary *)facetsDictionary {
+    
+    NSMutableArray *resultsArray = [[NSMutableArray alloc] init];
+    
+    NSDictionary *facetQueriesDictionary = facetsDictionary[@"facet_queries"];
+    NSDictionary *facetFieldsDictionary =  facetsDictionary[@"facet_fields"];
+
+    NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    
+    NSString *tempString = [NSString stringWithFormat:@"$0 to $200: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"] ];
+    [tempArray addObject:tempString];
+    tempString = [NSString stringWithFormat:@"$200 to $400: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"] ];
+    [tempArray addObject:tempString];
+    tempString = [NSString stringWithFormat:@"$400 to $600: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"] ];
+    [tempArray addObject:tempString];
+    tempString = [NSString stringWithFormat:@"$600 to $800: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"] ];
+    [tempArray addObject:tempString];
+    tempString = [NSString stringWithFormat:@"$800 to $1000: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"] ];
+    [tempArray addObject:tempString];
+    tempString = [NSString stringWithFormat:@"$1000 to *: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"] ];
+    [tempArray addObject:tempString];
+    
+    [resultsArray addObject:tempArray];
+    [tempArray removeAllObjects];
+    
+    
+    NSMutableArray *allKeys = [[facetFieldsDictionary allKeys] mutableCopy];
+
+    for (NSString * dicKey in allKeys) {
+        
+        NSDictionary *tempDic = [facetFieldsDictionary objectForKey:dicKey];
+        
+        for (NSString *item in tempDic)
+            [tempArray addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)tempDic[item]] ];
+        
+        [tempArray sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+        [resultsArray addObject:tempArray];
+        [tempArray removeAllObjects];
+    }
+
+    
+    return resultsArray;
+}
+
 
 
 @end

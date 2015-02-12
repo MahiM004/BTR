@@ -19,8 +19,9 @@
 
 + (NSAttributedString *)crossedOffTextFrom:(NSString *)someText;
 
-+ (NSDictionary *)extractFacetsFromResponse:(NSDictionary *)responseDictionary;
-+ (NSMutableArray *)extractItemDataFromResponse:(NSDictionary *)responseDictionary;
++ (NSDictionary *)getFacetsDictionaryFromResponse:(NSDictionary *)responseDictionary;
++ (NSMutableArray *)getItemDataArrayFromResponse:(NSDictionary *)responseDictionary;
++ (NSMutableArray *)extractFilterFacetsForDisplayFromResponse:(NSDictionary *)facetsDictionary;
 
 + (NSString *)contentTypeForSearchQuery;
 
