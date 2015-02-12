@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 
+
 @end
 
 @implementation BTRModalFilterSelectionVC
@@ -133,8 +134,8 @@
 #pragma mark - Load Results RESTful
 
 
-- (void)setupDocument
-{
+- (void)setupDocument {
+    
     if (!self.managedObjectContext) {
         
         self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
@@ -143,7 +144,10 @@
 }
 
 - (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
+                       success:(void (^)(id  responseObject)) success
+                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
+
     [[self itemsArray] removeAllObjects];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -165,21 +169,25 @@
          self.facetsDictionary = [BTRUtility extractFacetsFromResponse:entitiesPropertyList];
          NSMutableArray * arrayToPass = [BTRUtility extractItemDataFromResponse:entitiesPropertyList];
          
-         if ([arrayToPass count]) {
+         if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
              
-             [self.itemsArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
-             [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+             if ([arrayToPass count]) {
+                 
+                 [self.itemsArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+                 [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+             }
          }
          
+         success(arrayToPass);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
          NSLog(@"Error: %@", error);
+         
+         failure(operation, error);
      }];
     
 }
-
-
 
 
 
@@ -208,14 +216,17 @@
      */
     
     [self.itemsArray removeAllObjects];
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:@"ted"];
-    NSLog(@"%lu",(unsigned long)[[self itemsArray]  count]);
+    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:@"ted" success:^(NSMutableArray *itemsArray) {
+
+        if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
+            [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];
+        }
     
-    if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
-        [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:NULL];
+        [self dismissViewControllerAnimated:YES completion:NULL];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
 }
 
 

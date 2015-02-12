@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @protocol BTRModalFilterSelectionDelegate;
 
 
@@ -28,6 +27,9 @@
 
 @property (strong, nonatomic) NSDictionary *facetsDictionary;
 @property (strong, nonatomic) NSMutableArray *itemsArray;
+
+
+
 
 
 @end
