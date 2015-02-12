@@ -39,10 +39,12 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     [self setupDocument];
     self.titleLabel.text = [NSString stringWithFormat:@"Select %@", [self headerTitle]];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,7 +118,7 @@
         
         cell.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        
+    
         [self.selectedOptionsArray addObject:[[cell textLabel] text]];
         
     } else {
@@ -205,7 +207,6 @@
     [self.selectedOptionsArray removeAllObjects];
     [self performSegueWithIdentifier:@"UnwindToBTRSearchFilterSegueIdentifier" sender:self];
 
-
 }
 
 - (IBAction)selectTapped:(UIButton *)sender {
@@ -218,11 +219,12 @@
     
     [self.itemsArray removeAllObjects];
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:@"ted" success:^(NSMutableArray *itemsArray) {
-
+    
+        
         if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
             [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];
         }
-    
+        
         [self dismissViewControllerAnimated:YES completion:NULL];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

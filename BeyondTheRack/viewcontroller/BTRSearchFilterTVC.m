@@ -396,10 +396,8 @@
     cell.rowButton.titleLabel.text = sectionString;
     cell.rowButton.titleLabel.textColor = [UIColor clearColor];
     
-    
     cell.textLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
 
-    
     return cell;
 }
 
@@ -495,15 +493,17 @@
 - (IBAction)unwindToBTRSearchFilterTVC:(UIStoryboardSegue *)unwindSegue {
  
     
-    
+    /*
     UIViewController* sourceViewController = unwindSegue.sourceViewController;
     
     if ([sourceViewController isKindOfClass:[BTRModalFilterSelectionVC class]])
     {
-        NSLog(@"unwindFromModalSelectionTVC");
-    }
+        NSLog(@"coooool: %d", [((BTRModalFilterSelectionVC *)sourceViewController).selectedOptionsArray count]);
+        [self.tableView reloadData];
+    }*/
     
     [self.tableView reloadData];
+
 }
 
 
@@ -521,8 +521,8 @@
     else if ([titleString isEqualToString:CATEGORY_TITLE])
         self.selectedCategories = selectedItemsArray;
     else if ([titleString isEqualToString:PRICE_TITLE])
-            self.selectedPrices = selectedItemsArray;
-
+        self.selectedPrices = selectedItemsArray;
+   
     [self.tableView reloadData];
 }
 

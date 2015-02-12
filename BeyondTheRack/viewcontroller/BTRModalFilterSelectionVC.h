@@ -41,7 +41,6 @@
 @optional
 
 - (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedOptionsArray  withTitle:(NSString *)titleString;
-//- (void)modalFilterSelectionVCWillBeDismissed:(BTRModalFilterSelectionVC *)modalVC;
 
 
 @end
