@@ -25,7 +25,7 @@
 
 
 @property (strong, nonatomic) NSDictionary *facetsDictionary;
-
+@property (strong, nonatomic) NSString *searchString;
 @property (nonatomic) BOOL oddNumberOfResults;
 
 @end
@@ -109,7 +109,7 @@
 
 - (void)clearResults {
     
-    
+    self.searchString = @"";
     oddNumberOfResults = NO;
     [self.itemArray removeAllObjects];
 }
@@ -173,7 +173,9 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
+    self.searchString = [self.searchBar text];
+    
+    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self searchString]];
     
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
@@ -353,7 +355,7 @@
 
 - (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
 {
-    [self clearResults];//[[self itemArray] removeAllObjects];
+    [self clearResults];
     [self.tableView reloadData];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -420,10 +422,12 @@
         UIGraphicsEndImageContext();
         
         
-        BTRRefineResultsViewController *searchFilterVC = [segue destinationViewController];
+        BTRRefineResultsViewController *refineVC = [segue destinationViewController];
 
-        searchFilterVC.backgroundImage = screenShotImage;
-        searchFilterVC.facetsDictionary = [self facetsDictionary];
+        refineVC.backgroundImage = screenShotImage;
+        refineVC.facetsDictionary = [self facetsDictionary];
+        refineVC.searchString = [self searchString];
+        
     }
     
 

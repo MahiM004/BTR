@@ -18,6 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
 @property (strong, nonatomic) NSDictionary *facetsDictionary;
-
+@property (strong, nonatomic) NSString *searchString;
 
 @end

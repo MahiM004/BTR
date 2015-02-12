@@ -33,6 +33,10 @@
 
 @property (strong, nonatomic) NSMutableArray *queryRefineArray;
 
+
+@property (strong, nonatomic) NSDictionary *originalFacetsDictionary;
+@property (strong, nonatomic) NSString *searchString;
+
 @end
 
 

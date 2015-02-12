@@ -25,12 +25,11 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 
-@property (strong, nonatomic) NSDictionary *facetsDictionary;
+@property (strong, nonatomic) NSDictionary *originalFacetsDictionary;
+@property (strong, nonatomic) NSString *searchString;
+
 @property (strong, nonatomic) NSMutableArray *itemsArray;
-
-
-
-
+@property (strong, nonatomic) NSDictionary *freshFacetsDictionary;
 
 @end
 

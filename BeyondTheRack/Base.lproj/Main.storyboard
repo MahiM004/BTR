@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="93F01191-BA0A-4388-8546-BED149F6D729" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="A4CAB30F-948E-4241-BCC3-7FDA98012CBA" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -855,10 +855,6 @@
                             </tableViewCell>
                         </prototypes>
                         <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="SMs-xw-O7b" id="Za8-ym-Sxb"/>
-                            <outlet property="delegate" destination="SMs-xw-O7b" id="hVF-JS-8TN"/>
-                        </connections>
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pFN-Rz-Dsg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1323,7 +1319,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="93F01191-BA0A-4388-8546-BED149F6D729" width="30" height="30">
+        <image name="A4CAB30F-948E-4241-BCC3-7FDA98012CBA" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

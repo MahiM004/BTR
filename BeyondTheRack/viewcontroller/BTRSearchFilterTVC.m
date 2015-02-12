@@ -447,6 +447,8 @@
     destModalVC.optionsArray = itemsArray;
     destModalVC.selectedOptionsArray = selectedItemArray;
     destModalVC.headerTitle = title;
+    destModalVC.originalFacetsDictionary = [self originalFacetsDictionary];
+    destModalVC.searchString = [self searchString];
     
     return destModalVC;
 }
@@ -493,14 +495,14 @@
 - (IBAction)unwindToBTRSearchFilterTVC:(UIStoryboardSegue *)unwindSegue {
  
     
-    /*
+    
     UIViewController* sourceViewController = unwindSegue.sourceViewController;
     
     if ([sourceViewController isKindOfClass:[BTRModalFilterSelectionVC class]])
     {
         NSLog(@"coooool: %d", [((BTRModalFilterSelectionVC *)sourceViewController).selectedOptionsArray count]);
         [self.tableView reloadData];
-    }*/
+    }
     
     [self.tableView reloadData];
 

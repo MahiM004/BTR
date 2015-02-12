@@ -194,6 +194,10 @@
         embedTVC.colorsArray = self.colorFilter;
         embedTVC.categoriesArray = self.categoryFilter;
         embedTVC.sizesArray = self.sizeFilter;
+        
+        embedTVC.searchString = [self searchString];
+        embedTVC.originalFacetsDictionary = [self facetsDictionary];
+        
         embedTVC.delegate = self;
     }
     
