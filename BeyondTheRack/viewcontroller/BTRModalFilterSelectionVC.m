@@ -203,8 +203,9 @@
      */
     
     [self.selectedOptionsArray removeAllObjects];
+    [self performSegueWithIdentifier:@"UnwindToBTRSearchFilterSegueIdentifier" sender:self];
 
-    [self dismissViewControllerAnimated:YES completion:NULL];
+
 }
 
 - (IBAction)selectTapped:(UIButton *)sender {

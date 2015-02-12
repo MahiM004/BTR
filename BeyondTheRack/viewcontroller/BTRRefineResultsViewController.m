@@ -72,7 +72,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [self extractFilterFacetsWithFacetQueries:[self facetsDictionary]];
 
+    
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
     self.headerView.opaque = NO;
@@ -87,14 +89,6 @@
     [self.view insertSubview:backgroundImageView belowSubview:[self headerView]];
     
 }
-
-- (void)viewWillAppear:(BOOL)animated {
-
-    [super viewWillAppear:YES];
-    
-    [self extractFilterFacetsWithFacetQueries:[self facetsDictionary]];
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -140,44 +140,32 @@
     if (section == SORT_SECTION)
         return 3;
     
-    else if (section == SIZE_FILTER) {
-        
-        if ([self.selectedSizes count] != 0)
-            return [self.selectedSizes count];
-        else
-            return 1;
-    }
-    
     else if (section == PRICE_FILTER) {
         
         if ([self.selectedPrices count] != 0)
             return [self.selectedPrices count];
-        else
-            return 1;
         
     } else if (section == CATEGORY_FILTER) {
         
         if ([self.selectedCategories count] != 0)
             return [self.selectedCategories count];
-        else
-            return 1;
         
     } else if (section == BRAND_FILTER) {
         
         if ([self.selectedBrands count] != 0)
             return [self.selectedBrands count];
-        else
-            return 1;
         
     } else if (section == COLOR_FILTER) {
         
         if ([self.selectedColors count] != 0)
             return [self.selectedColors count];
-        else
-            return 1;
+
     }
-    
-    
+    else if (section == SIZE_FILTER) {
+        if ([self.selectedSizes count] != 0)
+            return [self.selectedSizes count];
+    }
+
     return 1;
 
 }
@@ -504,8 +492,18 @@
 }
 
 
-- (IBAction)unwindFromModalSelectionTVC:(UIStoryboardSegue *)unwindSegue {
+- (IBAction)unwindToBTRSearchFilterTVC:(UIStoryboardSegue *)unwindSegue {
+ 
     
+    
+    UIViewController* sourceViewController = unwindSegue.sourceViewController;
+    
+    if ([sourceViewController isKindOfClass:[BTRModalFilterSelectionVC class]])
+    {
+        NSLog(@"unwindFromModalSelectionTVC");
+    }
+    
+    [self.tableView reloadData];
 }
 
 
@@ -514,7 +512,6 @@
 
 - (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString{
 
-    
     if ([titleString isEqualToString:BRAND_TITLE])
         self.selectedBrands = selectedItemsArray;
     else if ([titleString isEqualToString:COLOR_TITLE])
