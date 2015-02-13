@@ -463,10 +463,10 @@
 				697E05801A434121000146C6 /* BTRViewUtility.m */,
 				69869FAA1A6408D200F986BC /* CoreDataTableViewController.h */,
 				69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */,
-				69869FAD1A640C0600F986BC /* BTRDocumentHandler.h */,
-				69869FAE1A640C0600F986BC /* BTRDocumentHandler.m */,
 				69BC6D401A8E4F2C00376D9C /* BTRFacetsHandler.h */,
 				69BC6D411A8E4F2C00376D9C /* BTRFacetsHandler.m */,
+				69869FAD1A640C0600F986BC /* BTRDocumentHandler.h */,
+				69869FAE1A640C0600F986BC /* BTRDocumentHandler.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";

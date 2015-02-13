@@ -12,7 +12,7 @@
 #import "BTRFilterWithModalTableViewCell.h"
 
 
-
+#import "BTRFacetsHandler.h"
 
 
 @interface BTRSearchFilterTVC () <BTRModalFilterSelectionDelegate> {
@@ -249,66 +249,13 @@
         cell.textLabel.textColor = [UIColor whiteColor];
     }
     
-    switch (indexPath.row) {
-            
-        case 0:
-            cell.textLabel.text = @"Best Match";
-            break;
-            
-        case 1:
-            cell.textLabel.text = @"Highest to Lowest Price";
-            break;
-            
-            
-        case 2:
-            cell.textLabel.text = @"Lowest to Highest Price";
-            break;
-            
-        default:
-            break;
-            
-    }
+    cell.textLabel.text = [BTRFacetsHandler getSortTypeForIndex:indexPath.row];
     
     return  cell;
     
 }
 
 
-- (NSString *)priceRangeForAPIReadableFromLabelString:(NSString *)labelString {
-    
-    
-    if ([labelString containsString:@"$0 to $200"]) {
-        
-        return @"[0 TO 200]";
-    }
-    else if ([labelString containsString:@"$200 to $400"]) {
-        
-        return @"[200 TO 400]";
-        
-    }
-    else if ([labelString containsString:@"$400 to $600"]) {
-        
-        return @"[400 TO 600]";
-        
-    }
-    else if ([labelString containsString:@"$600 to $800"]) {
-        
-        return @"[600 TO 800]";
-        
-    }
-    else if ([labelString containsString:@"$800 to $1000"]) {
-        
-        return @"[800 TO 1000]";
-        
-    }
-    else if ([labelString containsString:@"$1000 to *"]) {
-        
-        return @"[1000 TO *]";
-    }
-    
-    return nil;
-    
-}
 
 
 
@@ -454,35 +401,12 @@
 - (void)viewWillDisappear:(BOOL)animated {
     
     
-    NSMutableArray *brandsArray = [[NSMutableArray alloc] init];
-
-    for (int i = 0; i < [self.selectedBrands count]; i++)
-        [brandsArray addObject:[[self.selectedBrands objectAtIndex:i] componentsSeparatedByString:@":"][0]];
     
-    NSMutableArray *colorsArray = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < [self.selectedColors count]; i++)
-        [colorsArray addObject:[[self.selectedColors objectAtIndex:i] componentsSeparatedByString:@":"][0]];
-    
-    NSMutableArray *sizesArray = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < [self.selectedSizes count]; i++)
-        [sizesArray addObject:[[self.selectedSizes objectAtIndex:i] componentsSeparatedByString:@":"][0]];
-    
-    NSMutableArray *categoriesArray = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < [self.selectedCategories count]; i++)
-        [categoriesArray addObject:[[self.selectedCategories objectAtIndex:i] componentsSeparatedByString:@":"][0]];
-    
-    NSMutableArray *pricesArray = [[NSMutableArray alloc] init];
-  
-    for (int i = 0; i < [self.selectedPrices count]; i++)
-        [pricesArray addObject:[[self.selectedPrices objectAtIndex:i] componentsSeparatedByString:@":"][0]];
-    
-    [self.queryRefineArray addObject:pricesArray];
-    [self.queryRefineArray addObject:categoriesArray];
-    [self.queryRefineArray addObject:brandsArray];
-    [self.queryRefineArray addObject:colorsArray];
+    self.queryRefineArray = [BTRFacetsHandler getFacetOptionsForRESTFromSelectedPrices:[self selectedPrices]
+                                                                fromSelectedCategories:[self selectedCategories]
+                                                                     fromSelectedBrand:[self selectedBrands]
+                                                                    fromSelectedColors:[self selectedColors]
+                                                                     fromSelectedSizes:[self selectedSizes]];
     
     if ([self.delegate respondsToSelector:@selector(searchRefineOptionChosen:)]) {
         [self.delegate searchRefineOptionChosen:[self queryRefineArray]];
