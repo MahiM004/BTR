@@ -400,13 +400,12 @@
 }
 - (void)viewWillDisappear:(BOOL)animated {
     
-    
-    
-    self.queryRefineArray = [BTRFacetsHandler getFacetOptionsForRESTFromSelectedPrices:[self selectedPrices]
+    self.queryRefineArray = [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self selectedPrices]
                                                                 fromSelectedCategories:[self selectedCategories]
                                                                      fromSelectedBrand:[self selectedBrands]
                                                                     fromSelectedColors:[self selectedColors]
                                                                      fromSelectedSizes:[self selectedSizes]];
+    
     
     if ([self.delegate respondsToSelector:@selector(searchRefineOptionChosen:)]) {
         [self.delegate searchRefineOptionChosen:[self queryRefineArray]];

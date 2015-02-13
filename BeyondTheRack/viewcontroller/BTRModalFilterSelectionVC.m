@@ -12,6 +12,9 @@
 #import "BTRItemFetcher.h"
 #import "BTRFacetsHandler.h"
 
+#import "BTRSearchFilterTVC.h"
+
+
 
 @interface BTRModalFilterSelectionVC ()
 
@@ -142,6 +145,7 @@
 }
 
 - (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
+              withFacetsString:(NSString *)facetsString
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
@@ -155,28 +159,16 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery andPageNumber:0]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withFacetString:facetsString andPageNumber:0]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
          
-         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                               options:0
                                                                                 error:NULL];
          
-         self.freshFacetsDictionary = [BTRFacetsHandler getFacetsDictionaryFromResponse:entitiesPropertyList];
-         NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:entitiesPropertyList];
-         
-         if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
-             
-             if ([arrayToPass count]) {
-                 
-                 [self.itemsArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
-                 [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-             }
-         }
-         
-         success(arrayToPass);
+         success(responseDictionary);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -214,14 +206,17 @@
      */
     
     
-    // 1.extract facets for request  2.bind the current selection  3.pass new response
-    
+ 
+    // construct and take affect from  pass new response
     
     
     [self.itemsArray removeAllObjects];
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:@"ted" success:^(NSMutableArray *itemsArray) {
+    [self fetchItemsIntoDocument:[self beyondTheRackDocument]
+                  forSearchQuery:[self searchString]
+                withFacetsString:[self facetsQueryString]
+                         success:^(NSDictionary *responseDictionary) {
     
-        
+        // pass the repsonseDictionary as well
         if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
             [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];
         }
@@ -234,7 +229,27 @@
 }
 
 
+- (NSString *)facetsQueryString {
+    
+    NSMutableArray *facetOptionsArray = [[NSMutableArray alloc] init];
+    
+    if ([self.headerTitle isEqualToString:PRICE_TITLE])
+      facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self selectedOptionsArray] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
+    
+    if ([self.headerTitle isEqualToString:CATEGORY_TITLE])
+        facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self selectedOptionsArray] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
 
+    if ([self.headerTitle isEqualToString:BRAND_TITLE])
+        facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self selectedOptionsArray] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
+
+    if ([self.headerTitle isEqualToString:COLOR_TITLE])
+        facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self selectedOptionsArray] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
+
+    if ([self.headerTitle isEqualToString:SIZE_TITLE])
+        facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self selectedOptionsArray]];
+
+    return [BTRFacetsHandler getFacetStringForRESTWithChosenFacetsArray:facetOptionsArray withSortOption:0];
+}
 
 
 

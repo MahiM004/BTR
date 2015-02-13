@@ -27,9 +27,11 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu", LIVEURL, searchQuery, (unsigned long)pageNumber]];
 }
 
-+ (NSURL *)URLforSearchQuery:(NSString *)searchQuery withFacets:(NSDictionary *)facetsDictionary andPageNumber:(NSUInteger)pageNumber {
++ (NSURL *)URLforSearchQuery:(NSString *)searchQuery withFacetString:(NSString *)facetsString andPageNumber:(NSUInteger)pageNumber {
 
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu", LIVEURL, searchQuery, (unsigned long)pageNumber]];
+    NSLog(@"something:  %@", [NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@", LIVEURL, searchQuery, (unsigned long)pageNumber, facetsString]);
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@", LIVEURL, searchQuery, (unsigned long)pageNumber, facetsString]];
 }
 
 

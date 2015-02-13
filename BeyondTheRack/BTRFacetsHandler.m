@@ -137,7 +137,7 @@
     return resultsArray;
 }
 
-+ (NSMutableArray *)getFacetOptionsForRESTFromSelectedPrices:(NSMutableArray *)selectedPrices
++ (NSMutableArray *)getFacetOptionsFromDisplaySelectedPrices:(NSMutableArray *)selectedPrices
                                       fromSelectedCategories:(NSMutableArray *)selectedCategories
                                         fromSelectedBrand:(NSMutableArray *)selectedBrands
                                       fromSelectedColors:(NSMutableArray *)selectedColors
@@ -181,13 +181,9 @@
 }
 
 
-- (NSString *)getFacetStringForRESTWithChosenFacetsArray:(NSMutableArray *)chosenFacetsArray
-                                    andCurrentSelections:(NSMutableArray *)currentOptionsArray withSortOption:(NSUInteger) sortOption {
++ (NSString *)getFacetStringForRESTWithChosenFacetsArray:(NSMutableArray *)chosenFacetsArray withSortOption:(NSUInteger) sortOption {
     
-    NSString *facetsString;
-    
-    
-    
+    NSString *facetsString = @"{!tag=cat_1}cat_1:[[Accessories]];{!tag=cat_2}cat_2:[[Men]]";
     
     
     

@@ -10,15 +10,30 @@
 
 @interface BTRFacetsHandler : NSObject
 
-+ (NSString *)priceRangeForAPIReadableFromLabelString:(NSString *)labelString;
-+ (NSString *)getSortTypeForIndex:(NSInteger)sortIndex;
+/*
+ 
+ From Response
+ 
+ */
 
++ (NSString *)getSortTypeForIndex:(NSInteger)sortIndex;
 + (NSDictionary *)getFacetsDictionaryFromResponse:(NSDictionary *)responseDictionary;
 + (NSMutableArray *)getItemDataArrayFromResponse:(NSDictionary *)responseDictionary;
-
 + (NSMutableArray *)extractFilterFacetsForDisplayFromResponse:(NSDictionary *)facetsDictionary;
 
-+ (NSMutableArray *)getFacetOptionsForRESTFromSelectedPrices:(NSMutableArray *)selectedPrices
+
+
+/*
+ 
+    For REST
+ 
+ */
+
++ (NSString *)priceRangeForAPIReadableFromLabelString:(NSString *)labelString;
+
++ (NSString *)getFacetStringForRESTWithChosenFacetsArray:(NSMutableArray *)chosenFacetsArray withSortOption:(NSUInteger) sortOption;
+
++ (NSMutableArray *)getFacetOptionsFromDisplaySelectedPrices:(NSMutableArray *)selectedPrices
                                       fromSelectedCategories:(NSMutableArray *)selectedCategories
                                            fromSelectedBrand:(NSMutableArray *)selectedBrands
                                           fromSelectedColors:(NSMutableArray *)selectedColors
