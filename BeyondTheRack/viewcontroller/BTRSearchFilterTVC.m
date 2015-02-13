@@ -500,8 +500,7 @@
     
     if ([sourceViewController isKindOfClass:[BTRModalFilterSelectionVC class]])
     {
-        NSLog(@"coooool: %d", [((BTRModalFilterSelectionVC *)sourceViewController).selectedOptionsArray count]);
-        [self.tableView reloadData];
+        
     }
     
     [self.tableView reloadData];

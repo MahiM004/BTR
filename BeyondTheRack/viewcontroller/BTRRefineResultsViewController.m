@@ -73,8 +73,6 @@
     
     [super viewDidLoad];
     [self extractFilterFacetsWithFacetQueries:[self facetsDictionary]];
-
-    [BTRUtility extractFilterFacetsForQueriesFromResponse:[self facetsDictionary]];
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
@@ -99,56 +97,15 @@
 
 - (void) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetsDictionary {
 
-    
-    [self.priceFilter removeAllObjects];
-    [self.sortOptions removeAllObjects];
-    [self.categoryFilter removeAllObjects];
-    [self.brandFilter removeAllObjects];
-    [self.colorFilter removeAllObjects];
-    [self.sizeFilter removeAllObjects];
 
+    NSMutableArray *facetsArray = [BTRUtility extractFilterFacetsForDisplayFromResponse:facetsDictionary];
     
-    NSDictionary *facetQueriesDictionary = facetsDictionary[@"facet_queries"];
-    NSDictionary *facetFieldsDictionary =  facetsDictionary[@"facet_fields"];
+    [self.priceFilter setArray:[facetsArray objectAtIndex:0]];
+    [self.categoryFilter setArray:[facetsArray objectAtIndex:1]];
+    [self.brandFilter setArray:[facetsArray objectAtIndex:2]];
+    [self.colorFilter setArray:[facetsArray objectAtIndex:3]];
+    [self.sizeFilter setArray:[facetsArray objectAtIndex:4]];
     
-    NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
-    
-    NSString *tempString = [NSString stringWithFormat:@"$0 to $200: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"] ];
-    [self.priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"$200 to $400: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"] ];
-    [self.priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"$400 to $600: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"] ];
-    [self.priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"$600 to $800: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"] ];
-    [self.priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"$800 to $1000: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"] ];
-    [self.priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"$1000 to *: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"] ];
-    [self.priceFilter addObject:tempString];
-
-    
-    NSDictionary *brandDictionary = facetFieldsDictionary[@"brand"];
-    for (NSString *item in brandDictionary)
-        [self.brandFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)brandDictionary[item]] ];
-    
-    NSDictionary *categoryDictionary = facetFieldsDictionary[@"cat_1"];
-    for (NSString *item in categoryDictionary)
-        [self.categoryFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)categoryDictionary[item]] ];
-    
-    NSDictionary *colorDictionary = facetFieldsDictionary[@"att_color"];
-    for (NSString *item in colorDictionary)
-        [self.colorFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)colorDictionary[item]] ];
-    
-    NSDictionary *sizeDictionary = facetFieldsDictionary[@"variant"];
-    for (NSString *item in sizeDictionary)
-        [self.sizeFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)sizeDictionary[item]] ];
-    
-    
-    [self.brandFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-    [self.categoryFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-    [self.colorFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-    [self.sizeFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-
 }
 
 
