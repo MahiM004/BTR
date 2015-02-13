@@ -176,6 +176,7 @@
     [facetOptionsArray addObject:categoriesArray];
     [facetOptionsArray addObject:brandsArray];
     [facetOptionsArray addObject:colorsArray];
+    [facetOptionsArray addObject:sizesArray];
     
     return facetOptionsArray;
 }
@@ -183,12 +184,54 @@
 
 + (NSString *)getFacetStringForRESTWithChosenFacetsArray:(NSMutableArray *)chosenFacetsArray withSortOption:(NSUInteger) sortOption {
     
-    NSString *facetsString = @"{!tag=cat_1}cat_1:[[Accessories]];{!tag=cat_2}cat_2:[[Men]]";
+    NSMutableString *facetsString = [[NSMutableString alloc] init];
+
+    __unused NSMutableArray *priceArray = [chosenFacetsArray objectAtIndex:0];
+    NSMutableArray *categoryArray = [chosenFacetsArray objectAtIndex:1];
+    __unused NSMutableArray *brandArray = [chosenFacetsArray objectAtIndex:2];
+     __unused NSMutableArray *colorArray = [chosenFacetsArray objectAtIndex:3];
+    __unused NSMutableArray *sizeArray = [chosenFacetsArray objectAtIndex:4];
     
+    //TODO: Handle price later
+    //NSString *priceString = @"";
+    //for (NSString *someString in priceArray)
+    //{
+    NSLog(@"price is ignored at getFacetStringForRESTWithChosenFacetsArray");
+    //}
+
+    NSMutableString *categoryString = [[NSMutableString alloc] init];
+    for (int i = 0; i < [categoryArray count]; i++)
+    {
+        [categoryString appendString:[NSString stringWithFormat:@"{!tag=cat_%d}cat_%d:[[%@]]",i+1,i+1,[categoryArray objectAtIndex:i]]];
+    }
+    [facetsString appendString:categoryString];
     
+    NSLog(@"%@", facetsString);
+
     
     
     return facetsString;
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

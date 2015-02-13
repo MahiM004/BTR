@@ -211,6 +211,7 @@
     
     
     [self.itemsArray removeAllObjects];
+    
     [self fetchItemsIntoDocument:[self beyondTheRackDocument]
                   forSearchQuery:[self searchString]
                 withFacetsString:[self facetsQueryString]

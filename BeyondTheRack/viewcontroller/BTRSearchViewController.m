@@ -109,7 +109,6 @@
 
 - (void)clearResults {
     
-    self.searchString = @"";
     oddNumberOfResults = NO;
     [self.itemArray removeAllObjects];
 }
@@ -249,7 +248,6 @@
     
     if ([self.itemArray count] % 2 && [self.itemArray count] > 0)
     {
-      
         oddNumberOfResults = YES;
         return tableSize + 1;
     }
