@@ -41,4 +41,10 @@
 }
 
 
++ (NSString *)contentTypeForSearchQuery {
+    
+    return @"text/html";
+}
+
+
 @end

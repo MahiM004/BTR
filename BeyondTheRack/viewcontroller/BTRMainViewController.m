@@ -48,8 +48,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [BTRUtility BTRBlack];
-    self.headerView.backgroundColor = [BTRUtility BTRBlack];
+    self.view.backgroundColor = [BTRViewUtility BTRBlack];
+    self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
 }
 
 

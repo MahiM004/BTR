@@ -13,7 +13,7 @@
 
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
-
+#import "BTRFacetsHandler.h"
 
 
 @interface BTRSearchViewController ()
@@ -313,7 +313,7 @@
     [cell.leftDescription setText:[letftItem shortItemDescription]];
     [cell.leftPrice setText:[NSString stringWithFormat:@"$%@",[letftItem priceCAD]]];
     
-    [cell.leftCrossedOffPrice setAttributedText:[BTRUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[letftItem retailCAD]]]];
+    [cell.leftCrossedOffPrice setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[letftItem retailCAD]]]];
     
     return cell;
 }
@@ -325,7 +325,7 @@
     [cell.rightDescription setText:[rightItem shortItemDescription]];
     [cell.rightPrice setText:[NSString stringWithFormat:@"$%@",[rightItem priceCAD]]];
     
-    [cell.rightCrossedOffPrice setAttributedText:[BTRUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[rightItem retailCAD]]]];
+    [cell.rightCrossedOffPrice setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[rightItem retailCAD]]]];
     
     return cell;
 }
@@ -360,7 +360,7 @@
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:[BTRUtility contentTypeForSearchQuery]]; // TODO: change text/html to application/json AFTER backend supports it in production
+    serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]]; // TODO: change text/html to application/json AFTER backend supports it in production
     
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -375,8 +375,8 @@
                                                                           options:0
                                                                             error:NULL];
  
-         self.facetsDictionary = [BTRUtility getFacetsDictionaryFromResponse:entitiesPropertyList];
-         NSMutableArray * arrayToPass = [BTRUtility getItemDataArrayFromResponse:entitiesPropertyList];
+         self.facetsDictionary = [BTRFacetsHandler getFacetsDictionaryFromResponse:entitiesPropertyList];
+         NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:entitiesPropertyList];
          
          if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
              

@@ -17,5 +17,6 @@
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery andPageNumber:(NSUInteger)pageNumber;
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withFacets:(NSDictionary *)facetsDictionary andPageNumber:(NSUInteger)pageNumber;
 + (NSURL *)URLforItemImageForSku:(NSString *)sku;
++ (NSString *)contentTypeForSearchQuery;
 
 @end

@@ -17,7 +17,7 @@
 		69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */; };
 		69659F1E1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F1D1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m */; };
 		69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */; };
-		697E05811A434121000146C6 /* BTRUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 697E05801A434121000146C6 /* BTRUtility.m */; };
+		697E05811A434121000146C6 /* BTRViewUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 697E05801A434121000146C6 /* BTRViewUtility.m */; };
 		69807AEA1A4210740001A154 /* neulogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 69807AE91A4210740001A154 /* neulogo.png */; };
 		698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */ = {isa = PBXBuildFile; fileRef = 698679FC1A4351A4003CE59C /* neulogocentered.png */; };
 		69867A051A43894B003CE59C /* neumyaccount.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A041A43894B003CE59C /* neumyaccount.png */; };
@@ -85,6 +85,7 @@
 		69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D0C1A605B2A00040C86 /* Order+AppServer.m */; };
 		69B02D161A605E8700040C86 /* PaymentDetail+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D151A605E8700040C86 /* PaymentDetail+AppServer.m */; };
 		69B55F0D1A4B1AFC009A5524 /* BTRShoppingBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B55F0B1A4B1AFC009A5524 /* BTRShoppingBagViewController.m */; };
+		69BC6D421A8E4F2C00376D9C /* BTRFacetsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC6D411A8E4F2C00376D9C /* BTRFacetsHandler.m */; };
 		69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */; };
@@ -121,8 +122,8 @@
 		69659F1D1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRModalFilterSelectionVC.m; sourceTree = "<group>"; };
 		69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMyAccountViewController.h; sourceTree = "<group>"; };
 		69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMyAccountViewController.m; sourceTree = "<group>"; };
-		697E057F1A434121000146C6 /* BTRUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRUtility.h; sourceTree = "<group>"; };
-		697E05801A434121000146C6 /* BTRUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRUtility.m; sourceTree = "<group>"; };
+		697E057F1A434121000146C6 /* BTRViewUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRViewUtility.h; sourceTree = "<group>"; };
+		697E05801A434121000146C6 /* BTRViewUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRViewUtility.m; sourceTree = "<group>"; };
 		69807AE91A4210740001A154 /* neulogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neulogo.png; sourceTree = "<group>"; };
 		698679FB1A434860003CE59C /* BeyondTheRack-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BeyondTheRack-Prefix.pch"; sourceTree = "<group>"; };
 		698679FC1A4351A4003CE59C /* neulogocentered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neulogocentered.png; sourceTree = "<group>"; };
@@ -251,6 +252,8 @@
 		69B02D151A605E8700040C86 /* PaymentDetail+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PaymentDetail+AppServer.m"; sourceTree = "<group>"; };
 		69B55F0A1A4B1AFC009A5524 /* BTRShoppingBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRShoppingBagViewController.h; sourceTree = "<group>"; };
 		69B55F0B1A4B1AFC009A5524 /* BTRShoppingBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRShoppingBagViewController.m; sourceTree = "<group>"; };
+		69BC6D401A8E4F2C00376D9C /* BTRFacetsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFacetsHandler.h; sourceTree = "<group>"; };
+		69BC6D411A8E4F2C00376D9C /* BTRFacetsHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFacetsHandler.m; sourceTree = "<group>"; };
 		69D5663D1A7A8F2300FAEDE2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -456,12 +459,14 @@
 		69AB98311A6D50E300EDB1E6 /* BTRHelpClasses */ = {
 			isa = PBXGroup;
 			children = (
-				697E057F1A434121000146C6 /* BTRUtility.h */,
-				697E05801A434121000146C6 /* BTRUtility.m */,
+				697E057F1A434121000146C6 /* BTRViewUtility.h */,
+				697E05801A434121000146C6 /* BTRViewUtility.m */,
 				69869FAA1A6408D200F986BC /* CoreDataTableViewController.h */,
 				69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */,
 				69869FAD1A640C0600F986BC /* BTRDocumentHandler.h */,
 				69869FAE1A640C0600F986BC /* BTRDocumentHandler.m */,
+				69BC6D401A8E4F2C00376D9C /* BTRFacetsHandler.h */,
+				69BC6D411A8E4F2C00376D9C /* BTRFacetsHandler.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -771,8 +776,9 @@
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				69869F9C1A63FB2100F986BC /* AFSecurityPolicy.m in Sources */,
 				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,
+				69BC6D421A8E4F2C00376D9C /* BTRFacetsHandler.m in Sources */,
 				69869FC51A640F0000F986BC /* UIButton+AFNetworking.m in Sources */,
-				697E05811A434121000146C6 /* BTRUtility.m in Sources */,
+				697E05811A434121000146C6 /* BTRViewUtility.m in Sources */,
 				69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */,
 				69869F761A6075EA00F986BC /* General2.m in Sources */,

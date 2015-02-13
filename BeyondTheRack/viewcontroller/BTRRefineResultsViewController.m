@@ -9,7 +9,7 @@
 #import "BTRRefineResultsViewController.h"
 #import "BTRSearchFilterTVC.h"
 
-
+#import "BTRFacetsHandler.h"
 
 @interface BTRRefineResultsViewController () <BTRSearchFilterTableDelegate>
 
@@ -98,7 +98,7 @@
 - (void) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetsDictionary {
 
 
-    NSMutableArray *facetsArray = [BTRUtility extractFilterFacetsForDisplayFromResponse:facetsDictionary];
+    NSMutableArray *facetsArray = [BTRFacetsHandler extractFilterFacetsForDisplayFromResponse:facetsDictionary];
     
     [self.priceFilter setArray:[facetsArray objectAtIndex:0]];
     [self.categoryFilter setArray:[facetsArray objectAtIndex:1]];

@@ -11,18 +11,7 @@
 
 #import "BTRFilterWithModalTableViewCell.h"
 
-#define SORT_SECTION 0
-#define PRICE_FILTER 1
-#define CATEGORY_FILTER 2
-#define BRAND_FILTER 3
-#define COLOR_FILTER 4
-#define SIZE_FILTER 5
 
-#define BRAND_TITLE @"Brand"
-#define COLOR_TITLE @"Color"
-#define SIZE_TITLE @"Size"
-#define CATEGORY_TITLE @"Type"
-#define PRICE_TITLE @"Price"
 
 
 
@@ -447,8 +436,18 @@
     destModalVC.optionsArray = itemsArray;
     destModalVC.selectedOptionsArray = selectedItemArray;
     destModalVC.headerTitle = title;
-    destModalVC.originalFacetsDictionary = [self originalFacetsDictionary];
     destModalVC.searchString = [self searchString];
+    
+    
+    NSMutableArray *facetsArray = [[NSMutableArray alloc] init];
+    [facetsArray addObject:[self selectedPrices]];
+    [facetsArray addObject:[self selectedCategories]];
+    [facetsArray addObject:[self selectedBrands]];
+    [facetsArray addObject:[self selectedColors]];
+    [facetsArray addObject:[self selectedSizes]];
+
+    destModalVC.chosenFacetsArray = facetsArray;
+    
     
     return destModalVC;
 }

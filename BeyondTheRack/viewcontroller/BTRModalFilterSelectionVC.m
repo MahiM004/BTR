@@ -10,7 +10,7 @@
 
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
-
+#import "BTRFacetsHandler.h"
 
 
 @interface BTRModalFilterSelectionVC ()
@@ -150,7 +150,7 @@
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:[BTRUtility contentTypeForSearchQuery]]; // TODO: change text/html to application/json AFTER backend supports it in production
+    serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]]; // TODO: change text/html to application/json AFTER backend supports it in production
     
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -164,8 +164,8 @@
                                                                               options:0
                                                                                 error:NULL];
          
-         self.freshFacetsDictionary = [BTRUtility getFacetsDictionaryFromResponse:entitiesPropertyList];
-         NSMutableArray * arrayToPass = [BTRUtility getItemDataArrayFromResponse:entitiesPropertyList];
+         self.freshFacetsDictionary = [BTRFacetsHandler getFacetsDictionaryFromResponse:entitiesPropertyList];
+         NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:entitiesPropertyList];
          
          if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
              
@@ -213,6 +213,11 @@
     
      */
     
+    
+    // 1.extract facets for request  2.bind the current selection  3.pass new response
+    
+    
+    
     [self.itemsArray removeAllObjects];
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:@"ted" success:^(NSMutableArray *itemsArray) {
     
@@ -227,6 +232,7 @@
         
     }];
 }
+
 
 
 

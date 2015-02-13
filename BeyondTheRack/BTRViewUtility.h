@@ -8,21 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BTRUtility : NSObject
+@interface BTRViewUtility : NSObject
 
 + (UIColor *)BTRBlack;
-
 + (UIImage *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;
 + (void)saveImage:(UIImage *)image withFilename:(NSString *)filename;
 + (UIImage *)imageWithFilename:(NSString *)filename;
-
-
 + (NSAttributedString *)crossedOffTextFrom:(NSString *)someText;
-
-+ (NSDictionary *)getFacetsDictionaryFromResponse:(NSDictionary *)responseDictionary;
-+ (NSMutableArray *)getItemDataArrayFromResponse:(NSDictionary *)responseDictionary;
-+ (NSMutableArray *)extractFilterFacetsForDisplayFromResponse:(NSDictionary *)facetsDictionary;
-
-+ (NSString *)contentTypeForSearchQuery;
 
 @end

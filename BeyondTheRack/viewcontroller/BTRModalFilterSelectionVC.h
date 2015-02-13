@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 
-@property (strong, nonatomic) NSDictionary *originalFacetsDictionary;
+@property (strong, nonatomic) NSMutableArray *chosenFacetsArray;
 @property (strong, nonatomic) NSString *searchString;
 
 @property (strong, nonatomic) NSMutableArray *itemsArray;

@@ -31,7 +31,7 @@
 //#import "Reachability.h"
 #import "AFNetworking.h"
 #import "UIKit+AFNetworking.h"
-#import "BTRUtility.h"
+#import "BTRViewUtility.h"
 #import "BTRDocumentHandler.h"
 //#import "BTRDateConverter.h"
 //#import "BTRRefreshHandler.h"

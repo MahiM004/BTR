@@ -56,7 +56,7 @@
     self.slider.pagingEnabled = YES;
     self.slider.zoomOutAnimationDisabled = YES;
     self.slider.disableTitleShadow = YES;
-    self.slider.titleScrollerBackgroundColour = [BTRUtility BTRBlack];
+    self.slider.titleScrollerBackgroundColour = [BTRViewUtility BTRBlack];
     //self.slider.titleScrollerHidden = YES;
     //slider.titleScrollerHeight = 100;
     //slider.titleScrollerItemWidth=60;

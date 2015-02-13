@@ -35,7 +35,7 @@
     [super viewDidLoad];
 
     
-    self.tableView.backgroundColor = [BTRUtility BTRBlack];
+    self.tableView.backgroundColor = [BTRViewUtility BTRBlack];
     self.tableView.separatorColor = [UIColor clearColor];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self setupDocument];
