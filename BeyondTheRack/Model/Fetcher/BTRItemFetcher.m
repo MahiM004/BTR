@@ -42,7 +42,7 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/productimages/%@/medium/%@_1.jpg", STATICURL,sku, sku]];
 }
 
-
+// TODO: change text/html to application/json AFTER backend supports it in production
 + (NSString *)contentTypeForSearchQuery {
     
     return @"text/html";

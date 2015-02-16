@@ -6,6 +6,15 @@
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
+/*
+ 
+ NOTE:
+
+ Only one layer of Facets are considered on the iOS App
+ 
+ */
+
+
 #import <Foundation/Foundation.h>
 
 @interface BTRFacetsHandler : NSObject
@@ -40,3 +49,28 @@
                                            fromSelectedSizes:(NSMutableArray *)selectedSizes;
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

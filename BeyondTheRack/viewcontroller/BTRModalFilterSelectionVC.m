@@ -224,7 +224,6 @@
      perform the search REST query with chosen facets and pass back the new filters and the query result
     
      */
-    // construct and take affect from  pass new response
     
     [self.itemsArray removeAllObjects];
     
@@ -232,17 +231,16 @@
                   forSearchQuery:[self searchString]
                 withFacetsString:[self facetsQueryString]
                          success:^(NSDictionary *responseDictionary) {
-    
-        // pass the repsonseDictionary as well
-        if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:)]) {
-            [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle]];
-        }
-        
-        [self dismissViewControllerAnimated:YES completion:NULL];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+                             
+                             if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:withResponseDictionary:)]) {
+                                 [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle] withResponseDictionary:responseDictionary];
+                             }
+                             
+                             [self dismissViewControllerAnimated:YES completion:NULL];
+                             
+                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                             
+                         }];
 }
 
 
@@ -267,7 +265,6 @@
 
     return [BTRFacetsHandler getFacetStringForRESTWithChosenFacetsArray:facetOptionsArray withSortOption:0];
 }
-
 
 
 @end

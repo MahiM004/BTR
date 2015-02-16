@@ -154,7 +154,6 @@
         embedTVC.sizesArray = self.sizeFilter;
         
         embedTVC.searchString = [self searchString];
-        embedTVC.originalFacetsDictionary = [self facetsDictionary];
         
         embedTVC.delegate = self;
     }

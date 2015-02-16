@@ -413,8 +413,8 @@
                                                                      fromSelectedSizes:[self selectedSizes]];
     
     
-    if ([self.delegate respondsToSelector:@selector(searchRefineOptionChosen:)]) {
-        [self.delegate searchRefineOptionChosen:[self queryRefineArray]];
+    if ([self.delegate respondsToSelector:@selector(searchRefineWillDisappearWithResponseDictionary:)]) {
+        [self.delegate searchRefineWillDisappearWithResponseDictionary:[self responseDictionaryFromFilters]];
     }
     
 }
@@ -422,25 +422,17 @@
 
 - (IBAction)unwindToBTRSearchFilterTVC:(UIStoryboardSegue *)unwindSegue {
  
-    
-    
-    UIViewController* sourceViewController = unwindSegue.sourceViewController;
-    
-    if ([sourceViewController isKindOfClass:[BTRModalFilterSelectionVC class]])
-    {
-        
-    }
-    
     [self.tableView reloadData];
-
 }
 
 
 #pragma mark - BTRModalFilterSelectionDelegate
 
 
-- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString{
+- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString withResponseDictionary:(NSDictionary *)responseDictionary{
 
+    self.responseDictionaryFromFilters = responseDictionary;
+    
     if ([titleString isEqualToString:BRAND_TITLE])
         self.selectedBrands = selectedItemsArray;
     else if ([titleString isEqualToString:COLOR_TITLE])
