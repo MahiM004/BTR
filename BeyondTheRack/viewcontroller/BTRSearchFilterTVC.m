@@ -267,7 +267,7 @@
                         withSectionString:BRAND_TITLE
                        withSelectionArray:[self selectedBrands]
                                 withIndex:indexPath.row
-                          selectionExists:(BOOL)[[self brandsArray] count]];
+                          selectionExists:[self.brandsArray count] > 0 ? YES: NO];
         
     } else if (indexPath.section == COLOR_FILTER) {
         
@@ -275,7 +275,7 @@
                         withSectionString:COLOR_TITLE
                        withSelectionArray:[self selectedColors]
                                 withIndex:indexPath.row
-                          selectionExists:(BOOL)[[self colorsArray] count]];
+                          selectionExists:[self.colorsArray count] > 0 ? YES: NO];
         
     } else if (indexPath.section == SIZE_FILTER) {
         
@@ -283,7 +283,7 @@
                         withSectionString:SIZE_TITLE
                        withSelectionArray:[self selectedSizes]
                                 withIndex:indexPath.row
-                          selectionExists:(BOOL)[[self sizesArray] count]];
+                          selectionExists:[self.sizesArray count] > 0 ? YES: NO];
 
     } else if (indexPath.section == CATEGORY_FILTER) {
         
@@ -291,7 +291,7 @@
                         withSectionString:CATEGORY_TITLE
                        withSelectionArray:[self selectedCategories]
                                 withIndex:indexPath.row
-                          selectionExists:(BOOL)[[self categoriesArray] count]];
+                          selectionExists:[self.categoriesArray count] > 0 ? YES: NO];
         
     } else if (indexPath.section == PRICE_FILTER) {
         
@@ -299,7 +299,7 @@
                         withSectionString:PRICE_TITLE
                        withSelectionArray:[self selectedPrices]
                                 withIndex:indexPath.row
-                          selectionExists:(BOOL)[[self pricesArray] count]];
+                          selectionExists:[self.pricesArray count] > 0 ? YES: NO];
     }
     
 

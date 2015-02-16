@@ -203,18 +203,18 @@
 
     NSLog(@"price variations are ignored at getFacetStringForRESTWithChosenFacetsArray");
     
-    if ([priceArray count])
+    if ([priceArray count] != 0)
         ((BOOL)[facetsString length])?
         [facetsString appendFormat:@";price_sort_ca:%@", [priceArray objectAtIndex:0]]:
         [facetsString appendFormat:@"price_sort_ca:%@", [priceArray objectAtIndex:0]];
     
-    if ([categoryArray count])
+    if ([categoryArray count] != 0)
         ((BOOL)[facetsString length])?
         [facetsString appendFormat:@";{!tag=cat_1}cat_1:[[%@]]", [categoryArray objectAtIndex:0]]:
         [facetsString appendFormat:@"{!tag=cat_1}cat_1:[[%@]]", [categoryArray objectAtIndex:0]];
     
     
-    if ([brandArray count])
+    if ([brandArray count] != 0)
         ((BOOL)[facetsString length]) ?
         [facetsString appendFormat:@";{!tag=brand}brand:[[%@]]", [brandArray objectAtIndex:0]]:
         [facetsString appendFormat:@"{!tag=brand}brand:[[%@]]", [brandArray objectAtIndex:0]];
@@ -225,7 +225,7 @@
     }
     
     
-    if ([colorArray count])
+    if ([colorArray count] != 0)
         ((BOOL)[facetsString length]) ?
         [facetsString appendFormat:@";{!tag=att_color}att_color:[[%@]]", [colorArray objectAtIndex:0]]:
         [facetsString appendFormat:@"{!tag=att_color}att_color:[[%@]]", [colorArray objectAtIndex:0]];
@@ -236,10 +236,10 @@
     }
 
     
-    if ([sizeArray count])
+    if ([sizeArray count] != 0)
         ((BOOL)[facetsString length])?
-        [facetsString appendFormat:@";{!tag=variant}variant:[[%@]]", [priceArray objectAtIndex:0]]:
-        [facetsString appendFormat:@"{!tag=variant}variant:[[%@]]", [priceArray objectAtIndex:0]];
+        [facetsString appendFormat:@";{!tag=variant}variant:[[%@]]", [sizeArray objectAtIndex:0]]:
+        [facetsString appendFormat:@"{!tag=variant}variant:[[%@]]", [sizeArray objectAtIndex:0]];
     
     
     return facetsString;

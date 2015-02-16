@@ -437,7 +437,7 @@
     
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
         
-        if ([arrayToPass count]) {
+        if ([arrayToPass count] != 0) {
             
             [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
