@@ -213,6 +213,7 @@
         [facetsString appendFormat:@";{!tag=cat_1}cat_1:[[%@]]", [categoryArray objectAtIndex:0]]:
         [facetsString appendFormat:@"{!tag=cat_1}cat_1:[[%@]]", [categoryArray objectAtIndex:0]];
     
+    
     if ([brandArray count])
         ((BOOL)[facetsString length]) ?
         [facetsString appendFormat:@";{!tag=brand}brand:[[%@]]", [brandArray objectAtIndex:0]]:
@@ -222,6 +223,7 @@
         for (int i = 1; i < [brandArray count]; i++)
             [facetsString appendFormat:@" OR brand:[[%@]]",[brandArray objectAtIndex:i]];
     }
+    
     
     if ([colorArray count])
         ((BOOL)[facetsString length]) ?
@@ -233,14 +235,11 @@
             [facetsString appendFormat:@" OR att_color:[[%@]]",[colorArray objectAtIndex:i]];
     }
 
+    
     if ([sizeArray count])
         ((BOOL)[facetsString length])?
         [facetsString appendFormat:@";{!tag=variant}variant:[[%@]]", [priceArray objectAtIndex:0]]:
         [facetsString appendFormat:@"{!tag=variant}variant:[[%@]]", [priceArray objectAtIndex:0]];
-    
-    
-    NSLog(@"%@", facetsString);
-
     
     
     return facetsString;
