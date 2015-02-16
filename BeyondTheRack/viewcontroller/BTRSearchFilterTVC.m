@@ -413,8 +413,8 @@
                                                                      fromSelectedSizes:[self selectedSizes]];
     
     
-    if ([self.delegate respondsToSelector:@selector(searchRefineWillDisappearWithResponseDictionary:)]) {
-        [self.delegate searchRefineWillDisappearWithResponseDictionary:[self responseDictionaryFromFilters]];
+    if ([self.delegate respondsToSelector:@selector(searchFilterTableWillDisappearWithResponseDictionary:)]) {
+        [self.delegate searchFilterTableWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
     }
     
 }
@@ -431,7 +431,7 @@
 
 - (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString withResponseDictionary:(NSDictionary *)responseDictionary{
 
-    self.responseDictionaryFromFilters = responseDictionary;
+    self.responseDictionaryFromFacets = responseDictionary;
     
     if ([titleString isEqualToString:BRAND_TITLE])
         self.selectedBrands = selectedItemsArray;

@@ -16,7 +16,7 @@
 #import "BTRFacetsHandler.h"
 
 
-@interface BTRSearchViewController ()
+@interface BTRSearchViewController () <BTRRefineResultsViewController> 
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -424,11 +424,39 @@
         refineVC.backgroundImage = screenShotImage;
         refineVC.facetsDictionary = [self facetsDictionary];
         refineVC.searchString = [self searchString];
+        refineVC.delegate = self;
         
     }
     
 
 }
+
+- (IBAction)unwindFromRefineResultsApplied:(UIStoryboardSegue *)unwindSegue {
+    
+    NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
+    
+    if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
+        
+        if ([arrayToPass count]) {
+            
+            [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+            [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+        }
+    }
+    
+    
+    [self.tableView reloadData];
+    
+}
+
+
+#pragma mark - BTRRefineResultsViewController
+
+- (void) refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
+    
+    self.responseDictionaryFromFacets = responseDictionary;
+}
+
 
 @end
 

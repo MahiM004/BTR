@@ -203,15 +203,15 @@
 
     NSLog(@"price variations are ignored at getFacetStringForRESTWithChosenFacetsArray");
     
-    NSMutableString *priceString = [[NSMutableString alloc] init];
-    for (int i = 0; i < [priceArray count]; i++)
-        [priceString appendString:[NSString stringWithFormat:@"price_sort_ca:%@", [priceArray objectAtIndex:i]]];
-    ((BOOL)[facetsString length]) ? [facetsString appendFormat:@";%@", priceString]:[facetsString appendString:priceString];
+    if ([priceArray count])
+        ((BOOL)[facetsString length])?
+        [facetsString appendFormat:@";price_sort_ca:%@", [priceArray objectAtIndex:0]]:
+        [facetsString appendFormat:@"price_sort_ca:%@", [priceArray objectAtIndex:0]];
     
-    NSMutableString *categoryString = [[NSMutableString alloc] init];
-    for (int i = 0; i < [categoryArray count]; i++)
-        [categoryString appendString:[NSString stringWithFormat:@"{!tag=cat_%d}cat_%d:[[%@]]",i+1,i+1,[categoryArray objectAtIndex:i]]];
-    ((BOOL)[facetsString length]) ? [facetsString appendFormat:@";%@", categoryString]:[facetsString appendString:categoryString];
+    if ([categoryArray count])
+        ((BOOL)[facetsString length])?
+        [facetsString appendFormat:@";{!tag=cat_1}cat_1:[[%@]]", [categoryArray objectAtIndex:0]]:
+        [facetsString appendFormat:@"{!tag=cat_1}cat_1:[[%@]]", [categoryArray objectAtIndex:0]];
     
     if ([brandArray count])
         ((BOOL)[facetsString length]) ?
@@ -220,7 +220,7 @@
     
     if ([brandArray count] > 1) {
         for (int i = 1; i < [brandArray count]; i++)
-            [facetsString appendString:[NSString stringWithFormat:@" OR brand:[[%@]]",[brandArray objectAtIndex:i]]];
+            [facetsString appendFormat:@" OR brand:[[%@]]",[brandArray objectAtIndex:i]];
     }
     
     if ([colorArray count])
@@ -230,13 +230,13 @@
     
     if ([colorArray count] > 1) {
         for (int i = 1; i < [colorArray count]; i++)
-            [facetsString appendString:[NSString stringWithFormat:@" OR att_color:[[%@]]",[colorArray objectAtIndex:i]]];
+            [facetsString appendFormat:@" OR att_color:[[%@]]",[colorArray objectAtIndex:i]];
     }
 
-    NSMutableString *sizeString = [[NSMutableString alloc] init];
-    for (int i = 0; i < [sizeArray count]; i++)
-        [sizeString appendString:[NSString stringWithFormat:@"{!tag=variant}variant:[[%@]]", [sizeArray objectAtIndex:i]]];
-    ((BOOL)[facetsString length]) ? [facetsString appendFormat:@";{!tag=variant}variant:[[%@]]", sizeString]:[facetsString appendString:sizeString];
+    if ([sizeArray count])
+        ((BOOL)[facetsString length])?
+        [facetsString appendFormat:@";{!tag=variant}variant:[[%@]]", [priceArray objectAtIndex:0]]:
+        [facetsString appendFormat:@"{!tag=variant}variant:[[%@]]", [priceArray objectAtIndex:0]];
     
     
     NSLog(@"%@", facetsString);

@@ -45,7 +45,7 @@
 
 @property (strong, nonatomic) NSMutableArray *queryRefineArray;
 
-@property (strong, nonatomic) NSDictionary *responseDictionaryFromFilters;
+@property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 @property (strong, nonatomic) NSString *searchString;
 
 @end
@@ -57,7 +57,7 @@
 @optional
 
 
-- (void)searchRefineWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary;
+- (void)searchFilterTableWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary;
 
 
 @end

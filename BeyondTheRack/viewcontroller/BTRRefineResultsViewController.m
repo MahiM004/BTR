@@ -121,6 +121,11 @@
     
      */
     
+    if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
+        [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
+    }
+
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -152,9 +157,7 @@
         embedTVC.colorsArray = self.colorFilter;
         embedTVC.categoriesArray = self.categoryFilter;
         embedTVC.sizesArray = self.sizeFilter;
-        
         embedTVC.searchString = [self searchString];
-        
         embedTVC.delegate = self;
     }
     
@@ -163,18 +166,9 @@
 
 #pragma mark - BTRSearchFilterTableDelegate
 
-- (void)searchRefineOptionChosen:(NSMutableArray *)searchRefineArray {
+- (void)searchFilterTableWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
     
-    for (NSMutableArray *someArray in searchRefineArray) {
-        
-        
-        for (NSString *someString in someArray) {
-            NSLog(@"%@",someString);
-        }
-    }
-    
-    // construct the query here!
-    
+    self.responseDictionaryFromFacets = responseDictionary;
 }
 
 

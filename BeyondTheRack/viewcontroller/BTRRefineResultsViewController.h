@@ -8,11 +8,18 @@
 
 #import "UIImage+ImageEffects.h"
 
-
-
 #import <UIKit/UIKit.h>
 
+
+@protocol BTRRefineResultsViewController;
+
+
 @interface BTRRefineResultsViewController : UIViewController
+
+
+@property (nonatomic, weak) id<BTRRefineResultsViewController> delegate;
+
+
 
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
@@ -20,4 +27,28 @@
 @property (strong, nonatomic) NSDictionary *facetsDictionary;
 @property (strong, nonatomic) NSString *searchString;
 
+@property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
+
 @end
+
+
+
+
+@protocol BTRRefineResultsViewController <NSObject>
+
+@optional
+
+
+- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary;
+
+
+@end
+
+
+
+
+
+
+
+
+
