@@ -353,22 +353,28 @@
             if ([[[(UIButton *)sender titleLabel] text] isEqualToString:BRAND_TITLE]) {
                 
                 [self prepareModalVC:destModalVC withItemsArray:[self brandsArray] withSelectedItemsArray:[self selectedBrands] andTitle:BRAND_TITLE];
+                destModalVC.isMultiSelect = YES;
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:COLOR_TITLE]) {
              
                 [self prepareModalVC:destModalVC withItemsArray:[self colorsArray] withSelectedItemsArray:[self selectedColors] andTitle:COLOR_TITLE];
+                destModalVC.isMultiSelect = YES;
+
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:SIZE_TITLE]) {
                 
                 [self prepareModalVC:destModalVC withItemsArray:[self sizesArray] withSelectedItemsArray:[self selectedSizes] andTitle:SIZE_TITLE];
+                destModalVC.isMultiSelect = YES;
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:CATEGORY_TITLE]) {
                 
                 [self prepareModalVC:destModalVC withItemsArray:[self categoriesArray] withSelectedItemsArray:[self selectedCategories] andTitle:CATEGORY_TITLE];
+                destModalVC.isMultiSelect = NO;
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:PRICE_TITLE]) {
                 
                 [self prepareModalVC:destModalVC withItemsArray:[self pricesArray] withSelectedItemsArray:[self selectedPrices] andTitle:PRICE_TITLE];
+                destModalVC.isMultiSelect = NO;
             }
         
             destModalVC.modalDelegate = self;

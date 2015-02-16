@@ -31,6 +31,9 @@
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSDictionary *freshFacetsDictionary;
 
+
+@property (nonatomic) BOOL isMultiSelect;
+
 @end
 
 

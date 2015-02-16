@@ -16,7 +16,9 @@
 
 
 
-@interface BTRModalFilterSelectionVC ()
+@interface BTRModalFilterSelectionVC () {
+    int selectedIndex;
+}
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -43,6 +45,7 @@
     
     [super viewDidLoad];
     
+    selectedIndex = -1;
     [self setupDocument];
     self.titleLabel.text = [NSString stringWithFormat:@"Select %@", [self headerTitle]];
     
@@ -81,7 +84,7 @@
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
     } else {
-
+        
         cell.backgroundColor = [UIColor whiteColor];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
@@ -114,19 +117,36 @@
 {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
-    if (cell.accessoryType == UITableViewCellAccessoryNone) {
-        
-        cell.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    if ([self isMultiSelect]) {
     
-        [self.selectedOptionsArray addObject:[[cell textLabel] text]];
+        if (cell.accessoryType == UITableViewCellAccessoryNone) {
+            
+            cell.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+            [self.selectedOptionsArray addObject:[[cell textLabel] text]];
+            
+        } else {
+            
+            cell.backgroundColor = [UIColor whiteColor];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            
+            [self.selectedOptionsArray removeObject:[[cell textLabel] text]];
+        }
         
-    } else {
+    } else if (![self isMultiSelect]) {
         
-        cell.backgroundColor = [UIColor whiteColor];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-
-        [self.selectedOptionsArray removeObject:[[cell textLabel] text]];
+        selectedIndex = (int)indexPath.row;
+        
+        if (cell.accessoryType == UITableViewCellAccessoryNone) {
+            
+            cell.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        
+        [self.selectedOptionsArray removeLastObject];
+        [self.selectedOptionsArray addObject:cell.textLabel.text];
+        [self.tableView reloadData];
     }
 }
 
