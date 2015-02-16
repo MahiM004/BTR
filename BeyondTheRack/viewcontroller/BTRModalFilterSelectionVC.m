@@ -224,11 +224,7 @@
      perform the search REST query with chosen facets and pass back the new filters and the query result
     
      */
-    
-    
- 
     // construct and take affect from  pass new response
-    
     
     [self.itemsArray removeAllObjects];
     
