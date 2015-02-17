@@ -99,6 +99,13 @@
 
 
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    if ([self.delegate respondsToSelector:@selector(searchFilterTableWillDisappearWithResponseDictionary:)]) {
+        [self.delegate searchFilterTableWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
+    }
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -411,12 +418,6 @@
                                                                      fromSelectedBrand:[self selectedBrands]
                                                                     fromSelectedColors:[self selectedColors]
                                                                      fromSelectedSizes:[self selectedSizes]];
-    
-    
-    if ([self.delegate respondsToSelector:@selector(searchFilterTableWillDisappearWithResponseDictionary:)]) {
-        [self.delegate searchFilterTableWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
-    }
-    
 }
 
 

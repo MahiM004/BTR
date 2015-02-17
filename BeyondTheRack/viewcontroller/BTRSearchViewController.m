@@ -10,13 +10,12 @@
 #import "BTRItemShowcaseTableViewCell.h"
 #import "BTRRefineResultsViewController.h"
 
-
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
 #import "BTRFacetsHandler.h"
 
 
-@interface BTRSearchViewController () <BTRRefineResultsViewController> 
+@interface BTRSearchViewController () <BTRRefineResultsViewController>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -377,7 +376,7 @@
          
          if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
              
-             if ([arrayToPass count]) {
+             if ([arrayToPass count] != 0) {
                  
                  [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
                  [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -433,11 +432,26 @@
 
 - (IBAction)unwindFromRefineResultsApplied:(UIStoryboardSegue *)unwindSegue {
     
+    
+    
+    
+}
+
+
+#pragma mark - BTRRefineResultsViewController
+
+- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
+    
+    self.responseDictionaryFromFacets = responseDictionary;
+    
     NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
     
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
         
         if ([arrayToPass count] != 0) {
+
+            [self.itemArray removeAllObjects];
+            [self.tableView reloadData];
             
             [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -446,16 +460,11 @@
     
     
     [self.tableView reloadData];
-    
 }
 
 
-#pragma mark - BTRRefineResultsViewController
 
-- (void) refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
-    
-    self.responseDictionaryFromFacets = responseDictionary;
-}
+
 
 
 @end

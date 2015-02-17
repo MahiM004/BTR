@@ -29,7 +29,7 @@
 
 + (NSMutableArray *)getItemDataArrayFromResponse:(NSDictionary *)responseDictionary {
     
-    NSDictionary *tempDic = responseDictionary[@"response"];
+    NSDictionary *tempDic = responseDictionary[@"response"];    
     return [tempDic valueForKey:@"docs"];
 }
 
@@ -82,7 +82,6 @@
 
 
 + (NSMutableArray *)extractFilterFacetsForDisplayFromResponse:(NSDictionary *)facetsDictionary {
-    
     
     
     NSMutableArray *resultsArray = [[NSMutableArray alloc] init];

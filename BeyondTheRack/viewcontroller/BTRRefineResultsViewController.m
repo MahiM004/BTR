@@ -89,6 +89,7 @@
     
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -124,9 +125,9 @@
     if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
         [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
     }
-
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
+
 }
 
 
@@ -169,6 +170,18 @@
 - (void)searchFilterTableWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
     
     self.responseDictionaryFromFacets = responseDictionary;
+    
+    NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:responseDictionary];
+    
+    if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
+        
+        if ([arrayToPass count] != 0) {
+            
+          //  [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+          //  [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+        }
+    }
+    
 }
 
 
