@@ -41,6 +41,11 @@
     return _facetsDictionary;
 }
 
+- (NSMutableArray *)originalItemArray {
+    
+    if (!_originalItemArray) _originalItemArray = [[NSMutableArray alloc] init];
+    return _originalItemArray;
+}
 
 - (NSMutableArray *)itemArray{
 
@@ -174,8 +179,10 @@
     self.searchString = [self.searchBar text];
     
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self searchString]
-                         success:^(NSMutableArray *responseDictionary) {
+                         success:^(NSMutableArray *responseArray) {
                          
+                             self.originalItemArray = responseArray;
+                             
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          
                          }];
@@ -279,12 +286,7 @@
     
     } else {
         
-        [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self searchString]
-                             success:^(NSMutableArray *responseDictionary) {
-                                 
-                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                 
-                             }];
+        self.itemArray = [self originalItemArray];
     }
 
     if (!(oddNumberOfResults && indexPath.row == [self.tableView numberOfRowsInSection:0] - 1)) {
@@ -299,12 +301,7 @@
     
         } else {
             
-            [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self searchString]
-                                 success:^(NSMutableArray *responseDictionary) {
-                                     
-                                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                     
-                                 }];
+            self.itemArray = [self originalItemArray];
         }
         
     } else if (oddNumberOfResults && indexPath.row == [self.tableView numberOfRowsInSection:0] - 1) {
@@ -363,20 +360,7 @@
         self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
     }
 }
-/*    [self fetchItemsIntoDocument:[self beyondTheRackDocument]
- forSearchQuery:[self searchString]
- withFacetsString:[self facetsQueryString]
- success:^(NSDictionary *responseDictionary) {
- 
- if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:withResponseDictionary:)]) {
- [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle] withResponseDictionary:responseDictionary];
- }
- 
- [self dismissViewControllerAnimated:YES completion:NULL];
- 
- } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
- 
- }];*/
+
 - (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
@@ -415,7 +399,7 @@
          
          [self.tableView reloadData];
          
-         success(arrayToPass);
+         success([self itemArray]);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
