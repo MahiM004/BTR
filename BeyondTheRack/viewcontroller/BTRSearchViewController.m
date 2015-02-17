@@ -187,7 +187,7 @@
                              
                              
                              [self.originalItemArray addObjectsFromArray:responseArray];
-                             NSLog(@"voooo: %d", [self.originalItemArray count]);
+                             NSLog(@"voooo: %lu", (unsigned long)[self.originalItemArray count]);
                              
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          

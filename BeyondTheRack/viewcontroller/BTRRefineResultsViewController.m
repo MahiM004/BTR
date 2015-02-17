@@ -8,11 +8,14 @@
 
 #import "BTRRefineResultsViewController.h"
 #import "BTRSearchFilterTVC.h"
+#import "BTRItemFetcher.h"
 
 #import "BTRFacetsHandler.h"
 
 @interface BTRRefineResultsViewController () <BTRSearchFilterTableDelegate>
 
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) NSMutableArray *priceFilter;
 @property (strong, nonatomic) NSMutableArray *sortOptions;
@@ -109,6 +112,52 @@
     
 }
 
+#pragma mark - Load Results RESTful
+
+
+- (void)setupDocument {
+    
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
+}
+
+- (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
+              withFacetsString:(NSString *)facetsString
+                       success:(void (^)(id  responseObject)) success
+                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    
+    //[[self itemsArray] removeAllObjects];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]];
+    
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withFacetString:facetsString andPageNumber:0]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         
+         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                            options:0
+                                                                              error:NULL];
+         
+         success(responseDictionary);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         NSLog(@"Error: %@", error);
+         
+         failure(operation, error);
+     }];
+    
+}
+
 
 #pragma mark - Navigation
 
@@ -135,11 +184,45 @@
     if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
         [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
     }
+/*
+    [self fetchItemsIntoDocument:[self beyondTheRackDocument]
+                  forSearchQuery:[self searchString]
+                withFacetsString:[self facetsQueryString]
+                         success:^(NSDictionary *responseDictionary) {
+                             
+                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                             
+                         }];
+    */
     
     [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
-
 }
 
+
+- (NSString *)queryString {
+    /*
+    NSMutableArray *facetsArray = [[NSMutableArray alloc] init];
+    [facetsArray addObject:[self selectedPrices]];
+    [facetsArray addObject:[self selectedCategories]];
+    [facetsArray addObject:[self selectedBrands]];
+    [facetsArray addObject:[self selectedColors]];
+    [facetsArray addObject:[self selectedSizes]];
+    
+    destModalVC.chosenFacetsArray = facetsArray;
+    
+    
+    */
+    
+    NSMutableArray *facetOptionsArray = [[NSMutableArray alloc] init];
+    /*
+    
+    facetOptionsArray = [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
+    
+
+    */
+    
+    return [BTRFacetsHandler getFacetStringForRESTWithChosenFacetsArray:facetOptionsArray withSortOption:0];
+}
 
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -164,20 +247,9 @@
 
 #pragma mark - BTRSearchFilterTableDelegate
 
-- (void)searchFilterTableWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
+- (void)searchFilterTableWillDisappearWithChosenFacetsArray:(NSMutableArray *)chosenFacetsArray {
     
-    self.responseDictionaryFromFacets = responseDictionary;
-    
-    NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:responseDictionary];
-    
-    if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
-        
-        if ([arrayToPass count] != 0) {
-            
-          //  [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
-          //  [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-        }
-    }
+
     
 }
 

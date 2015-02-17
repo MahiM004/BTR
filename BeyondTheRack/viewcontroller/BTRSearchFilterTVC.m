@@ -387,9 +387,8 @@
             destModalVC.modalDelegate = self;
         }
     }
-    
-    
 }
+
 
 - (BTRModalFilterSelectionVC *)prepareModalVC:(BTRModalFilterSelectionVC *)destModalVC withItemsArray:(NSMutableArray *)itemsArray withSelectedItemsArray:(NSMutableArray *)selectedItemArray andTitle:(NSString *)title {
     
@@ -398,19 +397,27 @@
     destModalVC.headerTitle = title;
     destModalVC.searchString = [self searchString];
     
+
+
+    destModalVC.chosenFacetsArray = [self getChosenFacetsArray];
     
+    return destModalVC;
+}
+
+
+- (NSMutableArray *)getChosenFacetsArray {
+ 
     NSMutableArray *facetsArray = [[NSMutableArray alloc] init];
     [facetsArray addObject:[self selectedPrices]];
     [facetsArray addObject:[self selectedCategories]];
     [facetsArray addObject:[self selectedBrands]];
     [facetsArray addObject:[self selectedColors]];
     [facetsArray addObject:[self selectedSizes]];
-
-    destModalVC.chosenFacetsArray = facetsArray;
     
-    
-    return destModalVC;
+    return facetsArray;
 }
+
+
 - (void)viewWillDisappear:(BOOL)animated {
     
     self.queryRefineArray = [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self selectedPrices]

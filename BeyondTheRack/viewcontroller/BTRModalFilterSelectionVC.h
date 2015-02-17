@@ -27,7 +27,6 @@
 
 @property (strong, nonatomic) NSMutableArray *chosenFacetsArray;
 @property (strong, nonatomic) NSString *searchString;
-@property (strong, nonatomic) NSString *facetString;
 
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSDictionary *freshFacetsDictionary;
