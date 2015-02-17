@@ -25,9 +25,10 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
 @property (strong, nonatomic) NSDictionary *facetsDictionary;
-@property (strong, nonatomic) NSString *searchString;
-
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
+
+@property (strong, nonatomic) NSString *searchString;
+@property (strong, nonatomic) NSString *facetString;
 
 @end
 

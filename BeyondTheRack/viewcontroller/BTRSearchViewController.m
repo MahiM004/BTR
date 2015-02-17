@@ -27,6 +27,10 @@
 @property (strong, nonatomic) NSString *searchString;
 @property (nonatomic) BOOL oddNumberOfResults;
 
+
+@property (strong, nonatomic) NSMutableArray *originalItemArray;
+
+
 @end
 
 
@@ -180,8 +184,10 @@
     
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self searchString]
                          success:^(NSMutableArray *responseArray) {
-                         
-                             self.originalItemArray = responseArray;
+                             
+                             
+                             [self.originalItemArray addObjectsFromArray:responseArray];
+                             NSLog(@"voooo: %d", [self.originalItemArray count]);
                              
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          
@@ -378,8 +384,6 @@
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
-         
-
          NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                           options:0
                                                                             error:NULL];
@@ -466,13 +470,21 @@
 }
 
 
+- (IBAction)unwindFromRefineResultsCleared:(UIStoryboardSegue *)unwindSegue {
+
+    [self clearResults];
+    [self.itemArray addObjectsFromArray:[self originalItemArray]];
+
+    [self.tableView reloadData];
+}
+
+
 #pragma mark - BTRRefineResultsViewController
 
 - (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
     
     self.responseDictionaryFromFacets = responseDictionary;
     
-
 }
 
 

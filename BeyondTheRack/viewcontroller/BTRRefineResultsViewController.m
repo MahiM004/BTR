@@ -113,6 +113,16 @@
 #pragma mark - Navigation
 
 
+- (IBAction)clearTapped:(UIButton *)sender {
+    
+    [self.priceFilter removeAllObjects];
+    [self.categoryFilter removeAllObjects];
+    [self.sizeFilter removeAllObjects];
+    [self.brandFilter removeAllObjects];
+    [self.colorFilter removeAllObjects];
+    
+    [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
+}
 
 - (IBAction)applyButtonTapped:(UIButton *)sender {
 
@@ -127,19 +137,6 @@
     }
     
     [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
-
-}
-
-
-- (IBAction)cancelTapped:(id)sender {
-    
-    /*
-     
-     clear selections and dismiss vc
-    
-     */
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
 
 }
 

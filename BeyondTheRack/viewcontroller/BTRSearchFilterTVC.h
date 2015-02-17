@@ -44,9 +44,10 @@
 
 
 @property (strong, nonatomic) NSMutableArray *queryRefineArray;
-
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
+
 @property (strong, nonatomic) NSString *searchString;
+@property (strong, nonatomic) NSString *facetString;
 
 @end
 
