@@ -32,6 +32,11 @@
 @synthesize backgroundImage;
 
 
+- (NSMutableArray *)chosenFacetsArray {
+    
+    if (!_chosenFacetsArray) _chosenFacetsArray = [[NSMutableArray alloc] init];
+    return _chosenFacetsArray;
+}
 
 - (NSMutableArray *)sortOptions{
     
@@ -75,6 +80,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self setupDocument];
+    
     [self extractFilterFacetsWithFacetQueries:[self facetsDictionary]];
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
@@ -184,23 +192,23 @@
     if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
         [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
     }
-/*
+
     [self fetchItemsIntoDocument:[self beyondTheRackDocument]
                   forSearchQuery:[self searchString]
-                withFacetsString:[self facetsQueryString]
+                withFacetsString:[self queryString]
                          success:^(NSDictionary *responseDictionary) {
                              
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                              
                          }];
-    */
+    
     
     [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
 }
 
 
 - (NSString *)queryString {
-    /*
+    
     NSMutableArray *facetsArray = [[NSMutableArray alloc] init];
     [facetsArray addObject:[self selectedPrices]];
     [facetsArray addObject:[self selectedCategories]];
@@ -211,7 +219,7 @@
     destModalVC.chosenFacetsArray = facetsArray;
     
     
-    */
+    
     
     NSMutableArray *facetOptionsArray = [[NSMutableArray alloc] init];
     /*

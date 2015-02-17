@@ -101,8 +101,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    if ([self.delegate respondsToSelector:@selector(searchFilterTableWillDisappearWithResponseDictionary:)]) {
-        [self.delegate searchFilterTableWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
+    if ([self.delegate respondsToSelector:@selector(searchFilterTableWillDisappearWithChosenFacetsArray:)]) {
+        [self.delegate searchFilterTableWillDisappearWithChosenFacetsArray:[self getChosenFacetsArray]];
     }
 }
 
@@ -261,10 +261,6 @@
     return  cell;
     
 }
-
-
-
-
 
 - (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     

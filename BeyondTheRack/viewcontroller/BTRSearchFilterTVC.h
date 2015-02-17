@@ -57,7 +57,7 @@
 @optional
 
 
-- (void)searchFilterTableWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary;
+- (void)searchFilterTableWillDisappearWithChosenFacetsArray:(NSMutableArray *)chosenFacetsArray;
 
 
 @end
