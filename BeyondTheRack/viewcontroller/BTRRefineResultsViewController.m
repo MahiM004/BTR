@@ -187,9 +187,7 @@
      */
     
     NSString *facetString = [self getFacetQueryString];
-    
 
-    
     [self fetchItemsIntoDocument:[self beyondTheRackDocument]
                   forSearchQuery:[self searchString]
                 withFacetsString:facetString
