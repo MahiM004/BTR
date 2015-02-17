@@ -450,7 +450,7 @@
         
         if ([arrayToPass count] != 0) {
 
-            [self.itemArray removeAllObjects];
+            [self clearResults];
             [self.tableView reloadData];
             
             [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
