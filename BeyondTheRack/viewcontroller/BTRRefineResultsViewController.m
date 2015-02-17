@@ -138,7 +138,6 @@
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     
-    //[[self itemsArray] removeAllObjects];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]];
@@ -150,11 +149,9 @@
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
-         
          NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                             options:0
                                                                               error:NULL];
-         
          success(responseDictionary);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -189,45 +186,40 @@
     
      */
     
-    if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
-        [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
-    }
+    NSString *facetString = [self getFacetQueryString];
+    
 
+    
     [self fetchItemsIntoDocument:[self beyondTheRackDocument]
                   forSearchQuery:[self searchString]
-                withFacetsString:[self queryString]
+                withFacetsString:facetString
                          success:^(NSDictionary *responseDictionary) {
+                             
+                             self.responseDictionaryFromFacets = responseDictionary;
+                             
+                             
+                             if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
+                                 [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
+                             }
+                             
+                             [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
+
                              
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                              
+                             NSLog(@"Error: %@",error);
+                            
                          }];
     
-    
-    [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
 }
 
 
-- (NSString *)queryString {
-    
-    NSMutableArray *facetsArray = [[NSMutableArray alloc] init];
-    [facetsArray addObject:[self selectedPrices]];
-    [facetsArray addObject:[self selectedCategories]];
-    [facetsArray addObject:[self selectedBrands]];
-    [facetsArray addObject:[self selectedColors]];
-    [facetsArray addObject:[self selectedSizes]];
-    
-    destModalVC.chosenFacetsArray = facetsArray;
-    
-    
+- (NSString *)getFacetQueryString {
     
     
     NSMutableArray *facetOptionsArray = [[NSMutableArray alloc] init];
-    /*
     
     facetOptionsArray = [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
-    
-
-    */
     
     return [BTRFacetsHandler getFacetStringForRESTWithChosenFacetsArray:facetOptionsArray withSortOption:0];
 }
@@ -256,9 +248,8 @@
 #pragma mark - BTRSearchFilterTableDelegate
 
 - (void)searchFilterTableWillDisappearWithChosenFacetsArray:(NSMutableArray *)chosenFacetsArray {
-    
 
-    
+    [self.chosenFacetsArray addObjectsFromArray:chosenFacetsArray];
 }
 
 

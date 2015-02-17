@@ -28,8 +28,6 @@
 }
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withFacetString:(NSString *)facetsString andPageNumber:(NSUInteger)pageNumber {
-
-    NSLog(@"Filter serach request URL:  %@", [NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@", LIVEURL, searchQuery, (unsigned long)pageNumber, facetsString]);
        
     if ([facetsString length] == 0)
         return [self URLforSearchQuery:searchQuery andPageNumber:pageNumber];

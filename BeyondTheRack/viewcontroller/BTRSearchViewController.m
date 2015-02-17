@@ -187,7 +187,6 @@
                              
                              
                              [self.originalItemArray addObjectsFromArray:responseArray];
-                             NSLog(@"voooo: %lu", (unsigned long)[self.originalItemArray count]);
                              
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          
@@ -452,7 +451,7 @@
     
     
     NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
-    
+        
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
         
         if ([arrayToPass count] != 0) {
@@ -475,6 +474,7 @@
     [self clearResults];
     [self.itemArray addObjectsFromArray:[self originalItemArray]];
 
+    
     [self.tableView reloadData];
 }
 
@@ -485,6 +485,7 @@
     
     self.responseDictionaryFromFacets = responseDictionary;
     
+
 }
 
 
