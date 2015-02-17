@@ -173,7 +173,12 @@
     
     self.searchString = [self.searchBar text];
     
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self searchString]];
+    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self searchString]
+                         success:^(NSMutableArray *responseDictionary) {
+                         
+                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         
+                         }];
     
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
@@ -274,8 +279,12 @@
     
     } else {
         
-        [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
-
+        [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self searchString]
+                             success:^(NSMutableArray *responseDictionary) {
+                                 
+                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                 
+                             }];
     }
 
     if (!(oddNumberOfResults && indexPath.row == [self.tableView numberOfRowsInSection:0] - 1)) {
@@ -290,7 +299,12 @@
     
         } else {
             
-            [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self.searchBar text]];
+            [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self searchString]
+                                 success:^(NSMutableArray *responseDictionary) {
+                                     
+                                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                     
+                                 }];
         }
         
     } else if (oddNumberOfResults && indexPath.row == [self.tableView numberOfRowsInSection:0] - 1) {
@@ -349,8 +363,23 @@
         self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
     }
 }
-
+/*    [self fetchItemsIntoDocument:[self beyondTheRackDocument]
+ forSearchQuery:[self searchString]
+ withFacetsString:[self facetsQueryString]
+ success:^(NSDictionary *responseDictionary) {
+ 
+ if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:withResponseDictionary:)]) {
+ [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle] withResponseDictionary:responseDictionary];
+ }
+ 
+ [self dismissViewControllerAnimated:YES completion:NULL];
+ 
+ } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+ 
+ }];*/
 - (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
+                       success:(void (^)(id  responseObject)) success
+                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     [self clearResults];
     [self.tableView reloadData];
@@ -386,9 +415,13 @@
          
          [self.tableView reloadData];
          
+         success(arrayToPass);
+         
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
          NSLog(@"Error: %@", error);
+         
+         failure(operation, error);
      }];
     
 }
@@ -424,32 +457,18 @@
         refineVC.facetsDictionary = [self facetsDictionary];
         refineVC.searchString = [self searchString];
         refineVC.delegate = self;
-        
     }
-    
-
 }
 
 - (IBAction)unwindFromRefineResultsApplied:(UIStoryboardSegue *)unwindSegue {
     
-    
-    
-    
-}
-
-
-#pragma mark - BTRRefineResultsViewController
-
-- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
-    
-    self.responseDictionaryFromFacets = responseDictionary;
     
     NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
     
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
         
         if ([arrayToPass count] != 0) {
-
+            
             [self clearResults];
             [self.tableView reloadData];
             
@@ -460,6 +479,16 @@
     
     
     [self.tableView reloadData];
+}
+
+
+#pragma mark - BTRRefineResultsViewController
+
+- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
+    
+    self.responseDictionaryFromFacets = responseDictionary;
+    
+
 }
 
 

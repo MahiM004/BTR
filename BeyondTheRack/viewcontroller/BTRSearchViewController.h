@@ -19,4 +19,6 @@
 
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 
+@property (strong, nonatomic) NSMutableArray *originalItemArray;
+
 @end
