@@ -107,7 +107,6 @@
     if ([self.delegate respondsToSelector:@selector(searchFilterTableWillDisappearWithChosenFacetsArray:)]) {
         [self.delegate searchFilterTableWillDisappearWithChosenFacetsArray:[self getChosenFacetsArray]];
     }
-    
 }
 
 - (void)populateWithChosenOptions {
@@ -324,7 +323,8 @@
                         withSectionString:CATEGORY_TITLE
                        withSelectionArray:[self selectedCategories]
                                 withIndex:indexPath.row
-                          selectionExists:[self.categoriesArray count] > 0 ? YES: NO];
+                          selectionExists:[self.categoriesArray count] &&
+                ![self hasChosenFacetExceptCategoriesInFacetsArray:[self oldChosenFacets]]> 0 ? YES: NO];
         
     } else if (indexPath.section == PRICE_FILTER) {
         
@@ -453,34 +453,43 @@
 
 - (IBAction)unwindToBTRSearchFilterTVC:(UIStoryboardSegue *)unwindSegue {
  
+
     [self.tableView reloadData];
 }
 
 
+- (BOOL)hasChosenFacetExceptCategoriesInFacetsArray:(NSMutableArray *)chosenFacetsArray {
+    
+    if ([self.selectedBrands count] > 0 ||
+        [self.selectedColors count] > 0 ||
+        [self.selectedPrices count] > 0 ||
+        [self.selectedSizes count] > 0) {
+
+        [self.selectedCategories removeAllObjects];
+        return YES;
+    }
+    
+    return NO;
+}
+
 #pragma mark - BTRModalFilterSelectionDelegate
 
 
-- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString withResponseDictionary:(NSDictionary *)responseDictionary{
+- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString withResponseDictionary:(NSDictionary *)responseDictionary {
 
     self.responseDictionaryFromFacets = responseDictionary;
     
     if ([titleString isEqualToString:BRAND_TITLE]) {
         
         self.selectedBrands = selectedItemsArray;
-        [self.selectedCategories removeAllObjects];
-        [self.categoriesArray removeAllObjects];
     }
     else if ([titleString isEqualToString:COLOR_TITLE]) {
 
         self.selectedColors = selectedItemsArray;
-        [self.selectedCategories removeAllObjects];
-        [self.categoriesArray removeAllObjects];
     }
     else if ([titleString isEqualToString:SIZE_TITLE]) {
 
         self.selectedSizes = selectedItemsArray;
-        [self.selectedCategories removeAllObjects];
-        [self.categoriesArray removeAllObjects];
     }
     else if ([titleString isEqualToString:CATEGORY_TITLE]) {
 
@@ -489,16 +498,27 @@
     else if ([titleString isEqualToString:PRICE_TITLE]) {
         
         self.selectedPrices = selectedItemsArray;
-        [self.categoriesArray removeAllObjects];
-        [self.selectedCategories removeAllObjects];
-
     }
-   
+
     [self.tableView reloadData];
 }
+/*
+- (void) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetsDictionary {
+    
+    self.facetsDictionary = [BTRFacetsHandler getFacetsDictionaryFromResponse:entitiesPropertyList];
 
-
-
+    
+    NSMutableArray *facetsArray = [BTRFacetsHandler extractFilterFacetsForDisplayFromResponse:facetsDictionary];
+    
+    
+    
+    [self.priceFilter setArray:[facetsArray objectAtIndex:0]];
+    [self.categoryFilter setArray:[facetsArray objectAtIndex:1]];
+    [self.brandFilter setArray:[facetsArray objectAtIndex:2]];
+    [self.colorFilter setArray:[facetsArray objectAtIndex:3]];
+    [self.sizeFilter setArray:[facetsArray objectAtIndex:4]];
+}
+*/
 @end
 
 

@@ -213,7 +213,7 @@
      */
     
     [self.selectedOptionsArray removeAllObjects];
-    [self performSegueWithIdentifier:@"UnwindToBTRSearchFilterSegueIdentifier" sender:self];
+    [self performSegueWithIdentifier:@"unwindToBTRSearchFilterTVC" sender:self];
 
 }
 

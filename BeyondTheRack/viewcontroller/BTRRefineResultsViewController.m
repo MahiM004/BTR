@@ -109,7 +109,6 @@
 
 - (void) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetsDictionary {
 
-
     NSMutableArray *facetsArray = [BTRFacetsHandler extractFilterFacetsForDisplayFromResponse:facetsDictionary];
     
     [self.priceFilter setArray:[facetsArray objectAtIndex:0]];
@@ -117,8 +116,10 @@
     [self.brandFilter setArray:[facetsArray objectAtIndex:2]];
     [self.colorFilter setArray:[facetsArray objectAtIndex:3]];
     [self.sizeFilter setArray:[facetsArray objectAtIndex:4]];
-    
 }
+
+
+
 
 #pragma mark - Load Results RESTful
 
