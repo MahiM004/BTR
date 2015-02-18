@@ -14,15 +14,12 @@
 
 @interface BTRRefineResultsViewController () <BTRSearchFilterTableDelegate>
 
+
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (strong, nonatomic) NSMutableArray *priceFilter;
-@property (strong, nonatomic) NSMutableArray *sortOptions;
-@property (strong, nonatomic) NSMutableArray *categoryFilter;
-@property (strong, nonatomic) NSMutableArray *brandFilter;
-@property (strong, nonatomic) NSMutableArray *colorFilter;
-@property (strong, nonatomic) NSMutableArray *sizeFilter;
+@property (nonatomic) int *sortOptions;
+@property (strong, nonatomic) NSMutableArray *chosenFacetsArray;
 
 
 @end
@@ -38,43 +35,6 @@
     return _chosenFacetsArray;
 }
 
-- (NSMutableArray *)sortOptions{
-    
-    if (!_sortOptions) _sortOptions = [[NSMutableArray alloc] init];
-    return _sortOptions;
-}
-
-- (NSMutableArray *)priceFilter {
-    
-    if (!_priceFilter) _priceFilter = [[NSMutableArray alloc] init];
-    return _priceFilter;
-}
-
-- (NSMutableArray *)categoryFilter{
-    
-    if (!_categoryFilter) _categoryFilter = [[NSMutableArray alloc] init];
-    return _categoryFilter;
-}
-
-- (NSMutableArray *)brandFilter{
-    
-    if (!_brandFilter) _brandFilter = [[NSMutableArray alloc] init];
-    return _brandFilter;
-}
-
-- (NSMutableArray *)colorFilter{
-    
-    if (!_colorFilter) _colorFilter = [[NSMutableArray alloc] init];
-    return _colorFilter;
-}
-
-- (NSMutableArray *)sizeFilter{
-    
-    if (!_sizeFilter) _sizeFilter = [[NSMutableArray alloc] init];
-    return _sizeFilter;
-}
-
-
 
 
 - (void)viewDidLoad {
@@ -83,7 +43,7 @@
     
     [self setupDocument];
     
-    [self extractFilterFacetsWithFacetQueries:[self facetsDictionary]];
+   // [self extractFilterFacetsWithFacetQueries:[self facetsDictionary]];
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
@@ -106,7 +66,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+/*
 - (void) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetsDictionary {
 
     NSMutableArray *facetsArray = [BTRFacetsHandler extractFilterFacetsForDisplayFromResponse:facetsDictionary];
@@ -117,9 +77,7 @@
     [self.colorFilter setArray:[facetsArray objectAtIndex:3]];
     [self.sizeFilter setArray:[facetsArray objectAtIndex:4]];
 }
-
-
-
+*/
 
 #pragma mark - Load Results RESTful
 
@@ -169,12 +127,6 @@
 
 
 - (IBAction)clearTapped:(UIButton *)sender {
-
-    [self.priceFilter removeAllObjects];
-    [self.categoryFilter removeAllObjects];
-    [self.sizeFilter removeAllObjects];
-    [self.brandFilter removeAllObjects];
-    [self.colorFilter removeAllObjects];
     
     [self.chosenFacetsArray removeAllObjects];
 
@@ -234,13 +186,10 @@
      
         BTRSearchFilterTVC *embedTVC = segue.destinationViewController;
      
-        embedTVC.pricesArray = self.priceFilter;
-        embedTVC.brandsArray = self.brandFilter;
-        embedTVC.colorsArray = self.colorFilter;
-        embedTVC.categoriesArray = self.categoryFilter;
-        embedTVC.sizesArray = self.sizeFilter;
         embedTVC.searchString = [self searchString];
         embedTVC.oldChosenFacets = [self oldChosenFacets];
+        embedTVC.facetsDictionary = [self facetsDictionary];
+        
         embedTVC.delegate = self;
     }
     

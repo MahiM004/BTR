@@ -15,9 +15,22 @@
 #import "BTRFacetsHandler.h"
 
 
-@interface BTRSearchFilterTVC () <BTRModalFilterSelectionDelegate> {
-    int selectedSortIndex;
-}
+@interface BTRSearchFilterTVC () <BTRModalFilterSelectionDelegate>
+
+
+@property (strong, nonatomic) NSMutableArray *brandsArray;
+@property (strong, nonatomic) NSMutableArray *colorsArray;
+@property (strong, nonatomic) NSMutableArray *sizesArray;
+@property (strong, nonatomic) NSMutableArray *categoriesArray;
+@property (strong, nonatomic) NSMutableArray *pricesArray;
+
+@property (strong, nonatomic) NSMutableArray *selectedBrands;
+@property (strong, nonatomic) NSMutableArray *selectedColors;
+@property (strong, nonatomic) NSMutableArray *selectedSizes;
+@property (strong, nonatomic) NSMutableArray *selectedCategories;
+@property (strong, nonatomic) NSMutableArray *selectedPrices;
+
+@property (nonatomic) int selectedSortIndex;
 
 @property (strong, nonatomic) NSMutableArray *titles;
 
@@ -26,6 +39,7 @@
 
 @implementation BTRSearchFilterTVC
 
+@synthesize selectedSortIndex;
 
 - (NSMutableArray *)selectedBrands {
     
@@ -137,12 +151,11 @@
     
     [super viewDidLoad];
 
+    [self extractFilterFacetsArraysFromDictionary:[self facetsDictionary]];
     [self populateWithChosenOptions];
-
     
     selectedSortIndex = 0;
     self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", PRICE_TITLE, CATEGORY_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -502,23 +515,18 @@
 
     [self.tableView reloadData];
 }
-/*
-- (void) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetsDictionary {
-    
-    self.facetsDictionary = [BTRFacetsHandler getFacetsDictionaryFromResponse:entitiesPropertyList];
 
+- (void) extractFilterFacetsArraysFromDictionary:(NSDictionary *)facetsDictionary {
     
     NSMutableArray *facetsArray = [BTRFacetsHandler extractFilterFacetsForDisplayFromResponse:facetsDictionary];
     
-    
-    
-    [self.priceFilter setArray:[facetsArray objectAtIndex:0]];
-    [self.categoryFilter setArray:[facetsArray objectAtIndex:1]];
-    [self.brandFilter setArray:[facetsArray objectAtIndex:2]];
-    [self.colorFilter setArray:[facetsArray objectAtIndex:3]];
-    [self.sizeFilter setArray:[facetsArray objectAtIndex:4]];
+    [self.pricesArray setArray:[facetsArray objectAtIndex:0]];
+    [self.categoriesArray setArray:[facetsArray objectAtIndex:1]];
+    [self.brandsArray setArray:[facetsArray objectAtIndex:2]];
+    [self.colorsArray setArray:[facetsArray objectAtIndex:3]];
+    [self.sizesArray setArray:[facetsArray objectAtIndex:4]];
 }
-*/
+
 @end
 
 

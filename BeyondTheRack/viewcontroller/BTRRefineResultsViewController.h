@@ -19,8 +19,6 @@
 
 @property (nonatomic, weak) id<BTRRefineResultsViewController> delegate;
 
-
-
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
@@ -28,7 +26,6 @@
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 
 @property (strong, nonatomic) NSString *searchString;
-@property (strong, nonatomic) NSMutableArray *chosenFacetsArray;
 @property (strong, nonatomic) NSMutableArray *oldChosenFacets;
 
 

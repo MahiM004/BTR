@@ -461,7 +461,6 @@
         refineVC.backgroundImage = screenShotImage;
         refineVC.facetsDictionary = [self facetsDictionary];
         refineVC.searchString = [self searchString];
-        [refineVC.chosenFacetsArray removeAllObjects];
         refineVC.oldChosenFacets = [self oldChosenFacetsArray];
         refineVC.delegate = self;
     }
