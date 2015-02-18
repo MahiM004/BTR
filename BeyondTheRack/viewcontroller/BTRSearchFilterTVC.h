@@ -47,6 +47,9 @@
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 
 @property (strong, nonatomic) NSString *searchString;
+@property (strong, nonatomic) NSMutableArray *oldChosenFacets;
+
+
 
 @end
 

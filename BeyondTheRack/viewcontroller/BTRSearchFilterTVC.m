@@ -26,6 +26,7 @@
 
 @implementation BTRSearchFilterTVC
 
+
 - (NSMutableArray *)selectedBrands {
     
     if (!_selectedBrands) _selectedBrands = [[NSMutableArray alloc] init];
@@ -101,8 +102,35 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
+    [super viewWillAppear:YES];
+    
     if ([self.delegate respondsToSelector:@selector(searchFilterTableWillDisappearWithChosenFacetsArray:)]) {
         [self.delegate searchFilterTableWillDisappearWithChosenFacetsArray:[self getChosenFacetsArray]];
+    }
+    
+}
+
+- (void)populateWithChosenOptions {
+ 
+    
+    if ([BTRFacetsHandler hasChosenFacetInFacetsArray:[self oldChosenFacets]])
+    {        
+        [self.selectedPrices removeAllObjects];
+        [self.selectedPrices addObjectsFromArray:[self.oldChosenFacets objectAtIndex:0]];
+        
+        [self.selectedCategories removeAllObjects];
+        [self.selectedCategories addObjectsFromArray:[self.oldChosenFacets objectAtIndex:1]];
+        
+        [self.selectedBrands removeAllObjects];
+        [self.selectedBrands addObjectsFromArray:[self.oldChosenFacets objectAtIndex:2]];
+        
+        [self.selectedColors removeAllObjects];
+        [self.selectedColors addObjectsFromArray:[self.oldChosenFacets objectAtIndex:3]];
+        
+        [self.selectedSizes removeAllObjects];
+        [self.selectedSizes addObjectsFromArray:[self.oldChosenFacets objectAtIndex:4]];
+        
+        [self.tableView reloadData];
     }
 }
 
@@ -110,9 +138,11 @@
     
     [super viewDidLoad];
 
+    [self populateWithChosenOptions];
+
+    
     selectedSortIndex = 0;
     self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", PRICE_TITLE, CATEGORY_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
-
     
 }
 
@@ -392,9 +422,6 @@
     destModalVC.selectedOptionsArray = selectedItemArray;
     destModalVC.headerTitle = title;
     destModalVC.searchString = [self searchString];
-    
-
-
     destModalVC.chosenFacetsArray = [self getChosenFacetsArray];
     
     return destModalVC;

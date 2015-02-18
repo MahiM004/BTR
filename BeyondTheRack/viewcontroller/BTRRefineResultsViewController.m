@@ -235,6 +235,7 @@
         embedTVC.categoriesArray = self.categoryFilter;
         embedTVC.sizesArray = self.sizeFilter;
         embedTVC.searchString = [self searchString];
+        embedTVC.oldChosenFacets = [self oldChosenFacets];
         embedTVC.delegate = self;
     }
     

@@ -45,10 +45,10 @@
     return _facetsDictionary;
 }
 
-- (NSMutableArray *)chosenFacetsArray {
+- (NSMutableArray *)oldChosenFacetsArray {
     
-    if (!_chosenFacetsArray) _chosenFacetsArray = [[NSMutableArray alloc] init];
-    return _chosenFacetsArray;
+    if (!_oldChosenFacetsArray) _oldChosenFacetsArray = [[NSMutableArray alloc] init];
+    return _oldChosenFacetsArray;
 }
 
 - (NSMutableArray *)originalItemArray {
@@ -145,7 +145,7 @@
     
     [super viewWillAppear:YES];
     
-    if ([BTRFacetsHandler hasChosenFacetInFacetsArray:[self chosenFacetsArray]])
+    if ([BTRFacetsHandler hasChosenFacetInFacetsArray:[self oldChosenFacetsArray]])
         self.filterIconImageView.image = [UIImage imageNamed:@"filtericonYellow.png"];
     else
         self.filterIconImageView.image = [UIImage imageNamed:@"filtericon.png"];
@@ -461,6 +461,8 @@
         refineVC.backgroundImage = screenShotImage;
         refineVC.facetsDictionary = [self facetsDictionary];
         refineVC.searchString = [self searchString];
+        [refineVC.chosenFacetsArray removeAllObjects];
+        refineVC.oldChosenFacets = [self oldChosenFacetsArray];
         refineVC.delegate = self;
     }
 }
@@ -468,15 +470,14 @@
 
 - (IBAction)unwindFromRefineResultsApplied:(UIStoryboardSegue *)unwindSegue {
     
+    [self clearResults];
+    [self.tableView reloadData];
     
     NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
         
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
         
         if ([arrayToPass count] != 0) {
-            
-            [self clearResults];
-            [self.tableView reloadData];
             
             [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -503,11 +504,8 @@
 - (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary andChosenFacets:(NSMutableArray *)chosenFacetsArray {
     
     self.responseDictionaryFromFacets = responseDictionary;
-    [self.chosenFacetsArray removeAllObjects];
-    [self.chosenFacetsArray addObjectsFromArray:chosenFacetsArray];
-    
-    [BTRFacetsHandler hasChosenFacetInFacetsArray:[self chosenFacetsArray]]?NSLog(@"co YES"):NSLog(@"co NO");
-    
+    [self.oldChosenFacetsArray removeAllObjects];
+    [self.oldChosenFacetsArray addObjectsFromArray:chosenFacetsArray];
 }
 
 

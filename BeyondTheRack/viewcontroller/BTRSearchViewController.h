@@ -18,6 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *filterButton;
 
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
-@property (strong, nonatomic) NSMutableArray *chosenFacetsArray;
+@property (strong, nonatomic) NSMutableArray *oldChosenFacetsArray;
 
 @end

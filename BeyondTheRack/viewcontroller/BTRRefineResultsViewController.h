@@ -29,6 +29,8 @@
 
 @property (strong, nonatomic) NSString *searchString;
 @property (strong, nonatomic) NSMutableArray *chosenFacetsArray;
+@property (strong, nonatomic) NSMutableArray *oldChosenFacets;
+
 
 @end
 
