@@ -19,6 +19,10 @@
 
 @interface BTRFacetsHandler : NSObject
 
+
++ (BOOL)hasChosenFacetInFacetsArray:(NSMutableArray *)chosenFacetsArray;
+
+
 /*
  
  From Response

@@ -45,6 +45,12 @@
     return _facetsDictionary;
 }
 
+- (NSMutableArray *)chosenFacetsArray {
+    
+    if (!_chosenFacetsArray) _chosenFacetsArray = [[NSMutableArray alloc] init];
+    return _chosenFacetsArray;
+}
+
 - (NSMutableArray *)originalItemArray {
     
     if (!_originalItemArray) _originalItemArray = [[NSMutableArray alloc] init];
@@ -128,15 +134,27 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     
+    [super viewDidAppear:YES];
+    
     if (![self.itemArray count])
         [self.searchBar becomeFirstResponder];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:YES];
+    
+    if ([BTRFacetsHandler hasChosenFacetInFacetsArray:[self chosenFacetsArray]])
+        self.filterIconImageView.image = [UIImage imageNamed:@"filtericonYellow.png"];
+    else
+        self.filterIconImageView.image = [UIImage imageNamed:@"filtericon.png"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 
+    [self viewDidAppear:YES];
+    
     [self.searchBar resignFirstResponder];
 }
 
@@ -447,6 +465,7 @@
     }
 }
 
+
 - (IBAction)unwindFromRefineResultsApplied:(UIStoryboardSegue *)unwindSegue {
     
     
@@ -481,11 +500,14 @@
 
 #pragma mark - BTRRefineResultsViewController
 
-- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
+- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary andChosenFacets:(NSMutableArray *)chosenFacetsArray {
     
     self.responseDictionaryFromFacets = responseDictionary;
+    [self.chosenFacetsArray removeAllObjects];
+    [self.chosenFacetsArray addObjectsFromArray:chosenFacetsArray];
     
-
+    [BTRFacetsHandler hasChosenFacetInFacetsArray:[self chosenFacetsArray]]?NSLog(@"co YES"):NSLog(@"co NO");
+    
 }
 
 

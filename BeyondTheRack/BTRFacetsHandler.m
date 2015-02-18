@@ -244,6 +244,15 @@
     return facetsString;
 }
 
++ (BOOL)hasChosenFacetInFacetsArray:(NSMutableArray *)chosenFacetsArray {
+    
+    for (NSMutableArray *someArray in chosenFacetsArray)
+        if ([someArray count] > 0)
+            return YES;
+    
+    return NO;
+}
+
 @end
 
 

@@ -168,12 +168,16 @@
 
 
 - (IBAction)clearTapped:(UIButton *)sender {
-    
+
     [self.priceFilter removeAllObjects];
     [self.categoryFilter removeAllObjects];
     [self.sizeFilter removeAllObjects];
     [self.brandFilter removeAllObjects];
     [self.colorFilter removeAllObjects];
+    
+    if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:andChosenFacets:)]) {
+        [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets] andChosenFacets:[self chosenFacetsArray]];
+    }
     
     [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
 }
@@ -187,26 +191,20 @@
      */
     
     NSString *facetString = [self getFacetQueryString];
-
+    
     [self fetchItemsIntoDocument:[self beyondTheRackDocument]
                   forSearchQuery:[self searchString]
                 withFacetsString:facetString
                          success:^(NSDictionary *responseDictionary) {
                              
                              self.responseDictionaryFromFacets = responseDictionary;
-                             
-                             
-                             if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
-                                 [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets]];
+                             if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:andChosenFacets:)]) {
+                                 [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets] andChosenFacets:[self chosenFacetsArray]];
                              }
-                             
                              [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
-
                              
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                             
                              NSLog(@"Error: %@",error);
-                            
                          }];
     
 }
@@ -247,6 +245,7 @@
 
 - (void)searchFilterTableWillDisappearWithChosenFacetsArray:(NSMutableArray *)chosenFacetsArray {
 
+    [self.chosenFacetsArray removeAllObjects];
     [self.chosenFacetsArray addObjectsFromArray:chosenFacetsArray];
 }
 

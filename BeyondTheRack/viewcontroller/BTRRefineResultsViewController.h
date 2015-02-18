@@ -40,7 +40,7 @@
 @optional
 
 
-- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary;
+- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary andChosenFacets:(NSMutableArray *)chosenFacetsArray;
 
 
 @end
