@@ -184,11 +184,11 @@
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
          
-         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                               options:0
                                                                                 error:NULL];
          
-         success(responseDictionary);
+         success(entitiesPropertyList);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -232,8 +232,10 @@
                 withFacetsString:[self facetsQueryString]
                          success:^(NSDictionary *responseDictionary) {
                              
-                             if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:withResponseDictionary:)]) {
-                                 [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray] withTitle:[self headerTitle] withResponseDictionary:responseDictionary];
+                             if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:withModalFacetDictionary:)]) {
+                                 [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray]
+                                                                        withTitle:[self headerTitle]
+                                                         withModalFacetDictionary:[BTRFacetsHandler getFacetsDictionaryFromResponse:responseDictionary]];
                              }
                              
                              [self dismissViewControllerAnimated:YES completion:NULL];

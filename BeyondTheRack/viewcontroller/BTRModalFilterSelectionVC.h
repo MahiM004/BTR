@@ -42,7 +42,6 @@
 
 @optional
 
-- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedOptionsArray  withTitle:(NSString *)titleString withResponseDictionary:(NSDictionary *)responseDictionary;
-
+- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString withModalFacetDictionary:(NSDictionary *)modalFacetDictionary;
 
 @end

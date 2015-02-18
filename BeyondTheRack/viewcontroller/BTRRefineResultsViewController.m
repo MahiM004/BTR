@@ -42,9 +42,7 @@
     [super viewDidLoad];
     
     [self setupDocument];
-    
-   // [self extractFilterFacetsWithFacetQueries:[self facetsDictionary]];
-    
+        
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
     self.headerView.opaque = NO;
@@ -66,18 +64,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-- (void) extractFilterFacetsWithFacetQueries:(NSDictionary *)facetsDictionary {
 
-    NSMutableArray *facetsArray = [BTRFacetsHandler extractFilterFacetsForDisplayFromResponse:facetsDictionary];
-    
-    [self.priceFilter setArray:[facetsArray objectAtIndex:0]];
-    [self.categoryFilter setArray:[facetsArray objectAtIndex:1]];
-    [self.brandFilter setArray:[facetsArray objectAtIndex:2]];
-    [self.colorFilter setArray:[facetsArray objectAtIndex:3]];
-    [self.sizeFilter setArray:[facetsArray objectAtIndex:4]];
-}
-*/
 
 #pragma mark - Load Results RESTful
 
@@ -189,7 +176,6 @@
         embedTVC.searchString = [self searchString];
         embedTVC.oldChosenFacets = [self oldChosenFacets];
         embedTVC.facetsDictionary = [self facetsDictionary];
-        
         embedTVC.delegate = self;
     }
     

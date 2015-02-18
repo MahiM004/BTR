@@ -158,6 +158,19 @@
     self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", PRICE_TITLE, CATEGORY_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
 }
 
+
+- (void) extractFilterFacetsArraysFromDictionary:(NSDictionary *)facetsDictionary {
+    
+    NSMutableArray *facetsArray = [BTRFacetsHandler extractFilterFacetsForDisplayFromResponse:facetsDictionary];
+    
+    [self.pricesArray setArray:[facetsArray objectAtIndex:0]];
+    [self.categoriesArray setArray:[facetsArray objectAtIndex:1]];
+    [self.brandsArray setArray:[facetsArray objectAtIndex:2]];
+    [self.colorsArray setArray:[facetsArray objectAtIndex:3]];
+    [self.sizesArray setArray:[facetsArray objectAtIndex:4]];
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -488,10 +501,10 @@
 #pragma mark - BTRModalFilterSelectionDelegate
 
 
-- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString withResponseDictionary:(NSDictionary *)responseDictionary {
+- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString withModalFacetDictionary:(NSDictionary *)modalFacetDictionary {
 
-    self.responseDictionaryFromFacets = responseDictionary;
-    
+    [self extractFilterFacetsArraysFromDictionary:modalFacetDictionary];
+
     if ([titleString isEqualToString:BRAND_TITLE]) {
         
         self.selectedBrands = selectedItemsArray;
@@ -516,16 +529,7 @@
     [self.tableView reloadData];
 }
 
-- (void) extractFilterFacetsArraysFromDictionary:(NSDictionary *)facetsDictionary {
-    
-    NSMutableArray *facetsArray = [BTRFacetsHandler extractFilterFacetsForDisplayFromResponse:facetsDictionary];
-    
-    [self.pricesArray setArray:[facetsArray objectAtIndex:0]];
-    [self.categoriesArray setArray:[facetsArray objectAtIndex:1]];
-    [self.brandsArray setArray:[facetsArray objectAtIndex:2]];
-    [self.colorsArray setArray:[facetsArray objectAtIndex:3]];
-    [self.sizesArray setArray:[facetsArray objectAtIndex:4]];
-}
+
 
 @end
 
