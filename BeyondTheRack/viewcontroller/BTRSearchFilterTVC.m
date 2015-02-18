@@ -464,16 +464,35 @@
 
     self.responseDictionaryFromFacets = responseDictionary;
     
-    if ([titleString isEqualToString:BRAND_TITLE])
+    if ([titleString isEqualToString:BRAND_TITLE]) {
+        
         self.selectedBrands = selectedItemsArray;
-    else if ([titleString isEqualToString:COLOR_TITLE])
+        [self.selectedCategories removeAllObjects];
+        [self.categoriesArray removeAllObjects];
+    }
+    else if ([titleString isEqualToString:COLOR_TITLE]) {
+
         self.selectedColors = selectedItemsArray;
-    else if ([titleString isEqualToString:SIZE_TITLE])
+        [self.selectedCategories removeAllObjects];
+        [self.categoriesArray removeAllObjects];
+    }
+    else if ([titleString isEqualToString:SIZE_TITLE]) {
+
         self.selectedSizes = selectedItemsArray;
-    else if ([titleString isEqualToString:CATEGORY_TITLE])
+        [self.selectedCategories removeAllObjects];
+        [self.categoriesArray removeAllObjects];
+    }
+    else if ([titleString isEqualToString:CATEGORY_TITLE]) {
+
         self.selectedCategories = selectedItemsArray;
-    else if ([titleString isEqualToString:PRICE_TITLE])
+    }
+    else if ([titleString isEqualToString:PRICE_TITLE]) {
+        
         self.selectedPrices = selectedItemsArray;
+        [self.categoriesArray removeAllObjects];
+        [self.selectedCategories removeAllObjects];
+
+    }
    
     [self.tableView reloadData];
 }

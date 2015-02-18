@@ -253,6 +253,23 @@
     return NO;
 }
 
+
+
++ (BOOL)hasChosenFacetExceptCategoriesInFacetsArray:(NSMutableArray *)chosenFacetsArray {
+    
+    
+    for (int i = 0; i < [chosenFacetsArray count]; i++) {
+        
+        if (i == 1)
+            continue;
+        
+        if ([(NSMutableArray *)[chosenFacetsArray objectAtIndex:i] count] > 0)
+            return YES;
+    }
+    
+    return NO;
+}
+
 @end
 
 

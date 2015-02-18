@@ -175,9 +175,11 @@
     [self.brandFilter removeAllObjects];
     [self.colorFilter removeAllObjects];
     
+    [self.chosenFacetsArray removeAllObjects];
+
     if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:andChosenFacets:)]) {
         [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets] andChosenFacets:[self chosenFacetsArray]];
-    }
+    }    
     
     [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
 }
@@ -201,6 +203,8 @@
                              if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:andChosenFacets:)]) {
                                  [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets] andChosenFacets:[self chosenFacetsArray]];
                              }
+                             
+                             
                              [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
                              
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

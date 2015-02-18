@@ -493,7 +493,6 @@
 
     [self clearResults];
     [self.itemArray addObjectsFromArray:[self originalItemArray]];
-
     
     [self.tableView reloadData];
 }
