@@ -6,13 +6,6 @@
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-/*
- 
- NOTE:
-
- Only one layer of Facets are considered on the iOS App
- 
- */
 
 
 #import <Foundation/Foundation.h>
@@ -20,10 +13,61 @@
 @interface BTRFacetsHandler : NSObject
 
 
-+ (BOOL)hasChosenFacetInFacetsArray:(NSMutableArray *)chosenFacetsArray;
++ (BTRFacetsHandler *)sharedFacetHandler;
+
+
++ (NSArray *)getSortOptionStringsArray;
++ (void)clearSortSelection;
++ (void)setSortChosenOptionString:(NSString *)chosenSortString;
++ (NSString *)getSelectedSortString;
+
+
+
++ (void)setPriceSelectionWithPriceString:(NSString *)priceString;
++ (NSString *)getSelectedPriceString;
++ (BOOL)hasSelectedPriceOptionString:(NSString *)optionString;
++ (void)clearPriceSelection;
++ (NSMutableArray *)getPriceFiltersForDisplay;
+
+
++ (void)setCategorySelectionWithCategoryString:(NSString *)categoryString;
++ (NSString *)getSelectedCategoryString;
++ (BOOL)hasSelectedCategoryOptionString:(NSString *)optionString;
++ (void)clearCategoryString;
++ (NSMutableArray *)getCategoryFiltersForDisplay;
+
+
++ (void)addBrandSelectionWithBrandString:(NSString *)brandString;
++ (BOOL)hasSelectedBrandOptionString:(NSString *)optionString;
++ (void)clearBrandSelection;
++ (NSMutableArray *)getBrandFiltersForDisplay;
+
+
++ (void)addColorSelectionWithColorString:(NSString *)colorString;
++ (BOOL)hasSelectedColorOptionString:(NSString *)optionString;
++ (void)clearColorSelection;
++ (NSMutableArray *)getColorFiltersForDisplay;
+
+
++ (void)addSizeSelectionWithSizeString:(NSString *)sizeString;
++ (BOOL)hasSelectedSizeOptionString:(NSString *)optionString;
++ (void)clearSizeSelection;
++ (NSMutableArray *)getSizeFiltersForDisplay;
+
+
++ (NSMutableArray *)getFacetRequestString;
++ (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary;
+
 
 /*
  
+ */
+
++ (BOOL)hasChosenFacetInFacetsArray:(NSMutableArray *)chosenFacetsArray;
+
+    
+/*
+
  From Response
  
  */
@@ -37,7 +81,7 @@
 
 /*
  
-    For REST
+ For REST
  
  */
 
@@ -50,6 +94,11 @@
                                            fromSelectedBrand:(NSMutableArray *)selectedBrands
                                           fromSelectedColors:(NSMutableArray *)selectedColors
                                            fromSelectedSizes:(NSMutableArray *)selectedSizes;
+
+
+
+
+
 
 @end
 

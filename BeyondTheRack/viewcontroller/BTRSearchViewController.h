@@ -10,7 +10,6 @@
 
 @interface BTRSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
 
-//@property (strong,nonatomic) NSMutableArray *filteredItemArray;
 @property (strong, nonatomic) NSMutableArray *itemArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
