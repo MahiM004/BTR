@@ -17,7 +17,4 @@
 @property (weak, nonatomic) IBOutlet UIImageView *filterIconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *filterButton;
 
-@property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
-@property (strong, nonatomic) NSMutableArray *oldChosenFacetsArray;
-
 @end

@@ -27,6 +27,9 @@
 @property (strong, nonatomic) NSString *searchString;
 @property (nonatomic) BOOL oddNumberOfResults;
 
+@property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
+@property (strong, nonatomic) NSMutableArray *oldChosenFacetsArray;
+@property (strong, nonatomic) NSDictionary *oldFacetsDictionary;
 
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
 
@@ -44,6 +47,7 @@
     if (!_facetsDictionary) _facetsDictionary = [[NSDictionary alloc] init];
     return _facetsDictionary;
 }
+
 
 - (NSMutableArray *)oldChosenFacetsArray {
     
@@ -462,6 +466,7 @@
         refineVC.facetsDictionary = [self facetsDictionary];
         refineVC.searchString = [self searchString];
         refineVC.oldChosenFacets = [self oldChosenFacetsArray];
+        refineVC.oldFacetsDictionary = [self oldFacetsDictionary];
         refineVC.delegate = self;
     }
 }
@@ -473,7 +478,8 @@
     [self.tableView reloadData];
     
     NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
-        
+    self.oldFacetsDictionary = [BTRFacetsHandler getFacetsDictionaryFromResponse:[self responseDictionaryFromFacets]];
+    
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
         
         if ([arrayToPass count] != 0) {

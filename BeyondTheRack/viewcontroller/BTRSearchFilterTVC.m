@@ -123,7 +123,7 @@
     }
 }
 
-- (void)populateWithChosenOptions {
+- (void)populateWithPreviousOptions {
  
     
     if ([BTRFacetsHandler hasChosenFacetInFacetsArray:[self oldChosenFacets]])
@@ -142,17 +142,23 @@
         
         [self.selectedSizes removeAllObjects];
         [self.selectedSizes addObjectsFromArray:[self.oldChosenFacets objectAtIndex:4]];
+    
+        [self extractFilterFacetsArraysFromDictionary:[self oldFacetsDictionary]];
+
+    } else {
         
-        [self.tableView reloadData];
+        [self extractFilterFacetsArraysFromDictionary:[self facetsDictionary]];
     }
+
+    [self.tableView reloadData];
+
 }
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
 
-    [self extractFilterFacetsArraysFromDictionary:[self facetsDictionary]];
-    [self populateWithChosenOptions];
+    [self populateWithPreviousOptions];
     
     selectedSortIndex = 0;
     self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", PRICE_TITLE, CATEGORY_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];

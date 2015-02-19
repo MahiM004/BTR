@@ -175,6 +175,7 @@
      
         embedTVC.searchString = [self searchString];
         embedTVC.oldChosenFacets = [self oldChosenFacets];
+        embedTVC.oldFacetsDictionary = [self oldFacetsDictionary];
         embedTVC.facetsDictionary = [self facetsDictionary];
         embedTVC.delegate = self;
     }
