@@ -58,20 +58,20 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)clearSortSelection {
     
-    BTRFacetData * btrFacetDictionary = [BTRFacetData sharedFacetDictionary];
-    btrFacetDictionary.selectedSortString = @"";
+    BTRFacetData * sharedFacetData = [BTRFacetData sharedFacetData];
+    sharedFacetData.selectedSortString = @"";
 }
 
 - (void)setSortChosenOptionString:(NSString *)chosenSortString {
     
-    BTRFacetData * btrFacetDictionary = [BTRFacetData sharedFacetDictionary];
-    btrFacetDictionary.selectedSortString = chosenSortString;
+    BTRFacetData * sharedFacetData = [BTRFacetData sharedFacetData];
+    sharedFacetData.selectedSortString = chosenSortString;
 }
 
 - (NSString *)getSelectedSortString {
-    
-    BTRFacetData * btrFacetDictionary = [BTRFacetData sharedFacetDictionary];
-    return [btrFacetDictionary selectedSortString];
+
+    BTRFacetData * sharedFacetData = [BTRFacetData sharedFacetData];
+    return [sharedFacetData selectedSortString];
 }
 
 
@@ -82,21 +82,21 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)setPriceSelectionWithPriceString:(NSString *)priceString {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
-    sharedFacetDictionary.selectedPriceString = priceString;
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    sharedFacetData.selectedPriceString = priceString;
     
 }
 
 - (NSString *)getSelectedPriceString {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
-    return sharedFacetDictionary.selectedPriceString;
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    return sharedFacetData.selectedPriceString;
 }
 
 - (BOOL)hasSelectedPriceOptionString:(NSString *)optionString {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
-    if ([sharedFacetDictionary.selectedPriceString isEqualToString:optionString])
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    if ([sharedFacetData.selectedPriceString isEqualToString:optionString])
         return true;
         
     return false;
@@ -104,21 +104,21 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)clearPriceSelection {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
-    sharedFacetDictionary.selectedPriceString = @"";
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    sharedFacetData.selectedPriceString = @"";
 }
 
 - (NSMutableArray *)getPriceFiltersForDisplay {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
 
     NSMutableArray * arrayStringForDisplay = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < [sharedFacetDictionary.priceFacetArray count]; i++) {
+    for (int i = 0; i < [sharedFacetData.priceFacetArray count]; i++) {
         
         NSString *priceString = [NSString stringWithFormat:@"%@: (%@)",
-                                 [sharedFacetDictionary.priceFacetArray objectAtIndex:i],
-                                 [sharedFacetDictionary.priceFacetCountArray objectAtIndex:i]];
+                                 [sharedFacetData.priceFacetArray objectAtIndex:i],
+                                 [sharedFacetData.priceFacetCountArray objectAtIndex:i]];
         
         [arrayStringForDisplay addObject:priceString];
     }
@@ -136,14 +136,14 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)setCategorySelectionWithCategoryString:(NSString *)categoryString {
 
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     sharedFacetDictionary.selectedCategoryString = categoryString;
 }
 
 
 - (NSString *)getSelectedCategoryString {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     return sharedFacetDictionary.selectedPriceString;
 
 }
@@ -151,7 +151,7 @@ static BTRFacetsHandler *_sharedInstance;
 - (BOOL)hasSelectedCategoryOptionString:(NSString *)optionString {
     
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     if ([sharedFacetDictionary.selectedPriceString isEqualToString:optionString])
         return true;
     
@@ -161,13 +161,13 @@ static BTRFacetsHandler *_sharedInstance;
 - (void)clearCategoryString {
     
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     sharedFacetDictionary.selectedPriceString = @"";
 }
 
 - (NSMutableArray *)getCategoryFiltersForDisplay {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     
     NSMutableArray * arrayStringForDisplay = [[NSMutableArray alloc] init];
     
@@ -195,7 +195,7 @@ static BTRFacetsHandler *_sharedInstance;
 - (void)addBrandSelectionWithBrandString:(NSString *)brandString {
 
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     
     if ( ![sharedFacetDictionary.selectedBrandsArray containsObject:brandString])
         [sharedFacetDictionary.selectedBrandsArray addObject:brandString];
@@ -203,9 +203,18 @@ static BTRFacetsHandler *_sharedInstance;
 }
 
 
+- (void)setSelectedBrandsWithArray:(NSMutableArray *)selectedArray {
+
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+
+    [sharedFacetData.selectedBrandsArray removeAllObjects];
+    [sharedFacetData.selectedBrandsArray addObjectsFromArray:selectedArray];
+}
+
+
 - (BOOL)hasSelectedBrandOptionString:(NSString *)optionString {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     
     if ([sharedFacetDictionary.selectedBrandsArray containsObject:optionString])
         return true;
@@ -215,13 +224,13 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)clearBrandSelection {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     [sharedFacetDictionary.selectedBrandsArray removeAllObjects];
 }
 
 - (NSMutableArray *)getBrandFiltersForDisplay {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     
     NSMutableArray * arrayStringForDisplay = [[NSMutableArray alloc] init];
     
@@ -246,17 +255,25 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)addColorSelectionWithColorString:(NSString *)colorString {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     
     if ( ![sharedFacetDictionary.selectedColorsArray containsObject:colorString])
         [sharedFacetDictionary.selectedColorsArray addObject:colorString];
     
 }
 
+- (void)setSelectedColorsWithArray:(NSMutableArray *)selectedArray {
+
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    
+    [sharedFacetData.selectedColorsArray removeAllObjects];
+    [sharedFacetData.selectedColorsArray addObjectsFromArray:selectedArray];
+}
+
 
 - (BOOL)hasSelectedColorOptionString:(NSString *)optionString {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
 
     if ([sharedFacetDictionary.selectedColorsArray containsObject:optionString])
         return true;
@@ -267,13 +284,13 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)clearColorSelection {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     [sharedFacetDictionary.selectedColorsArray removeAllObjects];
 }
 
 - (NSMutableArray *)getColorFiltersForDisplay {
  
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     
     NSMutableArray * arrayStringForDisplay = [[NSMutableArray alloc] init];
     
@@ -300,17 +317,26 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)addSizeSelectionWithSizeString:(NSString *)sizeString {
  
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     
     if ( ![sharedFacetDictionary.selectedSizesArray containsObject:sizeString])
         [sharedFacetDictionary.selectedSizesArray addObject:sizeString];
     
 }
 
+- (void)setSelectedSizesWithArray:(NSMutableArray *)selectedArray {
+
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    
+    [sharedFacetData.selectedSizesArray removeAllObjects];
+    [sharedFacetData.selectedSizesArray addObjectsFromArray:selectedArray];
+}
+
+
 
 - (BOOL)hasSelectedSizeOptionString:(NSString *)optionString {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     
     if ([sharedFacetDictionary.selectedSizesArray containsObject:optionString])
         return true;
@@ -320,21 +346,21 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)clearSizeSelection {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     [sharedFacetDictionary.selectedBrandsArray removeAllObjects];
 }
 
 - (NSMutableArray *)getSizeFiltersForDisplay {
     
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
     NSMutableArray * arrayStringForDisplay = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < [sharedFacetDictionary.sizeFacetArray count]; i++) {
+    for (int i = 0; i < [sharedFacetData.sizeFacetArray count]; i++) {
         
         NSString *priceString = [NSString stringWithFormat:@"%@: (%@)",
-                                 [sharedFacetDictionary.sizeFacetArray objectAtIndex:i],
-                                 [sharedFacetDictionary.sizeFacetCountArray objectAtIndex:i]];
+                                 [sharedFacetData.sizeFacetArray objectAtIndex:i],
+                                 [sharedFacetData.sizeFacetCountArray objectAtIndex:i]];
         
         [arrayStringForDisplay addObject:priceString];
     }
@@ -351,18 +377,61 @@ static BTRFacetsHandler *_sharedInstance;
 
 
 
-- (NSMutableArray *)getFacetRequestString {
+- (NSString *)getFacetStringForRESTfulRequest {
     
-    NSLog(@"getFacetRequestString NOT IMPLEMENTED!");
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+
     
-    NSMutableArray * dummy;
-    return dummy;
+    NSMutableString *facetsString = [[NSMutableString alloc] init];
+    
+    NSLog(@"country ignored at getFacetStringForRESTWithChosenFacetsArray");
+    
+    if ([sharedFacetData.selectedPriceString isEqualToString:@""])
+        ((BOOL)[facetsString length])?
+        [facetsString appendFormat:@";price_sort_ca:%@", [sharedFacetData selectedPriceString]]:
+        [facetsString appendFormat:@"price_sort_ca:%@", [sharedFacetData selectedPriceString]];
+    
+    if ([sharedFacetData.selectedCategoryString isEqualToString:@""])
+        ((BOOL)[facetsString length])?
+        [facetsString appendFormat:@";{!tag=cat_1}cat_1:[[%@]]", [sharedFacetData selectedCategoryString]]:
+        [facetsString appendFormat:@"{!tag=cat_1}cat_1:[[%@]]", [sharedFacetData selectedCategoryString]];
+    
+    
+    if ([sharedFacetData.selectedBrandsArray count] != 0)
+        ((BOOL)[facetsString length]) ?
+        [facetsString appendFormat:@";{!tag=brand}brand:[[%@]]", [sharedFacetData.selectedBrandsArray objectAtIndex:0]]:
+        [facetsString appendFormat:@"{!tag=brand}brand:[[%@]]", [sharedFacetData.selectedBrandsArray objectAtIndex:0]];
+    
+    if ([sharedFacetData.selectedBrandsArray count] > 1) {
+        for (int i = 1; i < [sharedFacetData.selectedBrandsArray count]; i++)
+            [facetsString appendFormat:@" OR brand:[[%@]]",[sharedFacetData.selectedBrandsArray objectAtIndex:i]];
+    }
+    
+    
+    if ([sharedFacetData.selectedColorsArray count] != 0)
+        ((BOOL)[facetsString length]) ?
+        [facetsString appendFormat:@";{!tag=att_color}att_color:[[%@]]", [sharedFacetData.selectedColorsArray objectAtIndex:0]]:
+        [facetsString appendFormat:@"{!tag=att_color}att_color:[[%@]]", [sharedFacetData.selectedColorsArray objectAtIndex:0]];
+    
+    if ([sharedFacetData.selectedColorsArray count] > 1) {
+        for (int i = 1; i < [sharedFacetData.selectedColorsArray count]; i++)
+            [facetsString appendFormat:@" OR att_color:[[%@]]",[sharedFacetData.selectedColorsArray objectAtIndex:i]];
+    }
+    
+    
+    if ([sharedFacetData.selectedSizesArray count] != 0)
+        ((BOOL)[facetsString length])?
+        [facetsString appendFormat:@";{!tag=variant}variant:[[%@]]", [sharedFacetData.selectedSizesArray objectAtIndex:0]]:
+        [facetsString appendFormat:@"{!tag=variant}variant:[[%@]]", [sharedFacetData.selectedSizesArray objectAtIndex:0]];
+    
+    
+    return facetsString;
 }
 
 
 - (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary {
 
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetDictionary];
+    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
 
     NSLog(@"country ignored at updateFacetsFromResponseDictionary");
 

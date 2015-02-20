@@ -13,7 +13,7 @@
 
 static BTRFacetData *_sharedInstance;
 
-+ (BTRFacetData *)sharedFacetDictionary
++ (BTRFacetData *)sharedFacetData
 {
     static dispatch_once_t once;
     dispatch_once(&once, ^{

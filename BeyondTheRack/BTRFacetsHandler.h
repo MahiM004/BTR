@@ -38,24 +38,27 @@
 
 
 - (void)addBrandSelectionWithBrandString:(NSString *)brandString;
+- (void)setSelectedBrandsWithArray:(NSMutableArray *)selectedArray;
 - (BOOL)hasSelectedBrandOptionString:(NSString *)optionString;
 - (void)clearBrandSelection;
 - (NSMutableArray *)getBrandFiltersForDisplay;
 
 
 - (void)addColorSelectionWithColorString:(NSString *)colorString;
+- (void)setSelectedColorsWithArray:(NSMutableArray *)selectedArray;
 - (BOOL)hasSelectedColorOptionString:(NSString *)optionString;
 - (void)clearColorSelection;
 - (NSMutableArray *)getColorFiltersForDisplay;
 
 
 - (void)addSizeSelectionWithSizeString:(NSString *)sizeString;
+- (void)setSelectedSizesWithArray:(NSMutableArray *)selectedArray;
 - (BOOL)hasSelectedSizeOptionString:(NSString *)optionString;
 - (void)clearSizeSelection;
 - (NSMutableArray *)getSizeFiltersForDisplay;
 
 
-- (NSMutableArray *)getFacetRequestString;
+- (NSString *)getFacetStringForRESTfulRequest;
 - (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary;
 
 

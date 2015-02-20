@@ -250,25 +250,25 @@
 
 - (NSString *)facetsQueryString {
     
-    NSMutableArray *facetOptionsArray = [[NSMutableArray alloc] init];
-    
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     if ([self.headerTitle isEqualToString:PRICE_TITLE])
-      facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self selectedOptionsArray] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
-    
+        [sharedFacetHandler setPriceSelectionWithPriceString:[self.selectedOptionsArray objectAtIndex:0]];
+        
     if ([self.headerTitle isEqualToString:CATEGORY_TITLE])
-        facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self selectedOptionsArray] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
+        [sharedFacetHandler setCategorySelectionWithCategoryString:[self.selectedOptionsArray objectAtIndex:0]];
 
     if ([self.headerTitle isEqualToString:BRAND_TITLE])
-        facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self selectedOptionsArray] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
-
+        [sharedFacetHandler setSelectedBrandsWithArray:[self selectedOptionsArray]];
+    
     if ([self.headerTitle isEqualToString:COLOR_TITLE])
-        facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self selectedOptionsArray] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
+        [sharedFacetHandler setSelectedColorsWithArray:[self selectedOptionsArray]];
 
     if ([self.headerTitle isEqualToString:SIZE_TITLE])
-        facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self selectedOptionsArray]];
+        [sharedFacetHandler setSelectedSizesWithArray:[self selectedOptionsArray]];
 
-    return [BTRFacetsHandler getFacetStringForRESTWithChosenFacetsArray:facetOptionsArray withSortOption:0];
+    
+    return [sharedFacetHandler getFacetStringForRESTfulRequest];
 }
 
 

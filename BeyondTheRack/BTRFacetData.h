@@ -10,7 +10,7 @@
 
 @interface BTRFacetData : NSObject
 
-+ (BTRFacetData *)sharedFacetDictionary;
++ (BTRFacetData *)sharedFacetData;
 
 @property (strong, nonatomic) NSString *selectedSortString;
 
