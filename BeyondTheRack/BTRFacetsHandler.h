@@ -16,18 +16,18 @@
 + (BTRFacetsHandler *)sharedFacetHandler;
 
 
-+ (NSArray *)getSortOptionStringsArray;
-+ (void)clearSortSelection;
-+ (void)setSortChosenOptionString:(NSString *)chosenSortString;
-+ (NSString *)getSelectedSortString;
+- (NSArray *)getSortOptionStringsArray;
+- (void)clearSortSelection;
+- (void)setSortChosenOptionString:(NSString *)chosenSortString;
+- (NSString *)getSelectedSortString;
 
 
 
-+ (void)setPriceSelectionWithPriceString:(NSString *)priceString;
-+ (NSString *)getSelectedPriceString;
-+ (BOOL)hasSelectedPriceOptionString:(NSString *)optionString;
-+ (void)clearPriceSelection;
-+ (NSMutableArray *)getPriceFiltersForDisplay;
+- (void)setPriceSelectionWithPriceString:(NSString *)priceString;
+- (NSString *)getSelectedPriceString;
+- (BOOL)hasSelectedPriceOptionString:(NSString *)optionString;
+- (void)clearPriceSelection;
+- (NSMutableArray *)getPriceFiltersForDisplay;
 
 
 + (void)setCategorySelectionWithCategoryString:(NSString *)categoryString;
@@ -55,8 +55,8 @@
 + (NSMutableArray *)getSizeFiltersForDisplay;
 
 
-+ (NSMutableArray *)getFacetRequestString;
-+ (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary;
+- (NSMutableArray *)getFacetRequestString;
+- (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary;
 
 
 /*

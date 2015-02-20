@@ -43,8 +43,8 @@ static BTRFacetDictionary *_sharedInstance;
 
 - (NSMutableArray *)priceFacetCountArray {
     
-    if (!_priceFacetArray) _priceFacetArray = [[NSMutableArray alloc] init];
-    return _priceFacetArray;
+    if (!_priceFacetCountArray) _priceFacetCountArray = [[NSMutableArray alloc] init];
+    return _priceFacetCountArray;
 }
 
 
@@ -56,7 +56,7 @@ static BTRFacetDictionary *_sharedInstance;
 
 - (NSMutableArray *)categoryFacetCountArray {
     
-    if (!_categoryFacetCountArray) _priceFacetArray = [[NSMutableArray alloc] init];
+    if (!_categoryFacetCountArray) _categoryFacetCountArray = [[NSMutableArray alloc] init];
     return _categoryFacetCountArray;
 }
 

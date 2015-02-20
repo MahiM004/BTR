@@ -12,7 +12,7 @@
 
 @interface BTRFacetsHandler ()
 
-
+@property (strong, nonatomic) NSMutableArray *priceArrayForDisplay;
 
 @property (strong, nonatomic) NSString *facetString;
 
@@ -20,6 +20,7 @@
 @end;
 
 @implementation BTRFacetsHandler
+
 
 
 static BTRFacetsHandler *_sharedInstance;
@@ -45,6 +46,40 @@ static BTRFacetsHandler *_sharedInstance;
     return self;
 }
 
+- (NSMutableArray *)priceArrayForDisplay {
+    
+    if (!_priceArrayForDisplay) _priceArrayForDisplay = [[NSMutableArray alloc] init];
+    return _priceArrayForDisplay;
+}
+
+/*
+ 
+ */
+
+
+- (NSArray *)getSortOptionStringsArray {
+    
+    NSArray *sortOptionsArray =  @[@"Best Match",@"Highest to Lowest Price" ,@"Lowest to Highest Price"];
+    return sortOptionsArray;
+}
+
+- (void)clearSortSelection {
+    
+    BTRFacetDictionary * btrFacetDictionary = [BTRFacetDictionary sharedFacetDictionary];
+    btrFacetDictionary.selectedSortString = @"";
+}
+
+- (void)setSortChosenOptionString:(NSString *)chosenSortString {
+    
+    BTRFacetDictionary * btrFacetDictionary = [BTRFacetDictionary sharedFacetDictionary];
+    btrFacetDictionary.selectedSortString = chosenSortString;
+}
+
+- (NSString *)getSelectedSortString {
+    
+    BTRFacetDictionary * btrFacetDictionary = [BTRFacetDictionary sharedFacetDictionary];
+    return [btrFacetDictionary selectedSortString];
+}
 
 
 
@@ -52,20 +87,20 @@ static BTRFacetsHandler *_sharedInstance;
  
  */
 
-+ (void)setPriceSelectionWithPriceString:(NSString *)priceString {
+- (void)setPriceSelectionWithPriceString:(NSString *)priceString {
     
     BTRFacetDictionary *sharedFacetDictionary = [BTRFacetDictionary sharedFacetDictionary];
     sharedFacetDictionary.selectedPriceString = priceString;
     
 }
 
-+ (NSString *)getSelectedPriceString {
+- (NSString *)getSelectedPriceString {
     
     BTRFacetDictionary *sharedFacetDictionary = [BTRFacetDictionary sharedFacetDictionary];
     return sharedFacetDictionary.selectedPriceString;
 }
 
-+ (BOOL)hasSelectedPriceOptionString:(NSString *)optionString {
+- (BOOL)hasSelectedPriceOptionString:(NSString *)optionString {
     
     BTRFacetDictionary *sharedFacetDictionary = [BTRFacetDictionary sharedFacetDictionary];
     if ([sharedFacetDictionary.selectedPriceString isEqualToString:optionString])
@@ -74,18 +109,30 @@ static BTRFacetsHandler *_sharedInstance;
     return false;
 }
 
-+ (void)clearPriceSelection {
+- (void)clearPriceSelection {
     
     BTRFacetDictionary *sharedFacetDictionary = [BTRFacetDictionary sharedFacetDictionary];
     sharedFacetDictionary.selectedPriceString = @"";
 }
 
-+ (NSMutableArray *)getPriceFiltersForDisplay {
+- (NSMutableArray *)getPriceFiltersForDisplay {
     
+    BTRFacetDictionary *sharedFacetDictionary = [BTRFacetDictionary sharedFacetDictionary];
+
+    [self.priceArrayForDisplay removeAllObjects];
+    for (int i = 0; i < [sharedFacetDictionary.priceFacetArray count]; i++) {
+        
+        NSString *priceString = [NSString stringWithFormat:@"%@: (%@)",
+                                 [sharedFacetDictionary.priceFacetArray objectAtIndex:i],
+                                 [sharedFacetDictionary.priceFacetCountArray objectAtIndex:i]];
+        
+        [self.priceArrayForDisplay addObject:priceString];
+    }
     
-    NSLog(@"getPriceFiltersForDisplay NOT IMPLEMENTED!");
-    NSMutableArray * dummy;
-    return dummy;
+    for (NSString * somestring in [self priceArrayForDisplay])
+        NSLog(@"stuff:  %@", somestring);
+    
+    return [self priceArrayForDisplay];
 }
 
 /*
@@ -265,32 +312,8 @@ static BTRFacetsHandler *_sharedInstance;
  */
 
 
-+ (NSArray *)getSortOptionStringsArray {
-   
-    NSArray *sortOptionsArray =  @[@"Best Match",@"Highest to Lowest Price" ,@"Lowest to Highest Price"];
-    return sortOptionsArray;
-}
 
-+ (void)clearSortSelection {
-    
-    BTRFacetDictionary * btrFacetDictionary = [[BTRFacetDictionary alloc] init];
-    btrFacetDictionary.selectedSortString = @"";
-}
-
-+ (void)setSortChosenOptionString:(NSString *)chosenSortString {
-    
-    BTRFacetDictionary * btrFacetDictionary = [[BTRFacetDictionary alloc] init];
-    btrFacetDictionary.selectedSortString = chosenSortString;
-}
-
-+ (NSString *)getSelectedSortString {
-    
-    BTRFacetDictionary * btrFacetDictionary = [[BTRFacetDictionary alloc] init];
-    return [btrFacetDictionary selectedSortString];
-}
-
-
-+ (NSMutableArray *)getFacetRequestString {
+- (NSMutableArray *)getFacetRequestString {
     
     NSLog(@"getFacetRequestString NOT IMPLEMENTED!");
     
@@ -299,7 +322,7 @@ static BTRFacetsHandler *_sharedInstance;
 }
 
 
-+ (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary {
+- (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary {
 
     BTRFacetDictionary *sharedFacetDictionary = [BTRFacetDictionary sharedFacetDictionary];
 
@@ -307,26 +330,51 @@ static BTRFacetsHandler *_sharedInstance;
     NSDictionary *facetsDictionary = responseDictionary[@"facet_counts"];
     NSDictionary *facetQueriesDictionary = facetsDictionary[@"facet_queries"];
     NSDictionary *facetFieldsDictionary =  facetsDictionary[@"facet_fields"];
+
+
+    NSString *tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"];
+    if (tempString)
+    {
+        [sharedFacetDictionary.priceFacetArray addObject:@"$0 to $200"];
+        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
+    }
+
     
+    tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"];
+    if (tempString)
+    {
+        [sharedFacetDictionary.priceFacetArray addObject:@"$200 to $400"];
+        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
+    }
+
+    tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"];
+    if (tempString)
+    {
+        [sharedFacetDictionary.priceFacetArray addObject:@"$400 to $600"];
+        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
+    }
     
-    [sharedFacetDictionary.priceFacetArray addObject:@"$0 to $200"];
-    [sharedFacetDictionary.priceFacetCountArray addObject:(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"]];
+    tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"];
+    if (tempString)
+    {
+        [sharedFacetDictionary.priceFacetArray addObject:@"$600 to $800"];
+        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
+    }
 
-    [sharedFacetDictionary.priceFacetArray addObject:@"$200 to $400"];
-    [sharedFacetDictionary.priceFacetCountArray addObject:(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"]];
-
-    [sharedFacetDictionary.priceFacetArray addObject:@"$400 to $600"];
-    [sharedFacetDictionary.priceFacetCountArray addObject:(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"]];
-
-    [sharedFacetDictionary.priceFacetArray addObject:@"$600 to $800"];
-    [sharedFacetDictionary.priceFacetCountArray addObject:(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"]];
-
-    [sharedFacetDictionary.priceFacetArray addObject:@"$800 to $1000"];
-    [sharedFacetDictionary.priceFacetCountArray addObject:(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"]];
-
-    [sharedFacetDictionary.priceFacetArray addObject:@"$1000 to *"];
-    [sharedFacetDictionary.priceFacetCountArray addObject:(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"]];
+    tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"];
+    if (tempString)
+    {
+        [sharedFacetDictionary.priceFacetArray addObject:@"$800 to $1000"];
+        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
+    }
     
+
+    tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"];
+    if (tempString)
+    {
+        [sharedFacetDictionary.priceFacetArray addObject:@"$1000 to *"];
+        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
+    }
    
     NSDictionary *brandDictionary = facetFieldsDictionary[@"brand"];
     for (NSString *item in brandDictionary) {
@@ -394,8 +442,9 @@ static BTRFacetsHandler *_sharedInstance;
 
 + (NSString *)getSortTypeForIndex:(NSInteger)sortIndex {
     
+    BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
     
-    NSArray *sortStringArray = [BTRFacetsHandler getSortOptionStringsArray];
+    NSArray *sortStringArray = [sharedFacetsHandler getSortOptionStringsArray];
     
     if (sortIndex >=0 && sortIndex <= [sortStringArray count] - 1)
         return [sortStringArray objectAtIndex:sortIndex];

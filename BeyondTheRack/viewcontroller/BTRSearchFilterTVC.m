@@ -167,9 +167,17 @@
 
 - (void) extractFilterFacetsArraysFromDictionary:(NSDictionary *)facetsDictionary {
     
+    
+    NSLog(@"didid: %d", [facetsDictionary count]);
     NSMutableArray *facetsArray = [BTRFacetsHandler extractFilterFacetsForDisplayFromResponse:facetsDictionary];
     
     [self.pricesArray setArray:[facetsArray objectAtIndex:0]];
+    
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    
+    //[self.pricesArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
+    
+    
     [self.categoriesArray setArray:[facetsArray objectAtIndex:1]];
     [self.brandsArray setArray:[facetsArray objectAtIndex:2]];
     [self.colorsArray setArray:[facetsArray objectAtIndex:3]];

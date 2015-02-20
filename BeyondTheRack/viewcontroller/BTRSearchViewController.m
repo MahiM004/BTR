@@ -409,7 +409,8 @@
                                                                           options:0
                                                                             error:NULL];
  
-         [BTRFacetsHandler updateFacetsFromResponseDictionary:entitiesPropertyList];
+         BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
+         [sharedFacetsHandler updateFacetsFromResponseDictionary:entitiesPropertyList];
          
          self.facetsDictionary = [BTRFacetsHandler getFacetsDictionaryFromResponse:entitiesPropertyList];
          NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:entitiesPropertyList];
