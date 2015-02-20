@@ -1,5 +1,5 @@
 //
-//  BTRFacetDictionary.h
+//  BTRFacetData.h
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-02-19.
@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BTRFacetDictionary : NSDictionary
+@interface BTRFacetData : NSObject
 
-+ (BTRFacetDictionary *)sharedFacetDictionary;
++ (BTRFacetData *)sharedFacetDictionary;
 
 @property (strong, nonatomic) NSString *selectedSortString;
 

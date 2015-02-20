@@ -1,19 +1,19 @@
 //
-//  BTRFacetDictionary.m
+//  BTRFacetData.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-02-19.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "BTRFacetDictionary.h"
+#import "BTRFacetData.h"
 
-@implementation BTRFacetDictionary
+@implementation BTRFacetData
 
 
-static BTRFacetDictionary *_sharedInstance;
+static BTRFacetData *_sharedInstance;
 
-+ (BTRFacetDictionary *)sharedFacetDictionary
++ (BTRFacetData *)sharedFacetDictionary
 {
     static dispatch_once_t once;
     dispatch_once(&once, ^{

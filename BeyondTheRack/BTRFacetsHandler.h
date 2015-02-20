@@ -30,29 +30,29 @@
 - (NSMutableArray *)getPriceFiltersForDisplay;
 
 
-+ (void)setCategorySelectionWithCategoryString:(NSString *)categoryString;
-+ (NSString *)getSelectedCategoryString;
-+ (BOOL)hasSelectedCategoryOptionString:(NSString *)optionString;
-+ (void)clearCategoryString;
-+ (NSMutableArray *)getCategoryFiltersForDisplay;
+- (void)setCategorySelectionWithCategoryString:(NSString *)categoryString;
+- (NSString *)getSelectedCategoryString;
+- (BOOL)hasSelectedCategoryOptionString:(NSString *)optionString;
+- (void)clearCategoryString;
+- (NSMutableArray *)getCategoryFiltersForDisplay;
 
 
-+ (void)addBrandSelectionWithBrandString:(NSString *)brandString;
-+ (BOOL)hasSelectedBrandOptionString:(NSString *)optionString;
-+ (void)clearBrandSelection;
-+ (NSMutableArray *)getBrandFiltersForDisplay;
+- (void)addBrandSelectionWithBrandString:(NSString *)brandString;
+- (BOOL)hasSelectedBrandOptionString:(NSString *)optionString;
+- (void)clearBrandSelection;
+- (NSMutableArray *)getBrandFiltersForDisplay;
 
 
-+ (void)addColorSelectionWithColorString:(NSString *)colorString;
-+ (BOOL)hasSelectedColorOptionString:(NSString *)optionString;
-+ (void)clearColorSelection;
-+ (NSMutableArray *)getColorFiltersForDisplay;
+- (void)addColorSelectionWithColorString:(NSString *)colorString;
+- (BOOL)hasSelectedColorOptionString:(NSString *)optionString;
+- (void)clearColorSelection;
+- (NSMutableArray *)getColorFiltersForDisplay;
 
 
-+ (void)addSizeSelectionWithSizeString:(NSString *)sizeString;
-+ (BOOL)hasSelectedSizeOptionString:(NSString *)optionString;
-+ (void)clearSizeSelection;
-+ (NSMutableArray *)getSizeFiltersForDisplay;
+- (void)addSizeSelectionWithSizeString:(NSString *)sizeString;
+- (BOOL)hasSelectedSizeOptionString:(NSString *)optionString;
+- (void)clearSizeSelection;
+- (NSMutableArray *)getSizeFiltersForDisplay;
 
 
 - (NSMutableArray *)getFacetRequestString;

@@ -174,7 +174,9 @@
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]]; // TODO: change text/html to application/json AFTER backend supports it in production
+    serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]];
+    
+    // TODO: change text/html to application/json AFTER backend supports it in production
     
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -249,6 +251,7 @@
 - (NSString *)facetsQueryString {
     
     NSMutableArray *facetOptionsArray = [[NSMutableArray alloc] init];
+    
     
     if ([self.headerTitle isEqualToString:PRICE_TITLE])
       facetOptionsArray= [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self selectedOptionsArray] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];

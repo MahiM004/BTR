@@ -143,11 +143,14 @@
         [self.selectedSizes removeAllObjects];
         [self.selectedSizes addObjectsFromArray:[self.oldChosenFacets objectAtIndex:4]];
     
-        [self extractFilterFacetsArraysFromDictionary:[self oldFacetsDictionary]];
+        //[self extractFilterFacetsArraysFromDictionary:[self oldFacetsDictionary]];
+        // use the update method
+        int some_unused_int_to_mark;
+
 
     } else {
         
-        [self extractFilterFacetsArraysFromDictionary:[self facetsDictionary]];
+        [self extractFilterFacetsArraysFromDictionary];
     }
 
     [self.tableView reloadData];
@@ -165,23 +168,16 @@
 }
 
 
-- (void) extractFilterFacetsArraysFromDictionary:(NSDictionary *)facetsDictionary {
-    
-    
-    NSLog(@"didid: %d", [facetsDictionary count]);
-    NSMutableArray *facetsArray = [BTRFacetsHandler extractFilterFacetsForDisplayFromResponse:facetsDictionary];
-    
-    [self.pricesArray setArray:[facetsArray objectAtIndex:0]];
+- (void) extractFilterFacetsArraysFromDictionary {
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
-    //[self.pricesArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
+    [self.pricesArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
+    [self.categoriesArray setArray:[sharedFacetHandler getCategoryFiltersForDisplay]];
+    [self.brandsArray setArray:[sharedFacetHandler getBrandFiltersForDisplay]];
+    [self.colorsArray setArray:[sharedFacetHandler getColorFiltersForDisplay]];
+    [self.sizesArray setArray:[sharedFacetHandler getSizeFiltersForDisplay]];
     
-    
-    [self.categoriesArray setArray:[facetsArray objectAtIndex:1]];
-    [self.brandsArray setArray:[facetsArray objectAtIndex:2]];
-    [self.colorsArray setArray:[facetsArray objectAtIndex:3]];
-    [self.sizesArray setArray:[facetsArray objectAtIndex:4]];
 }
 
 
@@ -517,7 +513,9 @@
 
 - (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString withModalFacetDictionary:(NSDictionary *)modalFacetDictionary {
 
-    [self extractFilterFacetsArraysFromDictionary:modalFacetDictionary];
+    //[self extractFilterFacetsArraysFromDictionary:modalFacetDictionary];
+    // use the update
+    int some_unused_int_to_mark;
 
     if ([titleString isEqualToString:BRAND_TITLE]) {
         
