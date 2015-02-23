@@ -245,8 +245,38 @@
     
      */
     
-    [self.selectedOptionsArray removeAllObjects];
-    [self performSegueWithIdentifier:@"unwindToBTRSearchFilterTVC" sender:self];
+    if ([sender isKindOfClass:[UIButton class]]) {
+        
+        /*
+        
+        BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+        
+        
+        if ([self.headerTitle isEqualToString:PRICE_TITLE])
+            [sharedFacetHandler clearPriceSelection];
+        
+        if ([self.headerTitle isEqualToString:CATEGORY_TITLE])
+            [sharedFacetHandler clearCategoryString];
+        
+        if ([self.headerTitle isEqualToString:BRAND_TITLE])
+            [sharedFacetHandler clearBrandSelection];
+        
+        if ([self.headerTitle isEqualToString:COLOR_TITLE])
+            [sharedFacetHandler clearColorSelection];
+        
+        if ([self.headerTitle isEqualToString:SIZE_TITLE])
+            [sharedFacetHandler clearSizeSelection];
+        
+        [self.selectedOptionsArray removeAllObjects];
+        
+         */
+        
+        [self performSegueWithIdentifier:@"unwindToBTRSearchFilterTVC" sender:self];
+         
+        
+    }
+    
+    
 
 }
 

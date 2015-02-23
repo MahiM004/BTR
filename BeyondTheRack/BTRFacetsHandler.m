@@ -577,7 +577,7 @@ static BTRFacetsHandler *_sharedInstance;
     [sharedFacetDictionary.colorFacetArray removeAllObjects];
     [sharedFacetDictionary.colorFacetCountArray removeAllObjects];
     
-    NSLog(@"country ignored at updateFacetsFromResponseDictionary");
+    NSLog(@"country ignored: updateFacetsFromResponseDictionary");
 
     NSDictionary *facetsDictionary = responseDictionary[@"facet_counts"];
     NSDictionary *facetQueriesDictionary = facetsDictionary[@"facet_queries"];
