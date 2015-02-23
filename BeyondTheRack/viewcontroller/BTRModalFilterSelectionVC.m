@@ -23,21 +23,56 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
+@property (strong, nonatomic) NSMutableArray *optionsArray;
+@property (strong, nonatomic) NSMutableArray *selectedOptionsArray;
+
 @end
 
 @implementation BTRModalFilterSelectionVC
 
 
-- (NSMutableArray *)itemsArray {
+
+- (NSMutableArray *)optionsArray {
     
-    if (!_itemsArray) _itemsArray = [[NSMutableArray alloc] init];
-    return _itemsArray;
+    if (!_optionsArray) _optionsArray = [[NSMutableArray alloc] init];
+    return _optionsArray;
 }
+
+
 
 - (NSMutableArray *)selectedOptionsArray {
     
     if (!_selectedOptionsArray) _selectedOptionsArray = [[NSMutableArray alloc] init];
     return _selectedOptionsArray;
+}
+
+
+
+- (void)initOptionsArray {
+
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    
+    if ([self.headerTitle isEqualToString:PRICE_TITLE])
+        [self.optionsArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
+    
+    if ([self.headerTitle isEqualToString:CATEGORY_TITLE])
+        [self.optionsArray setArray:[sharedFacetHandler getCategoryFiltersForDisplay]];
+    
+    if ([self.headerTitle isEqualToString:BRAND_TITLE])
+        [self.optionsArray setArray:[sharedFacetHandler getBrandFiltersForDisplay]];
+    
+    if ([self.headerTitle isEqualToString:COLOR_TITLE])
+        [self.optionsArray setArray:[sharedFacetHandler getColorFiltersForDisplay]];
+    
+    if ([self.headerTitle isEqualToString:SIZE_TITLE])
+        [self.optionsArray setArray:[sharedFacetHandler getSizeFiltersForDisplay]];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:YES];
+    [self initOptionsArray];
 }
 
 
@@ -91,8 +126,6 @@
     
     return cell;
 }
-
-
 
 - (int)isOptionSelected:(NSString *)optionString
 {
@@ -169,9 +202,6 @@
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
-
-    [[self itemsArray] removeAllObjects];
-
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]];
@@ -230,19 +260,12 @@
     
      */
     
-    [self.itemsArray removeAllObjects];
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     [self fetchItemsIntoDocument:[self beyondTheRackDocument]
-                  forSearchQuery:[self searchString]
+                  forSearchQuery:[sharedFacetHandler searchString]
                 withFacetsString:[self facetsQueryString]
                          success:^(NSDictionary *responseDictionary) {
-                             
-                             if ([self.modalDelegate respondsToSelector:@selector(modalFilterSelectionVCDidEnd:withTitle:withModalFacetDictionary:)]) {
-                                 [self.modalDelegate modalFilterSelectionVCDidEnd:[self selectedOptionsArray]
-                                                                        withTitle:[self headerTitle]
-                                                         withModalFacetDictionary:[BTRFacetsHandler getFacetsDictionaryFromResponse:responseDictionary]];
-                             }
-                             
                              
                              [self dismissViewControllerAnimated:YES completion:NULL];
                              
@@ -270,8 +293,6 @@
 
     if ([self.headerTitle isEqualToString:SIZE_TITLE])
         [sharedFacetHandler setSelectedSizesWithArray:[self selectedOptionsArray]];
-
-    NSLog(@"facetString: %@", [sharedFacetHandler getFacetStringForRESTfulRequest]);
     
     return [sharedFacetHandler getFacetStringForRESTfulRequest];
 }

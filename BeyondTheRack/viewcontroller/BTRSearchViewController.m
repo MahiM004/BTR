@@ -23,13 +23,11 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
-@property (strong, nonatomic) NSDictionary *facetsDictionary;
-@property (strong, nonatomic) NSString *searchString;
+//@property (strong, nonatomic) NSDictionary *facetsDictionary;
+//@property (strong, nonatomic) NSString *searchString;
 @property (nonatomic) BOOL oddNumberOfResults;
 
-@property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
-@property (strong, nonatomic) NSMutableArray *oldChosenFacetsArray;
-@property (strong, nonatomic) NSDictionary *oldFacetsDictionary;
+//@property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
 
@@ -42,6 +40,7 @@
 @synthesize searchBar;
 @synthesize oddNumberOfResults;
 
+/*
 - (NSDictionary *)facetsDictionary {
     
     if (!_facetsDictionary) _facetsDictionary = [[NSDictionary alloc] init];
@@ -54,6 +53,7 @@
     if (!_oldChosenFacetsArray) _oldChosenFacetsArray = [[NSMutableArray alloc] init];
     return _oldChosenFacetsArray;
 }
+*/
 
 - (NSMutableArray *)originalItemArray {
     
@@ -148,11 +148,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:YES];
-    
+    /*
     if ([BTRFacetsHandler hasChosenFacetInFacetsArray:[self oldChosenFacetsArray]])
         self.filterIconImageView.image = [UIImage imageNamed:@"filtericonYellow.png"];
     else
         self.filterIconImageView.image = [UIImage imageNamed:@"filtericon.png"];
+     */
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -202,9 +203,12 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    self.searchString = [self.searchBar text];
     
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[self searchString]
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    
+    sharedFacetHandler.searchString = [self.searchBar text];
+    
+    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[sharedFacetHandler searchString]
                          success:^(NSMutableArray *responseArray) {
                              
                              
@@ -410,10 +414,11 @@
                                                                             error:NULL];
  
          BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
-         [sharedFacetsHandler updateFacetsFromResponseDictionary:entitiesPropertyList];
+         [sharedFacetsHandler setSearchString:[searchBar text]];
+         [sharedFacetsHandler setFacetsFromResponseDictionary:entitiesPropertyList];
          
-         self.facetsDictionary = [BTRFacetsHandler getFacetsDictionaryFromResponse:entitiesPropertyList];
-         NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:entitiesPropertyList];
+         
+         NSMutableArray * arrayToPass = [sharedFacetsHandler getItemDataArrayFromResponse:entitiesPropertyList];
          
          if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
              
@@ -466,10 +471,6 @@
         BTRRefineResultsViewController *refineVC = [segue destinationViewController];
 
         refineVC.backgroundImage = screenShotImage;
-        refineVC.facetsDictionary = [self facetsDictionary];
-        refineVC.searchString = [self searchString];
-        refineVC.oldChosenFacets = [self oldChosenFacetsArray];
-        refineVC.oldFacetsDictionary = [self oldFacetsDictionary];
         refineVC.delegate = self;
     }
 }
@@ -480,9 +481,12 @@
     [self clearResults];
     [self.tableView reloadData];
     
-    NSMutableArray * arrayToPass = [BTRFacetsHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
-    self.oldFacetsDictionary = [BTRFacetsHandler getFacetsDictionaryFromResponse:[self responseDictionaryFromFacets]];
+    //BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
+    //NSMutableArray * arrayToPass = [sharedFacetHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
+    //self.oldFacetsDictionary = [sharedFacetHandler getFacetsDictionaryFromResponse:[self responseDictionaryFromFacets]];
+    
+    /*
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
         
         if ([arrayToPass count] != 0) {
@@ -491,9 +495,9 @@
             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
         }
     }
-    
-    
+
     [self.tableView reloadData];
+     */
 }
 
 
@@ -510,9 +514,8 @@
 
 - (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary andChosenFacets:(NSMutableArray *)chosenFacetsArray {
     
-    self.responseDictionaryFromFacets = responseDictionary;
-    [self.oldChosenFacetsArray removeAllObjects];
-    [self.oldChosenFacetsArray addObjectsFromArray:chosenFacetsArray];
+    //self.responseDictionaryFromFacets = responseDictionary;
+
 }
 
 

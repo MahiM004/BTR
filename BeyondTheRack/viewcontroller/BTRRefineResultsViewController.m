@@ -12,14 +12,11 @@
 
 #import "BTRFacetsHandler.h"
 
-@interface BTRRefineResultsViewController () <BTRSearchFilterTableDelegate>
-
+@interface BTRRefineResultsViewController () 
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic) int *sortOptions;
-@property (strong, nonatomic) NSMutableArray *chosenFacetsArray;
 
 
 @end
@@ -28,12 +25,6 @@
 
 @synthesize backgroundImage;
 
-
-- (NSMutableArray *)chosenFacetsArray {
-    
-    if (!_chosenFacetsArray) _chosenFacetsArray = [[NSMutableArray alloc] init];
-    return _chosenFacetsArray;
-}
 
 
 
@@ -95,10 +86,17 @@
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
-         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                             options:0
                                                                               error:NULL];
-         success(responseDictionary);
+         
+         
+         BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
+         [sharedFacetsHandler updateFacetsFromResponseDictionary:entitiesPropertyList];
+
+         
+         success(entitiesPropertyList);
+         
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -114,13 +112,7 @@
 
 
 - (IBAction)clearTapped:(UIButton *)sender {
-    
-    [self.chosenFacetsArray removeAllObjects];
-
-    if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:andChosenFacets:)]) {
-        [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets] andChosenFacets:[self chosenFacetsArray]];
-    }    
-    
+ 
     [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
 }
 
@@ -132,18 +124,16 @@
     
      */
     
-    NSString *facetString = [self getFacetQueryString];
+    
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    NSString *facetString = [sharedFacetHandler getFacetStringForRESTfulRequest];
+
     
     [self fetchItemsIntoDocument:[self beyondTheRackDocument]
-                  forSearchQuery:[self searchString]
+                  forSearchQuery:[sharedFacetHandler searchString]
                 withFacetsString:facetString
                          success:^(NSDictionary *responseDictionary) {
-                             
-                             self.responseDictionaryFromFacets = responseDictionary;
-                             if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:andChosenFacets:)]) {
-                                 [self.delegate refineSceneWillDisappearWithResponseDictionary:[self responseDictionaryFromFacets] andChosenFacets:[self chosenFacetsArray]];
-                             }
-                             
+                            
                              
                              [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
                              
@@ -151,44 +141,6 @@
                              NSLog(@"Error: %@",error);
                          }];
     
-}
-
-
-- (NSString *)getFacetQueryString {
-    
-    
-    NSMutableArray *facetOptionsArray = [[NSMutableArray alloc] init];
-    
-    facetOptionsArray = [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self.chosenFacetsArray objectAtIndex:0] fromSelectedCategories:[self.chosenFacetsArray objectAtIndex:1] fromSelectedBrand:[self.chosenFacetsArray objectAtIndex:2] fromSelectedColors:[self.chosenFacetsArray objectAtIndex:3] fromSelectedSizes:[self.chosenFacetsArray objectAtIndex:4]];
-    
-    return [BTRFacetsHandler getFacetStringForRESTWithChosenFacetsArray:facetOptionsArray withSortOption:0];
-}
-
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
-
-    if ([[segue identifier] isEqualToString:@"EmbededdFilterSegue"]) {
-     
-        BTRSearchFilterTVC *embedTVC = segue.destinationViewController;
-     
-        embedTVC.searchString = [self searchString];
-        embedTVC.oldChosenFacets = [self oldChosenFacets];
-        embedTVC.oldFacetsDictionary = [self oldFacetsDictionary];
-        embedTVC.facetsDictionary = [self facetsDictionary];
-        embedTVC.delegate = self;
-    }
-    
-}
-
-
-#pragma mark - BTRSearchFilterTableDelegate
-
-- (void)searchFilterTableWillDisappearWithChosenFacetsArray:(NSMutableArray *)chosenFacetsArray {
-
-    [self.chosenFacetsArray removeAllObjects];
-    [self.chosenFacetsArray addObjectsFromArray:chosenFacetsArray];
 }
 
 

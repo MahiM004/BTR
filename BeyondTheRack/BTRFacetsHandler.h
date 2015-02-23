@@ -6,7 +6,11 @@
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-
+#define BRAND_TITLE @"Brand"
+#define COLOR_TITLE @"Color"
+#define SIZE_TITLE @"Size"
+#define CATEGORY_TITLE @"Type"
+#define PRICE_TITLE @"Price"
 
 #import <Foundation/Foundation.h>
 
@@ -16,11 +20,13 @@
 + (BTRFacetsHandler *)sharedFacetHandler;
 
 
+@property (strong, nonatomic) NSString *searchString;
+
+
 - (NSArray *)getSortOptionStringsArray;
 - (void)clearSortSelection;
 - (void)setSortChosenOptionString:(NSString *)chosenSortString;
 - (NSString *)getSelectedSortString;
-
 
 
 - (void)setPriceSelectionWithPriceString:(NSString *)priceString;
@@ -42,6 +48,7 @@
 - (BOOL)hasSelectedBrandOptionString:(NSString *)optionString;
 - (void)clearBrandSelection;
 - (NSMutableArray *)getBrandFiltersForDisplay;
+- (NSMutableArray *)getSelectedBrandsArray;
 
 
 - (void)addColorSelectionWithColorString:(NSString *)colorString;
@@ -49,6 +56,7 @@
 - (BOOL)hasSelectedColorOptionString:(NSString *)optionString;
 - (void)clearColorSelection;
 - (NSMutableArray *)getColorFiltersForDisplay;
+- (NSMutableArray *)getSelectedColorsArray;
 
 
 - (void)addSizeSelectionWithSizeString:(NSString *)sizeString;
@@ -56,10 +64,12 @@
 - (BOOL)hasSelectedSizeOptionString:(NSString *)optionString;
 - (void)clearSizeSelection;
 - (NSMutableArray *)getSizeFiltersForDisplay;
+- (NSMutableArray *)getSelectedSizesArray;
 
 
 - (NSString *)getFacetStringForRESTfulRequest;
 - (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary;
+- (void)setFacetsFromResponseDictionary:(NSDictionary *)responseDictionary;
 
 
 
@@ -67,40 +77,16 @@
 - (NSString *)getPriceSelectionFromLabelString:(NSString *)labelString;
 
 
-/*
- 
- */
 
-+ (BOOL)hasChosenFacetInFacetsArray:(NSMutableArray *)chosenFacetsArray;
-
-    
 /*
 
  From Response
  
  */
 
-+ (NSString *)getSortTypeForIndex:(NSInteger)sortIndex;
-+ (NSDictionary *)getFacetsDictionaryFromResponse:(NSDictionary *)responseDictionary;
-+ (NSMutableArray *)getItemDataArrayFromResponse:(NSDictionary *)responseDictionary;
-
-
-
-/*
- 
- For REST
- 
- */
-
-+ (NSString *)priceRangeForAPIReadableFromLabelString:(NSString *)labelString;
-
-+ (NSString *)getFacetStringForRESTWithChosenFacetsArray:(NSMutableArray *)chosenFacetsArray withSortOption:(NSUInteger) sortOption;
-
-+ (NSMutableArray *)getFacetOptionsFromDisplaySelectedPrices:(NSMutableArray *)selectedPrices
-                                      fromSelectedCategories:(NSMutableArray *)selectedCategories
-                                           fromSelectedBrand:(NSMutableArray *)selectedBrands
-                                          fromSelectedColors:(NSMutableArray *)selectedColors
-                                           fromSelectedSizes:(NSMutableArray *)selectedSizes;
+- (NSString *)getSortTypeForIndex:(NSInteger)sortIndex;
+- (NSDictionary *)getFacetsDictionaryFromResponse:(NSDictionary *)responseDictionary;
+- (NSMutableArray *)getItemDataArrayFromResponse:(NSDictionary *)responseDictionary;
 
 
 

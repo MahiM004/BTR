@@ -15,14 +15,8 @@
 #import "BTRFacetsHandler.h"
 
 
-@interface BTRSearchFilterTVC () <BTRModalFilterSelectionDelegate>
+@interface BTRSearchFilterTVC ()
 
-
-@property (strong, nonatomic) NSMutableArray *brandsArray;
-@property (strong, nonatomic) NSMutableArray *colorsArray;
-@property (strong, nonatomic) NSMutableArray *sizesArray;
-@property (strong, nonatomic) NSMutableArray *categoriesArray;
-@property (strong, nonatomic) NSMutableArray *pricesArray;
 
 @property (strong, nonatomic) NSMutableArray *selectedBrands;
 @property (strong, nonatomic) NSMutableArray *selectedColors;
@@ -74,45 +68,6 @@
 }
 
 
-- (NSMutableArray *)queryRefineArray {
-    
-    if (!_queryRefineArray) _queryRefineArray = [[NSMutableArray alloc] init];
-    return _queryRefineArray;
-}
-
-- (NSMutableArray *)colorsArray {
-    
-    if (!_colorsArray) _colorsArray = [[NSMutableArray alloc] init];
-    return _colorsArray;
-}
-
-- (NSMutableArray *)brandsArray {
-    
-    if (!_brandsArray) _brandsArray = [[NSMutableArray alloc] init];
-    return _brandsArray;
-}
-
-- (NSMutableArray *)sizesArray {
-    
-    if (!_sizesArray) _sizesArray = [[NSMutableArray alloc] init];
-    return _sizesArray;
-}
-
-
-- (NSMutableArray *)categoriesArray {
-    
-    if (!_categoriesArray) _categoriesArray = [[NSMutableArray alloc] init];
-    return _categoriesArray;
-}
-
-
-- (NSMutableArray *)pricesArray {
-    
-    if (!_pricesArray) _pricesArray = [[NSMutableArray alloc] init];
-    return _pricesArray;
-}
-
-
 
 - (void)viewWillAppear:(BOOL)animated {
     
@@ -120,27 +75,25 @@
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
-    [self.pricesArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
-    [self.categoriesArray setArray:[sharedFacetHandler getCategoryFiltersForDisplay]];
-    [self.brandsArray setArray:[sharedFacetHandler getBrandFiltersForDisplay]];
-    [self.colorsArray setArray:[sharedFacetHandler getColorFiltersForDisplay]];
-    [self.sizesArray setArray:[sharedFacetHandler getSizeFiltersForDisplay]];
+    if ([sharedFacetHandler getSelectedPriceString])
+        [self.selectedPrices addObject:[sharedFacetHandler getSelectedPriceString]];
+    
+    if ([sharedFacetHandler getSelectedCategoryString])
+        [self.selectedCategories addObject:[sharedFacetHandler getSelectedCategoryString]];
+    
+    if ([sharedFacetHandler getSelectedBrandsArray])
+        [self.selectedBrands setArray:[sharedFacetHandler getSelectedBrandsArray]];
+    
+    if ([sharedFacetHandler getSelectedColorsArray])
+        [self.selectedColors setArray:[sharedFacetHandler getSelectedColorsArray]];
+    
+    if ([sharedFacetHandler getSelectedSizesArray])
+        [self.selectedSizes setArray:[sharedFacetHandler getSelectedSizesArray]];
+    
     
     [self.tableView reloadData];
     
-    
-    if ([self.delegate respondsToSelector:@selector(searchFilterTableWillDisappearWithChosenFacetsArray:)]) {
-        [self.delegate searchFilterTableWillDisappearWithChosenFacetsArray:[self getChosenFacetsArray]];
-    }
-    
-    for (NSString *someString in [self pricesArray]) {
-        
-        NSLog(@"something: %@", someString);
-    }
-    
 }
-
-
 
 - (void)viewDidLoad {
     
@@ -149,19 +102,6 @@
     
     selectedSortIndex = 0;
     self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", PRICE_TITLE, CATEGORY_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
-}
-
-
-- (void) extractFilterFacetsArraysFromDictionary {
-    
-    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
-    
-    [self.pricesArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
-    [self.categoriesArray setArray:[sharedFacetHandler getCategoryFiltersForDisplay]];
-    [self.brandsArray setArray:[sharedFacetHandler getBrandFiltersForDisplay]];
-    [self.colorsArray setArray:[sharedFacetHandler getColorFiltersForDisplay]];
-    [self.sizesArray setArray:[sharedFacetHandler getSizeFiltersForDisplay]];
-    
 }
 
 
@@ -305,7 +245,8 @@
         cell.textLabel.textColor = [UIColor whiteColor];
     }
     
-    cell.textLabel.text = [BTRFacetsHandler getSortTypeForIndex:indexPath.row];
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    cell.textLabel.text = [sharedFacetHandler getSortTypeForIndex:indexPath.row];
     
     return  cell;
     
@@ -313,13 +254,15 @@
 
 - (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    
     if (indexPath.section == BRAND_FILTER) {
         
         cell = [self configureCellForCell:cell
                         withSectionString:BRAND_TITLE
                        withSelectionArray:[self selectedBrands]
                                 withIndex:indexPath.row
-                          selectionExists:[self.brandsArray count] > 0 ? YES: NO];
+                          isSelectable:[sharedFacetHandler.getBrandFiltersForDisplay count] > 0 ? YES: NO];
         
     } else if (indexPath.section == COLOR_FILTER) {
         
@@ -327,7 +270,7 @@
                         withSectionString:COLOR_TITLE
                        withSelectionArray:[self selectedColors]
                                 withIndex:indexPath.row
-                          selectionExists:[self.colorsArray count] > 0 ? YES: NO];
+                          isSelectable:[sharedFacetHandler.getColorFiltersForDisplay count] > 0 ? YES: NO];
         
     } else if (indexPath.section == SIZE_FILTER) {
         
@@ -335,16 +278,18 @@
                         withSectionString:SIZE_TITLE
                        withSelectionArray:[self selectedSizes]
                                 withIndex:indexPath.row
-                          selectionExists:[self.sizesArray count] > 0 ? YES: NO];
+                          isSelectable:[sharedFacetHandler.getSizeFiltersForDisplay count] > 0 ? YES: NO];
 
     } else if (indexPath.section == CATEGORY_FILTER) {
+        
+        NSMutableArray *someTempArray = nil;
         
         cell = [self configureCellForCell:cell
                         withSectionString:CATEGORY_TITLE
                        withSelectionArray:[self selectedCategories]
                                 withIndex:indexPath.row
-                          selectionExists:[self.categoriesArray count] &&
-                ![self hasChosenFacetExceptCategoriesInFacetsArray:[self oldChosenFacets]]> 0 ? YES: NO];
+                          isSelectable:[sharedFacetHandler.getCategoryFiltersForDisplay count] &&
+                ![self hasChosenFacetExceptCategoriesInFacetsArray:someTempArray]/*[self oldChosenFacets]]*/> 0 ? YES: NO];
         
     } else if (indexPath.section == PRICE_FILTER) {
         
@@ -352,7 +297,7 @@
                         withSectionString:PRICE_TITLE
                        withSelectionArray:[self selectedPrices]
                                 withIndex:indexPath.row
-                          selectionExists:[self.pricesArray count] > 0 ? YES: NO];
+                          isSelectable:[sharedFacetHandler.getPriceFiltersForDisplay count] > 0 ? YES: NO];
     }
     
 
@@ -360,13 +305,13 @@
 }
 
 
-- (BTRFilterWithModalTableViewCell *)configureCellForCell:(BTRFilterWithModalTableViewCell *)cell withSectionString:(NSString *)sectionString withSelectionArray:(NSArray *)selectionArray withIndex:(NSUInteger)index selectionExists:(BOOL)selectionExists {
+- (BTRFilterWithModalTableViewCell *)configureCellForCell:(BTRFilterWithModalTableViewCell *)cell withSectionString:(NSString *)sectionString withSelectionArray:(NSArray *)selectionArray withIndex:(NSUInteger)index isSelectable:(BOOL)isSelectable {
     
     
     cell.rowLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
     cell.rowButton.enabled = TRUE;
     
-    if (selectionExists) {
+    if (isSelectable) {
         
         if ([selectionArray count] == 0) {
             cell.rowLabel.text = [NSString stringWithFormat:@"All %@s", sectionString];
@@ -375,7 +320,7 @@
             cell.rowLabel.text = [selectionArray objectAtIndex:index];
         }
         
-    } else if (!selectionExists) {
+    } else if (!isSelectable) {
         
         cell.rowLabel.text = [NSString stringWithFormat:@"No %@ Selection Available", sectionString];
         cell.rowLabel.textColor = [UIColor lightGrayColor];
@@ -405,69 +350,33 @@
         
             if ([[[(UIButton *)sender titleLabel] text] isEqualToString:BRAND_TITLE]) {
                 
-                [self prepareModalVC:destModalVC withItemsArray:[self brandsArray] withSelectedItemsArray:[self selectedBrands] andTitle:BRAND_TITLE];
+                destModalVC.headerTitle = BRAND_TITLE;
                 destModalVC.isMultiSelect = YES;
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:COLOR_TITLE]) {
              
-                [self prepareModalVC:destModalVC withItemsArray:[self colorsArray] withSelectedItemsArray:[self selectedColors] andTitle:COLOR_TITLE];
+                destModalVC.headerTitle = COLOR_TITLE;
                 destModalVC.isMultiSelect = YES;
 
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:SIZE_TITLE]) {
                 
-                [self prepareModalVC:destModalVC withItemsArray:[self sizesArray] withSelectedItemsArray:[self selectedSizes] andTitle:SIZE_TITLE];
+                destModalVC.headerTitle = SIZE_TITLE;
                 destModalVC.isMultiSelect = YES;
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:CATEGORY_TITLE]) {
                 
-                [self prepareModalVC:destModalVC withItemsArray:[self categoriesArray] withSelectedItemsArray:[self selectedCategories] andTitle:CATEGORY_TITLE];
+                destModalVC.headerTitle = CATEGORY_TITLE;
                 destModalVC.isMultiSelect = NO;
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:PRICE_TITLE]) {
                 
-                [self prepareModalVC:destModalVC withItemsArray:[self pricesArray] withSelectedItemsArray:[self selectedPrices] andTitle:PRICE_TITLE];
+                destModalVC.headerTitle = PRICE_TITLE;
                 destModalVC.isMultiSelect = NO;
             }
-        
-            destModalVC.modalDelegate = self;
+            
         }
     }
-}
-
-
-- (BTRModalFilterSelectionVC *)prepareModalVC:(BTRModalFilterSelectionVC *)destModalVC withItemsArray:(NSMutableArray *)itemsArray withSelectedItemsArray:(NSMutableArray *)selectedItemArray andTitle:(NSString *)title {
-    
-    destModalVC.optionsArray = itemsArray;
-    destModalVC.selectedOptionsArray = selectedItemArray;
-    destModalVC.headerTitle = title;
-    destModalVC.searchString = [self searchString];
-    destModalVC.chosenFacetsArray = [self getChosenFacetsArray];
-    
-    return destModalVC;
-}
-
-
-- (NSMutableArray *)getChosenFacetsArray {
- 
-    NSMutableArray *facetsArray = [[NSMutableArray alloc] init];
-    [facetsArray addObject:[self selectedPrices]];
-    [facetsArray addObject:[self selectedCategories]];
-    [facetsArray addObject:[self selectedBrands]];
-    [facetsArray addObject:[self selectedColors]];
-    [facetsArray addObject:[self selectedSizes]];
-    
-    return facetsArray;
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-    
-    self.queryRefineArray = [BTRFacetsHandler getFacetOptionsFromDisplaySelectedPrices:[self selectedPrices]
-                                                                fromSelectedCategories:[self selectedCategories]
-                                                                     fromSelectedBrand:[self selectedBrands]
-                                                                    fromSelectedColors:[self selectedColors]
-                                                                     fromSelectedSizes:[self selectedSizes]];
 }
 
 
@@ -480,49 +389,13 @@
 
 - (BOOL)hasChosenFacetExceptCategoriesInFacetsArray:(NSMutableArray *)chosenFacetsArray {
     
-    if ([self.selectedBrands count] > 0 ||
-        [self.selectedColors count] > 0 ||
-        [self.selectedPrices count] > 0 ||
-        [self.selectedSizes count] > 0) {
-
-        [self.selectedCategories removeAllObjects];
-        return YES;
-    }
     
-    return NO;
+    NSLog(@"hasChosenFacetExceptCategoriesInFacetsArray NOT IMPLEMENTED!");
+    
+    return YES;
 }
 
-#pragma mark - BTRModalFilterSelectionDelegate
 
-
-- (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString withModalFacetDictionary:(NSDictionary *)modalFacetDictionary {
-
-    
-    [self extractFilterFacetsArraysFromDictionary];
- 
-    if ([titleString isEqualToString:BRAND_TITLE]) {
-        
-        self.selectedBrands = selectedItemsArray;
-    }
-    else if ([titleString isEqualToString:COLOR_TITLE]) {
-
-        self.selectedColors = selectedItemsArray;
-    }
-    else if ([titleString isEqualToString:SIZE_TITLE]) {
-
-        self.selectedSizes = selectedItemsArray;
-    }
-    else if ([titleString isEqualToString:CATEGORY_TITLE]) {
-
-        self.selectedCategories = selectedItemsArray;
-    }
-    else if ([titleString isEqualToString:PRICE_TITLE]) {
-        
-        self.selectedPrices = selectedItemsArray;
-    }
-
-    [self.tableView reloadData];
-}
 
 
 
