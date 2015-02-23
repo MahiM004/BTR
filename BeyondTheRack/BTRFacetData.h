@@ -38,4 +38,11 @@
 @property (strong, nonatomic) NSMutableArray *sizeFacetCountArray;
 @property (strong, nonatomic) NSMutableArray *selectedSizesArray;
 
+
+
+- (void)clearAllData;
+- (void)clearFacetData;
+- (void)clearAllSelections;
+
+
 @end

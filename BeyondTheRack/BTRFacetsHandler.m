@@ -376,6 +376,48 @@ static BTRFacetsHandler *_sharedInstance;
  */
 
 
+- (NSString *)getSelectionFromLabelString:(NSString *)labelString {
+    
+    return [labelString componentsSeparatedByString:@":"][0];
+}
+
+
+
+- (NSString *)getPriceSelectionFromLabelString:(NSString *)labelString {
+    
+    if ([labelString containsString:@"$0 to $200"]) {
+        
+        return @"[0 TO 200]";
+    }
+    else if ([labelString containsString:@"$200 to $400"]) {
+        
+        return @"[200 TO 400]";
+        
+    }
+    else if ([labelString containsString:@"$400 to $600"]) {
+        
+        return @"[400 TO 600]";
+        
+    }
+    else if ([labelString containsString:@"$600 to $800"]) {
+        
+        return @"[600 TO 800]";
+        
+    }
+    else if ([labelString containsString:@"$800 to $1000"]) {
+        
+        return @"[800 TO 1000]";
+        
+    }
+    else if ([labelString containsString:@"$1000 to *"]) {
+        
+        return @"[1000 TO *]";
+    }
+    
+    return nil;
+}
+
+
 
 - (NSString *)getFacetStringForRESTfulRequest {
     
@@ -384,45 +426,45 @@ static BTRFacetsHandler *_sharedInstance;
     
     NSMutableString *facetsString = [[NSMutableString alloc] init];
     
-    NSLog(@"country ignored at getFacetStringForRESTWithChosenFacetsArray");
+    NSLog(@"country ignored: getFacetStringForRESTfulRequest");
     
-    if ([sharedFacetData.selectedPriceString isEqualToString:@""])
+    if ([sharedFacetData selectedPriceString])
         ((BOOL)[facetsString length])?
-        [facetsString appendFormat:@";price_sort_ca:%@", [sharedFacetData selectedPriceString]]:
-        [facetsString appendFormat:@"price_sort_ca:%@", [sharedFacetData selectedPriceString]];
+        [facetsString appendFormat:@";price_sort_ca:%@", [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]]:
+        [facetsString appendFormat:@"price_sort_ca:%@", [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]];
     
-    if ([sharedFacetData.selectedCategoryString isEqualToString:@""])
+    if ([sharedFacetData selectedCategoryString])
         ((BOOL)[facetsString length])?
-        [facetsString appendFormat:@";{!tag=cat_1}cat_1:[[%@]]", [sharedFacetData selectedCategoryString]]:
-        [facetsString appendFormat:@"{!tag=cat_1}cat_1:[[%@]]", [sharedFacetData selectedCategoryString]];
+        [facetsString appendFormat:@";{!tag=cat_1}cat_1:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData selectedCategoryString]]]:
+        [facetsString appendFormat:@"{!tag=cat_1}cat_1:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData selectedCategoryString]]];
     
     
     if ([sharedFacetData.selectedBrandsArray count] != 0)
         ((BOOL)[facetsString length]) ?
-        [facetsString appendFormat:@";{!tag=brand}brand:[[%@]]", [sharedFacetData.selectedBrandsArray objectAtIndex:0]]:
-        [facetsString appendFormat:@"{!tag=brand}brand:[[%@]]", [sharedFacetData.selectedBrandsArray objectAtIndex:0]];
+        [facetsString appendFormat:@";{!tag=brand}brand:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedBrandsArray objectAtIndex:0]]]:
+        [facetsString appendFormat:@"{!tag=brand}brand:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedBrandsArray objectAtIndex:0]]];
     
     if ([sharedFacetData.selectedBrandsArray count] > 1) {
         for (int i = 1; i < [sharedFacetData.selectedBrandsArray count]; i++)
-            [facetsString appendFormat:@" OR brand:[[%@]]",[sharedFacetData.selectedBrandsArray objectAtIndex:i]];
+            [facetsString appendFormat:@" OR brand:[[%@]]",[self getSelectionFromLabelString:[sharedFacetData.selectedBrandsArray objectAtIndex:i]]];
     }
     
     
     if ([sharedFacetData.selectedColorsArray count] != 0)
         ((BOOL)[facetsString length]) ?
-        [facetsString appendFormat:@";{!tag=att_color}att_color:[[%@]]", [sharedFacetData.selectedColorsArray objectAtIndex:0]]:
-        [facetsString appendFormat:@"{!tag=att_color}att_color:[[%@]]", [sharedFacetData.selectedColorsArray objectAtIndex:0]];
+        [facetsString appendFormat:@";{!tag=att_color}att_color:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedColorsArray objectAtIndex:0]]]:
+        [facetsString appendFormat:@"{!tag=att_color}att_color:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedColorsArray objectAtIndex:0]]];
     
     if ([sharedFacetData.selectedColorsArray count] > 1) {
         for (int i = 1; i < [sharedFacetData.selectedColorsArray count]; i++)
-            [facetsString appendFormat:@" OR att_color:[[%@]]",[sharedFacetData.selectedColorsArray objectAtIndex:i]];
+            [facetsString appendFormat:@" OR att_color:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedColorsArray objectAtIndex:i]]];
     }
     
     
     if ([sharedFacetData.selectedSizesArray count] != 0)
         ((BOOL)[facetsString length])?
-        [facetsString appendFormat:@";{!tag=variant}variant:[[%@]]", [sharedFacetData.selectedSizesArray objectAtIndex:0]]:
-        [facetsString appendFormat:@"{!tag=variant}variant:[[%@]]", [sharedFacetData.selectedSizesArray objectAtIndex:0]];
+        [facetsString appendFormat:@";{!tag=variant}variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:0]]]:
+        [facetsString appendFormat:@"{!tag=variant}variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:0]]];
     
     
     return facetsString;
@@ -433,6 +475,23 @@ static BTRFacetsHandler *_sharedInstance;
 
     BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
 
+    NSLog(@"updateeeee");
+    
+    [sharedFacetDictionary.priceFacetArray removeAllObjects];
+    [sharedFacetDictionary.priceFacetCountArray removeAllObjects];
+
+    [sharedFacetDictionary.brandFacetArray removeAllObjects];
+    [sharedFacetDictionary.brandFacetCountArray removeAllObjects];
+    
+    [sharedFacetDictionary.categoryFacetArray removeAllObjects];
+    [sharedFacetDictionary.categoryFacetCountArray removeAllObjects];
+    
+    [sharedFacetDictionary.sizeFacetArray removeAllObjects];
+    [sharedFacetDictionary.sizeFacetCountArray removeAllObjects];
+    
+    [sharedFacetDictionary.colorFacetArray removeAllObjects];
+    [sharedFacetDictionary.colorFacetCountArray removeAllObjects];
+    
     NSLog(@"country ignored at updateFacetsFromResponseDictionary");
 
     
@@ -596,71 +655,7 @@ static BTRFacetsHandler *_sharedInstance;
     
 }
 
-/*
-+ (NSMutableArray *)extractFilterFacetsForDisplayFromResponse:(NSDictionary *)facetsDictionary {
-    
-    
-    NSMutableArray *resultsArray = [[NSMutableArray alloc] init];
-    
-    NSDictionary *facetQueriesDictionary = facetsDictionary[@"facet_queries"];
-    NSDictionary *facetFieldsDictionary =  facetsDictionary[@"facet_fields"];
-    
-    NSMutableArray *priceFilter = [[NSMutableArray alloc] init];
-    NSMutableArray *categoryFilter = [[NSMutableArray alloc] init];
-    NSMutableArray *brandFilter = [[NSMutableArray alloc] init];
-    NSMutableArray *colorFilter= [[NSMutableArray alloc] init];
-    NSMutableArray *sizeFilter = [[NSMutableArray alloc] init];
-    
-    
-    NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
-    
-    NSString *tempString = [NSString stringWithFormat:@"$0 to $200: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"] ];
-    [priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"$200 to $400: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"] ];
-    [priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"$400 to $600: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"] ];
-    [priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"$600 to $800: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"] ];
-    [priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"$800 to $1000: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"] ];
-    [priceFilter addObject:tempString];
-    tempString = [NSString stringWithFormat:@"$1000 to *: (%@)",(NSNumber *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"] ];
-    [priceFilter addObject:tempString];
-    
-    
-    NSDictionary *brandDictionary = facetFieldsDictionary[@"brand"];
-    for (NSString *item in brandDictionary)
-        [brandFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)brandDictionary[item]] ];
-    
-    NSDictionary *categoryDictionary = facetFieldsDictionary[@"cat_1"];
-    for (NSString *item in categoryDictionary)
-        [categoryFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)categoryDictionary[item]] ];
-    
-    NSDictionary *colorDictionary = facetFieldsDictionary[@"att_color"];
-    for (NSString *item in colorDictionary)
-        [colorFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)colorDictionary[item]] ];
-    
-    NSDictionary *sizeDictionary = facetFieldsDictionary[@"variant"];
-    for (NSString *item in sizeDictionary)
-        [sizeFilter addObject:[NSString stringWithFormat:@"%@: (%@)", item, (NSNumber *)sizeDictionary[item]] ];
-    
-    
-    [brandFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-    [categoryFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-    [colorFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-    [sizeFilter sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-    
-    
-    [resultsArray addObject:priceFilter];
-    [resultsArray addObject:categoryFilter];
-    [resultsArray addObject:brandFilter];
-    [resultsArray addObject:colorFilter];
-    [resultsArray addObject:sizeFilter];
-    
-    
-    return resultsArray;
-}
-*/
+
 
 + (NSMutableArray *)getFacetOptionsFromDisplaySelectedPrices:(NSMutableArray *)selectedPrices
                                       fromSelectedCategories:(NSMutableArray *)selectedCategories
@@ -717,7 +712,7 @@ static BTRFacetsHandler *_sharedInstance;
     NSMutableArray *colorArray = [chosenFacetsArray objectAtIndex:3];
     NSMutableArray *sizeArray = [chosenFacetsArray objectAtIndex:4];
 
-    NSLog(@"country ignored at getFacetStringForRESTWithChosenFacetsArray");
+    NSLog(@"country ignored: getFacetStringForRESTWithChosenFacetsArray");
     
     if ([priceArray count] != 0)
         ((BOOL)[facetsString length])?

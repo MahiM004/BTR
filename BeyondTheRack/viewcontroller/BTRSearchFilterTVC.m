@@ -118,50 +118,34 @@
     
     [super viewWillAppear:YES];
     
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    
+    [self.pricesArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
+    [self.categoriesArray setArray:[sharedFacetHandler getCategoryFiltersForDisplay]];
+    [self.brandsArray setArray:[sharedFacetHandler getBrandFiltersForDisplay]];
+    [self.colorsArray setArray:[sharedFacetHandler getColorFiltersForDisplay]];
+    [self.sizesArray setArray:[sharedFacetHandler getSizeFiltersForDisplay]];
+    
+    [self.tableView reloadData];
+    
+    
     if ([self.delegate respondsToSelector:@selector(searchFilterTableWillDisappearWithChosenFacetsArray:)]) {
         [self.delegate searchFilterTableWillDisappearWithChosenFacetsArray:[self getChosenFacetsArray]];
     }
-}
-
-- (void)populateWithPreviousOptions {
- 
     
-    if ([BTRFacetsHandler hasChosenFacetInFacetsArray:[self oldChosenFacets]])
-    {        
-        [self.selectedPrices removeAllObjects];
-        [self.selectedPrices addObjectsFromArray:[self.oldChosenFacets objectAtIndex:0]];
+    for (NSString *someString in [self pricesArray]) {
         
-        [self.selectedCategories removeAllObjects];
-        [self.selectedCategories addObjectsFromArray:[self.oldChosenFacets objectAtIndex:1]];
-        
-        [self.selectedBrands removeAllObjects];
-        [self.selectedBrands addObjectsFromArray:[self.oldChosenFacets objectAtIndex:2]];
-        
-        [self.selectedColors removeAllObjects];
-        [self.selectedColors addObjectsFromArray:[self.oldChosenFacets objectAtIndex:3]];
-        
-        [self.selectedSizes removeAllObjects];
-        [self.selectedSizes addObjectsFromArray:[self.oldChosenFacets objectAtIndex:4]];
-    
-        //[self extractFilterFacetsArraysFromDictionary:[self oldFacetsDictionary]];
-        // use the update method
-        int some_unused_int_to_mark;
-
-
-    } else {
-        
-        [self extractFilterFacetsArraysFromDictionary];
+        NSLog(@"something: %@", someString);
     }
-
-    [self.tableView reloadData];
-
+    
 }
+
+
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
-    [self populateWithPreviousOptions];
+ 
     
     selectedSortIndex = 0;
     self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", PRICE_TITLE, CATEGORY_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
@@ -513,10 +497,9 @@
 
 - (void)modalFilterSelectionVCDidEnd:(NSMutableArray *)selectedItemsArray  withTitle:(NSString *)titleString withModalFacetDictionary:(NSDictionary *)modalFacetDictionary {
 
-    //[self extractFilterFacetsArraysFromDictionary:modalFacetDictionary];
-    // use the update
-    int some_unused_int_to_mark;
-
+    
+    [self extractFilterFacetsArraysFromDictionary];
+ 
     if ([titleString isEqualToString:BRAND_TITLE]) {
         
         self.selectedBrands = selectedItemsArray;

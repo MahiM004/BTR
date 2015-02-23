@@ -62,6 +62,11 @@
 - (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary;
 
 
+
+- (NSString *)getSelectionFromLabelString:(NSString *)labelString;
+- (NSString *)getPriceSelectionFromLabelString:(NSString *)labelString;
+
+
 /*
  
  */
@@ -78,7 +83,6 @@
 + (NSString *)getSortTypeForIndex:(NSInteger)sortIndex;
 + (NSDictionary *)getFacetsDictionaryFromResponse:(NSDictionary *)responseDictionary;
 + (NSMutableArray *)getItemDataArrayFromResponse:(NSDictionary *)responseDictionary;
-+ (NSMutableArray *)extractFilterFacetsForDisplayFromResponse:(NSDictionary *)facetsDictionary;
 
 
 

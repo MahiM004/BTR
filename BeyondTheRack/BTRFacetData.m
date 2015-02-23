@@ -75,6 +75,11 @@ static BTRFacetData *_sharedInstance;
 - (NSMutableArray *)selectedBrandsArray {
     
     if (!_selectedBrandsArray) _selectedBrandsArray = [[NSMutableArray alloc] init];
+    
+    if (_selectedBrandsArray) {
+        
+    }
+    
     return _selectedBrandsArray;
 }
 
@@ -112,6 +117,43 @@ static BTRFacetData *_sharedInstance;
     
     if (!_selectedSizesArray) _selectedSizesArray = [[NSMutableArray alloc] init];
     return _selectedSizesArray;
+}
+
+
+- (void)clearAllData {
+    
+    [self clearFacetData];
+    [self clearAllSelections];
+}
+
+- (void)clearFacetData {
+  
+    [self.priceFacetArray removeAllObjects];
+    [self.priceFacetCountArray removeAllObjects];
+    
+    [self.categoryFacetArray removeAllObjects];
+    [self.categoryFacetCountArray removeAllObjects];
+    
+    [self.brandFacetArray removeAllObjects];
+    [self.brandFacetCountArray removeAllObjects];
+    
+    [self.colorFacetArray removeAllObjects];
+    [self.colorFacetCountArray removeAllObjects];
+    
+    [self.sizeFacetArray removeAllObjects];
+    [self.sizeFacetCountArray removeAllObjects];
+    
+}
+
+- (void)clearAllSelections {
+ 
+    self.selectedSortString = @"";
+    self.selectedPriceString = @"";
+    self.selectedCategoryString = @"";
+    [self.selectedBrandsArray removeAllObjects];
+    [self.selectedColorsArray removeAllObjects];
+    [self.selectedSizesArray removeAllObjects];
+
 }
 
 

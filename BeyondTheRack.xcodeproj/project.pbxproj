@@ -123,7 +123,7 @@
 		69659F191A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterWithModalTableViewCell.h; sourceTree = "<group>"; };
 		69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterWithModalTableViewCell.m; sourceTree = "<group>"; };
 		69659F1C1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRModalFilterSelectionVC.h; sourceTree = "<group>"; };
-		69659F1D1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRModalFilterSelectionVC.m; sourceTree = "<group>"; };
+		69659F1D1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTRModalFilterSelectionVC.m; path = viewcontroller/BTRModalFilterSelectionVC.m; sourceTree = "<group>"; };
 		69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMyAccountViewController.h; sourceTree = "<group>"; };
 		69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMyAccountViewController.m; sourceTree = "<group>"; };
 		697E057F1A434121000146C6 /* BTRViewUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRViewUtility.h; sourceTree = "<group>"; };
@@ -303,7 +303,6 @@
 				69385FC31A7BF40A0074FE33 /* BTRSearchFilterTVC.h */,
 				69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */,
 				69659F1C1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.h */,
-				69659F1D1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -467,6 +466,7 @@
 			children = (
 				697E057F1A434121000146C6 /* BTRViewUtility.h */,
 				697E05801A434121000146C6 /* BTRViewUtility.m */,
+				69659F1D1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m */,
 				69869FAA1A6408D200F986BC /* CoreDataTableViewController.h */,
 				69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */,
 				69BC6D401A8E4F2C00376D9C /* BTRFacetsHandler.h */,

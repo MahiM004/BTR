@@ -176,8 +176,6 @@
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]];
     
-    // TODO: change text/html to application/json AFTER backend supports it in production
-    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
@@ -190,6 +188,11 @@
                                                                               options:0
                                                                                 error:NULL];
          
+         BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
+         [sharedFacetsHandler updateFacetsFromResponseDictionary:entitiesPropertyList];
+         
+         
+         NSLog(@"second update: %@", [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withFacetString:facetsString andPageNumber:0]]);
          success(entitiesPropertyList);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -240,6 +243,7 @@
                                                          withModalFacetDictionary:[BTRFacetsHandler getFacetsDictionaryFromResponse:responseDictionary]];
                              }
                              
+                             
                              [self dismissViewControllerAnimated:YES completion:NULL];
                              
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -267,6 +271,7 @@
     if ([self.headerTitle isEqualToString:SIZE_TITLE])
         [sharedFacetHandler setSelectedSizesWithArray:[self selectedOptionsArray]];
 
+    NSLog(@"facetString: %@", [sharedFacetHandler getFacetStringForRESTfulRequest]);
     
     return [sharedFacetHandler getFacetStringForRESTfulRequest];
 }
