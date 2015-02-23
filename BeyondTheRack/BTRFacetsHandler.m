@@ -102,6 +102,17 @@ static BTRFacetsHandler *_sharedInstance;
     return sharedFacetData.selectedPriceString;
 }
 
+
+- (BOOL)hasSelectedAnyPrice {
+    
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    
+    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqualToString:@""])
+        return YES;
+    
+    return NO;
+}
+
 - (BOOL)hasSelectedPriceOptionString:(NSString *)optionString {
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
@@ -155,6 +166,16 @@ static BTRFacetsHandler *_sharedInstance;
     BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
     return sharedFacetDictionary.selectedPriceString;
 
+}
+
+- (BOOL)hasSelectedAnyCategory {
+    
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    
+    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqualToString:@""])
+        return YES;
+    
+    return NO;
 }
 
 - (BOOL)hasSelectedCategoryOptionString:(NSString *)optionString {
@@ -221,6 +242,16 @@ static BTRFacetsHandler *_sharedInstance;
 }
 
 
+- (BOOL)hasSelectedAnyBrand {
+    
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    
+    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqualToString:@""])
+        return YES;
+    
+    return NO;
+}
+
 - (BOOL)hasSelectedBrandOptionString:(NSString *)optionString {
     
     BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
@@ -285,6 +316,16 @@ static BTRFacetsHandler *_sharedInstance;
     [sharedFacetData.selectedColorsArray addObjectsFromArray:selectedArray];
 }
 
+
+- (BOOL)hasSelectedAnyColor {
+    
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    
+    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqualToString:@""])
+        return YES;
+    
+    return NO;
+}
 
 - (BOOL)hasSelectedColorOptionString:(NSString *)optionString {
     
@@ -354,6 +395,16 @@ static BTRFacetsHandler *_sharedInstance;
     [sharedFacetData.selectedSizesArray addObjectsFromArray:selectedArray];
 }
 
+
+- (BOOL)hasSelectedAnySize {
+    
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    
+    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqualToString:@""])
+        return YES;
+    
+    return NO;
+}
 
 
 - (BOOL)hasSelectedSizeOptionString:(NSString *)optionString {
@@ -614,11 +665,29 @@ static BTRFacetsHandler *_sharedInstance;
  */
 
 
-+ (BOOL)hasChosenFacetInFacetsArray:(NSMutableArray *)chosenFacetsArray {
+- (BOOL)hasChosenAtLeastOneFacet {
     
-    for (NSMutableArray *someArray in chosenFacetsArray)
-        if ([someArray count] > 0)
-            return YES;
+
+    if ([self hasSelectedAnyCategory])
+        return YES;
+    
+    return [self hasChosenFacetExceptCategories];
+}
+
+
+- (BOOL)hasChosenFacetExceptCategories {
+    
+    if ([self hasSelectedAnyPrice])
+        return YES;
+    
+    if ([self hasSelectedAnyBrand])
+        return YES;
+    
+    if ([self hasSelectedAnyColor])
+        return YES;
+    
+    if ([self hasSelectedAnySize])
+        return YES;
     
     return NO;
 }

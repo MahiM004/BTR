@@ -75,10 +75,16 @@
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
-    if ([sharedFacetHandler getSelectedPriceString])
+    [self.selectedPrices removeAllObjects];
+    [self.selectedCategories removeAllObjects];
+    [self.selectedBrands removeAllObjects];
+    [self.selectedColors removeAllObjects];
+    [self.selectedSizes removeAllObjects];
+    
+    if ([sharedFacetHandler getSelectedPriceString] && ![[sharedFacetHandler getSelectedPriceString] isEqualToString:@""])
         [self.selectedPrices addObject:[sharedFacetHandler getSelectedPriceString]];
     
-    if ([sharedFacetHandler getSelectedCategoryString])
+    if ([sharedFacetHandler getSelectedCategoryString] && ![[sharedFacetHandler getSelectedCategoryString] isEqualToString:@""])
         [self.selectedCategories addObject:[sharedFacetHandler getSelectedCategoryString]];
     
     if ([sharedFacetHandler getSelectedBrandsArray])
@@ -282,14 +288,14 @@
 
     } else if (indexPath.section == CATEGORY_FILTER) {
         
-        NSMutableArray *someTempArray = nil;
+        
         
         cell = [self configureCellForCell:cell
                         withSectionString:CATEGORY_TITLE
                        withSelectionArray:[self selectedCategories]
                                 withIndex:indexPath.row
                           isSelectable:[sharedFacetHandler.getCategoryFiltersForDisplay count] &&
-                ![self hasChosenFacetExceptCategoriesInFacetsArray:someTempArray]/*[self oldChosenFacets]]*/> 0 ? YES: NO];
+                ![sharedFacetHandler hasChosenFacetExceptCategories] > 0 ? YES: NO];
         
     } else if (indexPath.section == PRICE_FILTER) {
         
@@ -386,14 +392,6 @@
     [self.tableView reloadData];
 }
 
-
-- (BOOL)hasChosenFacetExceptCategoriesInFacetsArray:(NSMutableArray *)chosenFacetsArray {
-    
-    
-    NSLog(@"hasChosenFacetExceptCategoriesInFacetsArray NOT IMPLEMENTED!");
-    
-    return YES;
-}
 
 
 

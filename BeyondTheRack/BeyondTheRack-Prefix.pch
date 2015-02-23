@@ -13,11 +13,12 @@
 //#import <UIKit/UIKit.h>
 //#import <Foundation/Foundation.h>
 
-#define BASEURL @"http://172.30.101.26/apisite"
-#define RC03URL @"http://www.rc03.beyondtherack.com"
+#define BASEURL @"http://www.mobile.btrdev.com/siteapi"
 #define STATICURL @"http://static.beyondtherack.com"
 #define LIVEURL @"http://www.beyondtherack.com"
 
+
+#define RC03URL @"http://www.rc03.beyondtherack.com"
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.

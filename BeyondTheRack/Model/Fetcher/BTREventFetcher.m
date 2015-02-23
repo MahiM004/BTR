@@ -22,7 +22,9 @@
 
 + (NSURL *)URLforEventImageWithId:(NSString *)imageId
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"http:%@", imageId]];
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@%@", STATICURL,imageId]];
 }
 
 @end
+ 
