@@ -32,7 +32,7 @@
 @optional
 
 
-- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary andChosenFacets:(NSMutableArray *)chosenFacetsArray;
+- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary;
 
 
 @end

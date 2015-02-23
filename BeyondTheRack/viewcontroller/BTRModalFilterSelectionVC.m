@@ -220,9 +220,7 @@
          
          BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
          [sharedFacetsHandler updateFacetsFromResponseDictionary:entitiesPropertyList];
-         
-         
-         NSLog(@"second update: %@", [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withFacetString:facetsString andPageNumber:0]]);
+                  
          success(entitiesPropertyList);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

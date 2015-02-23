@@ -94,9 +94,7 @@
          BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
          [sharedFacetsHandler updateFacetsFromResponseDictionary:entitiesPropertyList];
 
-         
-         success(entitiesPropertyList);
-         
+         success(entitiesPropertyList);         
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -112,7 +110,8 @@
 
 
 - (IBAction)clearTapped:(UIButton *)sender {
- 
+
+    
     [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
 }
 
@@ -134,6 +133,9 @@
                 withFacetsString:facetString
                          success:^(NSDictionary *responseDictionary) {
                             
+                             if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
+                                 [self.delegate refineSceneWillDisappearWithResponseDictionary:responseDictionary];
+                             }
                              
                              [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
                              

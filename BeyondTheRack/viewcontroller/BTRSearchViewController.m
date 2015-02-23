@@ -21,14 +21,10 @@
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-
-//@property (strong, nonatomic) NSDictionary *facetsDictionary;
-//@property (strong, nonatomic) NSString *searchString;
+ 
 @property (nonatomic) BOOL oddNumberOfResults;
 
-//@property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
-
+@property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
 
 
@@ -40,20 +36,6 @@
 @synthesize searchBar;
 @synthesize oddNumberOfResults;
 
-/*
-- (NSDictionary *)facetsDictionary {
-    
-    if (!_facetsDictionary) _facetsDictionary = [[NSDictionary alloc] init];
-    return _facetsDictionary;
-}
-
-
-- (NSMutableArray *)oldChosenFacetsArray {
-    
-    if (!_oldChosenFacetsArray) _oldChosenFacetsArray = [[NSMutableArray alloc] init];
-    return _oldChosenFacetsArray;
-}
-*/
 
 - (NSMutableArray *)originalItemArray {
     
@@ -429,7 +411,6 @@
              }
          }
          
-         
          [self.tableView reloadData];
          
          success([self itemArray]);
@@ -481,15 +462,15 @@
     [self clearResults];
     [self.tableView reloadData];
     
-    //BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
-    //NSMutableArray * arrayToPass = [sharedFacetHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
+    NSMutableArray * arrayToPass = [sharedFacetHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
     //self.oldFacetsDictionary = [sharedFacetHandler getFacetsDictionaryFromResponse:[self responseDictionaryFromFacets]];
     
-    /*
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
         
         if ([arrayToPass count] != 0) {
+            
             
             [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -497,7 +478,7 @@
     }
 
     [self.tableView reloadData];
-     */
+    
 }
 
 
@@ -512,10 +493,9 @@
 
 #pragma mark - BTRRefineResultsViewController
 
-- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary andChosenFacets:(NSMutableArray *)chosenFacetsArray {
+- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
     
-    //self.responseDictionaryFromFacets = responseDictionary;
-
+    self.responseDictionaryFromFacets = responseDictionary;
 }
 
 
