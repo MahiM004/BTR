@@ -166,7 +166,7 @@ static BTRFacetsHandler *_sharedInstance;
 - (NSString *)getSelectedCategoryString {
     
     BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
-    return sharedFacetDictionary.selectedPriceString;
+    return sharedFacetDictionary.selectedCategoryString;
 
 }
 
@@ -174,7 +174,7 @@ static BTRFacetsHandler *_sharedInstance;
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
-    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqualToString:@""])
+    if ([sharedFacetData selectedCategoryString] && ![sharedFacetData.selectedCategoryString isEqualToString:@""])
         return YES;
     
     return NO;
@@ -184,7 +184,7 @@ static BTRFacetsHandler *_sharedInstance;
     
     
     BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
-    if ([sharedFacetDictionary.selectedPriceString isEqualToString:optionString])
+    if ([sharedFacetDictionary.selectedCategoryString isEqualToString:optionString])
         return true;
     
     return false;
@@ -194,7 +194,7 @@ static BTRFacetsHandler *_sharedInstance;
     
     
     BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
-    sharedFacetDictionary.selectedPriceString = @"";
+    sharedFacetDictionary.selectedCategoryString = nil;
 }
 
 - (NSMutableArray *)getCategoryFiltersForDisplay {
@@ -567,103 +567,102 @@ static BTRFacetsHandler *_sharedInstance;
     [self updateFacetsFromResponseDictionary:responseDictionary];
 }
 
+
+
 - (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary {
 
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
-    [sharedFacetDictionary.priceFacetArray removeAllObjects];
-    [sharedFacetDictionary.priceFacetCountArray removeAllObjects];
-
-    [sharedFacetDictionary.categoryFacetArray removeAllObjects];
-    [sharedFacetDictionary.categoryFacetCountArray removeAllObjects];
-    
-    [sharedFacetDictionary.brandFacetArray removeAllObjects];
-    [sharedFacetDictionary.brandFacetCountArray removeAllObjects];
-
-    [sharedFacetDictionary.colorFacetArray removeAllObjects];
-    [sharedFacetDictionary.colorFacetCountArray removeAllObjects];
-    
-    [sharedFacetDictionary.sizeFacetArray removeAllObjects];
-    [sharedFacetDictionary.sizeFacetCountArray removeAllObjects];
-
+    [self clearAllFacets];
     
     NSLog(@"country ignored: updateFacetsFromResponseDictionary");
 
     NSDictionary *facetsDictionary = responseDictionary[@"facet_counts"];
-    NSDictionary *facetQueriesDictionary = facetsDictionary[@"facet_queries"];
     NSDictionary *facetFieldsDictionary =  facetsDictionary[@"facet_fields"];
-
-    NSString *tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"];
-    if (tempString)
-    {
-        [sharedFacetDictionary.priceFacetArray addObject:@"$0 to $200"];
-        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
-    }
     
-    tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"];
-    if (tempString)
-    {
-        [sharedFacetDictionary.priceFacetArray addObject:@"$200 to $400"];
-        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
-    }
-
-    tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"];
-    if (tempString)
-    {
-        [sharedFacetDictionary.priceFacetArray addObject:@"$400 to $600"];
-        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
-    }
+    NSDictionary *facetQueriesDictionary = facetsDictionary[@"facet_queries"];
+    [self initPriceFacetWithFacetQueriesDictionary:facetQueriesDictionary];
     
-    tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"];
-    if (tempString)
-    {
-        [sharedFacetDictionary.priceFacetArray addObject:@"$600 to $800"];
-        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
-    }
-
-    tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"];
-    if (tempString)
-    {
-        [sharedFacetDictionary.priceFacetArray addObject:@"$800 to $1000"];
-        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
-    }
-    
-
-    tempString = (NSString *)[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"];
-    if (tempString)
-    {
-        [sharedFacetDictionary.priceFacetArray addObject:@"$1000 to *"];
-        [sharedFacetDictionary.priceFacetCountArray addObject:tempString];
-    }
-   
     NSDictionary *brandDictionary = facetFieldsDictionary[@"brand"];
     for (NSString *item in brandDictionary) {
 
-        [sharedFacetDictionary.brandFacetArray addObject:item ];
-        [sharedFacetDictionary.brandFacetCountArray addObject:(NSNumber *)brandDictionary[item]];
+        [sharedFacetData.brandFacetArray addObject:item ];
+        [sharedFacetData.brandFacetCountArray addObject:(NSNumber *)brandDictionary[item]];
     }
     
     NSDictionary *categoryDictionary = facetFieldsDictionary[@"cat_1"];
     for (NSString *item in categoryDictionary) {
    
-        [sharedFacetDictionary.categoryFacetArray addObject:item ];
-        [sharedFacetDictionary.categoryFacetCountArray addObject:(NSNumber *)categoryDictionary[item]];
+        [sharedFacetData.categoryFacetArray addObject:item ];
+        [sharedFacetData.categoryFacetCountArray addObject:(NSNumber *)categoryDictionary[item]];
     }
     
     NSDictionary *colorDictionary = facetFieldsDictionary[@"att_color"];
     for (NSString *item in colorDictionary) {
         
-        [sharedFacetDictionary.colorFacetArray addObject:item ];
-        [sharedFacetDictionary.colorFacetCountArray addObject:(NSNumber *)colorDictionary[item]];
+        [sharedFacetData.colorFacetArray addObject:item ];
+        [sharedFacetData.colorFacetCountArray addObject:(NSNumber *)colorDictionary[item]];
     }
     
     NSDictionary *sizeDictionary = facetFieldsDictionary[@"variant"];
     for (NSString *item in sizeDictionary) {
         
-        [sharedFacetDictionary.sizeFacetArray addObject:item ];
-        [sharedFacetDictionary.sizeFacetCountArray addObject:(NSNumber *)sizeDictionary[item]];
+        [sharedFacetData.sizeFacetArray addObject:item ];
+        [sharedFacetData.sizeFacetCountArray addObject:(NSNumber *)sizeDictionary[item]];
     }
 }
+
+
+
+
+- (void)initPriceFacetWithFacetQueriesDictionary:(NSDictionary *)facetQueriesDictionary {
+    
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+
+    NSString *tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"] stringValue];
+    if (tempString && ![tempString isEqualToString:@"0"]) {
+        
+        [sharedFacetData.priceFacetArray addObject:@"$0 to $200"];
+        [sharedFacetData.priceFacetCountArray addObject:tempString];
+    }
+    
+    tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"] stringValue];
+    if (tempString && ![tempString isEqualToString:@"0"]) {
+        
+        [sharedFacetData.priceFacetArray addObject:@"$200 to $400"];
+        [sharedFacetData.priceFacetCountArray addObject:tempString];
+    }
+    
+    tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"] stringValue];
+    if (tempString && ![tempString isEqualToString:@"0"]) {
+        
+        [sharedFacetData.priceFacetArray addObject:@"$400 to $600"];
+        [sharedFacetData.priceFacetCountArray addObject:tempString];
+    }
+    
+    tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"] stringValue];
+    if (tempString && ![tempString isEqualToString:@"0"]) {
+        
+        [sharedFacetData.priceFacetArray addObject:@"$600 to $800"];
+        [sharedFacetData.priceFacetCountArray addObject:tempString];
+    }
+    
+    tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"] stringValue];
+    if (tempString && ![tempString isEqualToString:@"0"]) {
+        
+        [sharedFacetData.priceFacetArray addObject:@"$800 to $1000"];
+        [sharedFacetData.priceFacetCountArray addObject:tempString];
+    }
+    
+    
+    tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"] stringValue];
+    if (tempString && ![tempString isEqualToString:@"0"]) {
+        
+        [sharedFacetData.priceFacetArray addObject:@"$1000 to *"];
+        [sharedFacetData.priceFacetCountArray addObject:tempString];
+    }
+}
+
 
 /*
  
@@ -672,15 +671,41 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)resetFacets {
     
+    [self clearAllSelections];
+    [self updateFacetsFromResponseDictionary:[self originalResponseDictionary]];
+}
+
+
+- (void)clearAllSelections {
+    
     [self clearPriceSelection];
     [self clearCategoryString];
     [self clearBrandSelection];
     [self clearColorSelection];
     [self clearSizeSelection];
     
-    [self updateFacetsFromResponseDictionary:[self originalResponseDictionary]];
 }
 
+- (void)clearAllFacets {
+    
+    
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+
+    [sharedFacetData.priceFacetArray removeAllObjects];
+    [sharedFacetData.priceFacetCountArray removeAllObjects];
+    
+    [sharedFacetData.categoryFacetArray removeAllObjects];
+    [sharedFacetData.categoryFacetCountArray removeAllObjects];
+    
+    [sharedFacetData.brandFacetArray removeAllObjects];
+    [sharedFacetData.brandFacetCountArray removeAllObjects];
+    
+    [sharedFacetData.colorFacetArray removeAllObjects];
+    [sharedFacetData.colorFacetCountArray removeAllObjects];
+    
+    [sharedFacetData.sizeFacetArray removeAllObjects];
+    [sharedFacetData.sizeFacetCountArray removeAllObjects];
+}
 
 /*
  
