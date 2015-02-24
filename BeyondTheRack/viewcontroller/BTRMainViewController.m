@@ -15,6 +15,7 @@
 #import "TTSlidingPage.h"
 #import "TTSlidingPageTitle.h"
 #import "BTREventsCDTVC.h"
+#import "BTRFacetsHandler.h"
 
 #import <math.h>
 
@@ -36,7 +37,9 @@
 {
     [super viewWillAppear:animated];
     
-    // handling boundry indexes for category titles
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    [sharedFacetHandler resetFacets];
+    sharedFacetHandler.searchString = @"";
 }
 
 - (void)viewDidLayoutSubviews

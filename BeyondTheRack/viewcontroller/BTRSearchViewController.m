@@ -130,7 +130,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:YES];
-    
+
+    [self assignFilterIcon];
+}
+
+- (void)assignFilterIcon {
+
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     if ([sharedFacetHandler hasChosenAtLeastOneFacet])
@@ -190,7 +195,15 @@
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
-    sharedFacetHandler.searchString = [self.searchBar text];
+    if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]])
+    {
+        [sharedFacetHandler resetFacets];
+        sharedFacetHandler.searchString = [self.searchBar text];
+    }
+    
+    
+    [self assignFilterIcon];
+
     
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[sharedFacetHandler searchString]
                          success:^(NSMutableArray *responseArray) {
@@ -455,7 +468,10 @@
 
         refineVC.backgroundImage = screenShotImage;
         refineVC.delegate = self;
+    
     }
+    
+    
 }
 
 
