@@ -164,7 +164,7 @@
         return -1;
     
     for(NSString *item in  self.selectedOptionsArray) {
-                
+        
         if([optionString isEqualToString:item]) {
             
             return 1;
