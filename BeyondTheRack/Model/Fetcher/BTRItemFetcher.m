@@ -32,7 +32,14 @@
     if ([facetsString length] == 0)
         return [self URLforSearchQuery:searchQuery andPageNumber:pageNumber];
     
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@", LIVEURL, searchQuery, (unsigned long)pageNumber, facetsString]];
+    NSString *encodedFacetString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                    NULL,
+                                                                                                    (CFStringRef)facetsString,
+                                                                                                    NULL,
+                                                                                                    (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                    kCFStringEncodingUTF8 ));
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@", LIVEURL, searchQuery, (unsigned long)pageNumber, encodedFacetString]];
 }
 
 
@@ -47,6 +54,19 @@
 + (NSString *)contentTypeForSearchQuery {
     
     return @"text/html";
+}
+
+
+- (NSString *)customURLencodeString:(NSString *)unencodedString {
+    
+    NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                  NULL,
+                                                                                  (CFStringRef)unencodedString,
+                                                                                  NULL,
+                                                                                  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                  kCFStringEncodingUTF8 ));
+    
+    return encodedString;
 }
 
 

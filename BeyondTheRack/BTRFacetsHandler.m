@@ -382,15 +382,15 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (NSMutableArray *)getColorFiltersForDisplay {
  
-    BTRFacetData *sharedFacetDictionary = [BTRFacetData sharedFacetData];
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
     NSMutableArray * arrayStringForDisplay = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < [sharedFacetDictionary.colorFacetArray count]; i++) {
+    for (int i = 0; i < [sharedFacetData.colorFacetArray count]; i++) {
         
         NSString *priceString = [NSString stringWithFormat:@"%@: (%@)",
-                                 [sharedFacetDictionary.colorFacetArray objectAtIndex:i],
-                                 [sharedFacetDictionary.colorFacetCountArray objectAtIndex:i]];
+                                 [sharedFacetData.colorFacetArray objectAtIndex:i],
+                                 [sharedFacetData.colorFacetCountArray objectAtIndex:i]];
         
         [arrayStringForDisplay addObject:priceString];
     }

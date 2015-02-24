@@ -87,6 +87,7 @@
     if ([sharedFacetHandler getSelectedCategoryString] && ![[sharedFacetHandler getSelectedCategoryString] isEqualToString:@""])
         [self.selectedCategories addObject:[sharedFacetHandler getSelectedCategoryString]];
     
+    
     if ([sharedFacetHandler getSelectedBrandsArray])
         [self.selectedBrands setArray:[sharedFacetHandler getSelectedBrandsArray]];
     
