@@ -52,20 +52,50 @@
 
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
-    if ([self.headerTitle isEqualToString:PRICE_TITLE])
-        [self.optionsArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
+    if ([self.headerTitle isEqualToString:PRICE_TITLE]) {
+     
+        if ([sharedFacetHandler getPriceFiltersForDisplay])
+            [self.optionsArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
+        
+        if ([sharedFacetHandler getSelectedPriceString])
+            [self.selectedOptionsArray setObject:[sharedFacetHandler getSelectedPriceString] atIndexedSubscript:0];
+    }
     
-    if ([self.headerTitle isEqualToString:CATEGORY_TITLE])
-        [self.optionsArray setArray:[sharedFacetHandler getCategoryFiltersForDisplay]];
+    if ([self.headerTitle isEqualToString:CATEGORY_TITLE]) {
+        
+        if ([sharedFacetHandler getCategoryFiltersForDisplay])
+            [self.optionsArray setArray:[sharedFacetHandler getCategoryFiltersForDisplay]];
+        
+        if ([sharedFacetHandler getSelectedCategoryString] )
+            [self.selectedOptionsArray setObject:[sharedFacetHandler getSelectedCategoryString] atIndexedSubscript:0];
+    }
     
-    if ([self.headerTitle isEqualToString:BRAND_TITLE])
-        [self.optionsArray setArray:[sharedFacetHandler getBrandFiltersForDisplay]];
+    if ([self.headerTitle isEqualToString:BRAND_TITLE]) {
+        
+        if ([sharedFacetHandler getBrandFiltersForDisplay])
+            [self.optionsArray setArray:[sharedFacetHandler getBrandFiltersForDisplay]];
+        
+        if ([sharedFacetHandler getSelectedBrandsArray])
+            [self.selectedOptionsArray setArray:[sharedFacetHandler getSelectedBrandsArray]];
+    }
     
-    if ([self.headerTitle isEqualToString:COLOR_TITLE])
-        [self.optionsArray setArray:[sharedFacetHandler getColorFiltersForDisplay]];
+    if ([self.headerTitle isEqualToString:COLOR_TITLE]) {
+        
+        if ([sharedFacetHandler getColorFiltersForDisplay])
+            [self.optionsArray setArray:[sharedFacetHandler getColorFiltersForDisplay]];
+        
+        if ([sharedFacetHandler getSelectedColorsArray])
+            [self.selectedOptionsArray setArray:[sharedFacetHandler getSelectedColorsArray]];
+    }
     
-    if ([self.headerTitle isEqualToString:SIZE_TITLE])
-        [self.optionsArray setArray:[sharedFacetHandler getSizeFiltersForDisplay]];
+    if ([self.headerTitle isEqualToString:SIZE_TITLE]) {
+        
+        if ([sharedFacetHandler getSizeFiltersForDisplay])
+            [self.optionsArray setArray:[sharedFacetHandler getSizeFiltersForDisplay]];
+        
+        if ([sharedFacetHandler getSelectedSizesArray])
+            [self.selectedOptionsArray setArray:[sharedFacetHandler getSelectedSizesArray]];
+    }
 }
 
 
@@ -209,6 +239,10 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
+    
+    NSLog(@"clear call: %@", [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withFacetString:facetsString andPageNumber:0]]);
+                              
+                              
     [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withFacetString:facetsString andPageNumber:0]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
@@ -247,10 +281,7 @@
     
     if ([sender isKindOfClass:[UIButton class]]) {
         
-        /*
-        
         BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
-        
         
         if ([self.headerTitle isEqualToString:PRICE_TITLE])
             [sharedFacetHandler clearPriceSelection];
@@ -269,15 +300,17 @@
         
         [self.selectedOptionsArray removeAllObjects];
         
-         */
-        
-        [self performSegueWithIdentifier:@"unwindToBTRSearchFilterTVC" sender:self];
-         
-        
+        [self fetchItemsIntoDocument:[self beyondTheRackDocument]
+                      forSearchQuery:[sharedFacetHandler searchString]
+                    withFacetsString:[sharedFacetHandler getFacetStringForRESTfulRequest]
+                             success:^(NSDictionary *responseDictionary) {
+                                 
+                                 [self performSegueWithIdentifier:@"unwindToBTRSearchFilterTVC" sender:self];
+                                 
+                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                 
+                             }];
     }
-    
-    
-
 }
 
 - (IBAction)selectTapped:(UIButton *)sender {
@@ -307,20 +340,26 @@
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
-    if ([self.headerTitle isEqualToString:PRICE_TITLE])
-        [sharedFacetHandler setPriceSelectionWithPriceString:[self.selectedOptionsArray objectAtIndex:0]];
-        
-    if ([self.headerTitle isEqualToString:CATEGORY_TITLE])
-        [sharedFacetHandler setCategorySelectionWithCategoryString:[self.selectedOptionsArray objectAtIndex:0]];
-
-    if ([self.headerTitle isEqualToString:BRAND_TITLE])
-        [sharedFacetHandler setSelectedBrandsWithArray:[self selectedOptionsArray]];
     
-    if ([self.headerTitle isEqualToString:COLOR_TITLE])
-        [sharedFacetHandler setSelectedColorsWithArray:[self selectedOptionsArray]];
-
-    if ([self.headerTitle isEqualToString:SIZE_TITLE])
-        [sharedFacetHandler setSelectedSizesWithArray:[self selectedOptionsArray]];
+    if ([[self selectedOptionsArray] count] != 0) {
+     
+        if ([self.headerTitle isEqualToString:PRICE_TITLE])
+            [sharedFacetHandler setPriceSelectionWithPriceString:[self.selectedOptionsArray objectAtIndex:0]];
+        
+        if ([self.headerTitle isEqualToString:CATEGORY_TITLE])
+            [sharedFacetHandler setCategorySelectionWithCategoryString:[self.selectedOptionsArray objectAtIndex:0]];
+        
+        if ([self.headerTitle isEqualToString:BRAND_TITLE])
+            [sharedFacetHandler setSelectedBrandsWithArray:[self selectedOptionsArray]];
+        
+        if ([self.headerTitle isEqualToString:COLOR_TITLE])
+            [sharedFacetHandler setSelectedColorsWithArray:[self selectedOptionsArray]];
+        
+        if ([self.headerTitle isEqualToString:SIZE_TITLE])
+            [sharedFacetHandler setSelectedSizesWithArray:[self selectedOptionsArray]];
+        
+    }
+    
     
     return [sharedFacetHandler getFacetStringForRESTfulRequest];
 }

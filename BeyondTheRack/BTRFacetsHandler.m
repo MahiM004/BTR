@@ -12,7 +12,7 @@
 
 @interface BTRFacetsHandler ()
 
-@property (strong, nonatomic) NSDictionary *originalResponseDictionary;
+@property (strong, nonatomic) NSMutableDictionary *originalResponseDictionary;
 
 
 
@@ -47,11 +47,13 @@ static BTRFacetsHandler *_sharedInstance;
 
 
 
-- (NSDictionary *)originalResponseDictionary {
+- (NSMutableDictionary *)originalResponseDictionary {
     
-    if (!_originalResponseDictionary) _originalResponseDictionary = [[NSDictionary alloc] init];
+    if (!_originalResponseDictionary) _originalResponseDictionary = [[NSMutableDictionary alloc] init];
     return _originalResponseDictionary;
 }
+
+
 
 
 /*
@@ -125,7 +127,7 @@ static BTRFacetsHandler *_sharedInstance;
 - (void)clearPriceSelection {
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
-    sharedFacetData.selectedPriceString = @"";
+    sharedFacetData.selectedPriceString = nil;
 }
 
 - (NSMutableArray *)getPriceFiltersForDisplay {
@@ -509,12 +511,12 @@ static BTRFacetsHandler *_sharedInstance;
     
     NSLog(@"country ignored: getFacetStringForRESTfulRequest");
     
-    if ([sharedFacetData selectedPriceString])
+    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqual:[NSNull null]])
         ((BOOL)[facetsString length])?
         [facetsString appendFormat:@";price_sort_ca:%@", [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]]:
         [facetsString appendFormat:@"price_sort_ca:%@", [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]];
     
-    if ([sharedFacetData selectedCategoryString])
+    if ([sharedFacetData selectedCategoryString] && ![sharedFacetData .selectedCategoryString isEqual:[NSNull null]])
         ((BOOL)[facetsString length])?
         [facetsString appendFormat:@";{!tag=cat_1}cat_1:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData selectedCategoryString]]]:
         [facetsString appendFormat:@"{!tag=cat_1}cat_1:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData selectedCategoryString]]];
@@ -546,6 +548,11 @@ static BTRFacetsHandler *_sharedInstance;
         ((BOOL)[facetsString length])?
         [facetsString appendFormat:@";{!tag=variant}variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:0]]]:
         [facetsString appendFormat:@"{!tag=variant}variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:0]]];
+
+    if ([sharedFacetData.selectedSizesArray count] > 1) {
+        for (int i = 1; i < [sharedFacetData.selectedSizesArray count]; i++)
+            [facetsString appendFormat:@" OR variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:i]]];
+    }
     
     
     return facetsString;
@@ -554,7 +561,9 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)setFacetsFromResponseDictionary:(NSDictionary *)responseDictionary {
     
-    self.originalResponseDictionary = responseDictionary;
+    [self.originalResponseDictionary removeAllObjects];
+    [self.originalResponseDictionary setDictionary:responseDictionary];
+    
     [self updateFacetsFromResponseDictionary:responseDictionary];
 }
 
@@ -565,17 +574,18 @@ static BTRFacetsHandler *_sharedInstance;
     [sharedFacetDictionary.priceFacetArray removeAllObjects];
     [sharedFacetDictionary.priceFacetCountArray removeAllObjects];
 
-    [sharedFacetDictionary.brandFacetArray removeAllObjects];
-    [sharedFacetDictionary.brandFacetCountArray removeAllObjects];
-    
     [sharedFacetDictionary.categoryFacetArray removeAllObjects];
     [sharedFacetDictionary.categoryFacetCountArray removeAllObjects];
     
-    [sharedFacetDictionary.sizeFacetArray removeAllObjects];
-    [sharedFacetDictionary.sizeFacetCountArray removeAllObjects];
-    
+    [sharedFacetDictionary.brandFacetArray removeAllObjects];
+    [sharedFacetDictionary.brandFacetCountArray removeAllObjects];
+
     [sharedFacetDictionary.colorFacetArray removeAllObjects];
     [sharedFacetDictionary.colorFacetCountArray removeAllObjects];
+    
+    [sharedFacetDictionary.sizeFacetArray removeAllObjects];
+    [sharedFacetDictionary.sizeFacetCountArray removeAllObjects];
+
     
     NSLog(@"country ignored: updateFacetsFromResponseDictionary");
 
@@ -655,6 +665,21 @@ static BTRFacetsHandler *_sharedInstance;
     }
 }
 
+/*
+ 
+ 
+ */
+
+- (void)resetFacets {
+    
+    [self clearPriceSelection];
+    [self clearCategoryString];
+    [self clearBrandSelection];
+    [self clearColorSelection];
+    [self clearSizeSelection];
+    
+    [self updateFacetsFromResponseDictionary:[self originalResponseDictionary]];
+}
 
 
 /*

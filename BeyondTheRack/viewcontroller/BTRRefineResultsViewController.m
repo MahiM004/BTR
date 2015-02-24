@@ -112,6 +112,9 @@
 - (IBAction)clearTapped:(UIButton *)sender {
 
     
+    BTRFacetsHandler * sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    [sharedFacetHandler resetFacets];
+    
     [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
 }
 

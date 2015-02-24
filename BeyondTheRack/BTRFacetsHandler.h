@@ -84,6 +84,7 @@
 - (NSString *)getSelectionFromLabelString:(NSString *)labelString;
 - (NSString *)getPriceSelectionFromLabelString:(NSString *)labelString;
 
+- (void)resetFacets;
 
 
 /*
