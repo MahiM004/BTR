@@ -130,12 +130,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:YES];
-    /*
-    if ([BTRFacetsHandler hasChosenFacetInFacetsArray:[self oldChosenFacetsArray]])
+    
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    
+    if ([sharedFacetHandler hasChosenAtLeastOneFacet])
         self.filterIconImageView.image = [UIImage imageNamed:@"filtericonYellow.png"];
     else
         self.filterIconImageView.image = [UIImage imageNamed:@"filtericon.png"];
-     */
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -54,6 +54,40 @@ static BTRFacetsHandler *_sharedInstance;
 }
 
 
+/*
+ 
+ *
+ *
+ 
+ */
+
+
+- (BOOL)hasChosenAtLeastOneFacet {
+    
+    
+    if ([self hasSelectedAnyCategory])
+        return YES;
+    
+    return [self hasChosenFacetExceptCategories];
+}
+
+
+- (BOOL)hasChosenFacetExceptCategories {
+    
+    if ([self hasSelectedAnyPrice])
+        return YES;
+    
+    if ([self hasSelectedAnyBrand])
+        return YES;
+    
+    if ([self hasSelectedAnyColor])
+        return YES;
+    
+    if ([self hasSelectedAnySize])
+        return YES;
+    
+    return NO;
+}
 
 
 /*
@@ -109,7 +143,7 @@ static BTRFacetsHandler *_sharedInstance;
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
-    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqualToString:@""])
+    if ([sharedFacetData selectedPriceString] && [[sharedFacetData selectedPriceString] length] > 0)
         return YES;
     
     return NO;
@@ -174,7 +208,7 @@ static BTRFacetsHandler *_sharedInstance;
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
-    if ([sharedFacetData selectedCategoryString] && ![sharedFacetData.selectedCategoryString isEqualToString:@""])
+    if ([sharedFacetData selectedCategoryString] && [[sharedFacetData selectedCategoryString] length] > 0)
         return YES;
     
     return NO;
@@ -248,7 +282,7 @@ static BTRFacetsHandler *_sharedInstance;
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
-    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqualToString:@""])
+    if ([sharedFacetData selectedBrandsArray] && [[sharedFacetData selectedBrandsArray] count] > 0)
         return YES;
     
     return NO;
@@ -323,7 +357,7 @@ static BTRFacetsHandler *_sharedInstance;
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
-    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqualToString:@""])
+    if ([sharedFacetData selectedColorsArray] && [[sharedFacetData selectedColorsArray] count] > 0)
         return YES;
     
     return NO;
@@ -402,7 +436,7 @@ static BTRFacetsHandler *_sharedInstance;
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
-    if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqualToString:@""])
+    if ([sharedFacetData selectedSizesArray] && [[sharedFacetData selectedSizesArray] count] > 0)
         return YES;
     
     return NO;
@@ -499,6 +533,42 @@ static BTRFacetsHandler *_sharedInstance;
     
     return nil;
 }
+
+
+
+/*
+ 
+ */
+
+
+
+- (NSDictionary *)getFacetsDictionaryFromResponse:(NSDictionary *)responseDictionary {
+    
+    return ((NSDictionary *)responseDictionary[@"facet_counts"]);
+}
+
+
+
+- (NSMutableArray *)getItemDataArrayFromResponse:(NSDictionary *)responseDictionary {
+    
+    NSDictionary *tempDic = responseDictionary[@"response"];
+    return [tempDic valueForKey:@"docs"];
+}
+
+
+- (NSString *)getSortTypeForIndex:(NSInteger)sortIndex {
+    
+    BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
+    
+    NSArray *sortStringArray = [sharedFacetsHandler getSortOptionStringsArray];
+    
+    if (sortIndex >=0 && sortIndex <= [sortStringArray count] - 1)
+        return [sortStringArray objectAtIndex:sortIndex];
+    
+    return nil;
+}
+
+
 
 
 
@@ -707,73 +777,6 @@ static BTRFacetsHandler *_sharedInstance;
     [sharedFacetData.sizeFacetCountArray removeAllObjects];
 }
 
-/*
- 
- *
- *
- 
- */
-
-
-- (BOOL)hasChosenAtLeastOneFacet {
-    
-
-    if ([self hasSelectedAnyCategory])
-        return YES;
-    
-    return [self hasChosenFacetExceptCategories];
-}
-
-
-- (BOOL)hasChosenFacetExceptCategories {
-    
-    if ([self hasSelectedAnyPrice])
-        return YES;
-    
-    if ([self hasSelectedAnyBrand])
-        return YES;
-    
-    if ([self hasSelectedAnyColor])
-        return YES;
-    
-    if ([self hasSelectedAnySize])
-        return YES;
-    
-    return NO;
-}
-
-
-/*
- 
- */
-
-
-
-- (NSDictionary *)getFacetsDictionaryFromResponse:(NSDictionary *)responseDictionary {
-    
-    return ((NSDictionary *)responseDictionary[@"facet_counts"]);
-}
-
-
-
-- (NSMutableArray *)getItemDataArrayFromResponse:(NSDictionary *)responseDictionary {
-    
-    NSDictionary *tempDic = responseDictionary[@"response"];    
-    return [tempDic valueForKey:@"docs"];
-}
-
-
-- (NSString *)getSortTypeForIndex:(NSInteger)sortIndex {
-    
-    BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
-    
-    NSArray *sortStringArray = [sharedFacetsHandler getSortOptionStringsArray];
-    
-    if (sortIndex >=0 && sortIndex <= [sortStringArray count] - 1)
-        return [sortStringArray objectAtIndex:sortIndex];
-    
-    return nil;
-}
 
 
 

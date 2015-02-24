@@ -84,7 +84,12 @@
 - (NSString *)getSelectionFromLabelString:(NSString *)labelString;
 - (NSString *)getPriceSelectionFromLabelString:(NSString *)labelString;
 
+
 - (void)resetFacets;
+- (void)clearAllSelections;
+- (void)clearAllFacets;
+
+
 
 
 /*
