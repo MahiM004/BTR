@@ -159,14 +159,13 @@
 
 - (int)isOptionSelected:(NSString *)optionString
 {
-    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     if ([self.selectedOptionsArray count] == 0)
         return -1;
     
     for(NSString *item in  self.selectedOptionsArray) {
-        
-        if([optionString isEqualToString:[sharedFacetHandler getSelectionFromLabelString:item]]) {
+                
+        if([optionString isEqualToString:item]) {
             
             return 1;
             break;
