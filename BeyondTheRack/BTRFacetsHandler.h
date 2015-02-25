@@ -12,6 +12,11 @@
 #define CATEGORY_TITLE @"Type"
 #define PRICE_TITLE @"Price"
 
+#define BEST_MATCH @"Best Match"
+#define HIGHEST_TO_LOWEST @"Highest to Lowest Price"
+#define LOWEST_TO_HIGHEST @"Lowest to Highest Price"
+
+
 #import <Foundation/Foundation.h>
 
 @interface BTRFacetsHandler : NSObject
@@ -39,7 +44,7 @@
 
 - (void)setCategorySelectionWithCategoryString:(NSString *)categoryString;
 - (NSString *)getSelectedCategoryString;
-- (BOOL)hasSelectedAnyCategory;
+- (BOOL)hasSelectedCategory;
 - (BOOL)hasSelectedCategoryOptionString:(NSString *)optionString;
 - (void)clearCategoryString;
 - (NSMutableArray *)getCategoryFiltersForDisplay;
@@ -73,6 +78,7 @@
 
 
 - (NSString *)getFacetStringForRESTfulRequest;
+- (NSString *)getSortStringForRESTfulRequest;
 - (void)updateFacetsFromResponseDictionary:(NSDictionary *)responseDictionary;
 - (void)setFacetsFromResponseDictionary:(NSDictionary *)responseDictionary;
 

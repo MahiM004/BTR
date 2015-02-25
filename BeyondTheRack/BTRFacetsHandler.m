@@ -65,12 +65,24 @@ static BTRFacetsHandler *_sharedInstance;
 - (BOOL)hasChosenAtLeastOneFacet {
     
     
-    if ([self hasSelectedAnyCategory])
+    if ([self hasSelectedSortOption])
+        return YES;
+    
+    if ([self hasSelectedCategory])
         return YES;
     
     return [self hasChosenFacetExceptCategories];
 }
 
+- (BOOL)hasSelectedSortOption {
+    
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    
+    if ([[sharedFacetData selectedSortString] isEqualToString:HIGHEST_TO_LOWEST] || [[sharedFacetData selectedSortString] isEqualToString:LOWEST_TO_HIGHEST])
+        return YES;
+    
+    return NO;
+}
 
 - (BOOL)hasChosenFacetExceptCategories {
     
@@ -97,7 +109,7 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (NSArray *)getSortOptionStringsArray {
     
-    NSArray *sortOptionsArray =  @[@"Best Match",@"Highest to Lowest Price" ,@"Lowest to Highest Price"];
+    NSArray *sortOptionsArray =  @[BEST_MATCH, HIGHEST_TO_LOWEST, LOWEST_TO_HIGHEST];
     return sortOptionsArray;
 }
 
@@ -204,9 +216,10 @@ static BTRFacetsHandler *_sharedInstance;
 
 }
 
-- (BOOL)hasSelectedAnyCategory {
+- (BOOL)hasSelectedCategory {
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    
     
     if ([sharedFacetData selectedCategoryString] && [[sharedFacetData selectedCategoryString] length] > 0)
         return YES;
@@ -575,59 +588,72 @@ static BTRFacetsHandler *_sharedInstance;
 - (NSString *)getFacetStringForRESTfulRequest {
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
-
     
-    NSMutableString *facetsString = [[NSMutableString alloc] init];
+    NSMutableString *filtersString = [[NSMutableString alloc] init];
     
     NSLog(@"country ignored: getFacetStringForRESTfulRequest");
     
     if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqual:[NSNull null]])
-        ((BOOL)[facetsString length])?
-        [facetsString appendFormat:@";price_sort_ca:%@", [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]]:
-        [facetsString appendFormat:@"price_sort_ca:%@", [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]];
+        ((BOOL)[filtersString length])?
+        [filtersString appendFormat:@";price_sort_ca:%@", [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]]:
+        [filtersString appendFormat:@"price_sort_ca:%@", [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]];
     
     if ([sharedFacetData selectedCategoryString] && ![sharedFacetData .selectedCategoryString isEqual:[NSNull null]])
-        ((BOOL)[facetsString length])?
-        [facetsString appendFormat:@";{!tag=cat_1}cat_1:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData selectedCategoryString]]]:
-        [facetsString appendFormat:@"{!tag=cat_1}cat_1:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData selectedCategoryString]]];
+        ((BOOL)[filtersString length])?
+        [filtersString appendFormat:@";{!tag=cat_1}cat_1:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData selectedCategoryString]]]:
+        [filtersString appendFormat:@"{!tag=cat_1}cat_1:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData selectedCategoryString]]];
     
     
     if ([sharedFacetData.selectedBrandsArray count] != 0)
-        ((BOOL)[facetsString length]) ?
-        [facetsString appendFormat:@";{!tag=brand}brand:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedBrandsArray objectAtIndex:0]]]:
-        [facetsString appendFormat:@"{!tag=brand}brand:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedBrandsArray objectAtIndex:0]]];
+        ((BOOL)[filtersString length]) ?
+        [filtersString appendFormat:@";{!tag=brand}brand:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedBrandsArray objectAtIndex:0]]]:
+        [filtersString appendFormat:@"{!tag=brand}brand:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedBrandsArray objectAtIndex:0]]];
     
     if ([sharedFacetData.selectedBrandsArray count] > 1) {
         for (int i = 1; i < [sharedFacetData.selectedBrandsArray count]; i++)
-            [facetsString appendFormat:@" OR brand:[[%@]]",[self getSelectionFromLabelString:[sharedFacetData.selectedBrandsArray objectAtIndex:i]]];
+            [filtersString appendFormat:@" OR brand:[[%@]]",[self getSelectionFromLabelString:[sharedFacetData.selectedBrandsArray objectAtIndex:i]]];
     }
     
-    
     if ([sharedFacetData.selectedColorsArray count] != 0)
-        ((BOOL)[facetsString length]) ?
-        [facetsString appendFormat:@";{!tag=att_color}att_color:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedColorsArray objectAtIndex:0]]]:
-        [facetsString appendFormat:@"{!tag=att_color}att_color:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedColorsArray objectAtIndex:0]]];
+        ((BOOL)[filtersString length]) ?
+        [filtersString appendFormat:@";{!tag=att_color}att_color:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedColorsArray objectAtIndex:0]]]:
+        [filtersString appendFormat:@"{!tag=att_color}att_color:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedColorsArray objectAtIndex:0]]];
     
     if ([sharedFacetData.selectedColorsArray count] > 1) {
         for (int i = 1; i < [sharedFacetData.selectedColorsArray count]; i++)
-            [facetsString appendFormat:@" OR att_color:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedColorsArray objectAtIndex:i]]];
+            [filtersString appendFormat:@" OR att_color:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedColorsArray objectAtIndex:i]]];
     }
     
     
     if ([sharedFacetData.selectedSizesArray count] != 0)
-        ((BOOL)[facetsString length])?
-        [facetsString appendFormat:@";{!tag=variant}variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:0]]]:
-        [facetsString appendFormat:@"{!tag=variant}variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:0]]];
-
+        ((BOOL)[filtersString length])?
+        [filtersString appendFormat:@";{!tag=variant}variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:0]]]:
+        [filtersString appendFormat:@"{!tag=variant}variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:0]]];
+    
     if ([sharedFacetData.selectedSizesArray count] > 1) {
         for (int i = 1; i < [sharedFacetData.selectedSizesArray count]; i++)
-            [facetsString appendFormat:@" OR variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:i]]];
+            [filtersString appendFormat:@" OR variant:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedSizesArray objectAtIndex:i]]];
     }
     
-    
-    return facetsString;
+    return filtersString;
 }
 
+
+- (NSString *)getSortStringForRESTfulRequest {
+    
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
+    
+    if ([sharedFacetData.selectedSortString isEqualToString:HIGHEST_TO_LOWEST]) {
+        
+        return @"&sortby=price&sortdir=desc";
+        
+    } else if ([sharedFacetData.selectedSortString isEqualToString:LOWEST_TO_HIGHEST]) {
+        
+        return @"&sortby=price&sortdir=asc";
+    }
+    
+    return @"";
+}
 
 - (void)setFacetsFromResponseDictionary:(NSDictionary *)responseDictionary {
     
@@ -748,6 +774,7 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)clearAllSelections {
     
+    [self clearSortSelection];
     [self clearPriceSelection];
     [self clearCategoryString];
     [self clearBrandSelection];

@@ -70,6 +70,7 @@
 }
 
 - (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
+                withSortString:(NSString *)sortString
               withFacetsString:(NSString *)facetsString
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
@@ -82,7 +83,10 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withFacetString:facetsString andPageNumber:0]]
+    
+    NSLog(@"wad upppp: %@", [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortString withFacetString:facetsString andPageNumber:0]]);
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortString withFacetString:facetsString andPageNumber:0]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
@@ -120,22 +124,16 @@
 
 - (IBAction)applyButtonTapped:(UIButton *)sender {
 
-    /*
-     
-     handle the sort and pass back the query result
-    
-     */
-    
-    
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     NSString *facetString = [sharedFacetHandler getFacetStringForRESTfulRequest];
-
+    NSString *sortString = [sharedFacetHandler getSortStringForRESTfulRequest];
     
     [self fetchItemsIntoDocument:[self beyondTheRackDocument]
                   forSearchQuery:[sharedFacetHandler searchString]
+                  withSortString:sortString
                 withFacetsString:facetString
                          success:^(NSDictionary *responseDictionary) {
-                            
+                             
                              if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
                                  [self.delegate refineSceneWillDisappearWithResponseDictionary:responseDictionary];
                              }
@@ -145,7 +143,6 @@
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                              NSLog(@"Error: %@",error);
                          }];
-    
 }
 
 

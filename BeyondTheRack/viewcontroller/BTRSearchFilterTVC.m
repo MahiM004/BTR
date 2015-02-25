@@ -106,8 +106,15 @@
     
     [super viewDidLoad];
  
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
-    selectedSortIndex = 0;
+    if ([[sharedFacetHandler getSelectedSortString] isEqualToString:BEST_MATCH])
+        selectedSortIndex = 0;
+    else if ([[sharedFacetHandler getSelectedSortString] isEqualToString:HIGHEST_TO_LOWEST])
+        selectedSortIndex = 1;
+    else if ([[sharedFacetHandler getSelectedSortString] isEqualToString:LOWEST_TO_HIGHEST])
+        selectedSortIndex = 2;
+        
     self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", PRICE_TITLE, CATEGORY_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
 }
 
@@ -188,16 +195,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    
     if (indexPath.section == SORT_SECTION) {
-     
+        
         selectedSortIndex = (int)indexPath.row;
-
         UITableViewCell *sortCell = [self.tableView cellForRowAtIndexPath:indexPath];
         
         if (sortCell.textLabel.textColor != [UIColor whiteColor]) {
             
             sortCell.textLabel.textColor = [UIColor whiteColor];
             sortCell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+            [sharedFacetHandler setSortChosenOptionString:[[sortCell textLabel] text]];
         }
     }
     
@@ -288,8 +298,6 @@
                           isSelectable:[sharedFacetHandler.getSizeFiltersForDisplay count] > 0 ? YES: NO];
 
     } else if (indexPath.section == CATEGORY_FILTER) {
-        
-        
         
         cell = [self configureCellForCell:cell
                         withSectionString:CATEGORY_TITLE
