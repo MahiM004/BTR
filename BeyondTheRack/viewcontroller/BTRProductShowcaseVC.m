@@ -8,8 +8,11 @@
 
 #import "BTRProductShowcaseVC.h"
 #import "BTRProductShowcaseCollectionCell.h"
+#import "BTRProductDetailViewController.h"
 
-@interface BTRProductShowcaseVC ()
+@interface BTRProductShowcaseVC () {
+    long selectedIndex;
+}
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -26,6 +29,9 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    
+    
+    selectedIndex = -1;
     
 }
 
@@ -55,16 +61,18 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor grayColor];
     cell.productTitleLabel.text = @"some cool title";
     return cell;
 }
-// 4
-/*- (UICollectionReusableView *)collectionView:
+
+
+/*
+ - (UICollectionReusableView *)collectionView:
  (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
  {
  return [[UICollectionReusableView alloc] init];
- }*/
+ }
+*/
 
 
 
@@ -73,16 +81,13 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
+    selectedIndex = indexPath.row;
+    
     UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
-    datasetCell.backgroundColor = [UIColor blueColor]; // highlight selection
+    datasetCell.backgroundColor = [UIColor lightGrayColor]; // highlight selection
     
-    
-    NSLog(@"collection view needs more implementation");
+    [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
 }
-
-
-
-
 
 
 - (IBAction)bagButtonTapped:(UIButton *)sender {
@@ -95,8 +100,6 @@
 
 - (IBAction)searchIconTapped:(UIButton *)sender {
     
-    
-    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     BTRProductShowcaseVC *viewController = (BTRProductShowcaseVC *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
     
@@ -106,11 +109,16 @@
 
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"])
+    {
+        BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
+        productDetailVC.someString = [NSString stringWithFormat:@"Some Detail Scene %ld", selectedIndex];
+    }
+}
 
 
 

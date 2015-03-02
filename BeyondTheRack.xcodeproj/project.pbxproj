@@ -13,6 +13,7 @@
 		695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */; };
 		6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */; };
 		696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */; };
+		696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */; };
 		69659F0A1A7C240F00C52FC5 /* fillrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F071A7C240F00C52FC5 /* fillrange.png */; };
 		69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F081A7C240F00C52FC5 /* fullrange.png */; };
 		69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F091A7C240F00C52FC5 /* rangethumb.png */; };
@@ -122,6 +123,8 @@
 		6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductShowcaseVC.m; sourceTree = "<group>"; };
 		696508601AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShowcaseCollectionCell.h; sourceTree = "<group>"; };
 		696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductShowcaseCollectionCell.m; sourceTree = "<group>"; };
+		696508631AA4F26600ED28B8 /* BTRProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailViewController.h; sourceTree = "<group>"; };
+		696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailViewController.m; sourceTree = "<group>"; };
 		69659F071A7C240F00C52FC5 /* fillrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillrange.png; sourceTree = "<group>"; };
 		69659F081A7C240F00C52FC5 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullrange.png; sourceTree = "<group>"; };
 		69659F091A7C240F00C52FC5 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rangethumb.png; sourceTree = "<group>"; };
@@ -361,6 +364,8 @@
 				69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */,
 				6965085D1AA4B47C00ED28B8 /* BTRProductShowcaseVC.h */,
 				6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */,
+				696508631AA4F26600ED28B8 /* BTRProductDetailViewController.h */,
+				696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */,
 				69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */,
 				69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */,
 				69385FBF1A7BF3830074FE33 /* Search */,
@@ -816,6 +821,7 @@
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
 				69869FC71A640F0000F986BC /* UIProgressView+AFNetworking.m in Sources */,
+				696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */,
 				696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */,
 				69869F9A1A63FB2100F986BC /* AFHTTPSessionManager.m in Sources */,
 				69869F731A6075EA00F986BC /* ShippingAddress.m in Sources */,
