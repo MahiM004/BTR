@@ -10,7 +10,7 @@
 
 @interface BTRProductShowcaseVC : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
-
+@property (strong, nonatomic) NSString *eventSku;
 
 
 @end

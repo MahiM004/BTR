@@ -10,6 +10,9 @@
 #import "BTRProductShowcaseCollectionCell.h"
 #import "BTRProductDetailViewController.h"
 
+#import "Item+AppServer.h"
+#import "BTRItemFetcher.h"
+
 @interface BTRProductShowcaseVC () {
     long selectedIndex;
 }
@@ -17,9 +20,21 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+@property (strong, nonatomic) NSMutableArray *itemArray;
+
 @end
 
 @implementation BTRProductShowcaseVC
+
+
+- (NSMutableArray *)itemArray {
+    
+    if (!_itemArray) _itemArray = [[NSMutableArray alloc] init];
+    return _itemArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,7 +47,17 @@
     
     
     selectedIndex = -1;
+    [self setupDocument];
     
+    [self fetchItemsIntoDocument:[self beyondTheRackDocument]
+                     forEventSku:[self eventSku]
+                         success:^(NSDictionary *responseDictionary) {
+                             
+                             [self.collectionView reloadData];
+                             
+                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                             
+                         }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,20 +66,57 @@
 }
 
 
+#pragma mark - Load Event Products RESTful
 
+
+- (void)setupDocument
+{
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
+}
+
+- (void)fetchItemsIntoDocument:(UIManagedDocument *)document forEventSku:(NSString *)eventSku
+                       success:(void (^)(id  responseObject)) success
+                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                              options:0
+                                                                                error:NULL];
+         
+         [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         
+         success([self itemArray]);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         NSLog(@"Error: %@", error);
+         
+         failure(operation, error);
+     }];
+    
+}
 
 #pragma mark - UICollectionView Datasource
 
 
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    return 11;
-}
-
-
-
-- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
-    return 1;
+    
+    return [self.itemArray count];
 }
 
 

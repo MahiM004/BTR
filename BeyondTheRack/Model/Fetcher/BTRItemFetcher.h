@@ -13,6 +13,7 @@
 @interface BTRItemFetcher : BTRFetcher
 
 + (NSURL *)URLforItemWithSku:(NSString *)sku;
++ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku;
 + (NSURL *)URLforRecentItemsForEventId:(NSString *)eventId;
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber;
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString withFacetString:(NSString *)facetsString andPageNumber:(NSUInteger)pageNumber;

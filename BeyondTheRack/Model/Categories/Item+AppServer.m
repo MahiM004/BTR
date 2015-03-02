@@ -209,10 +209,10 @@
             item.imageCount = [itemDictionary valueForKey:@"image_count"];
         
         if ([itemDictionary[@"images"] valueForKeyPath:@"small"] && [itemDictionary[@"images"] valueForKeyPath:@"small"] != [NSNull null])
-            item.imageName1 = [itemDictionary[@"images"] valueForKey:@"small"];
+            item.imageName1 = [[itemDictionary[@"images"] valueForKey:@"1"] valueForKey:@"small"];
         
         if ([itemDictionary[@"images"] valueForKeyPath:@"medium"] && [itemDictionary[@"images"] valueForKeyPath:@"medium"] != [NSNull null])
-            item.imageName2 = [itemDictionary[@"images"] valueForKey:@"medium"];
+            item.imageName2 = [[itemDictionary[@"images"] valueForKey:@"1"] valueForKey:@"medium"];
         
         if ([itemDictionary[@"images"] valueForKeyPath:@"large"] && [itemDictionary[@"images"] valueForKeyPath:@"large"] != [NSNull null])
             item.imageName3 = [itemDictionary[@"images"] valueForKey:@"large"];
@@ -246,8 +246,6 @@
         
         if ([itemDictionary valueForKeyPath:@"drop_ship"] && [itemDictionary valueForKeyPath:@"drop_ship"] != [NSNull null])
             item.dropShip = [itemDictionary valueForKey:@"drop_ship"];
-        
-        
         
         /*
          if ([itemDictionary[@"images"] valueForKeyPath:@"small"])

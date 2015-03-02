@@ -13,7 +13,12 @@
 
 + (NSURL *)URLforItemWithSku:(NSString *)sku
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/mobile/%@", LIVEURL, sku]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/product/%@", BASEURL, sku]];
+}
+
++ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku {
+
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@", BASEURL, eventSku]];
 }
 
 
@@ -71,6 +76,7 @@
     
     return encodedString;
 }
+
 
 
 @end
