@@ -7,6 +7,7 @@
 //
 
 #import "BTRProductShowcaseVC.h"
+#import "BTRProductShowcaseCollectionCell.h"
 
 @interface BTRProductShowcaseVC ()
 
@@ -53,8 +54,9 @@
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
+    BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor grayColor];
+    cell.productTitleLabel.text = @"some cool title";
     return cell;
 }
 // 4
@@ -66,11 +68,22 @@
 
 
 
-
-
-
-
 #pragma mark - Navigation
+
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
+    
+    UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
+    datasetCell.backgroundColor = [UIColor blueColor]; // highlight selection
+    
+    
+    NSLog(@"collection view needs more implementation");
+}
+
+
+
+
+
 
 - (IBAction)bagButtonTapped:(UIButton *)sender {
     
