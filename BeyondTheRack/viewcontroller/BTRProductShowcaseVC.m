@@ -11,6 +11,7 @@
 @interface BTRProductShowcaseVC ()
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
@@ -22,12 +23,50 @@
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 
 }
+
+
+
+
+#pragma mark - UICollectionView Datasource
+
+
+
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    return 11;
+}
+
+
+
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+    return 1;
+}
+
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor grayColor];
+    return cell;
+}
+// 4
+/*- (UICollectionReusableView *)collectionView:
+ (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+ {
+ return [[UICollectionReusableView alloc] init];
+ }*/
+
+
+
+
 
 
 

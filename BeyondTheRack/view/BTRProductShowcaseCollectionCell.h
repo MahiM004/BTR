@@ -1,5 +1,5 @@
 //
-//  BTRProductShowcaseVC.h
+//  BTRProductShowcaseCollectionCell.h
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-03-02.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRProductShowcaseVC : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface BTRProductShowcaseCollectionCell : UICollectionViewCell
 
 @end
