@@ -11,6 +11,7 @@
 		69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */; };
 		69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */; };
 		695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */; };
+		6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */; };
 		69659F0A1A7C240F00C52FC5 /* fillrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F071A7C240F00C52FC5 /* fillrange.png */; };
 		69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F081A7C240F00C52FC5 /* fullrange.png */; };
 		69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F091A7C240F00C52FC5 /* rangethumb.png */; };
@@ -116,6 +117,8 @@
 		69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchFilterTVC.m; sourceTree = "<group>"; };
 		695F99E21A573DB700A80D12 /* BTRApprovePurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRApprovePurchaseViewController.h; sourceTree = "<group>"; };
 		695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRApprovePurchaseViewController.m; sourceTree = "<group>"; };
+		6965085D1AA4B47C00ED28B8 /* BTRProductShowcaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShowcaseVC.h; sourceTree = "<group>"; };
+		6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductShowcaseVC.m; sourceTree = "<group>"; };
 		69659F071A7C240F00C52FC5 /* fillrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillrange.png; sourceTree = "<group>"; };
 		69659F081A7C240F00C52FC5 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullrange.png; sourceTree = "<group>"; };
 		69659F091A7C240F00C52FC5 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rangethumb.png; sourceTree = "<group>"; };
@@ -351,6 +354,8 @@
 				69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */,
 				69B02CAA1A5DA70700040C86 /* BTREventsCDTVC.h */,
 				69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */,
+				6965085D1AA4B47C00ED28B8 /* BTRProductShowcaseVC.h */,
+				6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */,
 				69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */,
 				69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */,
 				69385FBF1A7BF3830074FE33 /* Search */,
@@ -756,6 +761,7 @@
 				69869FAF1A640C0600F986BC /* BTRDocumentHandler.m in Sources */,
 				69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */,
 				69AB98651A77E68F00EDB1E6 /* Event.m in Sources */,
+				6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
 				69869F6A1A6075E900F986BC /* BagItem.m in Sources */,
 				69869F821A6075EA00F986BC /* UserNotifications.m in Sources */,

@@ -368,9 +368,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    //[self performSegueWithIdentifier:@"ItemDetailSegue" sender:tableView];
-    
+        
     /*
      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cell Tapped" message:[NSString stringWithFormat:@"Cell %ld tapped", (long)indexPath.row] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
      [alert show];*/
@@ -449,6 +447,15 @@
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
     [self presentViewController:vc animated:YES completion:nil];
 }
+
+
+- (IBAction)backButtonTapped:(UIButton *)sender {
+
+    [self dismissViewControllerAnimated:NO completion:NULL];
+
+}
+
+
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

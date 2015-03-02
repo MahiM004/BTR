@@ -1,5 +1,5 @@
 //
-//  BTREventsTableViewController.m
+//  BTREventsCDTVC.m
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-07.
@@ -10,6 +10,9 @@
 #import "BTREventFetcher.h"
 
 #import "Event+AppServer.h"
+
+#import "BTRProductShowcaseVC.h"
+
 
 @interface BTREventsCDTVC ()
 
@@ -161,11 +164,22 @@
 }
 
 
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cell Tapped" message:[NSString stringWithFormat:@"Cell %ld tapped", (long)indexPath.row] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-    [alert show];
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    BTRProductShowcaseVC *viewController = (BTRProductShowcaseVC *)[storyboard instantiateViewControllerWithIdentifier:@"BTRProductShowcaseVC"];
+    [self.navigationController pushViewController:viewController animated:YES];
+
+
 }
 
 - (void)dealloc {
