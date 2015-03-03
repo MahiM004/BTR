@@ -166,7 +166,7 @@
 
     
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
-    nformatter.numberStyle = NSNumberFormatterCurrencyStyle;
+    nformatter.numberStyle = NSNumberFormatterDecimalStyle;
     
     if ([itemDictionary valueForKeyPath:@"event_id"] && [itemDictionary valueForKeyPath:@"event_id"] != [NSNull null])
         item.eventId = [itemDictionary valueForKeyPath:@"event_id"];

@@ -65,7 +65,7 @@
     
     UIFont *priceFont = [UIFont fontWithName:@"STHeitiSC-Light" size:15.0];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.alignment = NSTextAlignmentRight;
+    //paragraphStyle.alignment = NSTextAlignmentLeft;
     
     NSAttributedString *corssedOffText = [[NSAttributedString alloc] initWithString:someText 
                                                                           attributes:@{

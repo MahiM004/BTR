@@ -36,6 +36,14 @@
     return _itemArray;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:YES];
+    
+    NSLog(@"contry ignored: configureViewForShowcaseCollectionCell");
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -122,10 +130,29 @@
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
-    cell.productTitleLabel.text = @"some cool title";
+    Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
+
+    cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
+    
     return cell;
 }
+
+
+- (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell withItem:(Item *)productItem {
+
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    
+    [cell.productTitleLabel setText:[productItem shortItemDescription]];
+    [cell.brandLabel setText:[productItem brand]];
+    [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[productItem retailCAD]]]];
+    [cell.originalPrice setText:[NSString stringWithFormat:@"$%@", [[productItem clearancePriceCAD] stringValue]]];
+ 
+    return cell;
+    
+}
+
 
 
 /*
