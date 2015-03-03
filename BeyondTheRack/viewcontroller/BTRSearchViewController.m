@@ -419,7 +419,9 @@
              
              if ([arrayToPass count] != 0) {
                  
-                 [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+                 
+                 [self.itemArray addObjectsFromArray:[Item loadItemsFromSearchResponseArray:arrayToPass intoManagedObjectContext:[self.beyondTheRackDocument managedObjectContext]]];
+                 
                  [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
              }
          }

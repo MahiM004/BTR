@@ -2,7 +2,7 @@
 //  Item.m
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-01-26.
+//  Created by Hadi Kheyruri on 2015-03-03.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
@@ -11,48 +11,43 @@
 
 @implementation Item
 
-@dynamic discount;
-@dynamic eventId;
-@dynamic expiryDateTime;
-@dynamic imageName1;
-@dynamic itemDescription;
-@dynamic itemId;
-@dynamic productId;
-@dynamic saveUpTo;
-@dynamic sku;
-@dynamic brand;
-@dynamic shortItemDescription;
-@dynamic longItemDescription;
-@dynamic imageCount;
-@dynamic imageName5;
-@dynamic imageName6;
 @dynamic attributeList;
-@dynamic imageName2;
-@dynamic imageName3;
-@dynamic imageName4;
-@dynamic videoCount;
-@dynamic videoName2;
-@dynamic relatedSkuslist;
+@dynamic brand;
 @dynamic categoryList;
-@dynamic priorityA;
-@dynamic priorityB;
-@dynamic retailUSD;
-@dynamic videoName1;
-@dynamic retailCAD;
-@dynamic priceUSD;
-@dynamic priceCAD;
-@dynamic employeePriceUSD;
-@dynamic employeePriceCAD;
-@dynamic clearancePriceUSD;
 @dynamic clearancePriceCAD;
-@dynamic productType;
-@dynamic vendorId;
+@dynamic clearancePriceUSD;
+@dynamic discount;
+@dynamic dropShip;
+@dynamic employeePriceCAD;
+@dynamic employeePriceUSD;
+@dynamic eventId;
 @dynamic generalAttribute1;
 @dynamic generalAttribute2;
 @dynamic generalAttribute3;
-@dynamic specialNote;
 @dynamic generalNote;
+@dynamic imageCount;
+@dynamic imageName;
+@dynamic itemDescription;
+@dynamic itemId;
+@dynamic longItemDescription;
+@dynamic priceCAD;
+@dynamic priceUSD;
+@dynamic priorityA;
+@dynamic priorityB;
+@dynamic productId;
+@dynamic productType;
+@dynamic relatedSkuslist;
+@dynamic retailCAD;
+@dynamic retailUSD;
+@dynamic saveUpTo;
 @dynamic shipTime;
-@dynamic dropShip;
+@dynamic shortItemDescription;
+@dynamic sku;
+@dynamic specialNote;
+@dynamic vendorId;
+@dynamic videoCount;
+@dynamic videoName;
+@dynamic saleStartDate;
+@dynamic saleEndDate;
 
 @end

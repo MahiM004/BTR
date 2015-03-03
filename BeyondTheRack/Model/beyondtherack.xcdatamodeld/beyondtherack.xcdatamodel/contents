@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="BagItem" representedClassName="BagItem" syncable="YES">
         <attribute name="bagItemId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createDateTime" optional="YES" attributeType="String" syncable="YES"/>
@@ -87,18 +87,12 @@
         <attribute name="employeePriceCAD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="employeePriceUSD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="expiryDateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="generalAttribute1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="generalAttribute2" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="generalAttribute3" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="generalNote" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageCount" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageName1" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageName2" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageName3" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageName4" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageName5" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageName6" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longItemDescription" optional="YES" attributeType="String" syncable="YES"/>
@@ -111,6 +105,8 @@
         <attribute name="relatedSkuslist" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="retailCAD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="retailUSD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="saleEndDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="saleStartDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="saveUpTo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shipTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="shortItemDescription" optional="YES" attributeType="String" syncable="YES"/>
@@ -118,8 +114,7 @@
         <attribute name="specialNote" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vendorId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoCount" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="videoName1" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="videoName2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Order" representedClassName="Order" syncable="YES">
         <attribute name="confirmDateTime" optional="YES" attributeType="Date" syncable="YES"/>
@@ -194,7 +189,7 @@
         <element name="General1" positionX="-477" positionY="-72" width="128" height="165"/>
         <element name="General2" positionX="-81" positionY="-63" width="128" height="165"/>
         <element name="General3" positionX="-621" positionY="240" width="128" height="165"/>
-        <element name="Item" positionX="-839" positionY="-117" width="128" height="688"/>
+        <element name="Item" positionX="-839" positionY="-108" width="128" height="613"/>
         <element name="Order" positionX="-135" positionY="135" width="128" height="193"/>
         <element name="PaymentDetail" positionX="88" positionY="132" width="128" height="253"/>
         <element name="ShippingAddress" positionX="-270" positionY="-72" width="128" height="195"/>

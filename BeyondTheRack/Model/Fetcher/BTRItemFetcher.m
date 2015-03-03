@@ -17,7 +17,7 @@
 }
 
 + (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku {
-
+    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@", BASEURL, eventSku]];
 }
 
@@ -45,8 +45,6 @@
                                                                                                     (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                                     kCFStringEncodingUTF8 ));
     
-    
-    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@%@", LIVEURL, searchQuery, (unsigned long)pageNumber, encodedFacetString, sortString]];
 }
 
@@ -54,7 +52,7 @@
 
 + (NSURL *)URLforItemImageForSku:(NSString *)sku
 {
-
+    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/productimages/%@/medium/%@_1.jpg", STATICURL,sku, sku]];
 }
 
