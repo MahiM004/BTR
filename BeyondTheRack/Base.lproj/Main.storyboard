@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="7B195CEC-6C7C-40CF-963B-8F251577CFC8" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="83300A84-B9C6-4D3E-BF46-3ABE2FB2CDC0" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1083,7 +1083,7 @@
                                             <action selector="searchIconTapped:" destination="YuT-Qh-87n" eventType="touchUpInside" id="Mui-zK-Oni"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Some Cool Event Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MR9-bq-C2I">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Some Cool Event Name" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="MR9-bq-C2I">
                                         <rect key="frame" x="40" y="8" width="188" height="24"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -1166,6 +1166,7 @@
                     <navigationItem key="navigationItem" title="Product" id="d5u-3s-fh5"/>
                     <connections>
                         <outlet property="collectionView" destination="MFR-sm-j0D" id="zVx-pK-yJY"/>
+                        <outlet property="eventTitleLabel" destination="MR9-bq-C2I" id="I8G-eB-Lnv"/>
                         <outlet property="headerView" destination="5rd-9Q-zHO" id="maJ-ll-1IP"/>
                         <segue destination="88W-rN-Y9Y" kind="unwind" identifier="unwindToEventViewController" unwindAction="unwindToEventViewController:" id="6qS-Ki-YFZ"/>
                         <segue destination="HKO-dJ-Mil" kind="push" identifier="ProductDetailSegueIdentifier" id="bIC-SN-W1I"/>
@@ -1174,7 +1175,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AjM-VZ-InR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="88W-rN-Y9Y" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2204" y="-838"/>
+            <point key="canvasLocation" x="2264" y="-904"/>
         </scene>
         <!--Product Detail View Controller-->
         <scene sceneID="tn9-0f-X2L">
@@ -1518,7 +1519,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="7B195CEC-6C7C-40CF-963B-8F251577CFC8" width="30" height="30">
+        <image name="83300A84-B9C6-4D3E-BF46-3ABE2FB2CDC0" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

@@ -38,9 +38,13 @@ static BTRFacetsHandler *_sharedInstance;
 - (id)init
 {
     self = [super init];
+
+    NSLog(@"country ignored: updateFacetsFromResponseDictionary");
+
+    
     if (self) {
         
-        
+
     }
     return self;
 }
@@ -671,8 +675,6 @@ static BTRFacetsHandler *_sharedInstance;
     
     [self clearAllFacets];
     
-    NSLog(@"country ignored: updateFacetsFromResponseDictionary");
-
     NSDictionary *facetsDictionary = responseDictionary[@"facet_counts"];
     NSDictionary *facetFieldsDictionary =  facetsDictionary[@"facet_fields"];
     

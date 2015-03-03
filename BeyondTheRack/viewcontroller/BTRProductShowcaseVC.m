@@ -19,6 +19,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
+
+
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -36,16 +39,13 @@
     return _itemArray;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-
-    [super viewWillAppear:YES];
-    
-    NSLog(@"contry ignored: configureViewForShowcaseCollectionCell");
-
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"country ignored: configureViewForShowcaseCollectionCell");
+
+    
+    [self.eventTitleLabel setText:[self eventTitleString]];
     
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
     self.view.backgroundColor = [BTRViewUtility BTRBlack];

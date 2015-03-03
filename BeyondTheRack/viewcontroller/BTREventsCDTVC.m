@@ -181,6 +181,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     BTRProductShowcaseVC *viewController = (BTRProductShowcaseVC *)[storyboard instantiateViewControllerWithIdentifier:@"BTRProductShowcaseVC"];
     viewController.eventSku = [event eventId];
+    viewController.eventTitleString = [event eventName];
     [self.navigationController pushViewController:viewController animated:YES];
 
 
