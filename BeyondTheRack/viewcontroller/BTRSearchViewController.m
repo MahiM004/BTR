@@ -7,7 +7,7 @@
 //
 
 #import "BTRSearchViewController.h"
-#import "BTRItemShowcaseTableViewCell.h"
+#import "BTRProductShowcaseCollectionCell.h"
 #import "BTRRefineResultsViewController.h"
 
 #import "Item+AppServer.h"
@@ -55,6 +55,10 @@
     [super viewDidLoad];
     [self setupDocument];
     
+    
+    
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -218,7 +222,7 @@
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
     
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -244,135 +248,53 @@
     // We don't need to do anything here.
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-   
-    if ([self.itemArray  count] > 0) {
-        
-        self.filterIconImageView.hidden = NO;
-        self.filterButton.enabled = YES;
+#pragma mark - UICollectionView Datasource
 
-        
-        [UIView animateWithDuration:0.4
-                              delay:0
-                            options:UIViewAnimationOptionCurveLinear
-                         animations:^ {
 
-                             [self.searchBar setFrame:CGRectMake(34,1,200,44)];
-                             
-                         }completion:^(BOOL finished) {
-                             
-                         }];
-    } else {
-   
-        self.filterIconImageView.hidden = YES;
-        self.filterButton.enabled = NO;
-        
-        [UIView animateWithDuration:0.4
-                              delay:0
-                            options:UIViewAnimationOptionCurveLinear
-                         animations:^ {
 
-                             [self.searchBar setFrame:CGRectMake(40,1,234,44)];
-                             
-                         }completion:^(BOOL finished) {
-                             
-                         }];
-    }
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     
-    NSInteger tableSize = (NSInteger)((int)[self.itemArray count]/ (int)2);
-    
-    
-    if ([self.itemArray count] % 2 && [self.itemArray count] > 0)
-    {
-        oddNumberOfResults = YES;
-        return tableSize + 1;
-    }
-    
-    return tableSize;
+    return [self.itemArray count];
 }
 
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"SearchResultCellIdentifier";
-    BTRItemShowcaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ( cell == nil ) {
-        
-        cell = [[BTRItemShowcaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-
-    Item *letftItem = [self.itemArray objectAtIndex:2*(indexPath.row)];
+    BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
+    Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
     
-    if ([letftItem sku]) {
-        
-        cell = [self configureLeftViewForCell:cell withItem:letftItem];
-    
-    } else {
-        
-        self.itemArray = [self originalItemArray];
-    }
-
-    if (!(oddNumberOfResults && indexPath.row == [self.tableView numberOfRowsInSection:0] - 1)) {
-        
-        Item *rightItem = [self.itemArray objectAtIndex:2*(indexPath.row) + 1];
-        
-        if ([rightItem sku]) {
-        
-            cell.rightImageView.hidden = FALSE;
-            cell.rightDetailView.hidden = FALSE;
-            cell = [self configureRightViewForCell:cell withItem:rightItem];
-    
-        } else {
-            
-            self.itemArray = [self originalItemArray];
-        }
-        
-    } else if (oddNumberOfResults && indexPath.row == [self.tableView numberOfRowsInSection:0] - 1) {
-        
-        cell.rightImageView.hidden = TRUE;
-        cell.rightDetailView.hidden = TRUE;
-    }
+    cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
     
     return cell;
 }
 
 
-- (BTRItemShowcaseTableViewCell *)configureLeftViewForCell:(BTRItemShowcaseTableViewCell *)cell withItem:(Item *)letftItem {
+- (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell withItem:(Item *)productItem {
     
-    [cell.leftImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[letftItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-    [cell.leftBrand setText:[letftItem brand]];
-    [cell.leftDescription setText:[letftItem shortItemDescription]];
-    [cell.leftPrice setText:[NSString stringWithFormat:@"$%@",[letftItem priceCAD]]];
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
     
-    [cell.leftCrossedOffPrice setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[letftItem retailCAD]]]];
-    
-    return cell;
-}
-
-- (BTRItemShowcaseTableViewCell *)configureRightViewForCell:(BTRItemShowcaseTableViewCell *)cell withItem:(Item *)rightItem {
-    
-    [cell.rightImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[rightItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-    [cell.rightBrand setText:[rightItem brand]];
-    [cell.rightDescription setText:[rightItem shortItemDescription]];
-    [cell.rightPrice setText:[NSString stringWithFormat:@"$%@",[rightItem priceCAD]]];
-    
-    [cell.rightCrossedOffPrice setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[rightItem retailCAD]]]];
+    [cell.productTitleLabel setText:[productItem shortItemDescription]];
+    [cell.brandLabel setText:[productItem brand]];
+    [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[productItem retailCAD]]]];
+    [cell.originalPrice setText:[NSString stringWithFormat:@"$%@", [[productItem clearancePriceCAD] stringValue]]];
     
     return cell;
+    
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-        
-    /*
-     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cell Tapped" message:[NSString stringWithFormat:@"Cell %ld tapped", (long)indexPath.row] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-     [alert show];*/
-}
+
+/*
+ - (UICollectionReusableView *)collectionView:
+ (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+ {
+ return [[UICollectionReusableView alloc] init];
+ }
+ */
+
+
 
 
 #pragma mark - Load Results RESTful
@@ -392,7 +314,7 @@
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     [self clearResults];
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -426,7 +348,7 @@
              }
          }
          
-         [self.tableView reloadData];
+         [self.collectionView reloadData];
          
          success([self itemArray]);
          
@@ -487,7 +409,7 @@
 - (IBAction)unwindFromRefineResultsApplied:(UIStoryboardSegue *)unwindSegue {
     
     [self clearResults];
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
@@ -504,7 +426,7 @@
         }
     }
 
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
     
 }
 
@@ -514,7 +436,7 @@
     [self clearResults];
     [self.itemArray addObjectsFromArray:[self originalItemArray]];
     
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 }
 
 
