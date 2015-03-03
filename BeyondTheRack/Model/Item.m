@@ -26,16 +26,11 @@
 @dynamic generalAttribute3;
 @dynamic generalNote;
 @dynamic imageCount;
-@dynamic imageName;
-@dynamic itemDescription;
+@dynamic imageNameSmall;
 @dynamic itemId;
 @dynamic longItemDescription;
 @dynamic priceCAD;
 @dynamic priceUSD;
-@dynamic priorityA;
-@dynamic priorityB;
-@dynamic productId;
-@dynamic productType;
 @dynamic relatedSkuslist;
 @dynamic retailCAD;
 @dynamic retailUSD;
@@ -49,5 +44,14 @@
 @dynamic videoName;
 @dynamic saleStartDate;
 @dynamic saleEndDate;
+@dynamic imageNameMedium;
+@dynamic imageNameLarge;
+@dynamic productWeight;
+@dynamic productLength;
+@dynamic productWidth;
+@dynamic productHeight;
+@dynamic isFragile;
+@dynamic restrictedShipping;
+@dynamic variantInventory;
 
 @end

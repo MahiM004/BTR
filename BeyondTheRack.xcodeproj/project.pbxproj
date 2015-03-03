@@ -14,7 +14,7 @@
 		6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */; };
 		696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */; };
 		696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */; };
-		696508681AA61F8000ED28B8 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508671AA61F8000ED28B8 /* Item.m */; };
+		6965086B1AA6228D00ED28B8 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6965086A1AA6228D00ED28B8 /* Item.m */; };
 		69659F0A1A7C240F00C52FC5 /* fillrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F071A7C240F00C52FC5 /* fillrange.png */; };
 		69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F081A7C240F00C52FC5 /* fullrange.png */; };
 		69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F091A7C240F00C52FC5 /* rangethumb.png */; };
@@ -125,8 +125,8 @@
 		696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductShowcaseCollectionCell.m; sourceTree = "<group>"; };
 		696508631AA4F26600ED28B8 /* BTRProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailViewController.h; sourceTree = "<group>"; };
 		696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailViewController.m; sourceTree = "<group>"; };
-		696508661AA61F8000ED28B8 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		696508671AA61F8000ED28B8 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		696508691AA6228D00ED28B8 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		6965086A1AA6228D00ED28B8 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		69659F071A7C240F00C52FC5 /* fillrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillrange.png; sourceTree = "<group>"; };
 		69659F081A7C240F00C52FC5 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullrange.png; sourceTree = "<group>"; };
 		69659F091A7C240F00C52FC5 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rangethumb.png; sourceTree = "<group>"; };
@@ -518,8 +518,8 @@
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
 				69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */,
-				696508661AA61F8000ED28B8 /* Item.h */,
-				696508671AA61F8000ED28B8 /* Item.m */,
+				696508691AA6228D00ED28B8 /* Item.h */,
+				6965086A1AA6228D00ED28B8 /* Item.m */,
 				69AB98631A77E68F00EDB1E6 /* Event.h */,
 				69AB98641A77E68F00EDB1E6 /* Event.m */,
 				69869F801A6075EA00F986BC /* UserNotifications.h */,
@@ -818,7 +818,7 @@
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
-				696508681AA61F8000ED28B8 /* Item.m in Sources */,
+				6965086B1AA6228D00ED28B8 /* Item.m in Sources */,
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
 				69869FC71A640F0000F986BC /* UIProgressView+AFNetworking.m in Sources */,
 				696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */,
