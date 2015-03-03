@@ -22,7 +22,6 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
  
-@property (nonatomic) BOOL oddNumberOfResults;
 
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
@@ -34,7 +33,6 @@
 @implementation BTRSearchViewController
 
 @synthesize searchBar;
-@synthesize oddNumberOfResults;
 
 
 - (NSMutableArray *)originalItemArray {
@@ -111,11 +109,6 @@
     
 }
 
-- (void)clearResults {
-    
-    oddNumberOfResults = NO;
-    [self.itemArray removeAllObjects];
-}
 
 - (void)dismissKeyboard {
 
@@ -252,8 +245,43 @@
 #pragma mark - UICollectionView Datasource
 
 
-
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    
+    if ([self.itemArray  count] > 0) {
+        
+        self.filterIconImageView.hidden = NO;
+        self.filterButton.enabled = YES;
+        
+        
+        [UIView animateWithDuration:0.4
+                              delay:0
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:^ {
+                             
+                             [self.searchBar setFrame:CGRectMake(34,1,200,44)];
+                             
+                         }completion:^(BOOL finished) {
+                             
+                         }];
+    } else {
+        
+        self.filterIconImageView.hidden = YES;
+        self.filterButton.enabled = NO;
+        
+        [UIView animateWithDuration:0.4
+                              delay:0
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:^ {
+                             
+                             [self.searchBar setFrame:CGRectMake(40,1,234,44)];
+                             
+                         }completion:^(BOOL finished) {
+                             
+                         }];
+    }
+    
+    
+    
     
     return [self.itemArray count];
 }
@@ -262,10 +290,21 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
-    Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
+    static NSString *CellIdentifier = @"ProductShowcaseCollectionCellIdentifier";
+    BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
+    Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
+
+    if ([productItem sku]) {
+        
+        cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
+        
+    } else {
+        
+        self.itemArray = [self originalItemArray];
+    }
+
+    
     
     return cell;
 }
@@ -278,7 +317,7 @@
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
     [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[productItem retailCAD]]]];
-    [cell.originalPrice setText:[NSString stringWithFormat:@"$%@", [[productItem clearancePriceCAD] stringValue]]];
+    [cell.originalPrice setText:[NSString stringWithFormat:@"$%@", [[productItem priceCAD] stringValue]]];
     
     return cell;
     
@@ -313,7 +352,7 @@
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
-    [self clearResults];
+    [self.itemArray removeAllObjects];
     [self.collectionView reloadData];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -408,20 +447,19 @@
 
 - (IBAction)unwindFromRefineResultsApplied:(UIStoryboardSegue *)unwindSegue {
     
-    [self clearResults];
+    [self.itemArray removeAllObjects];
     [self.collectionView reloadData];
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     NSMutableArray * arrayToPass = [sharedFacetHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
-    //self.oldFacetsDictionary = [sharedFacetHandler getFacetsDictionaryFromResponse:[self responseDictionaryFromFacets]];
     
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
         
         if ([arrayToPass count] != 0) {
             
             
-            [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+            [self.itemArray addObjectsFromArray:[Item loadItemsFromSearchResponseArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
         }
     }
@@ -433,7 +471,7 @@
 
 - (IBAction)unwindFromRefineResultsCleared:(UIStoryboardSegue *)unwindSegue {
 
-    [self clearResults];
+    [self.itemArray removeAllObjects];
     [self.itemArray addObjectsFromArray:[self originalItemArray]];
     
     [self.collectionView reloadData];

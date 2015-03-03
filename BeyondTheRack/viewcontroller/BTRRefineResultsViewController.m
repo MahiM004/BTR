@@ -83,9 +83,6 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    
-    NSLog(@"wad upppp: %@", [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortString withFacetString:facetsString andPageNumber:0]]);
-    
     [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortString withFacetString:facetsString andPageNumber:0]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)

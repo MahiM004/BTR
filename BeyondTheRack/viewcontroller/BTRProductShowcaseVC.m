@@ -175,7 +175,7 @@
     UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
     datasetCell.backgroundColor = [UIColor lightGrayColor]; // highlight selection
     
-    [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
+    //[self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
 }
 
 
@@ -202,11 +202,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
+    /*
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"])
     {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.someString = [NSString stringWithFormat:@"Some Detail Scene %ld", selectedIndex];
     }
+     */
+    
 }
 
 
