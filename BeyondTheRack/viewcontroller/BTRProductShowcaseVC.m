@@ -175,7 +175,7 @@
     UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
     datasetCell.backgroundColor = [UIColor lightGrayColor]; // highlight selection
     
-    //[self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
+    [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
 }
 
 

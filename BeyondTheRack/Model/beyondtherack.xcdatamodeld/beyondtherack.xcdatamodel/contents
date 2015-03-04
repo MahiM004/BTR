@@ -76,6 +76,15 @@
         <attribute name="attribute6" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="attribute7" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Image" representedClassName="Image" syncable="YES">
+        <attribute name="imageId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageSize" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageUrlId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ratio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sku" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Item" representedClassName="Item" syncable="YES">
         <attribute name="attributeList" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="brand" optional="YES" attributeType="String" syncable="YES"/>
@@ -192,12 +201,13 @@
         <element name="Event" positionX="-1010" positionY="-63" width="128" height="538"/>
         <element name="General1" positionX="-477" positionY="-72" width="128" height="165"/>
         <element name="General2" positionX="-81" positionY="-63" width="128" height="165"/>
-        <element name="General3" positionX="-621" positionY="240" width="128" height="165"/>
+        <element name="General3" positionX="-542" positionY="162" width="128" height="165"/>
         <element name="Item" positionX="-839" positionY="-144" width="128" height="673"/>
         <element name="Order" positionX="-135" positionY="135" width="128" height="193"/>
         <element name="PaymentDetail" positionX="88" positionY="132" width="128" height="253"/>
         <element name="ShippingAddress" positionX="-270" positionY="-72" width="128" height="195"/>
         <element name="User" positionX="-353" positionY="144" width="128" height="270"/>
         <element name="UserNotifications" positionX="-684" positionY="-33" width="128" height="163"/>
+        <element name="Image" positionX="-686" positionY="333" width="128" height="148"/>
     </elements>
 </model>

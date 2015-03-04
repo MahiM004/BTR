@@ -15,6 +15,7 @@
 		696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */; };
 		696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */; };
 		6965086B1AA6228D00ED28B8 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6965086A1AA6228D00ED28B8 /* Item.m */; };
+		696508741AA74BDA00ED28B8 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508731AA74BDA00ED28B8 /* Image.m */; };
 		69659F0A1A7C240F00C52FC5 /* fillrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F071A7C240F00C52FC5 /* fillrange.png */; };
 		69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F081A7C240F00C52FC5 /* fullrange.png */; };
 		69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F091A7C240F00C52FC5 /* rangethumb.png */; };
@@ -126,6 +127,8 @@
 		696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailViewController.m; sourceTree = "<group>"; };
 		696508691AA6228D00ED28B8 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		6965086A1AA6228D00ED28B8 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		696508721AA74BDA00ED28B8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		696508731AA74BDA00ED28B8 /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		69659F071A7C240F00C52FC5 /* fillrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillrange.png; sourceTree = "<group>"; };
 		69659F081A7C240F00C52FC5 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullrange.png; sourceTree = "<group>"; };
 		69659F091A7C240F00C52FC5 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rangethumb.png; sourceTree = "<group>"; };
@@ -513,6 +516,8 @@
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
 				69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */,
+				696508721AA74BDA00ED28B8 /* Image.h */,
+				696508731AA74BDA00ED28B8 /* Image.m */,
 				696508691AA6228D00ED28B8 /* Item.h */,
 				6965086A1AA6228D00ED28B8 /* Item.m */,
 				69AB98631A77E68F00EDB1E6 /* Event.h */,
@@ -770,6 +775,7 @@
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
 				69869F6A1A6075E900F986BC /* BagItem.m in Sources */,
 				69869F821A6075EA00F986BC /* UserNotifications.m in Sources */,
+				696508741AA74BDA00ED28B8 /* Image.m in Sources */,
 				69869F9D1A63FB2100F986BC /* AFURLConnectionOperation.m in Sources */,
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
 				695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */,
