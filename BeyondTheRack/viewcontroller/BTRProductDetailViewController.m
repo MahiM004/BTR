@@ -23,8 +23,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.eventTitleLabel.text = [self eventTitleString];
-
+    //    [self.eventTitleLabel setText:[self eventTitleString]];
+    [self.eventTitleLabel setText:@"Product Detail"];
+    
+    
     [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
     

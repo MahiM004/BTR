@@ -150,7 +150,7 @@
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
     [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[productItem retailCAD]]]];
-    [cell.originalPrice setText:[NSString stringWithFormat:@"$%@", [[productItem clearancePriceCAD] stringValue]]];
+    [cell.originalPrice setText:[NSString stringWithFormat:@"$%@", [[productItem priceCAD] stringValue]]];
  
     return cell;
     
