@@ -12,9 +12,8 @@
 
 
 
-
-@property (weak, nonatomic) IBOutlet UILabel *someDummyLabel;
-@property (strong, nonatomic) NSString *someString;
+@property (strong, nonatomic) NSString *originVCString;
+@property (strong, nonatomic) NSString *eventTitleString;
 
 
 @end

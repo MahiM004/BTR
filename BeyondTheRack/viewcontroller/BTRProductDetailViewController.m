@@ -8,7 +8,13 @@
 
 #import "BTRProductDetailViewController.h"
 
+#import "BTRProductShowcaseVC.h"
+
 @interface BTRProductDetailViewController ()
+
+@property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+
 
 @end
 
@@ -17,8 +23,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.someDummyLabel.text = [self someString];
+    self.eventTitleLabel.text = [self eventTitleString];
 
+    [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
+    [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,21 +39,31 @@
 #pragma mark - Navigation
 
 
-- (IBAction)backArrowTapped:(UIButton *)sender {
-
+- (IBAction)bagButtonTapped:(UIButton *)sender {
     
-    NSLog(@"back arrow!");
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    UIStoryboard *storyboard = self.storyboard;
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+    [self presentViewController:vc animated:YES completion:nil];
 
+}
+
+- (IBAction)searchButtonTapped:(UIButton *)sender {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    BTRProductShowcaseVC *viewController = (BTRProductShowcaseVC *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
+    
+    [self presentViewController:viewController animated:NO completion:nil];
 }
 
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
+/*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
 
-
+*/
 
 @end

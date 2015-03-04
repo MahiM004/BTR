@@ -171,10 +171,6 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
     selectedIndex = indexPath.row;
-    
-    UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
-    datasetCell.backgroundColor = [UIColor lightGrayColor]; // highlight selection
-    
     [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
 }
 
@@ -202,14 +198,21 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
-    /*
+    
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"])
     {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
-        productDetailVC.someString = [NSString stringWithFormat:@"Some Detail Scene %ld", selectedIndex];
+        productDetailVC.eventTitleString = [self eventTitleString];
     }
-     */
     
+    
+}
+
+
+
+- (IBAction)unwindFromProductDetailToShowcase:(UIStoryboardSegue *)unwindSegue
+{
+    NSLog(@"unwindFromProductDetailToShowcase");
 }
 
 

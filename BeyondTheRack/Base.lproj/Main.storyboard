@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="EE8116A1-D244-4BEB-9BA0-17723B7CFA71" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="7FD2EACF-A0F6-49F8-B486-35FA50AFC1E8" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -960,7 +960,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="88W-rN-Y9Y" kind="unwind" unwindAction="unwindToEventViewController:" id="lLa-z4-ETi"/>
+                                            <segue destination="88W-rN-Y9Y" kind="unwind" unwindAction="unwindToEventViewController:" id="Cp3-Xr-p35"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="searchglass.png" translatesAutoresizingMaskIntoConstraints="NO" id="VbL-o2-b7i" userLabel="searchicon.png">
@@ -988,6 +988,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MFR-sm-j0D">
                                 <rect key="frame" x="0.0" y="72" width="320" height="502"/>
                                 <color key="backgroundColor" red="0.87191033363342285" green="0.87188422679901123" blue="0.8718990683555603" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="NVc-AX-LCv">
                                     <size key="itemSize" width="159" height="330"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -995,7 +996,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="1" maxX="1" maxY="7"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" restorationIdentifier="BTRProductShowcaseCollectionCell" reuseIdentifier="ProductShowcaseCollectionCellIdentifier" id="CBc-zJ-Yde" customClass="BTRProductShowcaseCollectionCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" restorationIdentifier="BTRProductShowcaseCollectionCell" reuseIdentifier="ProductShowcaseCollectionCellIdentifier" id="CBc-zJ-Yde" customClass="BTRProductShowcaseCollectionCell">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1042,6 +1043,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="brandLabel" destination="xAe-91-hi2" id="wow-Hg-MPy"/>
                                             <outlet property="btrPriceLabel" destination="3d3-jC-cQH" id="EWo-hl-H8l"/>
@@ -1093,6 +1095,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="bagButtonTapped:" destination="HKO-dJ-Mil" eventType="touchUpInside" id="ehs-cL-4iQ"/>
                                             <action selector="bagButtonTapped:" destination="YuT-Qh-87n" eventType="touchUpInside" id="tcJ-IT-jfr"/>
                                             <action selector="tappedShoppingBag:" destination="9ya-lh-BP7" eventType="touchUpInside" id="3NL-AC-Yov"/>
                                         </connections>
@@ -1106,7 +1109,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="backArrowTapped:" destination="HKO-dJ-Mil" eventType="touchUpInside" id="8BR-uO-PX3"/>
+                                            <segue destination="DVa-au-CuN" kind="unwind" unwindAction="unwindFromProductDetailToShowcase:" id="Bor-1v-KK1"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="searchglass.png" translatesAutoresizingMaskIntoConstraints="NO" id="vFP-Ql-vip" userLabel="searchicon.png">
@@ -1118,6 +1121,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="searchButtonTapped:" destination="HKO-dJ-Mil" eventType="touchUpInside" id="cB5-oY-Sko"/>
                                             <action selector="searchIconTapped:" destination="YuT-Qh-87n" eventType="touchUpInside" id="rnv-HJ-5am"/>
                                         </connections>
                                     </button>
@@ -1135,8 +1139,14 @@
                         <color key="backgroundColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="WJa-g9-E6T"/>
+                    <connections>
+                        <outlet property="eventTitleLabel" destination="zAp-aR-pfL" id="WOU-JS-27W"/>
+                        <outlet property="headerView" destination="Iic-uO-423" id="nlh-K5-gqk"/>
+                        <segue destination="DVa-au-CuN" kind="unwind" identifier="unwindFromProductDetailToShowcase" unwindAction="unwindFromProductDetailToShowcase:" id="TSl-kJ-IfL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XwV-pQ-6xb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="DVa-au-CuN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2527" y="-899"/>
         </scene>
@@ -1452,7 +1462,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="EE8116A1-D244-4BEB-9BA0-17723B7CFA71" width="30" height="30">
+        <image name="7FD2EACF-A0F6-49F8-B486-35FA50AFC1E8" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -1523,6 +1533,6 @@ RgAAAAAAAAAAAAAAAAAAC5U
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="qSw-hQ-Au5"/>
-        <segue reference="xRi-nd-alG"/>
+        <segue reference="bIC-SN-W1I"/>
     </inferredMetricsTieBreakers>
 </document>
