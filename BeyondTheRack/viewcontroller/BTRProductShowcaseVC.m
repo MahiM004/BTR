@@ -212,7 +212,7 @@
 
 - (IBAction)unwindFromProductDetailToShowcase:(UIStoryboardSegue *)unwindSegue
 {
-    NSLog(@"unwindFromProductDetailToShowcase");
+
 }
 
 

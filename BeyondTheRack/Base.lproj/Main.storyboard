@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="7FD2EACF-A0F6-49F8-B486-35FA50AFC1E8" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="53100CE0-EE99-48C0-99A6-3F2457F15174" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1109,7 +1109,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="DVa-au-CuN" kind="unwind" unwindAction="unwindFromProductDetailToShowcase:" id="Bor-1v-KK1"/>
+                                            <action selector="backButtonTapped:" destination="HKO-dJ-Mil" eventType="touchUpInside" id="n1D-W8-woK"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="searchglass.png" translatesAutoresizingMaskIntoConstraints="NO" id="vFP-Ql-vip" userLabel="searchicon.png">
@@ -1135,6 +1135,12 @@
                                 <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Db5-Le-UOA">
+                                <rect key="frame" x="0.0" y="72" width="320" height="496"/>
+                                <connections>
+                                    <segue destination="8g3-3j-HDM" kind="embed" id="6fG-Y3-FFY"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -1460,9 +1466,28 @@
             </objects>
             <point key="canvasLocation" x="957" y="-516"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="T3E-hb-yLN">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="8g3-3j-HDM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Pr-Vg-Mhr"/>
+                        <viewControllerLayoutGuide type="bottom" id="KuK-ph-jUI"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="wyo-ct-j8B">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="496"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HT0-NI-7V2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2984" y="-870"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="7FD2EACF-A0F6-49F8-B486-35FA50AFC1E8" width="30" height="30">
+        <image name="53100CE0-EE99-48C0-99A6-3F2457F15174" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

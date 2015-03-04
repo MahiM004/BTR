@@ -38,6 +38,10 @@
 
 #pragma mark - Navigation
 
+- (IBAction)backButtonTapped:(UIButton *)sender {
+    
+    [self performSegueWithIdentifier:@"unwindFromProductDetailToShowcase" sender:self];
+}
 
 - (IBAction)bagButtonTapped:(UIButton *)sender {
     
