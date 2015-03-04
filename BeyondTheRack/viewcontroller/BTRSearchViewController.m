@@ -9,13 +9,17 @@
 #import "BTRSearchViewController.h"
 #import "BTRProductShowcaseCollectionCell.h"
 #import "BTRRefineResultsViewController.h"
+#import "BTRProductDetailViewController.h"
+
 
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
 #import "BTRFacetsHandler.h"
 
 
-@interface BTRSearchViewController () <BTRRefineResultsViewController>
+@interface BTRSearchViewController () <BTRRefineResultsViewController> {
+    long selectedIndex;
+}
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -31,8 +35,6 @@
 
 
 @implementation BTRSearchViewController
-
-@synthesize searchBar;
 
 
 - (NSMutableArray *)originalItemArray {
@@ -54,18 +56,19 @@
     [self setupDocument];
     
     
+    selectedIndex = -1;
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(dismissKeyboard)];
+    //UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+      //                             initWithTarget:self
+        //                           action:@selector(dismissKeyboard)];
     
     
-    [self.view addGestureRecognizer:tap];
+    //[self.view addGestureRecognizer:tap];
     
-    searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
 
     /*
@@ -112,7 +115,8 @@
 
 - (void)dismissKeyboard {
 
-    [searchBar resignFirstResponder];
+    [self.searchBar resignFirstResponder];
+    [self.collectionView becomeFirstResponder];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -147,6 +151,8 @@
     [self viewDidAppear:YES];
     
     [self.searchBar resignFirstResponder];
+    [self.collectionView becomeFirstResponder];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -214,7 +220,7 @@
     
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
-    
+    [self.collectionView becomeFirstResponder];
     [self.collectionView reloadData];
 }
 
@@ -304,8 +310,6 @@
         self.itemArray = [self originalItemArray];
     }
 
-    
-    
     return cell;
 }
 
@@ -370,7 +374,7 @@
                                                                             error:NULL];
  
          BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
-         [sharedFacetsHandler setSearchString:[searchBar text]];
+         [sharedFacetsHandler setSearchString:[self.searchBar text]];
          [sharedFacetsHandler setFacetsFromResponseDictionary:entitiesPropertyList];
          
          
@@ -404,6 +408,14 @@
 
 #pragma mark - Navigation
 
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
+    
+    selectedIndex = indexPath.row;
+    [self performSegueWithIdentifier:@"ProductDetailSegueFromSearchIdentifier" sender:self];
+}
+
+
 - (IBAction)tappedShoppingBag:(UIButton *)sender {
     
     UIStoryboard *storyboard = self.storyboard;
@@ -419,13 +431,11 @@
 }
 
 
-
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
-    if ([[segue identifier] isEqualToString:@"BTRSearchFilterSegue"])
-    {
+    if ([[segue identifier] isEqualToString:@"BTRSearchFilterSegue"]) {
+    
         CGSize screenSize = [UIScreen mainScreen].bounds.size;
         UIGraphicsBeginImageContextWithOptions(screenSize, NO, [UIScreen mainScreen].scale);
         CGRect rec = CGRectMake(0, 0, screenSize.width, screenSize.height);
@@ -439,6 +449,16 @@
         refineVC.backgroundImage = screenShotImage;
         refineVC.delegate = self;
     
+    
+    }
+ 
+    
+    if ([[segue identifier] isEqualToString:@"ProductDetailSegueFromSearchIdentifier"]) {
+        
+        BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
+        productDetailVC.eventTitleString = @"Product Detail";
+        productDetailVC.originVCString = SEARCH_SCENE;
+        
     }
     
     
@@ -475,6 +495,11 @@
     [self.itemArray addObjectsFromArray:[self originalItemArray]];
     
     [self.collectionView reloadData];
+}
+
+- (IBAction)unwindFromProductDetailToSearchScene:(UIStoryboardSegue *)unwindSegue
+{
+    
 }
 
 

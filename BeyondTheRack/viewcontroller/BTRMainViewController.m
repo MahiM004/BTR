@@ -17,6 +17,9 @@
 #import "BTREventsCDTVC.h"
 #import "BTRFacetsHandler.h"
 
+
+#import "BTRSearchViewController.h"
+
 #import <math.h>
 
 #define YOUR_CATAGORY 4
@@ -64,15 +67,19 @@
 
 
 
--(void)tableCellDidSelect:(UITableViewCell *)cell{
-    NSLog(@"Tap %@",cell.textLabel.text);
-    //DetailViewController *detailVC = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    //detailVC.label.text = cell.textLabel.text;
-    //[self.navigationController pushViewController:detailVC animated:YES];
-}
-
 
 #pragma mark - Navigation
+
+
+- (IBAction)searchButtonTapped:(UIButton *)sender {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    BTRSearchViewController *viewController = (BTRSearchViewController *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
+    
+    [self presentViewController:viewController animated:NO completion:nil];
+    
+}
 
 
 - (IBAction)tappedShoppingBag:(id)sender {

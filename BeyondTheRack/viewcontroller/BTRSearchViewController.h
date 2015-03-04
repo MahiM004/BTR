@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRSearchViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface BTRSearchViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *itemArray;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;

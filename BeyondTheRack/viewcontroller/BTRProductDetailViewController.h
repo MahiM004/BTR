@@ -6,7 +6,11 @@
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
+
+#define EVENT_SCENE @"EventScene"
+#define SEARCH_SCENE @"SearchScene"
 
 @interface BTRProductDetailViewController : UIViewController
 

@@ -10,6 +10,9 @@
 #import "BTRProductShowcaseCollectionCell.h"
 #import "BTRProductDetailViewController.h"
 
+
+#import "BTRSearchViewController.h"
+
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
 
@@ -185,11 +188,14 @@
 
 - (IBAction)searchIconTapped:(UIButton *)sender {
     
+    
+    /*
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    BTRProductShowcaseVC *viewController = (BTRProductShowcaseVC *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
+   
+    BTRSearchViewController *viewController = (BTRSearchViewController *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
     
     [self presentViewController:viewController animated:NO completion:nil];
-    
+    */
 }
 
 
@@ -203,6 +209,7 @@
     {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.eventTitleString = [self eventTitleString];
+        productDetailVC.originVCString = EVENT_SCENE;
     }
     
     

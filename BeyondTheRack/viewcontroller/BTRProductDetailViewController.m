@@ -40,7 +40,12 @@
 
 - (IBAction)backButtonTapped:(UIButton *)sender {
     
-    [self performSegueWithIdentifier:@"unwindFromProductDetailToShowcase" sender:self];
+    
+    if ([[self originVCString] isEqualToString:SEARCH_SCENE])
+        [self performSegueWithIdentifier:@"unwindFromProductDetailToSearchScene" sender:self];
+    
+    if ([[self originVCString] isEqualToString:EVENT_SCENE])
+        [self performSegueWithIdentifier:@"unwindFromProductDetailToShowcase" sender:self];
 }
 
 - (IBAction)bagButtonTapped:(UIButton *)sender {
@@ -53,11 +58,12 @@
 }
 
 - (IBAction)searchButtonTapped:(UIButton *)sender {
-    
+    /*
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    BTRProductShowcaseVC *viewController = (BTRProductShowcaseVC *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
     
-    [self presentViewController:viewController animated:NO completion:nil];
+    BTRSearchViewController *viewController = (BTRSearchViewController *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
+    
+    [self presentViewController:viewController animated:NO completion:nil];*/
 }
 
 
