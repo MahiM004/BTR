@@ -15,6 +15,10 @@
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *tempProductImageView;
+@property (weak, nonatomic) IBOutlet UILabel *brandLabel;
+@property (weak, nonatomic) IBOutlet UILabel *shortDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *salePriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *crossedOffPriceLabel;
 
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
@@ -41,16 +45,23 @@
 
 - (void)updateViewWithItem:(Item *)productItem {
     
-    [self.tempProductImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku] ] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    if (productItem)
+    {
+        [self.tempProductImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku] ] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+        
+        [self.brandLabel setText:[productItem brand]];
+        [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
+        [self.salePriceLabel setText:[[productItem priceCAD] stringValue]];
+        [self.crossedOffPriceLabel setText:[NSString stringWithFormat:@"$%@",[productItem retailCAD]]];
     
-    /*
-    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    } else {
     
-    [cell.productTitleLabel setText:[productItem shortItemDescription]];
-    [cell.brandLabel setText:[productItem brand]];
-    [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[productItem retailCAD]]]];
-    [cell.originalPrice setText:[NSString stringWithFormat:@"$%@", [[productItem priceCAD] stringValue]]];
-     */
+        [self.brandLabel setText:@""];
+        [self.shortDescriptionLabel setText:@""];
+        [self.salePriceLabel setText:@""];
+        [self.crossedOffPriceLabel setText:@""];
+        
+    }
     
 }
 
