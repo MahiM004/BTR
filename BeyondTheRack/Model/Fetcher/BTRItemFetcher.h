@@ -14,10 +14,11 @@
 
 + (NSURL *)URLforItemWithSku:(NSString *)sku;
 + (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku;
-+ (NSURL *)URLforRecentItemsForEventId:(NSString *)eventId;
+
++ (NSURL *)URLforItemImageForSku:(NSString *)sku;
+
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber;
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString withFacetString:(NSString *)facetsString andPageNumber:(NSUInteger)pageNumber;
-+ (NSURL *)URLforItemImageForSku:(NSString *)sku;
 + (NSString *)contentTypeForSearchQuery;
 
 @end

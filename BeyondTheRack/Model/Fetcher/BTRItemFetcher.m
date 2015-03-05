@@ -16,16 +16,12 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/product/%@", BASEURL, sku]];
 }
 
+
 + (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku {
     
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@", BASEURL, eventSku]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@&limit=100", BASEURL, eventSku]];
 }
 
-
-+ (NSURL *)URLforRecentItemsForEventId:(NSString *)eventId
-{
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@", BASEURL, eventId]];
-}
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber
 {

@@ -16,15 +16,14 @@
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
 
-@interface BTRProductShowcaseVC () {
-    long selectedIndex;
-}
+@interface BTRProductShowcaseVC ()
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 
-
+@property (strong, nonatomic) NSString *selectedProductSkuString;
+@property (strong, nonatomic) NSString *selectedBrandString;
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -57,7 +56,6 @@
     self.collectionView.dataSource = self;
     
     
-    selectedIndex = -1;
     [self setupDocument];
     
     [self fetchItemsIntoDocument:[self beyondTheRackDocument]
@@ -173,7 +171,9 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
-    selectedIndex = indexPath.row;
+    Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
+    [self setSelectedProductSkuString:[productItem sku]];
+    [self setSelectedBrandString:[productItem brand]];
     [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
 }
 
@@ -208,7 +208,8 @@
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"])
     {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
-        productDetailVC.eventTitleString = [self eventTitleString];
+        productDetailVC.brandTitleString = [self selectedBrandString];
+        productDetailVC.productSkuString = [self selectedProductSkuString];
         productDetailVC.originVCString = EVENT_SCENE;
     }
     

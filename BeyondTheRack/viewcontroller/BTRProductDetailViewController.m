@@ -21,11 +21,14 @@
 @implementation BTRProductDetailViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 
-    //    [self.eventTitleLabel setText:[self eventTitleString]];
-    [self.eventTitleLabel setText:@"Product Detail"];
-    
+    if ([[self brandTitleString] length] > 1)
+        [self.eventTitleLabel setText:[self brandTitleString]];
+    else
+        [self.eventTitleLabel setText:@"Product Detail"];
+
     
     [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];

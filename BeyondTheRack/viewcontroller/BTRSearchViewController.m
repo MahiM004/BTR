@@ -17,15 +17,14 @@
 #import "BTRFacetsHandler.h"
 
 
-@interface BTRSearchViewController () <BTRRefineResultsViewController> {
-    long selectedIndex;
-}
+@interface BTRSearchViewController () <BTRRefineResultsViewController>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
- 
+
+@property (strong, nonatomic) NSString *selectedProductSkuString;
 
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
@@ -55,8 +54,6 @@
     [super viewDidLoad];
     [self setupDocument];
     
-    
-    selectedIndex = -1;
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -411,7 +408,9 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
-    selectedIndex = indexPath.row;
+    Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
+    [self setSelectedProductSkuString:[productItem sku]];
+    
     [self performSegueWithIdentifier:@"ProductDetailSegueFromSearchIdentifier" sender:self];
 }
 
@@ -456,7 +455,7 @@
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueFromSearchIdentifier"]) {
         
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
-        productDetailVC.eventTitleString = @"Product Detail";
+        productDetailVC.brandTitleString = @"Product Detail";
         productDetailVC.originVCString = SEARCH_SCENE;
         
     }
