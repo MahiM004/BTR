@@ -11,8 +11,10 @@
 @implementation BTRItemFetcher
 
 
-+ (NSURL *)URLforItemWithSku:(NSString *)sku
++ (NSURL *)URLforItemWithProductSku:(NSString *)sku
 {
+    NSLog(@"through product-sku: %@", [NSString stringWithFormat:@"%@/product/%@", BASEURL, sku]);
+    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/product/%@", BASEURL, sku]];
 }
 

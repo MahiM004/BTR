@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRProductDetailEmbededTVC : UITableViewController
+@interface BTRProductDetailEmbeddedTVC : UITableViewController
+
+@property (strong, nonatomic) NSString *productSkuString;
 
 @end

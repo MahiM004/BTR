@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 692CE4961A9684A5007E9C26 /* BTRFacetData.m */; };
-		692F24D01AA8E077003AABE1 /* BTRProductDetailEmbededTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbededTVC.m */; };
+		692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */; };
 		69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */; };
 		69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */; };
 		695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */; };
@@ -114,8 +114,8 @@
 /* Begin PBXFileReference section */
 		692CE4951A9684A5007E9C26 /* BTRFacetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFacetData.h; sourceTree = "<group>"; };
 		692CE4961A9684A5007E9C26 /* BTRFacetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFacetData.m; sourceTree = "<group>"; };
-		692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbededTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailEmbededTVC.h; sourceTree = "<group>"; };
-		692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbededTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailEmbededTVC.m; sourceTree = "<group>"; };
+		692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailEmbeddedTVC.h; sourceTree = "<group>"; };
+		692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailEmbeddedTVC.m; sourceTree = "<group>"; };
 		69385FBC1A7AD2B70074FE33 /* BTRRefineResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRRefineResultsViewController.h; sourceTree = "<group>"; };
 		69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRRefineResultsViewController.m; sourceTree = "<group>"; };
 		69385FC31A7BF40A0074FE33 /* BTRSearchFilterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchFilterTVC.h; sourceTree = "<group>"; };
@@ -312,8 +312,8 @@
 				6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */,
 				696508631AA4F26600ED28B8 /* BTRProductDetailViewController.h */,
 				696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */,
-				692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbededTVC.h */,
-				692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbededTVC.m */,
+				692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */,
+				692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */,
 			);
 			name = Product;
 			sourceTree = "<group>";
@@ -847,7 +847,7 @@
 				69869F9A1A63FB2100F986BC /* AFHTTPSessionManager.m in Sources */,
 				69869F731A6075EA00F986BC /* ShippingAddress.m in Sources */,
 				69869F791A6075EA00F986BC /* General3.m in Sources */,
-				692F24D01AA8E077003AABE1 /* BTRProductDetailEmbededTVC.m in Sources */,
+				692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */,
 				69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */,
 				692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */,
 				69869F641A6075E900F986BC /* PaymentDetail.m in Sources */,

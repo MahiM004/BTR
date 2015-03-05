@@ -12,7 +12,7 @@
 
 @interface BTRItemFetcher : BTRFetcher
 
-+ (NSURL *)URLforItemWithSku:(NSString *)sku;
++ (NSURL *)URLforItemWithProductSku:(NSString *)sku;
 + (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku;
 
 + (NSURL *)URLforItemImageForSku:(NSString *)sku;
