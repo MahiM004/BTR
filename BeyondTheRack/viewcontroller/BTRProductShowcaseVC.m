@@ -24,6 +24,8 @@
 
 @property (strong, nonatomic) NSString *selectedProductSkuString;
 @property (strong, nonatomic) NSString *selectedBrandString;
+@property (strong, nonatomic) Item *selectedItem;
+
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -172,6 +174,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
     Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
+    [self setSelectedItem:productItem];
     [self setSelectedProductSkuString:[productItem sku]];
     [self setSelectedBrandString:[productItem brand]];
     [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
@@ -211,6 +214,7 @@
         productDetailVC.brandTitleString = [self selectedBrandString];
         productDetailVC.productSkuString = [self selectedProductSkuString];
         productDetailVC.originVCString = EVENT_SCENE;
+        productDetailVC.productItem = [self selectedItem];
     }
     
     

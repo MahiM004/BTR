@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Item+AppServer.h"
+
+
 @interface BTRProductDetailEmbeddedTVC : UITableViewController
 
 @property (strong, nonatomic) NSString *productSkuString;
+@property (strong, nonatomic) Item *productItem;
+
 
 @end

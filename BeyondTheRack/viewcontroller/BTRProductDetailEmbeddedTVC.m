@@ -8,7 +8,6 @@
 
 #import "BTRProductDetailEmbeddedTVC.h"
 #import "BTRItemFetcher.h"
-#import "Item+AppServer.h"
 
 
 @interface BTRProductDetailEmbeddedTVC ()
@@ -28,22 +27,39 @@
 
 @implementation BTRProductDetailEmbeddedTVC
 
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:YES];
+    
+    
+}
+
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self updateViewWithItem:[self productItem]];
+    
     [self setupDocument];
     
-    [self fetchItemIntoDocument:[self beyondTheRackDocument] forProductSku:[self productSkuString]
-                        success:^(Item *responseObject) {
-                            
-                            [self updateViewWithItem:responseObject];
-                            
-                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                            
-                        }];
+    if ([[self productItem] sku] && [[[self productItem] sku] isEqual:[NSNull null]])
+        [self fetchItemIntoDocument:[self beyondTheRackDocument] forProductSku:[[self productItem] sku]
+                            success:^(Item *responseObject) {
+                                
+                                [self updateViewWithItem:responseObject];
+                                
+                            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                
+                            }];
 }
 
 - (void)updateViewWithItem:(Item *)productItem {
+    
+    
+    NSLog(@"view did lood:  %@", [productItem sku] );
+
     
     if (productItem)
     {
@@ -51,8 +67,8 @@
         
         [self.brandLabel setText:[productItem brand]];
         [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
-        [self.salePriceLabel setText:[[productItem priceCAD] stringValue]];
-        [self.crossedOffPriceLabel setText:[NSString stringWithFormat:@"$%@",[productItem retailCAD]]];
+        [self.salePriceLabel setText:[NSString stringWithFormat:@"$%@", [[productItem priceCAD] stringValue]]];
+        [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[productItem retailCAD]]]];
     
     } else {
     

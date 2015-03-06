@@ -35,6 +35,7 @@
     [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
     
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,8 +80,10 @@
 
     if ([[segue identifier] isEqualToString:@"ProductDetailEmbeddedSegueIdentifier"])
     {
-        BTRProductDetailEmbeddedTVC *prodembeddedVC = [segue destinationViewController];
-        prodembeddedVC.productSkuString = [self productSkuString];
+        BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
+        embeddedVC.productSkuString = [self productSkuString];
+        embeddedVC.productItem = [self productItem];
+        
     }
 }
 

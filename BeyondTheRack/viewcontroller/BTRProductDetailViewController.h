@@ -9,6 +9,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Item+AppServer.h"
+
 #define EVENT_SCENE @"EventScene"
 #define SEARCH_SCENE @"SearchScene"
 
@@ -20,6 +22,7 @@
 @property (strong, nonatomic) NSString *brandTitleString;
 @property (strong, nonatomic) NSString *productSkuString;
 
+@property (strong, nonatomic) Item *productItem;
 
 
 @end
