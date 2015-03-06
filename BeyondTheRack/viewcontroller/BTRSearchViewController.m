@@ -455,7 +455,6 @@
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueFromSearchIdentifier"]) {
         
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
-        productDetailVC.brandTitleString = @"Product Detail";
         productDetailVC.originVCString = SEARCH_SCENE;
         
     }

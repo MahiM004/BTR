@@ -19,9 +19,6 @@
 
 
 @property (strong, nonatomic) NSString *originVCString;
-@property (strong, nonatomic) NSString *brandTitleString;
-@property (strong, nonatomic) NSString *productSkuString;
-
 @property (strong, nonatomic) Item *productItem;
 
 

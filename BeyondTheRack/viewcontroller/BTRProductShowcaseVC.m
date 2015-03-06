@@ -211,8 +211,6 @@
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"])
     {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
-        productDetailVC.brandTitleString = [self selectedBrandString];
-        productDetailVC.productSkuString = [self selectedProductSkuString];
         productDetailVC.originVCString = EVENT_SCENE;
         productDetailVC.productItem = [self selectedItem];
     }

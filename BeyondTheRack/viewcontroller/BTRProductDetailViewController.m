@@ -26,8 +26,8 @@
     
     [super viewDidLoad];
 
-    if ([[self brandTitleString] length] > 1)
-        [self.eventTitleLabel setText:[self brandTitleString]];
+    if ([[[self productItem] brand] length] > 1)
+        [self.eventTitleLabel setText:[[self productItem] brand]];
     else
         [self.eventTitleLabel setText:@"Product Detail"];
 
@@ -81,7 +81,6 @@
     if ([[segue identifier] isEqualToString:@"ProductDetailEmbeddedSegueIdentifier"])
     {
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
-        embeddedVC.productSkuString = [self productSkuString];
         embeddedVC.productItem = [self productItem];
         
     }
