@@ -61,28 +61,44 @@
 
 
 
-+ (NSAttributedString *)crossedOffTextFrom:(NSString *)someText {
++ (NSAttributedString *)crossedOffPriceFromNumber:(NSNumber *)priceNumber {
+    
+    
+    NSString *dollaredString = [self priceStringFromNumber:priceNumber];
     
     UIFont *priceFont = [UIFont fontWithName:@"STHeitiSC-Light" size:15.0];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     //paragraphStyle.alignment = NSTextAlignmentLeft;
     
-    NSAttributedString *corssedOffText = [[NSAttributedString alloc] initWithString:someText 
+    NSAttributedString *corssedOffText = [[NSAttributedString alloc] initWithString:dollaredString
                                                                           attributes:@{
                                                                                        NSStrikethroughStyleAttributeName:
                                                                                            [NSNumber numberWithInteger:NSUnderlineStyleSingle],
                                                                                        NSParagraphStyleAttributeName: paragraphStyle,
                                                                                        NSFontAttributeName:priceFont
                                                                                        }];
-    
-    
     return corssedOffText;
+}
+
+
++ (NSString *)priceStringFromNumber:(NSNumber *)priceNumber {
+    
+    
+    NSString *dollaredString = [NSString stringWithFormat:@"$%@", priceNumber];
+
+    return dollaredString;
 }
 
 
 
 
 @end
+
+
+
+
+
+
 
 
 

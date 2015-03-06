@@ -65,8 +65,8 @@
         
         [self.brandLabel setText:[productItem brand]];
         [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
-        [self.salePriceLabel setText:[NSString stringWithFormat:@"$%@", [[productItem priceCAD] stringValue]]];
-        [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[productItem retailCAD]]]];
+        [self.salePriceLabel setText:[BTRViewUtility priceStringFromNumber:[productItem priceCAD]]];
+        [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPriceFromNumber:[productItem retailCAD]]];
         if([productItem longItemDescription]) {
             
             [self.longDescriptionLabel setText:[productItem longItemDescription]];
