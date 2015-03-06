@@ -12,21 +12,31 @@
 
 @interface BTRProductDetailEmbeddedTVC ()
 
-
 @property (weak, nonatomic) IBOutlet UIImageView *tempProductImageView;
 @property (weak, nonatomic) IBOutlet UILabel *brandLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shortDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *salePriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *crossedOffPriceLabel;
-
 @property (weak, nonatomic) IBOutlet UILabel *longDescriptionLabel;
+
+@property (weak, nonatomic) IBOutlet UITableViewCell *descriptionTableCell;
+
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property (strong, nonatomic) NSMutableArray *longDescriptionArray;
+
 @end
 
 @implementation BTRProductDetailEmbeddedTVC
+
+
+- (NSMutableArray *)longDescriptionArray {
+    
+    if (_longDescriptionArray) _longDescriptionArray = [[NSMutableArray alloc] init];
+    return _longDescriptionArray;
+}
 
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -95,7 +105,47 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (int)descriptionCellHeight {
+    
+    
+    
+    return 250;
+}
+
 #pragma mark - Table view data source
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    switch (indexPath.row) {
+        
+        case 0:
+            return 312;
+            break;
+            
+        case 1:
+            return 162;
+            break;
+            
+        case 2:
+            return [self descriptionCellHeight];
+            break;
+            
+        case 3:
+            return 206;
+            break;
+            
+        default:
+            break;
+    }
+    
+    return 1;
+}
+
+
+
 /*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
@@ -107,15 +157,16 @@
     return 3;
 }
 */
+
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCellIdentifier" forIndexPath:indexPath];
     
     // Configure the cell...
     
     return cell;
-}
-*/
+}*/
 
 /*
 // Override to support conditional editing of the table view.

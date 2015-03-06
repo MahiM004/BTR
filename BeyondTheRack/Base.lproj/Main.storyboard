@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="FDCEEC7A-9634-4356-8A73-70884046660D" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="7D47706A-AC05-4AB6-A1B5-1800730E4676" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1240,7 +1240,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="279" id="tJM-SP-LzV">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="280" id="tJM-SP-LzV">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tJM-SP-LzV" id="Ch0-Fc-9rX">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1305,6 +1305,7 @@
                     <connections>
                         <outlet property="brandLabel" destination="reX-dn-3KA" id="XOz-A1-daY"/>
                         <outlet property="crossedOffPriceLabel" destination="MFO-e2-dXG" id="8CO-pG-6mL"/>
+                        <outlet property="descriptionTableCell" destination="tJM-SP-LzV" id="jTD-kV-Xof"/>
                         <outlet property="longDescriptionLabel" destination="DTW-R8-alH" id="3wb-bN-5GS"/>
                         <outlet property="salePriceLabel" destination="wvW-dj-efM" id="I6q-RS-ofY"/>
                         <outlet property="shortDescriptionLabel" destination="y2i-sU-W9B" id="NWw-2f-Ti3"/>
@@ -1313,7 +1314,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q8n-17-yoU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3029" y="-788.5"/>
+            <point key="canvasLocation" x="3105" y="-782.5"/>
         </scene>
         <!--Shopping Bag View Controller-->
         <scene sceneID="fVo-F9-AIa">
@@ -1627,7 +1628,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FDCEEC7A-9634-4356-8A73-70884046660D" width="30" height="30">
+        <image name="7D47706A-AC05-4AB6-A1B5-1800730E4676" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
