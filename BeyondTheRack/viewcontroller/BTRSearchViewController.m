@@ -24,7 +24,7 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (strong, nonatomic) NSString *selectedProductSkuString;
+@property (strong, nonatomic) Item *selectedItem;
 
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
@@ -409,8 +409,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
     Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
-    [self setSelectedProductSkuString:[productItem sku]];
-    
+    [self setSelectedItem:productItem];
     [self performSegueWithIdentifier:@"ProductDetailSegueFromSearchIdentifier" sender:self];
 }
 
@@ -456,6 +455,7 @@
         
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = SEARCH_SCENE;
+        productDetailVC.productItem = [self selectedItem];
         
     }
     

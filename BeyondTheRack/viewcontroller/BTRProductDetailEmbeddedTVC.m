@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *salePriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *crossedOffPriceLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *longDescriptionLabel;
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -58,9 +59,6 @@
 - (void)updateViewWithItem:(Item *)productItem {
     
     
-    NSLog(@"view did lood:  %@", [productItem sku] );
-
-    
     if (productItem)
     {
         [self.tempProductImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku] ] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
@@ -69,6 +67,15 @@
         [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
         [self.salePriceLabel setText:[NSString stringWithFormat:@"$%@", [[productItem priceCAD] stringValue]]];
         [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffTextFrom:[NSString stringWithFormat:@"$%@",[productItem retailCAD]]]];
+        if([productItem longItemDescription]) {
+            
+            [self.longDescriptionLabel setText:[productItem longItemDescription]];
+        
+        } else {
+
+            [self.longDescriptionLabel setText:@""];
+            
+        }
     
     } else {
     
@@ -76,6 +83,7 @@
         [self.shortDescriptionLabel setText:@""];
         [self.salePriceLabel setText:@""];
         [self.crossedOffPriceLabel setText:@""];
+        [self.longDescriptionLabel setText:@""];
         
     }
     
@@ -88,7 +96,7 @@
 }
 
 #pragma mark - Table view data source
-
+/*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 1;
@@ -98,7 +106,7 @@
     // Return the number of rows in the section.
     return 3;
 }
-
+*/
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
