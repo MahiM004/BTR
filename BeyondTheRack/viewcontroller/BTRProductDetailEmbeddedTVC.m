@@ -94,13 +94,14 @@
     [self.longDescriptionView addSubview:descriptionView];
 }
 
+
+
 - (UIView *)getDescriptionViewForView:(UIView *)descriptionView withDescriptionString:(NSString *)longDescriptionString {
   
     
     int customHeight = 80;
     int xPos = 0;
     
-    NSLog(@"long desc:  %@", longDescriptionString);
     NSString *descriptionString = longDescriptionString;
     
     NSMutableArray *descriptionArray = [[NSMutableArray alloc] init];
@@ -112,7 +113,6 @@
     
     [descriptionArray addObjectsFromArray:[descriptionString componentsSeparatedByString:@"."]];
     [descriptionArray removeLastObject];
-    
     
     for (int i = 0; i < [descriptionArray count]; i++) {
         
@@ -134,7 +134,6 @@
         [myLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
         [myLabel sizeToFit];
         [myLabel setTextAlignment:NSTextAlignmentLeft];
-        
         
         [descriptionView addSubview:myLabel];
     }
