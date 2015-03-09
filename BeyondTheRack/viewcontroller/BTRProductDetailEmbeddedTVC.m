@@ -78,14 +78,6 @@
         [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
         [self.salePriceLabel setText:[BTRViewUtility priceStringFromNumber:[productItem priceCAD]]];
         [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPriceFromNumber:[productItem retailCAD]]];
-        
-        if([productItem longItemDescription]) {
-            
-            UIView *descriptionView = [[UIView alloc] init];
-            descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
-            
-            [self.longDescriptionView addSubview:descriptionView];
-        }
     
     } else {
     
@@ -95,7 +87,11 @@
         [self.crossedOffPriceLabel setText:@""];
         
     }
-
+    
+    UIView *descriptionView = [[UIView alloc] init];
+    descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
+    
+    [self.longDescriptionView addSubview:descriptionView];
 }
 
 - (UIView *)getDescriptionViewForView:(UIView *)descriptionView withDescriptionString:(NSString *)longDescriptionString {
@@ -104,17 +100,19 @@
     int customHeight = 80;
     int xPos = 0;
     
+    NSLog(@"long desc:  %@", longDescriptionString);
+    NSString *descriptionString = longDescriptionString;
+    
     NSMutableArray *descriptionArray = [[NSMutableArray alloc] init];
     
-    if ([longDescriptionString length] > 0 && ![longDescriptionString isEqual:[NSNull null]])
-    {
-        [descriptionArray addObjectsFromArray:[longDescriptionString componentsSeparatedByString:@"."]];
-        [descriptionArray removeLastObject];
+    if ([descriptionString length] == 0 || [descriptionString isEqual:[NSNull null]]) {
         
-    } else {
-        
-        return descriptionView;
+        descriptionString = @"no descriptions available for this item.";
     }
+    
+    [descriptionArray addObjectsFromArray:[descriptionString componentsSeparatedByString:@"."]];
+    [descriptionArray removeLastObject];
+    
     
     for (int i = 0; i < [descriptionArray count]; i++) {
         

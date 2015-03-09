@@ -405,7 +405,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="07836C51-3B1D-419C-857E-673837083A7D" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="21F62D2F-DE11-469E-B4F4-22D0A9538531" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -468,7 +468,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Dp-1j-X2m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1399" y="-389"/>
+            <point key="canvasLocation" x="1635" y="-273"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="30i-NF-B2R">
@@ -1060,7 +1060,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AjM-VZ-InR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="88W-rN-Y9Y" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1916" y="-444"/>
+            <point key="canvasLocation" x="2120" y="-370"/>
         </scene>
         <!--Product Detail View Controller-->
         <scene sceneID="tn9-0f-X2L">
@@ -1581,7 +1581,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HQR-Xn-3eu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="547" y="-6"/>
+            <point key="canvasLocation" x="673" y="-560"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lvt-wn-93T">
@@ -1602,7 +1602,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Ly-6t-PZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="-1258"/>
+            <point key="canvasLocation" x="1202" y="-1470"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="C4a-Pj-tQF">
@@ -1621,11 +1621,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xkb-Ey-GhV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="957" y="-516"/>
+            <point key="canvasLocation" x="1091" y="-424"/>
         </scene>
     </scenes>
     <resources>
-        <image name="07836C51-3B1D-419C-857E-673837083A7D" width="30" height="30">
+        <image name="21F62D2F-DE11-469E-B4F4-22D0A9538531" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
