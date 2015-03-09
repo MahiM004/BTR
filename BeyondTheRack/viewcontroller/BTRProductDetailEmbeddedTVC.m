@@ -8,6 +8,7 @@
 
 #import "BTRProductDetailEmbeddedTVC.h"
 #import "BTRItemFetcher.h"
+#import "NSString+HeightCalc.h"
 
 
 @interface BTRProductDetailEmbeddedTVC ()
@@ -26,20 +27,11 @@
 
 
 @property (nonatomic) int descriptionCellHeight;
-@property (strong, nonatomic) NSMutableArray *longDescriptionArray;
 
 
 @end
 
 @implementation BTRProductDetailEmbeddedTVC
-
-
-- (NSMutableArray *)longDescriptionArray {
-    
-    if (_longDescriptionArray) _longDescriptionArray = [[NSMutableArray alloc] init];
-    return _longDescriptionArray;
-}
-
 
 - (void)viewWillAppear:(BOOL)animated {
     
@@ -70,6 +62,11 @@
     
 }
 
+
+#pragma mark - Update Detail View
+
+
+
 - (void)updateViewWithItem:(Item *)productItem {
     
     
@@ -84,9 +81,10 @@
         
         if([productItem longItemDescription]) {
             
-           // [self.longDescriptionLabel setText:[productItem longItemDescription]];
-        
+            UIView *descriptionView = [[UIView alloc] init];
+            descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
             
+            [self.longDescriptionView addSubview:descriptionView];
         }
     
     } else {
@@ -97,71 +95,58 @@
         [self.crossedOffPriceLabel setText:@""];
         
     }
-    
-    UIView *descriptionView = [[UIView alloc] init];
+
+}
+
+- (UIView *)getDescriptionViewForView:(UIView *)descriptionView withDescriptionString:(NSString *)longDescriptionString {
+  
     
     int customHeight = 80;
+    int xPos = 0;
     
-    for (int i = 0; i < 3; i++) {
-
-        NSString *labelText = [NSString stringWithFormat:@"%d I am the very model of a modern.", i];
+    NSMutableArray *descriptionArray = [[NSMutableArray alloc] init];
+    
+    if ([longDescriptionString length] > 0 && ![longDescriptionString isEqual:[NSNull null]])
+    {
+        [descriptionArray addObjectsFromArray:[longDescriptionString componentsSeparatedByString:@"."]];
+        [descriptionArray removeLastObject];
+        
+    } else {
+        
+        return descriptionView;
+    }
+    
+    for (int i = 0; i < [descriptionArray count]; i++) {
+        
+        NSString *labelText = [NSString stringWithFormat:@" - %@.", [descriptionArray objectAtIndex:i]];
         UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+        
+        int labelHeight = [labelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:descriptionFont];
 
-        int labelHeight = [self heightOfCellWithIngredientLine:labelText withSuperviewWidth:self.longDescriptionView.bounds.size.width ];
+        CGRect labelFrame = CGRectMake(0, xPos, self.longDescriptionView.bounds.size.width, labelHeight);
+
+        xPos += (labelHeight + 5);
+        customHeight = customHeight + labelHeight + 10;
+
         
-        customHeight = customHeight + labelHeight + 20 ;
-        
-        CGRect labelFrame = CGRectMake(0, i*(labelHeight+12), self.longDescriptionView.bounds.size.width, labelHeight * 20);
         UILabel *myLabel = [[UILabel alloc] initWithFrame:labelFrame];
         
         [myLabel setFont:descriptionFont];
-        
-        
-        
         [myLabel setText:labelText];
-        
-        // Tell the label to use an unlimited number of lines
-        [myLabel setNumberOfLines:0];
+        [myLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
         [myLabel sizeToFit];
-        
         [myLabel setTextAlignment:NSTextAlignmentLeft];
         
-        [descriptionView addSubview:myLabel];
         
+        [descriptionView addSubview:myLabel];
     }
-
+    
     [descriptionView sizeToFit];
+    self.descriptionCellHeight = customHeight;
     
-    self.descriptionCellHeight = customHeight;//80 + descriptionView.bounds.size.height;
-    [self.longDescriptionView addSubview:descriptionView];
-    
+    return descriptionView;
 }
 
-- (CGFloat)heightOfCellWithIngredientLine:(NSString *)ingredientLine
-                       withSuperviewWidth:(CGFloat)superviewWidth
-{
-    CGFloat labelWidth                  = superviewWidth - 30.0f;
-    //    use the known label width with a maximum height of 100 points
-    CGSize labelContraints              = CGSizeMake(labelWidth, 100.0f);
-    
-    NSStringDrawingContext *context     = [[NSStringDrawingContext alloc] init];
-    
-    CGRect labelRect                    = [ingredientLine boundingRectWithSize:labelContraints
-                                                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                                                    attributes:nil
-                                                                       context:context];
-    
-    //    return the calculated required height of the cell considering the label
-    return labelRect.size.height;
-}
-
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 #pragma mark - Table view data source

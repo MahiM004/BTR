@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 692CE4961A9684A5007E9C26 /* BTRFacetData.m */; };
 		692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */; };
+		692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */; };
 		69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */; };
 		69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */; };
 		695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */; };
@@ -116,6 +117,8 @@
 		692CE4961A9684A5007E9C26 /* BTRFacetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFacetData.m; sourceTree = "<group>"; };
 		692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailEmbeddedTVC.h; sourceTree = "<group>"; };
 		692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailEmbeddedTVC.m; sourceTree = "<group>"; };
+		692F24D61AAE2071003AABE1 /* NSString+HeightCalc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HeightCalc.h"; sourceTree = "<group>"; };
+		692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HeightCalc.m"; sourceTree = "<group>"; };
 		69385FBC1A7AD2B70074FE33 /* BTRRefineResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRRefineResultsViewController.h; sourceTree = "<group>"; };
 		69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRRefineResultsViewController.m; sourceTree = "<group>"; };
 		69385FC31A7BF40A0074FE33 /* BTRSearchFilterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchFilterTVC.h; sourceTree = "<group>"; };
@@ -509,6 +512,8 @@
 				692CE4961A9684A5007E9C26 /* BTRFacetData.m */,
 				69869FAD1A640C0600F986BC /* BTRDocumentHandler.h */,
 				69869FAE1A640C0600F986BC /* BTRDocumentHandler.m */,
+				692F24D61AAE2071003AABE1 /* NSString+HeightCalc.h */,
+				692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -798,6 +803,7 @@
 				69869F821A6075EA00F986BC /* UserNotifications.m in Sources */,
 				696508741AA74BDA00ED28B8 /* Image.m in Sources */,
 				69869F9D1A63FB2100F986BC /* AFURLConnectionOperation.m in Sources */,
+				692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */,
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
 				695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */,
 				69869FC21A640F0000F986BC /* AFNetworkActivityIndicatorManager.m in Sources */,
