@@ -9,6 +9,9 @@
 #import "BTRProductDetailEmbeddedTVC.h"
 #import "BTRProductImageCollectionCell.h"
 
+
+#import "BTRZoomImageViewController.h"
+
 #import "BTRItemFetcher.h"
 #import "NSString+HeightCalc.h"
 
@@ -39,8 +42,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:YES];
-    
-    
 }
 
 
@@ -265,15 +266,52 @@
 
 
 
-
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    
+    if ([[segue identifier] isEqualToString:@"ZoomOnProductImageSegueIdentifier"])
+    {
+        BTRZoomImageViewController *zoomVC = [segue destinationViewController];
+        zoomVC.productSkuString = [self productSku];
+        zoomVC.zoomImageCount = [self productImageCount];
+    }
+    
 }
-*/
+
+
+
+
+
+- (IBAction)unwindFromImageZoomToProductDetail:(UIStoryboardSegue *)unwindSegue
+{
+    
+}
+
+
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

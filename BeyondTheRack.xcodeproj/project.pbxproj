@@ -11,6 +11,8 @@
 		692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */; };
 		692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */; };
 		692F24DB1AAF31C0003AABE1 /* BTRProductImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24DA1AAF31C0003AABE1 /* BTRProductImageCollectionCell.m */; };
+		692F24E11AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24E01AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m */; };
+		692F24E41AAF7BC5003AABE1 /* BTRZoomImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24E31AAF7BC5003AABE1 /* BTRZoomImageViewController.m */; };
 		69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */; };
 		69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */; };
 		695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */; };
@@ -122,6 +124,10 @@
 		692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HeightCalc.m"; sourceTree = "<group>"; };
 		692F24D91AAF31C0003AABE1 /* BTRProductImageCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductImageCollectionCell.h; sourceTree = "<group>"; };
 		692F24DA1AAF31C0003AABE1 /* BTRProductImageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductImageCollectionCell.m; sourceTree = "<group>"; };
+		692F24DF1AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRZoomImageCollectionViewCell.h; sourceTree = "<group>"; };
+		692F24E01AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRZoomImageCollectionViewCell.m; sourceTree = "<group>"; };
+		692F24E21AAF7BC5003AABE1 /* BTRZoomImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRZoomImageViewController.h; sourceTree = "<group>"; };
+		692F24E31AAF7BC5003AABE1 /* BTRZoomImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRZoomImageViewController.m; sourceTree = "<group>"; };
 		69385FBC1A7AD2B70074FE33 /* BTRRefineResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRRefineResultsViewController.h; sourceTree = "<group>"; };
 		69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRRefineResultsViewController.m; sourceTree = "<group>"; };
 		69385FC31A7BF40A0074FE33 /* BTRSearchFilterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchFilterTVC.h; sourceTree = "<group>"; };
@@ -320,6 +326,8 @@
 				696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */,
 				692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */,
 				692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */,
+				692F24E21AAF7BC5003AABE1 /* BTRZoomImageViewController.h */,
+				692F24E31AAF7BC5003AABE1 /* BTRZoomImageViewController.m */,
 			);
 			name = Product;
 			sourceTree = "<group>";
@@ -379,6 +387,8 @@
 				696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */,
 				692F24D91AAF31C0003AABE1 /* BTRProductImageCollectionCell.h */,
 				692F24DA1AAF31C0003AABE1 /* BTRProductImageCollectionCell.m */,
+				692F24DF1AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.h */,
+				692F24E01AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m */,
 			);
 			name = View;
 			path = view;
@@ -821,6 +831,7 @@
 				69869FC41A640F0000F986BC /* UIAlertView+AFNetworking.m in Sources */,
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				69869F9B1A63FB2100F986BC /* AFNetworkReachabilityManager.m in Sources */,
+				692F24E41AAF7BC5003AABE1 /* BTRZoomImageViewController.m in Sources */,
 				69B02CFB1A605A7500040C86 /* General3+AppServer.m in Sources */,
 				69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */,
 				69869F981A63FB2100F986BC /* AFHTTPRequestOperation.m in Sources */,
@@ -833,6 +844,7 @@
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				69869F9C1A63FB2100F986BC /* AFSecurityPolicy.m in Sources */,
 				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,
+				692F24E11AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m in Sources */,
 				69BC6D421A8E4F2C00376D9C /* BTRFacetsHandler.m in Sources */,
 				69869FC51A640F0000F986BC /* UIButton+AFNetworking.m in Sources */,
 				697E05811A434121000146C6 /* BTRViewUtility.m in Sources */,
