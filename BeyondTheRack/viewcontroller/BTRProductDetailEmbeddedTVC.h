@@ -14,6 +14,6 @@
 @interface BTRProductDetailEmbeddedTVC : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) Item *productItem;
-
+@property (strong, nonatomic) NSMutableArray *imageArray;
 
 @end

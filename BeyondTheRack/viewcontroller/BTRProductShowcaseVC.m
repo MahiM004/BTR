@@ -151,9 +151,8 @@
     [cell.brandLabel setText:[productItem brand]];
     [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffPriceFromNumber:[productItem retailCAD]]];
     [cell.originalPrice setText:[BTRViewUtility priceStringFromNumber:[productItem priceCAD]]];
- 
-    return cell;
     
+    return cell;
 }
 
 

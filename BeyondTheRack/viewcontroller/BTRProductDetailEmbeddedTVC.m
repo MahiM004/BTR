@@ -30,6 +30,7 @@
 
 @property (nonatomic) int descriptionCellHeight;
 @property (strong, nonatomic) NSString *productSku;
+@property (nonatomic) NSInteger productImageCount;
 
 @end
 
@@ -43,16 +44,23 @@
 }
 
 
+- (void)setProductImageCount:(NSInteger)productImageCount {
+    
+    _productImageCount = productImageCount;
+    
+    if(productImageCount <= 1)
+        productImageCount = 1;
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    
-    [self updateViewWithItem:[self productItem]];
-    
+
     [self setupDocument];
+    [self updateViewWithItem:[self productItem]];
 
     if ([[self productItem] sku] && [[[self productItem] sku] isEqual:[NSNull null]])
         [self fetchItemIntoDocument:[self beyondTheRackDocument] forProductSku:[[self productItem] sku]
@@ -63,8 +71,6 @@
                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                 
                             }];
-    
-    
 }
 
 
@@ -74,6 +80,8 @@
 
 - (void)updateViewWithItem:(Item *)productItem {
     
+    
+    self.productImageCount = [[productItem imageCount] integerValue];
     
     if (productItem)
     {
@@ -159,7 +167,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     
-    return 5;
+    return [self productImageCount];
 }
 
 
@@ -168,7 +176,10 @@
     
     BTRProductImageCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductImageCollectionCellIdentifier" forIndexPath:indexPath];
     
-    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku] ] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
+                                                                       withCount:1+indexPath.row
+                                                                         andSize:@"large"]
+                          placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
 
     return cell;
 }
@@ -205,66 +216,6 @@
     
     return 1;
 }
-
-
-
-/*
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 3;
-}
-*/
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCellIdentifier" forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 
 
 #pragma mark - Load Product Detail RESTful

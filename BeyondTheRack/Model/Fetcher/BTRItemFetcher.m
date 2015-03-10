@@ -11,9 +11,7 @@
 @implementation BTRItemFetcher
 
 
-+ (NSURL *)URLforItemWithProductSku:(NSString *)sku
-{
-    NSLog(@"through product-sku: %@", [NSString stringWithFormat:@"%@/product/%@", BASEURL, sku]);
++ (NSURL *)URLforItemWithProductSku:(NSString *)sku {
     
     return [self URLForQuery:[NSString stringWithFormat:@"%@/product/%@", BASEURL, sku]];
 }
@@ -23,6 +21,7 @@
     
     return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@&limit=100", BASEURL, eventSku]];
 }
+
 
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber
@@ -54,11 +53,28 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/productimages/%@/medium/%@_1.jpg", STATICURL,sku, sku]];
 }
 
+
++ (NSURL *)URLforItemImageForSku:(NSString *)sku withCount:(NSInteger)countNumber andSize:(NSString *)sizeString {
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/productimages/%@/%@/%@_%ld.jpg", STATICURL,sku, sizeString, sku, (long)countNumber]];
+}
+
+
+
+
+
 // TODO: change text/html to application/json AFTER backend supports it in production
 + (NSString *)contentTypeForSearchQuery {
     
     return @"text/html";
 }
+
+
+
+
+
+
+
 
 
 - (NSString *)customURLencodeString:(NSString *)unencodedString {
