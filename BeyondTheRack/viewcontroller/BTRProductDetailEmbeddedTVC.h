@@ -11,7 +11,7 @@
 #import "Item+AppServer.h"
 
 
-@interface BTRProductDetailEmbeddedTVC : UITableViewController
+@interface BTRProductDetailEmbeddedTVC : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) Item *productItem;
 

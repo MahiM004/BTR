@@ -7,13 +7,15 @@
 //
 
 #import "BTRProductDetailEmbeddedTVC.h"
+#import "BTRProductImageCollectionCell.h"
+
 #import "BTRItemFetcher.h"
 #import "NSString+HeightCalc.h"
 
 
 @interface BTRProductDetailEmbeddedTVC ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *tempProductImageView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *brandLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shortDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *salePriceLabel;
@@ -27,7 +29,7 @@
 
 
 @property (nonatomic) int descriptionCellHeight;
-
+@property (strong, nonatomic) NSString *productSku;
 
 @end
 
@@ -44,6 +46,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
     
     [self updateViewWithItem:[self productItem]];
     
@@ -72,8 +77,7 @@
     
     if (productItem)
     {
-        [self.tempProductImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku] ] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-        
+        [self setProductSku:[productItem sku]];
         [self.brandLabel setText:[productItem brand]];
         [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
         [self.salePriceLabel setText:[BTRViewUtility priceStringFromNumber:[productItem priceCAD]]];
@@ -92,6 +96,8 @@
     descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
     
     [self.longDescriptionView addSubview:descriptionView];
+    
+    [self.collectionView reloadData];
 }
 
 
@@ -142,6 +148,29 @@
     self.descriptionCellHeight = customHeight;
     
     return descriptionView;
+}
+
+
+
+
+#pragma mark - UICollectionView Datasource
+
+
+
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    
+    return 5;
+}
+
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BTRProductImageCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductImageCollectionCellIdentifier" forIndexPath:indexPath];
+    
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku] ] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+
+    return cell;
 }
 
 
