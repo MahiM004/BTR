@@ -7,9 +7,8 @@
 //
 
 #import "BTRProductDetailEmbeddedTVC.h"
+
 #import "BTRProductImageCollectionCell.h"
-
-
 #import "BTRZoomImageViewController.h"
 
 #import "BTRItemFetcher.h"
@@ -59,7 +58,8 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-
+    
+    
     [self setupDocument];
     [self updateViewWithItem:[self productItem]];
 

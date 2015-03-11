@@ -8,6 +8,27 @@
 
 #import "BTRZoomImageCollectionViewCell.h"
 
+@interface BTRZoomImageCollectionViewCell ()
+
+@property (nonatomic) CGFloat lastScale;
+
+@end
+
+
 @implementation BTRZoomImageCollectionViewCell
+
+- (void)awakeFromNib{
+    self.scrollView.minimumZoomScale=1;
+    self.scrollView.maximumZoomScale=6.0;
+    
+    self.scrollView.delegate=self;
+    
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.zoomImageView;
+}
+
 
 @end

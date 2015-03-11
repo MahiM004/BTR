@@ -11,9 +11,14 @@
 
 #import "BTRItemFetcher.h"
 
+
 @interface BTRZoomImageViewController ()
 
+
 @end
+
+
+
 
 @implementation BTRZoomImageViewController
 
@@ -24,9 +29,9 @@
 
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    
 
 }
+
 
 
 #pragma mark - UICollectionView Datasource
@@ -49,8 +54,10 @@
                                                                          andSize:@"large"]
                           placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
     
+    
     return cell;
 }
+
 
 
 
