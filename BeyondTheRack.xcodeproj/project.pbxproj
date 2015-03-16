@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4C71AB7598000930D16 /* BTRLogo.png */; };
+		6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */; };
+		6900B4D21AB7649300930D16 /* BTRSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4D11AB7649300930D16 /* BTRSignUpViewController.m */; };
+		6900B4DD1AB7747900930D16 /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4D51AB7747900930D16 /* FAImageView.m */; };
+		6900B4DE1AB7747900930D16 /* FontAwesome+iOS.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4D61AB7747900930D16 /* FontAwesome+iOS.podspec */; };
+		6900B4DF1AB7747900930D16 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4D81AB7747900930D16 /* NSString+FontAwesome.m */; };
+		6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4DA1AB7747900930D16 /* FontAwesome.ttf */; };
+		6900B4E11AB7747900930D16 /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4DC1AB7747900930D16 /* UIFont+FontAwesome.m */; };
 		692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 692CE4961A9684A5007E9C26 /* BTRFacetData.m */; };
 		692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */; };
 		692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */; };
@@ -116,6 +124,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6900B4C71AB7598000930D16 /* BTRLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BTRLogo.png; sourceTree = "<group>"; };
+		6900B4C91AB75A9E00930D16 /* BTRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoginViewController.h; sourceTree = "<group>"; };
+		6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoginViewController.m; sourceTree = "<group>"; };
+		6900B4D01AB7649300930D16 /* BTRSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSignUpViewController.h; sourceTree = "<group>"; };
+		6900B4D11AB7649300930D16 /* BTRSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSignUpViewController.m; sourceTree = "<group>"; };
+		6900B4D41AB7747900930D16 /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
+		6900B4D51AB7747900930D16 /* FAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAImageView.m; sourceTree = "<group>"; };
+		6900B4D61AB7747900930D16 /* FontAwesome+iOS.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "FontAwesome+iOS.podspec"; sourceTree = "<group>"; };
+		6900B4D71AB7747900930D16 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		6900B4D81AB7747900930D16 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		6900B4DA1AB7747900930D16 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		6900B4DB1AB7747900930D16 /* UIFont+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontAwesome.h"; sourceTree = "<group>"; };
+		6900B4DC1AB7747900930D16 /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
 		692CE4951A9684A5007E9C26 /* BTRFacetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFacetData.h; sourceTree = "<group>"; };
 		692CE4961A9684A5007E9C26 /* BTRFacetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFacetData.m; sourceTree = "<group>"; };
 		692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailEmbeddedTVC.h; sourceTree = "<group>"; };
@@ -317,6 +338,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6900B4CC1AB75AA800930D16 /* Login Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				6900B4C91AB75A9E00930D16 /* BTRLoginViewController.h */,
+				6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */,
+				6900B4D01AB7649300930D16 /* BTRSignUpViewController.h */,
+				6900B4D11AB7649300930D16 /* BTRSignUpViewController.m */,
+			);
+			name = "Login Scenes";
+			sourceTree = "<group>";
+		};
+		6900B4D31AB7747900930D16 /* ios-fontawesome */ = {
+			isa = PBXGroup;
+			children = (
+				6900B4D41AB7747900930D16 /* FAImageView.h */,
+				6900B4D51AB7747900930D16 /* FAImageView.m */,
+				6900B4D61AB7747900930D16 /* FontAwesome+iOS.podspec */,
+				6900B4D71AB7747900930D16 /* NSString+FontAwesome.h */,
+				6900B4D81AB7747900930D16 /* NSString+FontAwesome.m */,
+				6900B4D91AB7747900930D16 /* Resources */,
+				6900B4DB1AB7747900930D16 /* UIFont+FontAwesome.h */,
+				6900B4DC1AB7747900930D16 /* UIFont+FontAwesome.m */,
+			);
+			path = "ios-fontawesome";
+			sourceTree = "<group>";
+		};
+		6900B4D91AB7747900930D16 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6900B4DA1AB7747900930D16 /* FontAwesome.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		692F24D11AA8E093003AABE1 /* Product */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,6 +458,7 @@
 				69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */,
 				69B02CAA1A5DA70700040C86 /* BTREventsCDTVC.h */,
 				69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */,
+				6900B4CC1AB75AA800930D16 /* Login Scenes */,
 				692F24D21AA8E0B4003AABE1 /* MyAccount */,
 				692F24D11AA8E093003AABE1 /* Product */,
 				69385FBF1A7BF3830074FE33 /* Search */,
@@ -415,6 +471,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				6900B4C71AB7598000930D16 /* BTRLogo.png */,
 				69BC6D431A94DACB00376D9C /* filtericonYellow.png */,
 				69AB985A1A76AB2200EDB1E6 /* twittericonalpha.png */,
 				69AB985B1A76AB2200EDB1E6 /* facebookiconalpha.png */,
@@ -434,6 +491,7 @@
 		69867A0F1A4480C7003CE59C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6900B4D31AB7747900930D16 /* ios-fontawesome */,
 				69D5663C1A7A8F2300FAEDE2 /* UIImageEffects */,
 				69AB98311A6D50E300EDB1E6 /* BTRHelpClasses */,
 				69869FB01A640EFF00F986BC /* UIKit+AFNetworking */,
@@ -771,18 +829,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				69BC6D441A94DACB00376D9C /* filtericonYellow.png in Resources */,
+				6900B4DE1AB7747900930D16 /* FontAwesome+iOS.podspec in Resources */,
 				69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */,
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
 				69659F0A1A7C240F00C52FC5 /* fillrange.png in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
+				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,
 				69659F0E1A7C259F00C52FC5 /* fillrangeblue.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
 				69AB985F1A76AB2200EDB1E6 /* pinteresticonalpha.png in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				69AB985D1A76AB2200EDB1E6 /* twittericonalpha.png in Resources */,
+				6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */,
 				69AB985E1A76AB2200EDB1E6 /* facebookiconalpha.png in Resources */,
 				69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */,
 				69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */,
@@ -842,6 +903,7 @@
 				69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */,
 				69B02CAD1A5DA70700040C86 /* BTREventsCDTVC.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
+				6900B4DD1AB7747900930D16 /* FAImageView.m in Sources */,
 				69869F9C1A63FB2100F986BC /* AFSecurityPolicy.m in Sources */,
 				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,
 				692F24E11AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m in Sources */,
@@ -850,18 +912,22 @@
 				697E05811A434121000146C6 /* BTRViewUtility.m in Sources */,
 				69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */,
+				6900B4D21AB7649300930D16 /* BTRSignUpViewController.m in Sources */,
 				69869F761A6075EA00F986BC /* General2.m in Sources */,
 				69869FC61A640F0000F986BC /* UIImageView+AFNetworking.m in Sources */,
 				69B02CC71A6031A700040C86 /* beyondtherack.xcdatamodeld in Sources */,
 				69869F6D1A6075E900F986BC /* General1.m in Sources */,
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
 				69869FC31A640F0000F986BC /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				6900B4E11AB7747900930D16 /* UIFont+FontAwesome.m in Sources */,
 				69869FAC1A6408D200F986BC /* CoreDataTableViewController.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
 				69869FA91A64028300F986BC /* BTRAppDelegate+MOC.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
+				6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */,
+				6900B4DF1AB7747900930D16 /* NSString+FontAwesome.m in Sources */,
 				6965086B1AA6228D00ED28B8 /* Item.m in Sources */,
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
 				69869FC71A640F0000F986BC /* UIProgressView+AFNetworking.m in Sources */,

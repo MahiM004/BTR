@@ -90,6 +90,25 @@
 }
 
 
++ (UITextField *)underlineTextField:(UITextField *)textField {
+    
+    CGRect layerFrame = CGRectMake(0, 0, textField.frame.size.width, textField.frame.size.height);
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, 0, 0);
+    //CGPathAddLineToPoint(path, NULL, layerFrame.size.width, 0); // top line
+    CGPathMoveToPoint(path, NULL, 0, layerFrame.size.height);
+    CGPathAddLineToPoint(path, NULL, layerFrame.size.width, layerFrame.size.height); // bottom line
+    CAShapeLayer * line = [CAShapeLayer layer];
+    line.path = path;
+    line.lineWidth = 1;
+    line.frame = layerFrame;
+    line.strokeColor = [UIColor grayColor].CGColor;
+    [textField.layer addSublayer:line];
+    
+    return textField;
+}
+
+
 
 
 @end

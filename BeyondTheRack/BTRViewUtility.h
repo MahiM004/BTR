@@ -17,6 +17,7 @@
 
 + (NSAttributedString *)crossedOffPriceFromNumber:(NSNumber *)priceNumber;
 + (NSString *)priceStringFromNumber:(NSNumber *)priceNumber;
++ (UITextField *)underlineTextField:(UITextField *)textField;
 
 
 @end
