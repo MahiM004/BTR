@@ -18,6 +18,7 @@
 		6900B4E41AB88B3F00930D16 /* facebook_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4E31AB88B3F00930D16 /* facebook_login.png */; };
 		6900B4E61AB88CFA00930D16 /* facebook-login-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4E51AB88CFA00930D16 /* facebook-login-button.png */; };
 		6900B4E81AB88EF800930D16 /* facebook_flat_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4E71AB88EF800930D16 /* facebook_flat_login.png */; };
+		6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4EA1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m */; };
 		692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 692CE4961A9684A5007E9C26 /* BTRFacetData.m */; };
 		692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */; };
 		692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */; };
@@ -144,6 +145,8 @@
 		6900B4E31AB88B3F00930D16 /* facebook_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_login.png; sourceTree = "<group>"; };
 		6900B4E51AB88CFA00930D16 /* facebook-login-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-login-button.png"; sourceTree = "<group>"; };
 		6900B4E71AB88EF800930D16 /* facebook_flat_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_flat_login.png; sourceTree = "<group>"; };
+		6900B4E91AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSignUpEmbeddedTVC.h; sourceTree = "<group>"; };
+		6900B4EA1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSignUpEmbeddedTVC.m; sourceTree = "<group>"; };
 		692CE4951A9684A5007E9C26 /* BTRFacetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFacetData.h; sourceTree = "<group>"; };
 		692CE4961A9684A5007E9C26 /* BTRFacetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFacetData.m; sourceTree = "<group>"; };
 		692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailEmbeddedTVC.h; sourceTree = "<group>"; };
@@ -352,6 +355,8 @@
 				6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */,
 				6900B4D01AB7649300930D16 /* BTRSignUpViewController.h */,
 				6900B4D11AB7649300930D16 /* BTRSignUpViewController.m */,
+				6900B4E91AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.h */,
+				6900B4EA1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m */,
 			);
 			name = "Login Scenes";
 			sourceTree = "<group>";
@@ -886,6 +891,7 @@
 				69659F1E1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m in Sources */,
 				69869FAF1A640C0600F986BC /* BTRDocumentHandler.m in Sources */,
 				69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */,
+				6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */,
 				69AB98651A77E68F00EDB1E6 /* Event.m in Sources */,
 				6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,

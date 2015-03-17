@@ -7,8 +7,7 @@
 //
 
 #import "BTRLoginViewController.h"
-#import "FAImageView.h"
-#import "NSString+FontAwesome.h"
+
 
 @interface BTRLoginViewController ()
 

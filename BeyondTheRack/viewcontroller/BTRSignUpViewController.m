@@ -10,6 +10,9 @@
 
 @interface BTRSignUpViewController ()
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+
 @end
 
 @implementation BTRSignUpViewController
@@ -17,6 +20,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+
+
+    
+    [self.scrollView setContentSize:CGSizeMake(320, 1100)];
+
+
+
 }
 
 - (void)didReceiveMemoryWarning {

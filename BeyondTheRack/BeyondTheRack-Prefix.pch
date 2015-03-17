@@ -34,6 +34,10 @@
 #import "UIKit+AFNetworking.h"
 #import "BTRViewUtility.h"
 #import "BTRDocumentHandler.h"
+#import "FAImageView.h"
+#import "NSString+FontAwesome.h"
+
+
 //#import "BTRDateConverter.h"
 //#import "BTRRefreshHandler.h"
 
