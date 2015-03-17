@@ -25,6 +25,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                 initWithTarget:self
+                               action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
+    
 
     [self setNeedsStatusBarAppearanceUpdate];
  
@@ -51,14 +57,20 @@
     self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:16];
     self.emailIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-envelope-o"];
     
-    
-    
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
     
     
 }
 
+
+
+
+- (void)dismissKeyboard {
+    
+    [self.passwordTextField resignFirstResponder];
+    [self.emailTextField resignFirstResponder];
+}
 
 
 

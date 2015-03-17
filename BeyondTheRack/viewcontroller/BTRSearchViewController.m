@@ -61,8 +61,6 @@
     //UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
       //                             initWithTarget:self
         //                           action:@selector(dismissKeyboard)];
-    
-    
     //[self.view addGestureRecognizer:tap];
     
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -109,13 +107,13 @@
     
 }
 
-
+/*
 - (void)dismissKeyboard {
 
     [self.searchBar resignFirstResponder];
     [self.collectionView becomeFirstResponder];
 }
-
+*/
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:YES];
