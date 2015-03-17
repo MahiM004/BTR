@@ -8,44 +8,55 @@
 
 #import "BTRLoginViewController.h"
 #import "FAImageView.h"
+#import "NSString+FontAwesome.h"
 
 @interface BTRLoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
-@property (weak, nonatomic) IBOutlet FAImageView *emailImageView;
-@property (weak, nonatomic) IBOutlet UILabel *someLabel;
 
-
+@property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
+@property (weak, nonatomic) IBOutlet UILabel *passwordIconLabel;
 
 @end
 
 @implementation BTRLoginViewController
-
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
 
     [self setNeedsStatusBarAppearanceUpdate];
-
-/*
-    CALayer *bottomBorder = [CALayer layer];
-    bottomBorder.frame = CGRectMake(0.0f, self.view.frame.size.height - 1, self.view.frame.size.width, 1.0f);
-    bottomBorder.backgroundColor = [UIColor blackColor].CGColor;
-    [self.passwordTextField.layer addSublayer:bottomBorder];
- */
+ 
     
-    self.someLabel.text = [NSString fontAwesomeIconStringForEnum:FAGithub];
-
     
-    //self.someLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-car"];
+    self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
+    self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
     
-    // or:
-
-
+    
+    /*
+     self.someLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:20];
+     self.someLabel.text = [NSString fontAwesomeIconStringForEnum:FAGithub];
+     self.someLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-github"];
+     */
+    
+    
+    /*
+     FAImageView *imageView = [[FAImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, 100.f)];
+     imageView.image = nil;
+     [imageView setDefaultIconIdentifier:@"fa-github"];
+     */
+    
+    
+    self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:16];
+    self.emailIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-envelope-o"];
+    
+    
+    
+    self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
+    self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
+    
+    
 }
 
 

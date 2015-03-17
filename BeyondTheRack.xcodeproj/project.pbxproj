@@ -15,6 +15,9 @@
 		6900B4DF1AB7747900930D16 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4D81AB7747900930D16 /* NSString+FontAwesome.m */; };
 		6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4DA1AB7747900930D16 /* FontAwesome.ttf */; };
 		6900B4E11AB7747900930D16 /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4DC1AB7747900930D16 /* UIFont+FontAwesome.m */; };
+		6900B4E41AB88B3F00930D16 /* facebook_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4E31AB88B3F00930D16 /* facebook_login.png */; };
+		6900B4E61AB88CFA00930D16 /* facebook-login-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4E51AB88CFA00930D16 /* facebook-login-button.png */; };
+		6900B4E81AB88EF800930D16 /* facebook_flat_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4E71AB88EF800930D16 /* facebook_flat_login.png */; };
 		692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 692CE4961A9684A5007E9C26 /* BTRFacetData.m */; };
 		692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */; };
 		692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */; };
@@ -137,6 +140,10 @@
 		6900B4DA1AB7747900930D16 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		6900B4DB1AB7747900930D16 /* UIFont+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontAwesome.h"; sourceTree = "<group>"; };
 		6900B4DC1AB7747900930D16 /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
+		6900B4E21AB8703300930D16 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = images/FontAwesome.ttf; sourceTree = "<group>"; };
+		6900B4E31AB88B3F00930D16 /* facebook_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_login.png; sourceTree = "<group>"; };
+		6900B4E51AB88CFA00930D16 /* facebook-login-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-login-button.png"; sourceTree = "<group>"; };
+		6900B4E71AB88EF800930D16 /* facebook_flat_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_flat_login.png; sourceTree = "<group>"; };
 		692CE4951A9684A5007E9C26 /* BTRFacetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFacetData.h; sourceTree = "<group>"; };
 		692CE4961A9684A5007E9C26 /* BTRFacetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFacetData.m; sourceTree = "<group>"; };
 		692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailEmbeddedTVC.h; sourceTree = "<group>"; };
@@ -471,6 +478,9 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				6900B4E71AB88EF800930D16 /* facebook_flat_login.png */,
+				6900B4E51AB88CFA00930D16 /* facebook-login-button.png */,
+				6900B4E31AB88B3F00930D16 /* facebook_login.png */,
 				6900B4C71AB7598000930D16 /* BTRLogo.png */,
 				69BC6D431A94DACB00376D9C /* filtericonYellow.png */,
 				69AB985A1A76AB2200EDB1E6 /* twittericonalpha.png */,
@@ -722,6 +732,7 @@
 		69FF40661A3F8939000BD092 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6900B4E21AB8703300930D16 /* FontAwesome.ttf */,
 				69807AE21A420BB00001A154 /* images */,
 				69FF40671A3F8939000BD092 /* Info.plist */,
 				69FF40681A3F8939000BD092 /* main.m */,
@@ -830,6 +841,7 @@
 			files = (
 				69BC6D441A94DACB00376D9C /* filtericonYellow.png in Resources */,
 				6900B4DE1AB7747900930D16 /* FontAwesome+iOS.podspec in Resources */,
+				6900B4E81AB88EF800930D16 /* facebook_flat_login.png in Resources */,
 				69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */,
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
@@ -841,6 +853,7 @@
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
 				69AB985F1A76AB2200EDB1E6 /* pinteresticonalpha.png in Resources */,
+				6900B4E41AB88B3F00930D16 /* facebook_login.png in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				69AB985D1A76AB2200EDB1E6 /* twittericonalpha.png in Resources */,
 				6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */,
@@ -849,6 +862,7 @@
 				69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */,
 				69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */,
 				69867A071A438A8C003CE59C /* bagicon.png in Resources */,
+				6900B4E61AB88CFA00930D16 /* facebook-login-button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
