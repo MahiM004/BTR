@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *invitationCodeTextField;
+@property (weak, nonatomic) IBOutlet UITextField *genderTextField;
+@property (weak, nonatomic) IBOutlet UITextField *countryTextField;
 
 
 
@@ -24,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *invitationCodeIconLabel;
+@property (weak, nonatomic) IBOutlet UILabel *genderIconLabel;
+@property (weak, nonatomic) IBOutlet UILabel *countryIconLabel;
 
 
 
@@ -39,7 +43,8 @@
     self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
     self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
     self.invitationCodeTextField = [BTRViewUtility underlineTextField:[self invitationCodeTextField]];
-    
+    self.genderTextField = [BTRViewUtility underlineTextField:[self genderTextField]];
+    self.countryTextField = [BTRViewUtility underlineTextField:[self countryTextField]];
  
     
     self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:16];
@@ -57,6 +62,11 @@
     self.invitationCodeIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.invitationCodeIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-barcode"];
     
+    self.genderIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
+    self.genderIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-female"];
+    
+    self.countryIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
+    self.countryIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-globe"];
     
 }
 
