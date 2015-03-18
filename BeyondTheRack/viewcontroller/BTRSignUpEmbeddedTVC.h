@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRSignUpEmbeddedTVC : UITableViewController
+@interface BTRSignUpEmbeddedTVC : UITableViewController <UIPickerViewDelegate>
 
 @end

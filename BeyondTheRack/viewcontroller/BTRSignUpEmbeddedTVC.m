@@ -8,6 +8,9 @@
 
 #import "BTRSignUpEmbeddedTVC.h"
 
+#define COUNTRY_PICKER 1
+#define GENDER_PICKER 2
+
 @interface BTRSignUpEmbeddedTVC ()
 
 
@@ -20,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *countryTextField;
 
 
-
 @property (weak, nonatomic) IBOutlet UILabel *firstNameIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastNameIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
@@ -30,10 +32,32 @@
 @property (weak, nonatomic) IBOutlet UILabel *countryIconLabel;
 
 
+@property (strong, nonatomic) NSArray *genderNameArray;
+@property (strong, nonatomic) NSArray *countryNameArray;
+
+
+@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+@property (weak, nonatomic) IBOutlet UIView *viewForPicker;
+
+@property (nonatomic) NSUInteger pickerType;
 
 @end
 
 @implementation BTRSignUpEmbeddedTVC
+
+
+- (NSArray *)genderNameArray {
+    
+    _genderNameArray = @[@"Female", @"Male"];
+    return _genderNameArray;
+}
+
+- (NSArray *)countryNameArray {
+    
+    _countryNameArray = @[@"Canada", @"USA"];
+    return _countryNameArray;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,12 +92,91 @@
     self.countryIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.countryIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-globe"];
     
+    self.pickerView.delegate = self;
+    self.pickerView.showsSelectionIndicator = YES;
+ 
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
+
+- (void)dismissKeyboard {
+    
+    [self.firstNameTextField resignFirstResponder];
+    [self.lastNameIconLabel resignFirstResponder];
+    [self.emailTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+    [self.invitationCodeTextField resignFirstResponder];
+
 }
+
+- (IBAction)genderButtonTapped:(UIButton *)sender {
+
+    [self setPickerType:GENDER_PICKER];
+    [self.pickerView reloadAllComponents];
+    [self dismissKeyboard];
+    [self.viewForPicker setHidden:FALSE];
+    
+}
+
+
+- (IBAction)countryButtonTapped:(UIButton *)sender {
+
+    [self setPickerType:COUNTRY_PICKER];
+    [self.pickerView reloadAllComponents];
+    [self dismissKeyboard];
+    [self.viewForPicker setHidden:FALSE];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
+
+    
+    
+    if ([self pickerType] == COUNTRY_PICKER)
+        [self.countryTextField setText:[[self countryNameArray] objectAtIndex:row]];
+    
+    if ([self pickerType] == GENDER_PICKER)
+        [self.genderTextField setText:[[self genderNameArray] objectAtIndex:row]];
+    
+    [self.viewForPicker setHidden:TRUE];
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    
+    if ([self pickerType] == COUNTRY_PICKER)
+        return [[self countryNameArray] count];
+    
+    return [[self genderNameArray] count];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+
+    if ([self pickerType] == COUNTRY_PICKER)
+        return [[self countryNameArray] objectAtIndex:row];
+        
+    return [[self genderNameArray] objectAtIndex:row];
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    int sectionWidth = 300;
+    
+    return sectionWidth;
+}
+
+
+
+
+
 
 
 /*
