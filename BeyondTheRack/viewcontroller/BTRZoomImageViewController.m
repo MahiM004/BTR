@@ -29,7 +29,7 @@
 
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-
+    
 }
 
 
