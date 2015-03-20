@@ -109,6 +109,7 @@
 		69BC6D421A8E4F2C00376D9C /* BTRFacetsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC6D411A8E4F2C00376D9C /* BTRFacetsHandler.m */; };
 		69BC6D441A94DACB00376D9C /* filtericonYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 69BC6D431A94DACB00376D9C /* filtericonYellow.png */; };
 		69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CEF34C1ABC61BD00835276 /* BTRUserFetcher.m */; };
+		69CEF3501ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CEF34F1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m */; };
 		69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */; };
@@ -317,6 +318,8 @@
 		69BC6D431A94DACB00376D9C /* filtericonYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filtericonYellow.png; sourceTree = "<group>"; };
 		69CEF34B1ABC61BD00835276 /* BTRUserFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRUserFetcher.h; sourceTree = "<group>"; };
 		69CEF34C1ABC61BD00835276 /* BTRUserFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRUserFetcher.m; sourceTree = "<group>"; };
+		69CEF34E1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAccountEmbeddedTVC.h; sourceTree = "<group>"; };
+		69CEF34F1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRAccountEmbeddedTVC.m; sourceTree = "<group>"; };
 		69D5663D1A7A8F2300FAEDE2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -407,6 +410,8 @@
 			children = (
 				69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */,
 				69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */,
+				69CEF34E1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.h */,
+				69CEF34F1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m */,
 			);
 			name = MyAccount;
 			sourceTree = "<group>";
@@ -964,6 +969,7 @@
 				69869F791A6075EA00F986BC /* General3.m in Sources */,
 				692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */,
 				69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */,
+				69CEF3501ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m in Sources */,
 				692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */,
 				69869F641A6075E900F986BC /* PaymentDetail.m in Sources */,
 				69869F7F1A6075EA00F986BC /* User.m in Sources */,

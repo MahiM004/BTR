@@ -89,16 +89,33 @@
 
 - (IBAction)signInButtonTapped:(UIButton *)sender {
 
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument] success:^(NSString *sessionIdString) {
+    [self fetchItemsIntoDocument:[self beyondTheRackDocument] success:^(NSString *didLogIn) {
         
-        [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+        if ([didLogIn  isEqualToString:@"TRUE"]) {
+
+            [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+        }
+        else {
+
+            [self alertUserForLoginError];
+        }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        
     }];
-
 }
 
+
+- (void)alertUserForLoginError {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please try agian"
+                                                    message:@"Email or Password Incorrect !"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    [alert show];
+}
 
 
 
@@ -127,7 +144,7 @@
 
     // for every call
    
-    // NSString*sessionIdString = @"9b4b00f5c39f6139768158dd7c5e417ed7ee005c24aaba6b08725a8b";
+    //NSString*sessionIdString = @"9b4b00f5c39f6139768158dd7c5e417ed7ee005c24aaba6b08725a8b";
     //[manager.requestSerializer setValue:@"session" forHTTPHeaderField:sessionIdString];
 
     NSLog(@"UITextFields are ignored @: signInButtonTapped");
@@ -146,19 +163,33 @@
                                                                                    options:0
                                                                                      error:NULL];
               
-              NSDictionary *tempDic = entitiesPropertyList[@"session"];
-              NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
+              if (entitiesPropertyList) {
               
-              [[NSUserDefaults standardUserDefaults] setValue:sessionIdString forKey:@"Session"];
-              [[NSUserDefaults standardUserDefaults] setValue:[[self emailTextField] text] forKey:@"Username"];
-              [[NSUserDefaults standardUserDefaults] setValue:[[self passwordTextField] text] forKey:@"Password"];
-              [[NSUserDefaults standardUserDefaults] synchronize];
+                  NSDictionary *tempDic = entitiesPropertyList[@"session"];
+                  NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
+                  
+                  [[NSUserDefaults standardUserDefaults] setValue:sessionIdString forKey:@"Session"];
+                  [[NSUserDefaults standardUserDefaults] setValue:[[self emailTextField] text] forKey:@"Username"];
+                  [[NSUserDefaults standardUserDefaults] setValue:[[self passwordTextField] text] forKey:@"Password"];
+                  [[NSUserDefaults standardUserDefaults] synchronize];
+                  
+                  success(@"TRUE");
               
-              success(sessionIdString);
+              } else {
+                  
+                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Session"];
+                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Username"];
+                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
+                  [[NSUserDefaults standardUserDefaults] synchronize];
+                  
+                  success(@"FALSE");
+              }
+              
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
-              NSLog(@"fail: %@", error);
+              [self alertUserForLoginError];
+
           }];
 }
 

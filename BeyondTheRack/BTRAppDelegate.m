@@ -34,6 +34,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch
     
+
     
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
@@ -67,9 +68,32 @@
     }];
 
     
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    /*
+     *
+     Managing the entry scene to the app
+     *
+     */
+    NSString *segueId= @"BTRLoginViewController";
+    NSString * _Session = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+    UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     
-        
+    if ([_Session length] > 10)
+        segueId = @"BTRMainViewController";
+    else
+        segueId = @"BTRLoginViewController";
+    
+    UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
+    self.window.rootViewController = rootViewController;
+    [self.window makeKeyAndVisible];
+
+    
+    
+    
+    
+    
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+
+    
     return YES;
 }
 
