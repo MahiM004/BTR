@@ -8,11 +8,12 @@
 
 #import "BTRSignUpEmbeddedTVC.h"
 
+#import "BTRUserFetcher.h"
+
 #define COUNTRY_PICKER 1
 #define GENDER_PICKER 2
 
 @interface BTRSignUpEmbeddedTVC ()
-
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
@@ -22,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
 @property (weak, nonatomic) IBOutlet UITextField *countryTextField;
 
-
 @property (weak, nonatomic) IBOutlet UILabel *firstNameIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastNameIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
@@ -31,15 +31,19 @@
 @property (weak, nonatomic) IBOutlet UILabel *genderIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *countryIconLabel;
 
-
 @property (strong, nonatomic) NSArray *genderNameArray;
 @property (strong, nonatomic) NSArray *countryNameArray;
-
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UIView *viewForPicker;
 
 @property (nonatomic) NSUInteger pickerType;
+
+
+
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
 
 @end
 
@@ -71,7 +75,7 @@
     self.countryTextField = [BTRViewUtility underlineTextField:[self countryTextField]];
  
     
-    self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:16];
+    self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.emailIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-envelope-o"];
     
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
@@ -134,6 +138,9 @@
     [self.viewForPicker setHidden:FALSE];
 }
 
+#pragma mark - PickerView Delegates
+
+
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
 
     
@@ -179,39 +186,8 @@
 
 
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 /*
 #pragma mark - Navigation

@@ -19,7 +19,7 @@
 
 - (void)awakeFromNib{
     self.scrollView.minimumZoomScale = 1;
-    self.scrollView.maximumZoomScale = 6;//;self.scrollView.min; //6.0;
+    self.scrollView.maximumZoomScale = 6;
     
     self.scrollView.delegate=self;
     

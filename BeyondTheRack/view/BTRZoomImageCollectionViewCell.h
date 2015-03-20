@@ -11,7 +11,6 @@
 
 @interface BTRZoomImageCollectionViewCell : UICollectionViewCell <UIScrollViewDelegate>
 
-//@property (nonatomic, strong) ImageContext *imageContext;
 @property (weak, nonatomic) IBOutlet UIImageView *zoomImageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
