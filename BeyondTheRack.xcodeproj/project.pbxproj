@@ -19,6 +19,7 @@
 		6900B4E61AB88CFA00930D16 /* facebook-login-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4E51AB88CFA00930D16 /* facebook-login-button.png */; };
 		6900B4E81AB88EF800930D16 /* facebook_flat_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4E71AB88EF800930D16 /* facebook_flat_login.png */; };
 		6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4EA1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m */; };
+		6901E9D21AC060B0002534D9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9D11AC060B0002534D9 /* User.m */; };
 		692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 692CE4961A9684A5007E9C26 /* BTRFacetData.m */; };
 		692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */; };
 		692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */; };
@@ -54,7 +55,6 @@
 		69869F731A6075EA00F986BC /* ShippingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F721A6075EA00F986BC /* ShippingAddress.m */; };
 		69869F761A6075EA00F986BC /* General2.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F751A6075EA00F986BC /* General2.m */; };
 		69869F791A6075EA00F986BC /* General3.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F781A6075EA00F986BC /* General3.m */; };
-		69869F7F1A6075EA00F986BC /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F7E1A6075EA00F986BC /* User.m */; };
 		69869F821A6075EA00F986BC /* UserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F811A6075EA00F986BC /* UserNotifications.m */; };
 		69869F981A63FB2100F986BC /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F861A63FB2100F986BC /* AFHTTPRequestOperation.m */; };
 		69869F991A63FB2100F986BC /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F881A63FB2100F986BC /* AFHTTPRequestOperationManager.m */; };
@@ -149,6 +149,8 @@
 		6900B4E71AB88EF800930D16 /* facebook_flat_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_flat_login.png; sourceTree = "<group>"; };
 		6900B4E91AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSignUpEmbeddedTVC.h; sourceTree = "<group>"; };
 		6900B4EA1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSignUpEmbeddedTVC.m; sourceTree = "<group>"; };
+		6901E9D01AC060B0002534D9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		6901E9D11AC060B0002534D9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		692CE4951A9684A5007E9C26 /* BTRFacetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFacetData.h; sourceTree = "<group>"; };
 		692CE4961A9684A5007E9C26 /* BTRFacetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFacetData.m; sourceTree = "<group>"; };
 		692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailEmbeddedTVC.h; sourceTree = "<group>"; };
@@ -211,8 +213,6 @@
 		69869F751A6075EA00F986BC /* General2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General2.m; sourceTree = "<group>"; };
 		69869F771A6075EA00F986BC /* General3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General3.h; sourceTree = "<group>"; };
 		69869F781A6075EA00F986BC /* General3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General3.m; sourceTree = "<group>"; };
-		69869F7D1A6075EA00F986BC /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		69869F7E1A6075EA00F986BC /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		69869F801A6075EA00F986BC /* UserNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotifications.h; sourceTree = "<group>"; };
 		69869F811A6075EA00F986BC /* UserNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotifications.m; sourceTree = "<group>"; };
 		69869F851A63FB2100F986BC /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -640,6 +640,8 @@
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
 				69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */,
+				6901E9D01AC060B0002534D9 /* User.h */,
+				6901E9D11AC060B0002534D9 /* User.m */,
 				696508721AA74BDA00ED28B8 /* Image.h */,
 				696508731AA74BDA00ED28B8 /* Image.m */,
 				696508691AA6228D00ED28B8 /* Item.h */,
@@ -648,8 +650,6 @@
 				69AB98641A77E68F00EDB1E6 /* Event.m */,
 				69869F801A6075EA00F986BC /* UserNotifications.h */,
 				69869F811A6075EA00F986BC /* UserNotifications.m */,
-				69869F7D1A6075EA00F986BC /* User.h */,
-				69869F7E1A6075EA00F986BC /* User.m */,
 				69869F771A6075EA00F986BC /* General3.h */,
 				69869F781A6075EA00F986BC /* General3.m */,
 				69869F741A6075EA00F986BC /* General2.h */,
@@ -903,6 +903,7 @@
 				69869FC81A640F0000F986BC /* UIRefreshControl+AFNetworking.m in Sources */,
 				6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */,
 				69AB98651A77E68F00EDB1E6 /* Event.m in Sources */,
+				6901E9D21AC060B0002534D9 /* User.m in Sources */,
 				6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
 				69869F6A1A6075E900F986BC /* BagItem.m in Sources */,
@@ -972,7 +973,6 @@
 				69CEF3501ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m in Sources */,
 				692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */,
 				69869F641A6075E900F986BC /* PaymentDetail.m in Sources */,
-				69869F7F1A6075EA00F986BC /* User.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
 				69869F9E1A63FB2100F986BC /* AFURLRequestSerialization.m in Sources */,
 				69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */,
