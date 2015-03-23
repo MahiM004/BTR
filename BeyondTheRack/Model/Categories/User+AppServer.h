@@ -17,5 +17,8 @@
 + (User *)userWithAppServerInfo:(NSDictionary *)userDictionary
                                inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (User *)userAuthWithAppServerInfo:(NSDictionary *)userDictionary
+             inManagedObjectContext:(NSManagedObjectContext *)context;
+
 
 @end

@@ -120,7 +120,7 @@
 
 
 
-#pragma mark - Load Results RESTful
+#pragma mark - Load User RESTful
 
 
 - (void)setupDocument
@@ -175,7 +175,7 @@
                   [[NSUserDefaults standardUserDefaults] setValue:[[self passwordTextField] text] forKey:@"Password"];
                   [[NSUserDefaults standardUserDefaults] synchronize];
                   
-                  [User userWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
+                  [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                   [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
                   
                   success(@"TRUE");

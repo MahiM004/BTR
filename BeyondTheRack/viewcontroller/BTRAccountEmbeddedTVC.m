@@ -9,20 +9,38 @@
 #import "BTRAccountEmbeddedTVC.h"
 #import "BTRLoginViewController.h"
 
+
+#import "BTRUserFetcher.h"
+#import "User+AppServer.h"
+
+
 @interface BTRAccountEmbeddedTVC ()
+
+
+@property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
+
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end
 
 @implementation BTRAccountEmbeddedTVC
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+ 
+    [self setupDocument];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self fetchUserDataIntoDocument:[self beyondTheRackDocument] success:^(User *user) {
+        
+        self.welcomeLabel.text = [NSString stringWithFormat:@"%@ %@", [user name], [user lastName]];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        
+    }];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,40 +65,58 @@
 }
 
 
+#pragma mark - Load User Info RESTful
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)setupDocument
+{
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+- (void)fetchUserDataIntoDocument:(UIManagedDocument *)document
+                          success:(void (^)(id  responseObject)) success
+                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+
+    NSString *sessionIdString = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         
+         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                          options:0
+                                                                            error:NULL];
+         if (entitiesPropertyList) {
+            
+             User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
+             [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         
+             success(user);
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+ 
+         failure(operation, error);
+ 
+     }];
+    
 }
-*/
+
+
 
 /*
 #pragma mark - Navigation

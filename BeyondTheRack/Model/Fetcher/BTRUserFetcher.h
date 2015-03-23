@@ -12,7 +12,11 @@
 
 
 + (NSURL *)URLforUserAuthentication;
-
++ (NSURL *)URLforUserLogout;
++ (NSURL *)URLforUserInfo;
++ (NSURL *)URLforUserCredits;
++ (NSURL *)URLforUserOrders;
++ (NSURL *)URLforUserOrderItems;
 
 
 @end
