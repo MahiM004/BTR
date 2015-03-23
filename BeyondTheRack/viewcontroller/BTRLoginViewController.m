@@ -9,6 +9,7 @@
 #import "BTRLoginViewController.h"
 
 #import "BTRUserFetcher.h"
+#import "User+AppServer.h"
 
 @interface BTRLoginViewController ()
 
@@ -166,6 +167,7 @@
               if (entitiesPropertyList) {
               
                   NSDictionary *tempDic = entitiesPropertyList[@"session"];
+                  NSDictionary *userDic = entitiesPropertyList[@"user"];
                   NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
                   
                   [[NSUserDefaults standardUserDefaults] setValue:sessionIdString forKey:@"Session"];
@@ -173,8 +175,12 @@
                   [[NSUserDefaults standardUserDefaults] setValue:[[self passwordTextField] text] forKey:@"Password"];
                   [[NSUserDefaults standardUserDefaults] synchronize];
                   
+                  [User userWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
+                  [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                  
                   success(@"TRUE");
-              
+     
+
               } else {
                   
                   [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Session"];

@@ -176,21 +176,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
-    NSLog(@"booooop");
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     BTRProductShowcaseVC *viewController = (BTRProductShowcaseVC *)[storyboard instantiateViewControllerWithIdentifier:@"BTRProductShowcaseVC"];
     viewController.eventSku = [event eventId];
     viewController.eventTitleString = [event eventName];
     [self.navigationController pushViewController:viewController animated:YES];
-
-
 }
 
 - (void)dealloc {
     NSLog(@"Tab One Dealloc");
     [imageView cancelImageRequestOperation];
-
 }
 
 

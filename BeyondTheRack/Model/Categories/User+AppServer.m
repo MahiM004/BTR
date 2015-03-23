@@ -52,7 +52,6 @@
         
         user = [self extractUserFromJSONDictionary:userDictionary forUser:user];
 
-        
     } else if ([matches count] == 0 || [matches count] > 1 ) {
         
         if([matches count] > 1) {
@@ -186,7 +185,7 @@
         
         user = [matches firstObject];
         
-        user = [self extractUserFromJSONDictionary:userDictionary forUser:user];
+        user = [self extractUserAuthFromJSONDictionary:userDictionary forUser:user];
         
         
     } else if ([matches count] == 0 || [matches count] > 1 ) {
@@ -201,7 +200,7 @@
         user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                              inManagedObjectContext:context];
         
-        user = [self extractUserFromJSONDictionary:userDictionary forUser:user];
+        user = [self extractUserAuthFromJSONDictionary:userDictionary forUser:user];
         
     }
     
