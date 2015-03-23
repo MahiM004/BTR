@@ -177,7 +177,7 @@
 
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-    
+    NSLog(@"booooop");
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     BTRProductShowcaseVC *viewController = (BTRProductShowcaseVC *)[storyboard instantiateViewControllerWithIdentifier:@"BTRProductShowcaseVC"];
     viewController.eventSku = [event eventId];

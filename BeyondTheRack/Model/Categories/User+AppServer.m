@@ -19,7 +19,7 @@
     user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                                     inManagedObjectContext:context];
     
-    user.usernameId = @"dummy";
+    user.userId = @"dummy";
 }
 
 
@@ -27,13 +27,13 @@
                                inManagedObjectContext:(NSManagedObjectContext *)context
 {
     User *user = nil;
-    NSString *unique = userDictionary[@"id"];
+    NSString *unique = userDictionary[@"uid"];
     
     if(!unique)
         return nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    request.predicate = [NSPredicate predicateWithFormat:@"usernameId == %@", unique];
+    request.predicate = [NSPredicate predicateWithFormat:@"userId == %@", unique];
     
     NSError *error;
     NSArray *matches = [context executeFetchRequest:request error:&error];
@@ -153,6 +153,79 @@
     
     return user;
 }
+
+
+
+
+
+
++ (User *)userAuthWithAppServerInfo:(NSDictionary *)userDictionary
+             inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    User *user = nil;
+    NSString *unique = userDictionary[@"uid"];
+    
+    if(!unique)
+        return nil;
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
+    request.predicate = [NSPredicate predicateWithFormat:@"userId == %@", unique];
+    
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    // if there is one matching record, update the record
+    // if there is a duplicate records, delete all duplicate record and replace with the fresh record from the server
+    // if there are no matching records create one
+    
+    if (error) {
+        
+        return nil;
+        
+    } else if ([matches count] == 1) {
+        
+        user = [matches firstObject];
+        
+        user = [self extractUserFromJSONDictionary:userDictionary forUser:user];
+        
+        
+    } else if ([matches count] == 0 || [matches count] > 1 ) {
+        
+        if([matches count] > 1) {
+            
+            for (NSManagedObject *someObject in matches) {
+                [context deleteObject:someObject];
+            }
+        }
+        
+        user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
+                                             inManagedObjectContext:context];
+        
+        user = [self extractUserFromJSONDictionary:userDictionary forUser:user];
+        
+    }
+    
+    return user;
+}
+
+
++ (User *)extractUserAuthFromJSONDictionary:(NSDictionary *)userDictionary forUser:(User *)user  {
+    
+    
+    if ([userDictionary valueForKeyPath:@"uid"] && [userDictionary valueForKeyPath:@"uid"] != [NSNull null])
+        user.userId = [userDictionary valueForKeyPath:@"uid"];
+    
+    if ([userDictionary valueForKeyPath:@"email"] && [userDictionary valueForKeyPath:@"email"] != [NSNull null])
+        user.email = [userDictionary valueForKeyPath:@"email"];
+    
+    if ([userDictionary valueForKeyPath:@"password"] && [userDictionary valueForKeyPath:@"password"] != [NSNull null])
+        user.password = [userDictionary valueForKeyPath:@"password"];
+    
+    
+    return user;
+}
+
+
 
 
 @end

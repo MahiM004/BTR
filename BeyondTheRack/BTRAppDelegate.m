@@ -73,23 +73,20 @@
      Managing the entry scene to the app
      *
      */
+    
     NSString *segueId= @"BTRLoginViewController";
     NSString * _Session = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     
-    if ([_Session length] > 10)
-        segueId = @"BTRMainViewController";
-    else
-        segueId = @"BTRLoginViewController";
+    //segueId = @"BTRMainViewController";
+    if ([_Session length] < 10)
+    {
+        UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
+        self.window.rootViewController = rootViewController;
+        [self.window makeKeyAndVisible];
+    }
     
-    UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
-    self.window.rootViewController = rootViewController;
-    [self.window makeKeyAndVisible];
 
-    
-    
-    
-    
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 
