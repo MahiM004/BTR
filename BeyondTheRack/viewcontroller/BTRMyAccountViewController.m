@@ -26,24 +26,6 @@
 }
 
 
-//#pragma mark - Table view data source
-
-/*
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return 8;
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCellIdentifier" forIndexPath:indexPath];
-    
-    return cell;
-}
-
-*/
-
 #pragma mark - Navigation
 
 

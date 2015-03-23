@@ -26,13 +26,8 @@
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-
-
     
     [self.scrollView setContentSize:CGSizeMake(320, 1100)];
-
-
-
 }
 
 - (void)didReceiveMemoryWarning {

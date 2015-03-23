@@ -17,6 +17,8 @@
 @interface BTRAccountEmbeddedTVC ()
 
 
+@property (strong, nonatomic) NSString *sessionId;
+
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
@@ -25,6 +27,14 @@
 @end
 
 @implementation BTRAccountEmbeddedTVC
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+}
+
+
 
 - (void)viewDidLoad {
     
@@ -52,15 +62,22 @@
 
 - (IBAction)signOutButtonTapped:(UIButton *)sender {
     
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Session"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Username"];
-    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    BTRLoginViewController *viewController = (BTRLoginViewController *)[storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
-    [self.navigationController pushViewController:viewController animated:YES];
-    
+
+    [self logutUserServerCallforSessionId:[self sessionId] success:^(NSString *didSucceed) {
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Session"];
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Username"];
+        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        BTRLoginViewController *viewController = (BTRLoginViewController *)[storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
+        [self.navigationController pushViewController:viewController animated:YES];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        
+    }];
     
 }
 
@@ -89,7 +106,7 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
 
-    NSString *sessionIdString = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+    NSString *sessionIdString = [self sessionId];
     [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
     
     [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
@@ -116,6 +133,37 @@
     
 }
 
+
+#pragma mark - Logout User RESTful
+
+
+- (void)logutUserServerCallforSessionId:(NSString *)sessionId
+                          success:(void (^)(id  responseObject)) success
+                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *sessionIdString = [self sessionId];
+    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserLogout]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData) {
+             
+             success(@"TRUE");
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         failure(operation, error);
+         
+     }];
+    
+}
 
 
 /*
