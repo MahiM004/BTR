@@ -162,15 +162,13 @@
             if ([didSignUp  isEqualToString:@"TRUE"]) {
                 
                 [self performSegueWithIdentifier:@"SignUpToMainSceneSegueIdentifier" sender:self];
-            }
-            else {
+            
+            } else {
                 
                 [self alertUserForSignUpError];
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            NSLog(@"errrrror:  %@", error);
             
         } ];
     }
@@ -299,14 +297,19 @@
                   [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
                   
                   success(@"TRUE");
-              }
               
-              success(@"FALSE");
+              } else {
+               
+                  success(@"FALSE");
+
+              }
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
               [self alertUserForSignUpError];
 
+              NSLog(@"yyy: %@", error);
+              
               failure(operation, error);
           }];
     
