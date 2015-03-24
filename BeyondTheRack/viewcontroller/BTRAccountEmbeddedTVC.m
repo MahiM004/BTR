@@ -30,6 +30,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
     
     self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
 }

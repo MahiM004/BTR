@@ -103,7 +103,6 @@
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        
     }];
 }
 
@@ -142,11 +141,6 @@
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = serializer;
-
-    // for every call
-   
-    //NSString*sessionIdString = @"9b4b00f5c39f6139768158dd7c5e417ed7ee005c24aaba6b08725a8b";
-    //[manager.requestSerializer setValue:@"session" forHTTPHeaderField:sessionIdString];
 
     NSLog(@"UITextFields are ignored @: signInButtonTapped");
     

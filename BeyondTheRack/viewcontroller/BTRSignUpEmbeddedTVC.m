@@ -39,11 +39,11 @@
 
 @property (nonatomic) NSUInteger pickerType;
 
-
-
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+
+@property (strong, nonatomic) NSString *sessionId;
 
 @end
 
@@ -62,6 +62,11 @@
     return _countryNameArray;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -138,13 +143,83 @@
     [self.viewForPicker setHidden:FALSE];
 }
 
+
+
+- (IBAction)joinButtonTapped:(UIButton *)sender {
+    
+    if ([self allFieldsAreValid]) {
+     
+        [self userRegistrationServerCallforSessionId:[self sessionId]
+                                             success:^(NSDictionary *entitiesDictionary) {
+                                                 
+                                                 
+                                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                 
+                                                 NSLog(@"errrrror:  %@", error);
+                                                 
+                                             } ];
+    }
+    
+}
+
+
+- (BOOL)allFieldsAreValid {
+    
+#warning validate fields;
+    return YES;
+}
+
+
+#pragma mark - User Registration RESTful
+
+
+
+- (void)userRegistrationServerCallforSessionId:(NSString *)sessionId
+                                success:(void (^)(id  responseObject)) success
+                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *sessionIdString = [self sessionId];
+    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+   
+    
+    NSDictionary *params = (@{
+                              @"email": @"hadi@success.ca",
+                              @"password": @"something",
+                              @"gender": @"Male",
+                              @"country": @"CA",
+                              @"name": @"",
+                              @"last_name": @""
+                              });
+    
+    [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserRegistration]]
+       parameters:params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+              success(entitiesPropertyList);
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              failure(operation, error);
+          }];
+    
+}
+
+
 #pragma mark - PickerView Delegates
 
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
 
-    
-    
     if ([self pickerType] == COUNTRY_PICKER)
         [self.countryTextField setText:[[self countryNameArray] objectAtIndex:row]];
     

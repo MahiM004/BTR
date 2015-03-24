@@ -44,6 +44,13 @@
     
 }
 
+
++ (NSURL *)URLforUserRegistration {
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/user/register", BASEURL]];
+    
+}
+
 /*
  
  http://www.mobile.btrdev.com/siteapi/user/logout

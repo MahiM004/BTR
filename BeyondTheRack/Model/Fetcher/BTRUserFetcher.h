@@ -17,6 +17,7 @@
 + (NSURL *)URLforUserCredits;
 + (NSURL *)URLforUserOrders;
 + (NSURL *)URLforUserOrderItems;
++ (NSURL *)URLforUserRegistration;
 
 
 @end
