@@ -20,5 +20,8 @@
 + (User *)userAuthWithAppServerInfo:(NSDictionary *)userDictionary
              inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (User *)signUpUserWithAppServerInfo:(NSDictionary *)infoDictionary
+                          andUserInfo:(NSDictionary *)userDictionary
+               inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

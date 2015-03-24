@@ -9,6 +9,7 @@
 #import "BTRSignUpEmbeddedTVC.h"
 
 #import "BTRUserFetcher.h"
+#import "User+AppServer.h"
 
 #define COUNTRY_PICKER 1
 #define GENDER_PICKER 2
@@ -73,6 +74,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupDocument];
     
     self.firstNameTextField = [BTRViewUtility underlineTextField:[self firstNameTextField]];
     self.lastNameTextField = [BTRViewUtility underlineTextField:[self lastNameTextField]];
@@ -153,18 +156,38 @@
     if ([self allFieldsAreValid]) {
      
         [self userRegistrationServerCallforSessionId:[self sessionId]
-                                             success:^(NSDictionary *entitiesDictionary) {
-                                                 
-#warning segue to main scene
-                                                 
-                                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                 
-                                                 NSLog(@"errrrror:  %@", error);
-                                                 
-                                             } ];
+                                             success:^(NSString *didSignUp)
+        {
+            
+            if ([didSignUp  isEqualToString:@"TRUE"]) {
+                
+                [self performSegueWithIdentifier:@"SignUpToMainSceneSegueIdentifier" sender:self];
+            }
+            else {
+                
+                [self alertUserForSignUpError];
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            NSLog(@"errrrror:  %@", error);
+            
+        } ];
     }
     
 }
+
+
+- (void)alertUserForSignUpError {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please try agian"
+                                                    message:@"Sign Up Failed !"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    [alert show];
+}
+
 
 
 - (BOOL)allFieldsAreValid {
@@ -219,6 +242,14 @@
 
 #pragma mark - User Registration RESTful
 
+- (void)setupDocument
+{
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
+}
 
 
 - (void)userRegistrationServerCallforSessionId:(NSString *)sessionId
@@ -252,14 +283,30 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
+              if (entitiesPropertyList) {
+                  
+                  NSDictionary *infoDic = entitiesPropertyList[@"info"];
+                  NSDictionary *sessionDic = entitiesPropertyList[@"session"];
+                  NSDictionary *userDic = entitiesPropertyList[@"user"];
+                  NSString *sessionIdString = [sessionDic valueForKey:@"session_id"];
+                  
+                  [[NSUserDefaults standardUserDefaults] setValue:sessionIdString forKey:@"Session"];
+                  [[NSUserDefaults standardUserDefaults] setValue:[[self emailTextField] text] forKey:@"Username"];
+                  [[NSUserDefaults standardUserDefaults] setValue:[[self passwordTextField] text] forKey:@"Password"];
+                  [[NSUserDefaults standardUserDefaults] synchronize];
+
+                  [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic inManagedObjectContext:[self managedObjectContext]];
+                  [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                  
+                  success(@"TRUE");
+              }
               
-              
-#warning NSD, update user and userAuth
-              
-              success(entitiesPropertyList);
+              success(@"FALSE");
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
+              [self alertUserForSignUpError];
+
               failure(operation, error);
           }];
     

@@ -812,7 +812,6 @@
                                                             </state>
                                                             <connections>
                                                                 <action selector="joinButtonTapped:" destination="ggQ-Fq-uBL" eventType="touchUpInside" id="emo-eP-AJH"/>
-                                                                <segue destination="Kg0-s3-5cm" kind="modal" modalTransitionStyle="crossDissolve" id="uHe-8C-rCG"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="av3-4f-a9n">
@@ -863,6 +862,7 @@
                         <outlet property="passwordTextField" destination="mVw-BG-6Ut" id="Mck-HT-mGU"/>
                         <outlet property="pickerView" destination="WRN-CK-1cB" id="0Nc-AC-kF2"/>
                         <outlet property="viewForPicker" destination="UaC-PM-6K5" id="M2z-wW-S81"/>
+                        <segue destination="Kg0-s3-5cm" kind="modal" identifier="SignUpToMainSceneSegueIdentifier" modalTransitionStyle="crossDissolve" id="puB-QM-g3c"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1BI-5O-hOX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -874,7 +874,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="D3C2C2D2-998B-415A-B290-D19E63F21695" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="BE772EFA-2668-4382-B698-84B3CE0368E5" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -2233,8 +2233,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="D3C2C2D2-998B-415A-B290-D19E63F21695" width="30" height="30">
+        <image name="BE772EFA-2668-4382-B698-84B3CE0368E5" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -2292,6 +2291,7 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
+        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>
         <image name="facebook_flat_login.png" width="716" height="132"/>
@@ -2309,7 +2309,7 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="uHe-8C-rCG"/>
+        <segue reference="puB-QM-g3c"/>
         <segue reference="wFP-yv-i8h"/>
         <segue reference="bIC-SN-W1I"/>
     </inferredMetricsTieBreakers>
