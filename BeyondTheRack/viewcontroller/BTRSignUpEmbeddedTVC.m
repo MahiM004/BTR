@@ -31,6 +31,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *genderIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *countryIconLabel;
 
+
+@property (strong, nonatomic) NSString *chosenCountryCodeString;
+
 @property (strong, nonatomic) NSArray *genderNameArray;
 @property (strong, nonatomic) NSArray *countryNameArray;
 
@@ -152,6 +155,7 @@
         [self userRegistrationServerCallforSessionId:[self sessionId]
                                              success:^(NSDictionary *entitiesDictionary) {
                                                  
+#warning segue to main scene
                                                  
                                              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                  
@@ -165,9 +169,52 @@
 
 - (BOOL)allFieldsAreValid {
     
-#warning validate fields;
-    return YES;
+    if ([[[self firstNameTextField] text] isEqualToString:@""]) {
+        
+        [self alertSystemFieldIncomplete:@"First Name"];
+        return FALSE;
+        
+    } else if ([[[self lastNameTextField] text] isEqualToString:@""]) {
+        
+        [self alertSystemFieldIncomplete:@"Last Name"];
+        return FALSE;
+        
+    } else if ([[[self emailTextField] text] isEqualToString:@""]) {
+        
+        [self alertSystemFieldIncomplete:@"Email"];
+        return FALSE;
+        
+    } else if ([[[self passwordTextField] text] isEqualToString:@""]) {
+        
+        [self alertSystemFieldIncomplete:@"Password"];
+        return FALSE;
+        
+    } else if ([[[self genderTextField] text] isEqualToString:@""]) {
+        
+        [self alertSystemFieldIncomplete:@"Gender"];
+        return FALSE;
+        
+    } else if ([[[self countryTextField] text] isEqualToString:@""]) {
+        
+        [self alertSystemFieldIncomplete:@"Country"];
+        return FALSE;
+    }
+    
+    return TRUE;
 }
+
+
+- (void)alertSystemFieldIncomplete:(NSString *)fieldString
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Form"
+                                                    message:[NSString stringWithFormat:@"%@ required.", fieldString]
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    [alert show];
+}
+
+
 
 
 #pragma mark - User Registration RESTful
@@ -187,15 +234,15 @@
     
     NSString *sessionIdString = [self sessionId];
     [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
-   
     
     NSDictionary *params = (@{
-                              @"email": @"hadi@success.ca",
-                              @"password": @"something",
-                              @"gender": @"Male",
-                              @"country": @"CA",
-                              @"name": @"",
-                              @"last_name": @""
+                              @"email": [[self emailTextField] text],
+                              @"password": [[self passwordTextField] text],
+                              @"gender": [[self genderTextField] text],
+                              @"country": [self chosenCountryCodeString],
+                              @"name": [[self firstNameTextField] text],
+                              @"last_name": [[self lastNameTextField] text],
+                              @"invite": [[self invitationCodeTextField ] text]
                               });
     
     [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserRegistration]]
@@ -205,6 +252,10 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
+              
+              
+#warning NSD, update user and userAuth
+              
               success(entitiesPropertyList);
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -220,11 +271,22 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
 
-    if ([self pickerType] == COUNTRY_PICKER)
+    if ([self pickerType] == COUNTRY_PICKER) {
         [self.countryTextField setText:[[self countryNameArray] objectAtIndex:row]];
+        
+        if ([self.countryTextField.text isEqualToString:@"Canada"]) {
+            
+            self.chosenCountryCodeString = @"CA";
+            
+        } else if ([self.countryTextField.text isEqualToString:@"USA"]) {
+            
+            self.chosenCountryCodeString = @"US";
+        }
+    }
     
-    if ([self pickerType] == GENDER_PICKER)
+    if ([self pickerType] == GENDER_PICKER) {
         [self.genderTextField setText:[[self genderNameArray] objectAtIndex:row]];
+    }
     
     [self.viewForPicker setHidden:TRUE];
 }
