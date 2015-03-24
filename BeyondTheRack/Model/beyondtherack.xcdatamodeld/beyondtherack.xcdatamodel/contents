@@ -197,8 +197,6 @@
         <attribute name="queueStatus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reference" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="registerIpaddr" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="registerUseragent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sessionId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updateNs" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
@@ -217,15 +215,15 @@
     <elements>
         <element name="BagItem" positionX="151" positionY="-9" width="128" height="180"/>
         <element name="Event" positionX="-1010" positionY="-63" width="128" height="538"/>
-        <element name="General1" positionX="-522" positionY="-126" width="128" height="165"/>
+        <element name="General1" positionX="-290" positionY="186" width="128" height="165"/>
         <element name="General2" positionX="-81" positionY="-63" width="128" height="165"/>
         <element name="General3" positionX="-675" positionY="144" width="128" height="165"/>
         <element name="Image" positionX="-686" positionY="333" width="128" height="148"/>
         <element name="Item" positionX="-839" positionY="-144" width="128" height="673"/>
         <element name="Order" positionX="-135" positionY="135" width="128" height="193"/>
         <element name="PaymentDetail" positionX="88" positionY="132" width="128" height="253"/>
-        <element name="ShippingAddress" positionX="-270" positionY="-72" width="128" height="195"/>
-        <element name="User" positionX="-441" positionY="72" width="128" height="538"/>
+        <element name="ShippingAddress" positionX="-315" positionY="-72" width="128" height="195"/>
+        <element name="User" positionX="-495" positionY="-99" width="128" height="508"/>
         <element name="UserNotifications" positionX="-684" positionY="-33" width="128" height="163"/>
     </elements>
 </model>

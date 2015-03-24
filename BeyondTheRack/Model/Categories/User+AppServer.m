@@ -192,13 +192,7 @@
     
     if ([userDictionary valueForKeyPath:@"birthdate"] && [userDictionary valueForKeyPath:@"birthdate"] != [NSNull null])
         user.birthDate = [userDictionary valueForKeyPath:@"birthdate"];
-    
-    if ([userDictionary valueForKeyPath:@"register_ipaddr"] && [userDictionary valueForKeyPath:@"register_ipaddr"] != [NSNull null])
-        user.registerIpaddr = [userDictionary valueForKeyPath:@"register_ipaddr"];
-    
-    if ([userDictionary valueForKeyPath:@"register_useragent"] && [userDictionary valueForKeyPath:@"register_useragent"] != [NSNull null])
-        user.registerUseragent = [userDictionary valueForKeyPath:@"register_useragent"];
-    
+  
     if ([userDictionary valueForKeyPath:@"employee"] && [userDictionary valueForKeyPath:@"employee"] != [NSNull null])
         user.employee = [userDictionary valueForKeyPath:@"employee"];
 

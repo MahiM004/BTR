@@ -2,7 +2,7 @@
 //  User.h
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-03-23.
+//  Created by Hadi Kheyruri on 2015-03-24.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
@@ -42,8 +42,6 @@
 @property (nonatomic, retain) NSString * nsId;
 @property (nonatomic, retain) NSString * region;
 @property (nonatomic, retain) NSString * birthDate;
-@property (nonatomic, retain) NSString * registerIpaddr;
-@property (nonatomic, retain) NSString * registerUseragent;
 @property (nonatomic, retain) NSString * employee;
 
 @end
