@@ -63,7 +63,7 @@
     [self setupDocument];
     [self updateViewWithItem:[self productItem]];
 
-    if ([[self productItem] sku] && [[[self productItem] sku] isEqual:[NSNull null]])
+    if ([[self productItem] sku] && ![[[self productItem] sku] isEqual:[NSNull null]])
         [self fetchItemIntoDocument:[self beyondTheRackDocument] forProductSku:[[self productItem] sku]
                             success:^(Item *responseObject) {
                                 
@@ -248,6 +248,8 @@
          NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                          options:0
                                                                            error:NULL];
+         
+         NSLog(@"coollll iten:  %@", entitiesPropertyList);
          
          Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList inManagedObjectContext:document.managedObjectContext];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];

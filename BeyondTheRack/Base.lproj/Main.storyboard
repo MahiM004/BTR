@@ -532,7 +532,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uoi-pM-ZX5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1154" y="-666"/>
+            <point key="canvasLocation" x="-1084" y="-790"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="APq-nm-KeY">
@@ -558,7 +558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="INd-FL-FpR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1450" y="71"/>
+            <point key="canvasLocation" x="-1498" y="-67"/>
         </scene>
         <!--Sign Up EmbeddedTVC-->
         <scene sceneID="1t9-Qa-PXf">
@@ -867,14 +867,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1BI-5O-hOX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-978" y="182"/>
+            <point key="canvasLocation" x="-1026" y="112"/>
         </scene>
         <!--First-->
         <scene sceneID="Dr9-ga-gks">
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="34F5AD66-92C9-4001-B9B8-74F898106DB6" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="34808F4A-087C-4C88-B4C9-41DC17120AF7" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -2030,7 +2030,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wxx-54-p0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3181" y="480"/>
+            <point key="canvasLocation" x="3085" y="252"/>
         </scene>
         <!--Approve Purchase View Controller-->
         <scene sceneID="ohB-Tf-V6s">
@@ -2104,7 +2104,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3k-r8-R5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5Wd-id-3W3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3655" y="474"/>
+            <point key="canvasLocation" x="3559" y="246"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="PET-gF-tHv">
@@ -2146,7 +2146,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6qf-vA-iqF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4109" y="411.5"/>
+            <point key="canvasLocation" x="4013" y="183.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x8v-mg-mc8">
@@ -2233,7 +2233,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="34F5AD66-92C9-4001-B9B8-74F898106DB6" width="30" height="30">
+        <image name="34808F4A-087C-4C88-B4C9-41DC17120AF7" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -2309,7 +2309,7 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="puB-QM-g3c"/>
+        <segue reference="gIK-AU-lI0"/>
         <segue reference="wFP-yv-i8h"/>
         <segue reference="bIC-SN-W1I"/>
     </inferredMetricsTieBreakers>
