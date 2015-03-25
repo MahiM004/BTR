@@ -15,6 +15,7 @@
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
 #import "BTRFacetsHandler.h"
+#import "BTRFacetData.h"
 
 
 @interface BTRSearchViewController () <BTRRefineResultsViewController>
@@ -192,9 +193,11 @@
     
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
     if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]])
     {
+        [sharedFacetData clearAllData];
         [sharedFacetHandler resetFacets];
         sharedFacetHandler.searchString = [self.searchBar text];
     }

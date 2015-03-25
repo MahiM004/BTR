@@ -301,14 +301,11 @@
               } else {
                
                   success(@"FALSE");
-
               }
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
               [self alertUserForSignUpError];
-
-              NSLog(@"yyy: %@", error);
               
               failure(operation, error);
           }];
