@@ -2,7 +2,7 @@
 //  BagItem.h
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-01-09.
+//  Created by Hadi Kheyruri on 2015-03-25.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
@@ -21,5 +21,7 @@
 @property (nonatomic, retain) NSString * quantity;
 @property (nonatomic, retain) NSString * unitPrice;
 @property (nonatomic, retain) NSString * usernameId;
+@property (nonatomic, retain) NSDate * bagItemTimer;
+@property (nonatomic, retain) NSString * selectedSize;
 
 @end

@@ -21,6 +21,7 @@
 		6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4EA1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m */; };
 		6901E9D51AC09CE3002534D9 /* BTRBagFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9D41AC09CE3002534D9 /* BTRBagFetcher.m */; };
 		6901E9DB1AC1C5A0002534D9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9DA1AC1C5A0002534D9 /* User.m */; };
+		6901E9DE1AC34C49002534D9 /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9DD1AC34C49002534D9 /* BagItem.m */; };
 		692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 692CE4961A9684A5007E9C26 /* BTRFacetData.m */; };
 		692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */; };
 		692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */; };
@@ -51,7 +52,6 @@
 		69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A141A44A701003CE59C /* BTRMainViewController.m */; };
 		69869F641A6075E900F986BC /* PaymentDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F631A6075E900F986BC /* PaymentDetail.m */; };
 		69869F671A6075E900F986BC /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F661A6075E900F986BC /* Order.m */; };
-		69869F6A1A6075E900F986BC /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F691A6075E900F986BC /* BagItem.m */; };
 		69869F6D1A6075E900F986BC /* General1.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F6C1A6075E900F986BC /* General1.m */; };
 		69869F731A6075EA00F986BC /* ShippingAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F721A6075EA00F986BC /* ShippingAddress.m */; };
 		69869F761A6075EA00F986BC /* General2.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F751A6075EA00F986BC /* General2.m */; };
@@ -154,6 +154,8 @@
 		6901E9D41AC09CE3002534D9 /* BTRBagFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRBagFetcher.m; sourceTree = "<group>"; };
 		6901E9D91AC1C5A0002534D9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		6901E9DA1AC1C5A0002534D9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6901E9DC1AC34C49002534D9 /* BagItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItem.h; sourceTree = "<group>"; };
+		6901E9DD1AC34C49002534D9 /* BagItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItem.m; sourceTree = "<group>"; };
 		692CE4951A9684A5007E9C26 /* BTRFacetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFacetData.h; sourceTree = "<group>"; };
 		692CE4961A9684A5007E9C26 /* BTRFacetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFacetData.m; sourceTree = "<group>"; };
 		692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailEmbeddedTVC.h; sourceTree = "<group>"; };
@@ -206,8 +208,6 @@
 		69869F631A6075E900F986BC /* PaymentDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentDetail.m; sourceTree = "<group>"; };
 		69869F651A6075E900F986BC /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		69869F661A6075E900F986BC /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
-		69869F681A6075E900F986BC /* BagItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BagItem.h; sourceTree = "<group>"; };
-		69869F691A6075E900F986BC /* BagItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BagItem.m; sourceTree = "<group>"; };
 		69869F6B1A6075E900F986BC /* General1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General1.h; sourceTree = "<group>"; };
 		69869F6C1A6075E900F986BC /* General1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General1.m; sourceTree = "<group>"; };
 		69869F711A6075EA00F986BC /* ShippingAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingAddress.h; sourceTree = "<group>"; };
@@ -645,6 +645,8 @@
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
 				69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */,
+				6901E9DC1AC34C49002534D9 /* BagItem.h */,
+				6901E9DD1AC34C49002534D9 /* BagItem.m */,
 				6901E9D91AC1C5A0002534D9 /* User.h */,
 				6901E9DA1AC1C5A0002534D9 /* User.m */,
 				696508721AA74BDA00ED28B8 /* Image.h */,
@@ -663,8 +665,6 @@
 				69869F721A6075EA00F986BC /* ShippingAddress.m */,
 				69869F6B1A6075E900F986BC /* General1.h */,
 				69869F6C1A6075E900F986BC /* General1.m */,
-				69869F681A6075E900F986BC /* BagItem.h */,
-				69869F691A6075E900F986BC /* BagItem.m */,
 				69869F651A6075E900F986BC /* Order.h */,
 				69869F661A6075E900F986BC /* Order.m */,
 				69869F621A6075E900F986BC /* PaymentDetail.h */,
@@ -910,7 +910,6 @@
 				69AB98651A77E68F00EDB1E6 /* Event.m in Sources */,
 				6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
-				69869F6A1A6075E900F986BC /* BagItem.m in Sources */,
 				69869F821A6075EA00F986BC /* UserNotifications.m in Sources */,
 				696508741AA74BDA00ED28B8 /* Image.m in Sources */,
 				69869F9D1A63FB2100F986BC /* AFURLConnectionOperation.m in Sources */,
@@ -978,6 +977,7 @@
 				69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */,
 				69CEF3501ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m in Sources */,
 				692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */,
+				6901E9DE1AC34C49002534D9 /* BagItem.m in Sources */,
 				69869F641A6075E900F986BC /* PaymentDetail.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
 				69869F9E1A63FB2100F986BC /* AFURLRequestSerialization.m in Sources */,
