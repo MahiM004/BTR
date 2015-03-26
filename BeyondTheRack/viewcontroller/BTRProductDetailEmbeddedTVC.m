@@ -103,8 +103,12 @@
     
     UIView *descriptionView = [[UIView alloc] init];
     descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
-    
     [self.longDescriptionView addSubview:descriptionView];
+    
+    UIView *specialNoteView = [[UIView alloc] init];
+    specialNoteView = [self getSpecialNoteViewForView:specialNoteView withSpecialNoteString:[productItem specialNote]];
+    [self.longDescriptionView addSubview:specialNoteView];
+    
     
     [self.collectionView reloadData];
 }
@@ -140,7 +144,6 @@
 
         xPos += (labelHeight + 5);
         customHeight = customHeight + labelHeight + 10;
-
         
         UILabel *myLabel = [[UILabel alloc] initWithFrame:labelFrame];
         
@@ -153,12 +156,43 @@
         [descriptionView addSubview:myLabel];
     }
     
+    
     [descriptionView sizeToFit];
     self.descriptionCellHeight = customHeight;
     
     return descriptionView;
 }
 
+
+
+- (UIView *)getSpecialNoteViewForView:(UIView *)specialNoteView withSpecialNoteString:(NSString *)specialNoteString {
+
+
+    if ([specialNoteString length] > 2) {
+       
+        NSString *labelText = [NSString stringWithFormat:@"Special Note: %@.", specialNoteString];
+        UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+        
+        int labelHeight = [labelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:descriptionFont];
+        CGRect labelFrame = CGRectMake(0, [self descriptionCellHeight] - 90, self.longDescriptionView.bounds.size.width, labelHeight);
+        
+        self.descriptionCellHeight  = [self descriptionCellHeight] + labelHeight;
+        UILabel *myLabel = [[UILabel alloc] initWithFrame:labelFrame];
+        
+        [myLabel setFont:descriptionFont];
+        [myLabel setText:labelText];
+        [myLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
+        [myLabel sizeToFit];
+        [myLabel setTextAlignment:NSTextAlignmentLeft];
+        
+        [specialNoteView addSubview:myLabel];
+    }
+    
+    
+    [specialNoteView sizeToFit];
+    
+    return specialNoteView;
+}
 
 
 
@@ -249,7 +283,35 @@
                                                                          options:0
                                                                            error:NULL];
          
-         NSLog(@"coollll iten:  %@", entitiesPropertyList);
+        
+         NSDictionary *tempDic = entitiesPropertyList[@"variant_inventory"];
+         for (NSString *key in tempDic.allKeys)
+             NSLog(@"-- %@ : %@", key, tempDic[key]);
+         
+         
+         /*
+         NSDictionary *tempDic = [entitiesPropertyList ];
+         
+         for () {
+             
+         }
+         */
+         
+         /*
+          
+          NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+          if (error)
+          NSLog(@"JSONObjectWithData error: %@", error);
+          
+          [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+          NSArray *array = obj;
+          if ([obj isKindOfClass:[NSArray class]])
+          NSLog(@"first item = %@", array[0]);
+          else
+          NSLog(@"The value associated with key '%@' is not array", key);
+          }];
+          
+          */
          
          Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList inManagedObjectContext:document.managedObjectContext];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
