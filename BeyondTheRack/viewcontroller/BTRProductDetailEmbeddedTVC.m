@@ -34,9 +34,39 @@
 @property (strong, nonatomic) NSString *productSku;
 @property (nonatomic) NSInteger productImageCount;
 
+@property (strong, nonatomic) NSMutableArray *sizesArray;
+@property (strong, nonatomic) NSMutableArray *sizeCodesArray;
+@property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
+
+
 @end
 
+
 @implementation BTRProductDetailEmbeddedTVC
+
+
+
+- (NSMutableArray *)sizesArray {
+    
+    if (!_sizesArray) _sizesArray = [[NSMutableArray alloc] init];
+    return _sizesArray;
+}
+
+
+- (NSMutableArray *)sizeCodesArray {
+    
+    if (!_sizeCodesArray) _sizeCodesArray = [[NSMutableArray alloc] init];
+    return _sizeCodesArray;
+}
+
+
+- (NSMutableArray *)sizeQuantityArray {
+    
+    if (!_sizeQuantityArray) _sizeQuantityArray = [[NSMutableArray alloc]  init];
+    return _sizeQuantityArray;
+}
+
+
 
 - (void)viewWillAppear:(BOOL)animated {
     
@@ -174,7 +204,7 @@
         UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
         
         int labelHeight = [labelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:descriptionFont];
-        CGRect labelFrame = CGRectMake(0, [self descriptionCellHeight] - 90, self.longDescriptionView.bounds.size.width, labelHeight);
+        CGRect labelFrame = CGRectMake(0, [self descriptionCellHeight] - 80, self.longDescriptionView.bounds.size.width, labelHeight);
         
         self.descriptionCellHeight  = [self descriptionCellHeight] + labelHeight;
         UILabel *myLabel = [[UILabel alloc] initWithFrame:labelFrame];
@@ -283,36 +313,11 @@
                                                                          options:0
                                                                            error:NULL];
          
-        
+         NSLog(@"kule: %@", entitiesPropertyList);
+         
          NSDictionary *tempDic = entitiesPropertyList[@"variant_inventory"];
-         for (NSString *key in tempDic.allKeys)
-             NSLog(@"-- %@ : %@", key, tempDic[key]);
-         
-         
-         /*
-         NSDictionary *tempDic = [entitiesPropertyList ];
-         
-         for () {
-             
-         }
-         */
-         
-         /*
-          
-          NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-          if (error)
-          NSLog(@"JSONObjectWithData error: %@", error);
-          
-          [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-          NSArray *array = obj;
-          if ([obj isKindOfClass:[NSArray class]])
-          NSLog(@"first item = %@", array[0]);
-          else
-          NSLog(@"The value associated with key '%@' is not array", key);
-          }];
-          
-          */
-         
+         [self extractSizesFromVarianInventoryDictionary:tempDic];
+ 
          Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList inManagedObjectContext:document.managedObjectContext];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
         
@@ -328,6 +333,50 @@
 }
 
 
+
+#pragma mark - Handle Sizes (variant_inventory)
+
+- (enum btrSizeMode) extractSizesFromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary {
+    
+    
+    NSString *keyString = @"";
+    NSArray *allKeys = [variantInventoryDictionary allKeys];
+   
+    if ([allKeys count] == 0) {
+        
+        NSLog(@"no info");
+        return btrSizeModeNoInfo;
+    }
+    
+    if ([allKeys count] > 0) {
+        
+         keyString = [allKeys objectAtIndex:0];
+
+        if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@"One Size"])
+            return btrSizeModeSingleSizeShow;
+        
+        else if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] &&
+                 [allKeys count] == 1 )  /*  To deal with the follwoing faulty data entry: { "#Z" = 79; "L#L" = 4; "M#M" = 8; }; */
+            return btrSizeModeSingleSizeNoShow;
+        
+    }
+    
+    [variantInventoryDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        NSString *keyString = key;
+        
+        if ( ![[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] ) {
+            
+            [[self sizesArray] addObject:[keyString componentsSeparatedByString:@"#"][0]];
+            [[self sizeCodesArray] addObject:[keyString componentsSeparatedByString:@"#"][1]];
+            [[self sizeQuantityArray] addObject:variantInventoryDictionary[key]];
+        }
+ 
+    }];
+    
+    
+    return btrSizeModeMultipleSizes;
+}
 
 
 #pragma mark - Navigation

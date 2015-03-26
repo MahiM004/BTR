@@ -7,8 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "Item+AppServer.h"
+
+
+enum btrSizeMode
+{
+    btrSizeModeSoldOut, // == 0 (by default)
+    btrSizeModeSingleSizeShow, // == 1 (incremented by 1 from previous)
+    btrSizeModeSingleSizeNoShow, // == 2
+    btrSizeModeNoInfo,
+    btrSizeModeMultipleSizes
+};
 
 
 @interface BTRProductDetailEmbeddedTVC : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
