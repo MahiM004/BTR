@@ -357,6 +357,7 @@
         
         else if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] &&
                  [allKeys count] == 1 )  /*  To deal with the follwoing faulty data entry: { "#Z" = 79; "L#L" = 4; "M#M" = 8; }; */
+                                         /*  if #Z and anything else ignore #Z" */
             return btrSizeModeSingleSizeNoShow;
         
     }
