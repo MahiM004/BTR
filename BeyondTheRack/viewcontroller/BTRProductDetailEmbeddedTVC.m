@@ -140,7 +140,7 @@
     
     UIView *descriptionView = [[UIView alloc] init];
     descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
-    //descriptionView = [self getAttribueViewForView:descriptionView];
+    descriptionView = [self getAttribueViewForView:descriptionView];
     descriptionView = [self getSpecialNoteView:descriptionView withSpecialNote:[productItem specialNote]];
     
     [self.longDescriptionView addSubview:descriptionView];
