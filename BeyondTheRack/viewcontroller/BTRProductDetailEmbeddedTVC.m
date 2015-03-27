@@ -29,8 +29,10 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property (nonatomic) NSInteger yPos;
+@property (nonatomic) NSInteger customHeight;
+@property (nonatomic) NSInteger descriptionCellHeight;
 
-@property (nonatomic) int descriptionCellHeight;
 @property (strong, nonatomic) NSString *productSku;
 @property (nonatomic) NSInteger productImageCount;
 
@@ -47,7 +49,9 @@
 
 @implementation BTRProductDetailEmbeddedTVC
 
-
+@synthesize yPos;
+@synthesize customHeight;
+@synthesize descriptionCellHeight;
 
 - (NSMutableArray *)sizesArray {
     
@@ -112,13 +116,13 @@
     
     
     [self setupDocument];
-   // [self updateViewWithItem:[self productItem]];
+    [self updateViewWithItem:[self productItem]];
 
     if ([[self productItem] sku] && ![[[self productItem] sku] isEqual:[NSNull null]])
         [self fetchItemIntoDocument:[self beyondTheRackDocument] forProductSku:[[self productItem] sku]
                             success:^(Item *responseObject) {
                                 
-                                [self updateViewWithItem:responseObject];
+                                [self updateViewWithDeatiledItem:responseObject];
                                 
                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                 
@@ -128,6 +132,21 @@
 
 #pragma mark - Update Detail View
 
+
+- (void)updateViewWithDeatiledItem:(Item *)productItem {
+   
+    [self updateViewWithItem:productItem];
+    
+    
+    UIView *descriptionView = [[UIView alloc] init];
+    descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
+    //descriptionView = [self getAttribueViewForView:descriptionView];
+    descriptionView = [self getSpecialNoteView:descriptionView withSpecialNote:[productItem specialNote]];
+    
+    [self.longDescriptionView addSubview:descriptionView];
+ 
+    [self.collectionView reloadData];
+}
 
 
 - (void)updateViewWithItem:(Item *)productItem {
@@ -151,22 +170,20 @@
         [self.crossedOffPriceLabel setText:@""];
         
     }
-    
-    UIView *descriptionView = [[UIView alloc] init];
-    descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription] andSpecialNote:[productItem specialNote]];
-    [self.longDescriptionView addSubview:descriptionView];
  
-    
+
     [self.collectionView reloadData];
 }
 
 
+#pragma mark - Construct Description Views
 
-- (UIView *)getDescriptionViewForView:(UIView *)descriptionView withDescriptionString:(NSString *)longDescriptionString andSpecialNote:(NSString *)specialNoteString {
+
+
+- (UIView *)getDescriptionViewForView:(UIView *)descriptionView withDescriptionString:(NSString *)longDescriptionString {
   
-    
-    NSInteger customHeight = 80;
-    NSInteger yPos = 0;
+    customHeight = 80;
+    yPos = 0;
     
     NSString *descriptionString = longDescriptionString;
     
@@ -203,7 +220,13 @@
     }
     
     yPos = yPos + 15;
-        
+    
+    return descriptionView;
+}
+
+
+- (UIView *)getAttribueViewForView:(UIView *)attributeView {
+
     for (int i = 0; i < [self.attributeKeys count]; i++) {
         
         NSString *attributeText = [NSString stringWithFormat:@"    %@ : %@", [self.attributeKeys objectAtIndex:i], [self.attributeValues objectAtIndex:i]];
@@ -223,13 +246,19 @@
         [attributeLabel sizeToFit];
         [attributeLabel setTextAlignment:NSTextAlignmentLeft];
         
-        [descriptionView addSubview:attributeLabel];
+        [attributeView addSubview:attributeLabel];
     }
+
+    
+    return attributeView;
+}
+
+- (UIView *)getSpecialNoteView:(UIView *)specialNoteView withSpecialNote:(NSString *)specialNoteString {
 
     
     if ([specialNoteString length] > 2) {
         
-        NSString *specialNoteLabelText = [NSString stringWithFormat:@"Special Note: %@.", specialNoteString];
+        NSString *specialNoteLabelText = [NSString stringWithFormat:@"Special Note: %@", specialNoteString];
         UIFont *specialNoteFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
         
         int specialNoteLabelHeight = [specialNoteLabelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:specialNoteFont];
@@ -244,17 +273,14 @@
         [specialNoteLabel sizeToFit];
         [specialNoteLabel setTextAlignment:NSTextAlignmentLeft];
         
-        [descriptionView addSubview:specialNoteLabel];
+        [specialNoteView addSubview:specialNoteLabel];
     }
     
- 
-    [descriptionView sizeToFit];
     self.descriptionCellHeight = customHeight;
     
-    return descriptionView;
+    
+    return specialNoteView;
 }
-
-
 
 
 
