@@ -39,6 +39,9 @@
 @property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
 
 
+@property (strong, nonatomic) NSMutableArray *attributeKeys;
+@property (strong, nonatomic) NSMutableArray *attributeValues;
+
 @end
 
 
@@ -67,6 +70,24 @@
 }
 
 
+- (NSMutableArray *)attributeKeys {
+    
+    if (!_attributeKeys) _attributeKeys = [[NSMutableArray alloc] init];
+    return _attributeKeys;
+}
+
+
+- (NSMutableArray *)attributeValues {
+    
+    if (!_attributeValues) _attributeValues = [[NSMutableArray alloc] init];
+    return  _attributeValues;
+}
+
+
+/*
+ 
+ 
+ */
 
 - (void)viewWillAppear:(BOOL)animated {
     
@@ -91,7 +112,7 @@
     
     
     [self setupDocument];
-    [self updateViewWithItem:[self productItem]];
+   // [self updateViewWithItem:[self productItem]];
 
     if ([[self productItem] sku] && ![[[self productItem] sku] isEqual:[NSNull null]])
         [self fetchItemIntoDocument:[self beyondTheRackDocument] forProductSku:[[self productItem] sku]
@@ -132,24 +153,20 @@
     }
     
     UIView *descriptionView = [[UIView alloc] init];
-    descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
+    descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription] andSpecialNote:[productItem specialNote]];
     [self.longDescriptionView addSubview:descriptionView];
-    
-    UIView *specialNoteView = [[UIView alloc] init];
-    specialNoteView = [self getSpecialNoteViewForView:specialNoteView withSpecialNoteString:[productItem specialNote]];
-    [self.longDescriptionView addSubview:specialNoteView];
-    
+ 
     
     [self.collectionView reloadData];
 }
 
 
 
-- (UIView *)getDescriptionViewForView:(UIView *)descriptionView withDescriptionString:(NSString *)longDescriptionString {
+- (UIView *)getDescriptionViewForView:(UIView *)descriptionView withDescriptionString:(NSString *)longDescriptionString andSpecialNote:(NSString *)specialNoteString {
   
     
-    int customHeight = 80;
-    int xPos = 0;
+    NSInteger customHeight = 80;
+    NSInteger yPos = 0;
     
     NSString *descriptionString = longDescriptionString;
     
@@ -169,10 +186,9 @@
         UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
         
         int labelHeight = [labelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:descriptionFont];
+        CGRect labelFrame = CGRectMake(0, yPos, self.longDescriptionView.bounds.size.width, labelHeight);
 
-        CGRect labelFrame = CGRectMake(0, xPos, self.longDescriptionView.bounds.size.width, labelHeight);
-
-        xPos += (labelHeight + 5);
+        yPos = yPos + (labelHeight + 5);
         customHeight = customHeight + labelHeight + 10;
         
         UILabel *myLabel = [[UILabel alloc] initWithFrame:labelFrame];
@@ -186,7 +202,52 @@
         [descriptionView addSubview:myLabel];
     }
     
+    yPos = yPos + 15;
+        
+    for (int i = 0; i < [self.attributeKeys count]; i++) {
+        
+        NSString *attributeText = [NSString stringWithFormat:@"    %@ : %@", [self.attributeKeys objectAtIndex:i], [self.attributeValues objectAtIndex:i]];
+        UIFont *attributeFont =  [UIFont fontWithName:@"HelveticaNeue" size:12];
+        
+        int attributeHeight = [attributeText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:attributeFont];
+        CGRect attributeFrame = CGRectMake(0, yPos, self.longDescriptionView.bounds.size.width, attributeHeight);
+        
+        yPos = yPos + (attributeHeight + 5);
+        customHeight = customHeight + attributeHeight + 10;
+        
+        UILabel *attributeLabel = [[UILabel alloc] initWithFrame:attributeFrame];
+        
+        [attributeLabel setFont:attributeFont];
+        [attributeLabel setText:attributeText];
+        [attributeLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
+        [attributeLabel sizeToFit];
+        [attributeLabel setTextAlignment:NSTextAlignmentLeft];
+        
+        [descriptionView addSubview:attributeLabel];
+    }
+
     
+    if ([specialNoteString length] > 2) {
+        
+        NSString *specialNoteLabelText = [NSString stringWithFormat:@"Special Note: %@.", specialNoteString];
+        UIFont *specialNoteFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+        
+        int specialNoteLabelHeight = [specialNoteLabelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:specialNoteFont];
+        CGRect specialNoteFrame = CGRectMake(0, customHeight - 80, self.longDescriptionView.bounds.size.width, specialNoteLabelHeight);
+        
+        customHeight = customHeight + specialNoteLabelHeight + 10;
+        UILabel *specialNoteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
+        
+        [specialNoteLabel setFont:specialNoteFont];
+        [specialNoteLabel setText:specialNoteLabelText];
+        [specialNoteLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
+        [specialNoteLabel sizeToFit];
+        [specialNoteLabel setTextAlignment:NSTextAlignmentLeft];
+        
+        [descriptionView addSubview:specialNoteLabel];
+    }
+    
+ 
     [descriptionView sizeToFit];
     self.descriptionCellHeight = customHeight;
     
@@ -194,35 +255,6 @@
 }
 
 
-
-- (UIView *)getSpecialNoteViewForView:(UIView *)specialNoteView withSpecialNoteString:(NSString *)specialNoteString {
-
-
-    if ([specialNoteString length] > 2) {
-       
-        NSString *labelText = [NSString stringWithFormat:@"Special Note: %@.", specialNoteString];
-        UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
-        
-        int labelHeight = [labelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:descriptionFont];
-        CGRect labelFrame = CGRectMake(0, [self descriptionCellHeight] - 80, self.longDescriptionView.bounds.size.width, labelHeight);
-        
-        self.descriptionCellHeight  = [self descriptionCellHeight] + labelHeight;
-        UILabel *myLabel = [[UILabel alloc] initWithFrame:labelFrame];
-        
-        [myLabel setFont:descriptionFont];
-        [myLabel setText:labelText];
-        [myLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
-        [myLabel sizeToFit];
-        [myLabel setTextAlignment:NSTextAlignmentLeft];
-        
-        [specialNoteView addSubview:myLabel];
-    }
-    
-    
-    [specialNoteView sizeToFit];
-    
-    return specialNoteView;
-}
 
 
 
@@ -313,11 +345,9 @@
                                                                          options:0
                                                                            error:NULL];
          
-         NSLog(@"kule: %@", entitiesPropertyList);
+         [self extractSizesFromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]];
+         [self extractAttributsFromAttributesDictionary:entitiesPropertyList[@"attributes"]];
          
-         NSDictionary *tempDic = entitiesPropertyList[@"variant_inventory"];
-         [self extractSizesFromVarianInventoryDictionary:tempDic];
- 
          Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList inManagedObjectContext:document.managedObjectContext];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
         
@@ -334,7 +364,28 @@
 
 
 
-#pragma mark - Handle Sizes (variant_inventory)
+#pragma mark -  Handle JSON with Arbitrary Keys (variant_inventory and attributes)
+
+
+- (void) extractAttributsFromAttributesDictionary:(NSDictionary *)attributeDictionary {
+    
+    
+    [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        NSString *keyString = key;
+        NSString *objString = obj;
+        
+        if (![keyString isEqualToString:@""]) {
+            
+            [[self attributeKeys] addObject:keyString];
+            [[self attributeValues] addObject:objString];
+        }
+        
+    }];
+
+    
+}
+
 
 - (enum btrSizeMode) extractSizesFromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary {
     
