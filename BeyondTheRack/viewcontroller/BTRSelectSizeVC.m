@@ -10,12 +10,17 @@
 
 @interface BTRSelectSizeVC ()
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation BTRSelectSizeVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
     NSLog(@"reccievd size: %lu", (unsigned long)[[self sizesArray] count]);
     
@@ -59,7 +64,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text =[NSString stringWithFormat:@"cool %ld", (long)[indexPath row]];//(NSString *)[[self sizesArray] objectAtIndex:[indexPath row]];
+    cell.textLabel.text = [[self sizesArray] objectAtIndex:[indexPath row]];
     
     return cell;
 }

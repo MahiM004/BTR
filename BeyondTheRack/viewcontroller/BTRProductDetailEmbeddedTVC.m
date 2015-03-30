@@ -503,7 +503,10 @@
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     
     self.selectedIndex = selectedIndex;
-    [self.tableView reloadData];
+    
+    self.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
+    
+    //[self.tableView reloadData];
 }
 
 
