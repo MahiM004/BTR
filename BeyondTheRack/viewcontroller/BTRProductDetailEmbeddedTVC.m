@@ -22,14 +22,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *shortDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *salePriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *crossedOffPriceLabel;
-
 @property (weak, nonatomic) IBOutlet UIView *longDescriptionView;
+@property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic) NSInteger yPos;
 @property (nonatomic) NSInteger customHeight;
 @property (nonatomic) NSInteger descriptionCellHeight;
 
@@ -40,16 +39,18 @@
 @property (strong, nonatomic) NSMutableArray *sizeCodesArray;
 @property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
 
-
 @property (strong, nonatomic) NSMutableArray *attributeKeys;
 @property (strong, nonatomic) NSMutableArray *attributeValues;
+
+
+
+
 
 @end
 
 
 @implementation BTRProductDetailEmbeddedTVC
 
-@synthesize yPos;
 @synthesize customHeight;
 @synthesize descriptionCellHeight;
 
@@ -88,17 +89,7 @@
 }
 
 
-/*
  
- 
- */
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:YES];
-}
-
-
 - (void)setProductImageCount:(NSInteger)productImageCount {
     
     _productImageCount = productImageCount;
@@ -182,8 +173,7 @@
 
 - (UIView *)getDescriptionViewForView:(UIView *)descriptionView withDescriptionString:(NSString *)longDescriptionString {
   
-    customHeight = 80;
-    yPos = 0;
+    customHeight = 0;
     
     NSString *descriptionString = longDescriptionString;
     
@@ -203,10 +193,9 @@
         UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
         
         int labelHeight = [labelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:descriptionFont];
-        CGRect labelFrame = CGRectMake(0, yPos, self.longDescriptionView.bounds.size.width, labelHeight);
+        CGRect labelFrame = CGRectMake(0, customHeight, self.longDescriptionView.bounds.size.width, labelHeight);
 
-        yPos = yPos + (labelHeight + 5);
-        customHeight = customHeight + labelHeight + 10;
+        customHeight = customHeight + (labelHeight + 5);
         
         UILabel *myLabel = [[UILabel alloc] initWithFrame:labelFrame];
         
@@ -219,7 +208,7 @@
         [descriptionView addSubview:myLabel];
     }
     
-    yPos = yPos + 15;
+    customHeight = customHeight + 15;
     
     return descriptionView;
 }
@@ -233,10 +222,9 @@
         UIFont *attributeFont =  [UIFont fontWithName:@"HelveticaNeue" size:12];
         
         int attributeHeight = [attributeText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:attributeFont];
-        CGRect attributeFrame = CGRectMake(0, yPos, self.longDescriptionView.bounds.size.width, attributeHeight);
+        CGRect attributeFrame = CGRectMake(0, customHeight, self.longDescriptionView.bounds.size.width, attributeHeight);
         
-        yPos = yPos + (attributeHeight + 5);
-        customHeight = customHeight + attributeHeight + 10;
+        customHeight = customHeight + (attributeHeight + 5);
         
         UILabel *attributeLabel = [[UILabel alloc] initWithFrame:attributeFrame];
         
@@ -258,11 +246,15 @@
     
     if ([specialNoteString length] > 2) {
         
+        
+        customHeight += 20;
+
+        
         NSString *specialNoteLabelText = [NSString stringWithFormat:@"Special Note: %@", specialNoteString];
         UIFont *specialNoteFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
         
         int specialNoteLabelHeight = [specialNoteLabelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:specialNoteFont];
-        CGRect specialNoteFrame = CGRectMake(0, customHeight - 80, self.longDescriptionView.bounds.size.width, specialNoteLabelHeight);
+        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.longDescriptionView.bounds.size.width, specialNoteLabelHeight);
         
         customHeight = customHeight + specialNoteLabelHeight + 10;
         UILabel *specialNoteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
@@ -276,7 +268,7 @@
         [specialNoteView addSubview:specialNoteLabel];
     }
     
-    self.descriptionCellHeight = customHeight;
+    self.descriptionCellHeight = customHeight + 80;
     
     
     return specialNoteView;
@@ -322,7 +314,7 @@
             break;
             
         case 1:
-            return 162;
+            return 164;
             break;
             
         case 2:
@@ -483,6 +475,12 @@
 }
 
 
+- (IBAction)unwindFromSelectSizeToProductDetail:(UIStoryboardSegue *)unwindSegue
+{
+    
+    NSLog(@"hheeee");
+    [[self sizeLabel] setText:@"XL"];
+}
 
 @end
 
