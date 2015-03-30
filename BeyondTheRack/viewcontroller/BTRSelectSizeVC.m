@@ -16,6 +16,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"reccievd size: %lu", (unsigned long)[[self sizesArray] count]);
+    
     // Do any additional setup after loading the view.
 }
 
@@ -28,36 +31,35 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return [[self sizeArray] count];
+    return [[self sizesArray] count];
 }
 
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-{
-    view.tintColor = [UIColor blueColor];
-    
-    UITableViewHeaderFooterView *headerIndexText = (UITableViewHeaderFooterView *)view;
-    [headerIndexText.textLabel setTextColor:[UIColor colorWithWhite:0 alpha:0.8]];
-    
-}
- 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([self.delegate respondsToSelector:@selector(selectSizeWillDisappearWithSelectionIndex:)]) {
+        [self.delegate selectSizeWillDisappearWithSelectionIndex:[indexPath row]];
+        [self performSegueWithIdentifier:@"unwindFromSelectSizeToProductDetail" sender:self];
+     }
+     
+
     
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = nil;
     
+    NSString *CellIdentifier = @"BTRSizeSelectionCellIdentifier";
     
-    UITableViewCell *sortCell = [tableView dequeueReusableCellWithIdentifier:@"BTRRefineSortCellIdentifier" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    if (sortCell == nil)
+    if (cell == nil)
     {
-        sortCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRRefineSortCellIdentifier"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    cell.textLabel.text =[NSString stringWithFormat:@"cool %ld", (long)[indexPath row]];//(NSString *)[[self sizesArray] objectAtIndex:[indexPath row]];
     
     return cell;
 }

@@ -8,9 +8,30 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol BTRSelectSizeVC;
+
+
 @interface BTRSelectSizeVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, weak) id<BTRSelectSizeVC> delegate;
 
-@property (strong, nonatomic) NSMutableArray *sizeArray;
+@property (strong, nonatomic) NSMutableArray *sizesArray;
+
+@end
+
+
+
+
+
+
+
+@protocol BTRSelectSizeVC <NSObject>
+
+@optional
+
+
+- (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex;
+
 
 @end

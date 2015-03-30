@@ -43,7 +43,7 @@
 @property (strong, nonatomic) NSMutableArray *attributeValues;
 
 
-
+@property (nonatomic) NSUInteger selectedIndex;
 
 
 @end
@@ -101,6 +101,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    
+    self.selectedIndex = -1;
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -456,12 +459,25 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     
+    
     if ([[segue identifier] isEqualToString:@"ZoomOnProductImageSegueIdentifier"])
     {
         BTRZoomImageViewController *zoomVC = [segue destinationViewController];
         zoomVC.productSkuString = [self productSku];
         zoomVC.zoomImageCount = [self productImageCount];
+    
+    } else if ([[segue identifier]  isEqualToString:@"BTRSelectSizeSegueIdentifier"]) {
+    
+        
+        NSLog(@"sizessss: %lu", (unsigned long)[[self sizesArray] count]);
+
+        
+        BTRSelectSizeVC *selectSizeVC = [segue destinationViewController];
+        selectSizeVC.sizesArray = [self sizesArray];
+        selectSizeVC.delegate = self;
+        
     }
+  
     
 }
 
@@ -478,9 +494,20 @@
 - (IBAction)unwindFromSelectSizeToProductDetail:(UIStoryboardSegue *)unwindSegue
 {
     
-    NSLog(@"hheeee");
-    [[self sizeLabel] setText:@"XL"];
 }
+
+
+
+#pragma mark - BTRSelectSizeVC Delegate
+
+- (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
+    
+    self.selectedIndex = selectedIndex;
+    [self.tableView reloadData];
+}
+
+
+
 
 @end
 

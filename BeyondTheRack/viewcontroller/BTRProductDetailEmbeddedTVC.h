@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Item+AppServer.h"
-
+#import "BTRSelectSizeVC.h"
 
 enum btrSizeMode
 {
@@ -20,7 +20,7 @@ enum btrSizeMode
 };
 
 
-@interface BTRProductDetailEmbeddedTVC : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface BTRProductDetailEmbeddedTVC : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate, BTRSelectSizeVC>
 
 @property (strong, nonatomic) Item *productItem;
 @property (strong, nonatomic) NSMutableArray *imageArray;

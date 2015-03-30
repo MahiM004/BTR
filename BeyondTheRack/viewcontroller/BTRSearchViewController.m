@@ -502,7 +502,7 @@
 }
 
 
-#pragma mark - BTRRefineResultsViewController
+#pragma mark - BTRRefineResultsViewController Delegate
 
 - (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
     
