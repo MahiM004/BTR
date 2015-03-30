@@ -22,9 +22,6 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    NSLog(@"reccievd size: %lu", (unsigned long)[[self sizesArray] count]);
-    
-    // Do any additional setup after loading the view.
 }
 
 
@@ -66,17 +63,55 @@
     
     cell.textLabel.text = [[self sizesArray] objectAtIndex:[indexPath row]];
     
+    
+    if ([[self sizesArray] count] > 0) {
+
+        cell.detailTextLabel.text = [self getQuantityStringforQuantity:[[self.sizeQuantityArray objectAtIndex:indexPath.row] integerValue]];
+        
+        if ([[self.sizeQuantityArray objectAtIndex:indexPath.row] integerValue] == 0)
+            cell.detailTextLabel.textColor = [UIColor redColor];
+    }
+    
     return cell;
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSString *)getQuantityStringforQuantity:(NSUInteger)quantity {
+    
+    NSString *quantityString = @"";
+    
+    if (quantity <= 0) {
+        
+        quantityString = @"SOLD OUT";
+    
+    } else if (quantity < 7) {
+        
+        quantityString = [NSString stringWithFormat:@"%d left", quantity];
+    
+    } else if (quantity >= 7) {
+        
+        quantityString = [NSString stringWithFormat:@"%d", quantity];
+    }
+    
+    return quantityString;
 }
-*/
+
+
+
+
+
+
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+

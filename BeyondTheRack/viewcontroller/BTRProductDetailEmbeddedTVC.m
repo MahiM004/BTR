@@ -459,7 +459,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     
-    
     if ([[segue identifier] isEqualToString:@"ZoomOnProductImageSegueIdentifier"])
     {
         BTRZoomImageViewController *zoomVC = [segue destinationViewController];
@@ -467,13 +466,11 @@
         zoomVC.zoomImageCount = [self productImageCount];
     
     } else if ([[segue identifier]  isEqualToString:@"BTRSelectSizeSegueIdentifier"]) {
-    
-        
-        NSLog(@"sizessss: %lu", (unsigned long)[[self sizesArray] count]);
-
         
         BTRSelectSizeVC *selectSizeVC = [segue destinationViewController];
+        
         selectSizeVC.sizesArray = [self sizesArray];
+        selectSizeVC.sizeQuantityArray = [self sizeQuantityArray];
         selectSizeVC.delegate = self;
         
     }
@@ -503,10 +500,8 @@
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     
     self.selectedIndex = selectedIndex;
-    
     self.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
     
-    //[self.tableView reloadData];
 }
 
 

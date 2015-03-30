@@ -17,6 +17,7 @@
 @property (nonatomic, weak) id<BTRSelectSizeVC> delegate;
 
 @property (strong, nonatomic) NSMutableArray *sizesArray;
+@property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
 
 @end
 
