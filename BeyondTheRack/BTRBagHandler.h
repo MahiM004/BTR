@@ -14,7 +14,16 @@
 
 + (BTRBagHandler *)sharedShoppingBag;
 
-@property (strong, nonatomic) NSMutableArray *bagArray;
+enum btrCountry
+{
+    btrCanada, // == 0 (by default)
+    btrUSA
+};
+
+
+@property (nonatomic) enum btrCountry *countryType;
+@property (nonatomic) BOOL isEmployee;
+
 
 - (void)addBagItem:(BagItem *)bagItem;
 - (void)removeBagItem:(BagItem *)bagItem;

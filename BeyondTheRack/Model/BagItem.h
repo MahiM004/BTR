@@ -21,7 +21,8 @@
 @property (nonatomic, retain) NSString * orderId;
 @property (nonatomic, retain) NSString * quantity;
 @property (nonatomic, retain) NSString * selectedSize;
-@property (nonatomic, retain) NSString * unitPrice;
 @property (nonatomic, retain) NSString * usernameId;
+@property (nonatomic, retain) NSString * retailUnitPrice;
+@property (nonatomic, retain) NSString * saleUnitPrice;
 
 @end

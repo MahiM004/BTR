@@ -9,8 +9,9 @@
         <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="orderId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="quantity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="retailUnitPrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="saleUnitPrice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="selectedSize" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="unitPrice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="usernameId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Event" representedClassName="Event" syncable="YES">
@@ -215,7 +216,7 @@
         <attribute name="womenDesignerBrands" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BagItem" positionX="97" positionY="-63" width="128" height="208"/>
+        <element name="BagItem" positionX="54" positionY="-99" width="128" height="223"/>
         <element name="Event" positionX="-1010" positionY="-63" width="128" height="538"/>
         <element name="General1" positionX="-290" positionY="186" width="128" height="165"/>
         <element name="General2" positionX="-81" positionY="-63" width="128" height="165"/>

@@ -8,6 +8,17 @@
 
 #import "BTRBagHandler.h"
 
+
+@interface BTRBagHandler ()
+
+@property (strong, nonatomic) NSMutableArray *bagArray;
+
+
+
+@end;
+
+
+
 @implementation BTRBagHandler
 
 

@@ -20,7 +20,8 @@
 @dynamic orderId;
 @dynamic quantity;
 @dynamic selectedSize;
-@dynamic unitPrice;
 @dynamic usernameId;
+@dynamic retailUnitPrice;
+@dynamic saleUnitPrice;
 
 @end
