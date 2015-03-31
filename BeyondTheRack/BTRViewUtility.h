@@ -19,5 +19,8 @@
 + (NSString *)priceStringFromNumber:(NSNumber *)priceNumber;
 + (UITextField *)underlineTextField:(UITextField *)textField;
 
++ (NSAttributedString *)crossedOffStringFromString:(NSString *)string withFont:(UIFont *)font;
++ (NSAttributedString *)crossedOffStringFromString:(NSString *)string;
+
 
 @end

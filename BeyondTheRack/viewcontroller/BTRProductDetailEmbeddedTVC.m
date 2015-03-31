@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *crossedOffPriceLabel;
 @property (weak, nonatomic) IBOutlet UIView *longDescriptionView;
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *selectSizeButton;
 
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
@@ -114,9 +115,18 @@
 
     if ([[self productItem] sku] && ![[[self productItem] sku] isEqual:[NSNull null]])
         [self fetchItemIntoDocument:[self beyondTheRackDocument] forProductSku:[[self productItem] sku]
-                            success:^(Item *responseObject) {
+                            success:^(Item *responseObject, NSString * singleSizeBoolString) {
                                 
                                 [self updateViewWithDeatiledItem:responseObject];
+                                
+                                if ([singleSizeBoolString isEqualToString:@"TRUE"]) {
+                                    
+                                    [self.selectSizeButton.titleLabel setAttributedText:[BTRViewUtility crossedOffStringFromString:@"Select Size :"]];
+                                    [self.selectSizeButton setEnabled:FALSE];
+                                    [self.selectSizeButton setAlpha:0.4];
+                                    
+                                    [self.sizeLabel setText:@"One Size"];
+                                }
                                 
                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                 
@@ -349,7 +359,7 @@
 }
 
 - (void)fetchItemIntoDocument:(UIManagedDocument *)document forProductSku:(NSString *)productSku
-                       success:(void (^)(id  responseObject)) success
+                       success:(void (^)(id  responseObject, id oneSizeBoolString)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -365,16 +375,20 @@
          NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                          options:0
                                                                            error:NULL];
-#warning Display One Size, cross off select size
          
-         [self extractSizesFromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]];
+         enum btrSizeMode sizeMode = [self extractSizesFromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]];
          [self extractAttributsFromAttributesDictionary:entitiesPropertyList[@"attributes"]];
          
          Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList inManagedObjectContext:document.managedObjectContext];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
         
-         success(productItem);
          
+         NSString *sizeBoolString = @"FALSE";
+         if (sizeMode == btrSizeModeSingleSizeShow || sizeMode == btrSizeModeSingleSizeNoShow)
+             sizeBoolString = @"TRUE";
+
+         success(productItem, sizeBoolString);
+
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
          NSLog(@"Error: %@", error);

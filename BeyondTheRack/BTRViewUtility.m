@@ -65,20 +65,42 @@
     
     
     NSString *dollaredString = [self priceStringFromNumber:priceNumber];
-    
     UIFont *priceFont = [UIFont fontWithName:@"STHeitiSC-Light" size:15.0];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    //paragraphStyle.alignment = NSTextAlignmentLeft;
+    NSAttributedString *crossedOffText = [self crossedOffStringFromString:dollaredString withFont:priceFont];
     
-    NSAttributedString *corssedOffText = [[NSAttributedString alloc] initWithString:dollaredString
-                                                                          attributes:@{
-                                                                                       NSStrikethroughStyleAttributeName:
-                                                                                           [NSNumber numberWithInteger:NSUnderlineStyleSingle],
-                                                                                       NSParagraphStyleAttributeName: paragraphStyle,
-                                                                                       NSFontAttributeName:priceFont
-                                                                                       }];
-    return corssedOffText;
+    return crossedOffText;
 }
+
+
++ (NSAttributedString *)crossedOffStringFromString:(NSString *)string withFont:(UIFont *)font{
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    NSAttributedString *crossedOffText = [[NSAttributedString alloc] initWithString:string
+                                                                         attributes:@{
+                                                                                      NSStrikethroughStyleAttributeName:
+                                                                                          [NSNumber numberWithInteger:NSUnderlineStyleSingle],
+                                                                                      NSParagraphStyleAttributeName: paragraphStyle,
+                                                                                      NSFontAttributeName:font
+                                                                                      }];
+    return crossedOffText;
+}
+
+
+
++ (NSAttributedString *)crossedOffStringFromString:(NSString *)string {
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    NSAttributedString *crossedOffText = [[NSAttributedString alloc] initWithString:string
+                                                                         attributes:@{
+                                                                                      NSStrikethroughStyleAttributeName:
+                                                                                          [NSNumber numberWithInteger:NSUnderlineStyleSingle],
+                                                                                      NSParagraphStyleAttributeName: paragraphStyle,
+                                                                                      }];
+    return crossedOffText;
+}
+
 
 
 + (NSString *)priceStringFromNumber:(NSNumber *)priceNumber {
