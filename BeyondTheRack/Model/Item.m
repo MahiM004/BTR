@@ -2,7 +2,7 @@
 //  Item.m
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-03-03.
+//  Created by Hadi Kheyruri on 2015-04-01.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
@@ -14,44 +14,49 @@
 @dynamic attributeList;
 @dynamic brand;
 @dynamic categoryList;
-@dynamic clearancePriceCAD;
-@dynamic clearancePriceUSD;
 @dynamic discount;
-@dynamic dropShip;
-@dynamic employeePriceCAD;
-@dynamic employeePriceUSD;
 @dynamic eventId;
 @dynamic generalAttribute1;
 @dynamic generalAttribute2;
 @dynamic generalAttribute3;
 @dynamic generalNote;
 @dynamic imageCount;
+@dynamic imageNameLarge;
+@dynamic imageNameMedium;
 @dynamic imageNameSmall;
+@dynamic isFragile;
 @dynamic itemId;
 @dynamic longItemDescription;
-@dynamic priceCAD;
-@dynamic priceUSD;
+@dynamic productHeight;
+@dynamic productLength;
+@dynamic productWeight;
+@dynamic productWidth;
 @dynamic relatedSkuslist;
-@dynamic retailCAD;
-@dynamic retailUSD;
+@dynamic restrictedShipping;
+@dynamic saleEndDate;
+@dynamic saleStartDate;
 @dynamic saveUpTo;
 @dynamic shipTime;
 @dynamic shortItemDescription;
 @dynamic sku;
 @dynamic specialNote;
-@dynamic vendorId;
+@dynamic variantInventory;
 @dynamic videoCount;
 @dynamic videoName;
-@dynamic saleStartDate;
-@dynamic saleEndDate;
-@dynamic imageNameMedium;
-@dynamic imageNameLarge;
-@dynamic productWeight;
-@dynamic productLength;
-@dynamic productWidth;
-@dynamic productHeight;
-@dynamic isFragile;
-@dynamic restrictedShipping;
-@dynamic variantInventory;
+@dynamic retailPrice;
+@dynamic employeePrice;
+@dynamic salePrice;
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+

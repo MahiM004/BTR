@@ -163,8 +163,8 @@
         [self setProductSku:[productItem sku]];
         [self.brandLabel setText:[productItem brand]];
         [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
-        [self.salePriceLabel setText:[BTRViewUtility priceStringFromNumber:[productItem priceCAD]]];
-        [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPriceFromNumber:[productItem retailCAD]]];
+        [self.salePriceLabel setText:[BTRViewUtility priceStringFromNumber:[productItem salePrice]]];
+        [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPriceFromNumber:[productItem retailPrice]]];
     
     } else {
     

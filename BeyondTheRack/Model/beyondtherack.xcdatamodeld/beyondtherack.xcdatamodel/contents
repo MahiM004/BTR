@@ -92,12 +92,8 @@
         <attribute name="attributeList" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="brand" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="categoryList" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="clearancePriceCAD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="clearancePriceUSD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="discount" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="dropShip" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="employeePriceCAD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="employeePriceUSD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="employeePrice" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="generalAttribute1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="generalAttribute2" optional="YES" attributeType="String" syncable="YES"/>
@@ -110,17 +106,15 @@
         <attribute name="isFragile" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longItemDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="priceCAD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="priceUSD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="productHeight" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productLength" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productWeight" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productWidth" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="relatedSkuslist" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="restrictedShipping" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="retailCAD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="retailUSD" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="retailPrice" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="saleEndDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="salePrice" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="saleStartDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="saveUpTo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shipTime" optional="YES" attributeType="Date" syncable="YES"/>
@@ -128,7 +122,6 @@
         <attribute name="sku" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="specialNote" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="variantInventory" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="vendorId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoCount" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -218,11 +211,11 @@
     <elements>
         <element name="BagItem" positionX="54" positionY="-99" width="128" height="223"/>
         <element name="Event" positionX="-1010" positionY="-63" width="128" height="538"/>
-        <element name="General1" positionX="-290" positionY="186" width="128" height="165"/>
-        <element name="General2" positionX="-81" positionY="-63" width="128" height="165"/>
-        <element name="General3" positionX="-675" positionY="144" width="128" height="165"/>
+        <element name="General1" positionX="-315" positionY="186" width="128" height="165"/>
+        <element name="General2" positionX="-135" positionY="-66" width="128" height="165"/>
+        <element name="General3" positionX="-684" positionY="153" width="128" height="165"/>
         <element name="Image" positionX="-686" positionY="333" width="128" height="148"/>
-        <element name="Item" positionX="-839" positionY="-144" width="128" height="673"/>
+        <element name="Item" positionX="-839" positionY="-144" width="128" height="568"/>
         <element name="Order" positionX="-135" positionY="135" width="128" height="193"/>
         <element name="PaymentDetail" positionX="25" positionY="179" width="128" height="253"/>
         <element name="ShippingAddress" positionX="-315" positionY="-72" width="128" height="195"/>

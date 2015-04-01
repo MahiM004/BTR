@@ -195,33 +195,15 @@
     if ([itemDictionary valueForKeyPath:@"image_count"] && [itemDictionary valueForKeyPath:@"image_count"] != [NSNull null])
         item.imageCount = [itemDictionary valueForKey:@"image_count"];
     
-    if ([itemDictionary valueForKeyPath:@"retail_price_us"] && [itemDictionary valueForKeyPath:@"retail_price_us"] != [NSNull null])
-        item.retailUSD = [nformatter numberFromString:[itemDictionary valueForKey:@"retail_price_us"]];
-    
     if ([itemDictionary valueForKeyPath:@"retail_price_ca"] && [itemDictionary valueForKeyPath:@"retail_price_ca"] != [NSNull null])
-        item.retailCAD = [nformatter numberFromString:[itemDictionary valueForKey:@"retail_price_ca"]];
-    
-    if ([itemDictionary valueForKeyPath:@"regular_price_us"] && [itemDictionary valueForKeyPath:@"regular_price_us"] != [NSNull null])
-        item.priceUSD = [nformatter numberFromString:[itemDictionary valueForKey:@"regular_price_us"]];
+        item.retailPrice = [nformatter numberFromString:[itemDictionary valueForKey:@"retail_price_ca"]];
     
     if ([itemDictionary valueForKeyPath:@"regular_price_ca"] && [itemDictionary valueForKeyPath:@"regular_price_ca"] != [NSNull null])
-        item.priceCAD = [nformatter numberFromString:[itemDictionary valueForKey:@"regular_price_ca"]];
-    
-    if ([itemDictionary valueForKeyPath:@"employee_price_us"] && [itemDictionary valueForKeyPath:@"employee_price_us"] != [NSNull null])
-        item.employeePriceUSD = [nformatter numberFromString:[itemDictionary valueForKey:@"employee_price_us"]];
+        item.salePrice = [nformatter numberFromString:[itemDictionary valueForKey:@"regular_price_ca"]];
     
     if ([itemDictionary valueForKeyPath:@"employee_price_ca"] && [itemDictionary valueForKeyPath:@"employee_price_ca"] != [NSNull null])
-        item.employeePriceCAD = [nformatter numberFromString:[itemDictionary valueForKey:@"employee_price_ca"] ];
-    
-    if ([itemDictionary valueForKeyPath:@"clearance_price_us"] && [itemDictionary valueForKeyPath:@"clearance_price_us"] != [NSNull null])
-        item.clearancePriceUSD = [nformatter numberFromString:[itemDictionary valueForKey:@"clearance_price_us"] ];
-    
-    if ([itemDictionary valueForKeyPath:@"clearance_price_ca"] && [itemDictionary valueForKeyPath:@"clearance_price_ca"] != [NSNull null])
-        item.clearancePriceCAD = [nformatter numberFromString:[itemDictionary valueForKey:@"clearance_price_ca"] ];
-    
-    if ([itemDictionary valueForKeyPath:@"drop_ship"] && [itemDictionary valueForKeyPath:@"drop_ship"] != [NSNull null])
-        item.dropShip = [itemDictionary valueForKey:@"drop_ship"];
-
+        item.employeePrice = [nformatter numberFromString:[itemDictionary valueForKey:@"employee_price_ca"] ];
+  
     if ([itemDictionary valueForKeyPath:@"weight"] && [itemDictionary valueForKeyPath:@"weight"] != [NSNull null])
         item.productWeight = [itemDictionary valueForKey:@"weight"];
 
@@ -263,34 +245,15 @@
     
     if ([itemDictionary valueForKeyPath:@"brand"] && [itemDictionary valueForKeyPath:@"brand"] != [NSNull null])
         item.brand = [itemDictionary valueForKey:@"brand"];
-    
-    if ([itemDictionary valueForKeyPath:@"price_retail_us"] && [itemDictionary valueForKeyPath:@"price_retail_us"] != [NSNull null])
-        item.retailUSD = [itemDictionary valueForKey:@"price_retail_us"];
-    
+   
     if ([itemDictionary valueForKeyPath:@"price_retail_ca"] && [itemDictionary valueForKeyPath:@"price_retail_ca"] != [NSNull null])
-        item.retailCAD = [itemDictionary valueForKey:@"price_retail_ca"];
+        item.retailPrice = [itemDictionary valueForKey:@"price_retail_ca"];
     
-    if ([itemDictionary valueForKeyPath:@"price_reg_us"] && [itemDictionary valueForKeyPath:@"price_reg_us"] != [NSNull null])
-        item.priceUSD = [itemDictionary valueForKey:@"price_reg_us"];
-    
-    if ([itemDictionary valueForKeyPath:@"price_reg_ca"] && [itemDictionary valueForKeyPath:@"price_reg_ca"] != [NSNull null])
-        item.priceCAD = [itemDictionary valueForKey:@"price_reg_ca"];
-    
-    if ([itemDictionary valueForKeyPath:@"price_emp_us"] && [itemDictionary valueForKeyPath:@"price_emp_us"] != [NSNull null])
-        item.employeePriceUSD = [itemDictionary valueForKey:@"price_emp_us"];
-    
+     if ([itemDictionary valueForKeyPath:@"price_reg_ca"] && [itemDictionary valueForKeyPath:@"price_reg_ca"] != [NSNull null])
+        item.salePrice = [itemDictionary valueForKey:@"price_reg_ca"];
+   
     if ([itemDictionary valueForKeyPath:@"price_emp_ca"] && [itemDictionary valueForKeyPath:@"price_emp_ca"] != [NSNull null])
-        item.employeePriceCAD = [itemDictionary valueForKey:@"price_emp_ca"];
-    
-    if ([itemDictionary valueForKeyPath:@"price_clear_us"] && [itemDictionary valueForKeyPath:@"price_clear_us"] != [NSNull null])
-        item.clearancePriceUSD = [itemDictionary valueForKey:@"price_clear_us"];
-    
-    if ([itemDictionary valueForKeyPath:@"price_clear_ca"] && [itemDictionary valueForKeyPath:@"price_clear_ca"] != [NSNull null])
-        item.clearancePriceCAD = [itemDictionary valueForKey:@"price_clear_ca"];
-    
-    if ([itemDictionary valueForKeyPath:@"vendor_id"] && [itemDictionary valueForKeyPath:@"vendor_id"] != [NSNull null])
-        item.vendorId = [itemDictionary valueForKey:@"vendor_id"];
-
+        item.employeePrice = [itemDictionary valueForKey:@"price_emp_ca"];
     
     return item;
 }

@@ -19,7 +19,7 @@
     bagItem = [NSEntityDescription insertNewObjectForEntityForName:@"BagItem"
                                                     inManagedObjectContext:context];
     
-    bagItem.unitPrice = @"dummy";
+    bagItem.saleUnitPrice = @"dummy";
 }
 
 
@@ -92,3 +92,24 @@
 
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
