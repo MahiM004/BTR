@@ -194,7 +194,7 @@
         user.birthDate = [userDictionary valueForKeyPath:@"birthdate"];
   
     if ([userDictionary valueForKeyPath:@"employee"] && [userDictionary valueForKeyPath:@"employee"] != [NSNull null])
-        user.employee = [userDictionary valueForKeyPath:@"employee"];
+        user.isEmployee = [userDictionary valueForKeyPath:@"employee"];
 
     
     return user;
@@ -253,6 +253,8 @@
     
     return user;
 }
+
+
 
 
 + (User *)extractUserAuthFromJSONDictionary:(NSDictionary *)userDictionary forUser:(User *)user  {

@@ -29,8 +29,6 @@
 + (NSMutableArray *)loadItemsFromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                                    intoManagedObjectContext:(NSManagedObjectContext *)context;
 
-
-
 + (Item *)itemWithSearchResponseInfo:(NSDictionary *)itemDictionary
          inManagedObjectContext:(NSManagedObjectContext *)context;
 

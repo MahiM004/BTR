@@ -164,6 +164,8 @@
 
 + (Item *)extractItemFromProductJSONDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
 
+    NSLog(@"add employee price logic: if 0 not employee else assign it to salePrice: extractItemFromProductJSONDictionary");
+    
     
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
     nformatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -200,9 +202,6 @@
     
     if ([itemDictionary valueForKeyPath:@"regular_price_ca"] && [itemDictionary valueForKeyPath:@"regular_price_ca"] != [NSNull null])
         item.salePrice = [nformatter numberFromString:[itemDictionary valueForKey:@"regular_price_ca"]];
-    
-    if ([itemDictionary valueForKeyPath:@"employee_price_ca"] && [itemDictionary valueForKeyPath:@"employee_price_ca"] != [NSNull null])
-        item.employeePrice = [nformatter numberFromString:[itemDictionary valueForKey:@"employee_price_ca"] ];
   
     if ([itemDictionary valueForKeyPath:@"weight"] && [itemDictionary valueForKeyPath:@"weight"] != [NSNull null])
         item.productWeight = [itemDictionary valueForKey:@"weight"];
@@ -235,6 +234,8 @@
 + (Item *)extractItemFromSearchJSONDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
     
     NSLog(@"the backend search api response must be updated for correct price values @ extractItemFromSearchJSONDictionary");
+    
+    NSLog(@"add employee price logic: if 0 not employee else assign it to salePrice: extractItemFromSearchJSONDictionary");
     
     if ([itemDictionary valueForKeyPath:@"event_id"] && [itemDictionary valueForKeyPath:@"event_id"] != [NSNull null])
         item.eventId = [itemDictionary valueForKeyPath:@"event_id"];
