@@ -234,6 +234,8 @@
 
 + (Item *)extractItemFromSearchJSONDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
     
+    NSLog(@"the backend search api response must be updated for correct price values @ extractItemFromSearchJSONDictionary");
+    
     if ([itemDictionary valueForKeyPath:@"event_id"] && [itemDictionary valueForKeyPath:@"event_id"] != [NSNull null])
         item.eventId = [itemDictionary valueForKeyPath:@"event_id"];
     

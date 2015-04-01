@@ -9,8 +9,6 @@
 #import "BTRProductShowcaseVC.h"
 #import "BTRProductShowcaseCollectionCell.h"
 #import "BTRProductDetailViewController.h"
-
-
 #import "BTRSearchViewController.h"
 
 #import "Item+AppServer.h"

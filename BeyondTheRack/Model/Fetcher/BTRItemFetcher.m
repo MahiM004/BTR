@@ -29,6 +29,8 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu%@", LIVEURL, searchQuery, (unsigned long)pageNumber, sortString]];
 }
 
+
+
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString withFacetString:(NSString *)facetsString andPageNumber:(NSUInteger)pageNumber {
        
     if ([facetsString length] == 0)
