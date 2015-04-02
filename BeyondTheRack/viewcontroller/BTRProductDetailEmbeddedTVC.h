@@ -20,9 +20,34 @@ enum btrSizeMode
 };
 
 
+@protocol BTRProductDetailEmbeddedTVC;
+
+
 @interface BTRProductDetailEmbeddedTVC : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate, BTRSelectSizeVC>
+
+
+@property (nonatomic, weak) id<BTRProductDetailEmbeddedTVC> delegate;
+
 
 @property (strong, nonatomic) Item *productItem;
 @property (strong, nonatomic) NSMutableArray *imageArray;
 
+
 @end
+
+
+
+@protocol BTRProductDetailEmbeddedTVC <NSObject>
+
+@optional
+
+
+- (void)variantCodeforAddtoBag:(NSString *)variant;
+
+
+@end
+
+
+
+
+

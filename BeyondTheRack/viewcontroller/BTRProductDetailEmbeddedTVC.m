@@ -517,6 +517,11 @@
     self.selectedIndex = selectedIndex;
     self.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
     
+    if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
+        [self.delegate variantCodeforAddtoBag:[[self sizeCodesArray] objectAtIndex:[self selectedIndex]]];
+    }
+    
+    
 }
 
 

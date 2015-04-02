@@ -10,11 +10,12 @@
 #import <UIKit/UIKit.h>
 
 #import "Item+AppServer.h"
+#import "BTRProductDetailEmbeddedTVC.h"
 
 #define EVENT_SCENE @"EventScene"
 #define SEARCH_SCENE @"SearchScene"
 
-@interface BTRProductDetailViewController : UIViewController
+@interface BTRProductDetailViewController : UIViewController <BTRProductDetailEmbeddedTVC>
 
 
 

@@ -25,8 +25,6 @@
 
 
 
-
-
 @protocol BTRSelectSizeVC <NSObject>
 
 @optional
