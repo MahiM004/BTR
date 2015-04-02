@@ -4,15 +4,15 @@
         <attribute name="bagItemId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createDateTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="expiryDateTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expiryDuration" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isInStock" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="orderId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="quantity" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="retailUnitPrice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="saleUnitPrice" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="selectedSize" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sku" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="variant" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="activeEvent" optional="YES" attributeType="String" syncable="YES"/>

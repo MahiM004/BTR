@@ -10,7 +10,7 @@
 
 #import "BTRProductShowcaseVC.h"
 #import "BTRProductDetailEmbeddedTVC.h"
-
+#import "BTRBagFetcher.h"
 
 @interface BTRProductDetailViewController ()
 
@@ -57,7 +57,7 @@
 
 
 
-#pragma mark - Load User Info RESTful
+#pragma mark - Add to Bag RESTful
 
 
 - (void)setupDocument
@@ -70,11 +70,31 @@
 }
 
 
+
+/*
+ 
+ Bag calls requires a valid "session" http header.
+ 
+ GET www.mobile.btrdev.com/siteapi/bag
+ [{"event_id":"25744","sku":"NOVNOV702","variant":"Z","cart_time":1426859370,"quantity":"2"}]
+ 
+ POST  www.mobile.btrdev.com/siteapi/bag/add
+ {"event_id":"25744","sku":"NOVNOV702","variant":"Z"}
+ 
+ POST www.mobile.btrdev.com/siteapi/bag/remove
+ {"event_id":"25744","sku":"NOVNOV702","variant":"Z"}
+ 
+ POST www.mobile.btrdev.com/siteapi/bag/clear
+ => nothing required
+ 
+ 
+ */
+
+
 - (void)fetchUserDataIntoDocument:(UIManagedDocument *)document
                           success:(void (^)(id  responseObject)) success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
-    /*
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -84,7 +104,10 @@
     NSString *sessionIdString = [self sessionId];
     [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
+    
+    int pass_the_params;
+    
+    [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
@@ -94,17 +117,20 @@
                                                                                  error:NULL];
          if (entitiesPropertyList) {
              
-             User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
+           
+             //  User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
+            
              [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
              
-             success(user);
+         
+             //    success(user);
          }
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
          failure(operation, error);
          
-     }];*/
+     }];
     
 }
 

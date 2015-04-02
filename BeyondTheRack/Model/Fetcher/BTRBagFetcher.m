@@ -10,4 +10,41 @@
 
 @implementation BTRBagFetcher
 
+
+
++ (NSURL *)URLforBag {
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag", BASEURL]];
+}
+
+
+
++ (NSURL *)URLforAddtoBag {
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag", BASEURL]];
+}
+
+
++ (NSURL *)URLforRemovefromBag {
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag/add/remove", BASEURL]];
+}
+
+
++ (NSURL *)URLforClearBag {
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag/clear", BASEURL]];
+}
+
+
+
+
 @end
+
+
+
+
+
+
+
+

@@ -13,15 +13,15 @@
 
 @dynamic bagItemId;
 @dynamic createDateTime;
-@dynamic expiryDateTime;
 @dynamic isInStock;
 @dynamic itemId;
 @dynamic orderId;
 @dynamic quantity;
-@dynamic selectedSize;
 @dynamic retailUnitPrice;
 @dynamic saleUnitPrice;
 @dynamic eventId;
 @dynamic sku;
+@dynamic variant;
+@dynamic expiryDuration;
 
 @end

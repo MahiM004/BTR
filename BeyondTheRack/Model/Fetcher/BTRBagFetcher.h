@@ -7,27 +7,18 @@
 //
 
 #import "BTRFetcher.h"
+#import "BagItem.h"
+#import "Item.h"
 
 @interface BTRBagFetcher : BTRFetcher
 
 
-/*
- 
- Bag calls requires a valid "session" http header.
- 
- GET www.mobile.btrdev.com/siteapi/bag
- [{"event_id":"25744","sku":"NOVNOV702","variant":"Z","cart_time":1426859370,"quantity":"2"}]
- 
- POST  www.mobile.btrdev.com/siteapi/bag/add
- {"event_id":"25744","sku":"NOVNOV702","variant":"Z"}
- 
- POST www.mobile.btrdev.com/siteapi/bag/remove
- {"event_id":"25744","sku":"NOVNOV702","variant":"Z"}
- 
- POST www.mobile.btrdev.com/siteapi/bag/clear
- => nothing required
++ (NSURL *)URLforBag;
++ (NSURL *)URLforAddtoBag;
++ (NSURL *)URLforRemovefromBag;
++ (NSURL *)URLforClearBag;
 
- 
- */
+
+
 
 @end

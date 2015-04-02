@@ -91,7 +91,44 @@
 }
 
 
+
+
++ (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary forBagItem:(BagItem *)bagItem {
+    
+    
+    if ([bagItemDictionary valueForKeyPath:@"event_id"] && [bagItemDictionary valueForKeyPath:@"event_id"] != [NSNull null])
+        bagItem.eventId = [bagItemDictionary valueForKeyPath:@"event_id"];
+    
+    if ([bagItemDictionary valueForKeyPath:@"sku"] && [bagItemDictionary valueForKeyPath:@"sku"] != [NSNull null])
+        bagItem.sku = [bagItemDictionary valueForKeyPath:@"sku"];
+    
+    if ([bagItemDictionary valueForKeyPath:@"variant"] && [bagItemDictionary valueForKeyPath:@"variant"] != [NSNull null])
+        bagItem.variant = [bagItemDictionary valueForKeyPath:@"variant"];
+
+    if ([bagItemDictionary valueForKeyPath:@"quantity"] && [bagItemDictionary valueForKeyPath:@"quantity"] != [NSNull null])
+        bagItem.quantity = [bagItemDictionary valueForKeyPath:@"quantity"];
+    
+    if ([bagItemDictionary valueForKeyPath:@"cart_time"] && [bagItemDictionary valueForKeyPath:@"cart_time"] != [NSNull null])
+        bagItem.createDateTime = [bagItemDictionary valueForKeyPath:@"cart_time"]; int convertfromunixtime;
+    
+
+    return bagItem;
+
+}
+
+
+
+
+
 @end
+
+
+
+
+
+
+
+
 
 
 

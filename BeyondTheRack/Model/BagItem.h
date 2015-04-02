@@ -14,15 +14,15 @@
 
 @property (nonatomic, retain) NSString * bagItemId;
 @property (nonatomic, retain) NSString * createDateTime;
-@property (nonatomic, retain) NSString * expiryDateTime;
 @property (nonatomic, retain) NSString * isInStock;
 @property (nonatomic, retain) NSString * itemId;
 @property (nonatomic, retain) NSString * orderId;
 @property (nonatomic, retain) NSString * quantity;
-@property (nonatomic, retain) NSString * selectedSize;
 @property (nonatomic, retain) NSString * retailUnitPrice;
 @property (nonatomic, retain) NSString * saleUnitPrice;
 @property (nonatomic, retain) NSString * eventId;
 @property (nonatomic, retain) NSString * sku;
+@property (nonatomic, retain) NSString * variant;
+@property (nonatomic, retain) NSString * expiryDuration;
 
 @end

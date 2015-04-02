@@ -68,6 +68,9 @@
 
         cell.detailTextLabel.text = [self getQuantityStringforQuantity:[[self.sizeQuantityArray objectAtIndex:indexPath.row] integerValue]];
         
+        if ([[[cell detailTextLabel] text]  isEqualToString:@"SOLD OUT"])
+            cell.userInteractionEnabled = FALSE;
+        
         if ([[self.sizeQuantityArray objectAtIndex:indexPath.row] integerValue] == 0)
             cell.detailTextLabel.textColor = [UIColor redColor];
     }
