@@ -2,7 +2,7 @@
 //  BagItem.m
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-03-31.
+//  Created by Hadi Kheyruri on 2015-04-02.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
@@ -12,7 +12,6 @@
 @implementation BagItem
 
 @dynamic bagItemId;
-@dynamic bagItemTimer;
 @dynamic createDateTime;
 @dynamic expiryDateTime;
 @dynamic isInStock;
@@ -20,8 +19,9 @@
 @dynamic orderId;
 @dynamic quantity;
 @dynamic selectedSize;
-@dynamic usernameId;
 @dynamic retailUnitPrice;
 @dynamic saleUnitPrice;
+@dynamic eventId;
+@dynamic sku;
 
 @end

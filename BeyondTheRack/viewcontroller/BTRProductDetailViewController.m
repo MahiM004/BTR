@@ -18,6 +18,12 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
 
+@property (strong, nonatomic) NSString *sessionId;
+
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+
 @end
 
 @implementation BTRProductDetailViewController
@@ -47,6 +53,62 @@
     // REST
     
 }
+
+
+
+
+#pragma mark - Load User Info RESTful
+
+
+- (void)setupDocument
+{
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
+}
+
+
+- (void)fetchUserDataIntoDocument:(UIManagedDocument *)document
+                          success:(void (^)(id  responseObject)) success
+                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    /*
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *sessionIdString = [self sessionId];
+    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         
+         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                               options:0
+                                                                                 error:NULL];
+         if (entitiesPropertyList) {
+             
+             User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
+             [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+             
+             success(user);
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         failure(operation, error);
+         
+     }];*/
+    
+}
+
+
 
 
 

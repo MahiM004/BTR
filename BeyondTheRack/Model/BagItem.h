@@ -2,7 +2,7 @@
 //  BagItem.h
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-03-31.
+//  Created by Hadi Kheyruri on 2015-04-02.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
@@ -13,7 +13,6 @@
 @interface BagItem : NSManagedObject
 
 @property (nonatomic, retain) NSString * bagItemId;
-@property (nonatomic, retain) NSDate * bagItemTimer;
 @property (nonatomic, retain) NSString * createDateTime;
 @property (nonatomic, retain) NSString * expiryDateTime;
 @property (nonatomic, retain) NSString * isInStock;
@@ -21,8 +20,9 @@
 @property (nonatomic, retain) NSString * orderId;
 @property (nonatomic, retain) NSString * quantity;
 @property (nonatomic, retain) NSString * selectedSize;
-@property (nonatomic, retain) NSString * usernameId;
 @property (nonatomic, retain) NSString * retailUnitPrice;
 @property (nonatomic, retain) NSString * saleUnitPrice;
+@property (nonatomic, retain) NSString * eventId;
+@property (nonatomic, retain) NSString * sku;
 
 @end
