@@ -27,6 +27,7 @@
 
 + (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
          inManagedObjectContext:(NSManagedObjectContext *)context
+                    withEventId:(NSString *)eventId
 {
     Item *item = nil;
     NSString *unique = itemDictionary[@"sku"];
@@ -52,7 +53,7 @@
         
         item = [matches firstObject];
         
-        item = [self extractItemFromProductJSONDictionary:itemDictionary forItem:item];
+        item = [self extractItemFromProductJSONDictionary:itemDictionary forItem:item withEventId:eventId];
         
     } else if ([matches count] == 0 || [matches count] > 1 ) {
         
@@ -66,7 +67,7 @@
         item = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
                                              inManagedObjectContext:context];
         
-        item = [self extractItemFromProductJSONDictionary:itemDictionary forItem:item];
+        item = [self extractItemFromProductJSONDictionary:itemDictionary forItem:item withEventId:eventId];
     }
     
     return item;
@@ -124,14 +125,15 @@
 
 
 + (NSMutableArray *)loadItemsFromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
-                                   intoManagedObjectContext:(NSManagedObjectContext *)context
+                       intoManagedObjectContext:(NSManagedObjectContext *)context
+                                    withEventId:(NSString *)eventId
 {
     
     NSMutableArray *itemArray = [[NSMutableArray alloc] init];
     
     for (NSDictionary *item in items) {
         
-        NSObject *someObject = [self itemWithAppServerInfo:item inManagedObjectContext:context];
+        NSObject *someObject = [self itemWithAppServerInfo:item inManagedObjectContext:context withEventId:eventId];
         
         if (someObject)
             [itemArray addObject:someObject];
@@ -162,14 +164,14 @@
 }
 
 
-+ (Item *)extractItemFromProductJSONDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
++ (Item *)extractItemFromProductJSONDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item withEventId:(NSString *)eventId {
     
     
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
     nformatter.numberStyle = NSNumberFormatterDecimalStyle;
     
-    if ([itemDictionary valueForKeyPath:@"event_id"] && [itemDictionary valueForKeyPath:@"event_id"] != [NSNull null])
-        item.eventId = [itemDictionary valueForKeyPath:@"event_id"];
+
+    item.eventId = eventId;
     
     if ([itemDictionary valueForKeyPath:@"short_desc"] && [itemDictionary valueForKeyPath:@"short_desc"] != [NSNull null])
         item.shortItemDescription = [itemDictionary valueForKey:@"short_desc"];

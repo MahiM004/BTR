@@ -30,6 +30,7 @@ enum btrSizeMode
 
 
 @property (strong, nonatomic) Item *productItem;
+@property (strong, nonatomic) NSString *eventId;
 @property (strong, nonatomic) NSMutableArray *imageArray;
 
 

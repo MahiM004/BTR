@@ -105,7 +105,7 @@
                                                                               options:0
                                                                                 error:NULL];
          
-         [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+         [self.itemArray addObjectsFromArray:[Item loadItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext withEventId:[self eventSku]]];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
          success([self itemArray]);
@@ -210,6 +210,7 @@
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = EVENT_SCENE;
         productDetailVC.productItem = [self selectedItem];
+        productDetailVC.eventId = [self eventSku];
     }
     
     

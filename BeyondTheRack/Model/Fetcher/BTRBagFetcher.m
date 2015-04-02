@@ -21,13 +21,13 @@
 
 + (NSURL *)URLforAddtoBag {
     
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag", BASEURL]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag/add", BASEURL]];
 }
 
 
 + (NSURL *)URLforRemovefromBag {
     
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag/add/remove", BASEURL]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag/remove", BASEURL]];
 }
 
 

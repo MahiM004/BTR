@@ -24,13 +24,16 @@
  */
 
 + (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
-                               inManagedObjectContext:(NSManagedObjectContext *)context;
+                               inManagedObjectContext:(NSManagedObjectContext *)context
+                    withEventId:(NSString *)eventId;
+
 
 + (NSMutableArray *)loadItemsFromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
-                                   intoManagedObjectContext:(NSManagedObjectContext *)context;
+                                   intoManagedObjectContext:(NSManagedObjectContext *)context
+                                    withEventId:(NSString *)eventId;
 
 + (Item *)itemWithSearchResponseInfo:(NSDictionary *)itemDictionary
-         inManagedObjectContext:(NSManagedObjectContext *)context;
+              inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (NSMutableArray *)loadItemsFromSearchResponseArray:(NSArray *)items // of AppServer Item NSDictionary
                        intoManagedObjectContext:(NSManagedObjectContext *)context;

@@ -10,6 +10,7 @@
 
 #import "BTRProductShowcaseVC.h"
 #import "BTRBagFetcher.h"
+#import "BagItem+AppServer.h"
 
 @interface BTRProductDetailViewController ()
 
@@ -43,6 +44,8 @@
     
     [super viewDidLoad];
 
+    [self setupDocument];
+    
     if ([[[self productItem] brand] length] > 1)
         [self.eventTitleLabel setText:[[self productItem] brand]];
     else
@@ -59,9 +62,22 @@
 - (IBAction)addToBagTapped:(UIButton *)sender {
     
 
-    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    //BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
    // [sharedShoppingBag addBagItem:[self ]]
     // REST
+    
+    [self variant]; int validate_size_is_selected;
+    
+    [self addToBagAndDataIntoDocument:[self beyondTheRackDocument]
+                              success:^(NSString *didSucceed) {
+                                  
+                                  
+                                  
+                              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                  
+                                  
+                              }];
+
     
 }
 
@@ -80,7 +96,7 @@
 
 
 
-- (void)fetchUserDataIntoDocument:(UIManagedDocument *)document
+- (void)addToBagAndDataIntoDocument:(UIManagedDocument *)document
                           success:(void (^)(id  responseObject)) success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
@@ -92,6 +108,11 @@
     
     NSString *sessionIdString = [self sessionId];
     [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    
+    
+    NSLog(@"var: %@", [self variant]);
+    NSLog(@"sku: %@", [[self productItem] sku]);
+    NSLog(@"evid:%@", [[self productItem] eventId]);
     
     
     NSDictionary *params = (@{
@@ -107,18 +128,20 @@
               NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                     options:0
                                                                                       error:NULL];
+              
+             NSLog(@"%@", entitiesPropertyList);
+                                                     
+              /*
               if (entitiesPropertyList) {
                   
-                  
-                  //  User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
-                  
+                  [BagItem loadBagItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:[self managedObjectContext]];
                   [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
                   
-                  
-                  //    success(user);
-              }
+                }*/
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"%@",error);
               
               failure(operation, error);
               
@@ -173,6 +196,7 @@
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
         embeddedVC.delegate = self;
         embeddedVC.productItem = [self productItem];
+        embeddedVC.eventId = [self eventId];
         
     }
 }
