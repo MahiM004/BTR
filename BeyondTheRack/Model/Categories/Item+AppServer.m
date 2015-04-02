@@ -163,8 +163,6 @@
 
 
 + (Item *)extractItemFromProductJSONDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
-
-    NSLog(@"add employee price logic: if 0 not employee else assign it to salePrice: extractItemFromProductJSONDictionary");
     
     
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
@@ -196,13 +194,19 @@
     
     if ([itemDictionary valueForKeyPath:@"image_count"] && [itemDictionary valueForKeyPath:@"image_count"] != [NSNull null])
         item.imageCount = [itemDictionary valueForKey:@"image_count"];
+ 
+    if ([itemDictionary valueForKeyPath:@"retail_price"] && [itemDictionary valueForKeyPath:@"retail_price"] != [NSNull null])
+        item.retailPrice = [itemDictionary valueForKey:@"retail_price"];
     
-    if ([itemDictionary valueForKeyPath:@"retail_price_ca"] && [itemDictionary valueForKeyPath:@"retail_price_ca"] != [NSNull null])
-        item.retailPrice = [nformatter numberFromString:[itemDictionary valueForKey:@"retail_price_ca"]];
+    if ([itemDictionary valueForKeyPath:@"regular_price"] && [itemDictionary valueForKeyPath:@"regular_price"] != [NSNull null])
+        item.salePrice = [itemDictionary valueForKey:@"regular_price"];
     
-    if ([itemDictionary valueForKeyPath:@"regular_price_ca"] && [itemDictionary valueForKeyPath:@"regular_price_ca"] != [NSNull null])
-        item.salePrice = [nformatter numberFromString:[itemDictionary valueForKey:@"regular_price_ca"]];
-  
+    if ([itemDictionary valueForKeyPath:@"employee_price"] && [itemDictionary valueForKeyPath:@"employee_price"] != [NSNull null])
+        item.employeePrice = [itemDictionary valueForKey:@"employee_price"];
+    
+    if (![[item employeePrice] isEqualToNumber:[NSNumber numberWithFloat:0]])
+        item.salePrice = [item employeePrice];
+    
     if ([itemDictionary valueForKeyPath:@"weight"] && [itemDictionary valueForKeyPath:@"weight"] != [NSNull null])
         item.productWeight = [itemDictionary valueForKey:@"weight"];
 
@@ -222,7 +226,6 @@
         item.restrictedShipping = [itemDictionary valueForKey:@"restricted_shipping"];
 
     
-    
     return item;
 
 }
@@ -233,9 +236,18 @@
 
 + (Item *)extractItemFromSearchJSONDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
     
-    NSLog(@"the backend search api response must be updated for correct price values @ extractItemFromSearchJSONDictionary");
+    /*
+     
+     backend keeps updating the types from number to string and vice versa. keep this code for future reference.
+     
+    NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
+    nformatter.numberStyle = NSNumberFormatterDecimalStyle;
     
-    NSLog(@"add employee price logic: if 0 not employee else assign it to salePrice: extractItemFromSearchJSONDictionary");
+    
+    if ([itemDictionary valueForKeyPath:@"regular_price"] && [itemDictionary valueForKeyPath:@"regular_price"] != [NSNull null])
+        item.salePrice = [nformatter numberFromString:[itemDictionary valueForKey:@"regular_price"]];
+     */
+    
     
     if ([itemDictionary valueForKeyPath:@"event_id"] && [itemDictionary valueForKeyPath:@"event_id"] != [NSNull null])
         item.eventId = [itemDictionary valueForKeyPath:@"event_id"];
@@ -248,15 +260,20 @@
     
     if ([itemDictionary valueForKeyPath:@"brand"] && [itemDictionary valueForKeyPath:@"brand"] != [NSNull null])
         item.brand = [itemDictionary valueForKey:@"brand"];
-   
-    if ([itemDictionary valueForKeyPath:@"price_retail_ca"] && [itemDictionary valueForKeyPath:@"price_retail_ca"] != [NSNull null])
-        item.retailPrice = [itemDictionary valueForKey:@"price_retail_ca"];
+  
+    if ([itemDictionary valueForKeyPath:@"retail_price"] && [itemDictionary valueForKeyPath:@"retail_price"] != [NSNull null])
+        item.retailPrice = [itemDictionary valueForKey:@"retail_price"];
     
-     if ([itemDictionary valueForKeyPath:@"price_reg_ca"] && [itemDictionary valueForKeyPath:@"price_reg_ca"] != [NSNull null])
-        item.salePrice = [itemDictionary valueForKey:@"price_reg_ca"];
-   
-    if ([itemDictionary valueForKeyPath:@"price_emp_ca"] && [itemDictionary valueForKeyPath:@"price_emp_ca"] != [NSNull null])
-        item.employeePrice = [itemDictionary valueForKey:@"price_emp_ca"];
+    if ([itemDictionary valueForKeyPath:@"regular_price"] && [itemDictionary valueForKeyPath:@"regular_price"] != [NSNull null])
+        item.salePrice = [itemDictionary valueForKey:@"regular_price"];
+    
+    
+    if ([itemDictionary valueForKeyPath:@"employee_price"] && [itemDictionary valueForKeyPath:@"employee_price"] != [NSNull null])
+        item.employeePrice = [itemDictionary valueForKey:@"employee_price"];
+    
+    if (![[item employeePrice] isEqualToNumber:[NSNumber numberWithFloat:0]])
+        item.salePrice = [item employeePrice];
+    
     
     return item;
 }

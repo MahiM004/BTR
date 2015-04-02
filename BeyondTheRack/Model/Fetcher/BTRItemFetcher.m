@@ -26,7 +26,9 @@
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu%@", LIVEURL, searchQuery, (unsigned long)pageNumber, sortString]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu%@", BASEURL, searchQuery, (unsigned long)pageNumber, sortString]];
+
+//    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu%@", LIVEURL, searchQuery, (unsigned long)pageNumber, sortString]];
 }
 
 
@@ -43,8 +45,9 @@
                                                                                                     NULL,
                                                                                                     (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                                     kCFStringEncodingUTF8 ));
-    
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@%@", LIVEURL, searchQuery, (unsigned long)pageNumber, encodedFacetString, sortString]];
+
+        return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@%@", BASEURL, searchQuery, (unsigned long)pageNumber, encodedFacetString, sortString]];
+   // return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@%@", LIVEURL, searchQuery, (unsigned long)pageNumber, encodedFacetString, sortString]];
 }
 
 
@@ -68,7 +71,10 @@
 // TODO: change text/html to application/json AFTER backend supports it in production
 + (NSString *)contentTypeForSearchQuery {
     
-    return @"text/html";
+    //return @"text/html";
+    
+    return @"application/json";
+
 }
 
 

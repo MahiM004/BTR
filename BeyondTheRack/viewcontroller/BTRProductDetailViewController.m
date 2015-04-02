@@ -38,10 +38,17 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (IBAction)addToBagTapped:(UIButton *)sender {
+    
+
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+   // [sharedShoppingBag addBagItem:[self ]]
+    // REST
+    
 }
+
+
 
 #pragma mark - Navigation
 
