@@ -109,8 +109,9 @@
         bagItem.quantity = [bagItemDictionary valueForKeyPath:@"quantity"];
     
     if ([bagItemDictionary valueForKeyPath:@"cart_time"] && [bagItemDictionary valueForKeyPath:@"cart_time"] != [NSNull null])
-        bagItem.createDateTime = [bagItemDictionary valueForKeyPath:@"cart_time"]; int convertfromunixtime;
+        bagItem.createDateTime = [bagItemDictionary valueForKeyPath:@"cart_time"];
     
+    bagItem.expiryDuration = @"20";
 
     return bagItem;
 

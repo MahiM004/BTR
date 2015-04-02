@@ -23,10 +23,22 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property (strong, nonatomic) NSString *variant;
 
 @end
 
 @implementation BTRProductDetailViewController
+
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+}
+
+
+
 
 - (void)viewDidLoad {
     
@@ -71,26 +83,6 @@
 
 
 
-/*
- 
- Bag calls requires a valid "session" http header.
- 
- GET www.mobile.btrdev.com/siteapi/bag
- [{"event_id":"25744","sku":"NOVNOV702","variant":"Z","cart_time":1426859370,"quantity":"2"}]
- 
- POST  www.mobile.btrdev.com/siteapi/bag/add
- {"event_id":"25744","sku":"NOVNOV702","variant":"Z"}
- 
- POST www.mobile.btrdev.com/siteapi/bag/remove
- {"event_id":"25744","sku":"NOVNOV702","variant":"Z"}
- 
- POST www.mobile.btrdev.com/siteapi/bag/clear
- => nothing required
- 
- 
- */
-
-
 - (void)fetchUserDataIntoDocument:(UIManagedDocument *)document
                           success:(void (^)(id  responseObject)) success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
@@ -105,32 +97,37 @@
     [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
     
     
-    int pass_the_params;
+    NSDictionary *params = (@{
+                              @"event_id": [[self productItem] eventId],
+                              @"sku": [[self productItem] sku],
+                              @"variant":[self variant]
+                              });
+    
+    int pass_back_variant_to_use_here;
     
     [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         
-         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                               options:0
-                                                                                 error:NULL];
-         if (entitiesPropertyList) {
-             
-           
-             //  User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
-            
-             [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-             
-         
-             //    success(user);
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         failure(operation, error);
-         
-     }];
+       parameters:params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                    options:0
+                                                                                      error:NULL];
+              if (entitiesPropertyList) {
+                  
+                  
+                  //  User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
+                  
+                  [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                  
+                  
+                  //    success(user);
+              }
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              failure(operation, error);
+              
+          }];
     
 }
 
