@@ -26,7 +26,7 @@
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu%@", BASEURL, searchQuery, (unsigned long)pageNumber, sortString]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search?q=%@&page=%lu%@", BASEURL, searchQuery, (unsigned long)pageNumber, sortString]];
     //return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu%@", LIVEURL, searchQuery, (unsigned long)pageNumber, sortString]];
 }
 
@@ -45,7 +45,7 @@
                                                                                                     (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                                     kCFStringEncodingUTF8 ));
 
-   return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@%@", BASEURL, searchQuery, (unsigned long)pageNumber, encodedFacetString, sortString]];
+   return [self URLForQuery:[NSString stringWithFormat:@"%@/search?q=%@&page=%lu&facets=%@%@", BASEURL, searchQuery, (unsigned long)pageNumber, encodedFacetString, sortString]];
    //return [self URLForQuery:[NSString stringWithFormat:@"%@/search/query?q=%@&page=%lu&facets=%@%@", LIVEURL, searchQuery, (unsigned long)pageNumber, encodedFacetString, sortString]];
 }
 

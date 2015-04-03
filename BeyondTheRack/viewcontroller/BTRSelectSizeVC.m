@@ -89,11 +89,11 @@
     
     } else if (quantity < 7) {
         
-        quantityString = [NSString stringWithFormat:@"%d left", quantity];
+        quantityString = [NSString stringWithFormat:@"%lu left", (unsigned long)quantity];
     
     } else if (quantity >= 7) {
         
-        quantityString = [NSString stringWithFormat:@"%d", quantity];
+        quantityString = [NSString stringWithFormat:@"%lu", (unsigned long)quantity];
     }
     
     return quantityString;
