@@ -38,7 +38,8 @@
 @property (strong, nonatomic) NSMutableArray *sizeFacetCountArray;
 @property (strong, nonatomic) NSMutableArray *selectedSizesArray;
 
-
+@property (strong, nonatomic) NSMutableArray *priceBracketsArray;
+@property (strong, nonatomic) NSString *pricePrefix;
 
 - (void)clearAllData;
 - (void)clearFacetData;

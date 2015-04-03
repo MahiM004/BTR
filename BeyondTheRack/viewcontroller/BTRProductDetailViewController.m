@@ -46,6 +46,9 @@
 
     [self setupDocument];
     
+    
+    NSLog(@"update add_to_bag for search: no event_id is provided");
+    
     if ([[[self productItem] brand] length] > 1)
         [self.eventTitleLabel setText:[[self productItem] brand]];
     else
@@ -124,13 +127,12 @@
     [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]]
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
+              /*
               NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                     options:0
                                                                                       error:NULL];
               
-             NSLog(@"%@", entitiesPropertyList);
-                                                     
+              */
               /*
               if (entitiesPropertyList) {
                   

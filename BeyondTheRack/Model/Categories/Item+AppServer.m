@@ -239,9 +239,6 @@
 
 + (Item *)extractItemFromSearchJSONDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
     
-    
-    NSLog(@"%@", itemDictionary);
-    
     /*
      
      backend keeps updating the types from number to string and vice versa. keep this code for future reference.

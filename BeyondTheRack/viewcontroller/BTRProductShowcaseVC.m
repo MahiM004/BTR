@@ -44,9 +44,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"country ignored: configureViewForShowcaseCollectionCell");
-
-    
     [self.eventTitleLabel setText:[self eventTitleString]];
     
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];

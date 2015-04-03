@@ -48,6 +48,13 @@ static BTRFacetData *_sharedInstance;
 }
 
 
+- (NSMutableArray *)priceBracketsArray {
+    
+    if (!_priceBracketsArray) _priceBracketsArray = [[NSMutableArray alloc] init];
+    return _priceBracketsArray;
+}
+
+
 - (NSMutableArray *)categoryFacetArray {
     
     if (!_categoryFacetArray) _categoryFacetArray = [[NSMutableArray alloc] init];

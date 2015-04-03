@@ -595,18 +595,15 @@ static BTRFacetsHandler *_sharedInstance;
     
     NSMutableString *filtersString = [[NSMutableString alloc] init];
     
-    NSLog(@"country ignored: getFacetStringForRESTfulRequest");
-    
     if ([sharedFacetData selectedPriceString] && ![sharedFacetData.selectedPriceString isEqual:[NSNull null]])
         ((BOOL)[filtersString length])?
-        [filtersString appendFormat:@";price_sort_ca:%@", [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]]:
-        [filtersString appendFormat:@"price_sort_ca:%@", [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]];
+        [filtersString appendFormat:@";%@:%@", [sharedFacetData pricePrefix], [self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]]:
+        [filtersString appendFormat:@"%@:%@", [sharedFacetData pricePrefix],[self getPriceSelectionFromLabelString:[sharedFacetData selectedPriceString]]];
     
     if ([sharedFacetData selectedCategoryString] && ![sharedFacetData .selectedCategoryString isEqual:[NSNull null]])
         ((BOOL)[filtersString length])?
         [filtersString appendFormat:@";{!tag=cat_1}cat_1:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData selectedCategoryString]]]:
         [filtersString appendFormat:@"{!tag=cat_1}cat_1:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData selectedCategoryString]]];
-    
     
     if ([sharedFacetData.selectedBrandsArray count] != 0)
         ((BOOL)[filtersString length]) ?
@@ -627,7 +624,6 @@ static BTRFacetsHandler *_sharedInstance;
         for (int i = 1; i < [sharedFacetData.selectedColorsArray count]; i++)
             [filtersString appendFormat:@" OR att_color:[[%@]]", [self getSelectionFromLabelString:[sharedFacetData.selectedColorsArray objectAtIndex:i]]];
     }
-    
     
     if ([sharedFacetData.selectedSizesArray count] != 0)
         ((BOOL)[filtersString length])?
@@ -712,52 +708,43 @@ static BTRFacetsHandler *_sharedInstance;
 
 
 
+- (NSString *)getHumanReadablePricefromPriceBracket:(NSString *)priceBracket {
+    
+    NSRange toRange = [priceBracket rangeOfString:@"TO"];
+
+    NSRange fromPriceRange = NSMakeRange(1, toRange.location - 2);
+    NSString *fromPriceString = [priceBracket substringWithRange:fromPriceRange];
+    
+    NSRange toPriceRange = NSMakeRange(toRange.location+3, priceBracket.length - toRange.location - toRange.length -2);
+    NSString *toPriceString = [priceBracket substringWithRange:toPriceRange];
+     
+    return [NSString stringWithFormat:@"$%@ to $%@", fromPriceString ,toPriceString];
+}
+
 
 - (void)initPriceFacetWithFacetQueriesDictionary:(NSDictionary *)facetQueriesDictionary {
     
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
-
-    NSString *tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[0 TO 200]"] stringValue];
-    if (tempString && ![tempString isEqualToString:@"0"]) {
-        
-        [sharedFacetData.priceFacetArray addObject:@"$0 to $200"];
-        [sharedFacetData.priceFacetCountArray addObject:tempString];
-    }
+    NSArray *allKeysArray = facetQueriesDictionary.allKeys;
     
-    tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[200 TO 400]"] stringValue];
-    if (tempString && ![tempString isEqualToString:@"0"]) {
-        
-        [sharedFacetData.priceFacetArray addObject:@"$200 to $400"];
-        [sharedFacetData.priceFacetCountArray addObject:tempString];
-    }
+    NSString *pricePrefix = @"";
+    if ([allKeysArray count] != 0)
+        pricePrefix = [[allKeysArray objectAtIndex:0]  componentsSeparatedByString:@":"][0];
     
-    tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[400 TO 600]"] stringValue];
-    if (tempString && ![tempString isEqualToString:@"0"]) {
+    if ([pricePrefix length] != 0)
+        sharedFacetData.pricePrefix = pricePrefix;
+ 
+    for (NSString *key in allKeysArray) {
         
-        [sharedFacetData.priceFacetArray addObject:@"$400 to $600"];
-        [sharedFacetData.priceFacetCountArray addObject:tempString];
-    }
-    
-    tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[600 TO 800]"] stringValue];
-    if (tempString && ![tempString isEqualToString:@"0"]) {
+        NSString *tempBracket = [key componentsSeparatedByString:@":"][1];
+        [[sharedFacetData priceBracketsArray] addObject:tempBracket];
         
-        [sharedFacetData.priceFacetArray addObject:@"$600 to $800"];
-        [sharedFacetData.priceFacetCountArray addObject:tempString];
-    }
-    
-    tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[800 TO 1000]"] stringValue];
-    if (tempString && ![tempString isEqualToString:@"0"]) {
-        
-        [sharedFacetData.priceFacetArray addObject:@"$800 to $1000"];
-        [sharedFacetData.priceFacetCountArray addObject:tempString];
-    }
-    
-    
-    tempString = [[facetQueriesDictionary valueForKey:@"price_sort_ca:[1000 TO *]"] stringValue];
-    if (tempString && ![tempString isEqualToString:@"0"]) {
-        
-        [sharedFacetData.priceFacetArray addObject:@"$1000 to *"];
-        [sharedFacetData.priceFacetCountArray addObject:tempString];
+        NSString *tempString = [[facetQueriesDictionary valueForKey:key] stringValue];
+        if (tempString && ![tempString isEqualToString:@"0"]) {
+            
+            [sharedFacetData.priceFacetArray addObject:[self getHumanReadablePricefromPriceBracket:tempBracket]];
+            [sharedFacetData.priceFacetCountArray addObject:tempString];
+        }
     }
 }
 
