@@ -8,9 +8,12 @@
 
 #import "BTRShoppingBagViewController.h"
 #import "BTRApprovePurchaseViewController.h"
+#import "BTRBagTableViewCell.h"
 
 #import "BagItem+AppServer.h"
+#import "Item+AppServer.h"
 #import "BTRBagFetcher.h"
+#import "BTRItemFetcher.h"
 
 @interface BTRShoppingBagViewController ()
 
@@ -35,7 +38,6 @@
 }
 
 
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
@@ -51,15 +53,13 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    
-    /*
     [self getCartServerCallforSessionId:[self sessionId] success:^(NSString *succString) {
+        
+        [[self tableView] reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        
-    }];*/
-
+    }];
 }
 
 
@@ -72,26 +72,95 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingBagCellIdentifier" forIndexPath:indexPath];
+    BTRBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingBagCellIdentifier" forIndexPath:indexPath];
     
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
+        cell = [[BTRBagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
     }
     
+    NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
     
-    UIImageView *imv = [[UIImageView alloc]initWithFrame:CGRectMake(0, 1, 320, 150)];
-    imv.image=[UIImage imageNamed:@"itemInBag.png"];
-    [cell.contentView addSubview:imv];
+    Item *item = [Item getItemforSku:uniqueSku fromManagedObjectContext:[self managedObjectContext]];
+    
+    [cell.itemImageView setImageWithURL:[BTRItemFetcher
+                                         URLforItemImageForSku:uniqueSku]
+                                         placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+ 
+    cell.brandLabel.text = [item brand];
+    cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[item salePrice]]; 
+    cell.quantityLabel.text = [NSString stringWithFormat:@"Qty: %@", [[self.bagItemsArray objectAtIndex:indexPath.row] quantity]];
+    cell.itemLabel.text = [item shortItemDescription];
     
     return cell;
 }
 
+
+
+#pragma mark - Bag RESTful Calls
+
+
+- (void)setupDocument
+{
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
+}
+
+
+
+- (void)getCartServerCallforSessionId:(NSString *)sessionId
+                              success:(void (^)(id  responseObject)) success
+                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *sessionIdString = [self sessionId];
+    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    
+    
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             
+             NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                  options:0
+                                                                                    error:NULL];
+             [self.bagItemsArray removeAllObjects];
+             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+            
+             success(@"TRUE");
+             
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             
+             NSLog(@"errtr: %@", error);
+             failure(operation, error);
+             
+         }];
+}
+
+
+
+
+
+
+
+#pragma mark - Navigation
+
+
 - (IBAction)tappedCheckout:(UIButton *)sender {
     
     
-    
-
 
 }
 
@@ -111,73 +180,11 @@
 
 
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
-
-
-
-
-
-#pragma mark - Bag RESTful Calls
-
-
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
 }
 
 
-
-- (void)getCartServerCallforSessionId:(NSString *)sessionId
-                                    success:(void (^)(id  responseObject)) success
-                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    NSString *sessionIdString = [self sessionId];
-    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
-    
- 
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
-       parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              
-              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                   options:0
-                                                                                     error:NULL];
-              
-              NSLog(@"redded: %@", entitiesPropertyList);
-              
-              success(@"TRUE");
-              
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              
-              NSLog(@"errtr: %@", error);
-              failure(operation, error);
-              
-          }];
-}
 
 
 

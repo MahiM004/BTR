@@ -61,18 +61,18 @@
 
 
 
-+ (NSAttributedString *)crossedOffPriceFromNumber:(NSNumber *)priceNumber {
++ (NSAttributedString *)crossedOffPricefromNumber:(NSNumber *)priceNumber {
     
     
-    NSString *dollaredString = [self priceStringFromNumber:priceNumber];
+    NSString *dollaredString = [self priceStringfromNumber:priceNumber];
     UIFont *priceFont = [UIFont fontWithName:@"STHeitiSC-Light" size:15.0];
-    NSAttributedString *crossedOffText = [self crossedOffStringFromString:dollaredString withFont:priceFont];
+    NSAttributedString *crossedOffText = [self crossedOffStringfromString:dollaredString withFont:priceFont];
     
     return crossedOffText;
 }
 
 
-+ (NSAttributedString *)crossedOffStringFromString:(NSString *)string withFont:(UIFont *)font{
++ (NSAttributedString *)crossedOffStringfromString:(NSString *)string withFont:(UIFont *)font{
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     
@@ -88,7 +88,7 @@
 
 
 
-+ (NSAttributedString *)crossedOffStringFromString:(NSString *)string {
++ (NSAttributedString *)crossedOffStringfromString:(NSString *)string {
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     
@@ -103,11 +103,19 @@
 
 
 
-+ (NSString *)priceStringFromNumber:(NSNumber *)priceNumber {
++ (NSString *)priceStringfromNumber:(NSNumber *)priceNumber {
     
     
     NSString *dollaredString = [NSString stringWithFormat:@"$%@", priceNumber];
 
+    return dollaredString;
+}
+
+
++ (NSString *)priceStringfromString:(NSString *)priceString {
+    
+    NSString *dollaredString = [NSString stringWithFormat:@"$%@", priceString];
+    
     return dollaredString;
 }
 

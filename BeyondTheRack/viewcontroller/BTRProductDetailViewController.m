@@ -89,14 +89,13 @@
         
     } else {
 
-        [self cartIncrementServerCallforSessionId:[self sessionId] success:^(NSMutableArray *bagList) {
+        [self cartIncrementServerCallforSessionId:[self sessionId] success:^(NSString *successString) {
             
-            if ([bagList count] != 0) {
+            if ([successString isEqualToString:@"TRUE"]) {
              
                 UIStoryboard *storyboard = self.storyboard;
-                UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-                [(BTRShoppingBagViewController *)vc setBagItemsArray:bagList];
-                
+                BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+                [vc.bagItemsArray addObjectsFromArray:[self bagItemsArray]];
                 
                 [self presentViewController:vc animated:YES completion:nil];
                 
@@ -155,15 +154,14 @@
               
               NSArray *bagItemsArray = entitiesPropertyList[@"bag"];
               
-              NSLog(@"loooooop: %@", entitiesPropertyList);
               
+              NSLog(@"cooolo: %@", bagItemsArray);
               
               [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsFromAppServerArray:bagItemsArray intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
-              
               [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+
               
-              
-              success(entitiesPropertyList);
+              success(@"TRUE");
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
@@ -174,10 +172,9 @@
 
 
 
-
-
-
 #pragma mark - Navigation
+
+
 
 - (IBAction)backButtonTapped:(UIButton *)sender {
     
@@ -189,6 +186,7 @@
         [self performSegueWithIdentifier:@"unwindFromProductDetailToShowcase" sender:self];
 }
 
+
 - (IBAction)bagButtonTapped:(UIButton *)sender {
     
     
@@ -197,6 +195,7 @@
     [self presentViewController:vc animated:YES completion:nil];
 
 }
+
 
 - (IBAction)searchButtonTapped:(UIButton *)sender {
    
@@ -207,11 +206,6 @@
     
 }
 
-
-#pragma mark - Navigation
-
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 

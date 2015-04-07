@@ -23,6 +23,8 @@
  
  */
 
++ (Item *)getItemforSku:(NSString *)uniqueSku fromManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
                                inManagedObjectContext:(NSManagedObjectContext *)context
                     withEventId:(NSString *)eventId;

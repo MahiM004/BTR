@@ -144,8 +144,8 @@
     
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
-    [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffPriceFromNumber:[productItem retailPrice]]];
-    [cell.originalPrice setText:[BTRViewUtility priceStringFromNumber:[productItem salePrice]]];
+    [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
+    [cell.originalPrice setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
     
     return cell;
 }

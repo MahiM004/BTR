@@ -121,7 +121,7 @@
                                 
                                 if ([singleSizeBoolString isEqualToString:@"TRUE"]) {
                                     
-                                    [self.selectSizeButton.titleLabel setAttributedText:[BTRViewUtility crossedOffStringFromString:@"Select Size :"]];
+                                    [self.selectSizeButton.titleLabel setAttributedText:[BTRViewUtility crossedOffStringfromString:@"Select Size :"]];
                                     [self.selectSizeButton setEnabled:FALSE];
                                     [self.selectSizeButton setAlpha:0.4];
                                     
@@ -170,8 +170,8 @@
         [self setProductSku:[productItem sku]];
         [self.brandLabel setText:[productItem brand]];
         [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
-        [self.salePriceLabel setText:[BTRViewUtility priceStringFromNumber:[productItem salePrice]]];
-        [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPriceFromNumber:[productItem retailPrice]]];
+        [self.salePriceLabel setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
+        [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
     
     } else {
     

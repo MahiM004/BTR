@@ -25,6 +25,32 @@
 
 
 
++ (Item *)getItemforSku:(NSString *)uniqueSku fromManagedObjectContext:(NSManagedObjectContext *)context {
+    
+    Item *item = nil;
+    
+    if(!uniqueSku)
+        return nil;
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Item"];
+    request.predicate = [NSPredicate predicateWithFormat:@"sku == %@", uniqueSku];
+    
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+   
+    if (error) {
+        
+        return nil;
+        
+    } else if ([matches count] >= 1) {
+        
+        item = [matches firstObject];
+    }
+    
+    return item;
+}
+
+
 + (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
          inManagedObjectContext:(NSManagedObjectContext *)context
                     withEventId:(NSString *)eventId

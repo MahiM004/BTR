@@ -15,12 +15,13 @@
 + (void)saveImage:(UIImage *)image withFilename:(NSString *)filename;
 + (UIImage *)imageWithFilename:(NSString *)filename;
 
-+ (NSAttributedString *)crossedOffPriceFromNumber:(NSNumber *)priceNumber;
-+ (NSString *)priceStringFromNumber:(NSNumber *)priceNumber;
++ (NSAttributedString *)crossedOffPricefromNumber:(NSNumber *)priceNumber;
++ (NSString *)priceStringfromNumber:(NSNumber *)priceNumber;
++ (NSString *)priceStringfromString:(NSString *)priceString;
 + (UITextField *)underlineTextField:(UITextField *)textField;
 
-+ (NSAttributedString *)crossedOffStringFromString:(NSString *)string withFont:(UIFont *)font;
-+ (NSAttributedString *)crossedOffStringFromString:(NSString *)string;
++ (NSAttributedString *)crossedOffStringfromString:(NSString *)string withFont:(UIFont *)font;
++ (NSAttributedString *)crossedOffStringfromString:(NSString *)string;
 
 
 @end
