@@ -12,13 +12,10 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (strong, nonatomic) NSMutableArray *bagItemsArray;
+
+
 @end
 
 
 
-/*
-
- 
- Paypal Payment: https://developer.paypal.com/webapps/developer/docs/classic/mobile/gs_MEC/
- 
-*/

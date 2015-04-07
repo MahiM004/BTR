@@ -7,6 +7,7 @@
 //
 
 #import "BTRProductDetailViewController.h"
+#import "BTRShoppingBagViewController.h"
 
 #import "BTRProductShowcaseVC.h"
 #import "BTRBagFetcher.h"
@@ -21,15 +22,23 @@
 
 
 @property (strong, nonatomic) NSString *sessionId;
-
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) NSString *variant;
 
+@property (strong, nonatomic) NSMutableArray *bagItemsArray;
+
 @end
 
 @implementation BTRProductDetailViewController
+
+
+- (NSMutableArray *)bagItemsArray {
+    
+    if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
+    return _bagItemsArray;
+}
 
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -80,11 +89,18 @@
         
     } else {
 
-        [self cartIncrementServerCallforSessionId:[self sessionId] success:^(NSString *didSucceed) {
+        [self cartIncrementServerCallforSessionId:[self sessionId] success:^(NSMutableArray *bagList) {
             
-            UIStoryboard *storyboard = self.storyboard;
-            UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-            [self presentViewController:vc animated:YES completion:nil];
+            if ([bagList count] != 0) {
+             
+                UIStoryboard *storyboard = self.storyboard;
+                UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+                [(BTRShoppingBagViewController *)vc setBagItemsArray:bagList];
+                
+                
+                [self presentViewController:vc animated:YES completion:nil];
+                
+            }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -132,9 +148,22 @@
     [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]]
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+              
+              NSArray *bagItemsArray = entitiesPropertyList[@"bag"];
+              
+              NSLog(@"loooooop: %@", entitiesPropertyList);
               
               
-              success(@"TRUE");
+              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsFromAppServerArray:bagItemsArray intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+              
+              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+              
+              
+              success(entitiesPropertyList);
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               

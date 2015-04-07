@@ -9,8 +9,15 @@
 #import "BTRShoppingBagViewController.h"
 #import "BTRApprovePurchaseViewController.h"
 
+#import "BagItem+AppServer.h"
+#import "BTRBagFetcher.h"
+
 @interface BTRShoppingBagViewController ()
 
+
+@property (strong, nonatomic) NSString *sessionId;
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
 @end
@@ -19,13 +26,39 @@
 
 @implementation BTRShoppingBagViewController
 
+
+- (NSMutableArray *)bagItemsArray {
+
+    if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
+    return _bagItemsArray;
+
+}
+
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
+
+    [self setupDocument];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    
+    /*
+    [self getCartServerCallforSessionId:[self sessionId] success:^(NSString *succString) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        
+    }];*/
 
 }
 
@@ -33,7 +66,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 4;
+    return [[self bagItemsArray] count];
 }
 
 
@@ -73,6 +106,7 @@
 
 - (IBAction)unwindToShoppingBagScene:(UIStoryboardSegue *)unwindSegue
 {
+    
 }
 
 
@@ -89,7 +123,82 @@
 }
 */
 
+
+
+
+
+
+#pragma mark - Bag RESTful Calls
+
+
+- (void)setupDocument
+{
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
+}
+
+
+
+- (void)getCartServerCallforSessionId:(NSString *)sessionId
+                                    success:(void (^)(id  responseObject)) success
+                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *sessionIdString = [self sessionId];
+    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    
+ 
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
+       parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+              
+              NSLog(@"redded: %@", entitiesPropertyList);
+              
+              success(@"TRUE");
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              
+              NSLog(@"errtr: %@", error);
+              failure(operation, error);
+              
+          }];
+}
+
+
+
+
+
+
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
