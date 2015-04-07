@@ -13,10 +13,9 @@
 
 
 
-
-
-
 @end
+
+
 
 @implementation BTRShoppingBagViewController
 
@@ -30,10 +29,6 @@
 
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -100,6 +95,11 @@
 
 
 
-//UIStoryboard *storyboard = self.storyboard;
-//UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ApprovePurchaseViewController"];
-//[self presentViewController:vc animated:YES completion:nil];
+
+
+
+
+
+
+
+

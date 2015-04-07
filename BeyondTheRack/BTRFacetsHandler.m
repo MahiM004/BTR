@@ -38,13 +38,9 @@ static BTRFacetsHandler *_sharedInstance;
 - (id)init
 {
     self = [super init];
-
-    NSLog(@"country ignored: updateFacetsFromResponseDictionary");
-
     
     if (self) {
         
-
     }
     return self;
 }
@@ -422,13 +418,6 @@ static BTRFacetsHandler *_sharedInstance;
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     return [sharedFacetData selectedColorsArray];
 }
-
-
-/*
-
- 
- */
-
 
 
 - (void)addSizeSelectionWithSizeString:(NSString *)sizeString {

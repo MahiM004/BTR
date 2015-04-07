@@ -12,6 +12,8 @@
 #import "BTRBagFetcher.h"
 #import "BagItem+AppServer.h"
 
+#define SIZE_NOT_SELECTED_STRING @"-1"
+
 @interface BTRProductDetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
@@ -30,7 +32,6 @@
 @implementation BTRProductDetailViewController
 
 
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
@@ -44,6 +45,9 @@
     
     [super viewDidLoad];
 
+    self.variant = SIZE_NOT_SELECTED_STRING;
+
+    
     [self setupDocument];
     
     
@@ -64,24 +68,31 @@
 
 - (IBAction)addToBagTapped:(UIButton *)sender {
     
+      
+     if ([[self variant] isEqualToString:SIZE_NOT_SELECTED_STRING]) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Size"
+                                                       message:@"Please select a size!"
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles:nil];
+        [alert show];
+        
+    } else {
 
-    //BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-   // [sharedShoppingBag addBagItem:[self ]]
-    // REST
-    
-    [self variant]; int validate_size_is_selected;
-    
-    [self addToBagAndDataIntoDocument:[self beyondTheRackDocument]
-                              success:^(NSString *didSucceed) {
-                                  
-                                  
-                                  
-                              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                  
-                                  
-                              }];
-
-    
+        [self cartIncrementServerCallforSessionId:[self sessionId] success:^(NSString *didSucceed) {
+            
+            UIStoryboard *storyboard = self.storyboard;
+            UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+            [self presentViewController:vc animated:YES completion:nil];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            
+        }];
+        
+    }
+ 
 }
 
 
@@ -99,9 +110,9 @@
 
 
 
-- (void)addToBagAndDataIntoDocument:(UIManagedDocument *)document
-                          success:(void (^)(id  responseObject)) success
-                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+- (void)cartIncrementServerCallforSessionId:(NSString *)sessionId
+                                    success:(void (^)(id  responseObject)) success
+                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -112,12 +123,6 @@
     NSString *sessionIdString = [self sessionId];
     [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
     
-    
-    NSLog(@"var: %@", [self variant]);
-    NSLog(@"sku: %@", [[self productItem] sku]);
-    NSLog(@"evid:%@", [[self productItem] eventId]);
-    
-    
     NSDictionary *params = (@{
                               @"event_id": [[self productItem] eventId],
                               @"sku": [[self productItem] sku],
@@ -127,29 +132,17 @@
     [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]]
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              /*
-              NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                    options:0
-                                                                                      error:NULL];
               
-              */
-              /*
-              if (entitiesPropertyList) {
-                  
-                  [BagItem loadBagItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:[self managedObjectContext]];
-                  [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-                  
-                }*/
+              
+              success(@"TRUE");
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"%@",error);
               
               failure(operation, error);
               
           }];
-    
 }
+
 
 
 

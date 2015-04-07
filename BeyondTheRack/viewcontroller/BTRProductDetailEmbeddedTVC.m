@@ -126,6 +126,13 @@
                                     [self.selectSizeButton setAlpha:0.4];
                                     
                                     [self.sizeLabel setText:@"One Size"];
+                                    
+                                    
+                                    
+                                    if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
+                                        [self.delegate variantCodeforAddtoBag:@"Z"];
+                                    }
+                                    
                                 }
                                 
                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -446,7 +453,6 @@
                  [allKeys count] == 1 )  /*  To deal with the follwoing faulty data entry: { "#Z" = 79; "L#L" = 4; "M#M" = 8; }; */
                                          /*  if #Z and anything else ignore #Z" */
             return btrSizeModeSingleSizeNoShow;
-        
     }
     
     [variantInventoryDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -461,7 +467,6 @@
         }
  
     }];
-    
     
     return btrSizeModeMultipleSizes;
 }
