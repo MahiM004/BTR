@@ -19,5 +19,6 @@
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
+@property (weak, nonatomic) IBOutlet UIView *stepperView;
 
 @end

@@ -130,7 +130,9 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
@@ -151,9 +153,12 @@
                                                                                    options:0
                                                                                      error:NULL];
               
+              NSLog(@"%@", entitiesPropertyList);
+              
               NSArray *bagItemsArray = entitiesPropertyList[@"bag"];
               
-              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsFromAppServerArray:bagItemsArray intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+              [self.bagItemsArray addObjectsFromArray:[BagItem extractBagItemsfromAppServerArray:bagItemsArray]];
+              
               [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
               
               success(@"TRUE");

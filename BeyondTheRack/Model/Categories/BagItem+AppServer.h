@@ -19,4 +19,6 @@
 + (NSMutableArray *)loadBagItemsFromAppServerArray:(NSArray *)bagItems // of AppServer BagItem NSDictionary
                                    intoManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (NSMutableArray *)extractBagItemsfromAppServerArray:(NSArray *)bagItemsJson;
+
 @end

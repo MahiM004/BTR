@@ -10,10 +10,14 @@
 #import "BTRApprovePurchaseViewController.h"
 #import "BTRBagTableViewCell.h"
 
+ 
 #import "BagItem+AppServer.h"
 #import "Item+AppServer.h"
 #import "BTRBagFetcher.h"
 #import "BTRItemFetcher.h"
+
+
+
 
 @interface BTRShoppingBagViewController ()
 
@@ -23,6 +27,10 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (weak, nonatomic) IBOutlet UILabel *bagTitle;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *subtotalLabel;
+@property (weak, nonatomic) IBOutlet UILabel *youSaveLabel;
 
 
 @end
@@ -51,15 +59,26 @@
     
     [super viewDidLoad];
 
+    
     [self setupDocument];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+    [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [nf setCurrencySymbol:@"$"];
+    
     [self getCartServerCallforSessionId:[self sessionId] success:^(NSString *succString) {
         
         [[self tableView] reloadData];
         self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[[self bagItemsArray] count]];
+        
+        NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", [self getSubtotalSale]]];
+        self.subtotalLabel.text = [NSString stringWithFormat:@"Sub total: %@", [nf stringFromNumber:number]];
+        
+        number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", [self getSubtotalRetail] - [self getSubtotalSale]]];
+        self.youSaveLabel.text = [NSString stringWithFormat:@"You Save: %@", [nf stringFromNumber:number]];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -96,10 +115,39 @@
     cell.quantityLabel.text = [NSString stringWithFormat:@"Qty: %@", [[self.bagItemsArray objectAtIndex:indexPath.row] quantity]];
     cell.itemLabel.text = [item shortItemDescription];
     cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [[self.bagItemsArray objectAtIndex:indexPath.row]  variant]];
-    
+        
     return cell;
 }
 
+
+
+- (float)getSubtotalSale {
+ 
+    float subtotal = 0.0;
+    
+    for (BagItem *bagItem in self.bagItemsArray) {
+        
+        Item *item = [Item getItemforSku:[bagItem sku] fromManagedObjectContext:[self managedObjectContext]];
+        subtotal += [[bagItem quantity] intValue] * [[item salePrice] floatValue];
+    }
+    
+    return subtotal;
+}
+
+
+
+- (float)getSubtotalRetail {
+    
+    float subtotal = 0.0;
+    
+    for (BagItem *bagItem in self.bagItemsArray) {
+        
+        Item *item = [Item getItemforSku:[bagItem sku] fromManagedObjectContext:[self managedObjectContext]];
+        subtotal += [[bagItem quantity] intValue] * [[item retailPrice] floatValue];
+    }
+    
+    return subtotal;
+}
 
 
 #pragma mark - Bag RESTful Calls
@@ -122,7 +170,22 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    /*
+     
+     bag call is text!
+     
+     bag increment is json
+     
+     type of bag has changed on the incerement.
+     
+     getting (null) on the bag call
+     
+     */
+    
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
@@ -136,8 +199,12 @@
              NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
+             
+             NSLog(@"%@", entitiesPropertyList);
+             
              [self.bagItemsArray removeAllObjects];
-             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsFromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+             [self.bagItemsArray addObjectsFromArray:[BagItem extractBagItemsfromAppServerArray:entitiesPropertyList]];
+
              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
             
              success(@"TRUE");

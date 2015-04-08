@@ -100,6 +100,22 @@
 }
 
 
++ (NSMutableArray *)extractBagItemsfromAppServerArray:(NSArray *)bagItemsJson {
+    
+    
+    NSMutableArray *bagItemArray = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *bagItemDictionary in bagItemsJson) {
+        
+        BagItem *bagItem = nil;
+        
+        bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary forBagItem:bagItem];
+        [bagItemArray addObject:bagItem];
+    }
+    
+    return bagItemArray;
+}
+
 
 
 + (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary forBagItem:(BagItem *)bagItem {
