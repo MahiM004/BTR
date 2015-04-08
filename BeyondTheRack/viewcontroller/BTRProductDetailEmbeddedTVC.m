@@ -365,6 +365,8 @@
     }
 }
 
+
+
 - (void)fetchItemIntoDocument:(UIManagedDocument *)document forProductSku:(NSString *)productSku
                        success:(void (^)(id  responseObject, id oneSizeBoolString)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
@@ -382,14 +384,13 @@
          NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                          options:0
                                                                            error:NULL];
-         
+    
          enum btrSizeMode sizeMode = [self extractSizesFromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]];
          [self extractAttributsFromAttributesDictionary:entitiesPropertyList[@"attributes"]];
          
          Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList inManagedObjectContext:document.managedObjectContext withEventId:[self eventId]];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
         
-         
          NSString *sizeBoolString = @"FALSE";
          if (sizeMode == btrSizeModeSingleSizeShow || sizeMode == btrSizeModeSingleSizeNoShow)
              sizeBoolString = @"TRUE";
@@ -412,7 +413,7 @@
 
 - (void) extractAttributsFromAttributesDictionary:(NSDictionary *)attributeDictionary {
     
-    
+ 
     [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         
         NSString *keyString = key;
@@ -425,7 +426,6 @@
         }
         
     }];
-
     
 }
 
@@ -479,8 +479,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     
-    if ([[segue identifier] isEqualToString:@"ZoomOnProductImageSegueIdentifier"])
-    {
+    if ([[segue identifier] isEqualToString:@"ZoomOnProductImageSegueIdentifier"]) {
+        
         BTRZoomImageViewController *zoomVC = [segue destinationViewController];
         zoomVC.productSkuString = [self productSku];
         zoomVC.zoomImageCount = [self productImageCount];
@@ -492,10 +492,7 @@
         selectSizeVC.sizesArray = [self sizesArray];
         selectSizeVC.sizeQuantityArray = [self sizeQuantityArray];
         selectSizeVC.delegate = self;
-        
     }
-  
-    
 }
 
 
@@ -517,6 +514,8 @@
 
 #pragma mark - BTRSelectSizeVC Delegate
 
+
+
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     
     self.selectedIndex = selectedIndex;
@@ -528,6 +527,7 @@
     
     
 }
+
 
 
 

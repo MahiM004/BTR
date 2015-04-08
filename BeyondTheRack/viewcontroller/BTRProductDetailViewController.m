@@ -26,7 +26,6 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) NSString *variant;
-
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 
 @end
@@ -154,12 +153,8 @@
               
               NSArray *bagItemsArray = entitiesPropertyList[@"bag"];
               
-              
-              NSLog(@"cooolo: %@", bagItemsArray);
-              
               [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsFromAppServerArray:bagItemsArray intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
               [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-
               
               success(@"TRUE");
               

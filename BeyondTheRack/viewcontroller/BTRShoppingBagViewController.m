@@ -22,6 +22,8 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property (weak, nonatomic) IBOutlet UILabel *bagTitle;
+
 
 @end
 
@@ -46,6 +48,7 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 
     [self setupDocument];
@@ -56,6 +59,7 @@
     [self getCartServerCallforSessionId:[self sessionId] success:^(NSString *succString) {
         
         [[self tableView] reloadData];
+        self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[[self bagItemsArray] count]];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -91,6 +95,7 @@
     cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[item salePrice]]; 
     cell.quantityLabel.text = [NSString stringWithFormat:@"Qty: %@", [[self.bagItemsArray objectAtIndex:indexPath.row] quantity]];
     cell.itemLabel.text = [item shortItemDescription];
+    cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [[self.bagItemsArray objectAtIndex:indexPath.row]  variant]];
     
     return cell;
 }
@@ -124,12 +129,9 @@
     NSString *sessionIdString = [self sessionId];
     [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
     
-    
-    
     [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
              
              NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
@@ -141,7 +143,6 @@
              success(@"TRUE");
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
              
              NSLog(@"errtr: %@", error);
              failure(operation, error);
@@ -159,8 +160,6 @@
 
 
 - (IBAction)tappedCheckout:(UIButton *)sender {
-    
-    
 
 }
 
@@ -169,12 +168,10 @@
 - (IBAction)tappedClose:(UIButton *)sender {
     
     [self dismissViewControllerAnimated:YES completion:nil];
-
 }
 
 
-- (IBAction)unwindToShoppingBagScene:(UIStoryboardSegue *)unwindSegue
-{
+- (IBAction)unwindToShoppingBagScene:(UIStoryboardSegue *)unwindSegue {
     
 }
 
