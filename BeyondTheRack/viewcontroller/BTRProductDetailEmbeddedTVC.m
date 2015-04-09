@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIView *longDescriptionView;
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *selectSizeButton;
+@property (weak, nonatomic) IBOutlet UILabel *dropdownLabelIcon;
 
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
@@ -102,6 +103,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    self.dropdownLabelIcon.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
+    self.dropdownLabelIcon.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-caret-down"];
     
     
     self.selectedIndex = -1;
@@ -334,7 +338,7 @@
             break;
             
         case 1:
-            return 164;
+            return 174;
             break;
             
         case 2:

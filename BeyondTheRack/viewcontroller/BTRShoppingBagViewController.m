@@ -10,13 +10,11 @@
 #import "BTRApprovePurchaseViewController.h"
 #import "BTRBagTableViewCell.h"
 
- 
+
 #import "BagItem+AppServer.h"
 #import "Item+AppServer.h"
 #import "BTRBagFetcher.h"
 #import "BTRItemFetcher.h"
-
-
 
 
 @interface BTRShoppingBagViewController ()
@@ -25,6 +23,7 @@
 @property (strong, nonatomic) NSString *sessionId;
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *bagTitle;
 
@@ -84,9 +83,7 @@
 - (NSInteger)getCountofBagItems {
     
     NSInteger counter = 0;
-    
     for (int i = 0; i < [[self bagItemsArray] count]; i++) {
-        
         counter += [[[[self bagItemsArray] objectAtIndex:i] quantity] integerValue];
     }
     
