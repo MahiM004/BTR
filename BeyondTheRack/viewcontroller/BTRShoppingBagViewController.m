@@ -47,19 +47,10 @@
 
 }
 
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    
-    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
-}
-
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
 
-    
     [self setupDocument];
     
     self.tableView.delegate = self;
@@ -69,6 +60,8 @@
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setCurrencySymbol:@"$"];
     
+    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+
     [self getCartServerCallforSessionId:[self sessionId] success:^(NSString *succString) {
         
         [[self tableView] reloadData];
@@ -84,7 +77,6 @@
         
     }];
 }
-
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -170,7 +162,7 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    //serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     /*
      
@@ -184,7 +176,7 @@
      
      */
     
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    //serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -199,14 +191,16 @@
              NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
+             NSLog(@"zdhsfghsfghsdfgh%@", sessionIdString);
+
              
-             NSLog(@"%@", entitiesPropertyList);
-             
+            // NSLog(@"%@", entitiesPropertyList);
+             /*
              [self.bagItemsArray removeAllObjects];
              [self.bagItemsArray addObjectsFromArray:[BagItem extractBagItemsfromAppServerArray:entitiesPropertyList]];
 
              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-            
+            */
              success(@"TRUE");
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

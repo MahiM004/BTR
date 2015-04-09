@@ -115,6 +115,7 @@
     [self.collectionView becomeFirstResponder];
 }
 */
+
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:YES];

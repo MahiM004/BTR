@@ -41,6 +41,8 @@
     return _itemArray;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -64,11 +66,6 @@
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                              
                          }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-
 }
 
 

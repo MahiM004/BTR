@@ -32,7 +32,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
 }
 
 
@@ -41,6 +40,9 @@
     
     [super viewDidLoad];
  
+    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+
+    
     [self setupDocument];
     
     [self fetchUserDataIntoDocument:[self beyondTheRackDocument] success:^(User *user) {

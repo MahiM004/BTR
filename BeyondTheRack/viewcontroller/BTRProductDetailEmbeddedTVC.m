@@ -432,7 +432,6 @@
 
 - (enum btrSizeMode) extractSizesFromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary {
     
-    
     NSString *keyString = @"";
     NSArray *allKeys = [variantInventoryDictionary allKeys];
    

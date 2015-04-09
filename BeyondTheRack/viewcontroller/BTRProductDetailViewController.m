@@ -39,22 +39,13 @@
     return _bagItemsArray;
 }
 
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    
-    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
-}
-
-
-
-
+ 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
 
+    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
     self.variant = SIZE_NOT_SELECTED_STRING;
-
     
     [self setupDocument];
     
@@ -139,6 +130,9 @@
     NSString *sessionIdString = [self sessionId];
     [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
     
+    
+    NSLog(@"pdpfff: %@", sessionIdString);
+    
     NSDictionary *params = (@{
                               @"event_id": [[self productItem] eventId],
                               @"sku": [[self productItem] sku],
@@ -152,7 +146,6 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
-              
               NSLog(@"%@", entitiesPropertyList);
               
               NSArray *bagItemsArray = entitiesPropertyList[@"bag"];
