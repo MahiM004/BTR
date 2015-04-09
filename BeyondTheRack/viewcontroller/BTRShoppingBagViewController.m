@@ -164,20 +164,6 @@
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
-    /*
-     
-     bag call is text!
-     
-     bag increment is json
-     
-     type of bag has changed on the incerement.
-     
-     getting (null) on the bag call
-     
-     */
-    
-    //serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
@@ -191,16 +177,14 @@
              NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
-             NSLog(@"zdhsfghsfghsdfgh%@", sessionIdString);
-
              
-            // NSLog(@"%@", entitiesPropertyList);
-             /*
+             NSLog(@"%@", entitiesPropertyList);
+ 
              [self.bagItemsArray removeAllObjects];
              [self.bagItemsArray addObjectsFromArray:[BagItem extractBagItemsfromAppServerArray:entitiesPropertyList]];
-
+             
              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-            */
+            
              success(@"TRUE");
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
