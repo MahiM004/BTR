@@ -21,7 +21,6 @@
 		6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4EA1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m */; };
 		6901E9D51AC09CE3002534D9 /* BTRBagFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9D41AC09CE3002534D9 /* BTRBagFetcher.m */; };
 		6901E9E11AC9901D002534D9 /* BTRSelectSizeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9E01AC9901D002534D9 /* BTRSelectSizeVC.m */; };
-		6901E9E41ACADF40002534D9 /* BTRBagHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9E31ACADF40002534D9 /* BTRBagHandler.m */; };
 		6901E9F31ACC3BA3002534D9 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9F21ACC3BA3002534D9 /* Item.m */; };
 		6901E9F91ACC6B48002534D9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9F81ACC6B48002534D9 /* User.m */; };
 		6901E9FC1ACD703C002534D9 /* BTRBagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9FB1ACD703C002534D9 /* BTRBagTableViewCell.m */; };
@@ -158,8 +157,6 @@
 		6901E9D41AC09CE3002534D9 /* BTRBagFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRBagFetcher.m; sourceTree = "<group>"; };
 		6901E9DF1AC9901D002534D9 /* BTRSelectSizeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSelectSizeVC.h; sourceTree = "<group>"; };
 		6901E9E01AC9901D002534D9 /* BTRSelectSizeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSelectSizeVC.m; sourceTree = "<group>"; };
-		6901E9E21ACADF40002534D9 /* BTRBagHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRBagHandler.h; sourceTree = "<group>"; };
-		6901E9E31ACADF40002534D9 /* BTRBagHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRBagHandler.m; sourceTree = "<group>"; };
 		6901E9F11ACC3BA3002534D9 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		6901E9F21ACC3BA3002534D9 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		6901E9F71ACC6B48002534D9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -643,8 +640,6 @@
 				69869FAE1A640C0600F986BC /* BTRDocumentHandler.m */,
 				692F24D61AAE2071003AABE1 /* NSString+HeightCalc.h */,
 				692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */,
-				6901E9E21ACADF40002534D9 /* BTRBagHandler.h */,
-				6901E9E31ACADF40002534D9 /* BTRBagHandler.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -979,7 +974,6 @@
 				6900B4D21AB7649300930D16 /* BTRSignUpViewController.m in Sources */,
 				69869F761A6075EA00F986BC /* General2.m in Sources */,
 				69869FC61A640F0000F986BC /* UIImageView+AFNetworking.m in Sources */,
-				6901E9E41ACADF40002534D9 /* BTRBagHandler.m in Sources */,
 				69B02CC71A6031A700040C86 /* beyondtherack.xcdatamodeld in Sources */,
 				69869F6D1A6075E900F986BC /* General1.m in Sources */,
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,

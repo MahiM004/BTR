@@ -65,19 +65,38 @@
     [self getCartServerCallforSessionId:[self sessionId] success:^(NSString *succString) {
         
         [[self tableView] reloadData];
-        self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[[self bagItemsArray] count]];
         
         NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", [self getSubtotalSale]]];
         self.subtotalLabel.text = [NSString stringWithFormat:@"Sub total: %@", [nf stringFromNumber:number]];
         
         number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", [self getSubtotalRetail] - [self getSubtotalSale]]];
-        self.youSaveLabel.text = [NSString stringWithFormat:@"You Save: %@", [nf stringFromNumber:number]];
+        self.youSaveLabel.text = [NSString stringWithFormat:@"you save: %@", [nf stringFromNumber:number]];
         
+        self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
     
 }
+
+
+- (NSInteger)getCountofBagItems {
+    
+    NSInteger counter = 0;
+    
+    for (int i = 0; i < [[self bagItemsArray] count]; i++) {
+        
+        counter += [[[[self bagItemsArray] objectAtIndex:i] quantity] integerValue];
+    }
+    
+    return counter;
+}
+
+
+#pragma mark - Table view Data source
+
+
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -105,10 +124,10 @@
  
     cell.brandLabel.text = [item brand];
     cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[item salePrice]]; 
-    cell.quantityLabel.text = [NSString stringWithFormat:@"Qty: %@", [[self.bagItemsArray objectAtIndex:indexPath.row] quantity]];
     cell.itemLabel.text = [item shortItemDescription];
     cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [[self.bagItemsArray objectAtIndex:indexPath.row]  variant]];
-        
+    [cell.stepper setValue:[[[self.bagItemsArray objectAtIndex:indexPath.row] quantity] floatValue]];
+    
     return cell;
 }
 

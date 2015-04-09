@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PKYStepper.h"
+
 
 @interface BTRBagTableViewCell : UITableViewCell
 
@@ -20,5 +22,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
 @property (weak, nonatomic) IBOutlet UIView *stepperView;
+
+@property(nonatomic, strong) PKYStepper *stepper;
+
 
 @end
