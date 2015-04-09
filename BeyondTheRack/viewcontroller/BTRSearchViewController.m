@@ -384,7 +384,7 @@
              if ([arrayToPass count] != 0) {
                  
                  
-                 [self.itemArray addObjectsFromArray:[Item loadItemsFromSearchResponseArray:arrayToPass intoManagedObjectContext:[self.beyondTheRackDocument managedObjectContext]]];
+                 [self.itemArray addObjectsFromArray:[Item loadItemsfromAppServerArray:arrayToPass intoManagedObjectContext:[self.beyondTheRackDocument managedObjectContext]]];
                  
                  [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
              }
@@ -479,7 +479,7 @@
         if ([arrayToPass count] != 0) {
             
             
-            [self.itemArray addObjectsFromArray:[Item loadItemsFromSearchResponseArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+            [self.itemArray addObjectsFromArray:[Item loadItemsfromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
         }
     }

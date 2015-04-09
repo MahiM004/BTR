@@ -55,8 +55,8 @@
         
         bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary forBagItem:bagItem];
 
-        //if ([bagItemDictionary valueForKeyPath:@"sku"]  && [bagItemDictionary valueForKeyPath:@"variant"])
-          //  bagItem.bagItemId = [NSString stringWithFormat:@"%@%@", [bagItemDictionary valueForKeyPath:@"sku"], [bagItemDictionary valueForKeyPath:@"variant"]];
+        if ([bagItemDictionary valueForKeyPath:@"sku"]  && [bagItemDictionary valueForKeyPath:@"variant"])
+            bagItem.bagItemId = [NSString stringWithFormat:@"%@%@", [bagItemDictionary valueForKeyPath:@"sku"], [bagItemDictionary valueForKeyPath:@"variant"]];
         
     } else if ([matches count] == 0 || [matches count] > 1 ) {
         
@@ -70,10 +70,9 @@
         bagItem = [NSEntityDescription insertNewObjectForEntityForName:@"BagItem"
                                                         inManagedObjectContext:context];
         
-        
         bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary forBagItem:bagItem];
-        //if ([bagItemDictionary valueForKeyPath:@"sku"]  && [bagItemDictionary valueForKeyPath:@"variant"])
-          //  bagItem.bagItemId = [NSString stringWithFormat:@"%@%@", [bagItemDictionary valueForKeyPath:@"sku"], [bagItemDictionary valueForKeyPath:@"variant"]];
+        if ([bagItemDictionary valueForKeyPath:@"sku"]  && [bagItemDictionary valueForKeyPath:@"variant"])
+          bagItem.bagItemId = [NSString stringWithFormat:@"%@%@", [bagItemDictionary valueForKeyPath:@"sku"], [bagItemDictionary valueForKeyPath:@"variant"]];
         
     }
     
@@ -99,7 +98,7 @@
     return bagItemArray;
 }
 
-
+/*
 + (NSMutableArray *)extractBagItemsfromAppServerArray:(NSArray *)bagItemsJson {
     
     
@@ -110,18 +109,20 @@
         BagItem *bagItem = nil;
         
         bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary forBagItem:bagItem];
-        [bagItemArray addObject:bagItem];
+        
+        if (bagItem != nil)
+            [bagItemArray addObject:bagItem];
     }
     
     return bagItemArray;
 }
-
-
+*/
 
 + (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary forBagItem:(BagItem *)bagItem {
     
     
     NSString *customId = @"";
+    
 
     if ([bagItemDictionary valueForKeyPath:@"sku"] && [bagItemDictionary valueForKeyPath:@"sku"] != [NSNull null]) {
         bagItem.sku = [bagItemDictionary valueForKeyPath:@"sku"];
@@ -149,7 +150,6 @@
     return bagItem;
 
 }
-
 
 
 

@@ -61,7 +61,7 @@
     [nf setCurrencySymbol:@"$"];
     
     self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
-
+    
     [self getCartServerCallforSessionId:[self sessionId] success:^(NSString *succString) {
         
         [[self tableView] reloadData];
@@ -76,6 +76,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
+    
 }
 
 
@@ -174,17 +175,19 @@
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
-             
-             NSLog(@"%@", entitiesPropertyList);
- 
              [self.bagItemsArray removeAllObjects];
-             [self.bagItemsArray addObjectsFromArray:[BagItem extractBagItemsfromAppServerArray:entitiesPropertyList]];
+             NSArray *bagJsonArray = entitiesPropertyList[@"bag"];
+    
+             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsFromAppServerArray:bagJsonArray intoManagedObjectContext:self.managedObjectContext]];
+            
+             NSArray *productJsonArray = entitiesPropertyList[@"products"];
+             [Item loadItemsfromAppServerArray:productJsonArray intoManagedObjectContext:self.managedObjectContext];
              
              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-            
+
              success(@"TRUE");
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -194,9 +197,6 @@
              
          }];
 }
-
-
-
 
 
 

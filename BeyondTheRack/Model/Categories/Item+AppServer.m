@@ -79,7 +79,7 @@
         
         item = [matches firstObject];
         
-        item = [self extractItemFromProductJSONDictionary:itemDictionary forItem:item withEventId:eventId];
+        item = [self extractItemfromJsonDictionary:itemDictionary forItem:item withEventId:eventId];
         
     } else if ([matches count] == 0 || [matches count] > 1 ) {
         
@@ -93,7 +93,7 @@
         item = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
                                              inManagedObjectContext:context];
         
-        item = [self extractItemFromProductJSONDictionary:itemDictionary forItem:item withEventId:eventId];
+        item = [self extractItemfromJsonDictionary:itemDictionary forItem:item withEventId:eventId];
     }
     
     return item;
@@ -127,7 +127,7 @@
         
         item = [matches firstObject];
         
-        item = [self extractItemFromSearchJSONDictionary:itemDictionary forItem:item];
+        item = [self extractItemfromJsonDictionary:itemDictionary forItem:item];
         
     } else if ([matches count] == 0 || [matches count] > 1 ) {
         
@@ -141,7 +141,7 @@
         item = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
                                                         inManagedObjectContext:context];
         
-        item = [self extractItemFromSearchJSONDictionary:itemDictionary forItem:item];
+        item = [self extractItemfromJsonDictionary:itemDictionary forItem:item];
     }
     
     return item;
@@ -150,7 +150,7 @@
 
 
 
-+ (NSMutableArray *)loadItemsFromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
++ (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                        intoManagedObjectContext:(NSManagedObjectContext *)context
                                     withEventId:(NSString *)eventId
 {
@@ -171,7 +171,7 @@
 
 
 
-+ (NSMutableArray *)loadItemsFromSearchResponseArray:(NSArray *)items // of AppServer Item NSDictionary
++ (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                        intoManagedObjectContext:(NSManagedObjectContext *)context
 {
     
@@ -190,7 +190,9 @@
 }
 
 
-+ (Item *)extractItemFromProductJSONDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item withEventId:(NSString *)eventId {
+
+
++ (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item withEventId:(NSString *)eventId {
     
     
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
@@ -263,7 +265,7 @@
 
 
 
-+ (Item *)extractItemFromSearchJSONDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
++ (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
     
     /*
      

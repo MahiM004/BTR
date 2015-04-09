@@ -130,9 +130,6 @@
     NSString *sessionIdString = [self sessionId];
     [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
     
-    
-    NSLog(@"pdpfff: %@", sessionIdString);
-    
     NSDictionary *params = (@{
                               @"event_id": [[self productItem] eventId],
                               @"sku": [[self productItem] sku],
@@ -146,12 +143,10 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
-              NSLog(@"%@", entitiesPropertyList);
               
-              NSArray *bagItemsArray = entitiesPropertyList[@"bag"];
+              NSArray *bagJsonArray = entitiesPropertyList[@"bag"];
               
-              [self.bagItemsArray addObjectsFromArray:[BagItem extractBagItemsfromAppServerArray:bagItemsArray]];
-              
+              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsFromAppServerArray:bagJsonArray intoManagedObjectContext:self.managedObjectContext]];
               [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
               
               success(@"TRUE");
