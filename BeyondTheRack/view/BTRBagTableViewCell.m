@@ -25,11 +25,17 @@
     
     [self.stepper setup];
     [self.stepperView addSubview:self.stepper];
+ 
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
 }
+
+
+
+
+
 
 @end

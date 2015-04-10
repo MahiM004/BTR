@@ -19,9 +19,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *quantityLabel;
 
-
 @property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
 @property (weak, nonatomic) IBOutlet UIView *stepperView;
+@property (weak, nonatomic) IBOutlet UILabel *remainingTimeLabel;
 
 @property(nonatomic, strong) PKYStepper *stepper;
 

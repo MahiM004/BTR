@@ -158,6 +158,20 @@
     return subtotal;
 }
 
+- (NSString *)timeRemainingStringforBagItem:(BagItem *)bagItem {
+    
+    NSDate *now = [NSDate date];
+    NSDate *dueDate = [NSDate date];
+    int get_due_date; // now - create date
+    
+    
+    NSTimeInterval secondsLeft = [dueDate timeIntervalSinceDate:now];
+    // divide by 60, 3600, etc to make a pretty string with colons
+    // just to get things going, for now, do something simple
+    NSString *answer = [NSString stringWithFormat:@"seconds left = %f", secondsLeft];
+    return answer;
+}
+
 
 #pragma mark - Bag RESTful Calls
 

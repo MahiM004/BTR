@@ -21,6 +21,7 @@ static const float kButtonWidth = 30.0f;
 @implementation PKYStepper
 
 #pragma mark initialization
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame])
@@ -78,7 +79,10 @@ static const float kButtonWidth = 30.0f;
 }
 
 
-#pragma mark render
+
+#pragma mark - render
+
+
 - (void)layoutSubviews
 {
     CGFloat width = self.bounds.size.width;
@@ -175,6 +179,7 @@ static const float kButtonWidth = 30.0f;
 
 
 #pragma mark event handler
+
 - (void)incrementButtonTapped:(id)sender
 {
     if (self.value < self.maximum)
@@ -186,6 +191,7 @@ static const float kButtonWidth = 30.0f;
         }
     }
 }
+
 
 - (void)decrementButtonTapped:(id)sender
 {
@@ -201,6 +207,8 @@ static const float kButtonWidth = 30.0f;
 
 
 #pragma mark private helpers
+
+
 - (BOOL)isMinimum
 {
     return self.value == self.minimum;
