@@ -80,6 +80,8 @@
 }
 
 
+
+
 - (NSInteger)getCountofBagItems {
     
     NSInteger counter = 0;
@@ -125,6 +127,10 @@
     cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [[self.bagItemsArray objectAtIndex:indexPath.row]  variant]];
     [cell.stepper setValue:[[[self.bagItemsArray objectAtIndex:indexPath.row] quantity] floatValue]];
     
+    
+    [cell.remainingTimeLabel setText:[self timeRemainingStringforBagItem:[self.bagItemsArray objectAtIndex:indexPath.row]]];
+
+    
     return cell;
 }
 
@@ -158,17 +164,24 @@
     return subtotal;
 }
 
+- (void)timerFired:(NSTimer *)timer {
+    [self.tableView reloadData];
+}
+
 - (NSString *)timeRemainingStringforBagItem:(BagItem *)bagItem {
     
     NSDate *now = [NSDate date];
-    NSDate *dueDate = [NSDate date];
+    //NSDate *dueDate = [NSDate date];
     int get_due_date; // now - create date
     
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"mm:ss"];
+    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     
-    NSTimeInterval secondsLeft = [dueDate timeIntervalSinceDate:now];
-    // divide by 60, 3600, etc to make a pretty string with colons
-    // just to get things going, for now, do something simple
-    NSString *answer = [NSString stringWithFormat:@"seconds left = %f", secondsLeft];
+    
+    NSString *answer = [dateFormat stringFromDate:now];
+    
+
     return answer;
 }
 
