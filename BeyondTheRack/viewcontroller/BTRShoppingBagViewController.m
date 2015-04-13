@@ -80,8 +80,6 @@
 }
 
 
-
-
 - (NSInteger)getCountofBagItems {
     
     NSInteger counter = 0;
@@ -126,10 +124,8 @@
     cell.itemLabel.text = [item shortItemDescription];
     cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [[self.bagItemsArray objectAtIndex:indexPath.row]  variant]];
     [cell.stepper setValue:[[[self.bagItemsArray objectAtIndex:indexPath.row] quantity] floatValue]];
+    cell.dueDateTime = [[self.bagItemsArray objectAtIndex:indexPath.row] dueDateTime];
     
-    
-    [cell.remainingTimeLabel setText:[self timeRemainingStringforBagItem:[self.bagItemsArray objectAtIndex:indexPath.row]]];
-
     
     return cell;
 }
@@ -166,23 +162,6 @@
 
 - (void)timerFired:(NSTimer *)timer {
     [self.tableView reloadData];
-}
-
-- (NSString *)timeRemainingStringforBagItem:(BagItem *)bagItem {
-    
-    NSDate *now = [NSDate date];
-    //NSDate *dueDate = [NSDate date];
-    int get_due_date; // now - create date
-    
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"mm:ss"];
-    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    
-    
-    NSString *answer = [dateFormat stringFromDate:now];
-    
-
-    return answer;
 }
 
 

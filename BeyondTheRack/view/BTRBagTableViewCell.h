@@ -23,7 +23,9 @@
 @property (weak, nonatomic) IBOutlet UIView *stepperView;
 @property (weak, nonatomic) IBOutlet UILabel *remainingTimeLabel;
 
-@property(nonatomic, strong) PKYStepper *stepper;
+@property (nonatomic, strong) NSDate *dueDateTime;
+
+@property (nonatomic, strong) PKYStepper *stepper;
 
 
 @end

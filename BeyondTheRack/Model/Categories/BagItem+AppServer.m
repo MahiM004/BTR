@@ -142,11 +142,12 @@
     if ([bagItemDictionary valueForKeyPath:@"quantity"] && [bagItemDictionary valueForKeyPath:@"quantity"] != [NSNull null])
         bagItem.quantity = [bagItemDictionary valueForKeyPath:@"quantity"];
     
-    if ([bagItemDictionary valueForKeyPath:@"cart_time"] && [bagItemDictionary valueForKeyPath:@"cart_time"] != [NSNull null])
-        bagItem.createDateTime = [[bagItemDictionary valueForKeyPath:@"cart_time"] stringValue];
+    if ([bagItemDictionary valueForKeyPath:@"cart_time"] && [bagItemDictionary valueForKeyPath:@"cart_time"] != [NSNull null]) {
+        
+        bagItem.createDateTime = [NSDate dateWithTimeIntervalSince1970:[[bagItemDictionary valueForKeyPath:@"cart_time"] integerValue]];
+        bagItem.dueDateTime =  [bagItem.createDateTime dateByAddingTimeInterval:1200];
+    }
     
-    bagItem.expiryDuration = @"20";
-
     return bagItem;
 
 }

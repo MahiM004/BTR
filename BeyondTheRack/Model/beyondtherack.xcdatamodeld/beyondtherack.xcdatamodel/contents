@@ -2,7 +2,8 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1514" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="BagItem" representedClassName="BagItem" syncable="YES">
         <attribute name="bagItemId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="createDateTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createDateTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dueDateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expiryDuration" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isInStock" optional="YES" attributeType="String" syncable="YES"/>
@@ -209,7 +210,7 @@
         <attribute name="womenDesignerBrands" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BagItem" positionX="18" positionY="-97" width="128" height="223"/>
+        <element name="BagItem" positionX="18" positionY="-97" width="128" height="238"/>
         <element name="Event" positionX="-1010" positionY="-63" width="128" height="538"/>
         <element name="General1" positionX="-315" positionY="186" width="128" height="165"/>
         <element name="General2" positionX="-135" positionY="-66" width="128" height="165"/>
@@ -218,7 +219,7 @@
         <element name="Item" positionX="-839" positionY="-144" width="128" height="568"/>
         <element name="Order" positionX="-135" positionY="135" width="128" height="193"/>
         <element name="PaymentDetail" positionX="25" positionY="179" width="128" height="253"/>
-        <element name="ShippingAddress" positionX="-315" positionY="-72" width="128" height="195"/>
+        <element name="ShippingAddress" positionX="-324" positionY="-60" width="128" height="195"/>
         <element name="User" positionX="-495" positionY="-99" width="128" height="508"/>
         <element name="UserNotifications" positionX="-684" positionY="-33" width="128" height="163"/>
     </elements>
