@@ -16,9 +16,8 @@
 + (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary
                                inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (NSMutableArray *)loadBagItemsFromAppServerArray:(NSArray *)bagItems // of AppServer BagItem NSDictionary
-                                   intoManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime// of AppServer BagItem NSDictionary
+                          intoManagedObjectContext:(NSManagedObjectContext *)context;
 
-//+ (NSMutableArray *)extractBagItemsfromAppServerArray:(NSArray *)bagItemsJson;
 
 @end

@@ -146,7 +146,9 @@
               
               NSArray *bagJsonArray = entitiesPropertyList[@"bag"];
               
-              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsFromAppServerArray:bagJsonArray intoManagedObjectContext:self.managedObjectContext]];
+              NSDate *serverTime = [NSDate date];
+              
+              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
               [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
               
               success(@"TRUE");

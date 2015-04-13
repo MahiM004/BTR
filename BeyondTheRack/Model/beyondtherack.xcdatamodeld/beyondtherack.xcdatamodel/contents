@@ -12,6 +12,7 @@
         <attribute name="quantity" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="retailUnitPrice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="saleUnitPrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverDateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="sku" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="variant" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -210,7 +211,7 @@
         <attribute name="womenDesignerBrands" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BagItem" positionX="18" positionY="-97" width="128" height="238"/>
+        <element name="BagItem" positionX="18" positionY="-97" width="128" height="253"/>
         <element name="Event" positionX="-1010" positionY="-63" width="128" height="538"/>
         <element name="General1" positionX="-315" positionY="186" width="128" height="165"/>
         <element name="General2" positionX="-135" positionY="-66" width="128" height="165"/>

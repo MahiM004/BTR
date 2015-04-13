@@ -23,7 +23,7 @@
 }
 
 
-+ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary
++ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary withServerDateTime:(NSDate *)serverTime
                                inManagedObjectContext:(NSManagedObjectContext *)context
 {
     BagItem *bagItem = nil;
@@ -54,7 +54,8 @@
         bagItem = [matches firstObject];
         
         bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary forBagItem:bagItem];
-
+        
+        
         if ([bagItemDictionary valueForKeyPath:@"sku"]  && [bagItemDictionary valueForKeyPath:@"variant"])
             bagItem.bagItemId = [NSString stringWithFormat:@"%@%@", [bagItemDictionary valueForKeyPath:@"sku"], [bagItemDictionary valueForKeyPath:@"variant"]];
         
@@ -81,7 +82,7 @@
 
 
 
-+ (NSMutableArray *)loadBagItemsFromAppServerArray:(NSArray *)bagItems // of AppServer BagItem NSDictionary
++ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime// of AppServer BagItem NSDictionary
                                    intoManagedObjectContext:(NSManagedObjectContext *)context
 {
     
@@ -89,7 +90,7 @@
     
     for (NSDictionary *bagItem in bagItems) {
         
-        NSObject *someObject = [self bagItemWithAppServerInfo:bagItem inManagedObjectContext:context];
+        NSObject *someObject = [self bagItemWithAppServerInfo:bagItem withServerDateTime:serverTime inManagedObjectContext:context];
         if (someObject)
             [bagItemArray addObject:someObject];
         
@@ -98,25 +99,6 @@
     return bagItemArray;
 }
 
-/*
-+ (NSMutableArray *)extractBagItemsfromAppServerArray:(NSArray *)bagItemsJson {
-    
-    
-    NSMutableArray *bagItemArray = [[NSMutableArray alloc] init];
-    
-    for (NSDictionary *bagItemDictionary in bagItemsJson) {
-        
-        BagItem *bagItem = nil;
-        
-        bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary forBagItem:bagItem];
-        
-        if (bagItem != nil)
-            [bagItemArray addObject:bagItem];
-    }
-    
-    return bagItemArray;
-}
-*/
 
 + (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary forBagItem:(BagItem *)bagItem {
     
@@ -149,7 +131,6 @@
     }
     
     return bagItem;
-
 }
 
 

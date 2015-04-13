@@ -202,8 +202,10 @@
                                                                                     error:NULL];
              [self.bagItemsArray removeAllObjects];
              NSArray *bagJsonArray = entitiesPropertyList[@"bag"];
-    
-             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsFromAppServerArray:bagJsonArray intoManagedObjectContext:self.managedObjectContext]];
+             
+             NSDate *serverTime = [NSDate date];
+             
+             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
             
              NSArray *productJsonArray = entitiesPropertyList[@"products"];
              [Item loadItemsfromAppServerArray:productJsonArray intoManagedObjectContext:self.managedObjectContext];

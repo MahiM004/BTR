@@ -24,5 +24,6 @@
 @dynamic variant;
 @dynamic expiryDuration;
 @dynamic dueDateTime;
+@dynamic serverDateTime;
 
 @end
