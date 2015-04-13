@@ -77,6 +77,12 @@
         
     }];
     
+    NSTimer *timer = [NSTimer timerWithTimeInterval:1.0
+                                             target:self
+                                           selector:@selector(timerFired:)
+                                           userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    
 }
 
 
@@ -88,6 +94,11 @@
     }
     
     return counter;
+}
+
+
+- (void)timerFired:(NSTimer *)timer {
+    [self.tableView reloadData];
 }
 
 
@@ -119,17 +130,38 @@
                                          URLforItemImageForSku:uniqueSku]
                                          placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
  
-    cell.brandLabel.text = [item brand];
-    cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[item salePrice]]; 
-    cell.itemLabel.text = [item shortItemDescription];
-    cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [[self.bagItemsArray objectAtIndex:indexPath.row]  variant]];
-    [cell.stepper setValue:[[[self.bagItemsArray objectAtIndex:indexPath.row] quantity] floatValue]];
-    cell.dueDateTime = [[self.bagItemsArray objectAtIndex:indexPath.row] dueDateTime];
-    
+    cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:item];
     
     return cell;
 }
 
+
+
+- (BTRBagTableViewCell *)configureCell:(BTRBagTableViewCell *)cell forBagItem:(BagItem *)bagItem andItem:(Item *)item {
+    
+    cell.brandLabel.text = [item brand];
+    cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[item salePrice]];
+    cell.itemLabel.text = [item shortItemDescription];
+    cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [bagItem  variant]];
+    [cell.stepper setValue:[[bagItem quantity] floatValue]];
+    cell.dueDateTime = [bagItem dueDateTime];
+    
+    NSInteger ti = ((NSInteger)[cell.dueDateTime timeIntervalSinceNow]);
+    NSInteger seconds = ti % 60;
+    NSInteger minutes = (ti / 60) % 60;
+    
+    if (seconds > 0 || minutes > 0) {
+        
+        cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Remaining time: %02i:%02i", minutes, seconds];
+        
+    } else if (seconds <= 0 && minutes <= 0) {
+        
+        cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Time OUT"];
+    }
+    
+    
+    return cell;
+}
 
 
 - (float)getSubtotalSale {
@@ -159,11 +191,7 @@
     
     return subtotal;
 }
-
-- (void)timerFired:(NSTimer *)timer {
-    [self.tableView reloadData];
-}
-
+ 
 
 #pragma mark - Bag RESTful Calls
 
