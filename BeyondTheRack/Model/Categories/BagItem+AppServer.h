@@ -12,9 +12,8 @@
 
 + (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
 
-
-+ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary
-                               inManagedObjectContext:(NSManagedObjectContext *)context;
++ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary withServerDateTime:(NSDate *)serverTime
+               inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime// of AppServer BagItem NSDictionary
                           intoManagedObjectContext:(NSManagedObjectContext *)context;

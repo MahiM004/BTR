@@ -53,8 +53,7 @@
         
         bagItem = [matches firstObject];
         
-        bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary forBagItem:bagItem];
-        
+        bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary withServerTime:serverTime forBagItem:bagItem];
         
         if ([bagItemDictionary valueForKeyPath:@"sku"]  && [bagItemDictionary valueForKeyPath:@"variant"])
             bagItem.bagItemId = [NSString stringWithFormat:@"%@%@", [bagItemDictionary valueForKeyPath:@"sku"], [bagItemDictionary valueForKeyPath:@"variant"]];
@@ -70,8 +69,8 @@
         
         bagItem = [NSEntityDescription insertNewObjectForEntityForName:@"BagItem"
                                                         inManagedObjectContext:context];
+        bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary withServerTime:serverTime forBagItem:bagItem];
         
-        bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary forBagItem:bagItem];
         if ([bagItemDictionary valueForKeyPath:@"sku"]  && [bagItemDictionary valueForKeyPath:@"variant"])
           bagItem.bagItemId = [NSString stringWithFormat:@"%@%@", [bagItemDictionary valueForKeyPath:@"sku"], [bagItemDictionary valueForKeyPath:@"variant"]];
         
@@ -100,8 +99,10 @@
 }
 
 
-+ (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary forBagItem:(BagItem *)bagItem {
++ (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary withServerTime:(NSDate *)serverTime forBagItem:(BagItem *)bagItem {
     
+    
+    bagItem.serverDateTime = serverTime;
     
     NSString *customId = @"";
     
@@ -123,12 +124,21 @@
 
     if ([bagItemDictionary valueForKeyPath:@"quantity"] && [bagItemDictionary valueForKeyPath:@"quantity"] != [NSNull null])
         bagItem.quantity = [bagItemDictionary valueForKeyPath:@"quantity"];
+
+    
     
     if ([bagItemDictionary valueForKeyPath:@"cart_time"] && [bagItemDictionary valueForKeyPath:@"cart_time"] != [NSNull null]) {
         
         bagItem.createDateTime = [NSDate dateWithTimeIntervalSince1970:[[bagItemDictionary valueForKeyPath:@"cart_time"] integerValue]];
+        NSDate *nowDate = [NSDate date];
+        NSTimeInterval interval = [nowDate timeIntervalSinceDate:serverTime];
         bagItem.dueDateTime =  [bagItem.createDateTime dateByAddingTimeInterval:1200];
+        bagItem.dueDateTime = [bagItem.dueDateTime dateByAddingTimeInterval:interval];
     }
+    
+
+
+    
     
     return bagItem;
 }
