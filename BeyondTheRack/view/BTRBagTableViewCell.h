@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
 @property (weak, nonatomic) IBOutlet UIView *stepperView;
 @property (weak, nonatomic) IBOutlet UILabel *remainingTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *qtyLabel;
 
 @property (nonatomic, strong) NSDate *dueDateTime;
 

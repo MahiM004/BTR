@@ -131,6 +131,10 @@
     }
     
     
+    [cell.stepper valueChangedCallback];
+    
+    
+    
     return cell;
 }
 

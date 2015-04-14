@@ -144,7 +144,8 @@
     cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[item salePrice]];
     cell.itemLabel.text = [item shortItemDescription];
     cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [bagItem  variant]];
-    [cell.stepper setValue:[[bagItem quantity] floatValue]];
+    cell.qtyLabel.text = [bagItem quantity];
+    
     cell.dueDateTime = [bagItem dueDateTime];
     
     NSInteger ti = ((NSInteger)[cell.dueDateTime timeIntervalSinceNow]);
@@ -291,6 +292,9 @@
     
 }
 
+- (IBAction)unwindToShoppingBagScenefromDoneEditing:(UIStoryboardSegue *)unwindSegue {
+    
+}
 
 
 
