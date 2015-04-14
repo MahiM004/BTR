@@ -104,6 +104,13 @@
     
     cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:item];
     
+    
+    cell.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
+        
+        [[self.bagItemsArray objectAtIndex:indexPath.row] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
+        stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
+    };
+    
     return cell;
 }
 
@@ -129,11 +136,6 @@
         
         cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Time out!"];
     }
-    
-    
-    [cell.stepper valueChangedCallback];
-    
-    
     
     return cell;
 }
