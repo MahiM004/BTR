@@ -10,6 +10,8 @@
 #import "BTRBagTableViewCell.h"
 
 #import "BTRItemFetcher.h"
+#import "BTRBagFetcher.h"
+
 #import "Item+AppServer.h"
 #import "BagItem+AppServer.h"
 
@@ -31,13 +33,13 @@
     
     if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
     return _bagItemsArray;
-    
 }
+
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+        
     [self setupDocument];
     
     self.tableView.delegate = self;
@@ -55,7 +57,6 @@
                                            selector:@selector(timerFired:)
                                            userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-    
 }
 
 
@@ -75,11 +76,32 @@
 }
 
 
+- (IBAction)doneEditingTapped:(UIButton *)sender {
+
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [self setShoppingBagforSessionId:[self sessionId] success:^(NSString *succString) {
+        
+        
+        if ([succString isEqualToString:@"TRUE"]) {
+         
+            [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
+
+
 #pragma mark - Table view Data source
 
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     
     return [[self bagItemsArray] count];
 }
@@ -103,7 +125,6 @@
                        placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
     
     cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:item];
-    
     
     cell.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
         
@@ -184,14 +205,73 @@
 }
 
 
-
-- (void)getCartServerCallforSessionId:(NSString *)sessionId
-                              success:(void (^)(id  responseObject)) success
-                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+- (void)setShoppingBagforSessionId:(NSString *)sessionId
+                           success:(void (^)(id  responseObject)) success
+                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
-    
-}
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
 
+    //serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *sessionIdString = [self sessionId];
+    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    
+    
+    NSLog(@"wedwed %@: ", sessionIdString);
+    
+    NSMutableArray *params =[[NSMutableArray alloc] init];
+    
+    for (BagItem *bagItem in [self bagItemsArray])
+    {
+        time_t unixTime = (time_t) [[bagItem createDateTime] timeIntervalSince1970];
+        NSString *cart_time = [NSString stringWithFormat:@"%@", @(unixTime)];
+        
+        NSDictionary *bagItemDictionary = (@{
+                                             @"event_id": [bagItem eventId],
+                                             @"sku": [bagItem sku],
+                                             @"variant": [bagItem variant],
+                                             @"cart_time": cart_time,
+                                             @"quantity": [bagItem quantity]
+                                             });
+        
+        [params addObject:bagItemDictionary];
+    }
+    
+    NSLog(@"f----d: %@", params);
+    
+    
+    [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]]
+       parameters:(NSDictionary *)params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+              
+              NSLog(@"8u8u8: %@", entitiesPropertyList);
+              /*
+              NSArray *bagJsonArray = entitiesPropertyList[@"bag"];
+              
+              NSDate *serverTime = [NSDate date];
+              
+              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
+              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+              */
+              success(@"TRUE");
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+              NSLog(@"----- %@", error);
+              
+              failure(operation, error);
+              
+          }];
+}
 
 
 

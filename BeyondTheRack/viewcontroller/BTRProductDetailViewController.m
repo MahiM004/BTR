@@ -144,8 +144,8 @@
                                                                                    options:0
                                                                                      error:NULL];
               
-              NSArray *bagJsonArray = entitiesPropertyList[@"bag"];
-              
+              NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
+
               NSDate *serverTime = [NSDate date];
               
               [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
@@ -154,7 +154,7 @@
               success(@"TRUE");
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
+                        
               failure(operation, error);
               
           }];
@@ -213,6 +213,7 @@
 #pragma mark - BTRProductDetailEmbeddedTVC Delegate
 
 - (void)variantCodeforAddtoBag:(NSString *)variant {
+    
     self.variant = variant;
 }
 

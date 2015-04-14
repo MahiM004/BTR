@@ -17,7 +17,10 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/bag", BASEURL]];
 }
 
-
++ (NSURL *)URLforSetBag {
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag", BASEURL]];
+}
 
 + (NSURL *)URLforAddtoBag {
     

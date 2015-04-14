@@ -231,7 +231,7 @@
                                                                                   options:0
                                                                                     error:NULL];
              [self.bagItemsArray removeAllObjects];
-             NSArray *bagJsonArray = entitiesPropertyList[@"bag"];
+             NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
              
              NSDate *serverTime = [NSDate date];
              if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
