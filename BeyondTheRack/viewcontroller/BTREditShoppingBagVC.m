@@ -1,57 +1,43 @@
 //
-//  BTRShoppingBagViewController.m
+//  BTREditShoppingBagVC.m
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2014-12-24.
-//  Copyright (c) 2014 Hadi Kheyruri. All rights reserved.
+//  Created by Hadi Kheyruri on 2015-04-14.
+//  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "BTRShoppingBagViewController.h"
-#import "BTRApprovePurchaseViewController.h"
 #import "BTREditShoppingBagVC.h"
-
 #import "BTRBagTableViewCell.h"
 
-#import "BagItem+AppServer.h"
-#import "Item+AppServer.h"
-#import "BTRBagFetcher.h"
 #import "BTRItemFetcher.h"
+#import "Item+AppServer.h"
+#import "BagItem+AppServer.h"
 
+@interface BTREditShoppingBagVC ()
 
-@interface BTRShoppingBagViewController ()
-
-
-@property (strong, nonatomic) NSString *sessionId;
+@property (nonatomic, strong) NSString *sessionId;
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-
-@property (weak, nonatomic) IBOutlet UILabel *bagTitle;
-
-
-@property (weak, nonatomic) IBOutlet UILabel *subtotalLabel;
-@property (weak, nonatomic) IBOutlet UILabel *youSaveLabel;
-
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *bagTitleLabel;
 
 @end
 
-
-
-@implementation BTRShoppingBagViewController
-
+@implementation BTREditShoppingBagVC
 
 - (NSMutableArray *)bagItemsArray {
-
+    
     if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
     return _bagItemsArray;
-
+    
 }
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
+    
     [self setupDocument];
     
     self.tableView.delegate = self;
@@ -62,22 +48,7 @@
     [nf setCurrencySymbol:@"$"];
     
     self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
-    
-    [self getCartServerCallforSessionId:[self sessionId] success:^(NSString *succString) {
-        
-        [[self tableView] reloadData];
-        
-        NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", [self getSubtotalSale]]];
-        self.subtotalLabel.text = [NSString stringWithFormat:@"Sub total: %@", [nf stringFromNumber:number]];
-        
-        number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", [self getSubtotalRetail] - [self getSubtotalSale]]];
-        self.youSaveLabel.text = [NSString stringWithFormat:@"you save: %@", [nf stringFromNumber:number]];
-        
-        self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+    self.bagTitleLabel.text = [NSString stringWithFormat:@"Edit Bag (%lu)", (unsigned long)[self getCountofBagItems]];
     
     NSTimer *timer = [NSTimer timerWithTimeInterval:1.0
                                              target:self
@@ -108,7 +79,6 @@
 
 
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return [[self bagItemsArray] count];
@@ -130,8 +100,8 @@
     
     [cell.itemImageView setImageWithURL:[BTRItemFetcher
                                          URLforItemImageForSku:uniqueSku]
-                                         placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
- 
+                       placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    
     cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:item];
     
     return cell;
@@ -166,7 +136,7 @@
 
 
 - (float)getSubtotalSale {
- 
+    
     float subtotal = 0.0;
     
     for (BagItem *bagItem in self.bagItemsArray) {
@@ -192,7 +162,8 @@
     
     return subtotal;
 }
- 
+
+
 
 #pragma mark - Bag RESTful Calls
 
@@ -212,116 +183,11 @@
                               success:(void (^)(id  responseObject)) success
                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    NSString *sessionIdString = [self sessionId];
-    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                  options:0
-                                                                                    error:NULL];
-             [self.bagItemsArray removeAllObjects];
-             NSArray *bagJsonArray = entitiesPropertyList[@"bag"];
-             
-             NSDate *serverTime = [NSDate date];
-             if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
-                 
-                 serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
-             }
-             
-             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
-            
-             NSArray *productJsonArray = entitiesPropertyList[@"products"];
-             [Item loadItemsfromAppServerArray:productJsonArray intoManagedObjectContext:self.managedObjectContext];
-             
-             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-
-             success(@"TRUE");
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"errtr: %@", error);
-             failure(operation, error);
-             
-         }];
-}
-
-
-
-
-#pragma mark - Navigation
-
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- 
-    if ([[segue identifier] isEqualToString:@"BTREditBagSegueIdentifier"]) {
-        
-        BTREditShoppingBagVC *editVC = [segue destinationViewController];
-        editVC.bagItemsArray = [self bagItemsArray];
-    }
-
-}
-
-
-
-
-- (IBAction)tappedCheckout:(UIButton *)sender {
-
-}
-
-
-
-- (IBAction)tappedClose:(UIButton *)sender {
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-- (IBAction)unwindToShoppingBagScene:(UIStoryboardSegue *)unwindSegue {
     
 }
-
-
-
-
 
 
 
 
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

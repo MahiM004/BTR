@@ -123,10 +123,7 @@
     NSLog(@"scrolled to view");
 }
 
-
-// #pragma mark - Navigation
-// - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-// }
+ 
 
 
 

@@ -86,10 +86,7 @@
     [self presentViewController:vc animated:YES completion:nil];
     
 }
-
-
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//}
+ 
 
 - (IBAction)unwindFromShoppingBagToEventsScene:(UIStoryboardSegue *)unwindSegue
 {

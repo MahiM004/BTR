@@ -874,7 +874,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="024226C9-6C08-4A45-BF41-6AD8554A1A41" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="CD62314A-4836-46CD-985B-4E83EC12B3CA" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1847,6 +1847,7 @@
                         <outlet property="longDescriptionView" destination="RVR-2S-mwe" id="cBa-Zt-LpY"/>
                         <outlet property="salePriceLabel" destination="wvW-dj-efM" id="I6q-RS-ofY"/>
                         <outlet property="selectSizeButton" destination="MvW-kl-gRX" id="KgC-lQ-bbM"/>
+                        <outlet property="selectSizeLabel" destination="5Nb-ko-hzq" id="7xA-D3-it7"/>
                         <outlet property="shortDescriptionLabel" destination="y2i-sU-W9B" id="NWw-2f-Ti3"/>
                         <outlet property="sizeLabel" destination="RyF-37-B5I" id="Udu-Nu-8SQ"/>
                     </connections>
@@ -2045,14 +2046,6 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button hidden="YES" opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dfl-jz-Gkq">
-                                        <rect key="frame" x="282" y="11" width="30" height="30"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <state key="normal" title="Edit">
-                                            <color key="titleColor" red="0.95968896059999997" green="0.96592881939999997" blue="0.61035998759999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                     <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FuD-Fo-2Z0">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
@@ -2062,6 +2055,17 @@
                                         </state>
                                         <connections>
                                             <action selector="tappedClose:" destination="cAR-4K-mYr" eventType="touchUpInside" id="sOD-Dw-7xb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.84999997615814227" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4O-xD-S2K">
+                                        <rect key="frame" x="240" y="0.0" width="80" height="50"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <state key="normal" title="Edit">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="lmk-QE-Dmh" kind="modal" identifier="BTREditBagSegueIdentifier" modalTransitionStyle="crossDissolve" animates="NO" id="Plp-9i-suF"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2109,10 +2113,6 @@
                                                     <rect key="frame" x="0.0" y="207" width="320" height="1"/>
                                                     <color key="backgroundColor" red="0.87191033360000003" green="0.8718842268" blue="0.87189906839999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w0p-m0-EpP" userLabel="stepperView">
-                                                    <rect key="frame" x="58" y="178" width="102" height="22"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </view>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Z7-I4-Esn">
                                                     <rect key="frame" x="8" y="130" width="109" height="37"/>
                                                     <subviews>
@@ -2142,7 +2142,6 @@
                                             <outlet property="quantityLabel" destination="Gre-IK-EeF" id="HlC-TH-ueG"/>
                                             <outlet property="remainingTimeLabel" destination="gFV-hn-2tV" id="2o2-fW-4KU"/>
                                             <outlet property="sizeLabel" destination="EP7-H4-VGK" id="woc-bU-7Li"/>
-                                            <outlet property="stepperView" destination="w0p-m0-EpP" id="lHx-Sv-3kg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2195,7 +2194,148 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wxx-54-p0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3035" y="504"/>
+            <point key="canvasLocation" x="2897" y="664"/>
+        </scene>
+        <!--Edit Shopping BagVC-->
+        <scene sceneID="jGK-zv-Mhc">
+            <objects>
+                <viewController id="lmk-QE-Dmh" customClass="BTREditShoppingBagVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nxJ-we-rgz"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hvd-AU-aFb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Rzd-GA-KuF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YAq-N5-ArH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oh0-DY-mpY">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bag (0)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpc-n3-wWh">
+                                                <rect key="frame" x="93" y="10" width="134" height="24"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QWH-eg-5mh">
+                                                <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="tappedClose:" destination="cAR-4K-mYr" eventType="touchUpInside" id="XsA-5o-Q9a"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.84999996423721313" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdj-AR-ln0">
+                                                <rect key="frame" x="240" y="0.0" width="80" height="50"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                <state key="normal" title="Done">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="210" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="KtP-lr-cZk">
+                                        <rect key="frame" x="0.0" y="72" width="320" height="496"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="separatorInset" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShoppingBagCellIdentifier" rowHeight="210" id="AtR-eg-RhG" customClass="BTRBagTableViewCell">
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AtR-eg-RhG" id="PJR-kl-bJo">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neulogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="qyr-Zq-XrA">
+                                                            <rect key="frame" x="8" y="7" width="109" height="160"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jeE-Ze-Qgg" userLabel="BrandLabel">
+                                                            <rect key="frame" x="125" y="35" width="195" height="21"/>
+                                                            <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="11"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fx-Gp-cYm" userLabel="ItemLabel">
+                                                            <rect key="frame" x="125" y="64" width="187" height="46"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" Qty :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUY-tT-FRa" userLabel="QuantityLabel">
+                                                            <rect key="frame" x="8" y="177" width="56" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLe-uv-E2H" userLabel="PriceLabel">
+                                                            <rect key="frame" x="164" y="177" width="137" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1GC-DA-cNZ">
+                                                            <rect key="frame" x="0.0" y="207" width="320" height="1"/>
+                                                            <color key="backgroundColor" red="0.87191033360000003" green="0.8718842268" blue="0.87189906839999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NRk-Mg-U5H" userLabel="stepperView">
+                                                            <rect key="frame" x="58" y="178" width="102" height="22"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3gR-Am-Lxr">
+                                                            <rect key="frame" x="8" y="130" width="109" height="37"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvq-WV-GZb">
+                                                                    <rect key="frame" x="8" y="0.0" width="101" height="37"/>
+                                                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="13"/>
+                                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBE-KI-JFJ" userLabel="SizeLabel">
+                                                            <rect key="frame" x="125" y="130" width="187" height="21"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="brandLabel" destination="jeE-Ze-Qgg" id="J0y-y6-vjb"/>
+                                                    <outlet property="itemImageView" destination="qyr-Zq-XrA" id="WE7-DC-NDU"/>
+                                                    <outlet property="itemLabel" destination="3fx-Gp-cYm" id="XXK-xh-Xn2"/>
+                                                    <outlet property="priceLabel" destination="WLe-uv-E2H" id="oCa-Td-4RP"/>
+                                                    <outlet property="quantityLabel" destination="YUY-tT-FRa" id="yh8-W8-2P9"/>
+                                                    <outlet property="remainingTimeLabel" destination="qvq-WV-GZb" id="2gM-G4-xsG"/>
+                                                    <outlet property="sizeLabel" destination="uBE-KI-JFJ" id="yOk-eq-Ozu"/>
+                                                    <outlet property="stepperView" destination="NRk-Mg-U5H" id="AWA-hn-jGv"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="bagTitleLabel" destination="Fpc-n3-wWh" id="1kj-Xf-XdP"/>
+                        <outlet property="tableView" destination="KtP-lr-cZk" id="2FT-5a-1Cn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8zv-xt-AdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3471" y="343"/>
         </scene>
         <!--Approve Purchase View Controller-->
         <scene sceneID="ohB-Tf-V6s">
@@ -2269,7 +2409,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3k-r8-R5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5Wd-id-3W3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3551" y="504"/>
+            <point key="canvasLocation" x="3471" y="971"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="PET-gF-tHv">
@@ -2311,7 +2451,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6qf-vA-iqF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4005" y="441.5"/>
+            <point key="canvasLocation" x="3925" y="908.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x8v-mg-mc8">
@@ -2398,7 +2538,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="024226C9-6C08-4A45-BF41-6AD8554A1A41" width="30" height="30">
+        <image name="BTRLogo.png" width="925" height="125"/>
+        <image name="CD62314A-4836-46CD-985B-4E83EC12B3CA" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -2456,7 +2597,6 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
-        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>
         <image name="facebook_flat_login.png" width="716" height="132"/>

@@ -27,6 +27,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *selectSizeButton;
 @property (weak, nonatomic) IBOutlet UILabel *dropdownLabelIcon;
 
+@property (weak, nonatomic) IBOutlet UILabel *selectSizeLabel;
+
+
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -125,13 +128,10 @@
                                 
                                 if ([singleSizeBoolString isEqualToString:@"TRUE"]) {
                                     
-                                    [self.selectSizeButton.titleLabel setAttributedText:[BTRViewUtility crossedOffStringfromString:@"Select Size :"]];
-                                    [self.selectSizeButton setEnabled:FALSE];
-                                    [self.selectSizeButton setAlpha:0.4];
-                                    
+                                    [self.selectSizeLabel setAttributedText:[BTRViewUtility crossedOffStringfromString:@"Select Size :"]];
+                                    [self.selectSizeLabel setAlpha:0.4];
+                                    [self.selectSizeButton setEnabled:false];
                                     [self.sizeLabel setText:@"One Size"];
-                                    
-                                    
                                     
                                     if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
                                         [self.delegate variantCodeforAddtoBag:@"Z"];
