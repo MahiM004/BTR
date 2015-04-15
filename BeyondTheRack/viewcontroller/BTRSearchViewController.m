@@ -21,6 +21,7 @@
 @interface BTRSearchViewController () <BTRRefineResultsViewController>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -53,9 +54,13 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
+    
+    
     [self setupDocument];
-    
-    
+
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     

@@ -26,6 +26,7 @@
 
 
 - (NSUInteger)totalBagCount;
+- (NSString *)totalBagCountString;
 
 /*
  

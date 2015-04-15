@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
 @property (strong, nonatomic) NSString *selectedProductSkuString;
 @property (strong, nonatomic) NSString *selectedBrandString;
@@ -44,7 +45,13 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
+    
     
     [self.eventTitleLabel setText:[self eventTitleString]];
     

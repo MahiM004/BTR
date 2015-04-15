@@ -60,7 +60,8 @@
     // make a singleton for dealing with this!
     int use_nsdefault;
     
-    self.bagButton.badgeValue = @"0";
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
 }
 
 

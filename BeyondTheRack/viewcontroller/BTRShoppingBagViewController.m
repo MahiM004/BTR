@@ -253,6 +253,9 @@
              
              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
 
+             BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+             [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+             
              success(@"TRUE");
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -300,6 +303,9 @@
 }
 
 - (IBAction)unwindToShoppingBagScenefromDoneEditing:(UIStoryboardSegue *)unwindSegue {
+    
+    self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
+    [self.tableView reloadData];
     
 }
 

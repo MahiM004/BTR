@@ -252,6 +252,9 @@
               [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
               [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
  
+              BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+              [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+        
               success(@"TRUE");
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

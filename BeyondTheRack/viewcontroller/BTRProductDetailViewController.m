@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
 
 @property (strong, nonatomic) NSString *sessionId;
@@ -40,10 +41,14 @@
 }
 
  
+ 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
+    
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
+    
     self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
     self.variant = SIZE_NOT_SELECTED_STRING;
     

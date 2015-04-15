@@ -98,8 +98,17 @@ static BTRBagHandler *_sharedInstance;
 }
 
 
+- (NSString *)totalBagCountString {
+    
+
+    NSString *stringAnswer = [NSString stringWithFormat:@"%d", [self totalBagCount]];
+    return stringAnswer;
+}
+
+
 - (NSUInteger)setBagItems:(NSArray *)bagItemsArray {
     
+    [self.bagArray removeAllObjects];
     for (BagItem *bagItem in bagItemsArray)
     {
         [self.bagArray addObject:bagItem];
