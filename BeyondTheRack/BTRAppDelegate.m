@@ -29,18 +29,10 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic, strong) NSMutableArray *bagItemsArray;
 
 @end
 
 @implementation BTRAppDelegate
-
-
-- (NSMutableArray *)bagItemsArray {
-    
-    if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
-    return _bagItemsArray;
-}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -97,10 +89,8 @@
     
     } else {
         
-        [self getCartServerCallforSessionId:_Session success:^(NSArray *bagArray) {
+        [self getCartServerCallforSessionId:_Session success:^(NSString *someString) {
             
-            BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-            [sharedShoppingBag setBagItems:(NSArray *)bagArray];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -209,19 +199,12 @@
              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
+
+             NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
              
-             [self.bagItemsArray removeAllObjects];
+             BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
              
-             NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];             
-             NSDate *serverTime = [NSDate date];
-             if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
-                 
-                 serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
-             }
-             
-             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime]];
-             
-             success([self bagItemsArray]);
+             success(@"TRUE");
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              

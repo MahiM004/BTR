@@ -14,7 +14,6 @@
 @property (strong, nonatomic) NSMutableArray *bagArray;
 
 
-
 @end;
 
 
@@ -39,7 +38,6 @@ static BTRBagHandler *_sharedInstance;
 {
     self = [super init];
     if (self) {
-        
         
     }
     return self;

@@ -48,6 +48,15 @@
 
 }
 
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:YES];
+    
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    self.bagTitle.text = [NSString stringWithFormat:@"Bag (%@)", [sharedShoppingBag totalBagCountString]];
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -298,9 +307,6 @@
 }
 
 - (IBAction)unwindToShoppingBagScenefromDoneEditing:(UIStoryboardSegue *)unwindSegue {
-    
-    self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
-    [self.tableView reloadData];
     
 }
 

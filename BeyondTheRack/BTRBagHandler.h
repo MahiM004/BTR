@@ -14,16 +14,11 @@
 
 + (BTRBagHandler *)sharedShoppingBag;
 
-@property (nonatomic) BOOL isEmployee;
-
-
 - (NSUInteger)setBagItems:(NSArray *)bagItemsArray;
 
 - (void)addBagItem:(BagItem *)bagItem;
 - (void)removeBagItem:(BagItem *)bagItem;
 - (BOOL)bagContainsBagItem:(BagItem *)bagItem;
-
-
 
 - (NSUInteger)totalBagCount;
 - (NSString *)totalBagCountString;
