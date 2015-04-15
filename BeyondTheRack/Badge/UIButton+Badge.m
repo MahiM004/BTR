@@ -29,21 +29,23 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 
 - (void)badgeInit
 {
+    int mySize = 12;
+    
     // Default design initialization
     self.badgeBGColor   = [UIColor redColor];
     self.badgeTextColor = [UIColor whiteColor];
-    self.badgeFont      = [UIFont systemFontOfSize:12.0];
     /*
+    self.badgeFont      = [UIFont systemFontOfSize:12.0];
     self.badgePadding   = 6;
     self.badgeMinSize   = 8;
     self.badgeOriginX   = self.frame.size.width - self.badge.frame.size.width/2;
     self.badgeOriginY   = -4;
     */
+    self.badgeFont      = [UIFont systemFontOfSize:mySize];
     self.badgePadding   = 0;
-    self.badgeMinSize   = 8;
-    self.badgeOriginX   = self.frame.size.width/2 - 5;
-    self.badgeOriginY   = self.frame.size.height/2 - 9;
-    
+    self.badgeMinSize   = mySize;
+    self.badgeOriginX   = self.frame.size.width/2 - mySize/2 + 1;
+    self.badgeOriginY   = self.frame.size.height/2 - mySize + 3;
     
     self.shouldHideBadgeAtZero = YES;
     self.shouldAnimateBadge = YES;
@@ -58,7 +60,8 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 {
     // Change new attributes
     self.badge.textColor        = self.badgeTextColor;
-    self.badge.backgroundColor  = self.badgeBGColor;
+    //self.badge.backgroundColor  = self.badgeBGColor;
+    self.badge.backgroundColor  =  [UIColor colorWithRed:228.0/255.0 green:41.0/255.0 blue:88.0/255.0 alpha:1.0];
     self.badge.font             = self.badgeFont;
 }
 
