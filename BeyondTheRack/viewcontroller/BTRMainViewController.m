@@ -58,7 +58,9 @@
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
 
     // make a singleton for dealing with this!
-    self.bagButton.badgeValue = @"3";
+    int use_nsdefault;
+    
+    self.bagButton.badgeValue = @"0";
 }
 
 
