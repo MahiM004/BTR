@@ -40,14 +40,19 @@
     return _bagItemsArray;
 }
 
- 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
+}
+
  
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
     
     self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
     self.variant = SIZE_NOT_SELECTED_STRING;

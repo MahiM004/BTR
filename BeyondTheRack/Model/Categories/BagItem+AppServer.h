@@ -19,4 +19,6 @@
                           intoManagedObjectContext:(NSManagedObjectContext *)context;
 
 
++ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime;// of AppServer BagItem NSDictionary
+
 @end

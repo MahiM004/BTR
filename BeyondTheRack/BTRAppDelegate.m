@@ -9,16 +9,19 @@
 #import "BTRAppDelegate.h"
 
 #import "BTRAppDelegate+MOC.h"
+
 #import "BTREventFetcher.h"
+#import "BTRBagFetcher.h"
 
 #import "Event+AppServer.h"
 #import "Item+AppServer.h"
-
+#import "BagItem+AppServer.h"
 
 //#import "BTRDatabaseAvailibility.h"
 #import "AFNetworkActivityIndicatorManager.h"
-
 #import "BTRSearchViewController.h"
+
+
 
 
 @interface BTRAppDelegate ()
@@ -26,16 +29,23 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property (nonatomic, strong) NSMutableArray *bagItemsArray;
+
 @end
 
 @implementation BTRAppDelegate
 
 
+- (NSMutableArray *)bagItemsArray {
+    
+    if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
+    return _bagItemsArray;
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch
-    
-
-    
+   
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         
@@ -84,15 +94,26 @@
         UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
         self.window.rootViewController = rootViewController;
         [self.window makeKeyAndVisible];
+    
+    } else {
+        
+        [self getCartServerCallforSessionId:_Session success:^(NSArray *bagArray) {
+            
+            BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+            [sharedShoppingBag setBagItems:(NSArray *)bagArray];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
     }
-    
 
-    
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-
     
     return YES;
 }
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -153,6 +174,62 @@
     }
 }
 
+#pragma mark - Bag RESTful Calls
+
+
+- (void)setupDocument
+{
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
+}
+
+
+
+- (void)getCartServerCallforSessionId:(NSString *)sessionId
+                              success:(void (^)(id  responseObject)) success
+                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *sessionIdString = sessionId;
+    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                  options:0
+                                                                                    error:NULL];
+             
+             [self.bagItemsArray removeAllObjects];
+             
+             NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];             
+             NSDate *serverTime = [NSDate date];
+             if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
+                 
+                 serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
+             }
+             
+             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime]];
+             
+             success([self bagItemsArray]);
+             
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"errtr: %@", error);
+             failure(operation, error);
+             
+         }];
+}
 
 
 @end

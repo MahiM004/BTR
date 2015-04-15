@@ -54,11 +54,6 @@
 
     [self setupDocument];
     
-    
-    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    
-    NSLog(@"9-9-9---- : %d", [sharedShoppingBag totalBagCount]);
-    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     

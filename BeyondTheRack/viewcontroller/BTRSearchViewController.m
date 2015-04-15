@@ -51,14 +51,24 @@
 }
 
 
-- (void)viewDidLoad {
-    
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
     
+    [self assignFilterIcon];
+
+}
+
+
+
+- (void)viewDidLoad {
     
+    [super viewDidLoad];
+    
+
     [self setupDocument];
 
     self.collectionView.delegate = self;
@@ -129,13 +139,6 @@
         [self.searchBar becomeFirstResponder];
 }
 
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:YES];
-
-    [self assignFilterIcon];
-}
 
 - (void)assignFilterIcon {
 

@@ -44,14 +44,19 @@
 
 
 
-- (void)viewDidLoad {
-    
-    [super viewDidLoad];
-    
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
     
+}
+
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
     
     [self.eventTitleLabel setText:[self eventTitleString]];
     

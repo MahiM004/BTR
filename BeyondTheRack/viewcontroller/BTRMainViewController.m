@@ -40,9 +40,14 @@
 {
     [super viewWillAppear:animated];
     
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
+
+    
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     [sharedFacetHandler resetFacets];
     sharedFacetHandler.searchString = @"";
+    
 }
 
 - (void)viewDidLayoutSubviews
@@ -56,14 +61,7 @@
     
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
-
-    // make a singleton for dealing with this!
-    int use_nsdefault;
-    
-    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
 }
-
 
 
 - (void)didReceiveMemoryWarning {

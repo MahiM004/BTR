@@ -99,25 +99,57 @@
 }
 
 
+
+
+
+
++ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary withServerDateTime:(NSDate *)serverTime
+{
+    BagItem *bagItem = nil;
+    
+    
+    bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary withServerTime:serverTime forBagItem:bagItem];
+    
+    if ([bagItemDictionary valueForKeyPath:@"sku"]  && [bagItemDictionary valueForKeyPath:@"variant"])
+        bagItem.bagItemId = [NSString stringWithFormat:@"%@%@", [bagItemDictionary valueForKeyPath:@"sku"], [bagItemDictionary valueForKeyPath:@"variant"]];
+    
+    
+    return bagItem;
+}
+
+
+
++ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime// of AppServer BagItem NSDictionary
+{
+    
+    NSMutableArray *bagItemArray = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *bagItem in bagItems) {
+        
+        NSObject *someObject = [self bagItemWithAppServerInfo:bagItem withServerDateTime:serverTime];
+        if (someObject)
+            [bagItemArray addObject:someObject];
+        
+    }
+    
+    return bagItemArray;
+}
+
+
+
+
 + (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary withServerTime:(NSDate *)serverTime forBagItem:(BagItem *)bagItem {
     
     
     bagItem.serverDateTime = serverTime;
-    
-    NSString *customId = @"";
-    
 
     if ([bagItemDictionary valueForKeyPath:@"sku"] && [bagItemDictionary valueForKeyPath:@"sku"] != [NSNull null]) {
         bagItem.sku = [bagItemDictionary valueForKeyPath:@"sku"];
-        [customId stringByAppendingString:[bagItem sku]];
     }
     
     if ([bagItemDictionary valueForKeyPath:@"variant"] && [bagItemDictionary valueForKeyPath:@"variant"] != [NSNull null]) {
         bagItem.variant = [bagItemDictionary valueForKeyPath:@"variant"];
-        [customId stringByAppendingString:[bagItem variant]];
     }
-    
-    bagItem.bagItemId = customId;
     
     if ([bagItemDictionary valueForKeyPath:@"event_id"] && [bagItemDictionary valueForKeyPath:@"event_id"] != [NSNull null])
         bagItem.eventId = [bagItemDictionary valueForKeyPath:@"event_id"];
