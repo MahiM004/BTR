@@ -19,7 +19,7 @@
 
 + (NSURL *)URLforSetBag {
     
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag", BASEURL]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag/update", BASEURL]];
 }
 
 + (NSURL *)URLforAddtoBag {

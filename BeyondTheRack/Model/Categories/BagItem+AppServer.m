@@ -122,8 +122,10 @@
     if ([bagItemDictionary valueForKeyPath:@"event_id"] && [bagItemDictionary valueForKeyPath:@"event_id"] != [NSNull null])
         bagItem.eventId = [bagItemDictionary valueForKeyPath:@"event_id"];
 
-    if ([bagItemDictionary valueForKeyPath:@"quantity"] && [bagItemDictionary valueForKeyPath:@"quantity"] != [NSNull null])
-        bagItem.quantity = [bagItemDictionary valueForKeyPath:@"quantity"];
+    if ([bagItemDictionary valueForKeyPath:@"quantity"] && [bagItemDictionary valueForKeyPath:@"quantity"] != [NSNull null]) {
+        NSString *tempString = [NSString stringWithFormat:@"%@", [bagItemDictionary valueForKeyPath:@"quantity"]];
+        bagItem.quantity = tempString;
+    }
 
     
     

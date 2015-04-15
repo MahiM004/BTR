@@ -29,7 +29,7 @@
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
-
+@property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
 @end
 
@@ -56,6 +56,9 @@
     
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
+    
+    self.bagButton.badgeValue = @"1";
+
 }
 
 

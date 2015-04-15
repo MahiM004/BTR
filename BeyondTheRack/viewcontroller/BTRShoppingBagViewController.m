@@ -85,6 +85,8 @@
                                            userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
+    NSLog(@"re-reserve is not ready on backend and is ignored");
+    NSLog(@"deleting one item from bag is not ready on the backend and is ignored");
 }
 
 

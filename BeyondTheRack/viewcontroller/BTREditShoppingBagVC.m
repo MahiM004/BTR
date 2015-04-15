@@ -211,18 +211,13 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-
-    //serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSString *sessionIdString = [self sessionId];
     [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
-    
-    
-    NSLog(@"wedwed %@: ", sessionIdString);
     
     NSMutableArray *params =[[NSMutableArray alloc] init];
     
@@ -242,9 +237,6 @@
         [params addObject:bagItemDictionary];
     }
     
-    NSLog(@"f----d: %@", params);
-    
-    
     [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]]
        parameters:(NSDictionary *)params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -253,20 +245,16 @@
                                                                                    options:0
                                                                                      error:NULL];
               
-              NSLog(@"8u8u8: %@", entitiesPropertyList);
-              /*
-              NSArray *bagJsonArray = entitiesPropertyList[@"bag"];
-              
+              NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
               NSDate *serverTime = [NSDate date];
               
+              [self.bagItemsArray removeAllObjects];
               [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
               [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-              */
+ 
               success(@"TRUE");
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-              NSLog(@"----- %@", error);
               
               failure(operation, error);
               
