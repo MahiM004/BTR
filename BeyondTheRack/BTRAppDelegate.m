@@ -10,12 +10,8 @@
 
 #import "BTRAppDelegate+MOC.h"
 
-#import "BTREventFetcher.h"
-#import "BTRBagFetcher.h"
-
 #import "Event+AppServer.h"
 #import "Item+AppServer.h"
-#import "BagItem+AppServer.h"
 
 //#import "BTRDatabaseAvailibility.h"
 #import "AFNetworkActivityIndicatorManager.h"
@@ -75,7 +71,6 @@
      Managing the entry scene to the app
      *
      */
-    
     NSString *segueId= @"BTRLoginViewController";
     NSString * _Session = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
@@ -86,6 +81,7 @@
         UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
         self.window.rootViewController = rootViewController;
         [self.window makeKeyAndVisible];
+
     }
     
     
@@ -155,6 +151,7 @@
         [context deleteObject:managedObject];
     }
 }
+
 
 
 

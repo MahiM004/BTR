@@ -16,11 +16,11 @@
 #import "TTSlidingPageTitle.h"
 #import "BTREventsCDTVC.h"
 #import "BTRFacetsHandler.h"
-
-
 #import "BTRSearchViewController.h"
 
+#import "BTRBagFetcher.h"
 #import <math.h>
+
 
 #define YOUR_CATAGORY 4
 
@@ -31,6 +31,9 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
+@property (nonatomic, strong) NSString *sessionId;
+
+
 @end
 
 @implementation BTRMainViewController
@@ -40,14 +43,21 @@
 {
     [super viewWillAppear:animated];
     
-    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
+    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+    
+    [self getCartCountServerCallforSessionId:[self sessionId] success:^(NSString *bagCountString) {
+        
+        self.bagButton.badgeValue = bagCountString;
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
 
+    
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     [sharedFacetHandler resetFacets];
     sharedFacetHandler.searchString = @"";
-    
 }
 
 - (void)viewDidLayoutSubviews
@@ -58,6 +68,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
@@ -70,7 +83,41 @@
 }
 
 
+#pragma mark - Get bag count
 
+- (void)getCartCountServerCallforSessionId:(NSString *)sessionId
+                                   success:(void (^)(id  responseObject)) success
+                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *sessionIdString = sessionId;
+    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBagCount]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSDictionary  *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
+             
+             NSString *bagCount = [NSString stringWithFormat:@"%@",entitiesPropertyList[@"count"]];
+             BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+             sharedShoppingBag.bagCount = [bagCount integerValue];
+             
+             success(bagCount);
+             
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"errtr: %@", error);
+             failure(operation, error);
+             
+         }];
+}
 
 #pragma mark - Navigation
 

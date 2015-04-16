@@ -194,7 +194,7 @@
         user.birthDate = [userDictionary valueForKeyPath:@"birthdate"];
   
     if ([userDictionary valueForKeyPath:@"employee"] && [userDictionary valueForKeyPath:@"employee"] != [NSNull null])
-        user.isEmployee = [userDictionary valueForKeyPath:@"employee"];
+        user.isEmployee = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"employee"]];
 
     
     return user;

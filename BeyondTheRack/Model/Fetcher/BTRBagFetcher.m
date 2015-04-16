@@ -17,6 +17,13 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/bag", BASEURL]];
 }
 
+
++ (NSURL *)URLforBagCount {
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag/count", BASEURL]];
+}
+
+
 + (NSURL *)URLforSetBag {
     
     return [self URLForQuery:[NSString stringWithFormat:@"%@/bag/update", BASEURL]];

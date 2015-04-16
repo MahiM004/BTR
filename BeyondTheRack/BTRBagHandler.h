@@ -23,6 +23,8 @@
 - (NSUInteger)totalBagCount;
 - (NSString *)totalBagCountString;
 
+@property (nonatomic) NSUInteger bagCount;
+
 /*
  
  if bagItem is not present returns -1;

@@ -39,6 +39,7 @@ static BTRBagHandler *_sharedInstance;
     self = [super init];
     if (self) {
         
+        self.bagCount = 0;
     }
     return self;
 }
