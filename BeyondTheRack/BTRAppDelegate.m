@@ -86,17 +86,9 @@
         UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
         self.window.rootViewController = rootViewController;
         [self.window makeKeyAndVisible];
-    
-    } else {
-        
-        [self getCartServerCallforSessionId:_Session success:^(NSString *someString) {
-            
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-        }];
     }
-
+    
+    
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     return YES;
@@ -163,57 +155,6 @@
         [context deleteObject:managedObject];
     }
 }
-
-#pragma mark - Bag RESTful Calls
-
-
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
-
-
-- (void)getCartServerCallforSessionId:(NSString *)sessionId
-                              success:(void (^)(id  responseObject)) success
-                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    NSString *sessionIdString = sessionId;
-    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                  options:0
-                                                                                    error:NULL];
-
-             NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
-             
-             BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-             
-             success(@"TRUE");
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"errtr: %@", error);
-             failure(operation, error);
-             
-         }];
-}
-
 
 @end
 

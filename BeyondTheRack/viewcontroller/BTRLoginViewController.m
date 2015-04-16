@@ -173,17 +173,7 @@
                   [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                   [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
                   
-                  
-                  if ([sessionIdString length] > 10) {
-                      
-                      [self getCartServerCallforSessionId:sessionIdString success:^(NSString *succString) {
-                          
-                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                          
-                      }];
-                  }
-                  
-                  
+    
                   success(@"TRUE");
      
               } else {
@@ -204,57 +194,6 @@
           }];
 }
 
-
-
-
-#pragma mark - Bag RESTful Calls
-
-
-
-- (void)getCartServerCallforSessionId:(NSString *)sessionId
-                              success:(void (^)(id  responseObject)) success
-                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                  options:0
-                                                                                    error:NULL];
-             NSMutableArray *bagItemsArray = [[NSMutableArray alloc] init];
-             
-             NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
-             
-             NSDate *serverTime = [NSDate date];
-             if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
-                 
-                 serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
-             }
-             
-             [bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime]];
-             
-             BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-             [sharedShoppingBag setBagItems:(NSArray *)bagItemsArray];
-             
-             success(@"TRUE");
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"errtr: %@", error);
-             failure(operation, error);
-             
-         }];
-}
 
 
 /*

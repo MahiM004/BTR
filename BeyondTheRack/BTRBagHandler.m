@@ -99,7 +99,7 @@ static BTRBagHandler *_sharedInstance;
 - (NSString *)totalBagCountString {
     
 
-    NSString *stringAnswer = [NSString stringWithFormat:@"%d", [self totalBagCount]];
+    NSString *stringAnswer = [NSString stringWithFormat:@"%lu", (unsigned long)[self totalBagCount]];
     return stringAnswer;
 }
 
@@ -120,7 +120,7 @@ static BTRBagHandler *_sharedInstance;
     
     if ([self bagContainsBagItem:bagItem]) {
      
-        int index = [[self bagArray] indexOfObject:bagItem];
+        NSUInteger index = [[self bagArray] indexOfObject:bagItem];
         NSString  *quantString =  [NSString stringWithFormat:@"%d",[[[self.bagArray objectAtIndex:index]  quantity]  integerValue] + 1];
         [[self.bagArray objectAtIndex:index] setQuantity:quantString];
         
@@ -135,7 +135,7 @@ static BTRBagHandler *_sharedInstance;
     
     if ([self bagContainsBagItem:bagItem]) {
         
-        int index = [[self bagArray] indexOfObject:bagItem];
+        NSUInteger index = [[self bagArray] indexOfObject:bagItem];
         NSString  *quantString =  [NSString stringWithFormat:@"%d",[[[self.bagArray objectAtIndex:index]  quantity]  integerValue] - 1];
         [[self.bagArray objectAtIndex:index] setQuantity:quantString];
         
