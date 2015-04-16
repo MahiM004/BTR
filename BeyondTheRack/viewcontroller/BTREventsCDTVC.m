@@ -20,7 +20,6 @@
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -31,7 +30,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
     
     self.tableView.backgroundColor = [BTRViewUtility BTRBlack];
     self.tableView.separatorColor = [UIColor clearColor];
