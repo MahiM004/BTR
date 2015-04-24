@@ -27,7 +27,6 @@
 
 - (IBAction)tappedApprovePurchase:(UIButton *)sender {
     
-
 }
 
 /*

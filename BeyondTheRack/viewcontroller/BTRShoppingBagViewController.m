@@ -126,6 +126,7 @@
 }
 
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     BTRBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingBagCellIdentifier" forIndexPath:indexPath];
@@ -135,15 +136,17 @@
         cell = [[BTRBagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
     }
     
-    NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
-    
-    Item *item = [Item getItemforSku:uniqueSku fromManagedObjectContext:[self managedObjectContext]];
-    
-    [cell.itemImageView setImageWithURL:[BTRItemFetcher
-                                         URLforItemImageForSku:uniqueSku]
-                                         placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
- 
-    cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:item];
+    if (indexPath.row < [self.bagItemsArray count]) {
+        
+        NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
+        
+        Item *item = [Item getItemforSku:uniqueSku fromManagedObjectContext:[self managedObjectContext]];
+        [cell.itemImageView setImageWithURL:[BTRItemFetcher
+                                             URLforItemImageForSku:uniqueSku]
+                           placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+        
+        cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:item];
+    }
     
     return cell;
 }
