@@ -12,12 +12,13 @@
 
 #import "Event+AppServer.h"
 #import "Item+AppServer.h"
-
 //#import "BTRDatabaseAvailibility.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "BTRSearchViewController.h"
 
-
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 
 
 @interface BTRAppDelegate ()
