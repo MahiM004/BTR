@@ -31,11 +31,12 @@
 @end
 
 @implementation BTRLoginViewController
+/*
 {
     BOOL _viewDidAppear;
     BOOL _viewIsVisible;
 }
-
+*/
 
 #pragma mark - Object lifecycle
 
@@ -60,25 +61,25 @@
 
     [super viewDidLoad];
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeProfileChange:) name:FBSDKProfileDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeTokenChange:) name:FBSDKAccessTokenDidChangeNotification object:nil];
     self.fbButton.readPermissions = @[@"public_profile", @"email"];
-    
+
     // If there's already a cached token, read the profile information.
     if ([FBSDKAccessToken currentAccessToken]) {
         
-        NSLog(@"trtr FBSDKAccessToken");
+        int needs_session_from_backend;
         
+        [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+        // User is logged in, do work such as go to next view controller.
+
+        NSLog(@"trtr FBSDKAccessToken");
         [self observeProfileChange:nil];
     }
-
     
     
-
+    
     [self setupDocument];
-    
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                  initWithTarget:self
                                action:@selector(dismissKeyboard)];
@@ -90,35 +91,17 @@
     self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
     
     /*
-     self.someLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:20];
-     self.someLabel.text = [NSString fontAwesomeIconStringForEnum:FAGithub];
-     self.someLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-github"];
-     */
-    
-    
-    /*
      FAImageView *imageView = [[FAImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, 100.f)];
      imageView.image = nil;
      [imageView setDefaultIconIdentifier:@"fa-github"];
      */
     
-    
     self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:16];
     self.emailIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-envelope-o"];
-    
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
     
-    
 }
-/*
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    _viewIsVisible = NO;
-}
-*/
-
 
 
 #pragma mark - Actions
@@ -134,10 +117,8 @@
 
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
     
-    NSLog(@"rtrt_result: %@", result);
-    NSLog(@"errrror: %@", error);
-    
     if (error) {
+        
         NSLog(@"Unexpected login error: %@", error);
         NSString *alertMessage = error.userInfo[FBSDKErrorLocalizedDescriptionKey] ?: @"There was a problem logging in. Please try again later.";
         NSString *alertTitle = error.userInfo[FBSDKErrorLocalizedTitleKey] ?: @"Oops";
@@ -148,8 +129,16 @@
                           otherButtonTitles:nil] show];
     } else {
         
-        if (_viewIsVisible) {
-            [self performSegueWithIdentifier:@"showMain" sender:self];
+        if ([FBSDKAccessToken currentAccessToken]) {
+            
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                 if (!error) {
+                     NSLog(@"fetched user:%@", result);
+                 } else {
+                     NSLog(@"graph api error: %@", error);
+                 }
+             }];
         }
     }
 }
@@ -157,18 +146,15 @@
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
     
     NSLog(@"loginButtonDidLogOut");
-    
-    if (_viewIsVisible) {
-        [self performSegueWithIdentifier:@"continue" sender:self];
-    }
 }
+
+
 
 #pragma mark - Observations
 
 - (void)observeProfileChange:(NSNotification *)notfication {
     
-
-    NSLog(@"observeProfileChange: %@-%@  nnname: %@", [[FBSDKProfile currentProfile]  firstName], [[FBSDKProfile currentProfile] lastName], [[FBSDKProfile currentProfile] name]);
+    //NSLog(@"observeProfileChange: %@-%@  nnname: %@", [[FBSDKProfile currentProfile]  firstName], [[FBSDKProfile currentProfile] lastName], [[FBSDKProfile currentProfile] name]);
     
     if ([FBSDKProfile currentProfile]) {
         //NSString *title = [NSString stringWithFormat:@"continue as %@", [FBSDKProfile currentProfile].name];
@@ -178,11 +164,17 @@
 
 - (void)observeTokenChange:(NSNotification *)notfication {
     
-    NSLog(@"observeTokenChange: %@    -- for User: %@", [[FBSDKAccessToken currentAccessToken] tokenString], [[FBSDKAccessToken currentAccessToken] userID]);
+    //NSLog(@"observeTokenChange: %@    -- for User: %@", [[FBSDKAccessToken currentAccessToken] tokenString], [[FBSDKAccessToken currentAccessToken] userID]);
     
     if (![FBSDKAccessToken currentAccessToken]) {
+        
        // [self.continueButton setTitle:@"continue as a guest" forState:UIControlStateNormal];
     } else {
+        
+        [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+
+        int needs_session_from_backend;
+        
         [self observeProfileChange:nil];
     }
 }
