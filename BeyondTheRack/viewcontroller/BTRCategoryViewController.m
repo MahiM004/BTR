@@ -27,7 +27,6 @@
 
 -(void)initData {
     
-    
     /* 
      
      TODO: the categoryNames and urlCategoryNames should be refactored into an editable config file 
@@ -38,11 +37,10 @@
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-
-    
     [self initData];
     //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
     
@@ -68,7 +66,6 @@
     
     //set the datasource.
     self.slider.dataSource = self;
-    
     //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
 
     self.slider.view.frame = self.view.frame;
@@ -76,13 +73,16 @@
     [self addChildViewController:self.slider];
 }
 
+
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
 -(void)tableCellDidSelect:(UITableViewCell *)cell{
+    
     NSLog(@"Tap %@",cell.textLabel.text);
     //DetailViewController *detailVC = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     //detailVC.label.text = cell.textLabel.text;
@@ -92,13 +92,16 @@
 
 #pragma mark TTSlidingPagesDataSource methods
 
+
 -(int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source{
+   
     return (int)[[self categoryNames] count];
 }
 
+
 -(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index{
+
     UIViewController *viewController;
-    
     
     BTREventsCDTVC *myVC  = [[BTREventsCDTVC alloc] init];
     viewController = myVC;
@@ -108,15 +111,18 @@
     return [[TTSlidingPage alloc] initWithContentViewController:viewController];
 }
 
+
 -(TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index{
+    
     TTSlidingPageTitle *title;
-  
     title = [[TTSlidingPageTitle alloc] initWithHeaderText:[[self categoryNames] objectAtIndex:index]];
     
     return title;
 }
 
+
 #pragma mark - scrollview delegate
+
 
 -(void)didScrollToViewAtIndex:(NSUInteger)index
 {
@@ -128,3 +134,13 @@
 
 
 @end
+
+
+
+
+
+
+
+
+
+

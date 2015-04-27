@@ -52,8 +52,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
-
-    
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     [sharedFacetHandler resetFacets];
@@ -68,10 +66,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-    
-    
+
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
 }

@@ -13,6 +13,10 @@
 #import "BagItem+AppServer.h"
 #import "Item+AppServer.h"
 
+
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
+
 @interface BTRLoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -21,18 +25,56 @@
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordIconLabel;
 
-
-
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end
 
 @implementation BTRLoginViewController
+{
+    BOOL _viewDidAppear;
+    BOOL _viewIsVisible;
+}
+
+
+#pragma mark - Object lifecycle
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        // We wire up the FBSDKLoginButton using the interface builder
+        // but we could have also explicitly wired its delegate here.
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+#pragma mark - View Management
+
 
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeProfileChange:) name:FBSDKProfileDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeTokenChange:) name:FBSDKAccessTokenDidChangeNotification object:nil];
+    self.fbButton.readPermissions = @[@"public_profile", @"email"];
+    
+    // If there's already a cached token, read the profile information.
+    if ([FBSDKAccessToken currentAccessToken]) {
+        
+        NSLog(@"trtr FBSDKAccessToken");
+        
+        [self observeProfileChange:nil];
+    }
+
+    
+    
 
     [self setupDocument];
     
@@ -43,12 +85,9 @@
     [self.view addGestureRecognizer:tap];
 
     [self setNeedsStatusBarAppearanceUpdate];
- 
-    
     
     self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
     self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
-    
     
     /*
      self.someLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:20];
@@ -72,8 +111,81 @@
     
     
 }
+/*
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _viewIsVisible = NO;
+}
+*/
 
 
+
+#pragma mark - Actions
+
+- (IBAction)showLogin:(UIStoryboardSegue *)segue
+{
+    // This method exists in order to create an unwind segue to this controller.
+}
+
+
+
+#pragma mark - FBSDKLoginButtonDelegate
+
+- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
+    
+    NSLog(@"rtrt_result: %@", result);
+    NSLog(@"errrror: %@", error);
+    
+    if (error) {
+        NSLog(@"Unexpected login error: %@", error);
+        NSString *alertMessage = error.userInfo[FBSDKErrorLocalizedDescriptionKey] ?: @"There was a problem logging in. Please try again later.";
+        NSString *alertTitle = error.userInfo[FBSDKErrorLocalizedTitleKey] ?: @"Oops";
+        [[[UIAlertView alloc] initWithTitle:alertTitle
+                                    message:alertMessage
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    } else {
+        
+        if (_viewIsVisible) {
+            [self performSegueWithIdentifier:@"showMain" sender:self];
+        }
+    }
+}
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+    
+    NSLog(@"loginButtonDidLogOut");
+    
+    if (_viewIsVisible) {
+        [self performSegueWithIdentifier:@"continue" sender:self];
+    }
+}
+
+#pragma mark - Observations
+
+- (void)observeProfileChange:(NSNotification *)notfication {
+    
+
+    NSLog(@"observeProfileChange: %@-%@  nnname: %@", [[FBSDKProfile currentProfile]  firstName], [[FBSDKProfile currentProfile] lastName], [[FBSDKProfile currentProfile] name]);
+    
+    if ([FBSDKProfile currentProfile]) {
+        //NSString *title = [NSString stringWithFormat:@"continue as %@", [FBSDKProfile currentProfile].name];
+        //[self.continueButton setTitle:title forState:UIControlStateNormal];
+    }
+}
+
+- (void)observeTokenChange:(NSNotification *)notfication {
+    
+    NSLog(@"observeTokenChange: %@    -- for User: %@", [[FBSDKAccessToken currentAccessToken] tokenString], [[FBSDKAccessToken currentAccessToken] userID]);
+    
+    if (![FBSDKAccessToken currentAccessToken]) {
+       // [self.continueButton setTitle:@"continue as a guest" forState:UIControlStateNormal];
+    } else {
+        [self observeProfileChange:nil];
+    }
+}
 
 
 - (void)dismissKeyboard {

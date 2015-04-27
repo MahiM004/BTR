@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRLoginViewController : UIViewController
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
+
+
+@interface BTRLoginViewController : UIViewController <FBSDKLoginButtonDelegate>
+
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbButton;
+- (IBAction)showLogin:(UIStoryboardSegue *)segue;
+
 
 @end
