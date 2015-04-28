@@ -24,4 +24,7 @@
                           andUserInfo:(NSDictionary *)userDictionary
                inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (NSDictionary *)extractFacebookUserParamsfromResponseJsonDictionary:(NSDictionary *)jsonResponse withAccessToken:(NSString *)facebookAccessToken;
+
+
 @end

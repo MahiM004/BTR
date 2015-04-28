@@ -12,44 +12,48 @@
 
 
 + (NSURL *)URLforUserAuthentication {
-
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/authenticate", BASEURL]];
 }
 
 
 + (NSURL *)URLforUserLogout {
-    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/logout", BASEURL]];
 }
 
+
 + (NSURL *)URLforUserInfo {
-    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/info", BASEURL]];
 }
 
+
 + (NSURL *)URLforUserCredits {
-    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/credits", BASEURL]];
-    
 }
 
 + (NSURL *)URLforUserOrders {
-    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/orders", BASEURL]];
 }
 
+
 + (NSURL *)URLforUserOrderItems {
-    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/orderitems", BASEURL]];
-    
 }
 
 
 + (NSURL *)URLforUserRegistration {
-    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/register", BASEURL]];
-    
 }
+
+
++ (NSURL *)URLforFacebookRegistration {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/register/facebook", BASEURL]];
+}
+
+
++ (NSURL *)URLforFacebookLogin {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/authenticate/facebook", BASEURL]];
+}
+
 
 /*
  
@@ -65,3 +69,16 @@
 
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+

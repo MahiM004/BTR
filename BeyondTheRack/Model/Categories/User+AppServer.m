@@ -202,9 +202,6 @@
 
 
 
-
-
-
 + (User *)userAuthWithAppServerInfo:(NSDictionary *)userDictionary
              inManagedObjectContext:(NSManagedObjectContext *)context
 {
@@ -275,5 +272,51 @@
 
 
 
++ (NSDictionary *)extractFacebookUserParamsfromResponseJsonDictionary:(id)jsonResponse withAccessToken:(NSString *)facebookAccessToken {
+    
+    NSString *facebookUserId, *firstName, *lastName, *gender, *email;
+    /*
+    if ([jsonResponse objectForKey:@"email"] && [jsonResponse valueForKeyPath:@"email"] != [NSNull null])
+        email = [jsonResponse valueForKeyPath:@"email"];
+    
+    if ([jsonResponse objectForKey:@"first_name"] && [jsonResponse valueForKeyPath:@"first_name"] != [NSNull null])
+        firstName = [jsonResponse valueForKeyPath:@"first_name"];
+    
+    if ([jsonResponse objectForKey:@"last_name"] && [jsonResponse valueForKeyPath:@"last_name"] != [NSNull null])
+        lastName = [jsonResponse valueForKeyPath:@"last_name"];
+    
+    if ([jsonResponse objectForKey:@"id"] && [jsonResponse valueForKeyPath:@"id"] != [NSNull null])
+        facebookUserId = [jsonResponse valueForKeyPath:@"id"];
+
+    if ([jsonResponse objectForKey:@"gender"] && [jsonResponse valueForKeyPath:@"gender"] != [NSNull null])
+        facebookUserId = [jsonResponse valueForKeyPath:@"gender"];
+    */
+    
+    NSDictionary *params = (@{
+                              @"id": facebookUserId,
+                              @"access_token": facebookAccessToken,
+                              @"email": email,
+                              @"first_name": firstName,
+                              @"last_name": lastName,
+                              @"gender": gender
+                              });
+    
+    
+    return params;
+}
+
+
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+

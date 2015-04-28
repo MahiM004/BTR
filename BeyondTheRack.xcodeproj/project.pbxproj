@@ -552,11 +552,11 @@
 				69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */,
 				69B02CAA1A5DA70700040C86 /* BTREventsCDTVC.h */,
 				69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */,
-				6900B4CC1AB75AA800930D16 /* Login Scenes */,
 				692F24D21AA8E0B4003AABE1 /* MyAccount */,
 				692F24D11AA8E093003AABE1 /* Product */,
 				69385FBF1A7BF3830074FE33 /* Search */,
 				695F99D81A573D1500A80D12 /* Checkout */,
+				6900B4CC1AB75AA800930D16 /* Login Scenes */,
 			);
 			name = ViewController;
 			path = viewcontroller;

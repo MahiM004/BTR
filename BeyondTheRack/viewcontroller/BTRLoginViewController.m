@@ -28,6 +28,9 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+
+@property (nonatomic, strong) NSDictionary *fbUserParams;
+
 @end
 
 @implementation BTRLoginViewController
@@ -56,7 +59,7 @@
 
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeTokenChange:) name:FBSDKAccessTokenDidChangeNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeTokenChange:) name:FBSDKAccessTokenDidChangeNotification object:nil];
     self.fbButton.readPermissions = @[@"public_profile", @"email"];
     
     [self setupDocument];
@@ -88,6 +91,7 @@
 
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
     
+        
     if (error) {
         
         NSLog(@"Unexpected login error: %@", error);
@@ -103,9 +107,57 @@
         if ([FBSDKAccessToken currentAccessToken]) {
             
             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
-             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
+                 
+                 
+                 NSLog(@"fb response: %@", responseObject);
+                 
                  if (!error) {
-                     NSLog(@"fetched user:%@", result);
+                   
+                     //NSMutableDictionary *fbParams = [[NSMutableDictionary alloc] init];
+
+                     
+                     NSString *email = [responseObject valueForKeyPath:@"email"];
+                     NSString *firstName = [responseObject valueForKeyPath:@"first_name"];
+                     NSString *lastName = [responseObject valueForKeyPath:@"last_name"];
+                     NSString *gender=[responseObject valueForKeyPath:@"gender"];
+                     NSString *fbUserId = [responseObject valueForKeyPath:@"id"];
+                     NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
+                     
+                     /*
+
+                     self.fbUserParams = [User extractFacebookUserParamsfromResponseJsonDictionary:responseObject
+                                                                                   withAccessToken:fbAccessToken];
+                     
+                     */
+                     
+                     NSDictionary *fbParams = (@{
+                                               @"id": fbUserId,
+                                               @"access_token": fbAccessToken,
+                                               @"email": email,
+                                               @"first_name": firstName,
+                                               @"last_name": lastName,
+                                               @"gender": gender
+                                               });
+                     
+                     
+                     [self fetchFacebookUserSessionIntoDocument:[self beyondTheRackDocument] forFacebookUserParams:fbParams success:^(NSString *didLogIn) {
+                         
+                         if ([didLogIn  isEqualToString:@"TRUE"]) {
+                             
+                             [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+                         }
+                         else {
+                             
+                             [self alertUserForLoginError];
+                         }
+                         
+                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         
+                         [self alertUserForLoginError];
+
+                     }];
+                     
                  } else {
                      NSLog(@"graph api error: %@", error);
                  }
@@ -114,8 +166,8 @@
     }
 }
 
+
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
-    
     NSLog(@"loginButtonDidLogOut");
 }
 
@@ -135,7 +187,7 @@
 
 - (IBAction)signInButtonTapped:(UIButton *)sender {
 
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument] success:^(NSString *didLogIn) {
+    [self fetchUserIntoDocument:[self beyondTheRackDocument] success:^(NSString *didLogIn) {
         
         if ([didLogIn  isEqualToString:@"TRUE"]) {
 
@@ -163,7 +215,7 @@
 }
 
 
-
+/*
 #pragma mark - Observations
 
 
@@ -176,12 +228,12 @@
         // [self.continueButton setTitle:@"continue as a guest" forState:UIControlStateNormal];
     } else {
         
-        [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+       // [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
         
         int needs_session_from_backend;
     }
 }
-
+*/
 
 #pragma mark - Load User RESTful
 
@@ -195,7 +247,9 @@
     }
 }
 
-- (void)fetchItemsIntoDocument:(UIManagedDocument *)document
+
+
+- (void)fetchUserIntoDocument:(UIManagedDocument *)document
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
@@ -220,7 +274,6 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
-              
               if (entitiesPropertyList) {
               
                   NSDictionary *tempDic = entitiesPropertyList[@"session"];
@@ -235,7 +288,6 @@
                   [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                   [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
                   
-    
                   success(@"TRUE");
      
               } else {
@@ -248,7 +300,6 @@
                   success(@"FALSE");
               }
               
-              
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
               [self alertUserForLoginError];
@@ -258,11 +309,69 @@
 
 
 
-/*
-#pragma mark - Navigation
 
- 
-*/
+- (void)fetchFacebookUserSessionIntoDocument:(UIManagedDocument *)document
+                       forFacebookUserParams:(NSDictionary *)fbUserParams
+                                     success:(void (^)(id  responseObject)) success
+                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    
+    [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookRegistration]]
+       parameters:fbUserParams
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+              
+              NSLog(@"fb params: %@", fbUserParams);
+              
+              if (entitiesPropertyList) {
+                  
+                  NSLog(@"t--t: %@", entitiesPropertyList);
+                  
+                  /*
+                  NSDictionary *tempDic = entitiesPropertyList[@"session"];
+                  NSDictionary *userDic = entitiesPropertyList[@"user"];
+                  NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
+                  
+                  [[NSUserDefaults standardUserDefaults] setValue:sessionIdString forKey:@"Session"];
+                  [[NSUserDefaults standardUserDefaults] setValue:[[self emailTextField] text] forKey:@"Username"];
+                  [[NSUserDefaults standardUserDefaults] setValue:[[self passwordTextField] text] forKey:@"Password"];
+                  [[NSUserDefaults standardUserDefaults] synchronize];
+                  
+                  [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
+                  [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                  
+                  success(@"TRUE");
+                  */
+              } else {
+                  /*
+                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Session"];
+                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Username"];
+                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
+                  [[NSUserDefaults standardUserDefaults] synchronize];
+                  */
+                  success(@"FALSE");
+              }
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              [self alertUserForLoginError];
+              
+          }];
+}
+
+
+
+
 
 
 @end
