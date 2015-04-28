@@ -38,6 +38,7 @@
 #import "FAImageView.h"
 #import "NSString+FontAwesome.h"
 #import "UIButton+Badge.h"
+#import "BTRSettings.h"
 
 
 
