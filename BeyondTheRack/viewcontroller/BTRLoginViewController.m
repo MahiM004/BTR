@@ -31,12 +31,7 @@
 @end
 
 @implementation BTRLoginViewController
-/*
-{
-    BOOL _viewDidAppear;
-    BOOL _viewIsVisible;
-}
-*/
+
 
 #pragma mark - Object lifecycle
 
@@ -61,23 +56,8 @@
 
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeProfileChange:) name:FBSDKProfileDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeTokenChange:) name:FBSDKAccessTokenDidChangeNotification object:nil];
     self.fbButton.readPermissions = @[@"public_profile", @"email"];
-
-    // If there's already a cached token, read the profile information.
-    if ([FBSDKAccessToken currentAccessToken]) {
-        
-        int needs_session_from_backend;
-        
-        [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
-        // User is logged in, do work such as go to next view controller.
-
-        NSLog(@"trtr FBSDKAccessToken");
-        [self observeProfileChange:nil];
-    }
-    
-    
     
     [self setupDocument];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -102,15 +82,6 @@
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
     
 }
-
-
-#pragma mark - Actions
-
-- (IBAction)showLogin:(UIStoryboardSegue *)segue
-{
-    // This method exists in order to create an unwind segue to this controller.
-}
-
 
 
 #pragma mark - FBSDKLoginButtonDelegate
@@ -149,37 +120,6 @@
 }
 
 
-
-#pragma mark - Observations
-
-- (void)observeProfileChange:(NSNotification *)notfication {
-    
-    //NSLog(@"observeProfileChange: %@-%@  nnname: %@", [[FBSDKProfile currentProfile]  firstName], [[FBSDKProfile currentProfile] lastName], [[FBSDKProfile currentProfile] name]);
-    
-    if ([FBSDKProfile currentProfile]) {
-        //NSString *title = [NSString stringWithFormat:@"continue as %@", [FBSDKProfile currentProfile].name];
-        //[self.continueButton setTitle:title forState:UIControlStateNormal];
-    }
-}
-
-- (void)observeTokenChange:(NSNotification *)notfication {
-    
-    //NSLog(@"observeTokenChange: %@    -- for User: %@", [[FBSDKAccessToken currentAccessToken] tokenString], [[FBSDKAccessToken currentAccessToken] userID]);
-    
-    if (![FBSDKAccessToken currentAccessToken]) {
-        
-       // [self.continueButton setTitle:@"continue as a guest" forState:UIControlStateNormal];
-    } else {
-        
-        [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
-
-        int needs_session_from_backend;
-        
-        [self observeProfileChange:nil];
-    }
-}
-
-
 - (void)dismissKeyboard {
     
     [self.passwordTextField resignFirstResponder];
@@ -191,7 +131,6 @@
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
-
 
 
 - (IBAction)signInButtonTapped:(UIButton *)sender {
@@ -223,6 +162,25 @@
     [alert show];
 }
 
+
+
+#pragma mark - Observations
+
+
+- (void)observeTokenChange:(NSNotification *)notfication {
+    
+    //NSLog(@"observeTokenChange: %@    -- for User: %@", [[FBSDKAccessToken currentAccessToken] tokenString], [[FBSDKAccessToken currentAccessToken] userID]);
+    
+    if (![FBSDKAccessToken currentAccessToken]) {
+        
+        // [self.continueButton setTitle:@"continue as a guest" forState:UIControlStateNormal];
+    } else {
+        
+        [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+        
+        int needs_session_from_backend;
+    }
+}
 
 
 #pragma mark - Load User RESTful

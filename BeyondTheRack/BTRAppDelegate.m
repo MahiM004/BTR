@@ -55,17 +55,14 @@
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         
-        
         if (!self.beyondTheRackDocument) {
             
             [[BTRDocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
                 self.beyondTheRackDocument = document;
                 
-                
                 NSString *firstTime = [[NSUserDefaults standardUserDefaults] stringForKey:@"FirstTime"];
                 
                 if (![firstTime isEqualToString:@"FALSE"]){
-                    
                     
                     [Event initInManagedObjectContext:[document managedObjectContext]];
                     [Item initInManagedObjectContext:[document managedObjectContext]];                    
@@ -75,7 +72,6 @@
                     
                     [[NSUserDefaults standardUserDefaults] setValue:@"FALSE" forKey:@"FirstTime"];
                     [[NSUserDefaults standardUserDefaults] synchronize];
-                    
                 }
                 
             }];
@@ -99,8 +95,21 @@
         UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
         self.window.rootViewController = rootViewController;
         [self.window makeKeyAndVisible];
-
     }
+    int needs_session_from_backend;
+
+    /*
+    // If there's already a cached token, read the profile information.
+    if ([FBSDKAccessToken currentAccessToken]) {
+        
+     
+        [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+        // User is logged in, do work such as go to next view controller.
+        
+        NSLog(@"trtr FBSDKAccessToken");
+        [self observeProfileChange:nil];
+    }
+    */
     
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
@@ -115,9 +124,13 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
+    
+    
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
-                                                sourceApplication:sourceApplication                                                       annotation:annotation];
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
+
 }
 
 
