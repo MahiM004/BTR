@@ -109,27 +109,14 @@
             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
                  
-                 
-                 NSLog(@"fb response: %@", responseObject);
-                 
                  if (!error) {
-                   
-                     //NSMutableDictionary *fbParams = [[NSMutableDictionary alloc] init];
-
-                     
+                  
                      NSString *email = [responseObject valueForKeyPath:@"email"];
                      NSString *firstName = [responseObject valueForKeyPath:@"first_name"];
                      NSString *lastName = [responseObject valueForKeyPath:@"last_name"];
                      NSString *gender=[responseObject valueForKeyPath:@"gender"];
                      NSString *fbUserId = [responseObject valueForKeyPath:@"id"];
                      NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
-                     
-                     /*
-
-                     self.fbUserParams = [User extractFacebookUserParamsfromResponseJsonDictionary:responseObject
-                                                                                   withAccessToken:fbAccessToken];
-                     
-                     */
                      
                      NSDictionary *fbParams = (@{
                                                @"id": fbUserId,
@@ -140,8 +127,7 @@
                                                @"gender": gender
                                                });
                      
-                     
-                     [self fetchFacebookUserSessionIntoDocument:[self beyondTheRackDocument] forFacebookUserParams:fbParams success:^(NSString *didLogIn) {
+                     [self fetchFacebookUserSessionIntoDocument:[self beyondTheRackDocument] forFacebookUserParams:fbParams success:^(NSString *didLogIn, NSString *alertString) {
                          
                          if ([didLogIn  isEqualToString:@"TRUE"]) {
                              
@@ -149,7 +135,7 @@
                          }
                          else {
                              
-                             [self alertUserForLoginError];
+                             [self alertUserForLoginErrorWithMessage:alertString];
                          }
                          
                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -208,6 +194,24 @@
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please try agian"
                                                     message:@"Email or Password Incorrect !"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    [alert show];
+}
+
+
+
+- (void)alertUserForLoginErrorWithMessage:(NSString *)messageString {
+    
+    
+    NSString *alertMessage = @"Email or Password Incorrect !";
+    
+    if ([messageString length] > 0)
+        alertMessage = messageString;
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error!"
+                                                    message:alertMessage
                                                    delegate:self
                                           cancelButtonTitle:nil
                                           otherButtonTitles:@"Ok", nil];
@@ -312,11 +316,10 @@
 
 - (void)fetchFacebookUserSessionIntoDocument:(UIManagedDocument *)document
                        forFacebookUserParams:(NSDictionary *)fbUserParams
-                                     success:(void (^)(id  responseObject)) success
+                                     success:(void (^)(id  responseObject, NSString *alertString)) success
                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
 
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -331,13 +334,12 @@
                                                                                    options:0
                                                                                      error:NULL];
               
-              NSLog(@"fb params: %@", fbUserParams);
+              int i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
+              NSString *alertString = [entitiesPropertyList valueForKey:@"error"];
               
-              if (entitiesPropertyList) {
+              
+              if (i_success == 1) {
                   
-                  NSLog(@"t--t: %@", entitiesPropertyList);
-                  
-                  /*
                   NSDictionary *tempDic = entitiesPropertyList[@"session"];
                   NSDictionary *userDic = entitiesPropertyList[@"user"];
                   NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
@@ -350,16 +352,16 @@
                   [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                   [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
                   
-                  success(@"TRUE");
-                  */
-              } else {
-                  /*
+                  success(@"TRUE", nil);
+               
+              } else if (i_success == 0){
+               
                   [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Session"];
                   [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Username"];
                   [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
                   [[NSUserDefaults standardUserDefaults] synchronize];
-                  */
-                  success(@"FALSE");
+               
+                  success(@"FALSE", alertString);
               }
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -375,6 +377,13 @@
 
 
 @end
+
+
+
+
+
+
+
 
 
 

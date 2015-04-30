@@ -46,12 +46,12 @@
 
 
 + (NSURL *)URLforFacebookRegistration {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/register/facebook", BASEURL]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/user/register/facebook", BASEURL]];
 }
 
 
 + (NSURL *)URLforFacebookLogin {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/authenticate/facebook", BASEURL]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/user/authenticate/facebook", BASEURL]];
 }
 
 

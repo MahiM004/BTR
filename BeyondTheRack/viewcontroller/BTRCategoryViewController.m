@@ -81,7 +81,7 @@
 }
 
 
--(void)tableCellDidSelect:(UITableViewCell *)cell{
+- (void)tableCellDidSelect:(UITableViewCell *)cell{
     
     NSLog(@"Tap %@",cell.textLabel.text);
     //DetailViewController *detailVC = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];

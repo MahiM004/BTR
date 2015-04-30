@@ -58,13 +58,15 @@
     sharedFacetHandler.searchString = @"";
 }
 
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
+
+- (void)viewDidLayoutSubviews {
     
+    [super viewDidLayoutSubviews];
 }
 
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
@@ -73,6 +75,7 @@
 
 
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -164,6 +167,17 @@
 
 
 @end
+
+
+
+
+
+
+
+
+
+
+
 
 
 
