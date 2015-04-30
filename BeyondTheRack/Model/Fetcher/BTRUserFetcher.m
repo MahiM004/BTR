@@ -50,7 +50,7 @@
 }
 
 
-+ (NSURL *)URLforFacebookLogin {
++ (NSURL *)URLforFacebookAuthentication {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/authenticate/facebook", BASEURL]];
 }
 

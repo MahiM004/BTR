@@ -126,18 +126,20 @@
                                                @"last_name": lastName,
                                                @"gender": gender
                                                });
+ 
                      
-                     [self fetchFacebookUserSessionIntoDocument:[self beyondTheRackDocument] forFacebookUserParams:fbParams success:^(NSString *didLogIn, NSString *alertString) {
+                     NSDictionary *fbUserAuthParams = (@{
+                                                 @"id": fbUserId,
+                                                 @"access_token": fbAccessToken
+                                                 });
+                     
+                     
+                     [self fetchFacebookUserSessionIntoDocument:[self beyondTheRackDocument] forFacebookUserParams:fbParams success:^(NSString *didLogIn) {
                          
-                         if ([didLogIn  isEqualToString:@"TRUE"]) {
-                             
-                             [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
-                         }
-                         else {
-                             
-                             [self alertUserForLoginErrorWithMessage:alertString];
-                         }
+                         [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+                        
                          
+                             
                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          
                          [self alertUserForLoginError];
@@ -316,10 +318,59 @@
 
 - (void)fetchFacebookUserSessionIntoDocument:(UIManagedDocument *)document
                        forFacebookUserParams:(NSDictionary *)fbUserParams
-                                     success:(void (^)(id  responseObject, NSString *alertString)) success
+                                     success:(void (^)(id  responseObject)) success
                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
 
+
+    [self attemptRegisterWithFacebookUserParams:fbUserParams success:^(NSString *didLogIn, NSString *alertString) {
+        
+        if ([didLogIn  isEqualToString:@"TRUE"]) {
+            
+            [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+        }
+        else {
+            
+            NSLog(@"sdfsf  1");
+             
+            if ([alertString containsString:@"Customer's facebook account is already linked to a BTR account"]) {
+                
+                NSLog(@"sdfsf  2");
+                
+                [self attemptAuthenticateWithFacebookUserParams:fbUserParams
+                                                        success:^(NSString *didLogIn, NSString *alertString)
+                 {
+                     NSLog(@"sdfsf  3");
+
+                     
+                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     
+                     
+                     NSLog(@"sdfsf  4");
+                     [self alertUserForLoginError];
+                 }];
+                
+             }
+             
+            
+            //[self alertUserForLoginErrorWithMessage:alertString];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self alertUserForLoginError];
+        
+    }];
+
+}
+
+
+
+- (void)attemptRegisterWithFacebookUserParams:(NSDictionary *)fbUserParams
+                                     success:(void (^)(id  responseObject, NSString *alertString)) success
+                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -333,10 +384,12 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
+              int i_success = -1;
               
-              int i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
+              if ([entitiesPropertyList valueForKey:@"success"])
+                  i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
+              
               NSString *alertString = [entitiesPropertyList valueForKey:@"error"];
-              
               
               if (i_success == 1) {
                   
@@ -350,17 +403,17 @@
                   [[NSUserDefaults standardUserDefaults] synchronize];
                   
                   [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
-                  [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                  [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
                   
                   success(@"TRUE", nil);
-               
+                  
               } else if (i_success == 0){
-               
+                  
                   [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Session"];
                   [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Username"];
                   [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
                   [[NSUserDefaults standardUserDefaults] synchronize];
-               
+                  
                   success(@"FALSE", alertString);
               }
               
@@ -369,9 +422,47 @@
               [self alertUserForLoginError];
               
           }];
+    
 }
 
 
+
+- (void)attemptAuthenticateWithFacebookUserParams:(NSDictionary *)fbUserParams
+                                      success:(void (^)(id  responseObject, NSString *alertString)) success
+                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    
+    [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookAuthentication]]
+       parameters:fbUserParams
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+              
+              NSLog(@"sdfsdfs 7  - object: %@", entitiesPropertyList);
+              
+              [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+
+              
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              
+              NSLog(@"sdfsdfs 7");
+
+              
+              [self alertUserForLoginError];
+              
+          }];
+    
+}
 
 
 

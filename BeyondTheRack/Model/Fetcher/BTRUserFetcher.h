@@ -19,7 +19,6 @@
 + (NSURL *)URLforUserOrderItems;
 + (NSURL *)URLforUserRegistration;
 + (NSURL *)URLforFacebookRegistration;
-+ (NSURL *)URLforFacebookLogin;
-
++ (NSURL *)URLforFacebookAuthentication;
 
 @end
