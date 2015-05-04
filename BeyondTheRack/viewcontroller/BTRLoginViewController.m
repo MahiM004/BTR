@@ -59,7 +59,6 @@
 
     [super viewDidLoad];
     
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeTokenChange:) name:FBSDKAccessTokenDidChangeNotification object:nil];
     self.fbButton.readPermissions = @[@"public_profile", @"email"];
     
     [self setupDocument];
@@ -126,15 +125,17 @@
                                                @"last_name": lastName,
                                                @"gender": gender
                                                });
- 
-                     NSDictionary *fbUserAuthParams = (@{
-                                                 @"id": fbUserId,
-                                                 @"access_token": fbAccessToken
-                                                 });
                      
-                     [self fetchFacebookUserSessionIntoDocument:[self beyondTheRackDocument] forFacebookUserParams:fbParams success:^(NSString *didLogIn) {
+                     [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
                          
-                         [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+                         if ([didLogIn isEqualToString:@"TRUE"]) {
+                         
+                             [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+                         
+                         } else {
+                             
+                             [self alertUserForLoginError];
+                         }
                          
                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          
@@ -152,7 +153,6 @@
 
 
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
-    NSLog(@"loginButtonDidLogOut");
 }
 
 
@@ -216,26 +216,6 @@
     [alert show];
 }
 
-
-/*
-#pragma mark - Observations
-
-
-- (void)observeTokenChange:(NSNotification *)notfication {
-    
-    //NSLog(@"observeTokenChange: %@    -- for User: %@", [[FBSDKAccessToken currentAccessToken] tokenString], [[FBSDKAccessToken currentAccessToken] userID]);
-    
-    if (![FBSDKAccessToken currentAccessToken]) {
-        
-        // [self.continueButton setTitle:@"continue as a guest" forState:UIControlStateNormal];
-    } else {
-        
-       // [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
-        
-        int needs_session_from_backend;
-    }
-}
-*/
 
 #pragma mark - Load User RESTful
 
@@ -308,49 +288,41 @@
 
 
 
-- (void)fetchFacebookUserSessionIntoDocument:(UIManagedDocument *)document
-                       forFacebookUserParams:(NSDictionary *)fbUserParams
+- (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
                                      success:(void (^)(id  responseObject)) success
                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
 
-
     [self attemptAuthenticateWithFacebookUserParams:fbUserParams
                                             success:^(NSString *didLogIn, NSString *alertString)
      {
-         
-         [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+         if ([didLogIn  isEqualToString:@"TRUE"]) {
+             
+             success(@"TRUE");
+             
+         } else {
+             
+             [self attemptRegisterWithFacebookUserParams:fbUserParams success:^(NSString *didLogIn, NSString *alertString) {
+                 
+                 if ([didLogIn  isEqualToString:@"TRUE"]) {
+                     
+                     success(@"TRUE");
+                     
+                 } else {
+                     
+                     success(@"FALSE");
+                 }
+                 
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 
+                 success(@"FALSE");
+             }];
+         }
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
-         [self alertUserForLoginError];
+         success(@"FALSE");
      }];
-
-    
-    /*
-    [self attemptRegisterWithFacebookUserParams:fbUserParams success:^(NSString *didLogIn, NSString *alertString) {
-        
-        if ([didLogIn  isEqualToString:@"TRUE"]) {
-            
-            [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
-        }
-        else {
-            
-            if ([alertString containsString:@"Customer's facebook account is already linked to a BTR account"]) {
-                
-                
-                
-             }
-             
-            
-            //[self alertUserForLoginErrorWithMessage:alertString];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        [self alertUserForLoginError];
-        
-    }];*/
 
 }
 
@@ -371,6 +343,8 @@
        parameters:fbUserParams
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
+              BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
@@ -387,7 +361,6 @@
                   NSDictionary *userDic = entitiesPropertyList[@"user"];
                   NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
                   
-                  BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
                   [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:YES];
                   
                   [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
@@ -397,7 +370,6 @@
                   
               } else if (i_success == 0){
                   
-                  BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
                   [btrSettings clearSession];
                   
                   success(@"FALSE", alertString);
@@ -428,23 +400,39 @@
        parameters:fbUserParams
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
+              BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+
+              
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
               
-
               NSDictionary *sessionObject = entitiesPropertyList[@"session"];
-              NSLog(@"sdfsdfs 7  - object: %@", entitiesPropertyList);
-              
-              
+              NSString *sessionIdString = sessionObject[@"session_id"];
 
+              NSDictionary *userObject = entitiesPropertyList[@"user"];
+              NSString *email = userObject[@"email"];
+              NSString *password = userObject[@"password"];
+              
+              
+              int i_success = -1;
+              
+              if ([entitiesPropertyList valueForKey:@"success"])
+                  i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
+              
+              if (i_success == 1) {
+                  
+                  [btrSettings initSessionId:sessionIdString withEmail:email andPassword:password hasFBloggedIn:YES];
+                  success(@"TRUE", nil);
+                  
+              } else if (i_success == 0){
+                  
+                  [btrSettings clearSession];
+                  success(@"FALSE", nil);
+              }
               
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              
-              NSLog(@"sdfsdfs 7");
-
               
               [self alertUserForLoginError];
               

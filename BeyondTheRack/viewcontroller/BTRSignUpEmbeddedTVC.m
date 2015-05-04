@@ -177,6 +177,12 @@
 }
 
 
+
+
+#pragma mark - Alerts
+
+
+
 - (void)alertUserForSignUpError {
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please try agian"
@@ -226,6 +232,8 @@
 }
 
 
+
+
 - (void)alertSystemFieldIncomplete:(NSString *)fieldString
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Form"
@@ -236,6 +244,36 @@
     [alert show];
 }
 
+
+
+
+- (void)alertUserForLoginError {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please try agian"
+                                                    message:@"Email or Password Incorrect !"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    [alert show];
+}
+
+
+
+- (void)alertUserForLoginErrorWithMessage:(NSString *)messageString {
+    
+    
+    NSString *alertMessage = @"Email or Password Incorrect !";
+    
+    if ([messageString length] > 0)
+        alertMessage = messageString;
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error!"
+                                                    message:alertMessage
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    [alert show];
+}
 
 
 
@@ -312,6 +350,163 @@
 }
 
 
+
+
+- (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
+                                              success:(void (^)(id  responseObject)) success
+                                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    
+    [self attemptAuthenticateWithFacebookUserParams:fbUserParams
+                                            success:^(NSString *didLogIn, NSString *alertString)
+     {
+         if ([didLogIn  isEqualToString:@"TRUE"]) {
+             
+             success(@"TRUE");
+             
+         } else {
+             
+             [self attemptRegisterWithFacebookUserParams:fbUserParams success:^(NSString *didLogIn, NSString *alertString) {
+                 
+                 if ([didLogIn  isEqualToString:@"TRUE"]) {
+                     
+                     success(@"TRUE");
+                     
+                 } else {
+                     
+                     success(@"FALSE");
+                 }
+                 
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 
+                 success(@"FALSE");
+             }];
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         success(@"FALSE");
+     }];
+    
+}
+
+
+
+- (void)attemptRegisterWithFacebookUserParams:(NSDictionary *)fbUserParams
+                                      success:(void (^)(id  responseObject, NSString *alertString)) success
+                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    
+    [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookRegistration]]
+       parameters:fbUserParams
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+              
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+              int i_success = -1;
+              
+              if ([entitiesPropertyList valueForKey:@"success"])
+                  i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
+              
+              NSString *alertString = [entitiesPropertyList valueForKey:@"error"];
+              
+              if (i_success == 1) {
+                  
+                  NSDictionary *tempDic = entitiesPropertyList[@"session"];
+                  NSDictionary *userDic = entitiesPropertyList[@"user"];
+                  NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
+                  
+                  [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:YES];
+                  
+                  [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
+                  [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                  
+                  success(@"TRUE", nil);
+                  
+              } else if (i_success == 0){
+                  
+                  [btrSettings clearSession];
+                  
+                  success(@"FALSE", alertString);
+              }
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              [self alertUserForLoginError];
+              
+          }];
+    
+}
+
+
+
+- (void)attemptAuthenticateWithFacebookUserParams:(NSDictionary *)fbUserParams
+                                          success:(void (^)(id  responseObject, NSString *alertString)) success
+                                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    
+    [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookAuthentication]]
+       parameters:fbUserParams
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+              
+              
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+              
+              NSDictionary *sessionObject = entitiesPropertyList[@"session"];
+              NSString *sessionIdString = sessionObject[@"session_id"];
+              
+              NSDictionary *userObject = entitiesPropertyList[@"user"];
+              NSString *email = userObject[@"email"];
+              NSString *password = userObject[@"password"];
+              
+              
+              int i_success = -1;
+              
+              if ([entitiesPropertyList valueForKey:@"success"])
+                  i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
+              
+              if (i_success == 1) {
+                  
+                  [btrSettings initSessionId:sessionIdString withEmail:email andPassword:password hasFBloggedIn:YES];
+                  success(@"TRUE", nil);
+                  
+              } else if (i_success == 0){
+                  
+                  [btrSettings clearSession];
+                  success(@"FALSE", nil);
+              }
+              
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              [self alertUserForLoginError];
+              
+          }];
+    
+}
+
+
+
+
 #pragma mark - PickerView Delegates
 
 
@@ -372,12 +567,6 @@
 
 
 
-
-
-
-
-
-
 /*
 #pragma mark - Navigation
 
@@ -389,3 +578,35 @@
 */
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

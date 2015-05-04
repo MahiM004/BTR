@@ -99,6 +99,19 @@ static NSString *const kFullName = @"fullName";
 }
 
 
+- (void)clearSession {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"" forKey:kSessionId];
+    [defaults setObject:@"" forKey:kEmail];
+    [defaults setObject:@"" forKey:kPassword];
+    [defaults setObject:@"" forKey:kFullName];
+    [defaults setBool:NO forKey:kLoggedInWithFacebook];
+    
+    [defaults synchronize];
+}
+
+
 - (void)initSessionId:(NSString *)sessionId withEmail:(NSString *)email andPassword:(NSString *)password hasFBloggedIn:(BOOL)fbLoggedIn {
     
 
@@ -126,17 +139,7 @@ static NSString *const kFullName = @"fullName";
 }
 
 
-- (void)clearSession {
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:@"" forKey:kSessionId];
-    [defaults setObject:@"" forKey:kEmail];
-    [defaults setObject:@"" forKey:kPassword];
-    [defaults setObject:@"" forKey:kFullName];
-    [defaults setBool:NO forKey:kLoggedInWithFacebook];
-    
-    [defaults synchronize];
-}
 
 
 

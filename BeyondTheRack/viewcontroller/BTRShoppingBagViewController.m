@@ -96,7 +96,7 @@
                                            userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
-    NSLog(@"re-reserve is not ready on is ignored");
+    NSLog(@"re-reserve is ignored");
 }
 
 
