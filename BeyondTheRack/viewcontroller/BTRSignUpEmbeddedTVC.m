@@ -69,7 +69,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
-    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+    self.sessionId = [btrSettings sessionId];
 }
 
 - (void)viewDidLoad {
@@ -287,12 +288,10 @@
                   NSDictionary *sessionDic = entitiesPropertyList[@"session"];
                   NSDictionary *userDic = entitiesPropertyList[@"user"];
                   NSString *sessionIdString = [sessionDic valueForKey:@"session_id"];
-                  
-                  [[NSUserDefaults standardUserDefaults] setValue:sessionIdString forKey:@"Session"];
-                  [[NSUserDefaults standardUserDefaults] setValue:[[self emailTextField] text] forKey:@"Username"];
-                  [[NSUserDefaults standardUserDefaults] setValue:[[self passwordTextField] text] forKey:@"Password"];
-                  [[NSUserDefaults standardUserDefaults] synchronize];
 
+                  BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+                  [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text]];
+                  
                   [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                   [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
                   

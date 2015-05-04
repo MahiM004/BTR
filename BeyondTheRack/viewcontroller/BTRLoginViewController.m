@@ -127,19 +127,15 @@
                                                @"gender": gender
                                                });
  
-                     
                      NSDictionary *fbUserAuthParams = (@{
                                                  @"id": fbUserId,
                                                  @"access_token": fbAccessToken
                                                  });
                      
-                     
                      [self fetchFacebookUserSessionIntoDocument:[self beyondTheRackDocument] forFacebookUserParams:fbParams success:^(NSString *didLogIn) {
                          
                          [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
-                        
                          
-                             
                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          
                          [self alertUserForLoginError];
@@ -286,10 +282,8 @@
                   NSDictionary *userDic = entitiesPropertyList[@"user"];
                   NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
                   
-                  [[NSUserDefaults standardUserDefaults] setValue:sessionIdString forKey:@"Session"];
-                  [[NSUserDefaults standardUserDefaults] setValue:[[self emailTextField] text] forKey:@"Username"];
-                  [[NSUserDefaults standardUserDefaults] setValue:[[self passwordTextField] text] forKey:@"Password"];
-                  [[NSUserDefaults standardUserDefaults] synchronize];
+                  BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+                  [btrSettings initSessionId:sessionIdString withEmail:[[self emailTextField] text] andPassword:[[self passwordTextField] text]];
                   
                   [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                   [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -298,10 +292,8 @@
      
               } else {
                   
-                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Session"];
-                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Username"];
-                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
-                  [[NSUserDefaults standardUserDefaults] synchronize];
+                  BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+                  [btrSettings clearSession];
                   
                   success(@"FALSE");
               }
@@ -323,6 +315,19 @@
 {
 
 
+    [self attemptAuthenticateWithFacebookUserParams:fbUserParams
+                                            success:^(NSString *didLogIn, NSString *alertString)
+     {
+         
+         NSLog(@"d");
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         [self alertUserForLoginError];
+     }];
+
+    
+    /*
     [self attemptRegisterWithFacebookUserParams:fbUserParams success:^(NSString *didLogIn, NSString *alertString) {
         
         if ([didLogIn  isEqualToString:@"TRUE"]) {
@@ -331,24 +336,9 @@
         }
         else {
             
-            NSLog(@"sdfsf  1");
-             
             if ([alertString containsString:@"Customer's facebook account is already linked to a BTR account"]) {
                 
-                NSLog(@"sdfsf  2");
                 
-                [self attemptAuthenticateWithFacebookUserParams:fbUserParams
-                                                        success:^(NSString *didLogIn, NSString *alertString)
-                 {
-                     NSLog(@"sdfsf  3");
-
-                     
-                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     
-                     
-                     NSLog(@"sdfsf  4");
-                     [self alertUserForLoginError];
-                 }];
                 
              }
              
@@ -360,7 +350,7 @@
         
         [self alertUserForLoginError];
         
-    }];
+    }];*/
 
 }
 
@@ -397,10 +387,8 @@
                   NSDictionary *userDic = entitiesPropertyList[@"user"];
                   NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
                   
-                  [[NSUserDefaults standardUserDefaults] setValue:sessionIdString forKey:@"Session"];
-                  [[NSUserDefaults standardUserDefaults] setValue:[[self emailTextField] text] forKey:@"Username"];
-                  [[NSUserDefaults standardUserDefaults] setValue:[[self passwordTextField] text] forKey:@"Password"];
-                  [[NSUserDefaults standardUserDefaults] synchronize];
+                  BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+                  [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text]];
                   
                   [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                   [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -409,10 +397,8 @@
                   
               } else if (i_success == 0){
                   
-                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Session"];
-                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Username"];
-                  [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
-                  [[NSUserDefaults standardUserDefaults] synchronize];
+                  BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+                  [btrSettings clearSession];
                   
                   success(@"FALSE", alertString);
               }
@@ -446,7 +432,12 @@
                                                                                    options:0
                                                                                      error:NULL];
               
-              NSLog(@"sdfsdfs 7  - object: %@", entitiesPropertyList);
+
+              NSDictionary *sessionObject = entitiesPropertyList[@"session"];
+              NSLog(@"sdfsdfs 7  - object: %@", sessionObject[@"session_id"]);
+              
+              
+              int save_session_id;
               
               [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
 

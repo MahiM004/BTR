@@ -49,7 +49,9 @@
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setCurrencySymbol:@"$"];
     
-    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+    self.sessionId = [btrSettings sessionId];
+    
     self.bagTitleLabel.text = [NSString stringWithFormat:@"Edit Bag (%lu)", (unsigned long)[self getCountofBagItems]];
     
     NSTimer *timer = [NSTimer timerWithTimeInterval:1.0

@@ -43,7 +43,9 @@
 {
     [super viewWillAppear:animated];
     
-    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+    self.sessionId = [btrSettings sessionId];
+    
     
     [self getCartCountServerCallforSessionId:[self sessionId] success:^(NSString *bagCountString) {
         

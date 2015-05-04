@@ -125,7 +125,7 @@
 		69FF40771A3F8939000BD092 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40761A3F8939000BD092 /* Images.xcassets */; };
 		69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40781A3F8939000BD092 /* LaunchScreen.xib */; };
 		69FF40861A3F8939000BD092 /* BeyondTheRackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */; };
-		B321351D1AEFE0E900285B12 /* BTRSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B321351C1AEFE0E900285B12 /* BTRSettings.m */; };
+		B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */; };
 		B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */; };
 		B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */; };
 		B3699B231AEA9CFD009D6A48 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1D1AEA9CFD009D6A48 /* FBSDKCoreKit.framework */; };
@@ -365,8 +365,8 @@
 		69FF407F1A3F8939000BD092 /* BeyondTheRackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeyondTheRackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		69FF40841A3F8939000BD092 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BeyondTheRackTests.m; sourceTree = "<group>"; };
-		B321351B1AEFE0E900285B12 /* BTRSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSettings.h; sourceTree = "<group>"; };
-		B321351C1AEFE0E900285B12 /* BTRSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSettings.m; sourceTree = "<group>"; };
+		B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSessionSettings.h; sourceTree = "<group>"; };
+		B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSessionSettings.m; sourceTree = "<group>"; };
 		B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		B3699B1D1AEA9CFD009D6A48 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -644,8 +644,8 @@
 				692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */,
 				6901EA481ADEC919002534D9 /* BTRBagHandler.h */,
 				6901EA491ADEC919002534D9 /* BTRBagHandler.m */,
-				B321351B1AEFE0E900285B12 /* BTRSettings.h */,
-				B321351C1AEFE0E900285B12 /* BTRSettings.m */,
+				B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */,
+				B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -1033,7 +1033,7 @@
 				69B02CAD1A5DA70700040C86 /* BTREventsCDTVC.m in Sources */,
 				69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
-				B321351D1AEFE0E900285B12 /* BTRSettings.m in Sources */,
+				B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */,
 				6900B4DD1AB7747900930D16 /* FAImageView.m in Sources */,
 				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,
 				692F24E11AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m in Sources */,

@@ -70,7 +70,9 @@
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setCurrencySymbol:@"$"];
     
-    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+    self.sessionId = [btrSettings sessionId];
+    
     
     [self getCartServerCallforSessionId:[self sessionId] success:^(NSString *succString) {
         

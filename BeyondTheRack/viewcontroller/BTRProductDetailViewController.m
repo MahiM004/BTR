@@ -54,7 +54,9 @@
     
     [super viewDidLoad];
     
-    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+    self.sessionId = [btrSettings sessionId];
+    
     self.variant = SIZE_NOT_SELECTED_STRING;
     
     [self setupDocument];

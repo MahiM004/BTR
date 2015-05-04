@@ -86,7 +86,9 @@
      *
      */
     NSString *segueId= @"BTRLoginViewController";
-    NSString * _Session = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
+    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+    NSString * _Session = [btrSettings sessionId];
+    
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     
     //segueId = @"BTRMainViewController";
@@ -96,7 +98,6 @@
         self.window.rootViewController = rootViewController;
         [self.window makeKeyAndVisible];
     }
-    int needs_session_from_backend;
 
     /*
     // If there's already a cached token, read the profile information.

@@ -40,8 +40,8 @@
     
     [super viewDidLoad];
  
-    self.sessionId = [[NSUserDefaults standardUserDefaults] stringForKey:@"Session"];
-
+    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+    self.sessionId  = [btrSettings sessionId];
     
     [self setupDocument];
     
@@ -68,10 +68,8 @@
 
     [self logutUserServerCallforSessionId:[self sessionId] success:^(NSString *didSucceed) {
         
-        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Session"];
-        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Username"];
-        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"Password"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+        [btrSettings clearSession];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         BTRLoginViewController *viewController = (BTRLoginViewController *)[storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
