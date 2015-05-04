@@ -17,14 +17,17 @@
 - (NSString *)sessionId;
 - (void)setSessionId:(NSString *)sessionId;
 
+- (BOOL)shouldSkipLogin;
+- (BOOL)fbLoggedIn;
+
 - (NSString *)email;
 - (NSString *)password;
 - (NSString *)fullName;
 
 - (void)clearSession;
 
-- (void)initSessionId:(NSString *)sessionId withEmail:(NSString *)email andPassword:(NSString *)password;
-- (void)initSessionId:(NSString *)sessionId withEmail:(NSString *)email andPassword:(NSString *)password forName:(NSString *)fullName;
+- (void)initSessionId:(NSString *)sessionId withEmail:(NSString *)email andPassword:(NSString *)password hasFBloggedIn:(BOOL)fbLoggedIn;
+- (void)initSessionId:(NSString *)sessionId withEmail:(NSString *)email andPassword:(NSString *)password hasFBloggedIn:(BOOL)fbLoggedIn forName:(NSString *)fullName;
 
 
 

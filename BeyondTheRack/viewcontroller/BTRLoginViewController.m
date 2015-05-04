@@ -283,7 +283,7 @@
                   NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
                   
                   BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-                  [btrSettings initSessionId:sessionIdString withEmail:[[self emailTextField] text] andPassword:[[self passwordTextField] text]];
+                  [btrSettings initSessionId:sessionIdString withEmail:[[self emailTextField] text] andPassword:[[self passwordTextField] text] hasFBloggedIn:NO];
                   
                   [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                   [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -319,7 +319,7 @@
                                             success:^(NSString *didLogIn, NSString *alertString)
      {
          
-         NSLog(@"d");
+         [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -388,7 +388,7 @@
                   NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
                   
                   BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-                  [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text]];
+                  [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:YES];
                   
                   [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                   [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -434,12 +434,9 @@
               
 
               NSDictionary *sessionObject = entitiesPropertyList[@"session"];
-              NSLog(@"sdfsdfs 7  - object: %@", sessionObject[@"session_id"]);
+              NSLog(@"sdfsdfs 7  - object: %@", entitiesPropertyList);
               
               
-              int save_session_id;
-              
-              [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
 
               
               

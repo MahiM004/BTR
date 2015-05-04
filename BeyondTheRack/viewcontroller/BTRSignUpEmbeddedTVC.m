@@ -290,7 +290,7 @@
                   NSString *sessionIdString = [sessionDic valueForKey:@"session_id"];
 
                   BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-                  [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text]];
+                  [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:NO];
                   
                   [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                   [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -337,6 +337,8 @@
     [self.viewForPicker setHidden:TRUE];
 }
 
+
+
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
     if ([self pickerType] == COUNTRY_PICKER)
@@ -345,9 +347,12 @@
     return [[self genderNameArray] count];
 }
 
+
+
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
+
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
 
@@ -356,6 +361,7 @@
         
     return [[self genderNameArray] objectAtIndex:row];
 }
+
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     int sectionWidth = 300;
