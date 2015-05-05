@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRSignUpEmbeddedTVC : UITableViewController <UIPickerViewDelegate>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
+
+@interface BTRSignUpEmbeddedTVC : UITableViewController <UIPickerViewDelegate, FBSDKLoginButtonDelegate>
+
+
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbButton;
+
 
 @end

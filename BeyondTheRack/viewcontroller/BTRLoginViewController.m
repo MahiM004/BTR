@@ -86,76 +86,6 @@
 }
 
 
-#pragma mark - FBSDKLoginButtonDelegate
-
-- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
-    
-        
-    if (error) {
-        
-        NSLog(@"Unexpected login error: %@", error);
-        NSString *alertMessage = error.userInfo[FBSDKErrorLocalizedDescriptionKey] ?: @"There was a problem logging in. Please try again later.";
-        NSString *alertTitle = error.userInfo[FBSDKErrorLocalizedTitleKey] ?: @"Oops";
-        [[[UIAlertView alloc] initWithTitle:alertTitle
-                                    message:alertMessage
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil] show];
-    } else {
-        
-        if ([FBSDKAccessToken currentAccessToken]) {
-            
-            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
-             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
-                 
-                 if (!error) {
-                  
-                     NSString *email = [responseObject valueForKeyPath:@"email"];
-                     NSString *firstName = [responseObject valueForKeyPath:@"first_name"];
-                     NSString *lastName = [responseObject valueForKeyPath:@"last_name"];
-                     NSString *gender=[responseObject valueForKeyPath:@"gender"];
-                     NSString *fbUserId = [responseObject valueForKeyPath:@"id"];
-                     NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
-                     
-                     NSDictionary *fbParams = (@{
-                                               @"id": fbUserId,
-                                               @"access_token": fbAccessToken,
-                                               @"email": email,
-                                               @"first_name": firstName,
-                                               @"last_name": lastName,
-                                               @"gender": gender
-                                               });
-                     
-                     [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
-                         
-                         if ([didLogIn isEqualToString:@"TRUE"]) {
-                         
-                             [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
-                         
-                         } else {
-                             
-                             [self alertUserForLoginError];
-                         }
-                         
-                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                         
-                         [self alertUserForLoginError];
-
-                     }];
-                     
-                 } else {
-                     NSLog(@"graph api error: %@", error);
-                 }
-             }];
-        }
-    }
-}
-
-
-- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
-}
-
-
 - (void)dismissKeyboard {
     
     [self.passwordTextField resignFirstResponder];
@@ -215,6 +145,80 @@
                                           otherButtonTitles:@"Ok", nil];
     [alert show];
 }
+
+
+
+#pragma mark - FBSDKLoginButtonDelegate
+
+
+
+- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
+    
+    
+    if (error) {
+        
+        NSLog(@"Unexpected login error: %@", error);
+        NSString *alertMessage = error.userInfo[FBSDKErrorLocalizedDescriptionKey] ?: @"There was a problem logging in. Please try again later.";
+        NSString *alertTitle = error.userInfo[FBSDKErrorLocalizedTitleKey] ?: @"Oops";
+        [[[UIAlertView alloc] initWithTitle:alertTitle
+                                    message:alertMessage
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    } else {
+        
+        if ([FBSDKAccessToken currentAccessToken]) {
+            
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
+                 
+                 if (!error) {
+                     
+                     NSString *email = [responseObject valueForKeyPath:@"email"];
+                     NSString *firstName = [responseObject valueForKeyPath:@"first_name"];
+                     NSString *lastName = [responseObject valueForKeyPath:@"last_name"];
+                     NSString *gender=[responseObject valueForKeyPath:@"gender"];
+                     NSString *fbUserId = [responseObject valueForKeyPath:@"id"];
+                     NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
+                     
+                     NSDictionary *fbParams = (@{
+                                                 @"id": fbUserId,
+                                                 @"access_token": fbAccessToken,
+                                                 @"email": email,
+                                                 @"first_name": firstName,
+                                                 @"last_name": lastName,
+                                                 @"gender": gender
+                                                 });
+                     
+                     [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
+                         
+                         if ([didLogIn isEqualToString:@"TRUE"]) {
+                             
+                             [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+                             
+                         } else {
+                             
+                             [self alertUserForLoginError];
+                         }
+                         
+                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         
+                         [self alertUserForLoginError];
+                         
+                     }];
+                     
+                 } else {
+                     NSLog(@"graph api error: %@", error);
+                 }
+             }];
+        }
+    }
+}
+
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+}
+
 
 
 #pragma mark - Load User RESTful
@@ -419,7 +423,7 @@
               
               if ([entitiesPropertyList valueForKey:@"success"])
                   i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
-              
+               
               if (i_success == 1) {
                   
                   [btrSettings initSessionId:sessionIdString withEmail:email andPassword:password hasFBloggedIn:YES];

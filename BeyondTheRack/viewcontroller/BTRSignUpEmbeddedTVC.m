@@ -11,6 +11,9 @@
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
+
 #define COUNTRY_PICKER 1
 #define GENDER_PICKER 2
 
@@ -276,8 +279,84 @@
 }
 
 
+#pragma mark - FBSDKLoginButtonDelegate
+
+
+
+- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
+   
+    if (error) {
+        
+        NSLog(@"Unexpected login error: %@", error);
+        NSString *alertMessage = error.userInfo[FBSDKErrorLocalizedDescriptionKey] ?: @"There was a problem logging in. Please try again later.";
+        NSString *alertTitle = error.userInfo[FBSDKErrorLocalizedTitleKey] ?: @"Oops";
+        [[[UIAlertView alloc] initWithTitle:alertTitle
+                                    message:alertMessage
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    } else {
+        
+        if ([FBSDKAccessToken currentAccessToken]) {
+            
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
+                 
+                 if (!error) {
+                     
+                     NSString *email = [responseObject valueForKeyPath:@"email"];
+                     NSString *firstName = [responseObject valueForKeyPath:@"first_name"];
+                     NSString *lastName = [responseObject valueForKeyPath:@"last_name"];
+                     NSString *gender=[responseObject valueForKeyPath:@"gender"];
+                     NSString *fbUserId = [responseObject valueForKeyPath:@"id"];
+                     NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
+                     
+                     NSDictionary *fbParams = (@{
+                                                 @"id": fbUserId,
+                                                 @"access_token": fbAccessToken,
+                                                 @"email": email,
+                                                 @"first_name": firstName,
+                                                 @"last_name": lastName,
+                                                 @"gender": gender
+                                                 });
+                     
+                     [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
+                         
+                         if ([didLogIn isEqualToString:@"TRUE"]) {
+                             
+                             [self performSegueWithIdentifier:@"SignUpToMainSceneSegueIdentifier" sender:self];
+                             
+                         } else {
+                             
+                             [self alertUserForLoginError];
+                         }
+                         
+                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         
+                         [self alertUserForLoginError];
+                         
+                     }];
+                     
+                 } else {
+                     
+                     NSLog(@"graph api error: %@", error);
+                 }
+             }];
+        }
+    }
+}
+
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+}
+
+
+
+
 
 #pragma mark - User Registration RESTful
+
+
 
 - (void)setupDocument
 {
@@ -320,6 +399,7 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
+              
               if (entitiesPropertyList) {
                   
                   NSDictionary *infoDic = entitiesPropertyList[@"info"];
@@ -357,17 +437,17 @@
                                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     
-    [self attemptAuthenticateWithFacebookUserParams:fbUserParams
-                                            success:^(NSString *didLogIn, NSString *alertString)
-     {
-         if ([didLogIn  isEqualToString:@"TRUE"]) {
-             
-             success(@"TRUE");
-             
-         } else {
-             
-             [self attemptRegisterWithFacebookUserParams:fbUserParams success:^(NSString *didLogIn, NSString *alertString) {
-                 
+    [self attemptRegisterWithFacebookUserParams:fbUserParams success:^(NSString *didLogIn, NSString *alertString) {
+        
+        if ([didLogIn  isEqualToString:@"TRUE"]) {
+        
+            success(@"TRUE");
+            
+        } else {
+            
+            [self attemptAuthenticateWithFacebookUserParams:fbUserParams
+                                                    success:^(NSString *didLogIn, NSString *alertString)
+             {
                  if ([didLogIn  isEqualToString:@"TRUE"]) {
                      
                      success(@"TRUE");
@@ -381,12 +461,13 @@
                  
                  success(@"FALSE");
              }];
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         success(@"FALSE");
-     }];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        success(@"FALSE");
+        
+    }];
     
 }
 
@@ -412,6 +493,7 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
+              
               int i_success = -1;
               
               if ([entitiesPropertyList valueForKey:@"success"])
@@ -495,7 +577,6 @@
                   success(@"FALSE", nil);
               }
               
-              
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
               [self alertUserForLoginError];
@@ -566,16 +647,6 @@
 
 
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
 

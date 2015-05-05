@@ -839,6 +839,13 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TIs-yz-8cR" customClass="FBSDKLoginButton">
+                                                            <rect key="frame" x="16" y="117" width="288" height="50"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="ggQ-Fq-uBL" id="PIr-uk-PdB"/>
+                                                            </connections>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -858,6 +865,7 @@
                         <outlet property="countryTextField" destination="Urc-M0-RPB" id="cAE-XD-7v8"/>
                         <outlet property="emailIconLabel" destination="GfO-db-J3H" id="Z0e-OD-0hV"/>
                         <outlet property="emailTextField" destination="bvp-qG-w2h" id="W3J-DN-5a5"/>
+                        <outlet property="fbButton" destination="TIs-yz-8cR" id="IdI-oZ-S04"/>
                         <outlet property="firstNameIconLabel" destination="F1s-Wn-0GD" id="2ct-6Z-URG"/>
                         <outlet property="firstNameTextField" destination="iZp-yf-KuL" id="fnm-1J-GNf"/>
                         <outlet property="genderIconLabel" destination="zAN-Ru-04Q" id="Yn5-ka-kqx"/>
@@ -882,7 +890,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="C682F69C-E9BD-4FC3-A38C-02BB1393FA63" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="7A5393EC-51D1-4DCD-9E53-D70B7B1DD19C" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -2558,8 +2566,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="C682F69C-E9BD-4FC3-A38C-02BB1393FA63" width="30" height="30">
+        <image name="7A5393EC-51D1-4DCD-9E53-D70B7B1DD19C" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -2617,6 +2624,7 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
+        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>
         <image name="facebook_flat_login.png" width="716" height="132"/>
