@@ -441,7 +441,6 @@
    
     if ([allKeys count] == 0) {
         
-        NSLog(@"no info");
         return btrSizeModeNoInfo;
     }
     

@@ -160,16 +160,18 @@
     if ([self allFieldsAreValid]) {
      
         [self userRegistrationServerCallforSessionId:[self sessionId]
-                                             success:^(NSString *didSignUp)
+                                             success:^(NSString *didSignUp, NSString *messageString)
         {
-            
             if ([didSignUp  isEqualToString:@"TRUE"]) {
                 
                 [self performSegueWithIdentifier:@"SignUpToMainSceneSegueIdentifier" sender:self];
             
             } else {
                 
-                [self alertUserForSignUpError];
+                if (messageString == nil)
+                    [self alertUserForSignUpError];
+                else
+                    [self alertUserForLoginErrorWithMessage:messageString];
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -369,7 +371,7 @@
 
 
 - (void)userRegistrationServerCallforSessionId:(NSString *)sessionId
-                                success:(void (^)(id  responseObject)) success
+                                success:(void (^)(id  responseObject, NSString *messageString)) success
                                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     
@@ -402,22 +404,33 @@
               
               if (entitiesPropertyList) {
                   
-                  NSDictionary *infoDic = entitiesPropertyList[@"info"];
-                  NSDictionary *sessionDic = entitiesPropertyList[@"session"];
-                  NSDictionary *userDic = entitiesPropertyList[@"user"];
-                  NSString *sessionIdString = [sessionDic valueForKey:@"session_id"];
+                  int error_code = (int)[[entitiesPropertyList valueForKey:@"error_code"] intValue];
+                  
+                  if (error_code == 400) {
+                      
+                      NSArray *messageArray = entitiesPropertyList[@"messages"];
+                      success(@"FALSE", messageArray[0]);
+                      
+                  } else {
+                      
+                      NSDictionary *infoDic = entitiesPropertyList[@"info"];
+                      NSDictionary *sessionDic = entitiesPropertyList[@"session"];
+                      NSDictionary *userDic = entitiesPropertyList[@"user"];
+                      NSString *sessionIdString = [sessionDic valueForKey:@"session_id"];
+                      
+                      BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+                      [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:NO];
+                      
+                      [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic inManagedObjectContext:[self managedObjectContext]];
+                      [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                      
+                      success(@"TRUE", nil);
 
-                  BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-                  [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:NO];
+                  }
                   
-                  [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic inManagedObjectContext:[self managedObjectContext]];
-                  [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-                  
-                  success(@"TRUE");
-              
               } else {
                
-                  success(@"FALSE");
+                  success(@"FALSE", nil);
               }
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -584,8 +597,6 @@
           }];
     
 }
-
-
 
 
 #pragma mark - PickerView Delegates
