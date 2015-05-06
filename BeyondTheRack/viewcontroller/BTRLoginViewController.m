@@ -352,6 +352,7 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
+              
               int i_success = -1;
               
               if ([entitiesPropertyList valueForKey:@"success"])
@@ -411,6 +412,7 @@
                                                                                    options:0
                                                                                      error:NULL];
               
+                            
               NSDictionary *sessionObject = entitiesPropertyList[@"session"];
               NSString *sessionIdString = sessionObject[@"session_id"];
 
