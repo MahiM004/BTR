@@ -91,31 +91,15 @@
     
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
     
-    //segueId = @"BTRMainViewController";
     if ([_Session length] < 10)
     {
         UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
         self.window.rootViewController = rootViewController;
         [self.window makeKeyAndVisible];
     }
-
-    /*
-    // If there's already a cached token, read the profile information.
-    if ([FBSDKAccessToken currentAccessToken]) {
-        
-     
-        [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
-        // User is logged in, do work such as go to next view controller.
-        
-        NSLog(@"trtr FBSDKAccessToken");
-        [self observeProfileChange:nil];
-    }
-    */
-    
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
-    //return YES;
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }

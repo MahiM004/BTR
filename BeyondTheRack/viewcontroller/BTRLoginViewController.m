@@ -412,7 +412,7 @@
                                                                                    options:0
                                                                                      error:NULL];
               
-                            
+              
               NSDictionary *sessionObject = entitiesPropertyList[@"session"];
               NSString *sessionIdString = sessionObject[@"session_id"];
 

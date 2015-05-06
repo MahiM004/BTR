@@ -160,21 +160,9 @@
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData) {
              
+             FBSDKLoginManager *fbAuth = [[FBSDKLoginManager alloc] init];
+             [fbAuth logOut];
              
-             int if_logged_in_with_facebook;
-             
-             
-             FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-             [login logOut];
-             
-             
-             /*
-             
-             if (FBSession.activeSession.isOpen)
-             {
-                 [FBSession.activeSession closeAndClearTokenInformation];
-             }
-             */
              success(@"TRUE");
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -187,9 +175,16 @@
 
 
 
-/*
-#pragma mark - Navigation
-
-*/
-
 @end
+
+
+
+
+
+
+
+
+
+
+
+
