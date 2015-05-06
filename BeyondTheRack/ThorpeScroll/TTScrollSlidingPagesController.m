@@ -64,7 +64,8 @@
 
         //self.titleScrollerBackgroundColour = [UIColor purpleColor];
 
-        UIImage *backgroundImage = [UIImage imageNamed:@"bareffect.png"];
+        //UIImage *backgroundImage = [UIImage imageNamed:@"bareffect.png"];
+        UIImage *backgroundImage = [UIImage imageNamed:nil];
         if (backgroundImage != nil){
           //self.titleScrollerBackgroundColour = [UIColor colorWithPatternImage:backgroundImage];
         } else {
@@ -115,7 +116,7 @@
         
         //UIImageView *logoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(60, 22, 200, 30)];
         //logoImageView.backgroundColor = [UIColor clearColor];
-        //logoImageView.image = [UIImage imageNamed:@"neulogo.png"];
+        //logoImageView.image = [UIImage imageNamed:nil];
         //[self.view addSubview:logoImageView];
 
         

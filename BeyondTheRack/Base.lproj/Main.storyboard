@@ -878,7 +878,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="6D3B53FE-153D-494D-82D4-737F6D1B9938" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="AB3E6FC3-B60D-4543-84BD-57EACE6813F9" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1344,7 +1344,7 @@
                                             <segue destination="3v7-Jt-o9h" kind="modal" id="UOj-vd-ERb"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neulogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="YpU-Z5-mVY">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YpU-Z5-mVY">
                                         <rect key="frame" x="60" y="10" width="162" height="24"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="searchglass.png" translatesAutoresizingMaskIntoConstraints="NO" id="bwJ-Os-Tqo" userLabel="searchicon.png">
@@ -2554,7 +2554,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="6D3B53FE-153D-494D-82D4-737F6D1B9938" width="30" height="30">
+        <image name="AB3E6FC3-B60D-4543-84BD-57EACE6813F9" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -2616,7 +2616,6 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="bagicon.png" width="420" height="490"/>
         <image name="facebookiconalpha.png" width="100" height="100"/>
         <image name="filtericon.png" width="420" height="490"/>
-        <image name="neulogo.png" width="925" height="125"/>
         <image name="neumyaccount.png" width="600" height="700"/>
         <image name="pinteresticonalpha.png" width="100" height="100"/>
         <image name="searchglass.png" width="500" height="583"/>

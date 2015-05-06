@@ -40,10 +40,6 @@
 		696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */; };
 		696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */; };
 		696508741AA74BDA00ED28B8 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508731AA74BDA00ED28B8 /* Image.m */; };
-		69659F0A1A7C240F00C52FC5 /* fillrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F071A7C240F00C52FC5 /* fillrange.png */; };
-		69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F081A7C240F00C52FC5 /* fullrange.png */; };
-		69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F091A7C240F00C52FC5 /* rangethumb.png */; };
-		69659F0E1A7C259F00C52FC5 /* fillrangeblue.png in Resources */ = {isa = PBXBuildFile; fileRef = 69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */; };
 		69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */; };
 		69659F1E1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69659F1D1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m */; };
 		69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */; };
@@ -207,10 +203,6 @@
 		696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailViewController.m; sourceTree = "<group>"; };
 		696508721AA74BDA00ED28B8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		696508731AA74BDA00ED28B8 /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
-		69659F071A7C240F00C52FC5 /* fillrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillrange.png; sourceTree = "<group>"; };
-		69659F081A7C240F00C52FC5 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullrange.png; sourceTree = "<group>"; };
-		69659F091A7C240F00C52FC5 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rangethumb.png; sourceTree = "<group>"; };
-		69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fillrangeblue.png; sourceTree = "<group>"; };
 		69659F191A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFilterWithModalTableViewCell.h; sourceTree = "<group>"; };
 		69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFilterWithModalTableViewCell.m; sourceTree = "<group>"; };
 		69659F1C1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRModalFilterSelectionVC.h; sourceTree = "<group>"; };
@@ -508,17 +500,6 @@
 			name = Checkout;
 			sourceTree = "<group>";
 		};
-		69659F151A7C326800C52FC5 /* slidericons */ = {
-			isa = PBXGroup;
-			children = (
-				69659F091A7C240F00C52FC5 /* rangethumb.png */,
-				69659F0D1A7C259F00C52FC5 /* fillrangeblue.png */,
-				69659F071A7C240F00C52FC5 /* fillrange.png */,
-				69659F081A7C240F00C52FC5 /* fullrange.png */,
-			);
-			name = slidericons;
-			sourceTree = "<group>";
-		};
 		697E057B1A432FCD000146C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -571,7 +552,6 @@
 				69867A041A43894B003CE59C /* neumyaccount.png */,
 				698679FC1A4351A4003CE59C /* neulogocentered.png */,
 				69807AE91A4210740001A154 /* neulogo.png */,
-				69659F151A7C326800C52FC5 /* slidericons */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -948,10 +928,8 @@
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
-				69659F0A1A7C240F00C52FC5 /* fillrange.png in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
 				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,
-				69659F0E1A7C259F00C52FC5 /* fillrangeblue.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
 				69AB985F1A76AB2200EDB1E6 /* pinteresticonalpha.png in Resources */,
@@ -960,8 +938,6 @@
 				6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */,
 				69AB985E1A76AB2200EDB1E6 /* facebookiconalpha.png in Resources */,
 				69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */,
-				69659F0B1A7C240F00C52FC5 /* fullrange.png in Resources */,
-				69659F0C1A7C240F00C52FC5 /* rangethumb.png in Resources */,
 				69867A071A438A8C003CE59C /* bagicon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -147,7 +147,7 @@
                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                               
                                   
-                                  weakImageView.image = [UIImage imageNamed:@"neulogo.png"];
+                                  weakImageView.image = [UIImage imageNamed:nil];
                               
                               }];
 
