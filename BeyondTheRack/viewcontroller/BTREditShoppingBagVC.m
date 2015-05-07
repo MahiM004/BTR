@@ -17,8 +17,6 @@
 
 @interface BTREditShoppingBagVC ()
 
-@property (nonatomic, strong) NSString *sessionId;
-
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
@@ -48,9 +46,6 @@
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setCurrencySymbol:@"$"];
-    
-    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-    self.sessionId = [btrSettings sessionId];
     
     self.bagTitleLabel.text = [NSString stringWithFormat:@"Edit Bag (%lu)", (unsigned long)[self getCountofBagItems]];
     
@@ -83,7 +78,9 @@
     
     __weak typeof(self) weakSelf = self;
     
-    [self setShoppingBagforSessionId:[self sessionId] success:^(NSString *succString) {
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    
+    [self setShoppingBagforSessionId:[sessionSettings sessionId] success:^(NSString *succString) {
         
         
         if ([succString isEqualToString:@"TRUE"]) {
@@ -218,9 +215,6 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    NSString *sessionIdString = [self sessionId];
-    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
-    
     NSMutableArray *params =[[NSMutableArray alloc] init];
     
     for (BagItem *bagItem in [self bagItemsArray])
@@ -238,6 +232,8 @@
         
         [params addObject:bagItemDictionary];
     }
+    
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
     [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]]
        parameters:(NSDictionary *)params
@@ -267,6 +263,14 @@
 }
 
 
-
-
 @end
+
+
+
+
+
+
+
+
+
+
