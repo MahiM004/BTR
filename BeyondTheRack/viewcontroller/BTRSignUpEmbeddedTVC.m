@@ -19,19 +19,13 @@
 
 @interface BTRSignUpEmbeddedTVC ()
 
-@property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
+
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
-@property (weak, nonatomic) IBOutlet UITextField *invitationCodeTextField;
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
 @property (weak, nonatomic) IBOutlet UITextField *countryTextField;
-
-@property (weak, nonatomic) IBOutlet UILabel *firstNameIconLabel;
-@property (weak, nonatomic) IBOutlet UILabel *lastNameIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordIconLabel;
-@property (weak, nonatomic) IBOutlet UILabel *invitationCodeIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *genderIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *countryIconLabel;
 
@@ -81,29 +75,17 @@
     
     [self setupDocument];
     
-    self.firstNameTextField = [BTRViewUtility underlineTextField:[self firstNameTextField]];
-    self.lastNameTextField = [BTRViewUtility underlineTextField:[self lastNameTextField]];
+ 
     self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
     self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
-    self.invitationCodeTextField = [BTRViewUtility underlineTextField:[self invitationCodeTextField]];
     self.genderTextField = [BTRViewUtility underlineTextField:[self genderTextField]];
     self.countryTextField = [BTRViewUtility underlineTextField:[self countryTextField]];
  
-    
     self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.emailIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-envelope-o"];
     
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
-    
-    self.firstNameIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
-    self.firstNameIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
-
-    self.lastNameIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
-    self.lastNameIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-user"];
-
-    self.invitationCodeIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
-    self.invitationCodeIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-barcode"];
     
     self.genderIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.genderIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-female"];
@@ -127,12 +109,9 @@
 
 - (void)dismissKeyboard {
     
-    [self.firstNameTextField resignFirstResponder];
-    [self.lastNameIconLabel resignFirstResponder];
+ 
     [self.emailTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
-    [self.invitationCodeTextField resignFirstResponder];
-
 }
 
 - (IBAction)genderButtonTapped:(UIButton *)sender {
@@ -201,18 +180,8 @@
 
 
 - (BOOL)allFieldsAreValid {
-    
-    if ([[[self firstNameTextField] text] isEqualToString:@""]) {
-        
-        [self alertSystemFieldIncomplete:@"First Name"];
-        return FALSE;
-        
-    } else if ([[[self lastNameTextField] text] isEqualToString:@""]) {
-        
-        [self alertSystemFieldIncomplete:@"Last Name"];
-        return FALSE;
-        
-    } else if ([[[self emailTextField] text] isEqualToString:@""]) {
+   
+    if ([[[self emailTextField] text] isEqualToString:@""]) {
         
         [self alertSystemFieldIncomplete:@"Email"];
         return FALSE;
@@ -389,9 +358,6 @@
                               @"password": [[self passwordTextField] text],
                               @"gender": [[self genderTextField] text],
                               @"country": [self chosenCountryCodeString],
-                              @"name": [[self firstNameTextField] text],
-                              @"last_name": [[self lastNameTextField] text],
-                              @"invite": [[self invitationCodeTextField ] text]
                               });
     
     [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserRegistration]]
@@ -418,8 +384,8 @@
                       NSDictionary *userDic = entitiesPropertyList[@"user"];
                       NSString *sessionIdString = [sessionDic valueForKey:@"session_id"];
                       
-                      BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-                      [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:NO];
+                      BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+                      [sessionSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:NO];
                       
                       [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic inManagedObjectContext:[self managedObjectContext]];
                       [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
