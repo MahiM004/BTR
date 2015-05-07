@@ -113,12 +113,10 @@
         //[pageControl addTarget:self action:@selector(pageControlChangedPage:) forControlEvents:UIControlEventValueChanged];
         //[self.view addSubview:pageControl];
 
-        
         //UIImageView *logoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(60, 22, 200, 30)];
         //logoImageView.backgroundColor = [UIColor clearColor];
         //logoImageView.image = [UIImage imageNamed:nil];
         //[self.view addSubview:logoImageView];
-
         
         nextYPosition += pageDotsControlHeight;
     }
