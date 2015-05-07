@@ -62,7 +62,6 @@
         [self.eventTitleLabel setText:[[self productItem] brand]];
     else
         [self.eventTitleLabel setText:@"Product Detail"];
-
     
     [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];

@@ -137,7 +137,7 @@
         Item *item = [Item getItemforSku:uniqueSku fromManagedObjectContext:[self managedObjectContext]];
         [cell.itemImageView setImageWithURL:[BTRItemFetcher
                                              URLforItemImageForSku:uniqueSku]
-                           placeholderImage:[UIImage imageNamed:nil]];
+                           placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
         
         cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:item];
     }

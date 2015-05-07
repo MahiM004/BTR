@@ -130,7 +130,7 @@
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]];
 
     __weak UIImageView *weakImageView = imageView;
-    [imageView setImageWithURLRequest:urlRequest placeholderImage:nil
+    [imageView setImageWithURLRequest:urlRequest placeholderImage:[UIImage imageNamed:@"neulogo.png"]
      
                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                   

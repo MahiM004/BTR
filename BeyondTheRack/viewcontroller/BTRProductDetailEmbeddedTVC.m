@@ -132,6 +132,8 @@
                                     [self.selectSizeLabel setAlpha:0.4];
                                     [self.selectSizeButton setEnabled:false];
                                     [self.sizeLabel setText:@"One Size"];
+                                    [self.sizeLabel setTextColor:[UIColor blackColor]];
+                                    [self.dropdownLabelIcon setHidden:YES];
                                     
                                     if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
                                         [self.delegate variantCodeforAddtoBag:@"Z"];
@@ -318,7 +320,7 @@
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
                                                                        withCount:1+indexPath.row
                                                                          andSize:@"large"]
-                          placeholderImage:[UIImage imageNamed:nil]];
+                          placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
 
     return cell;
 }

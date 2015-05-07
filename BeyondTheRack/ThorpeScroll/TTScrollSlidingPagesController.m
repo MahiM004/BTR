@@ -65,7 +65,7 @@
         //self.titleScrollerBackgroundColour = [UIColor purpleColor];
 
         //UIImage *backgroundImage = [UIImage imageNamed:@"bareffect.png"];
-        UIImage *backgroundImage = [UIImage imageNamed:nil];
+        UIImage *backgroundImage = [UIImage imageNamed:@"neulogo.png"];
         if (backgroundImage != nil){
           //self.titleScrollerBackgroundColour = [UIColor colorWithPatternImage:backgroundImage];
         } else {
