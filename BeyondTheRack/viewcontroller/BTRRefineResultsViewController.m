@@ -26,8 +26,6 @@
 @synthesize backgroundImage;
 
 
-
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -82,6 +80,9 @@
     
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
     [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortString withFacetString:facetsString andPageNumber:0]]
       parameters:nil

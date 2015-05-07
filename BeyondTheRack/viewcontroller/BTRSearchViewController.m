@@ -123,13 +123,6 @@
     
 }
 
-/*
-- (void)dismissKeyboard {
-
-    [self.searchBar resignFirstResponder];
-    [self.collectionView becomeFirstResponder];
-}
-*/
 
 - (void)viewDidAppear:(BOOL)animated {
     
@@ -231,6 +224,8 @@
     [self.collectionView reloadData];
 }
 
+/*  TODO: Search Suggestions
+ 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     // We don't want to do anything until the user clicks
     // the 'Search' button.
@@ -253,7 +248,7 @@
     // UISearchBar loses focus
     // We don't need to do anything here.
 }
-
+*/
 
 #pragma mark - UICollectionView Datasource
 
@@ -335,18 +330,6 @@
 }
 
 
-
-/*
- - (UICollectionReusableView *)collectionView:
- (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
- {
- return [[UICollectionReusableView alloc] init];
- }
- */
-
-
-
-
 #pragma mark - Load Results RESTful
 
 
@@ -371,6 +354,9 @@
     serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]];     
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
     [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:@"" andPageNumber:0]]
       parameters:nil

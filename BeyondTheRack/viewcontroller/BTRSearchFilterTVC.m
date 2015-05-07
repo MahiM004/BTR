@@ -322,7 +322,6 @@
 
 - (BTRFilterWithModalTableViewCell *)configureCellForCell:(BTRFilterWithModalTableViewCell *)cell withSectionString:(NSString *)sectionString withSelectionArray:(NSArray *)selectionArray withIndex:(NSUInteger)index isSelectable:(BOOL)isSelectable {
     
-    
     cell.rowLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
     cell.rowButton.enabled = TRUE;
     

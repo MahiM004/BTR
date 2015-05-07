@@ -20,15 +20,10 @@
 
 @interface BTRShoppingBagViewController ()
 
-
-@property (strong, nonatomic) NSString *sessionId;
-
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-
 @property (weak, nonatomic) IBOutlet UILabel *bagTitle;
-
 
 @property (weak, nonatomic) IBOutlet UILabel *subtotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *youSaveLabel;
@@ -70,11 +65,9 @@
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setCurrencySymbol:@"$"];
     
-    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-    self.sessionId = [btrSettings sessionId];
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     
-    
-    [self getCartServerCallforSessionId:[self sessionId] success:^(NSString *succString) {
+    [self getCartServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *succString) {
         
         [[self tableView] reloadData];
         
@@ -235,8 +228,7 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    NSString *sessionIdString = [self sessionId];
-    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
     [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
       parameters:nil

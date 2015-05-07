@@ -43,12 +43,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
- 
-    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-    self.sessionId  = [btrSettings sessionId];
     
     [self setupDocument];
-    
     [self fetchUserDataIntoDocument:[self beyondTheRackDocument] success:^(User *user) {
         
         self.welcomeLabel.text = [NSString stringWithFormat:@"%@ %@", [user name], [user lastName]];
@@ -69,8 +65,9 @@
 
 - (IBAction)signOutButtonTapped:(UIButton *)sender {
     
-
-    [self logutUserServerCallforSessionId:[self sessionId] success:^(NSString *didSucceed) {
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    
+    [self logutUserServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *didSucceed) {
         
         BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
         [btrSettings clearSession];
@@ -80,7 +77,6 @@
         [self.navigationController pushViewController:viewController animated:YES];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
         
     }];
     
@@ -111,8 +107,8 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
 
-    NSString *sessionIdString = [self sessionId];
-    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
     [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
       parameters:nil
@@ -153,8 +149,7 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    NSString *sessionIdString = [self sessionId];
-    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
     [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserLogout]]
       parameters:nil

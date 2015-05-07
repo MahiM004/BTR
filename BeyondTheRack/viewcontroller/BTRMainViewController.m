@@ -31,9 +31,6 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
-@property (nonatomic, strong) NSString *sessionId;
-
-
 @end
 
 @implementation BTRMainViewController
@@ -42,12 +39,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+  
     BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-    self.sessionId = [btrSettings sessionId];
     
-    
-    [self getCartCountServerCallforSessionId:[self sessionId] success:^(NSString *bagCountString) {
+    [self getCartCountServerCallforSessionId:[btrSettings sessionId] success:^(NSString *bagCountString) {
         
         self.bagButton.badgeValue = bagCountString;
         
@@ -96,8 +91,7 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    NSString *sessionIdString = sessionId;
-    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
     [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBagCount]]
       parameters:nil

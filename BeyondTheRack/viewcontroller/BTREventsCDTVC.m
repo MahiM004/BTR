@@ -69,6 +69,9 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    
     [manager GET:[NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName]]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)

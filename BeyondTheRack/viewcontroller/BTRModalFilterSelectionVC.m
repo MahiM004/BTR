@@ -240,6 +240,9 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    
     [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:@"" withFacetString:facetsString andPageNumber:0]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)

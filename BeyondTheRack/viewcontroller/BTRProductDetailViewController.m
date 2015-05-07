@@ -21,8 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
-
-@property (strong, nonatomic) NSString *sessionId;
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
@@ -54,13 +52,9 @@
     
     [super viewDidLoad];
     
-    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-    self.sessionId = [btrSettings sessionId];
-    
     self.variant = SIZE_NOT_SELECTED_STRING;
     
     [self setupDocument];
-    
     
     NSLog(@"update add_to_bag for search: no event_id is provided");
     
@@ -72,8 +66,6 @@
     
     [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
-    
-    
 }
 
 
@@ -91,7 +83,9 @@
         
     } else {
 
-        [self cartIncrementServerCallforSessionId:[self sessionId] success:^(NSString *successString) {
+        BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+
+        [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
             
             if ([successString isEqualToString:@"TRUE"]) {
              
@@ -138,9 +132,8 @@
 
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    NSString *sessionIdString = [self sessionId];
-    [manager.requestSerializer setValue:sessionIdString forHTTPHeaderField:@"SESSION"];
+
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
     NSDictionary *params = (@{
                               @"event_id": [[self productItem] eventId],
