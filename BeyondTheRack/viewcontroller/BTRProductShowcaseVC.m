@@ -226,7 +226,50 @@
 }
 
 
+- (IBAction)selectSizeTapped:(UIButton *)sender {
 
+}
+
+
+
+/*
+- (IBAction)addToBagTapped:(UIButton *)sender {
+    
+    
+    if ([[self variant] isEqualToString:SIZE_NOT_SELECTED_STRING]) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Size"
+                                                        message:@"Please select a size!"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    } else {
+        
+        BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+        
+        [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
+            
+            if ([successString isEqualToString:@"TRUE"]) {
+                
+                UIStoryboard *storyboard = self.storyboard;
+                BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+                [vc.bagItemsArray addObjectsFromArray:[self bagItemsArray]];
+                
+                [self presentViewController:vc animated:YES completion:nil];
+                
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            
+        }];
+        
+    }
+    
+}
+*/
 - (IBAction)unwindFromProductDetailToShowcase:(UIStoryboardSegue *)unwindSegue
 {
 

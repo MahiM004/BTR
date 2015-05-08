@@ -10,6 +10,7 @@
 
 #import "BTRProductImageCollectionCell.h"
 #import "BTRZoomImageViewController.h"
+#import "BTRSelectSizeVC.h"
 
 #import "BTRItemFetcher.h"
 #import "NSString+HeightCalc.h"
@@ -492,17 +493,22 @@
         zoomVC.productSkuString = [self productSku];
         zoomVC.zoomImageCount = [self productImageCount];
     
-    } else if ([[segue identifier]  isEqualToString:@"BTRSelectSizeSegueIdentifier"]) {
-        
-        BTRSelectSizeVC *selectSizeVC = [segue destinationViewController];
-        
-        selectSizeVC.sizesArray = [self sizesArray];
-        selectSizeVC.sizeQuantityArray = [self sizeQuantityArray];
-        selectSizeVC.delegate = self;
     }
 }
 
 
+
+- (IBAction)selectSizeTapped:(UIButton *)sender {
+
+    UIStoryboard *storyboard = self.storyboard;
+    BTRSelectSizeVC * vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
+    
+    vc.sizesArray = [self sizesArray];
+    vc.sizeQuantityArray = [self sizeQuantityArray];
+    vc.delegate = self;
+    
+    [self presentViewController:vc animated:YES completion:nil];
+}
 
 
 

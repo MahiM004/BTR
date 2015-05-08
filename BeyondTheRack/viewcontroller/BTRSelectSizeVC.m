@@ -25,6 +25,10 @@
 }
 
 
+- (IBAction)tappedCancel:(UIButton *)sender {
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 #pragma mark - Table view data source
