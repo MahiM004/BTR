@@ -31,9 +31,41 @@
 
 @property (strong, nonatomic) NSMutableArray *itemArray;
 
+/*
+@property (strong, nonatomic) NSMutableArray *sizesArray;
+@property (strong, nonatomic) NSMutableArray *sizeCodesArray;
+@property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
+*/
+@property (nonatomic) NSUInteger selectedSizeIndex;
+
+
+
+
 @end
 
 @implementation BTRProductShowcaseVC
+
+/*
+- (NSMutableArray *)sizesArray {
+    
+    if (!_sizesArray) _sizesArray = [[NSMutableArray alloc] init];
+    return _sizesArray;
+}
+
+
+- (NSMutableArray *)sizeCodesArray {
+    
+    if (!_sizeCodesArray) _sizeCodesArray = [[NSMutableArray alloc] init];
+    return _sizeCodesArray;
+}
+
+
+- (NSMutableArray *)sizeQuantityArray {
+    
+    if (!_sizeQuantityArray) _sizeQuantityArray = [[NSMutableArray alloc]  init];
+    return _sizeQuantityArray;
+}
+*/
 
 
 - (NSMutableArray *)itemArray {
@@ -79,6 +111,8 @@
                              
                          }];
 }
+
+
 
 
 #pragma mark - Load Event Products RESTful
@@ -270,6 +304,10 @@
     
 }
 */
+
+
+
+
 - (IBAction)unwindFromProductDetailToShowcase:(UIStoryboardSegue *)unwindSegue
 {
 
@@ -277,4 +315,42 @@
 
 
 
+
+
+#pragma mark - BTRSelectSizeVC Delegate
+
+
+
+- (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
+    
+    self.selectedSizeIndex = selectedIndex;
+    
+    int size_label;
+    
+    /*
+     save the cell index.
+     
+     save the selectedIndex and the selectedSizeString on the cell
+     */
+    
+    //update cell
+    //self.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
+}
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

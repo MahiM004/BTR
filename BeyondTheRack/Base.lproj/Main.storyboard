@@ -808,7 +808,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="3602A4FA-F2DF-42B9-81B3-031CD5B679F0" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="54E13D27-77D6-441A-BFB7-91013959128F" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1469,6 +1469,7 @@
                                             <outlet property="originalPrice" destination="2fF-Qk-orP" id="vJ2-Kj-lkz"/>
                                             <outlet property="productImageView" destination="X2x-Al-l8F" id="GRQ-NQ-ROt"/>
                                             <outlet property="productTitleLabel" destination="1zc-uF-TtV" id="zAT-he-bbR"/>
+                                            <outlet property="sizeLabel" destination="5wt-Uo-HIN" id="Vzx-rI-jJE"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1888,7 +1889,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nn8-TZ-5cT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="2RB-YU-c7f" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2897" y="-117"/>
+            <point key="canvasLocation" x="2860" y="-261"/>
         </scene>
         <!--Zoom Image View Controller-->
         <scene sceneID="nLl-d3-tPN">
@@ -2513,7 +2514,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="3602A4FA-F2DF-42B9-81B3-031CD5B679F0" width="30" height="30">
+        <image name="54E13D27-77D6-441A-BFB7-91013959128F" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

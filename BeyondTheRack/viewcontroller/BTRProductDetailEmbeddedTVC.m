@@ -10,7 +10,6 @@
 
 #import "BTRProductImageCollectionCell.h"
 #import "BTRZoomImageViewController.h"
-#import "BTRSelectSizeVC.h"
 
 #import "BTRItemFetcher.h"
 #import "NSString+HeightCalc.h"
@@ -48,8 +47,7 @@
 @property (strong, nonatomic) NSMutableArray *attributeKeys;
 @property (strong, nonatomic) NSMutableArray *attributeValues;
 
-
-@property (nonatomic) NSUInteger selectedIndex;
+@property (nonatomic) NSUInteger selectedSizeIndex;
 
 
 @end
@@ -112,7 +110,7 @@
     self.dropdownLabelIcon.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-caret-down"];
     
     
-    self.selectedIndex = -1;
+    self.selectedSizeIndex = -1;
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -442,6 +440,9 @@
 
 - (enum btrSizeMode) extractSizesFromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary {
     
+    
+    NSLog(@"sizzzz: %@", variantInventoryDictionary);
+    
     NSString *keyString = @"";
     NSArray *allKeys = [variantInventoryDictionary allKeys];
    
@@ -531,11 +532,11 @@
 
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     
-    self.selectedIndex = selectedIndex;
+    self.selectedSizeIndex = selectedIndex;
     self.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
     
     if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
-        [self.delegate variantCodeforAddtoBag:[[self sizeCodesArray] objectAtIndex:[self selectedIndex]]];
+        [self.delegate variantCodeforAddtoBag:[[self sizeCodesArray] objectAtIndex:[self selectedSizeIndex]]];
     }
     
     

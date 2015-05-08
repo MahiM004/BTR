@@ -15,8 +15,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *productTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *btrPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *originalPrice;
-
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
+@property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 
+@property (strong, nonatomic) NSString *selectedSizeString;
 
 @end
