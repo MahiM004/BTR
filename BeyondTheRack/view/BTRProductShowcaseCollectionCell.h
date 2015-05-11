@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRProductShowcaseCollectionCell : UICollectionViewCell
+#import "BTRSizeSelector.h"
 
+
+@interface BTRProductShowcaseCollectionCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *brandLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productTitleLabel;
@@ -18,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 
-@property (strong, nonatomic) NSString *selectedSizeString;
+@property (nonatomic, strong) BTRSizeSelector *sizeSelector;
+@property (weak, nonatomic) IBOutlet UIView *sizeSelectorView;
 
 @end

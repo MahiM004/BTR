@@ -392,9 +392,6 @@
                                                                          options:0
                                                                            error:NULL];
     
-         
-         NSLog(@"gdgdgd: %@", entitiesPropertyList);
-         
          enum btrSizeMode sizeMode = [self extractSizesFromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]];
          [self extractAttributsFromAttributesDictionary:entitiesPropertyList[@"attributes"]];
          
@@ -441,9 +438,6 @@
 
 
 - (enum btrSizeMode) extractSizesFromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary {
-    
-    
-    NSLog(@"sizzzz: %@", variantInventoryDictionary);
     
     NSString *keyString = @"";
     NSArray *allKeys = [variantInventoryDictionary allKeys];
