@@ -38,10 +38,10 @@
 */
 @property (nonatomic) NSUInteger selectedSizeIndex;
 
-
-
-
 @end
+
+
+
 
 @implementation BTRProductShowcaseVC
 
@@ -180,6 +180,13 @@
 
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
     
+    
+  //  cell.value.valueChangedCallback = ^(BTRSelectSizeVC *selectSizeVC, NSString *value) {
+        
+       // [[self.bagItemsArray objectAtIndex:indexPath.row] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
+       // stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
+    //};
+    
     return cell;
 }
 
@@ -231,12 +238,9 @@
 
 - (IBAction)searchIconTapped:(UIButton *)sender {
     
-    
     /*
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-   
     BTRSearchViewController *viewController = (BTRSearchViewController *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
-    
     [self presentViewController:viewController animated:NO completion:nil];
     */
 }
@@ -269,9 +273,7 @@
 /*
 - (IBAction)addToBagTapped:(UIButton *)sender {
     
-    
     if ([[self variant] isEqualToString:SIZE_NOT_SELECTED_STRING]) {
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Size"
                                                         message:@"Please select a size!"
                                                        delegate:self
@@ -282,24 +284,18 @@
     } else {
         
         BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-        
         [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
-            
+ 
             if ([successString isEqualToString:@"TRUE"]) {
-                
                 UIStoryboard *storyboard = self.storyboard;
                 BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
                 [vc.bagItemsArray addObjectsFromArray:[self bagItemsArray]];
-                
                 [self presentViewController:vc animated:YES completion:nil];
-                
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
-            
         }];
-        
     }
     
 }

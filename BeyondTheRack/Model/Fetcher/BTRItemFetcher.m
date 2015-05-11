@@ -13,6 +13,8 @@
 
 + (NSURL *)URLforItemWithProductSku:(NSString *)sku {
     
+    NSLog(@"-0-0-0-0 : %@", [self URLForQuery:[NSString stringWithFormat:@"%@/product/%@", BASEURL, sku]]);
+    
     return [self URLForQuery:[NSString stringWithFormat:@"%@/product/%@", BASEURL, sku]];
 }
 

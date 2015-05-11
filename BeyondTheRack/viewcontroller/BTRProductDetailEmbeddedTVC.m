@@ -30,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *selectSizeLabel;
 
 
-
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
@@ -393,6 +392,9 @@
                                                                          options:0
                                                                            error:NULL];
     
+         
+         NSLog(@"gdgdgd: %@", entitiesPropertyList);
+         
          enum btrSizeMode sizeMode = [self extractSizesFromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]];
          [self extractAttributsFromAttributesDictionary:entitiesPropertyList[@"attributes"]];
          
