@@ -25,27 +25,24 @@
 @property (strong, nonatomic) NSString *selectedBrandString;
 @property (strong, nonatomic) Item *selectedItem;
 
-
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) NSMutableArray *itemArray;
 
-/*
 @property (strong, nonatomic) NSMutableArray *sizesArray;
 @property (strong, nonatomic) NSMutableArray *sizeCodesArray;
 @property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
-*/
+
 @property (nonatomic) NSUInteger selectedSizeIndex;
 
 @end
 
 
 
-
 @implementation BTRProductShowcaseVC
 
-/*
+
 - (NSMutableArray *)sizesArray {
     
     if (!_sizesArray) _sizesArray = [[NSMutableArray alloc] init];
@@ -65,7 +62,6 @@
     if (!_sizeQuantityArray) _sizeQuantityArray = [[NSMutableArray alloc]  init];
     return _sizeQuantityArray;
 }
-*/
 
 
 - (NSMutableArray *)itemArray {
@@ -97,7 +93,6 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    
     
     [self setupDocument];
     
@@ -162,6 +157,52 @@
     
 }
 
+
+#pragma mark -  Handle JSON with Arbitrary Keys (variant_inventory and attributes)
+
+
+
+- (enum btrSizeMode) extractSizesFromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary {
+    
+    NSString *keyString = @"";
+    NSArray *allKeys = [variantInventoryDictionary allKeys];
+    
+    if ([allKeys count] == 0) {
+        
+        return btrSizeModeNoInfo;
+    }
+    
+    if ([allKeys count] > 0) {
+        
+        keyString = [allKeys objectAtIndex:0];
+        
+        if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@"One Size"])
+            return btrSizeModeSingleSizeShow;
+        
+        else if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] &&
+                 [allKeys count] == 1 )  /*  To deal with the follwoing faulty data entry: { "#Z" = 79; "L#L" = 4; "M#M" = 8; }; */
+        /*  if #Z and anything else ignore #Z" */
+            return btrSizeModeSingleSizeNoShow;
+    }
+    
+    [variantInventoryDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        NSString *keyString = key;
+        
+        if ( ![[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] ) {
+            
+            [[self sizesArray] addObject:[keyString componentsSeparatedByString:@"#"][0]];
+            [[self sizeCodesArray] addObject:[keyString componentsSeparatedByString:@"#"][1]];
+            [[self sizeQuantityArray] addObject:variantInventoryDictionary[key]];
+        }
+        
+    }];
+    
+    return btrSizeModeMultipleSizes;
+}
+
+
+
 #pragma mark - UICollectionView Datasource
 
 
@@ -180,55 +221,33 @@
 
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
     
-    //UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    /*
-    [button addTarget:self
-               action:@selector(customActionPressed:)
-     forControlEvents:UIControlEventTouchDown];
-    
-    [button setTitle:@"Custom Action" forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor orangeColor]];
-    
-    button.frame = CGRectMake(0.0f, 0.0f, 150.0f, 30.0f);
-    [cell.sizeSelectorView addSubview:button];
-     */
-   
+    //enum btrSizeMode sizeMode = [self extractSizesFromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]];
+
     
     /*
-    
     [cell.addToBagButton addTarget:self
                             action:@selector(customActionPressed:)
                   forControlEvents:UIControlEventTouchDown];
-    
     */
+    
     [cell.sizeSelector addTarget:self
-                        action:@selector(customActionPressed:)
-              forControlEvents:UIControlEventTouchDown];
-    
-    
+                          action:@selector(customActionPressed:)
+                forControlEvents:UIControlEventTouchDown];
     
     [cell setDidTapAddtoBagButtonBlock:^(id sender) {
         
-        NSLog(@"-0-0-0-0: %ld", (long)indexPath.row);
-        
-        NSLog(@"1");
-
-        
-        
         UIStoryboard *storyboard = self.storyboard;
         BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
-        
-        NSLog(@"2");
-
+ 
         viewController.modalPresentationStyle = UIModalPresentationFormSheet;
         viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        
+        viewController.sizesArray = [self sizesArray];
+        viewController.sizeQuantityArray = [self sizeQuantityArray];
+        viewController.delegate = self;
+        
         [self presentViewController:viewController animated:YES completion:nil];
- 
-        
-        
-        NSLog(@"3");
-
-    }];
+     }];
     
     //cell.value.valueChangedCallback = ^(BTRSelectSizeVC *selectSizeVC, NSString *value) {
         
@@ -241,13 +260,9 @@
 
 
 - (void)customActionPressed:(id)sender{
-    
-    
-    NSLog(@"1");
-    
+
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     BTRSelectSizeVC *viewController = (BTRSelectSizeVC *)[storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
-    
     
     [self presentViewController:viewController animated:NO completion:nil];
 }

@@ -19,6 +19,8 @@
 @property (strong, nonatomic) NSMutableArray *sizesArray;
 @property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
 
+@property (strong, nonatomic) NSMutableArray *variantInventoryArray;
+
 @end
 
 
