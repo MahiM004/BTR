@@ -180,8 +180,57 @@
 
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
     
+    //UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    /*
+    [button addTarget:self
+               action:@selector(customActionPressed:)
+     forControlEvents:UIControlEventTouchDown];
     
-  //  cell.value.valueChangedCallback = ^(BTRSelectSizeVC *selectSizeVC, NSString *value) {
+    [button setTitle:@"Custom Action" forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor orangeColor]];
+    
+    button.frame = CGRectMake(0.0f, 0.0f, 150.0f, 30.0f);
+    [cell.sizeSelectorView addSubview:button];
+     */
+   
+    
+    /*
+    
+    [cell.addToBagButton addTarget:self
+                            action:@selector(customActionPressed:)
+                  forControlEvents:UIControlEventTouchDown];
+    
+    */
+    [cell.sizeSelector addTarget:self
+                        action:@selector(customActionPressed:)
+              forControlEvents:UIControlEventTouchDown];
+    
+    
+    
+    [cell setDidTapAddtoBagButtonBlock:^(id sender) {
+        
+        NSLog(@"-0-0-0-0: %ld", (long)indexPath.row);
+        
+        NSLog(@"1");
+
+        
+        
+        UIStoryboard *storyboard = self.storyboard;
+        BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
+        
+        NSLog(@"2");
+
+        viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:viewController animated:YES completion:nil];
+ 
+        
+        
+        NSLog(@"3");
+
+    }];
+    
+    //cell.value.valueChangedCallback = ^(BTRSelectSizeVC *selectSizeVC, NSString *value) {
         
        // [[self.bagItemsArray objectAtIndex:indexPath.row] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
        // stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
@@ -189,6 +238,22 @@
     
     return cell;
 }
+
+
+- (void)customActionPressed:(id)sender{
+    
+    
+    NSLog(@"1");
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    BTRSelectSizeVC *viewController = (BTRSelectSizeVC *)[storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
+    
+    
+    [self presentViewController:viewController animated:NO completion:nil];
+}
+
+
+
 
 
 - (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell withItem:(Item *)productItem {

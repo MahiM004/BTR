@@ -8,6 +8,14 @@
 
 #import "BTRProductShowcaseCollectionCell.h"
 
+@interface BTRProductShowcaseCollectionCell()
+
+@property (copy, nonatomic) void (^didTapAddtoBagButtonBlock)(id sender);
+
+
+@end
+
+
 @implementation BTRProductShowcaseCollectionCell
 
 
@@ -18,10 +26,21 @@
         sizeSelector.countLabel.text = value;
     };
     
-    [self.sizeSelector setup];
-    [self.sizeSelectorView addSubview:self.sizeSelector];
+    [self.sizeSelector setBackgroundColor:[UIColor orangeColor]];
     
+    [self.sizeSelector setup];
+    //[self addSubview:self.sizeSelector];
+    
+    [self.addToBagButton addTarget:self action:@selector(didTapAddtoBagButton:) forControlEvents:UIControlEventTouchUpInside];
 }
+
+- (void)didTapAddtoBagButton:(id)sender {
+    
+    if (self.didTapAddtoBagButtonBlock) {
+        self.didTapAddtoBagButtonBlock(sender);
+    }
+}
+
 
 /*
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

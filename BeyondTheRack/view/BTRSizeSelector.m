@@ -8,6 +8,8 @@
 
 #import "BTRSizeSelector.h"
 
+#import "BTRSelectSizeVC.h"
+
 static const float kButtonWidth = 30.0f;
 
 
@@ -48,12 +50,12 @@ static const float kButtonWidth = 30.0f;
     self.countLabel = [[UILabel alloc] init];
     self.countLabel.textAlignment = NSTextAlignmentCenter;
     self.countLabel.layer.borderWidth = 1.0f;
-    [self addSubview:self.countLabel];
+    //[self addSubview:self.countLabel];
     
     self.selectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.selectionButton setTitle:@"-" forState:UIControlStateNormal];
     [self.selectionButton addTarget:self action:@selector(selectSizeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.selectionButton];
+    //[self addSubview:self.selectionButton];
     
     UIColor *defaultColor = [UIColor blackColor];//[UIColor colorWithRed:(79/255.0) green:(161/255.0) blue:(210/255.0) alpha:1.0];
     [self setBorderColor:defaultColor];
@@ -102,6 +104,8 @@ static const float kButtonWidth = 30.0f;
 
 
 #pragma mark view customization
+
+
 - (void)setBorderColor:(UIColor *)color {
     
     self.layer.borderColor = color.CGColor;
@@ -158,13 +162,6 @@ static const float kButtonWidth = 30.0f;
 
 - (void)selectSizeButtonTapped:(id)sender
 {
-    
-    /*
-     
-     TODO: further might be useful
-     
-     */
-    
     if (self.valueChangedCallback)
     {
         self.valueChangedCallback(self, self.value);

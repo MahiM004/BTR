@@ -21,6 +21,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 
 @property (nonatomic, strong) BTRSizeSelector *sizeSelector;
-@property (weak, nonatomic) IBOutlet UIView *sizeSelectorView;
+@property (weak, nonatomic) IBOutlet UIButton *addToBagButton;
+
+
+- (void)setDidTapAddtoBagButtonBlock:(void (^)(id sender))didTapAddtoButtonBlock;
+
+
 
 @end

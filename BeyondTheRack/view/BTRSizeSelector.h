@@ -17,7 +17,7 @@
 typedef void (^BTRSizeSelectorValueChangedCallback)(BTRSizeSelector *sizeSelector, NSString *newValue);
 
 IB_DESIGNABLE
-@interface BTRSizeSelector : UIControl <BTRSelectSizeVC>
+@interface BTRSizeSelector : UIControl
 @property (nonatomic, strong) UILabel *countLabel;
 @property (nonatomic, strong) UIColor *labelColor;
 @property (nonatomic, strong) UIButton *selectionButton;
