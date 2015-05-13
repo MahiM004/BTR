@@ -10,14 +10,7 @@
 #import "Item+AppServer.h"
 #import "BTRSelectSizeVC.h"
 
-enum btrSizeMode
-{
-    btrSizeModeSoldOut, // == 0 (by default)
-    btrSizeModeSingleSizeShow, // == 1 (incremented by 1 from previous)
-    btrSizeModeSingleSizeNoShow, // == 2
-    btrSizeModeNoInfo,
-    btrSizeModeMultipleSizes
-};
+#import "BTRSizeHandler.h"
 
 
 @protocol BTRProductDetailEmbeddedTVC;

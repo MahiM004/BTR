@@ -45,11 +45,8 @@
     
     if ([self.delegate respondsToSelector:@selector(selectSizeWillDisappearWithSelectionIndex:)]) {
         [self.delegate selectSizeWillDisappearWithSelectionIndex:[indexPath row]];
-        [self performSegueWithIdentifier:@"unwindFromSelectSizeToProductDetail" sender:self];
+        [self dismissViewControllerAnimated:YES completion:nil];
      }
-     
-
-    
 }
 
 

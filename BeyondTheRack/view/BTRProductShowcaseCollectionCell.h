@@ -18,9 +18,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *btrPriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *originalPrice;
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
-@property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
+
+@property (strong, nonatomic) NSMutableArray *sizesArray;
+@property (strong, nonatomic) NSMutableArray *sizeCodesArray;
+@property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
+
+
 
 @property (nonatomic, strong) BTRSizeSelector *sizeSelector;
+
+
+
+
 @property (weak, nonatomic) IBOutlet UIButton *addToBagButton;
 
 

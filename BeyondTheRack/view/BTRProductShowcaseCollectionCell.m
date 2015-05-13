@@ -19,6 +19,28 @@
 @implementation BTRProductShowcaseCollectionCell
 
 
+- (NSMutableArray *)sizesArray {
+    
+    if (!_sizesArray) _sizesArray = [[NSMutableArray alloc] init];
+    return _sizesArray;
+}
+
+
+- (NSMutableArray *)sizeCodesArray {
+    
+    if (!_sizeCodesArray) _sizeCodesArray = [[NSMutableArray alloc] init];
+    return _sizeCodesArray;
+}
+
+
+- (NSMutableArray *)sizeQuantityArray {
+    
+    if (!_sizeQuantityArray) _sizeQuantityArray = [[NSMutableArray alloc]  init];
+    return _sizeQuantityArray;
+}
+
+
+
 - (void)awakeFromNib {
     
     self.sizeSelector = [[BTRSizeSelector alloc] initWithFrame:CGRectMake(0, 0, 90, 20)];

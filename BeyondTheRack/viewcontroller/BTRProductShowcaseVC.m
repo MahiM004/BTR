@@ -30,37 +30,24 @@
 
 @property (strong, nonatomic) NSMutableArray *itemArray;
 
-@property (strong, nonatomic) NSMutableArray *sizesArray;
-@property (strong, nonatomic) NSMutableArray *sizeCodesArray;
-@property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
 
+@property (copy, nonatomic) NSMutableArray *variantInventoriesArray; // an Array of variantInventory Dictionaries
+
+@property (strong, nonatomic) NSIndexPath *indexPath;
+@property (strong, nonatomic) NSString *selectedSizeString;
 @property (nonatomic) NSUInteger selectedSizeIndex;
 
 @end
 
 
-
 @implementation BTRProductShowcaseVC
 
 
-- (NSMutableArray *)sizesArray {
+
+- (NSMutableArray *)variantInventoriesArray {
     
-    if (!_sizesArray) _sizesArray = [[NSMutableArray alloc] init];
-    return _sizesArray;
-}
-
-
-- (NSMutableArray *)sizeCodesArray {
-    
-    if (!_sizeCodesArray) _sizeCodesArray = [[NSMutableArray alloc] init];
-    return _sizeCodesArray;
-}
-
-
-- (NSMutableArray *)sizeQuantityArray {
-    
-    if (!_sizeQuantityArray) _sizeQuantityArray = [[NSMutableArray alloc]  init];
-    return _sizeQuantityArray;
+    if (!_variantInventoriesArray) _variantInventoriesArray = [[NSMutableArray alloc] init];
+    return _variantInventoriesArray;
 }
 
 
@@ -143,6 +130,10 @@
                                                                               options:0
                                                                                 error:NULL];
          
+         for (NSDictionary *itemDic in entitiesPropertyList) {
+             [self.variantInventoriesArray addObject:itemDic[@"variant_inventory"]];
+         }
+         
          [self.itemArray addObjectsFromArray:[Item loadItemsfromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext withEventId:[self eventSku]]];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
@@ -156,51 +147,6 @@
      }];
     
 }
-
-
-#pragma mark -  Handle JSON with Arbitrary Keys (variant_inventory and attributes)
-
-
-
-- (enum btrSizeMode) extractSizesFromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary {
-    
-    NSString *keyString = @"";
-    NSArray *allKeys = [variantInventoryDictionary allKeys];
-    
-    if ([allKeys count] == 0) {
-        
-        return btrSizeModeNoInfo;
-    }
-    
-    if ([allKeys count] > 0) {
-        
-        keyString = [allKeys objectAtIndex:0];
-        
-        if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@"One Size"])
-            return btrSizeModeSingleSizeShow;
-        
-        else if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] &&
-                 [allKeys count] == 1 )  /*  To deal with the follwoing faulty data entry: { "#Z" = 79; "L#L" = 4; "M#M" = 8; }; */
-        /*  if #Z and anything else ignore #Z" */
-            return btrSizeModeSingleSizeNoShow;
-    }
-    
-    [variantInventoryDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        
-        NSString *keyString = key;
-        
-        if ( ![[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] ) {
-            
-            [[self sizesArray] addObject:[keyString componentsSeparatedByString:@"#"][0]];
-            [[self sizeCodesArray] addObject:[keyString componentsSeparatedByString:@"#"][1]];
-            [[self sizeQuantityArray] addObject:variantInventoryDictionary[key]];
-        }
-        
-    }];
-    
-    return btrSizeModeMultipleSizes;
-}
-
 
 
 #pragma mark - UICollectionView Datasource
@@ -221,14 +167,25 @@
 
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
     
-    //enum btrSizeMode sizeMode = [self extractSizesFromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]];
-
     
     /*
     [cell.addToBagButton addTarget:self
                             action:@selector(customActionPressed:)
                   forControlEvents:UIControlEventTouchDown];
     */
+    
+    enum btrSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self.variantInventoriesArray objectAtIndex:indexPath.row]
+                                                                             toSizesArray:[cell sizesArray]
+                                                                         toSizeCodesArray:[cell sizeCodesArray]
+                                                                      toSizeQuantityArray:[cell sizeQuantityArray]];
+    
+    NSString *sizeBoolString = @"FALSE";
+    if (sizeMode == btrSizeModeSingleSizeShow || sizeMode == btrSizeModeSingleSizeNoShow)
+        sizeBoolString = @"TRUE";
+  
+    
+    NSMutableArray *tempSizesArray = [cell sizesArray];
+    NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
     
     [cell.sizeSelector addTarget:self
                           action:@selector(customActionPressed:)
@@ -242,11 +199,11 @@
         viewController.modalPresentationStyle = UIModalPresentationFormSheet;
         viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
         
-        viewController.sizesArray = [self sizesArray];
-        viewController.sizeQuantityArray = [self sizeQuantityArray];
+        viewController.sizesArray = tempSizesArray;
+        viewController.sizeQuantityArray = tempQuantityArray;
         viewController.delegate = self;
         
-        [self presentViewController:viewController animated:YES completion:nil];
+        [self presentViewController:viewController animated:NO completion:nil];
      }];
     
     //cell.value.valueChangedCallback = ^(BTRSelectSizeVC *selectSizeVC, NSString *value) {

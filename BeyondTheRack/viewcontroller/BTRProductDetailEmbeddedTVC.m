@@ -391,9 +391,13 @@
          NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                          options:0
                                                                            error:NULL];
-    
-         enum btrSizeMode sizeMode = [self extractSizesFromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]];
-         [self extractAttributsFromAttributesDictionary:entitiesPropertyList[@"attributes"]];
+             
+         enum btrSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]
+                                                                                  toSizesArray:[self sizesArray]
+                                                                              toSizeCodesArray:[self sizeCodesArray]
+                                                                           toSizeQuantityArray:[self sizeQuantityArray]];
+         
+         [self extractAttributesFromAttributesDictionary:entitiesPropertyList[@"attributes"]];
          
          Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList inManagedObjectContext:document.managedObjectContext withEventId:[self eventId]];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
@@ -415,10 +419,10 @@
 
 
 
-#pragma mark -  Handle JSON with Arbitrary Keys (variant_inventory and attributes)
+#pragma mark -  Handle JSON with Arbitrary Keys (attributes)
 
 
-- (void) extractAttributsFromAttributesDictionary:(NSDictionary *)attributeDictionary {
+- (void) extractAttributesFromAttributesDictionary:(NSDictionary *)attributeDictionary {
     
  
     [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -431,51 +435,9 @@
             [[self attributeKeys] addObject:keyString];
             [[self attributeValues] addObject:objString];
         }
-        
     }];
     
 }
-
-
-- (enum btrSizeMode) extractSizesFromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary {
-    
-    NSString *keyString = @"";
-    NSArray *allKeys = [variantInventoryDictionary allKeys];
-   
-    if ([allKeys count] == 0) {
-        
-        return btrSizeModeNoInfo;
-    }
-    
-    if ([allKeys count] > 0) {
-        
-         keyString = [allKeys objectAtIndex:0];
-
-        if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@"One Size"])
-            return btrSizeModeSingleSizeShow;
-        
-        else if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] &&
-                 [allKeys count] == 1 )  /*  To deal with the follwoing faulty data entry: { "#Z" = 79; "L#L" = 4; "M#M" = 8; }; */
-                                         /*  if #Z and anything else ignore #Z" */
-            return btrSizeModeSingleSizeNoShow;
-    }
-    
-    [variantInventoryDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        
-        NSString *keyString = key;
-        
-        if ( ![[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] ) {
-            
-            [[self sizesArray] addObject:[keyString componentsSeparatedByString:@"#"][0]];
-            [[self sizeCodesArray] addObject:[keyString componentsSeparatedByString:@"#"][1]];
-            [[self sizeQuantityArray] addObject:variantInventoryDictionary[key]];
-        }
- 
-    }];
-    
-    return btrSizeModeMultipleSizes;
-}
-
 
 
 #pragma mark - Navigation
@@ -490,7 +452,6 @@
         BTRZoomImageViewController *zoomVC = [segue destinationViewController];
         zoomVC.productSkuString = [self productSku];
         zoomVC.zoomImageCount = [self productImageCount];
-    
     }
 }
 
@@ -544,6 +505,11 @@
 
 
 @end
+
+
+
+
+
 
 
 

@@ -127,6 +127,7 @@
 		B3699B261AEA9CFD009D6A48 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B201AEA9CFD009D6A48 /* FBSDKShareKit.framework */; };
 		B3699B281AEAA0E1009D6A48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B271AEAA0E1009D6A48 /* Foundation.framework */; };
 		B3C16A911B01371C009470EC /* BTRSizeSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16A901B01371C009470EC /* BTRSizeSelector.m */; };
+		B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16A961B038C5D009470EC /* BTRSizeHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -363,6 +364,8 @@
 		B3699B271AEAA0E1009D6A48 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B3C16A8F1B01371C009470EC /* BTRSizeSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSizeSelector.h; sourceTree = "<group>"; };
 		B3C16A901B01371C009470EC /* BTRSizeSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSizeSelector.m; sourceTree = "<group>"; };
+		B3C16A951B038C5D009470EC /* BTRSizeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSizeHandler.h; sourceTree = "<group>"; };
+		B3C16A961B038C5D009470EC /* BTRSizeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSizeHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -622,6 +625,8 @@
 				6901EA491ADEC919002534D9 /* BTRBagHandler.m */,
 				B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */,
 				B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */,
+				B3C16A951B038C5D009470EC /* BTRSizeHandler.h */,
+				B3C16A961B038C5D009470EC /* BTRSizeHandler.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -1000,6 +1005,7 @@
 				69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */,
 				69B9428A1AE033FD00483950 /* AFHTTPRequestOperationManager.m in Sources */,
 				69B942881AE033FD00483950 /* UIWebView+AFNetworking.m in Sources */,
+				B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */,
 				69B02CAD1A5DA70700040C86 /* BTREventsCDTVC.m in Sources */,
 				69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,

@@ -80,7 +80,7 @@
          NSArray * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                           options:0
                                                                             error:NULL];
-         
+                  
          [Event loadEventsFromAppServerArray:entitiesPropertyList andCategoryName:[self urlCategoryName] intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
