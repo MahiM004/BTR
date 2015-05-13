@@ -175,7 +175,6 @@
 
 - (IBAction)backButtonTapped:(UIButton *)sender {
     
-    
     if ([[self originVCString] isEqualToString:SEARCH_SCENE])
         [self performSegueWithIdentifier:@"unwindFromProductDetailToSearchScene" sender:self];
     
@@ -186,11 +185,9 @@
 
 - (IBAction)bagButtonTapped:(UIButton *)sender {
     
-    
     UIStoryboard *storyboard = self.storyboard;
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
     [self presentViewController:vc animated:YES completion:nil];
-
 }
 
 
@@ -200,19 +197,18 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     BTRSearchViewController *viewController = (BTRSearchViewController *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
     [self presentViewController:viewController animated:NO completion:nil];*/
-    
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
-    if ([[segue identifier] isEqualToString:@"ProductDetailEmbeddedSegueIdentifier"])
-    {        
+    if ([[segue identifier] isEqualToString:@"ProductDetailEmbeddedSegueIdentifier"]) {
+        
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
         embeddedVC.delegate = self;
         embeddedVC.productItem = [self productItem];
         embeddedVC.eventId = [self eventId];
-        
+        embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
     }
 }
 
@@ -229,6 +225,12 @@
 
 
 @end
+
+
+
+
+
+
 
 
 

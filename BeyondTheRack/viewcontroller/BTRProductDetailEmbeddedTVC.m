@@ -139,6 +139,10 @@
         
         [self.longDescriptionView addSubview:descriptionView];
         
+        enum btrSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self variantInventoryDictionary]
+                                                                                 toSizesArray:[self sizesArray]
+                                                                             toSizeCodesArray:[self sizeCodesArray]
+                                                                          toSizeQuantityArray:[self sizeQuantityArray]];
     } else {
         
         [self.brandLabel setText:@""];
@@ -149,7 +153,7 @@
 
     [self.collectionView reloadData];
 }
- 
+
 
 #pragma mark - Construct Description Views
 
@@ -230,10 +234,8 @@
     
     if ([specialNoteString length] > 2) {
         
-        
         customHeight += 20;
 
-        
         NSString *specialNoteLabelText = [NSString stringWithFormat:@"Special Note: %@", specialNoteString];
         UIFont *specialNoteFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
         

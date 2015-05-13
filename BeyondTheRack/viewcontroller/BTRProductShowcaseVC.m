@@ -21,9 +21,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
-@property (strong, nonatomic) NSString *selectedProductSkuString;
 @property (strong, nonatomic) NSString *selectedBrandString;
-@property (strong, nonatomic) Item *selectedItem;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
+
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -33,7 +33,6 @@
 
 @property (copy, nonatomic) NSMutableArray *variantInventoriesArray; // an Array of variantInventory Dictionaries
 
-@property (strong, nonatomic) NSIndexPath *indexPath;
 @property (strong, nonatomic) NSString *selectedSizeString;
 @property (nonatomic) NSUInteger selectedSizeIndex;
 
@@ -258,8 +257,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
     Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
-    [self setSelectedItem:productItem];
-    [self setSelectedProductSkuString:[productItem sku]];
+    [self setSelectedIndexPath:indexPath];
     [self setSelectedBrandString:[productItem brand]];
     [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
 }
@@ -293,8 +291,9 @@
     {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = EVENT_SCENE;
-        productDetailVC.productItem = [self selectedItem];
+        productDetailVC.productItem = [self.itemArray objectAtIndex:[self.selectedIndexPath row]];
         productDetailVC.eventId = [self eventSku];
+        productDetailVC.variantInventoryDictionary = [self.variantInventoriesArray objectAtIndex:[self.selectedIndexPath row]];
     }
     
     
