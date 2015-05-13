@@ -108,40 +108,12 @@
     self.dropdownLabelIcon.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.dropdownLabelIcon.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-caret-down"];
     
-    
     self.selectedSizeIndex = -1;
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    
-    [self setupDocument];
-    [self updateViewWithItem:[self productItem]];
-
-    if ([[self productItem] sku] && ![[[self productItem] sku] isEqual:[NSNull null]])
-        [self fetchItemIntoDocument:[self beyondTheRackDocument] forProductSku:[[self productItem] sku]
-                            success:^(Item *responseObject, NSString * singleSizeBoolString) {
-                                
-                                [self updateViewWithDeatiledItem:responseObject];
-                                
-                                if ([singleSizeBoolString isEqualToString:@"TRUE"]) {
-                                    
-                                    [self.selectSizeLabel setAttributedText:[BTRViewUtility crossedOffStringfromString:@"Select Size :"]];
-                                    [self.selectSizeLabel setAlpha:0.4];
-                                    [self.selectSizeButton setEnabled:false];
-                                    [self.sizeLabel setText:@"One Size"];
-                                    [self.sizeLabel setTextColor:[UIColor blackColor]];
-                                    [self.dropdownLabelIcon setHidden:YES];
-                                    
-                                    if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
-                                        [self.delegate variantCodeforAddtoBag:@"Z"];
-                                    }
-                                    
-                                }
-                                
-                            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                
-                            }];
+    [self updateViewWithDeatiledItem:[self productItem]];
 }
 
 
@@ -150,46 +122,34 @@
 
 - (void)updateViewWithDeatiledItem:(Item *)productItem {
    
-    [self updateViewWithItem:productItem];
-    
-    
-    UIView *descriptionView = [[UIView alloc] init];
-    descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
-    descriptionView = [self getAttribueViewForView:descriptionView];
-    descriptionView = [self getSpecialNoteView:descriptionView withSpecialNote:[productItem specialNote]];
-    
-    [self.longDescriptionView addSubview:descriptionView];
- 
-    [self.collectionView reloadData];
-}
-
-
-- (void)updateViewWithItem:(Item *)productItem {
-    
-    
     self.productImageCount = [[productItem imageCount] integerValue];
     
-    if (productItem)
-    {
+    if (productItem) {
+        
         [self setProductSku:[productItem sku]];
         [self.brandLabel setText:[productItem brand]];
         [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
         [self.salePriceLabel setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
         [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
-    
+        
+        UIView *descriptionView = [[UIView alloc] init];
+        descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
+        descriptionView = [self getAttribueViewForView:descriptionView];
+        descriptionView = [self getSpecialNoteView:descriptionView withSpecialNote:[productItem specialNote]];
+        
+        [self.longDescriptionView addSubview:descriptionView];
+        
     } else {
-    
+        
         [self.brandLabel setText:@""];
         [self.shortDescriptionLabel setText:@""];
         [self.salePriceLabel setText:@""];
         [self.crossedOffPriceLabel setText:@""];
-        
     }
- 
 
     [self.collectionView reloadData];
 }
-
+ 
 
 #pragma mark - Construct Description Views
 
@@ -261,9 +221,9 @@
         [attributeView addSubview:attributeLabel];
     }
 
-    
     return attributeView;
 }
+
 
 - (UIView *)getSpecialNoteView:(UIView *)specialNoteView withSpecialNote:(NSString *)specialNoteString {
 
@@ -357,74 +317,11 @@
 }
 
 
-#pragma mark - Load Product Detail RESTful
-
-
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
-
-
-- (void)fetchItemIntoDocument:(UIManagedDocument *)document forProductSku:(NSString *)productSku
-                       success:(void (^)(id  responseObject, id oneSizeBoolString)) success
-                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                         options:0
-                                                                           error:NULL];
-             
-         enum btrSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:entitiesPropertyList[@"variant_inventory"]
-                                                                                  toSizesArray:[self sizesArray]
-                                                                              toSizeCodesArray:[self sizeCodesArray]
-                                                                           toSizeQuantityArray:[self sizeQuantityArray]];
-         
-         [self extractAttributesFromAttributesDictionary:entitiesPropertyList[@"attributes"]];
-         
-         Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList inManagedObjectContext:document.managedObjectContext withEventId:[self eventId]];
-         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-        
-         NSString *sizeBoolString = @"FALSE";
-         if (sizeMode == btrSizeModeSingleSizeShow || sizeMode == btrSizeModeSingleSizeNoShow)
-             sizeBoolString = @"TRUE";
-
-         success(productItem, sizeBoolString);
-
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         NSLog(@"Error: %@", error);
-         
-         failure(operation, error);
-     }];
-    
-}
-
-
-
 #pragma mark -  Handle JSON with Arbitrary Keys (attributes)
 
 
 - (void) extractAttributesFromAttributesDictionary:(NSDictionary *)attributeDictionary {
     
- 
     [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         
         NSString *keyString = key;
@@ -443,9 +340,7 @@
 #pragma mark - Navigation
 
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
     
     if ([[segue identifier] isEqualToString:@"ZoomOnProductImageSegueIdentifier"]) {
         
@@ -454,7 +349,6 @@
         zoomVC.zoomImageCount = [self productImageCount];
     }
 }
-
 
 
 - (IBAction)selectSizeTapped:(UIButton *)sender {
@@ -470,15 +364,12 @@
 }
 
 
-
-- (IBAction)unwindFromImageZoomToProductDetail:(UIStoryboardSegue *)unwindSegue
-{
+- (IBAction)unwindFromImageZoomToProductDetail:(UIStoryboardSegue *)unwindSegue {
     
 }
 
 
-- (IBAction)unwindFromSelectSizeToProductDetail:(UIStoryboardSegue *)unwindSegue
-{
+- (IBAction)unwindFromSelectSizeToProductDetail:(UIStoryboardSegue *)unwindSegue {
     
 }
 
@@ -496,8 +387,6 @@
     if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
         [self.delegate variantCodeforAddtoBag:[[self sizeCodesArray] objectAtIndex:[self selectedSizeIndex]]];
     }
-    
-    
 }
 
 

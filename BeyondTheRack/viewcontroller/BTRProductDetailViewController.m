@@ -207,7 +207,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
     if ([[segue identifier] isEqualToString:@"ProductDetailEmbeddedSegueIdentifier"])
-    {
+    {        
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
         embeddedVC.delegate = self;
         embeddedVC.productItem = [self productItem];
