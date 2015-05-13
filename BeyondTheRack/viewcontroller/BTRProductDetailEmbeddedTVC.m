@@ -143,6 +143,8 @@
                                                                                  toSizesArray:[self sizesArray]
                                                                              toSizeCodesArray:[self sizeCodesArray]
                                                                           toSizeQuantityArray:[self sizeQuantityArray]];
+        [self updateSizeSelectionViewforSizeMode:sizeMode];
+        
     } else {
         
         [self.brandLabel setText:@""];
@@ -152,6 +154,24 @@
     }
 
     [self.collectionView reloadData];
+}
+
+
+- (void)updateSizeSelectionViewforSizeMode:(enum btrSizeMode)sizeMode {
+    
+    if (sizeMode == btrSizeModeSingleSizeShow || sizeMode == btrSizeModeSingleSizeNoShow) {
+        
+        [self.selectSizeLabel setAttributedText:[BTRViewUtility crossedOffStringfromString:@"Select Size :"]];
+        [self.selectSizeLabel setAlpha:0.4];
+        [self.selectSizeButton setEnabled:false];
+        [self.sizeLabel setText:@"One Size"];
+        [self.sizeLabel setTextColor:[UIColor blackColor]];
+        [self.dropdownLabelIcon setHidden:YES];
+        
+        if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
+            [self.delegate variantCodeforAddtoBag:@"Z"];
+        }
+    }
 }
 
 

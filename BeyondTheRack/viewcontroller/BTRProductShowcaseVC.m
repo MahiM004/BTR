@@ -177,12 +177,8 @@
                                                                              toSizesArray:[cell sizesArray]
                                                                          toSizeCodesArray:[cell sizeCodesArray]
                                                                       toSizeQuantityArray:[cell sizeQuantityArray]];
-    
-    NSString *sizeBoolString = @"FALSE";
-    if (sizeMode == btrSizeModeSingleSizeShow || sizeMode == btrSizeModeSingleSizeNoShow)
-        sizeBoolString = @"TRUE";
-  
-    
+    [self updateSizeSelectionViewforSizeMode:sizeMode];
+
     NSMutableArray *tempSizesArray = [cell sizesArray];
     NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
     
@@ -205,13 +201,13 @@
         [self presentViewController:viewController animated:NO completion:nil];
      }];
     
-    //cell.value.valueChangedCallback = ^(BTRSelectSizeVC *selectSizeVC, NSString *value) {
-        
-       // [[self.bagItemsArray objectAtIndex:indexPath.row] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
-       // stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
-    //};
-    
+  
     return cell;
+}
+
+- (void)updateSizeSelectionViewforSizeMode:(enum btrSizeMode)sizeMode {
+    
+    int il;
 }
 
 
@@ -240,17 +236,6 @@
 }
 
 
-
-/*
- - (UICollectionReusableView *)collectionView:
- (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
- {
- return [[UICollectionReusableView alloc] init];
- }
-*/
-
-
-
 #pragma mark - Navigation
 
 
@@ -269,15 +254,6 @@
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
     [self presentViewController:vc animated:YES completion:nil];
     
-}
-
-- (IBAction)searchIconTapped:(UIButton *)sender {
-    
-    /*
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    BTRSearchViewController *viewController = (BTRSearchViewController *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
-    [self presentViewController:viewController animated:NO completion:nil];
-    */
 }
 
 

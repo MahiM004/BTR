@@ -808,7 +808,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="60181186-562B-4C39-BC92-20D0C442F363" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="AD722F3B-0B5B-4048-B5BC-7E375F5CC989" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1353,18 +1353,6 @@
                                             <segue destination="88W-rN-Y9Y" kind="unwind" unwindAction="unwindToEventViewController:" id="Cp3-Xr-p35"/>
                                         </connections>
                                     </button>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="searchglass.png" translatesAutoresizingMaskIntoConstraints="NO" id="VbL-o2-b7i" userLabel="searchicon.png">
-                                        <rect key="frame" x="236" y="9" width="24" height="28"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1B-7I-sAW" userLabel="searchButton">
-                                        <rect key="frame" x="226" y="0.0" width="41" height="41"/>
-                                        <state key="normal">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="searchIconTapped:" destination="YuT-Qh-87n" eventType="touchUpInside" id="Mui-zK-Oni"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Some Cool Event Name" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="MR9-bq-C2I">
                                         <rect key="frame" x="60" y="8" width="201" height="24"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
@@ -1514,19 +1502,6 @@
                                         </state>
                                         <connections>
                                             <action selector="backButtonTapped:" destination="HKO-dJ-Mil" eventType="touchUpInside" id="n1D-W8-woK"/>
-                                        </connections>
-                                    </button>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="searchglass.png" translatesAutoresizingMaskIntoConstraints="NO" id="vFP-Ql-vip" userLabel="searchicon.png">
-                                        <rect key="frame" x="236" y="9" width="24" height="28"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojV-Zy-kBc" userLabel="searchButton">
-                                        <rect key="frame" x="226" y="0.0" width="41" height="41"/>
-                                        <state key="normal">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="searchButtonTapped:" destination="HKO-dJ-Mil" eventType="touchUpInside" id="cB5-oY-Sko"/>
-                                            <action selector="searchIconTapped:" destination="YuT-Qh-87n" eventType="touchUpInside" id="rnv-HJ-5am"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Some Cool Event Name" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="zAp-aR-pfL">
@@ -2497,7 +2472,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="60181186-562B-4C39-BC92-20D0C442F363" width="30" height="30">
+        <image name="AD722F3B-0B5B-4048-B5BC-7E375F5CC989" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
