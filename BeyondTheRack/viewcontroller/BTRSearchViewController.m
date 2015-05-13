@@ -44,10 +44,10 @@
     return _originalItemArray;
 }
 
-- (NSMutableArray *)itemArray{
+- (NSMutableArray *)itemsArray{
 
-    if (!_itemArray) _itemArray = [[NSMutableArray alloc] init];
-    return _itemArray;
+    if (!_itemsArray) _itemsArray = [[NSMutableArray alloc] init];
+    return _itemsArray;
 }
 
 
@@ -128,7 +128,7 @@
     
     [super viewDidAppear:YES];
     
-    if (![self.itemArray count])
+    if (![self.itemsArray count])
         [self.searchBar becomeFirstResponder];
 }
 
@@ -193,24 +193,21 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
-    if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]])
-    {
+    if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]]) {
+        
         [sharedFacetData clearAllData];
         [sharedFacetHandler resetFacets];
         sharedFacetHandler.searchString = [self.searchBar text];
     }
-    
     
     [self assignFilterIcon];
 
     
     [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[sharedFacetHandler searchString]
                          success:^(NSMutableArray *responseArray) {
-                             
                              
                              [self.originalItemArray addObjectsFromArray:responseArray];
                              
@@ -255,7 +252,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     
-    if ([self.itemArray  count] > 0) {
+    if ([self.itemsArray  count] > 0) {
         
         self.filterIconImageView.hidden = NO;
         self.filterButton.enabled = YES;
@@ -291,7 +288,7 @@
     
     
     
-    return [self.itemArray count];
+    return [self.itemsArray count];
 }
 
 
@@ -301,7 +298,7 @@
     static NSString *CellIdentifier = @"ProductShowcaseCollectionCellIdentifier";
     BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
+    Item *productItem = [self.itemsArray objectAtIndex:indexPath.row];
 
     if ([productItem sku]) {
         
@@ -309,7 +306,7 @@
         
     } else {
         
-        self.itemArray = [self originalItemArray];
+        self.itemsArray = [self originalItemArray];
     }
 
     return cell;
@@ -346,7 +343,7 @@
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
-    [self.itemArray removeAllObjects];
+    [self.itemsArray removeAllObjects];
     [self.collectionView reloadData];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -378,7 +375,7 @@
              if ([arrayToPass count] != 0) {
                  
                  
-                 [self.itemArray addObjectsFromArray:[Item loadItemsfromAppServerArray:arrayToPass intoManagedObjectContext:[self.beyondTheRackDocument managedObjectContext]]];
+                 [self.itemsArray addObjectsFromArray:[Item loadItemsfromAppServerArray:arrayToPass intoManagedObjectContext:[self.beyondTheRackDocument managedObjectContext]]];
                  
                  [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
              }
@@ -386,7 +383,7 @@
          
          [self.collectionView reloadData];
          
-         success([self itemArray]);
+         success([self itemsArray]);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -404,7 +401,7 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
-    Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
+    Item *productItem = [self.itemsArray objectAtIndex:indexPath.row];
     [self setSelectedItem:productItem];
     [self performSegueWithIdentifier:@"ProductDetailSegueFromSearchIdentifier" sender:self];
 }
@@ -427,7 +424,6 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
     if ([[segue identifier] isEqualToString:@"BTRSearchFilterSegue"]) {
     
         CGSize screenSize = [UIScreen mainScreen].bounds.size;
@@ -461,7 +457,7 @@
 
 - (IBAction)unwindFromRefineResultsApplied:(UIStoryboardSegue *)unwindSegue {
     
-    [self.itemArray removeAllObjects];
+    [self.itemsArray removeAllObjects];
     [self.collectionView reloadData];
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
@@ -473,7 +469,7 @@
         if ([arrayToPass count] != 0) {
             
             
-            [self.itemArray addObjectsFromArray:[Item loadItemsfromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
+            [self.itemsArray addObjectsFromArray:[Item loadItemsfromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
         }
     }
@@ -485,8 +481,8 @@
 
 - (IBAction)unwindFromRefineResultsCleared:(UIStoryboardSegue *)unwindSegue {
 
-    [self.itemArray removeAllObjects];
-    [self.itemArray addObjectsFromArray:[self originalItemArray]];
+    [self.itemsArray removeAllObjects];
+    [self.itemsArray addObjectsFromArray:[self originalItemArray]];
     
     [self.collectionView reloadData];
 }

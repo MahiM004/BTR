@@ -10,7 +10,7 @@
 
 @interface BTRSearchViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *itemArray;
+@property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *filterIconImageView;
