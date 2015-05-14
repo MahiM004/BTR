@@ -17,11 +17,11 @@
 
 @interface BTRProductDetailViewController : UIViewController <BTRProductDetailEmbeddedTVC>
 
-
 @property (strong, nonatomic) NSString *originVCString;
+@property (strong, nonatomic) NSString *productSKUfromSearchResult;
+
 @property (strong, nonatomic) Item *productItem;
 @property (strong, nonatomic) NSDictionary *variantInventoryDictionary;
 @property (strong, nonatomic) NSString *eventId;
-
 
 @end

@@ -27,6 +27,10 @@
 @property (strong, nonatomic) NSString *variant;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 
+@property (strong, nonatomic) Item *itemSelectedfromSearchResult;
+@property (strong, nonatomic) NSDictionary *variantInventoryDictionaryforItemfromSearch;
+
+
 @end
 
 @implementation BTRProductDetailViewController
@@ -65,6 +69,11 @@
     
     [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
+    
+    if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
+        
+        int make_call_for_product;
+    }
 }
 
 
@@ -93,11 +102,9 @@
                 [vc.bagItemsArray addObjectsFromArray:[self bagItemsArray]];
                 
                 [self presentViewController:vc animated:YES completion:nil];
-                
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
             
         }];
         
@@ -197,9 +204,19 @@
         
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
         embeddedVC.delegate = self;
-        embeddedVC.productItem = [self productItem];
-        embeddedVC.eventId = [self eventId];
-        embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
+        
+        if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
+            
+            embeddedVC.productItem = [self itemSelectedfromSearchResult];
+            embeddedVC.variantInventoryDictionary = [self variantInventoryDictionaryforItemfromSearch];
+            
+        } else {
+            
+            embeddedVC.productItem = [self productItem];
+            embeddedVC.eventId = [self eventId];
+            embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
+        }
+
     }
 }
 

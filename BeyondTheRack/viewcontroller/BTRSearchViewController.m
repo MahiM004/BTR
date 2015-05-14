@@ -438,20 +438,14 @@
 
         refineVC.backgroundImage = screenShotImage;
         refineVC.delegate = self;
-    
-    
     }
- 
     
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueFromSearchIdentifier"]) {
         
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = SEARCH_SCENE;
         productDetailVC.productItem = [self selectedItem];
-        
     }
-    
-    
 }
 
 

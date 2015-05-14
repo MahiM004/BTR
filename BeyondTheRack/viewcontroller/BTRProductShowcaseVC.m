@@ -64,7 +64,6 @@
     
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
-    
 }
 
 
@@ -205,9 +204,10 @@
     return cell;
 }
 
+
 - (void)updateSizeSelectionViewforSizeMode:(enum btrSizeMode)sizeMode {
     
-    int il;
+    int size;
 }
 
 
@@ -218,8 +218,6 @@
     
     [self presentViewController:viewController animated:NO completion:nil];
 }
-
-
 
 
 
@@ -253,7 +251,6 @@
     UIStoryboard *storyboard = self.storyboard;
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
     [self presentViewController:vc animated:YES completion:nil];
-    
 }
 
 
@@ -262,17 +259,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
-    
-    if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"])
-    {
+    if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"]) {
+        
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = EVENT_SCENE;
         productDetailVC.productItem = [self.itemArray objectAtIndex:[self.selectedIndexPath row]];
         productDetailVC.eventId = [self eventSku];
         productDetailVC.variantInventoryDictionary = [self.variantInventoriesArray objectAtIndex:[self.selectedIndexPath row]];
     }
-    
-    
 }
 
 
@@ -299,6 +293,7 @@
         [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
  
             if ([successString isEqualToString:@"TRUE"]) {
+ 
                 UIStoryboard *storyboard = self.storyboard;
                 BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
                 [vc.bagItemsArray addObjectsFromArray:[self bagItemsArray]];
@@ -309,7 +304,6 @@
             
         }];
     }
-    
 }
 */
 
@@ -332,8 +326,6 @@
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     
     self.selectedSizeIndex = selectedIndex;
-    
-    int size_label;
     
     /*
      save the cell index.
