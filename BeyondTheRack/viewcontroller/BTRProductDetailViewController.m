@@ -259,7 +259,7 @@
             embeddedVC.variantInventoryDictionary = [self variantInventoryDictionaryforItemfromSearch];
             embeddedVC.attributesDictionary = [self attributesDictionaryforItemfromSearch];
             
-            NSLog(@"search item selection to PDP not tested DUE to LACK OF BACKEND API!");
+            NSLog(@"search item selection to PDP not tested DUE to CONSTRUCTION OF BACKEND API!");
             
         } else {
             
