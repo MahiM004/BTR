@@ -113,6 +113,9 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
+    
+    [self extractAttributesFromAttributesDictionary:[self attributesDictionary]];
+
     [self updateViewWithDeatiledItem:[self productItem]];
 }
 
@@ -251,7 +254,6 @@
 
 - (UIView *)getSpecialNoteView:(UIView *)specialNoteView withSpecialNote:(NSString *)specialNoteString {
 
-    
     if ([specialNoteString length] > 2) {
         
         customHeight += 20;
@@ -306,6 +308,26 @@
 }
 
 
+#pragma mark -  Handle JSON with Arbitrary Keys (attributes)
+
+
+- (void) extractAttributesFromAttributesDictionary:(NSDictionary *)attributeDictionary {
+    
+    
+    [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        NSString *keyString = key;
+        NSString *objString = obj;
+        
+        if (![keyString isEqualToString:@""]) {
+            
+            [[self attributeKeys] addObject:keyString];
+            [[self attributeValues] addObject:objString];
+        }
+    }];
+    
+}
+
 
 #pragma mark - Table view data source
 
@@ -336,26 +358,6 @@
     }
     
     return 1;
-}
-
-
-#pragma mark -  Handle JSON with Arbitrary Keys (attributes)
-
-
-- (void) extractAttributesFromAttributesDictionary:(NSDictionary *)attributeDictionary {
-    
-    [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        
-        NSString *keyString = key;
-        NSString *objString = obj;
-        
-        if (![keyString isEqualToString:@""]) {
-            
-            [[self attributeKeys] addObject:keyString];
-            [[self attributeValues] addObject:objString];
-        }
-    }];
-    
 }
 
 

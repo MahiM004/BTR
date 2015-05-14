@@ -12,6 +12,7 @@
 #import "BTRProductShowcaseVC.h"
 #import "BTRBagFetcher.h"
 #import "BagItem+AppServer.h"
+#import "BTRItemFetcher.h"
 
 #define SIZE_NOT_SELECTED_STRING @"-1"
 
@@ -29,7 +30,7 @@
 
 @property (strong, nonatomic) Item *itemSelectedfromSearchResult;
 @property (strong, nonatomic) NSDictionary *variantInventoryDictionaryforItemfromSearch;
-
+@property (strong, nonatomic) NSDictionary *attributesDictionaryforItemfromSearch;
 
 @end
 
@@ -72,7 +73,14 @@
     
     if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
         
-        int make_call_for_product;
+        [self fetchItemIntoDocument:[self beyondTheRackDocument] forProductSku:[[self productItem] sku]
+                            success:^(Item *responseObject) {
+                                
+                                [self setItemSelectedfromSearchResult:responseObject];
+                                
+                            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                
+                            }];
     }
 }
 
@@ -113,7 +121,7 @@
 }
 
 
-#pragma mark - Add to Bag RESTful
+#pragma mark - RESTful Calls
 
 
 - (void)setupDocument
@@ -156,7 +164,6 @@
                                                                                      error:NULL];
               
               NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
-
               NSDate *serverTime = [NSDate date];
               
               [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
@@ -172,6 +179,47 @@
               failure(operation, error);
               
           }];
+}
+
+
+
+
+- (void)fetchItemIntoDocument:(UIManagedDocument *)document forProductSku:(NSString *)productSku
+                      success:(void (^)(id  responseObject)) success
+                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                              options:0
+                                                                                error:NULL];
+         
+         [self setAttributesDictionaryforItemfromSearch:entitiesPropertyList[@"attributes"]];
+         [self setVariantInventoryDictionaryforItemfromSearch:entitiesPropertyList[@"variant_inventory"]];
+         
+         Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList inManagedObjectContext:document.managedObjectContext withEventId:[self eventId]];
+         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         
+         success(productItem);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         NSLog(@"Error: %@", error);
+         
+         failure(operation, error);
+     }];
+    
 }
 
 
@@ -209,12 +257,16 @@
             
             embeddedVC.productItem = [self itemSelectedfromSearchResult];
             embeddedVC.variantInventoryDictionary = [self variantInventoryDictionaryforItemfromSearch];
+            embeddedVC.attributesDictionary = [self attributesDictionaryforItemfromSearch];
+            
+            NSLog(@"search item selection to PDP not tested DUE to LACK OF BACKEND API!");
             
         } else {
             
             embeddedVC.productItem = [self productItem];
             embeddedVC.eventId = [self eventId];
             embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
+            embeddedVC.attributesDictionary = [self attributesDictionary];
         }
 
     }

@@ -32,6 +32,7 @@
 
 
 @property (copy, nonatomic) NSMutableArray *variantInventoriesArray; // an Array of variantInventory Dictionaries
+@property (copy, nonatomic) NSMutableArray *attributesArray; // an Array of variantInventory Dictionaries
 
 @property (strong, nonatomic) NSString *selectedSizeString;
 @property (nonatomic) NSUInteger selectedSizeIndex;
@@ -41,6 +42,12 @@
 
 @implementation BTRProductShowcaseVC
 
+
+- (NSMutableArray *)attributesArray {
+    
+    if (!_attributesArray) _attributesArray = [[NSMutableArray alloc] init];
+    return _attributesArray;
+}
 
 
 - (NSMutableArray *)variantInventoriesArray {
@@ -130,6 +137,7 @@
          
          for (NSDictionary *itemDic in entitiesPropertyList) {
              [self.variantInventoriesArray addObject:itemDic[@"variant_inventory"]];
+             [self.attributesArray addObject:itemDic[@"attributes"]];
          }
          
          [self.itemArray addObjectsFromArray:[Item loadItemsfromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext withEventId:[self eventSku]]];
@@ -266,6 +274,7 @@
         productDetailVC.productItem = [self.itemArray objectAtIndex:[self.selectedIndexPath row]];
         productDetailVC.eventId = [self eventSku];
         productDetailVC.variantInventoryDictionary = [self.variantInventoriesArray objectAtIndex:[self.selectedIndexPath row]];
+        productDetailVC.attributesDictionary = [self.attributesArray objectAtIndex:[self.selectedIndexPath row]];
     }
 }
 

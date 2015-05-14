@@ -22,6 +22,9 @@
 
 @property (strong, nonatomic) Item *productItem;
 @property (strong, nonatomic) NSDictionary *variantInventoryDictionary;
+@property (strong, nonatomic) NSDictionary *attributesDictionary;
+
+
 @property (strong, nonatomic) NSString *eventId;
 
 @end
