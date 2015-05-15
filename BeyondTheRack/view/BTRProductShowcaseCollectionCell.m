@@ -11,6 +11,7 @@
 @interface BTRProductShowcaseCollectionCell()
 
 @property (copy, nonatomic) void (^didTapAddtoBagButtonBlock)(id sender);
+@property (copy, nonatomic) void (^didTapSelectSizeButtonBlock)(id sender);
 
 
 @end
@@ -45,7 +46,7 @@
     
     self.sizeSelector = [[BTRSizeSelector alloc] initWithFrame:CGRectMake(0, 0, 90, 20)];
     self.sizeSelector.valueChangedCallback = ^(BTRSizeSelector *sizeSelector, NSString *value) {
-        sizeSelector.countLabel.text = value;
+        sizeSelector.titleLabel.text = value;
     };
     
     [self.sizeSelector setBackgroundColor:[UIColor orangeColor]];
@@ -54,6 +55,7 @@
     //[self addSubview:self.sizeSelector];
     
     [self.addToBagButton addTarget:self action:@selector(didTapAddtoBagButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.selectSizeButton addTarget:self action:@selector(didTapSelectSizeButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)didTapAddtoBagButton:(id)sender {
@@ -64,12 +66,59 @@
 }
 
 
+- (void)didTapSelectSizeButton:(id)sender {
+    
+    if (self.didTapSelectSizeButtonBlock) {
+        self.didTapSelectSizeButtonBlock(sender);
+    }
+}
+
 /*
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
-}*/
+}
+*/
+/*
+- (void)awakeFromNib {
+    
+    self.stepper = [[PKYStepper alloc] initWithFrame:CGRectMake(0, 0, 90, 20)];
+    self.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
+        stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
+    };
+    
+    [self.stepper setup];
+    [self.stepperView addSubview:self.stepper];
+    
+}
 
+
+
+*/
 
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

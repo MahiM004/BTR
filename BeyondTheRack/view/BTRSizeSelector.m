@@ -20,26 +20,26 @@ static const float kButtonWidth = 30.0f;
 
 #pragma mark initialization
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    if (self = [super initWithFrame:frame])
-    {
+- (instancetype)initWithFrame:(CGRect)frame {
+    
+    if (self = [super initWithFrame:frame]) {
+        
         [self commonInit];
     }
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    if (self = [super initWithCoder:aDecoder])
-    {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    if (self = [super initWithCoder:aDecoder]) {
+        
         [self commonInit];
     }
     return self;
 }
 
-- (void)commonInit
-{
+- (void)commonInit {
+    
     _value = @"Z";
      _buttonWidth = kButtonWidth;
     
@@ -47,16 +47,16 @@ static const float kButtonWidth = 30.0f;
     [self setBorderWidth:1.0f];
     [self setCornerRadius:3.0];
     
-    self.countLabel = [[UILabel alloc] init];
-    self.countLabel.textAlignment = NSTextAlignmentCenter;
-    self.countLabel.layer.borderWidth = 1.0f;
-    //[self addSubview:self.countLabel];
-    
+    self.titleLabel = [[UILabel alloc] init];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.layer.borderWidth = 1.0f;
+    [self addSubview:self.titleLabel];
+    /*
     self.selectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.selectionButton setTitle:@"-" forState:UIControlStateNormal];
     [self.selectionButton addTarget:self action:@selector(selectSizeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     //[self addSubview:self.selectionButton];
-    
+    */
     UIColor *defaultColor = [UIColor blackColor];//[UIColor colorWithRed:(79/255.0) green:(161/255.0) blue:(210/255.0) alpha:1.0];
     [self setBorderColor:defaultColor];
     [self setLabelTextColor:defaultColor];
@@ -77,24 +77,22 @@ static const float kButtonWidth = 30.0f;
     CGFloat width = self.bounds.size.width;
     CGFloat height = self.bounds.size.height;
     
-    self.countLabel.frame = CGRectMake(self.buttonWidth, 0, width - (self.buttonWidth * 2), height);
+    self.titleLabel.frame = CGRectMake(self.buttonWidth, 0, width - (self.buttonWidth * 2), height);
     self.selectionButton.frame = CGRectMake(0, 0, self.buttonWidth, height);
 }
 
 - (void)setup
 {
-    if (self.valueChangedCallback)
-    {
+    if (self.valueChangedCallback) {
         self.valueChangedCallback(self, self.value);
     }
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    if (CGSizeEqualToSize(size, CGSizeZero))
-    {
+    if (CGSizeEqualToSize(size, CGSizeZero)) {
         // if CGSizeZero, return ideal size
-        CGSize labelSize = [self.countLabel sizeThatFits:size];
+        CGSize labelSize = [self.titleLabel sizeThatFits:size];
         return CGSizeMake(labelSize.width + (self.buttonWidth * 2), labelSize.height);
     }
     return size;
@@ -109,7 +107,7 @@ static const float kButtonWidth = 30.0f;
 - (void)setBorderColor:(UIColor *)color {
     
     self.layer.borderColor = color.CGColor;
-    self.countLabel.layer.borderColor = color.CGColor;
+    self.titleLabel.layer.borderColor = color.CGColor;
 }
 
 - (void)setBorderWidth:(CGFloat)width {
@@ -124,12 +122,12 @@ static const float kButtonWidth = 30.0f;
 
 - (void)setLabelTextColor:(UIColor *)color {
     
-    self.countLabel.textColor = color;
+    self.titleLabel.textColor = color;
 }
 
 - (void)setLabelFont:(UIFont *)font {
     
-    self.countLabel.font = font;
+    self.titleLabel.font = font;
 }
 
 - (void)setButtonTextColor:(UIColor *)color forState:(UIControlState)state {
@@ -150,8 +148,7 @@ static const float kButtonWidth = 30.0f;
 {
     _value = value;
     
-    if (self.valueChangedCallback)
-    {
+    if (self.valueChangedCallback) {
         self.valueChangedCallback(self, _value);
     }
 }
@@ -162,24 +159,12 @@ static const float kButtonWidth = 30.0f;
 
 - (void)selectSizeButtonTapped:(id)sender
 {
-    if (self.valueChangedCallback)
-    {
+    if (self.valueChangedCallback) {
         self.valueChangedCallback(self, self.value);
     }
     
 }
 
-
-#pragma mark - BTRSelectSizeVC Delegate
-
-
-
-- (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
-  /*
-    
-    */
-    
-}
 
 
 

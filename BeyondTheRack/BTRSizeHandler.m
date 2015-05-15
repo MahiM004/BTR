@@ -16,6 +16,10 @@
                                              toSizeCodesArray:(NSMutableArray *)sizeCodesArray
                                            toSizeQuantityArray:(NSMutableArray *)sizesQuantityArray {
     
+    [sizesArray removeAllObjects];
+    [sizeCodesArray removeAllObjects];
+    [sizesQuantityArray removeAllObjects];
+    
     NSString *keyString = @"";
     NSArray *allKeys = [variantInventoryDictionary allKeys];
     

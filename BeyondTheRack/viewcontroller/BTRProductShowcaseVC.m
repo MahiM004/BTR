@@ -16,14 +16,17 @@
 
 @interface BTRProductShowcaseVC ()
 
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath; // used to segue to PDP
+@property (strong, nonatomic) NSString *selectedBrandString; // used to segue to PDP
+
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
-@property (strong, nonatomic) NSString *selectedBrandString;
-@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
-
+@property (assign, nonatomic) NSUInteger selectedCellIndexRow;
+@property (assign, nonatomic) NSUInteger selectedSizeIndex;
+@property (assign, nonatomic) BOOL hasSelectedSize;
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -34,8 +37,6 @@
 @property (copy, nonatomic) NSMutableArray *variantInventoriesArray; // an Array of variantInventory Dictionaries
 @property (copy, nonatomic) NSMutableArray *attributesArray; // an Array of variantInventory Dictionaries
 
-@property (strong, nonatomic) NSString *selectedSizeString;
-@property (nonatomic) NSUInteger selectedSizeIndex;
 
 @end
 
@@ -69,6 +70,7 @@
 {
     [super viewWillAppear:animated];
     
+    
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
 }
@@ -77,6 +79,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self setSelectedCellIndexRow:NSUIntegerMax];
+
     
     [self.eventTitleLabel setText:[self eventTitleString]];
     
@@ -172,42 +177,44 @@
     Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
 
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
-    
-    
-    /*
-    [cell.addToBagButton addTarget:self
-                            action:@selector(customActionPressed:)
-                  forControlEvents:UIControlEventTouchDown];
-    */
-    
+
     enum btrSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self.variantInventoriesArray objectAtIndex:indexPath.row]
                                                                              toSizesArray:[cell sizesArray]
                                                                          toSizeCodesArray:[cell sizeCodesArray]
                                                                       toSizeQuantityArray:[cell sizeQuantityArray]];
-    [self updateSizeSelectionViewforSizeMode:sizeMode];
-
+    
     NSMutableArray *tempSizesArray = [cell sizesArray];
     NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
     
-    [cell.sizeSelector addTarget:self
-                          action:@selector(customActionPressed:)
-                forControlEvents:UIControlEventTouchDown];
-    
-    [cell setDidTapAddtoBagButtonBlock:^(id sender) {
+    [cell setDidTapSelectSizeButtonBlock:^(id sender) {
         
         UIStoryboard *storyboard = self.storyboard;
         BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
- 
+        
         viewController.modalPresentationStyle = UIModalPresentationFormSheet;
         viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        
         viewController.sizesArray = tempSizesArray;
         viewController.sizeQuantityArray = tempQuantityArray;
         viewController.delegate = self;
         
-        [self presentViewController:viewController animated:NO completion:nil];
-     }];
+        self.selectedCellIndexRow = indexPath.row;
+        [self presentViewController:viewController animated:YES completion:nil];
+    }];
     
+    [self updateSizeSelectionViewforSizeMode:sizeMode];
+
+/*
+    cell.sizeSelector.valueChangedCallback = ^(BTRSizeSelector *sizeSelector, NSString *value) {
+        sizeSelector.titleLabel.text = value;
+    };*/
+    
+    if (self.selectedCellIndexRow == indexPath.row) {
+        
+        cell.addToBagButton.titleLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
+        NSLog(@"qkdshfakjhsdfkjqhdskfhasdf: %ld", (long)[indexPath row]);
+    }
+
+   
   
     return cell;
 }
@@ -279,11 +286,6 @@
 }
 
 
-- (IBAction)selectSizeTapped:(UIButton *)sender {
-
-}
-
-
 
 /*
 - (IBAction)addToBagTapped:(UIButton *)sender {
@@ -336,14 +338,7 @@
     
     self.selectedSizeIndex = selectedIndex;
     
-    /*
-     save the cell index.
-     
-     save the selectedIndex and the selectedSizeString on the cell
-     */
-    
-    //update cell
-    //self.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
+    [self.collectionView reloadData];
 }
 
 

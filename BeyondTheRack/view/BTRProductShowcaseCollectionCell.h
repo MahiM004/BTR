@@ -23,17 +23,16 @@
 @property (strong, nonatomic) NSMutableArray *sizeCodesArray;
 @property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
 
-
-
 @property (nonatomic, strong) BTRSizeSelector *sizeSelector;
 
-
-
+@property (assign, nonatomic) BOOL hasSelectedSize;
 
 @property (weak, nonatomic) IBOutlet UIButton *addToBagButton;
+@property (weak, nonatomic) IBOutlet BTRSizeSelector *selectSizeButton;
 
 
-- (void)setDidTapAddtoBagButtonBlock:(void (^)(id sender))didTapAddtoButtonBlock;
+- (void)setDidTapAddtoBagButtonBlock:(void (^)(id sender))didTapAddtoBagButtonBlock;
+- (void)setDidTapSelectSizeButtonBlock:(void (^)(id sender))didTapSelectSizeButtonBlock;
 
 
 

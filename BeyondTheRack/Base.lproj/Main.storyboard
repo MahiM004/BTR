@@ -808,7 +808,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="AD722F3B-0B5B-4048-B5BC-7E375F5CC989" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="56D2C7E3-2EFE-4886-9E31-53257F661AE6" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1441,6 +1441,7 @@
                                             <outlet property="originalPrice" destination="2fF-Qk-orP" id="vJ2-Kj-lkz"/>
                                             <outlet property="productImageView" destination="X2x-Al-l8F" id="GRQ-NQ-ROt"/>
                                             <outlet property="productTitleLabel" destination="1zc-uF-TtV" id="zAT-he-bbR"/>
+                                            <outlet property="selectSizeButton" destination="467-5r-hi3" id="GBh-19-i9u"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -2472,7 +2473,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AD722F3B-0B5B-4048-B5BC-7E375F5CC989" width="30" height="30">
+        <image name="56D2C7E3-2EFE-4886-9E31-53257F661AE6" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

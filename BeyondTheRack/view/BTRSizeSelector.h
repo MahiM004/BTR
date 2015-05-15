@@ -18,7 +18,7 @@ typedef void (^BTRSizeSelectorValueChangedCallback)(BTRSizeSelector *sizeSelecto
 
 IB_DESIGNABLE
 @interface BTRSizeSelector : UIControl
-@property (nonatomic, strong) UILabel *countLabel;
+@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIColor *labelColor;
 @property (nonatomic, strong) UIButton *selectionButton;
 
@@ -27,8 +27,6 @@ IB_DESIGNABLE
 
 
 @property (nonatomic, copy) BTRSizeSelectorValueChangedCallback valueChangedCallback;
-
-
 
 // call this method after setting value(s) and callback(s)
 // This method will call callback
@@ -48,3 +46,15 @@ IB_DESIGNABLE
 
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
