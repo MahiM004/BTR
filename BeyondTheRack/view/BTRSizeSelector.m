@@ -49,21 +49,20 @@ static const float kButtonWidth = 30.0f;
     
     self.titleLabel = [[UILabel alloc] init];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.titleLabel.layer.borderWidth = 1.0f;
-    [self addSubview:self.titleLabel];
-    /*
-    self.selectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.selectionButton setTitle:@"-" forState:UIControlStateNormal];
-    [self.selectionButton addTarget:self action:@selector(selectSizeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    //[self addSubview:self.selectionButton];
-    */
-    UIColor *defaultColor = [UIColor blackColor];//[UIColor colorWithRed:(79/255.0) green:(161/255.0) blue:(210/255.0) alpha:1.0];
-    [self setBorderColor:defaultColor];
-    [self setLabelTextColor:defaultColor];
-    [self setButtonTextColor:defaultColor forState:UIControlStateNormal];
+    self.titleLabel.layer.borderWidth = 0.0f;
+    [self.titleLabel setFont:[UIFont fontWithName:@"Avenir-Black" size:9.0f]];
     
-    [self setLabelFont:[UIFont fontWithName:@"Avernir-Roman" size:10.0f]];
-    [self setButtonFont:[UIFont fontWithName:@"Avenir-Black" size:12.0f]];
+    [self.titleLabel setText:@"Select Size"];
+
+    [self addSubview:self.titleLabel];
+
+    [self setBorderColor:[UIColor blackColor]];
+    [self setLabelTextColor:[UIColor blackColor]];
+    [self setButtonTextColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    
+    [self setLabelFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0f]];
+    [self setButtonFont:[UIFont fontWithName:@"Avenir-Black" size:8.0f]];
 }
 
 

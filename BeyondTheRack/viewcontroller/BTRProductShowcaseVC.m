@@ -11,8 +11,14 @@
 #import "BTRProductDetailViewController.h"
 #import "BTRSearchViewController.h"
 
+#import "BTRShoppingBagViewController.h"
+
 #import "Item+AppServer.h"
+#import "BagItem+AppServer.h"
 #import "BTRItemFetcher.h"
+#import "BTRBagFetcher.h"
+
+#define SIZE_NOT_SELECTED_STRING @"Select Size"
 
 @interface BTRProductShowcaseVC ()
 
@@ -24,24 +30,36 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
-@property (assign, nonatomic) NSUInteger selectedCellIndexRow;
-@property (assign, nonatomic) NSUInteger selectedSizeIndex;
-@property (assign, nonatomic) BOOL hasSelectedSize;
-
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) NSMutableArray *itemArray;
-
-
 @property (copy, nonatomic) NSMutableArray *variantInventoriesArray; // an Array of variantInventory Dictionaries
 @property (copy, nonatomic) NSMutableArray *attributesArray; // an Array of variantInventory Dictionaries
+@property (strong, nonatomic) NSMutableArray *chosenSizesArray;
+@property (assign, nonatomic) NSUInteger selectedCellIndexRow;
 
+@property (strong, nonatomic) NSMutableArray *bagItemsArray;
 
 @end
 
 
 @implementation BTRProductShowcaseVC
+
+
+- (NSMutableArray *)bagItemsArray {
+    
+    if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
+    return _bagItemsArray;
+}
+
+
+- (NSMutableArray *)chosenSizesArray {
+    
+    if (!_chosenSizesArray) _chosenSizesArray = [[NSMutableArray alloc] init];
+    return _chosenSizesArray;
+}
+
 
 
 - (NSMutableArray *)attributesArray {
@@ -96,7 +114,7 @@
     [self fetchItemsIntoDocument:[self beyondTheRackDocument]
                      forEventSku:[self eventSku]
                          success:^(NSDictionary *responseDictionary) {
-                             
+                   
                              [self.collectionView reloadData];
                              
                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -148,6 +166,9 @@
          [self.itemArray addObjectsFromArray:[Item loadItemsfromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext withEventId:[self eventSku]]];
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
+         for (int i = 0; i < [self.itemArray count]; i++)
+             [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+         
          success([self itemArray]);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -157,6 +178,57 @@
          failure(operation, error);
      }];
     
+}
+
+
+
+
+- (void)cartIncrementServerCallforSessionId:(NSString *)sessionId
+                             addProductItem:(Item *)productItem
+                                withVariant:(NSString *)variant
+                                    success:(void (^)(id  responseObject)) success
+                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
+    
+    NSDictionary *params = (@{
+                              @"event_id": [productItem eventId],
+                              @"sku": [productItem sku],
+                              @"variant": variant
+                              });
+    
+    [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]]
+       parameters:params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+              
+              NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
+              NSDate *serverTime = [NSDate date];
+              
+              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
+              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+              
+              BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+              [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+              
+              success(@"TRUE");
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              failure(operation, error);
+              
+          }];
 }
 
 
@@ -174,15 +246,15 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
-    Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
-
-    cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
-
-    enum btrSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self.variantInventoriesArray objectAtIndex:indexPath.row]
-                                                                             toSizesArray:[cell sizesArray]
-                                                                         toSizeCodesArray:[cell sizeCodesArray]
-                                                                      toSizeQuantityArray:[cell sizeQuantityArray]];
     
+    [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self.variantInventoriesArray objectAtIndex:indexPath.row]
+                                                 toSizesArray:[cell sizesArray]
+                                             toSizeCodesArray:[cell sizeCodesArray]
+                                          toSizeQuantityArray:[cell sizeQuantityArray]];
+    
+    Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
+    cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andIndexPath:indexPath];
+
     NSMutableArray *tempSizesArray = [cell sizesArray];
     NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
     
@@ -190,7 +262,6 @@
         
         UIStoryboard *storyboard = self.storyboard;
         BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
-        
         viewController.modalPresentationStyle = UIModalPresentationFormSheet;
         viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
         viewController.sizesArray = tempSizesArray;
@@ -201,28 +272,41 @@
         [self presentViewController:viewController animated:YES completion:nil];
     }];
     
-    [self updateSizeSelectionViewforSizeMode:sizeMode];
-
-/*
-    cell.sizeSelector.valueChangedCallback = ^(BTRSizeSelector *sizeSelector, NSString *value) {
-        sizeSelector.titleLabel.text = value;
-    };*/
     
-    if (self.selectedCellIndexRow == indexPath.row) {
-        
-        cell.addToBagButton.titleLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
-        NSLog(@"qkdshfakjhsdfkjqhdskfhasdf: %ld", (long)[indexPath row]);
+    __block NSString *sizeLabelText = [cell.selectSizeButton.titleLabel text];
+    __block NSString *selectedSizeString = @"";
+    if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] ) {
+        selectedSizeString = @"Z";
+    } else {
+        selectedSizeString = [[cell sizeCodesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]];
     }
-
-   
-  
-    return cell;
-}
-
-
-- (void)updateSizeSelectionViewforSizeMode:(enum btrSizeMode)sizeMode {
     
-    int size;
+    [cell setDidTapAddtoBagButtonBlock:^(id sender) {
+    
+        if ([sizeLabelText isEqualToString:SIZE_NOT_SELECTED_STRING]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Size" message:@"Please select a size!" delegate:self cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        } else {
+            
+            BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+            [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] addProductItem:productItem withVariant:selectedSizeString  success:^(NSString *successString) {
+                
+                if ([successString isEqualToString:@"TRUE"]) {
+                    
+                    UIStoryboard *storyboard = self.storyboard;
+                    BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+                    [vc.bagItemsArray addObjectsFromArray:[self bagItemsArray]];
+                    [self presentViewController:vc animated:YES completion:nil];
+                }
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
+            }];
+        }
+    }];
+    
+    return cell;
 }
 
 
@@ -231,13 +315,25 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     BTRSelectSizeVC *viewController = (BTRSelectSizeVC *)[storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
     
-    [self presentViewController:viewController animated:NO completion:nil];
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 
 
-- (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell withItem:(Item *)productItem {
+- (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell
+                                                                    withItem:(Item *)productItem
+                                                                andIndexPath:(NSIndexPath *)indexPath {
+    
+    if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] ) {
+        
+        cell.selectSizeButton.titleLabel.text = @"Select Size";
+        
+    } else {
+        
+        cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
+    }
 
+    
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
     
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
@@ -286,41 +382,6 @@
 }
 
 
-
-/*
-- (IBAction)addToBagTapped:(UIButton *)sender {
-    
-    if ([[self variant] isEqualToString:SIZE_NOT_SELECTED_STRING]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Size"
-                                                        message:@"Please select a size!"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
-    } else {
-        
-        BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-        [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
- 
-            if ([successString isEqualToString:@"TRUE"]) {
- 
-                UIStoryboard *storyboard = self.storyboard;
-                BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-                [vc.bagItemsArray addObjectsFromArray:[self bagItemsArray]];
-                [self presentViewController:vc animated:YES completion:nil];
-            }
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-        }];
-    }
-}
-*/
-
-
-
-
 - (IBAction)unwindFromProductDetailToShowcase:(UIStoryboardSegue *)unwindSegue
 {
 
@@ -336,8 +397,8 @@
 
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     
-    self.selectedSizeIndex = selectedIndex;
-    
+    self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:selectedIndex];
+
     [self.collectionView reloadData];
 }
 
