@@ -146,7 +146,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 
-    [self viewDidAppear:YES];
+    [super viewWillDisappear:YES];
     
     [self.searchBar resignFirstResponder];
     [self.collectionView becomeFirstResponder];

@@ -134,6 +134,7 @@
     line.frame = layerFrame;
     line.strokeColor = [UIColor grayColor].CGColor;
     [textField.layer addSublayer:line];
+    CFRelease(path);
     
     return textField;
 }

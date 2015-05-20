@@ -97,8 +97,8 @@
     
     _productImageCount = productImageCount;
     
-    if(productImageCount <= 1)
-        productImageCount = 1;
+    //if(productImageCount <= 1)
+      //  productImageCount = 1;
 }
 
 - (void)viewDidLoad {

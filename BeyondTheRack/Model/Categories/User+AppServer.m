@@ -274,7 +274,11 @@
 
 + (NSDictionary *)extractFacebookUserParamsfromResponseJsonDictionary:(id)jsonResponse withAccessToken:(NSString *)facebookAccessToken {
     
-    NSString *facebookUserId, *firstName, *lastName, *gender, *email;
+    NSString *facebookUserId = @"";
+    NSString *firstName = @"";
+    NSString *lastName = @"";
+    NSString *gender = @"";
+    NSString *email = @"";
     /*
     if ([jsonResponse objectForKey:@"email"] && [jsonResponse valueForKeyPath:@"email"] != [NSNull null])
         email = [jsonResponse valueForKeyPath:@"email"];

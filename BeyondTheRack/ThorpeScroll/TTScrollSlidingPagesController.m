@@ -198,6 +198,9 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:YES];
+    
     if (!viewDidAppearHasBeenCalled){
         viewDidAppearHasBeenCalled = YES;
         [self reloadPages];

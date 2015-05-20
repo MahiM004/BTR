@@ -397,7 +397,7 @@
 
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     
-    self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:selectedIndex];
+    self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:(int)selectedIndex];
 
     [self.collectionView reloadData];
 }
