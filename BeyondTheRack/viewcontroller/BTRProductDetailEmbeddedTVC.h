@@ -12,6 +12,8 @@
 
 #import "BTRSizeHandler.h"
 
+#import <FBSDKShareKit/FBSDKShareKit.h>
+
 
 @protocol BTRProductDetailEmbeddedTVC;
 
@@ -29,6 +31,7 @@
 @property (strong, nonatomic) NSString *eventId;
 @property (strong, nonatomic) NSMutableArray *imageArray;
 
+@property (weak, nonatomic) IBOutlet FBSDKShareButton *facebookShareButton;
 
 @end
 

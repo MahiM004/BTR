@@ -105,7 +105,6 @@
 
 + (NSString *)priceStringfromNumber:(NSNumber *)priceNumber {
     
-    
     NSString *dollaredString = [NSString stringWithFormat:@"$%@", priceNumber];
 
     return dollaredString;

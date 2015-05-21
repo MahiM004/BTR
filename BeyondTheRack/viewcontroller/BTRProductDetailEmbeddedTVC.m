@@ -14,6 +14,8 @@
 #import "BTRItemFetcher.h"
 #import "NSString+HeightCalc.h"
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+ 
 
 @interface BTRProductDetailEmbeddedTVC ()
 
@@ -96,9 +98,6 @@
 - (void)setProductImageCount:(NSInteger)productImageCount {
     
     _productImageCount = productImageCount;
-    
-    //if(productImageCount <= 1)
-      //  productImageCount = 1;
 }
 
 - (void)viewDidLoad {
@@ -117,6 +116,18 @@
     [self extractAttributesFromAttributesDictionary:[self attributesDictionary]];
 
     [self updateViewWithDeatiledItem:[self productItem]];
+    
+    [self setFacebookShareContent];
+}
+
+- (void)setFacebookShareContent {
+    
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    //content.contentURL = [self _gameURL];
+    content.contentTitle = @"Play this game!";
+    content.contentDescription = @"Check out this game of Iconicus that I was playing. Can you finish it?";
+    self.facebookShareButton.shareContent = content;
+    //self.sendButton.shareContent = content;
 }
 
 
@@ -358,6 +369,24 @@
     }
     
     return 1;
+}
+
+
+
+#pragma mark - Social Media Sharing
+
+
+- (IBAction)shareOnFacebookTapped:(UIButton *)sender {
+    
+
+}
+
+
+- (IBAction)shareOnPinterestTapped:(UIButton *)sender {
+}
+
+
+- (IBAction)twitter:(UIButton *)sender {
 }
 
 
