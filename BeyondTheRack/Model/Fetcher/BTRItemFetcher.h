@@ -26,4 +26,7 @@
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString withFacetString:(NSString *)facetsString andPageNumber:(NSUInteger)pageNumber;
 + (NSString *)contentTypeForSearchQuery;
 
++ (NSURL *)URLtoShareforEventId:(NSString *)eventId withProductSku:(NSString *)productSku;
+
+
 @end

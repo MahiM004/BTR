@@ -14,6 +14,7 @@
 //#import <Foundation/Foundation.h>
 
 #define BASEURL @"http://www.mobile.btrdev.com/siteapi"
+#define WEBBASEURL @"http://www.mobile.btrdev.com"
 #define STATICURL @"http://static.beyondtherack.com"
 #define LIVEURL @"http://www.beyondtherack.com"
 

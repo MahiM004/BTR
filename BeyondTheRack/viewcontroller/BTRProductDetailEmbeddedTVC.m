@@ -14,8 +14,8 @@
 #import "BTRItemFetcher.h"
 #import "NSString+HeightCalc.h"
 
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
- 
+#import <Social/Social.h>
+
 
 @interface BTRProductDetailEmbeddedTVC ()
 
@@ -116,18 +116,6 @@
     [self extractAttributesFromAttributesDictionary:[self attributesDictionary]];
 
     [self updateViewWithDeatiledItem:[self productItem]];
-    
-    [self setFacebookShareContent];
-}
-
-- (void)setFacebookShareContent {
-    
-    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-    //content.contentURL = [self _gameURL];
-    content.contentTitle = @"Play this game!";
-    content.contentDescription = @"Check out this game of Iconicus that I was playing. Can you finish it?";
-    self.facebookShareButton.shareContent = content;
-    //self.sendButton.shareContent = content;
 }
 
 
@@ -378,7 +366,16 @@
 
 - (IBAction)shareOnFacebookTapped:(UIButton *)sender {
     
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]]];
 
+        [controller setInitialText:@"Check out this great sale from Beyond the Rack!"];
+        [controller addImage:image];
+        [controller addURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]];
+        [self presentViewController:controller animated:YES completion:Nil];
+    }
 }
 
 

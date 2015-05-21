@@ -128,6 +128,7 @@
 		B3699B281AEAA0E1009D6A48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B271AEAA0E1009D6A48 /* Foundation.framework */; };
 		B3C16A911B01371C009470EC /* BTRSizeSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16A901B01371C009470EC /* BTRSizeSelector.m */; };
 		B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16A961B038C5D009470EC /* BTRSizeHandler.m */; };
+		B3C16A991B0E3686009470EC /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C16A981B0E3686009470EC /* Social.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -366,6 +367,7 @@
 		B3C16A901B01371C009470EC /* BTRSizeSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSizeSelector.m; sourceTree = "<group>"; };
 		B3C16A951B038C5D009470EC /* BTRSizeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSizeHandler.h; sourceTree = "<group>"; };
 		B3C16A961B038C5D009470EC /* BTRSizeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSizeHandler.m; sourceTree = "<group>"; };
+		B3C16A981B0E3686009470EC /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +375,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3C16A991B0E3686009470EC /* Social.framework in Frameworks */,
 				B3699B281AEAA0E1009D6A48 /* Foundation.framework in Frameworks */,
 				B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */,
 				B3699B231AEA9CFD009D6A48 /* FBSDKCoreKit.framework in Frameworks */,
@@ -599,6 +602,7 @@
 		69A685351A8A65F300F870E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B3C16A981B0E3686009470EC /* Social.framework */,
 				B3699B1A1AEA9CFD009D6A48 /* FacebookSDK */,
 				B3699B271AEAA0E1009D6A48 /* Foundation.framework */,
 				69B02CBF1A60304000040C86 /* CoreData.framework */,

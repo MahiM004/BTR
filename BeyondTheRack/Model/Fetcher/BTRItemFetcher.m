@@ -62,7 +62,10 @@
 }
 
 
-
++ (NSURL *)URLtoShareforEventId:(NSString *)eventId withProductSku:(NSString *)productSku {
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/event/sku/%@/%@", WEBBASEURL, eventId, productSku]];
+}
 
 
 // TODO: change text/html to application/json AFTER backend supports it in production
