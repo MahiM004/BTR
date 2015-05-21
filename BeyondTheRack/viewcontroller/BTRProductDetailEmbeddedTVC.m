@@ -14,6 +14,8 @@
 #import "BTRItemFetcher.h"
 #import "NSString+HeightCalc.h"
 
+#define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
+
 #import <Social/Social.h>
 
 
@@ -371,7 +373,7 @@
         
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]]];
 
-        [controller setInitialText:@"Check out this great sale from Beyond the Rack!"];
+        [controller setInitialText:SOCIAL_MEDIA_INIT_STRING];
         [controller addImage:image];
         [controller addURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]];
         [self presentViewController:controller animated:YES completion:Nil];
@@ -379,12 +381,29 @@
 }
 
 
-- (IBAction)shareOnPinterestTapped:(UIButton *)sender {
-}
-
-
 - (IBAction)twitter:(UIButton *)sender {
+    
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        SLComposeViewController *tweetSheet = [SLComposeViewController
+                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]]];
+        
+        [tweetSheet setInitialText:SOCIAL_MEDIA_INIT_STRING];
+        [tweetSheet addImage:image];
+        [tweetSheet addURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]];
+        [self presentViewController:tweetSheet animated:YES completion:nil];
+    }
 }
+
+
+- (IBAction)shareOnPinterestTapped:(UIButton *)sender {
+    
+   
+}
+
+
 
 
 #pragma mark - Navigation
