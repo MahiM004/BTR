@@ -391,6 +391,15 @@
         [controller addImage:image];
         [controller addURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]];
         [self presentViewController:controller animated:YES completion:Nil];
+    
+    } else {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Facebook not available"
+                                                        message:@"Your facebook account is not setup on this phone!"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"Ok", nil];
+        [alert show];
     }
 }
 
@@ -408,6 +417,15 @@
         [tweetSheet addImage:image];
         [tweetSheet addURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]];
         [self presentViewController:tweetSheet animated:YES completion:nil];
+    
+    } else {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Twitter not available"
+                                                        message:@"Your twitter account is not setup on this phone!"
+                                                       delegate:self
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"Ok", nil];
+        [alert show];
     }
 }
 
