@@ -129,6 +129,8 @@
 		B3C16A911B01371C009470EC /* BTRSizeSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16A901B01371C009470EC /* BTRSizeSelector.m */; };
 		B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16A961B038C5D009470EC /* BTRSizeHandler.m */; };
 		B3C16A991B0E3686009470EC /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C16A981B0E3686009470EC /* Social.framework */; };
+		B3C16A9E1B0F6A4A009470EC /* Pinterest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C16A9B1B0F6A4A009470EC /* Pinterest.framework */; };
+		B3C16A9F1B0F6A4A009470EC /* PinterestSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3C16A9D1B0F6A4A009470EC /* PinterestSDKResources.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -368,6 +370,8 @@
 		B3C16A951B038C5D009470EC /* BTRSizeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSizeHandler.h; sourceTree = "<group>"; };
 		B3C16A961B038C5D009470EC /* BTRSizeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSizeHandler.m; sourceTree = "<group>"; };
 		B3C16A981B0E3686009470EC /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		B3C16A9B1B0F6A4A009470EC /* Pinterest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pinterest.framework; sourceTree = "<group>"; };
+		B3C16A9D1B0F6A4A009470EC /* PinterestSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PinterestSDKResources.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -384,6 +388,7 @@
 				69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */,
 				B3699B251AEA9CFD009D6A48 /* FBSDKMessengerShareKit.framework in Frameworks */,
 				B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */,
+				B3C16A9E1B0F6A4A009470EC /* Pinterest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,6 +611,7 @@
 				B3699B1A1AEA9CFD009D6A48 /* FacebookSDK */,
 				B3699B271AEAA0E1009D6A48 /* Foundation.framework */,
 				69B02CBF1A60304000040C86 /* CoreData.framework */,
+				B3C16A9A1B0F6A4A009470EC /* Pinterest.embeddedframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -855,6 +861,23 @@
 			path = FacebookSDK;
 			sourceTree = "<group>";
 		};
+		B3C16A9A1B0F6A4A009470EC /* Pinterest.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				B3C16A9B1B0F6A4A009470EC /* Pinterest.framework */,
+				B3C16A9C1B0F6A4A009470EC /* Resources */,
+			);
+			path = Pinterest.embeddedframework;
+			sourceTree = "<group>";
+		};
+		B3C16A9C1B0F6A4A009470EC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B3C16A9D1B0F6A4A009470EC /* PinterestSDKResources.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -953,6 +976,7 @@
 				69AB985E1A76AB2200EDB1E6 /* facebookiconalpha.png in Resources */,
 				69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */,
 				69867A071A438A8C003CE59C /* bagicon.png in Resources */,
+				B3C16A9F1B0F6A4A009470EC /* PinterestSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1193,6 +1217,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDK",
+					"$(PROJECT_DIR)/Pinterest.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeyondTheRack/BeyondTheRack-Prefix.pch";
@@ -1212,6 +1237,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDK",
+					"$(PROJECT_DIR)/Pinterest.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeyondTheRack/BeyondTheRack-Prefix.pch";

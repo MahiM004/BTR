@@ -15,8 +15,16 @@
 #import "NSString+HeightCalc.h"
 
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
-
 #import <Social/Social.h>
+#import <Pinterest/Pinterest.h>
+
+
+#define kMargin             20.0
+#define kSampleImageWidth   320.0
+#define kSampleImageHeight  200.0
+
+#define kPinItButtonWidth   72.0
+#define kPinItButtonHeight  32.0
 
 
 @interface BTRProductDetailEmbeddedTVC ()
@@ -57,6 +65,10 @@
 
 
 @implementation BTRProductDetailEmbeddedTVC
+{
+    Pinterest*  _pinterest;
+}
+
 
 @synthesize customHeight;
 @synthesize descriptionCellHeight;
@@ -106,6 +118,20 @@
     
     [super viewDidLoad];
     
+    // Initialize a Pinterest instance with our client_id
+    _pinterest = [[Pinterest alloc] initWithClientId:@"1445223" urlSchemeSuffix:@"prod"];
+
+    // Setup PinIt Button
+    UIButton* pinItButton = [Pinterest pinItButton];
+    [pinItButton setFrame:CGRectMake(kPinItButtonWidth/2,
+                                     kMargin,
+                                     kPinItButtonWidth,
+                                     kPinItButtonHeight)];
+    [pinItButton addTarget:self
+                    action:@selector(pinIt:)
+          forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:pinItButton];
+    
     self.dropdownLabelIcon.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.dropdownLabelIcon.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-caret-down"];
     
@@ -119,6 +145,7 @@
 
     [self updateViewWithDeatiledItem:[self productItem]];
 }
+
 
 
 #pragma mark - Update Detail View
@@ -398,12 +425,19 @@
 }
 
 
+
 - (IBAction)shareOnPinterestTapped:(UIButton *)sender {
-    
    
+    int bring_it;
 }
 
 
+- (void)pinIt:(id)sender {
+    
+    [_pinterest createPinWithImageURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]
+                            sourceURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]//[NSURL URLWithString:WEBBASEURL]
+                          description:SOCIAL_MEDIA_INIT_STRING];
+}
 
 
 #pragma mark - Navigation
