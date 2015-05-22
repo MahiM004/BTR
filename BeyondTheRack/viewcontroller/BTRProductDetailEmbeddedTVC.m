@@ -120,17 +120,6 @@
     
     // Initialize a Pinterest instance with our client_id
     _pinterest = [[Pinterest alloc] initWithClientId:@"1445223" urlSchemeSuffix:@"prod"];
-
-    // Setup PinIt Button
-    UIButton* pinItButton = [Pinterest pinItButton];
-    [pinItButton setFrame:CGRectMake(kPinItButtonWidth/2,
-                                     kMargin,
-                                     kPinItButtonWidth,
-                                     kPinItButtonHeight)];
-    [pinItButton addTarget:self
-                    action:@selector(pinIt:)
-          forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:pinItButton];
     
     self.dropdownLabelIcon.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.dropdownLabelIcon.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-caret-down"];
@@ -140,9 +129,7 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    
     [self extractAttributesFromAttributesDictionary:[self attributesDictionary]];
-
     [self updateViewWithDeatiledItem:[self productItem]];
 }
 
@@ -428,16 +415,11 @@
 
 - (IBAction)shareOnPinterestTapped:(UIButton *)sender {
    
-    int bring_it;
-}
-
-
-- (void)pinIt:(id)sender {
-    
     [_pinterest createPinWithImageURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]
-                            sourceURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]//[NSURL URLWithString:WEBBASEURL]
+                            sourceURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]
                           description:SOCIAL_MEDIA_INIT_STRING];
 }
+
 
 
 #pragma mark - Navigation
