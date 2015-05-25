@@ -38,8 +38,8 @@
     if ([self.emailField.text length] > 0) {
     
         [self resetPasswordforEmail:[[self emailField] text] success:^(NSString *didSucceed) {
-            
-            [self performSegueWithIdentifier:@"unwindToLoginScene" sender:self];
+
+            [self alertUserforNewPassword];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -70,11 +70,11 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               // We will just prompt that 'a new password was sent' whether it was successful or not. This is a secuity measure.
-              
-              [self alertUserforNewPassword];
+              success(@"TRUE");
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
+              failure(operation, error);
           }];
 }
 
@@ -88,17 +88,11 @@
                                                    delegate:self
                                           cancelButtonTitle:nil
                                           otherButtonTitles:@"Ok", nil];
+    
+    [self performSegueWithIdentifier:@"unwindToLoginScene" sender:self];
+
     [alert show];
-}
-
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
 }
 
 @end
