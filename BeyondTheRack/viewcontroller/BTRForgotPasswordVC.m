@@ -7,6 +7,7 @@
 //
 
 #import "BTRForgotPasswordVC.h"
+#import "BTRUserFetcher.h"
 
 @interface BTRForgotPasswordVC ()
 
@@ -16,16 +17,82 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.scrollView.contentSize = CGSizeMake(320, 800);
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (void)dismissKeyboard {
+    
+    [self.emailField resignFirstResponder];
 }
 
-/*
+
+
+
+- (IBAction)newPasswordTapped:(UIButton *)sender {
+    
+    if ([self.emailField.text length] > 0) {
+    
+        [self resetPasswordforEmail:[[self emailField] text] success:^(NSString *didSucceed) {
+            
+            [self performSegueWithIdentifier:@"unwindToLoginScene" sender:self];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            // TODO: Check for internet connectivity!
+            
+        }];
+    }
+}
+
+
+- (void)resetPasswordforEmail:(NSString *)emailString
+                           success:(void (^)(id  responseObject)) success
+                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    
+    NSDictionary *params = (@{
+                              @"email": emailString
+                              });
+    
+    [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforPasswordReset]]
+       parameters:params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              // We will just prompt that 'a new password was sent' whether it was successful or not. This is a secuity measure.
+              
+              [self alertUserforNewPassword];
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+          }];
+}
+
+
+- (void)alertUserforNewPassword {
+    
+    [self dismissKeyboard];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check your email"
+                                                    message:@"A new password was sent to your email address!"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    [alert show];
+}
+
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -33,6 +100,15 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
 
 @end
+
+
+
+
+
+
+
+
+
+

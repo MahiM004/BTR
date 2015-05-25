@@ -68,6 +68,12 @@
  */
 
 
+
++ (NSURL *)URLforPasswordReset {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/resetpassword", BASEURL]];
+}
+
+
 @end
 
 

@@ -412,14 +412,12 @@
                                                                                    options:0
                                                                                      error:NULL];
               
-              
               NSDictionary *sessionObject = entitiesPropertyList[@"session"];
               NSString *sessionIdString = sessionObject[@"session_id"];
 
               NSDictionary *userObject = entitiesPropertyList[@"user"];
               NSString *email = userObject[@"email"];
               NSString *password = userObject[@"password"];
-              
               
               int i_success = -1;
               
@@ -446,6 +444,8 @@
     
 }
 
+
+# pragma mark - Navigation
 
 
 - (IBAction)unwindToLoginScene:(UIStoryboardSegue *)unwindSegue
