@@ -131,6 +131,8 @@
 		B3C16A991B0E3686009470EC /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C16A981B0E3686009470EC /* Social.framework */; };
 		B3C16A9E1B0F6A4A009470EC /* Pinterest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C16A9B1B0F6A4A009470EC /* Pinterest.framework */; };
 		B3C16A9F1B0F6A4A009470EC /* PinterestSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3C16A9D1B0F6A4A009470EC /* PinterestSDKResources.bundle */; };
+		B3C16AA11B1363CA009470EC /* backarrowcool_red.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C16AA01B1363CA009470EC /* backarrowcool_red.png */; };
+		B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16AA31B137079009470EC /* BTRForgotPasswordVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -372,6 +374,9 @@
 		B3C16A981B0E3686009470EC /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		B3C16A9B1B0F6A4A009470EC /* Pinterest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pinterest.framework; sourceTree = "<group>"; };
 		B3C16A9D1B0F6A4A009470EC /* PinterestSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PinterestSDKResources.bundle; sourceTree = "<group>"; };
+		B3C16AA01B1363CA009470EC /* backarrowcool_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrowcool_red.png; sourceTree = "<group>"; };
+		B3C16AA21B137079009470EC /* BTRForgotPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRForgotPasswordVC.h; sourceTree = "<group>"; };
+		B3C16AA31B137079009470EC /* BTRForgotPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRForgotPasswordVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -411,6 +416,8 @@
 				6900B4D11AB7649300930D16 /* BTRSignUpViewController.m */,
 				6900B4E91AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.h */,
 				6900B4EA1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m */,
+				B3C16AA21B137079009470EC /* BTRForgotPasswordVC.h */,
+				B3C16AA31B137079009470EC /* BTRForgotPasswordVC.m */,
 			);
 			name = "Login Scenes";
 			sourceTree = "<group>";
@@ -556,6 +563,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				B3C16AA01B1363CA009470EC /* backarrowcool_red.png */,
 				6900B4C71AB7598000930D16 /* BTRLogo.png */,
 				69BC6D431A94DACB00376D9C /* filtericonYellow.png */,
 				69AB985A1A76AB2200EDB1E6 /* twittericonalpha.png */,
@@ -969,6 +977,7 @@
 				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
+				B3C16AA11B1363CA009470EC /* backarrowcool_red.png in Resources */,
 				69AB985F1A76AB2200EDB1E6 /* pinteresticonalpha.png in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				69AB985D1A76AB2200EDB1E6 /* twittericonalpha.png in Resources */,
@@ -1079,6 +1088,7 @@
 				6901E9FC1ACD703C002534D9 /* BTRBagTableViewCell.m in Sources */,
 				6901EA171ADC2628002534D9 /* BagItem.m in Sources */,
 				69B9428C1AE033FD00483950 /* AFNetworkReachabilityManager.m in Sources */,
+				B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */,
 				69CEF3501ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m in Sources */,
 				69B942821AE033FD00483950 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */,
