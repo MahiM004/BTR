@@ -31,8 +31,6 @@
 }
 
 
-
-
 - (IBAction)newPasswordTapped:(UIButton *)sender {
     
     if ([self.emailField.text length] > 0) {
@@ -44,7 +42,6 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
             // TODO: Check for internet connectivity!
-            
         }];
     }
 }
