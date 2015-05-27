@@ -32,10 +32,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *cityTextField;
 @property (weak, nonatomic) IBOutlet UITextField *provinceTextField;
 
-
-
-
-
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+@property (weak, nonatomic) IBOutlet UIView *pickerParentView;
+
+
+@property (strong, nonatomic) UITextField *currentTextField;
+
 
 @end
