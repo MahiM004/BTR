@@ -8,15 +8,28 @@
 
 #import "BTRAccountInformationVC.h"
 
-#define COUNTRY_PICKER 1
-#define GENDER_PICKER 2
-
+#define COUNTRY_PICKER     1
+#define GENDER_PICKER      2
+#define INCOME_PICKER      3
+#define CHILDREN_PICKER    4
+#define MARITAL_PICKER     5
+#define EDUCATION_PICKER   6
+#define PROVINCE_PICKER    7
 
 @interface BTRAccountInformationVC ()
 
 @property (nonatomic) NSUInteger pickerType;
-@property (strong, nonatomic) NSArray *genderNameArray;
+
+
+@property (strong, nonatomic) NSArray *genderArray;
 @property (strong, nonatomic) NSArray *countryNameArray;
+@property (strong, nonatomic) NSArray *incomeBracketArray;
+@property (strong, nonatomic) NSArray *childrenArray;
+@property (strong, nonatomic) NSArray *maritalStatusArray;
+@property (strong, nonatomic) NSArray *formalEducationArray;
+@property (strong, nonatomic) NSArray *provincesArray;
+@property (strong, nonatomic) NSArray *statesArray;
+
 
 @property (strong, nonatomic) NSString *chosenCountryCodeString;
 
@@ -26,10 +39,10 @@
 @implementation BTRAccountInformationVC
 
 
-- (NSArray *)genderNameArray {
+- (NSArray *)genderArray {
     
-    _genderNameArray = @[@"Female", @"Male"];
-    return _genderNameArray;
+    _genderArray = @[@"Female", @"Male"];
+    return _genderArray;
 }
 
 - (NSArray *)countryNameArray {
@@ -37,6 +50,60 @@
     _countryNameArray = @[@"Canada", @"USA"];
     return _countryNameArray;
 }
+
+- (NSArray *)incomeBracketArray {
+    
+    _incomeBracketArray = @[@"Up to $60,000", @"$60,000 to $100,000", @"$100,000 to $150,000", @"Over $150,000"];
+    return _incomeBracketArray;
+}
+
+- (NSArray *)childrenArray {
+    
+    _childrenArray = @[@"Young children", @"Teenage children", @"Adult children"];
+    return _childrenArray;
+}
+
+
+- (NSArray *)maritalStatusArray {
+    
+    _maritalStatusArray = @[@"Single", @"Unmarried", @"Married", @"Divorced", @"Widowed"];
+    return _maritalStatusArray;
+}
+
+
+- (NSArray *)formalEducationArray {
+    
+    _formalEducationArray = @[@"Primary school", @"Secondary school", @"College", @"University", @"Graduate studies"];
+    return _formalEducationArray;
+}
+
+
+- (NSArray *)provincesArray {
+    
+    _provincesArray = @[@"Alberta", @"British Columbia", @"Manitoba", @"New Brunswick",
+                        @"New foundland & Labrador", @"Northwest Territories", @"Nova Scotia",
+                        @"Nunavut", @"Ontario", @"Prince Edward Island", @"Quebec", @"Saskatchewan", @"Yukon"];
+    
+    return _provincesArray;
+}
+
+
+- (NSArray *)statesArray {
+    
+    _statesArray = @[@"Alabama", @"Alaska", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut", @"Delaware",
+                     @"Florida", @"Georgia", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa", @"Kansas", @"Kentucky", @"Louisiana",
+                     @"Maine", @"Maryland", @"Massachusetts", @"Michigan", @"Minnesota", @"Mississippi", @"Missouri", @"Montana",
+                     @"Nebraska", @"Nevada", @"New Hampshire", @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota",
+                     @"Ohio", @"Oklahoma", @"Oregon", @"Pennsylvania", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee",
+                     @"Texas", @"Utah", @"Vermont", @"Virginia", @"Washington", @"West Virginia", @"Wisconsin", @"Wyoming"];
+    
+    return _statesArray;
+}
+
+
+
+
+# pragma mark - UI
 
 - (void)viewDidLoad {
     
@@ -90,7 +157,7 @@
     }
     
     if ([self pickerType] == GENDER_PICKER) {
-        [self.genderTextField setText:[[self genderNameArray] objectAtIndex:row]];
+        [self.genderTextField setText:[[self genderArray] objectAtIndex:row]];
     }
 
     [self.pickerParentView setHidden:TRUE];
@@ -104,7 +171,7 @@
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] count];
     
-    return [[self genderNameArray] count];
+    return [[self genderArray] count];
 }
 
 
@@ -119,7 +186,7 @@
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] objectAtIndex:row];
     
-    return [[self genderNameArray] objectAtIndex:row];
+    return [[self genderArray] objectAtIndex:row];
 }
 
 
