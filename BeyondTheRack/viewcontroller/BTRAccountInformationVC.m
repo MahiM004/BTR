@@ -90,11 +90,12 @@
 
 - (NSArray *)statesArray {
     
-    _statesArray = @[@"Alabama", @"Alaska", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut", @"Delaware",
-                     @"Florida", @"Georgia", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa", @"Kansas", @"Kentucky", @"Louisiana",
-                     @"Maine", @"Maryland", @"Massachusetts", @"Michigan", @"Minnesota", @"Mississippi", @"Missouri", @"Montana",
-                     @"Nebraska", @"Nevada", @"New Hampshire", @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota",
-                     @"Ohio", @"Oklahoma", @"Oregon", @"Pennsylvania", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee",
+    _statesArray = @[@"Alabama", @"Alaska", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut",
+                     @"Delaware", @"Florida", @"Georgia", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa",
+                     @"Kansas", @"Kentucky", @"Louisiana", @"Maine", @"Maryland", @"Massachusetts", @"Michigan",
+                     @"Minnesota", @"Mississippi", @"Missouri", @"Montana", @"Nebraska", @"Nevada", @"New Hampshire",
+                     @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota", @"Ohio", @"Oklahoma",
+                     @"Oregon", @"Pennsylvania", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee",
                      @"Texas", @"Utah", @"Vermont", @"Virginia", @"Washington", @"West Virginia", @"Wisconsin", @"Wyoming"];
     
     return _statesArray;
@@ -120,17 +121,44 @@
 }
 
 
-- (IBAction)genderTapped:(UIButton *)sender {
-
-    [self setPickerType:GENDER_PICKER];
+- (void)loadPickerViewforType:(NSUInteger)type {
+    
+    [self setPickerType:type];
     [self.pickerView reloadAllComponents];
     [self dismissKeyboard];
     [self.pickerParentView setHidden:FALSE];
-    //[self.viewForPicker setHidden:FALSE];
+    [self.pickerView becomeFirstResponder];
 }
 
 
+- (IBAction)genderTapped:(UIButton *)sender {
+    
+    [self loadPickerViewforType:GENDER_PICKER];
+}
 
+
+- (IBAction)maritalStatusTapped:(UIButton *)sender {
+    
+    [self loadPickerViewforType:MARITAL_PICKER];
+}
+
+
+- (IBAction)childrenTapped:(UIButton *)sender {
+    
+    [self loadPickerViewforType:CHILDREN_PICKER];
+}
+
+
+- (IBAction)education:(UIButton *)sender {
+    
+    [self loadPickerViewforType:EDUCATION_PICKER];
+}
+
+
+- (IBAction)incomeBracketTapped:(UIButton *)sender {
+    
+    [self loadPickerViewforType:INCOME_PICKER];
+}
 
 - (void)dismissKeyboard {
     
@@ -160,6 +188,24 @@
         [self.genderTextField setText:[[self genderArray] objectAtIndex:row]];
     }
 
+    if ([self pickerType] == MARITAL_PICKER) {
+        [self.maritalStatusTextField setText:[[self maritalStatusArray] objectAtIndex:row]];
+    }
+
+    if ([self pickerType] == EDUCATION_PICKER) {
+        [self.formalEducationTextField setText:[[self formalEducationArray] objectAtIndex:row]];
+    }
+
+    if ([self pickerType] == CHILDREN_PICKER) {
+        [self.childrenTextField setText:[[self childrenArray] objectAtIndex:row]];
+    }
+
+    if ([self pickerType] == INCOME_PICKER) {
+        [self.incomeBracketTextField setText:[[self incomeBracketArray] objectAtIndex:row]];
+    }
+ 
+    
+    
     [self.pickerParentView setHidden:TRUE];
     //[self.pickerView setHidden:TRUE];
 }
@@ -170,6 +216,18 @@
     
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] count];
+
+    if ([self pickerType] == INCOME_PICKER)
+        return [[self incomeBracketArray] count];
+    
+    if ([self pickerType] == MARITAL_PICKER)
+        return [[self maritalStatusArray] count];
+    
+    if ([self pickerType] == CHILDREN_PICKER)
+        return [[self childrenArray] count];
+    
+    if ([self pickerType] == EDUCATION_PICKER)
+        return [[self formalEducationArray] count];
     
     return [[self genderArray] count];
 }
@@ -185,6 +243,18 @@
     
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] objectAtIndex:row];
+
+    if ([self pickerType] == MARITAL_PICKER)
+        return [[self maritalStatusArray] objectAtIndex:row];
+    
+    if ([self pickerType] == EDUCATION_PICKER)
+        return [[self formalEducationArray] objectAtIndex:row];
+    
+    if ([self pickerType] == CHILDREN_PICKER)
+        return [[self childrenArray] objectAtIndex:row];
+    
+    if ([self pickerType] == INCOME_PICKER)
+        return [[self incomeBracketArray] objectAtIndex:row];
     
     return [[self genderArray] objectAtIndex:row];
 }
