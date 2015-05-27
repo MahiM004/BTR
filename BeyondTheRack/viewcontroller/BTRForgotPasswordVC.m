@@ -51,16 +51,14 @@
                            success:(void (^)(id  responseObject)) success
                            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = serializer;
     
-    NSDictionary *params = (@{
-                              @"email": emailString
-                              });
+    NSDictionary *params = (@{ @"email": emailString });
+    
     
     [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforPasswordReset]]
        parameters:params

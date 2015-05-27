@@ -133,6 +133,7 @@
 		B3C16A9F1B0F6A4A009470EC /* PinterestSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3C16A9D1B0F6A4A009470EC /* PinterestSDKResources.bundle */; };
 		B3C16AA11B1363CA009470EC /* backarrowcool_red.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C16AA01B1363CA009470EC /* backarrowcool_red.png */; };
 		B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16AA31B137079009470EC /* BTRForgotPasswordVC.m */; };
+		B3CC53221B1604580024EA08 /* BTRAccountInformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CC53211B1604580024EA08 /* BTRAccountInformationVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -377,6 +378,8 @@
 		B3C16AA01B1363CA009470EC /* backarrowcool_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrowcool_red.png; sourceTree = "<group>"; };
 		B3C16AA21B137079009470EC /* BTRForgotPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRForgotPasswordVC.h; sourceTree = "<group>"; };
 		B3C16AA31B137079009470EC /* BTRForgotPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRForgotPasswordVC.m; sourceTree = "<group>"; };
+		B3CC53201B1604580024EA08 /* BTRAccountInformationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAccountInformationVC.h; sourceTree = "<group>"; };
+		B3CC53211B1604580024EA08 /* BTRAccountInformationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRAccountInformationVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -489,6 +492,8 @@
 				69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */,
 				69CEF34E1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.h */,
 				69CEF34F1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m */,
+				B3CC53201B1604580024EA08 /* BTRAccountInformationVC.h */,
+				B3CC53211B1604580024EA08 /* BTRAccountInformationVC.m */,
 			);
 			name = MyAccount;
 			sourceTree = "<group>";
@@ -1091,6 +1096,7 @@
 				B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */,
 				69CEF3501ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m in Sources */,
 				69B942821AE033FD00483950 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				B3CC53221B1604580024EA08 /* BTRAccountInformationVC.m in Sources */,
 				692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */,
 				69869F641A6075E900F986BC /* PaymentDetail.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
