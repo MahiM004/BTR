@@ -114,7 +114,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [self setupDocument];
 
+    
     self.pickerView.delegate = self;
     self.pickerView.showsSelectionIndicator = YES;
     [self.pickerParentView setHidden:TRUE];
@@ -128,7 +130,32 @@
     
     [self fetchUserInfoforSessionId:[sessionSettings sessionId] success:^(User *user) {
         
-        int update_UI;
+        [self.firstNameTextField setText:[user name]];
+        [self.lastNameTextField setText:[user lastName]];
+        [self.genderTextField setText:[user gender]];
+        [self.maritalStatusTextField setText:[user maritalStatus]];
+        [self.childrenTextField setText:[user children]];
+        [self.formalEducationTextField setText:[user education]];
+        [self.incomeBracketTextField setText:[user income]];
+        [self.occupationTextField setText:[user occupation]];
+        [self.shoppingClubsTextField setText:[user favoriteShopping]];
+        [self.mobilePhoneTextField setText:[user mobile]];
+        [self.emailTextField setText:[user email]];
+        [self.alternateEmailTextField setText:[user alternateEmail]];
+        [self.postalCodeTextField setText:[user postalCode]];
+        [self.address1TextField setText:[user addressLine1]];
+        [self.address2TextField setText:[user addressLine2]];
+        [self.cityTextField setText:[user city]];
+        [self.provinceTextField setText:[user province]];
+        
+        if ([user.country isEqualToString:@"CA"]) {
+            
+            [self.countryTextField setText:@"Canada"];
+            
+        } else if ([user.country isEqualToString:@"US"]) {
+            
+            [self.countryTextField setText:@"USA"];
+        }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -332,10 +359,14 @@
 
 
 - (IBAction)updatePasswordTapped:(UIButton *)sender {
+    
+    int to_do;
 }
 
 
 - (IBAction)updateInfoTapped:(UIButton *)sender {
+
+    int to_do;
 }
 
 
