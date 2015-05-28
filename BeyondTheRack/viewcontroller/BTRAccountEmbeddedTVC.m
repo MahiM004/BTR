@@ -39,7 +39,6 @@
 }
 
 
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -50,11 +49,10 @@
         self.welcomeLabel.text = [NSString stringWithFormat:@"%@ %@", [user name], [user lastName]];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        
-    }];
     
+    }];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

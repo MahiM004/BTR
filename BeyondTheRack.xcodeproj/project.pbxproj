@@ -19,7 +19,6 @@
 		6901E9D51AC09CE3002534D9 /* BTRBagFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9D41AC09CE3002534D9 /* BTRBagFetcher.m */; };
 		6901E9E11AC9901D002534D9 /* BTRSelectSizeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9E01AC9901D002534D9 /* BTRSelectSizeVC.m */; };
 		6901E9F31ACC3BA3002534D9 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9F21ACC3BA3002534D9 /* Item.m */; };
-		6901E9F91ACC6B48002534D9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9F81ACC6B48002534D9 /* User.m */; };
 		6901E9FC1ACD703C002534D9 /* BTRBagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901E9FB1ACD703C002534D9 /* BTRBagTableViewCell.m */; };
 		6901EA0D1AD5BA9A002534D9 /* PKYStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901EA0C1AD5BA9A002534D9 /* PKYStepper.m */; };
 		6901EA171ADC2628002534D9 /* BagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6901EA161ADC2628002534D9 /* BagItem.m */; };
@@ -134,6 +133,7 @@
 		B3C16AA11B1363CA009470EC /* backarrowcool_red.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C16AA01B1363CA009470EC /* backarrowcool_red.png */; };
 		B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16AA31B137079009470EC /* BTRForgotPasswordVC.m */; };
 		B3CC53221B1604580024EA08 /* BTRAccountInformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CC53211B1604580024EA08 /* BTRAccountInformationVC.m */; };
+		B3CC53281B176E490024EA08 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CC53271B176E490024EA08 /* User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,8 +169,6 @@
 		6901E9E01AC9901D002534D9 /* BTRSelectSizeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSelectSizeVC.m; sourceTree = "<group>"; };
 		6901E9F11ACC3BA3002534D9 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		6901E9F21ACC3BA3002534D9 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
-		6901E9F71ACC6B48002534D9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		6901E9F81ACC6B48002534D9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		6901E9FA1ACD703C002534D9 /* BTRBagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRBagTableViewCell.h; sourceTree = "<group>"; };
 		6901E9FB1ACD703C002534D9 /* BTRBagTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRBagTableViewCell.m; sourceTree = "<group>"; };
 		6901EA0B1AD5BA9A002534D9 /* PKYStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKYStepper.h; sourceTree = "<group>"; };
@@ -380,6 +378,8 @@
 		B3C16AA31B137079009470EC /* BTRForgotPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRForgotPasswordVC.m; sourceTree = "<group>"; };
 		B3CC53201B1604580024EA08 /* BTRAccountInformationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAccountInformationVC.h; sourceTree = "<group>"; };
 		B3CC53211B1604580024EA08 /* BTRAccountInformationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRAccountInformationVC.m; sourceTree = "<group>"; };
+		B3CC53261B176E490024EA08 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		B3CC53271B176E490024EA08 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -678,10 +678,10 @@
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
 				69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */,
+				B3CC53261B176E490024EA08 /* User.h */,
+				B3CC53271B176E490024EA08 /* User.m */,
 				6901EA151ADC2628002534D9 /* BagItem.h */,
 				6901EA161ADC2628002534D9 /* BagItem.m */,
-				6901E9F71ACC6B48002534D9 /* User.h */,
-				6901E9F81ACC6B48002534D9 /* User.m */,
 				6901E9F11ACC3BA3002534D9 /* Item.h */,
 				6901E9F21ACC3BA3002534D9 /* Item.m */,
 				696508721AA74BDA00ED28B8 /* Image.h */,
@@ -1083,7 +1083,6 @@
 				6901E9F31ACC3BA3002534D9 /* Item.m in Sources */,
 				696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */,
 				696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */,
-				6901E9F91ACC6B48002534D9 /* User.m in Sources */,
 				69869F731A6075EA00F986BC /* ShippingAddress.m in Sources */,
 				69869F791A6075EA00F986BC /* General3.m in Sources */,
 				692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */,
@@ -1091,6 +1090,7 @@
 				69B942841AE033FD00483950 /* UIButton+AFNetworking.m in Sources */,
 				6901EA471ADEB89A002534D9 /* UIButton+Badge.m in Sources */,
 				6901E9FC1ACD703C002534D9 /* BTRBagTableViewCell.m in Sources */,
+				B3CC53281B176E490024EA08 /* User.m in Sources */,
 				6901EA171ADC2628002534D9 /* BagItem.m in Sources */,
 				69B9428C1AE033FD00483950 /* AFNetworkReachabilityManager.m in Sources */,
 				B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */,

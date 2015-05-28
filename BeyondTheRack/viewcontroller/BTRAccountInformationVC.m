@@ -8,6 +8,9 @@
 
 #import "BTRAccountInformationVC.h"
 
+#import "BTRUserFetcher.h"
+
+
 #define COUNTRY_PICKER     1
 #define GENDER_PICKER      2
 #define INCOME_PICKER      3
@@ -29,9 +32,6 @@
 @property (strong, nonatomic) NSArray *formalEducationArray;
 @property (strong, nonatomic) NSArray *provincesArray;
 @property (strong, nonatomic) NSArray *statesArray;
-
-
-@property (strong, nonatomic) NSString *chosenCountryCodeString;
 
 @end
 
@@ -118,6 +118,20 @@
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
+    
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    
+    NSLog(@"outside -0000-0 : %@", [sessionSettings sessionId]);
+
+    
+    [self fetchUserInfoforSessionId:[sessionSettings sessionId] success:^(NSString *didSucceed) {
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+
+    
 }
 
 
@@ -171,18 +185,6 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     
-    if ([self pickerType] == COUNTRY_PICKER) {
-        [self.countryTextField setText:[[self countryNameArray] objectAtIndex:row]];
-        
-        if ([self.countryTextField.text isEqualToString:@"Canada"]) {
-            
-            self.chosenCountryCodeString = @"CA";
-            
-        } else if ([self.countryTextField.text isEqualToString:@"USA"]) {
-            
-            self.chosenCountryCodeString = @"US";
-        }
-    }
     
     if ([self pickerType] == GENDER_PICKER) {
         [self.genderTextField setText:[[self genderArray] objectAtIndex:row]];
@@ -204,8 +206,6 @@
         [self.incomeBracketTextField setText:[[self incomeBracketArray] objectAtIndex:row]];
     }
  
-    
-    
     [self.pickerParentView setHidden:TRUE];
     //[self.pickerView setHidden:TRUE];
 }
@@ -265,6 +265,50 @@
     
     return sectionWidth;
 }
+
+
+
+
+#pragma mark - User Info RESTful
+
+
+
+- (void)fetchUserInfoforSessionId:(NSString *)sessionId
+                       success:(void (^)(id  responseObject)) success
+                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    NSLog(@"inside -90-0 : %@", sessionId);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                         options:0
+                                                                           error:NULL];
+         
+         NSLog(@"-0-00- info : %@", entitiesPropertyList);
+         
+        // success([self itemArray]);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         NSLog(@"Error: %@", error);
+         
+         // failure(operation, error);
+     }];
+    
+}
+
+
 
 
 # pragma mark - Handle update buttons

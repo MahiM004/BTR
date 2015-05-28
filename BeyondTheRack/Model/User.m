@@ -2,7 +2,7 @@
 //  User.m
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-04-01.
+//  Created by Hadi Kheyruri on 2015-05-28.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
@@ -15,18 +15,17 @@
 @dynamic addressLine2;
 @dynamic birthDate;
 @dynamic city;
-@dynamic classList;
 @dynamic cobrandKeyword;
 @dynamic country;
 @dynamic email;
 @dynamic gender;
 @dynamic invitationCode;
 @dynamic isAddressFilled;
+@dynamic isEmployee;
 @dynamic lastName;
 @dynamic mobile;
 @dynamic name;
 @dynamic notes;
-@dynamic nsId;
 @dynamic password;
 @dynamic passwordHint;
 @dynamic personalCode;
@@ -34,13 +33,15 @@
 @dynamic postalCode;
 @dynamic preferencesList;
 @dynamic province;
-@dynamic queueStatus;
 @dynamic reference;
 @dynamic region;
 @dynamic sessionId;
-@dynamic updateNs;
-@dynamic userId;
-@dynamic usernameId;
-@dynamic isEmployee;
+@dynamic maritalStatus;
+@dynamic children;
+@dynamic formalEducation;
+@dynamic incomeBracket;
+@dynamic occupation;
+@dynamic shoppingClubs;
+@dynamic alternateEmail;
 
 @end
