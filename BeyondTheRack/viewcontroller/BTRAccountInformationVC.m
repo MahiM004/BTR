@@ -321,7 +321,7 @@
     
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
