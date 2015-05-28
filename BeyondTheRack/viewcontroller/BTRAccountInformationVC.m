@@ -9,7 +9,7 @@
 #import "BTRAccountInformationVC.h"
 
 #import "BTRUserFetcher.h"
-
+#import "User+AppServer.h"
 
 #define COUNTRY_PICKER     1
 #define GENDER_PICKER      2
@@ -126,7 +126,9 @@
     
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     
-    [self fetchUserInfoforSessionId:[sessionSettings sessionId] success:^(NSString *didSucceed) {
+    [self fetchUserInfoforSessionId:[sessionSettings sessionId] success:^(User *user) {
+        
+        int update_UI;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -297,13 +299,20 @@
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
          
-         NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                         options:0
-                                                                           error:NULL];
+         
+         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                               options:0
+                                                                                 error:NULL];
          
          NSLog(@"-0-00- info : %@", entitiesPropertyList);
          
-        // success([self itemArray]);
+         if (entitiesPropertyList) {
+             
+             User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
+             [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+             
+             success(user);
+         }
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
