@@ -43,5 +43,6 @@
 @dynamic occupation;
 @dynamic shoppingClubs;
 @dynamic alternateEmail;
+@dynamic userId;
 
 @end

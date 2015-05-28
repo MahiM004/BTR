@@ -44,5 +44,6 @@
 @property (nonatomic, retain) NSString * occupation;
 @property (nonatomic, retain) NSString * shoppingClubs;
 @property (nonatomic, retain) NSString * alternateEmail;
+@property (nonatomic, retain) NSString * userId;
 
 @end

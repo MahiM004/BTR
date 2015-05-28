@@ -26,6 +26,15 @@
 }
 
 
++ (NSURL *)URLforUserDetail {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/user/detail", BASEURL]];
+}
+
++ (NSURL *)URLforUserInfoDetail {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/user/infodetail", BASEURL]];
+}
+
+
 + (NSURL *)URLforUserCredits {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/credits", BASEURL]];
 }
@@ -56,15 +65,14 @@
 
 
 /*
- 
  http://www.mobile.btrdev.com/siteapi/user/logout
  http://www.mobile.btrdev.com/siteapi/user/credits
  http://www.mobile.btrdev.com/siteapi/user/orders
  http://www.mobile.btrdev.com/siteapi/user/orderitems
  http://www.mobile.btrdev.com/siteapi/user/info
+ http://www.mobile.btrdev.com/siteapi/user/detail
  http://www.mobile.btrdev.com/siteapi/user
  => requires "SESSION" http header with authentication session ID
- 
  */
 
 

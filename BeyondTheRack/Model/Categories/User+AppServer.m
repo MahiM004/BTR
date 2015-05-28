@@ -162,21 +162,9 @@
     
     if ([userDictionary valueForKeyPath:@"preferences_list"] && [userDictionary valueForKeyPath:@"preferences_list"] != [NSNull null])
         user.preferencesList = [userDictionary valueForKeyPath:@"preferences_list"];
-    
-    if ([userDictionary valueForKeyPath:@"class_list"] && [userDictionary valueForKeyPath:@"class_list"] != [NSNull null])
-        user.classList = [userDictionary valueForKeyPath:@"class_list"];
-    
+ 
     if ([userDictionary valueForKeyPath:@"notes"] && [userDictionary valueForKeyPath:@"notes"] != [NSNull null])
         user.notes = [userDictionary valueForKeyPath:@"notes"];
-    
-    if ([userDictionary valueForKeyPath:@"queuestatus"] && [userDictionary valueForKeyPath:@"queuestatus"] != [NSNull null])
-        user.queueStatus = [userDictionary valueForKeyPath:@"queuestatus"];
-    
-    if ([userDictionary valueForKeyPath:@"update_ns"] && [userDictionary valueForKeyPath:@"update_ns"] != [NSNull null])
-        user.updateNs = [userDictionary valueForKeyPath:@"update_ns"];
-    
-    if ([userDictionary valueForKeyPath:@"nsid"] && [userDictionary valueForKeyPath:@"nsid"] != [NSNull null])
-        user.nsId = [userDictionary valueForKeyPath:@"nsid"];
     
     if ([userDictionary valueForKeyPath:@"address1"] && [userDictionary valueForKeyPath:@"address1"] != [NSNull null])
         user.addressLine1 = [userDictionary valueForKeyPath:@"address1"];

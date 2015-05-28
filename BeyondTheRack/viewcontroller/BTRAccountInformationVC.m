@@ -121,11 +121,7 @@
     
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     
-    NSLog(@"outside -0000-0 : %@", [sessionSettings sessionId]);
-
-    
     [self fetchUserInfoforSessionId:[sessionSettings sessionId] success:^(NSString *didSucceed) {
-        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -277,8 +273,6 @@
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
-    NSLog(@"inside -90-0 : %@", sessionId);
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -287,7 +281,7 @@
     
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserDetail]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {

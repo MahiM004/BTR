@@ -200,6 +200,7 @@
         <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sessionId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shoppingClubs" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="UserNotifications" representedClassName="UserNotifications" syncable="YES">
         <attribute name="childrenDesignerBrands" optional="YES" attributeType="String" syncable="YES"/>
@@ -222,7 +223,7 @@
         <element name="Order" positionX="-135" positionY="135" width="128" height="193"/>
         <element name="PaymentDetail" positionX="25" positionY="179" width="128" height="253"/>
         <element name="ShippingAddress" positionX="-324" positionY="-60" width="128" height="195"/>
-        <element name="User" positionX="-495" positionY="-99" width="128" height="525"/>
+        <element name="User" positionX="-495" positionY="-99" width="128" height="540"/>
         <element name="UserNotifications" positionX="-684" positionY="-33" width="128" height="163"/>
     </elements>
 </model>

@@ -14,6 +14,8 @@
 + (NSURL *)URLforUserAuthentication;
 + (NSURL *)URLforUserLogout;
 + (NSURL *)URLforUserInfo;
++ (NSURL *)URLforUserDetail;
++ (NSURL *)URLforUserInfoDetail;
 + (NSURL *)URLforUserCredits;
 + (NSURL *)URLforUserOrders;
 + (NSURL *)URLforUserOrderItems;
