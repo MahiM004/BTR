@@ -306,6 +306,8 @@
          
          NSLog(@"-0-00- info : %@", entitiesPropertyList);
          
+         int make_sure_nsdictionary_works;
+         
          if (entitiesPropertyList) {
              
              User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
