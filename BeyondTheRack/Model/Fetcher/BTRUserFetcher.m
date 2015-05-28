@@ -64,6 +64,10 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/authenticate/facebook", BASEURL]];
 }
 
++ (NSURL *)URLforCurrentUser {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/user/authenticate/currentuser", BASEURL]];
+}
+
 
 /*
  http://www.mobile.btrdev.com/siteapi/user/logout
@@ -73,6 +77,9 @@
  http://www.mobile.btrdev.com/siteapi/user/info
  http://www.mobile.btrdev.com/siteapi/user/detail
  http://www.mobile.btrdev.com/siteapi/user
+ 
+ http://www.mobile.btrdev.com/siteapi/currentuser
+ 
  => requires "SESSION" http header with authentication session ID
  */
 

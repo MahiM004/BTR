@@ -23,5 +23,6 @@
 + (NSURL *)URLforFacebookRegistration;
 + (NSURL *)URLforFacebookAuthentication;
 + (NSURL *)URLforPasswordReset;
++ (NSURL *)URLforCurrentUser;
 
 @end

@@ -321,7 +321,7 @@
     
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
@@ -349,10 +349,107 @@
          
          // failure(operation, error);
      }];
-    
 }
 
 
+- (void)updateUserInfoforSessionId:(NSString *)sessionId
+                          success:(void (^)(id  responseObject)) success
+                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
+    
+    NSDictionary *params = (@{
+                              @"address1": [[self address1TextField] text],
+                              @"address2": [[self address2TextField] text],
+                              @"city": [[self cityTextField] text],
+                              @"gender": [[self genderTextField] text],
+                              @"name": [[self firstNameTextField] text],
+                              @"last_name": [[self lastNameTextField] text],
+                              @"postal": [[self postalCodeTextField] text]
+                              });
+    
+    
+    int uncomment_after_info_detail_ready_on_back_end;
+
+                                /*
+                              @"alternate_email": [[self alternateEmailTextField] text],
+                              @"education": [[self formalEducationTextField] text],
+                              @"children": [[self childrenTextField] text],
+                              @"favorite_shopping": [[self shoppingClubsTextField] text],
+                              @"income": [[self incomeBracketTextField] text],
+                              @"marital_status": [[self maritalStatusTextField] text],
+                              @"occupation": [[self occupationTextField] text],
+                              */
+    
+    [manager POST:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
+      parameters:params
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         
+         
+         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                               options:0
+                                                                                 error:NULL];
+         
+         NSLog(@"-0-00- info : %@", entitiesPropertyList);
+         
+         int update_local_model;
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         NSLog(@"Error: %@", error);
+         
+         failure(operation, error);
+     }];
+}
+
+
+
+
+- (void)updatePasswordforSessionId:(NSString *)sessionId
+                           success:(void (^)(id  responseObject)) success
+                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
+    
+    NSDictionary *params = (@{
+                              @"email": [[self emailTextField] text],
+                              @"password": [[self retypePasswordTextField] text]
+                              });
+    
+    
+    [manager PUT:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforCurrentUser]]
+       parameters:params
+          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         
+         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                               options:0
+                                                                                 error:NULL];
+         
+         NSLog(@"-0-00- info : %@", entitiesPropertyList);
+         
+         int update_local_model;
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         NSLog(@"Error: %@", error);
+         
+         failure(operation, error);
+     }];
+}
 
 
 # pragma mark - Handle update buttons
@@ -360,13 +457,36 @@
 
 - (IBAction)updatePasswordTapped:(UIButton *)sender {
     
-    int to_do;
+    if ([self.neuPasswordTextField.text isEqualToString:self.retypePasswordTextField.text]) {
+    
+        BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+        
+        [self updatePasswordforSessionId:[sessionSettings sessionId] success:^(User *user) {
+            
+            int inform_the_user;
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+
+    } else {
+
+        int infor_the_user;
+    }
 }
 
 
 - (IBAction)updateInfoTapped:(UIButton *)sender {
 
-    int to_do;
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    
+    [self updateUserInfoforSessionId:[sessionSettings sessionId] success:^(User *user) {
+ 
+        int inform_the_user;
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
 }
 
 
