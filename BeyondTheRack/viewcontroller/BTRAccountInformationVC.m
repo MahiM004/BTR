@@ -33,7 +33,12 @@
 @property (strong, nonatomic) NSArray *provincesArray;
 @property (strong, nonatomic) NSArray *statesArray;
 
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
 @end
+
+
 
 
 @implementation BTRAccountInformationVC
@@ -126,8 +131,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
-
-    
 }
 
 
@@ -203,7 +206,6 @@
     }
  
     [self.pickerParentView setHidden:TRUE];
-    //[self.pickerView setHidden:TRUE];
 }
 
 
@@ -268,6 +270,15 @@
 #pragma mark - User Info RESTful
 
 
+- (void)setupDocument
+{
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
+}
+
 
 - (void)fetchUserInfoforSessionId:(NSString *)sessionId
                        success:(void (^)(id  responseObject)) success
@@ -281,10 +292,11 @@
     
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserDetail]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
+         
          NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                          options:0
                                                                            error:NULL];
@@ -316,14 +328,33 @@
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

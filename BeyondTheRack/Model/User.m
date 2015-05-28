@@ -38,11 +38,11 @@
 @dynamic sessionId;
 @dynamic maritalStatus;
 @dynamic children;
-@dynamic formalEducation;
-@dynamic incomeBracket;
 @dynamic occupation;
-@dynamic shoppingClubs;
 @dynamic alternateEmail;
 @dynamic userId;
+@dynamic education;
+@dynamic income;
+@dynamic favoriteShopping;
 
 @end

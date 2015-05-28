@@ -180,10 +180,31 @@
     
     if ([userDictionary valueForKeyPath:@"birthdate"] && [userDictionary valueForKeyPath:@"birthdate"] != [NSNull null])
         user.birthDate = [userDictionary valueForKeyPath:@"birthdate"];
-  
+    
     if ([userDictionary valueForKeyPath:@"employee"] && [userDictionary valueForKeyPath:@"employee"] != [NSNull null])
         user.isEmployee = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"employee"]];
 
+    if ([userDictionary valueForKeyPath:@"alternate_email"] && [userDictionary valueForKeyPath:@"alternate_email"] != [NSNull null])
+        user.alternateEmail = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"alternate_email"]];
+
+    if ([userDictionary valueForKeyPath:@"children"] && [userDictionary valueForKeyPath:@"children"] != [NSNull null])
+        user.children = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"children"]];
+    
+    if ([userDictionary valueForKeyPath:@"education"] && [userDictionary valueForKeyPath:@"education"] != [NSNull null])
+        user.education = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"education"]];
+    
+    if ([userDictionary valueForKeyPath:@"favorite_shopping"] && [userDictionary valueForKeyPath:@"favorite_shopping"] != [NSNull null])
+        user.favoriteShopping = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"favorite_shopping"]];
+    
+    if ([userDictionary valueForKeyPath:@"income"] && [userDictionary valueForKeyPath:@"income"] != [NSNull null])
+        user.income = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"income"]];
+    
+    if ([userDictionary valueForKeyPath:@"marital_status"] && [userDictionary valueForKeyPath:@"marital_status"] != [NSNull null])
+        user.maritalStatus = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"marital_status"]];
+    
+    if ([userDictionary valueForKeyPath:@"occupation"] && [userDictionary valueForKeyPath:@"occupation"] != [NSNull null])
+        user.occupation = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"occupation"]];
+    
     
     return user;
 }

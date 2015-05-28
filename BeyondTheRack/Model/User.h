@@ -39,11 +39,11 @@
 @property (nonatomic, retain) NSString * sessionId;
 @property (nonatomic, retain) NSString * maritalStatus;
 @property (nonatomic, retain) NSString * children;
-@property (nonatomic, retain) NSString * formalEducation;
-@property (nonatomic, retain) NSString * incomeBracket;
 @property (nonatomic, retain) NSString * occupation;
-@property (nonatomic, retain) NSString * shoppingClubs;
 @property (nonatomic, retain) NSString * alternateEmail;
 @property (nonatomic, retain) NSString * userId;
+@property (nonatomic, retain) NSString * education;
+@property (nonatomic, retain) NSString * income;
+@property (nonatomic, retain) NSString * favoriteShopping;
 
 @end

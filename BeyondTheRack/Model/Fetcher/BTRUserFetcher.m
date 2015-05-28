@@ -30,6 +30,7 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/detail", BASEURL]];
 }
 
+
 + (NSURL *)URLforUserInfoDetail {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/infodetail", BASEURL]];
 }
