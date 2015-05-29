@@ -31,8 +31,10 @@
 @property (strong, nonatomic) NSArray *childrenArray;
 @property (strong, nonatomic) NSArray *maritalStatusArray;
 @property (strong, nonatomic) NSArray *formalEducationArray;
+
 @property (strong, nonatomic) NSArray *provincesArray;
 @property (strong, nonatomic) NSArray *statesArray;
+
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -90,6 +92,7 @@
                         @"New foundland & Labrador", @"Northwest Territories", @"Nova Scotia",
                         @"Nunavut", @"Ontario", @"Prince Edward Island", @"Quebec", @"Saskatchewan", @"Yukon"];
     
+    
     return _provincesArray;
 }
 
@@ -103,7 +106,7 @@
                      @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota", @"Ohio", @"Oklahoma",
                      @"Oregon", @"Pennsylvania", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee",
                      @"Texas", @"Utah", @"Vermont", @"Virginia", @"Washington", @"West Virginia", @"Wisconsin", @"Wyoming"];
-    
+
     return _statesArray;
 }
 
@@ -147,7 +150,10 @@
         [self.address1TextField setText:[user addressLine1]];
         [self.address2TextField setText:[user addressLine2]];
         [self.cityTextField setText:[user city]];
-        [self.provinceTextField setText:[user province]];
+        
+        NSString *provinceToShow = [BTRViewUtility provinceNameforCode:[user province]];
+        
+        [self.provinceTextField setText:provinceToShow];
         
         if ([user.country isEqualToString:@"CA"]) {
             
@@ -362,9 +368,6 @@
          NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                                options:0
                                                                                  error:NULL];
-         
-         NSLog(@"-0--0 : %@", entitiesPropertyList);
-         
          if (entitiesPropertyList) {
              
              User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
@@ -393,6 +396,8 @@
     
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
+    NSString *provinceToPost = [BTRViewUtility provinceCodeforName:[[self provinceTextField] text]];
+    
     NSDictionary *params = (@{
                               @"address1": [[self address1TextField] text],
                               @"address2": [[self address2TextField] text],
@@ -407,10 +412,9 @@
                               @"income": [[self incomeBracketTextField] text],
                               @"marital_status": [[self maritalStatusTextField] text],
                               @"occupation": [[self occupationTextField] text],
-                              @"province": [[self provinceTextField] text],
+                              @"region": provinceToPost,
                               @"postal": [[self postalCodeTextField] text]
                               });
-    
     
     [manager PUT:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]]
       parameters:params

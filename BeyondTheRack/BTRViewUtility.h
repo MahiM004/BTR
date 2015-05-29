@@ -23,5 +23,7 @@
 + (NSAttributedString *)crossedOffStringfromString:(NSString *)string withFont:(UIFont *)font;
 + (NSAttributedString *)crossedOffStringfromString:(NSString *)string;
 
++ (NSString *)provinceCodeforName:(NSString *)name;
++ (NSString *)provinceNameforCode:(NSString *)code;
 
 @end

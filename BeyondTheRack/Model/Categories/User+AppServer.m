@@ -176,7 +176,7 @@
         user.city = [userDictionary valueForKeyPath:@"city"];
     
     if ([userDictionary valueForKeyPath:@"region"] && [userDictionary valueForKeyPath:@"region"] != [NSNull null])
-        user.region = [userDictionary valueForKeyPath:@"region"];
+        user.province = [userDictionary valueForKeyPath:@"region"];
     
     if ([userDictionary valueForKeyPath:@"birthdate"] && [userDictionary valueForKeyPath:@"birthdate"] != [NSNull null])
         user.birthDate = [userDictionary valueForKeyPath:@"birthdate"];
