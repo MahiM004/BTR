@@ -18,6 +18,7 @@
 #define MARITAL_PICKER     5
 #define EDUCATION_PICKER   6
 #define PROVINCE_PICKER    7
+#define STATE_PICKER       8
 
 @interface BTRAccountInformationVC ()
 
@@ -202,6 +203,20 @@
     [self loadPickerViewforType:INCOME_PICKER];
 }
 
+
+- (IBAction)provinceButton:(UIButton *)sender {
+    
+    if ([self.countryTextField.text isEqualToString:@"Canada"]) {
+        
+        [self loadPickerViewforType:PROVINCE_PICKER];
+        
+    } else if ([self.countryTextField.text isEqualToString:@"USA"]) {
+     
+        [self loadPickerViewforType:STATE_PICKER];
+    }
+}
+
+
 - (void)dismissKeyboard {
     
     [self.view endEditing:YES];
@@ -234,6 +249,13 @@
         [self.incomeBracketTextField setText:[[self incomeBracketArray] objectAtIndex:row]];
     }
  
+    if ([self pickerType] == PROVINCE_PICKER) {
+        [self.provinceTextField setText:[[self provincesArray] objectAtIndex:row]];
+    }
+    if ([self pickerType] == STATE_PICKER) {
+        [self.provinceTextField setText:[[self statesArray] objectAtIndex:row]];
+    }
+    
     [self.pickerParentView setHidden:TRUE];
 }
 
@@ -255,6 +277,12 @@
     
     if ([self pickerType] == EDUCATION_PICKER)
         return [[self formalEducationArray] count];
+
+    if ([self pickerType] == PROVINCE_PICKER)
+        return [[self provincesArray] count];
+    
+    if ([self pickerType] == STATE_PICKER)
+        return [[self statesArray] count];
     
     return [[self genderArray] count];
 }
@@ -262,7 +290,6 @@
 
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    
     return 1;
 }
 
@@ -283,6 +310,12 @@
     
     if ([self pickerType] == INCOME_PICKER)
         return [[self incomeBracketArray] objectAtIndex:row];
+
+    if ([self pickerType] == PROVINCE_PICKER)
+        return [[self provincesArray] objectAtIndex:row];
+    
+    if ([self pickerType] == STATE_PICKER)
+        return [[self statesArray] objectAtIndex:row];
     
     return [[self genderArray] objectAtIndex:row];
 }
@@ -330,6 +363,8 @@
                                                                                options:0
                                                                                  error:NULL];
          
+         NSLog(@"-0--0 : %@", entitiesPropertyList);
+         
          if (entitiesPropertyList) {
              
              User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
@@ -372,6 +407,7 @@
                               @"income": [[self incomeBracketTextField] text],
                               @"marital_status": [[self maritalStatusTextField] text],
                               @"occupation": [[self occupationTextField] text],
+                              @"province": [[self provinceTextField] text],
                               @"postal": [[self postalCodeTextField] text]
                               });
     

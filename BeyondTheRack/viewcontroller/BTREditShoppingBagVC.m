@@ -109,8 +109,8 @@
     
     BTRBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingBagCellIdentifier" forIndexPath:indexPath];
     
-    if (cell == nil)
-    {
+    if (cell == nil) {
+        
         cell = [[BTRBagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
     }
     
