@@ -26,9 +26,10 @@
 
 - (void)clearSession;
 
+
 - (void)initSessionId:(NSString *)sessionId withEmail:(NSString *)email andPassword:(NSString *)password hasFBloggedIn:(BOOL)fbLoggedIn;
 - (void)initSessionId:(NSString *)sessionId withEmail:(NSString *)email andPassword:(NSString *)password hasFBloggedIn:(BOOL)fbLoggedIn forName:(NSString *)fullName;
 
-
+- (void)updatePassword:(NSString *)neuPassword;
 
 @end

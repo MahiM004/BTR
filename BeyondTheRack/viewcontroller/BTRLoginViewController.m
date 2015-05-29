@@ -250,7 +250,7 @@
     
     NSDictionary *params = (@{
                               @"username": @"hadi@jumpinlife.ca",
-                              @"password": @"something",
+                              @"password": @"something1",
                               });
     
     [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserAuthentication]]
@@ -407,7 +407,7 @@
               
               BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
 
-              
+            
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
@@ -434,7 +434,6 @@
                   [btrSettings clearSession];
                   success(@"FALSE", nil);
               }
-              
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               

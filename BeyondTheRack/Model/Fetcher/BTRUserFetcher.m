@@ -65,7 +65,7 @@
 }
 
 + (NSURL *)URLforCurrentUser {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/user/authenticate/currentuser", BASEURL]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/currentuser", BASEURL]];
 }
 
 

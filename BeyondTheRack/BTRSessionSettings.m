@@ -141,6 +141,11 @@ static NSString *const kFullName = @"fullName";
 
 
 
+- (void)updatePassword:(NSString *)neuPassword {
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:neuPassword forKey:kPassword];
+}
 
 
 

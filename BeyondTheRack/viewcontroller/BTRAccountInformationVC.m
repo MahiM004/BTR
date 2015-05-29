@@ -262,6 +262,7 @@
 
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    
     return 1;
 }
 
@@ -321,19 +322,13 @@
     
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
-         
-         
          NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                                options:0
                                                                                  error:NULL];
-         
-         NSLog(@"-0-00- info : %@", entitiesPropertyList);
-         
-         int make_sure_nsdictionary_works;
          
          if (entitiesPropertyList) {
              
@@ -346,8 +341,7 @@
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
          NSLog(@"Error: %@", error);
-         
-         // failure(operation, error);
+         failure(operation, error);
      }];
 }
 
@@ -371,13 +365,6 @@
                               @"gender": [[self genderTextField] text],
                               @"name": [[self firstNameTextField] text],
                               @"last_name": [[self lastNameTextField] text],
-                              @"postal": [[self postalCodeTextField] text]
-                              });
-    
-    
-    int uncomment_after_info_detail_ready_on_back_end;
-
-                                /*
                               @"alternate_email": [[self alternateEmailTextField] text],
                               @"education": [[self formalEducationTextField] text],
                               @"children": [[self childrenTextField] text],
@@ -385,21 +372,15 @@
                               @"income": [[self incomeBracketTextField] text],
                               @"marital_status": [[self maritalStatusTextField] text],
                               @"occupation": [[self occupationTextField] text],
-                              */
+                              @"postal": [[self postalCodeTextField] text]
+                              });
     
-    [manager POST:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
+    
+    [manager PUT:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]]
       parameters:params
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
-         
-         
-         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                               options:0
-                                                                                 error:NULL];
-         
-         NSLog(@"-0-00- info : %@", entitiesPropertyList);
-         
-         int update_local_model;
+         success(@"TRUE");
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -434,14 +415,7 @@
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
-         
-         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                               options:0
-                                                                                 error:NULL];
-         
-         NSLog(@"-0-00- info : %@", entitiesPropertyList);
-         
-         int update_local_model;
+         success([[self retypePasswordTextField] text]);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
@@ -461,9 +435,14 @@
     
         BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
         
-        [self updatePasswordforSessionId:[sessionSettings sessionId] success:^(User *user) {
+        [self updatePasswordforSessionId:[sessionSettings sessionId] success:^(NSString *neuPassword) {
             
-            int inform_the_user;
+            BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+            [btrSettings updatePassword:neuPassword];
+            
+            [self.neuPasswordTextField setText:@""];
+            [self.retypePasswordTextField setText:@""];
+            [self alertUserforPasswordUpdate];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -471,7 +450,7 @@
 
     } else {
 
-        int infor_the_user;
+        [self alertUserforPasswordStringNotEqual];
     }
 }
 
@@ -480,9 +459,9 @@
 
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     
-    [self updateUserInfoforSessionId:[sessionSettings sessionId] success:^(User *user) {
+    [self updateUserInfoforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
  
-        int inform_the_user;
+        [self alertUserforSuccessfulUserUpdate];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -490,6 +469,43 @@
 }
 
 
+# pragma mark - User alerts
+
+
+- (void)alertUserforPasswordUpdate {
+    
+    [self dismissKeyboard];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful"
+                                                    message:@"Your password was updated successfully."
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    [alert show];
+}
+
+
+- (void)alertUserforPasswordStringNotEqual {
+    
+    [self dismissKeyboard];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention"
+                                                    message:@"The passwords do not match!"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    
+    [alert show];
+}
+
+- (void)alertUserforSuccessfulUserUpdate {
+    
+    [self dismissKeyboard];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful"
+                                                    message:@"Your info was updated successfully."
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    [alert show];
+}
 
 @end
 
