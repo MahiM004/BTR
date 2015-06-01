@@ -37,7 +37,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-        
     [self setupDocument];
     
     self.tableView.delegate = self;
@@ -216,8 +215,8 @@
     
     NSMutableArray *params =[[NSMutableArray alloc] init];
     
-    for (BagItem *bagItem in [self bagItemsArray])
-    {
+    for (BagItem *bagItem in [self bagItemsArray]) {
+        
         time_t unixTime = (time_t) [[bagItem createDateTime] timeIntervalSince1970];
         NSString *cart_time = [NSString stringWithFormat:@"%@", @(unixTime)];
         
@@ -257,7 +256,6 @@
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
               failure(operation, error);
-              
           }];
 }
 

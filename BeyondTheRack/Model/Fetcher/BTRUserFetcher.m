@@ -76,8 +76,8 @@
  http://www.mobile.btrdev.com/siteapi/user/orderitems
  http://www.mobile.btrdev.com/siteapi/user/info
  http://www.mobile.btrdev.com/siteapi/user/detail
+ http://www.mobile.btrdev.com/siteapi/user/infodetail
  http://www.mobile.btrdev.com/siteapi/user
- 
  http://www.mobile.btrdev.com/siteapi/currentuser
  
  => requires "SESSION" http header with authentication session ID
