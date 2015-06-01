@@ -17,7 +17,7 @@
 #import "BTRBagFetcher.h"
 #import "BTRItemFetcher.h"
 
-
+ 
 @interface BTRShoppingBagViewController ()
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
