@@ -11,11 +11,7 @@
 
 @interface BTRNotificationsVC : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIView *radioTestView;
-
-
-@property (nonatomic, strong) TNRadioButtonGroup *sexGroup;
-@property (nonatomic, strong) TNRadioButtonGroup *hobbiesGroup;
-@property (nonatomic, strong) TNRadioButtonGroup *temperatureGroup;
+@property (weak, nonatomic) IBOutlet UIView *radioView;
+@property (nonatomic, strong) TNRadioButtonGroup *emailNotificationGroup;
 
 @end

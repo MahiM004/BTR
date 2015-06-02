@@ -20,8 +20,8 @@
 
     
     //[self createHorizontalList];
-    //[self createVerticalList];
-    [self createHorizontalListWithImage];
+    [self createVerticalList];
+    //[self createHorizontalListWithImage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,136 +30,87 @@
 }
 
 
-
-
-
-- (void)createHorizontalList {
-    TNCircularRadioButtonData *maleData = [TNCircularRadioButtonData new];
-    maleData.labelText = @"Male";
-    maleData.identifier = @"male";
-    maleData.selected = YES;
-    
-    
-    TNCircularRadioButtonData *femaleData = [TNCircularRadioButtonData new];
-    femaleData.labelText = @"Female";
-    femaleData.identifier = @"female";
-    femaleData.selected = NO;
-    femaleData.borderColor = [UIColor blackColor];
-    femaleData.circleColor = [UIColor blackColor];
-    femaleData.borderRadius = 12;
-    femaleData.circleRadius = 5;
-    
-    TNCircularRadioButtonData *alienData = [TNCircularRadioButtonData new];
-    alienData.labelText = @"Alien";
-    alienData.identifier = @"alien";
-    alienData.selected = NO;
-    alienData.borderColor = [UIColor blackColor];
-    alienData.circleColor = [UIColor blackColor];
-    alienData.borderRadius = 12;
-    alienData.circleRadius = 5;
-    
-    self.sexGroup = [[TNRadioButtonGroup alloc] initWithRadioButtonData:@[maleData, femaleData, alienData] layout:TNRadioButtonGroupLayoutHorizontal];
-    self.sexGroup.identifier = @"Sex group";
-    [self.sexGroup create];
-    self.sexGroup.position = CGPointMake(25, 175);
-    [self.radioTestView addSubview:self.sexGroup];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sexGroupUpdated:) name:SELECTED_RADIO_BUTTON_CHANGED object:self.sexGroup];
-    
-    // show how update data works...
-    
-    alienData.borderColor = [UIColor redColor];
-    alienData.circleColor = [UIColor redColor];
-    
-    [self.sexGroup update];
-    
-}
+ 
 
 - (void)createVerticalList {
-    TNRectangularRadioButtonData *snowboardData = [TNRectangularRadioButtonData new];
-    snowboardData.labelText = @"Snowboarding";
-    snowboardData.identifier = @"snowboarding";
-    snowboardData.selected = NO;
+    TNRectangularRadioButtonData *allEmailsData = [TNRectangularRadioButtonData new];
+    allEmailsData.labelText = @"ALL";
+    allEmailsData.identifier = @"all";
+    allEmailsData.selected = NO;
     
     
-    TNRectangularRadioButtonData *tennisData = [TNRectangularRadioButtonData new];
-    tennisData.labelText = @"Tennis";
-    tennisData.identifier = @"tennis";
-    tennisData.selected = YES;
-    tennisData.borderColor = [UIColor blackColor];
-    tennisData.rectangleColor = [UIColor blackColor];
-    tennisData.borderWidth = tennisData.borderHeight = 12;
-    tennisData.rectangleWidth = tennisData.rectangleHeight = 5;
+    TNRectangularRadioButtonData *onceDayData = [TNRectangularRadioButtonData new];
+    onceDayData.labelText = @"ONCE-A-DAY";
+    onceDayData.identifier = @"onceaday";
+    onceDayData.selected = YES;
+    onceDayData.borderColor = [UIColor blackColor];
+    onceDayData.rectangleColor = [UIColor blackColor];
+    onceDayData.borderWidth = onceDayData.borderHeight = 12;
+    onceDayData.rectangleWidth = onceDayData.rectangleHeight = 5;
     
-    TNRectangularRadioButtonData *programmingData = [TNRectangularRadioButtonData new];
-    programmingData.labelText = @"Programming";
-    programmingData.identifier = @"programming";
-    programmingData.selected = NO;
-    programmingData.borderColor = [UIColor blackColor];
-    programmingData.rectangleColor = [UIColor blackColor];
-    programmingData.borderWidth = programmingData.borderHeight = 12;
-    programmingData.rectangleWidth = programmingData.rectangleHeight = 5;
+    TNRectangularRadioButtonData *threeTimesData = [TNRectangularRadioButtonData new];
+    threeTimesData.labelText = @"3 TIMES A WEEK";
+    threeTimesData.identifier = @"threetimesaweek";
+    threeTimesData.selected = NO;
+    threeTimesData.borderColor = [UIColor blackColor];
+    threeTimesData.rectangleColor = [UIColor blackColor];
+    threeTimesData.borderWidth = threeTimesData.borderHeight = 12;
+    threeTimesData.rectangleWidth = threeTimesData.rectangleHeight = 5;
+    threeTimesData.borderColor = [UIColor blackColor];
+    threeTimesData.rectangleColor = [UIColor blackColor];
     
-    self.hobbiesGroup = [[TNRadioButtonGroup alloc] initWithRadioButtonData:@[snowboardData,tennisData, programmingData] layout:TNRadioButtonGroupLayoutVertical];
-    self.hobbiesGroup.identifier = @"Hobbies group";
-    [self.hobbiesGroup create];
-    self.hobbiesGroup.position = CGPointMake(25, 265);
     
-    [self.radioTestView addSubview:self.hobbiesGroup];
+    TNRectangularRadioButtonData *weeklyData = [TNRectangularRadioButtonData new];
+    weeklyData.labelText = @"WEEKLY";
+    weeklyData.identifier = @"weekly";
+    weeklyData.selected = NO;
+    weeklyData.borderColor = [UIColor blackColor];
+    weeklyData.rectangleColor = [UIColor blackColor];
+    weeklyData.borderWidth = threeTimesData.borderHeight = 12;
+    weeklyData.rectangleWidth = threeTimesData.rectangleHeight = 5;
+    weeklyData.borderColor = [UIColor blackColor];
+    weeklyData.rectangleColor = [UIColor blackColor];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hobbiesGroupUpdated:) name:SELECTED_RADIO_BUTTON_CHANGED object:self.hobbiesGroup];
+
+    TNRectangularRadioButtonData *noneData = [TNRectangularRadioButtonData new];
+    noneData.labelText = @"NONE";
+    noneData.identifier = @"none";
+    noneData.selected = NO;
+    noneData.borderColor = [UIColor blackColor];
+    noneData.rectangleColor = [UIColor blackColor];
+    noneData.borderWidth = threeTimesData.borderHeight = 12;
+    noneData.rectangleWidth = threeTimesData.rectangleHeight = 5;
+    noneData.borderColor = [UIColor blackColor];
+    noneData.rectangleColor = [UIColor blackColor];
     
-    // show how update data works...
     
-    programmingData.borderColor = [UIColor redColor];
-    programmingData.rectangleColor = [UIColor redColor];
+    self.emailNotificationGroup = [[TNRadioButtonGroup alloc] initWithRadioButtonData:@[allEmailsData, onceDayData, threeTimesData, weeklyData, noneData] layout:TNRadioButtonGroupLayoutVertical];
+    self.emailNotificationGroup.identifier = @"email group";
+    [self.emailNotificationGroup create];
+    self.emailNotificationGroup.position = CGPointMake(10, 60);
     
-    [self.hobbiesGroup update];
+    [self.radioView addSubview:self.emailNotificationGroup];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(emailGroupUpdated:) name:SELECTED_RADIO_BUTTON_CHANGED object:self.emailNotificationGroup];
+    
+
+    
+    [self.emailNotificationGroup update];
     
 }
 
-- (void)createHorizontalListWithImage {
-    TNImageRadioButtonData *coldData = [TNImageRadioButtonData new];
-    coldData.labelText = @"Hot";
-    coldData.identifier = @"hot";
-    coldData.selected = YES;
-    coldData.unselectedImage = [UIImage imageNamed:@"myuncheck"];
-    coldData.selectedImage = [UIImage imageNamed:@"mycheck"];
-    
-    TNImageRadioButtonData *hotData = [TNImageRadioButtonData new];
-    hotData.labelText = @"Cold";
-    hotData.identifier = @"cold";
-    hotData.selected = NO;
-    hotData.unselectedImage = [UIImage imageNamed:@"myuncheck"];
-    hotData.selectedImage = [UIImage imageNamed:@"mycheck"];
-    
-    self.temperatureGroup = [[TNRadioButtonGroup alloc] initWithRadioButtonData:@[coldData, hotData] layout:TNRadioButtonGroupLayoutVertical];
-    self.temperatureGroup.identifier = @"Temperature group";
-    [self.temperatureGroup create];
-    self.temperatureGroup.position = CGPointMake(10, 60);
-    
-    [self.radioTestView addSubview:self.temperatureGroup];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(temperatureGroupUpdated:) name:SELECTED_RADIO_BUTTON_CHANGED object:self.temperatureGroup];
+
+- (void)emailGroupUpdated:(NSNotification *)notification {
+    NSLog(@"[MainView] Email group updated to %@", self.emailNotificationGroup.selectedRadioButton.data.identifier);
 }
 
-- (void)sexGroupUpdated:(NSNotification *)notification {
-    NSLog(@"[MainView] Sex group updated to %@", self.sexGroup.selectedRadioButton.data.identifier);
-}
 
-- (void)hobbiesGroupUpdated:(NSNotification *)notification {
-    NSLog(@"[MainView] Hobbies group updated to %@", self.hobbiesGroup.selectedRadioButton.data.identifier);
-}
-
-- (void)temperatureGroupUpdated:(NSNotification *)notification {
-    NSLog(@"[MainView] Temperature group updated to %@", self.temperatureGroup.selectedRadioButton.data.identifier);
-}
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SELECTED_RADIO_BUTTON_CHANGED object:self.sexGroup];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SELECTED_RADIO_BUTTON_CHANGED object:self.hobbiesGroup];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SELECTED_RADIO_BUTTON_CHANGED object:self.temperatureGroup];
-}
+     [[NSNotificationCenter defaultCenter] removeObserver:self name:SELECTED_RADIO_BUTTON_CHANGED object:self.emailNotificationGroup];
+ }
+
+
 
 /*
 #pragma mark - Navigation

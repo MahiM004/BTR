@@ -29,7 +29,7 @@ NSString *const SELECTED_RADIO_BUTTON_CHANGED = @"selectedRadioButtonChanged";
     if (self) {
         self.radioButtonData = radioButtonData;
         self.layout = layout;
-        self.marginBetweenItems = 120;
+        self.marginBetweenItems = 100;
 		self.itemsInsets = UIEdgeInsetsZero;
     }
     
