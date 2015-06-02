@@ -8,11 +8,9 @@
 
 #import "BTRAccountEmbeddedTVC.h"
 #import "BTRLoginViewController.h"
+#import "BTRNotificationsVC.h"
 
-//#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-
-
 
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
@@ -27,6 +25,8 @@
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) User *user;
+
 
 @end
 
@@ -116,12 +116,14 @@
          NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                           options:0
                                                                             error:NULL];
+         NSLog(@"-000-0- : %@", entitiesPropertyList);
+         
          if (entitiesPropertyList) {
             
-             User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
+             self.user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
              [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
-             success(user);
+             success(self.user);
          }
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -166,6 +168,21 @@
     
 }
 
+
+
+
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+     
+     if ([[segue identifier] isEqualToString:@"BTRNotificationsSegueIdentifier"]) {
+         
+         BTRNotificationsVC *vc = [segue destinationViewController];
+         vc.user = [self user];
+     }
+ }
+ 
 
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TNRadioButtonGroup.h"
+#import "User+AppServer.h"
 
 @interface BTRNotificationsVC : UIViewController
 
@@ -20,5 +21,6 @@
 @property (weak, nonatomic) IBOutlet UISwitch *childrenSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *homeSwitch;
 
+@property (nonatomic, strong) User *user;
 
 @end

@@ -160,7 +160,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="mo4-gA-xI5" kind="push" id="WhX-NF-Ggj"/>
+                                            <segue destination="mo4-gA-xI5" kind="push" identifier="BTRNotificationsSegueIdentifier" id="WhX-NF-Ggj"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="mWL-CS-Yfs" style="IBUITableViewCellStyleDefault" id="rQH-rP-rsU">
@@ -1446,7 +1446,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="DD07A48D-34DF-40C7-9F5E-5D75CD954624" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="EEF77708-F6BA-4079-8025-2671073971A6" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3130,7 +3130,7 @@
     </scenes>
     <resources>
         <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="DD07A48D-34DF-40C7-9F5E-5D75CD954624" width="30" height="30">
+        <image name="EEF77708-F6BA-4079-8025-2671073971A6" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
