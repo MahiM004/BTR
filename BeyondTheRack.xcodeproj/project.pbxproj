@@ -38,8 +38,6 @@
 		690A38F51B1DEB7F00D4BA84 /* TNRectangularRadioButtonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 690A38EC1B1DEB7F00D4BA84 /* TNRectangularRadioButtonData.m */; };
 		690A390C1B1DEE0000D4BA84 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 690A39051B1DEE0000D4BA84 /* checked.png */; };
 		690A390D1B1DEE0000D4BA84 /* checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 690A39061B1DEE0000D4BA84 /* checked@2x.png */; };
-		690A390E1B1DEE0000D4BA84 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = 690A39071B1DEE0000D4BA84 /* Contents.json */; };
-		690A390F1B1DEE0000D4BA84 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = 690A39091B1DEE0000D4BA84 /* Contents.json */; };
 		690A39101B1DEE0000D4BA84 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 690A390A1B1DEE0000D4BA84 /* unchecked.png */; };
 		690A39111B1DEE0000D4BA84 /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 690A390B1B1DEE0000D4BA84 /* unchecked@2x.png */; };
 		690A39181B1DF56600D4BA84 /* mychecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 690A39161B1DF56600D4BA84 /* mychecked.png */; };
@@ -231,8 +229,6 @@
 		690A38EC1B1DEB7F00D4BA84 /* TNRectangularRadioButtonData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNRectangularRadioButtonData.m; sourceTree = "<group>"; };
 		690A39051B1DEE0000D4BA84 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		690A39061B1DEE0000D4BA84 /* checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked@2x.png"; sourceTree = "<group>"; };
-		690A39071B1DEE0000D4BA84 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
-		690A39091B1DEE0000D4BA84 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		690A390A1B1DEE0000D4BA84 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
 		690A390B1B1DEE0000D4BA84 /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
 		690A39161B1DF56600D4BA84 /* mychecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mychecked.png; sourceTree = "<group>"; };
@@ -566,7 +562,6 @@
 				690A39171B1DF56600D4BA84 /* mychecked@2x.png */,
 				690A39051B1DEE0000D4BA84 /* checked.png */,
 				690A39061B1DEE0000D4BA84 /* checked@2x.png */,
-				690A39071B1DEE0000D4BA84 /* Contents.json */,
 			);
 			path = checked.imageset;
 			sourceTree = "<group>";
@@ -574,7 +569,6 @@
 		690A39081B1DEE0000D4BA84 /* unchecked.imageset */ = {
 			isa = PBXGroup;
 			children = (
-				690A39091B1DEE0000D4BA84 /* Contents.json */,
 				690A391E1B1DF70B00D4BA84 /* myuncheck.png */,
 				690A391F1B1DF70B00D4BA84 /* myuncheck@2x.png */,
 				690A391A1B1DF57100D4BA84 /* myunchecked.png */,
@@ -1104,7 +1098,6 @@
 				690A390C1B1DEE0000D4BA84 /* checked.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
-				690A390E1B1DEE0000D4BA84 /* Contents.json in Resources */,
 				690A39101B1DEE0000D4BA84 /* unchecked.png in Resources */,
 				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,
 				690A39211B1DF70B00D4BA84 /* myuncheck@2x.png in Resources */,
@@ -1115,7 +1108,6 @@
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				69AB985D1A76AB2200EDB1E6 /* twittericonalpha.png in Resources */,
 				690A39251B1DF71500D4BA84 /* mycheck@2x.png in Resources */,
-				690A390F1B1DEE0000D4BA84 /* Contents.json in Resources */,
 				6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */,
 				69AB985E1A76AB2200EDB1E6 /* facebookiconalpha.png in Resources */,
 				690A391D1B1DF57100D4BA84 /* myunchecked@2x.png in Resources */,

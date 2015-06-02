@@ -17,6 +17,9 @@
 
 @implementation TNCircularRadioButton
 
+@dynamic data;
+
+
 #pragma mark - Initializers
 
 - (instancetype)initWithData:(TNCircularRadioButtonData *)data {
