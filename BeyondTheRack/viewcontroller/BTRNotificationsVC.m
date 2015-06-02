@@ -52,14 +52,26 @@
         [[self homeSwitch] setOn:YES];
     
     if ([preferencesList containsString:@"dailyreminders"]) {
-        [self setEmailFrequency:btrAllEmails];
-    } else if ([preferencesList containsString:@"oncedailyreminders"]) {
-        [self setEmailFrequency:btrDailyEmails];
+        
+        if (![preferencesList containsString:@"oncedailyreminders"]) {
+
+            [self setEmailFrequency:btrAllEmails];
+            
+        } else if ([preferencesList containsString:@"oncedailyreminders"]) {
+            
+            [self setEmailFrequency:btrDailyEmails];
+        }
+        
     } else if ([preferencesList containsString:@"threetimesweeklyreminders"]) {
+        
         [self setEmailFrequency:btrThreeTimesAWeekEmails];
+    
     } else if ([preferencesList containsString:@"weeklyreminders"]) {
+    
         [self setEmailFrequency:btrWeeklyEmails];
+    
     } else {
+    
         [self setEmailFrequency:btrNoEmails];
     }
     
@@ -73,50 +85,37 @@
     allEmailsData.labelText = @"ALL";
     allEmailsData.identifier = @"all";
     allEmailsData.selected = NO;
-    
-    
+    if ([self emailFrequency]==btrAllEmails)
+        allEmailsData.selected = YES;
+
     TNRectangularRadioButtonData *onceDayData = [TNRectangularRadioButtonData new];
     onceDayData.labelText = @"ONCE-A-DAY";
     onceDayData.identifier = @"onceaday";
-    onceDayData.selected = YES;
-    onceDayData.borderColor = [UIColor blackColor];
-    onceDayData.rectangleColor = [UIColor blackColor];
-    onceDayData.borderWidth = onceDayData.borderHeight = 12;
-    onceDayData.rectangleWidth = onceDayData.rectangleHeight = 5;
+    onceDayData.selected = NO;
+    if ([self emailFrequency]==btrDailyEmails)
+        onceDayData.selected = YES;
     
     TNRectangularRadioButtonData *threeTimesData = [TNRectangularRadioButtonData new];
     threeTimesData.labelText = @"3 TIMES A WEEK";
     threeTimesData.identifier = @"threetimesaweek";
     threeTimesData.selected = NO;
-    threeTimesData.borderColor = [UIColor blackColor];
-    threeTimesData.rectangleColor = [UIColor blackColor];
-    threeTimesData.borderWidth = threeTimesData.borderHeight = 12;
-    threeTimesData.rectangleWidth = threeTimesData.rectangleHeight = 5;
-    threeTimesData.borderColor = [UIColor blackColor];
-    threeTimesData.rectangleColor = [UIColor blackColor];
+    if ([self emailFrequency]==btrThreeTimesAWeekEmails)
+        threeTimesData.selected = YES;
     
     TNRectangularRadioButtonData *weeklyData = [TNRectangularRadioButtonData new];
     weeklyData.labelText = @"WEEKLY";
     weeklyData.identifier = @"weekly";
     weeklyData.selected = NO;
-    weeklyData.borderColor = [UIColor blackColor];
-    weeklyData.rectangleColor = [UIColor blackColor];
-    weeklyData.borderWidth = threeTimesData.borderHeight = 12;
-    weeklyData.rectangleWidth = threeTimesData.rectangleHeight = 5;
-    weeklyData.borderColor = [UIColor blackColor];
-    weeklyData.rectangleColor = [UIColor blackColor];
-    
+    if ([self emailFrequency]==btrWeeklyEmails)
+        weeklyData.selected = YES;
+
     TNRectangularRadioButtonData *noneData = [TNRectangularRadioButtonData new];
     noneData.labelText = @"NONE";
     noneData.identifier = @"none";
     noneData.selected = NO;
-    noneData.borderColor = [UIColor blackColor];
-    noneData.rectangleColor = [UIColor blackColor];
-    noneData.borderWidth = threeTimesData.borderHeight = 12;
-    noneData.rectangleWidth = threeTimesData.rectangleHeight = 5;
-    noneData.borderColor = [UIColor blackColor];
-    noneData.rectangleColor = [UIColor blackColor];
-    
+    if ([self emailFrequency]==btrNoEmails)
+        noneData.selected = YES;
+
     self.emailNotificationGroup = [[TNRadioButtonGroup alloc] initWithRadioButtonData:@[allEmailsData, onceDayData, threeTimesData, weeklyData, noneData] layout:TNRadioButtonGroupLayoutVertical];
     self.emailNotificationGroup.identifier = @"email group";
     [self.emailNotificationGroup create];
