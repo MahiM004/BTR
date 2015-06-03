@@ -25,6 +25,7 @@
 
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
 @property (nonatomic, strong) User *user;
 
 
@@ -116,8 +117,6 @@
          NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                           options:0
                                                                             error:NULL];
-         NSLog(@"-000-0- : %@", entitiesPropertyList);
-         
          if (entitiesPropertyList) {
             
              self.user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
@@ -167,7 +166,6 @@
      }];
     
 }
-
 
 
 
