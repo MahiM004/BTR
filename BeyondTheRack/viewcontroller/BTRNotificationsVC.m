@@ -44,7 +44,7 @@
     if (![self user])
         return;
     
-    if ([preferencesList containsString:@"partners"])
+    if ([preferencesList containsString:@"MobilePush"])
         [[self pushNotificationSwitch] setOn:YES];
     
     if ([preferencesList containsString:@"womenreminders"])
@@ -150,7 +150,7 @@
     NSString *neuPreferencesList = @"";
     
     if (self.pushNotificationSwitch.on) {
-        neuPreferencesList = [neuPreferencesList stringByAppendingString:@"partners"];
+        neuPreferencesList = [neuPreferencesList stringByAppendingString:@"MobilePush"];
         oneChosen = TRUE;
     }
 
@@ -184,7 +184,6 @@
         neuPreferencesList = [neuPreferencesList stringByAppendingString:@"homereminders"];
         oneChosen = TRUE;
     }
-
     
     [self updateUserPreferencesListforSessionId:[sessionSettings sessionId] andPreferencesList:neuPreferencesList success:^(NSString *successString) {
         
@@ -279,11 +278,6 @@
 
 
 @end
-
-
-
-
-
 
 
 
