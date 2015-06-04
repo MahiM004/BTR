@@ -48,6 +48,7 @@
 		690A39211B1DF70B00D4BA84 /* myuncheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 690A391F1B1DF70B00D4BA84 /* myuncheck@2x.png */; };
 		690A39241B1DF71500D4BA84 /* mycheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 690A39221B1DF71500D4BA84 /* mycheck.png */; };
 		690A39251B1DF71500D4BA84 /* mycheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 690A39231B1DF71500D4BA84 /* mycheck@2x.png */; };
+		692709281B208C6C000A93ED /* libetpushsdk-3.4.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 692709251B208C6C000A93ED /* libetpushsdk-3.4.2.a */; };
 		692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 692CE4961A9684A5007E9C26 /* BTRFacetData.m */; };
 		692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */; };
 		692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */; };
@@ -239,6 +240,27 @@
 		690A391F1B1DF70B00D4BA84 /* myuncheck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myuncheck@2x.png"; sourceTree = "<group>"; };
 		690A39221B1DF71500D4BA84 /* mycheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mycheck.png; sourceTree = "<group>"; };
 		690A39231B1DF71500D4BA84 /* mycheck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mycheck@2x.png"; sourceTree = "<group>"; };
+		692709131B208C6C000A93ED /* ETBulkUpdateShim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETBulkUpdateShim.h; sourceTree = "<group>"; };
+		692709141B208C6C000A93ED /* ETEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETEvent.h; sourceTree = "<group>"; };
+		692709151B208C6C000A93ED /* ETFenceMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETFenceMessage.h; sourceTree = "<group>"; };
+		692709161B208C6C000A93ED /* ETGenericUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETGenericUpdate.h; sourceTree = "<group>"; };
+		692709171B208C6C000A93ED /* ETKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETKeyValueStore.h; sourceTree = "<group>"; };
+		692709181B208C6C000A93ED /* ETLandingPagePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETLandingPagePresenter.h; sourceTree = "<group>"; };
+		692709191B208C6C000A93ED /* ETLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETLocationManager.h; sourceTree = "<group>"; };
+		6927091A1B208C6C000A93ED /* ETLocationUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETLocationUpdate.h; sourceTree = "<group>"; };
+		6927091B1B208C6C000A93ED /* ETMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETMessage.h; sourceTree = "<group>"; };
+		6927091C1B208C6C000A93ED /* ETPhoneHome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPhoneHome.h; sourceTree = "<group>"; };
+		6927091D1B208C6C000A93ED /* ETPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPush.h; sourceTree = "<group>"; };
+		6927091E1B208C6C000A93ED /* ETRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETRegion.h; sourceTree = "<group>"; };
+		6927091F1B208C6C000A93ED /* ETRegistration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETRegistration.h; sourceTree = "<group>"; };
+		692709201B208C6C000A93ED /* ETSqliteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETSqliteHelper.h; sourceTree = "<group>"; };
+		692709211B208C6C000A93ED /* ETStatsUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETStatsUpdate.h; sourceTree = "<group>"; };
+		692709221B208C6C000A93ED /* ETTestsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETTestsHelper.h; sourceTree = "<group>"; };
+		692709231B208C6C000A93ED /* ETURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETURLConnection.h; sourceTree = "<group>"; };
+		692709241B208C6C000A93ED /* ExactTargetEnhancedPushDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExactTargetEnhancedPushDataSource.h; sourceTree = "<group>"; };
+		692709251B208C6C000A93ED /* libetpushsdk-3.4.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libetpushsdk-3.4.2.a"; sourceTree = "<group>"; };
+		692709261B208C6C000A93ED /* PIEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIEvent.h; sourceTree = "<group>"; };
+		692709271B208C6C000A93ED /* PushConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushConstants.h; sourceTree = "<group>"; };
 		692CE4951A9684A5007E9C26 /* BTRFacetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFacetData.h; sourceTree = "<group>"; };
 		692CE4961A9684A5007E9C26 /* BTRFacetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFacetData.m; sourceTree = "<group>"; };
 		692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailEmbeddedTVC.h; sourceTree = "<group>"; };
@@ -443,6 +465,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				692709281B208C6C000A93ED /* libetpushsdk-3.4.2.a in Frameworks */,
 				B3C16A991B0E3686009470EC /* Social.framework in Frameworks */,
 				B3699B281AEAA0E1009D6A48 /* Foundation.framework in Frameworks */,
 				B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */,
@@ -579,6 +602,34 @@
 			path = unchecked.imageset;
 			sourceTree = "<group>";
 		};
+		692709121B208C6C000A93ED /* etpushsdk */ = {
+			isa = PBXGroup;
+			children = (
+				692709131B208C6C000A93ED /* ETBulkUpdateShim.h */,
+				692709141B208C6C000A93ED /* ETEvent.h */,
+				692709151B208C6C000A93ED /* ETFenceMessage.h */,
+				692709161B208C6C000A93ED /* ETGenericUpdate.h */,
+				692709171B208C6C000A93ED /* ETKeyValueStore.h */,
+				692709181B208C6C000A93ED /* ETLandingPagePresenter.h */,
+				692709191B208C6C000A93ED /* ETLocationManager.h */,
+				6927091A1B208C6C000A93ED /* ETLocationUpdate.h */,
+				6927091B1B208C6C000A93ED /* ETMessage.h */,
+				6927091C1B208C6C000A93ED /* ETPhoneHome.h */,
+				6927091D1B208C6C000A93ED /* ETPush.h */,
+				6927091E1B208C6C000A93ED /* ETRegion.h */,
+				6927091F1B208C6C000A93ED /* ETRegistration.h */,
+				692709201B208C6C000A93ED /* ETSqliteHelper.h */,
+				692709211B208C6C000A93ED /* ETStatsUpdate.h */,
+				692709221B208C6C000A93ED /* ETTestsHelper.h */,
+				692709231B208C6C000A93ED /* ETURLConnection.h */,
+				692709241B208C6C000A93ED /* ExactTargetEnhancedPushDataSource.h */,
+				692709251B208C6C000A93ED /* libetpushsdk-3.4.2.a */,
+				692709261B208C6C000A93ED /* PIEvent.h */,
+				692709271B208C6C000A93ED /* PushConstants.h */,
+			);
+			path = etpushsdk;
+			sourceTree = "<group>";
+		};
 		692F24D11AA8E093003AABE1 /* Product */ = {
 			isa = PBXGroup;
 			children = (
@@ -701,6 +752,7 @@
 		69867A0F1A4480C7003CE59C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				692709121B208C6C000A93ED /* etpushsdk */,
 				690A38D81B1DEB7F00D4BA84 /* TNRadioButton */,
 				69B9425B1AE033FD00483950 /* UIKit+AFNetworking */,
 				69B9426D1AE033FD00483950 /* AFNetworking */,
@@ -1376,6 +1428,10 @@
 				GCC_PREFIX_HEADER = "BeyondTheRack/BeyondTheRack-Prefix.pch";
 				INFOPLIST_FILE = BeyondTheRack/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BeyondTheRack/etpushsdk",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1398,6 +1454,10 @@
 				GCC_PREFIX_HEADER = "BeyondTheRack/BeyondTheRack-Prefix.pch";
 				INFOPLIST_FILE = BeyondTheRack/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BeyondTheRack/etpushsdk",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

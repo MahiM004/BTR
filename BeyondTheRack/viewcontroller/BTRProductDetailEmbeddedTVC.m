@@ -293,7 +293,6 @@
     
     self.descriptionCellHeight = customHeight + 80;
     
-    
     return specialNoteView;
 }
 
