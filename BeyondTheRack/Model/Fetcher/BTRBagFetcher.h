@@ -20,6 +20,16 @@
 + (NSURL *)URLforSetBag;
 + (NSURL *)URLforClearBag;
 
+/**
+ API URLs for Checkout
+ */
+
++ (NSURL *)URLforPaymentMethods;
++ (NSURL *)URLforCheckoutInfo;
++ (NSURL *)URLforAddressValidation;
++ (NSURL *)URLforGiftCardRedeem;
++ (NSURL *)URLforCheckoutProcess;
++ (NSURL *)URLforOrderNumber:(NSString *)orderNumberString;
 
 
 

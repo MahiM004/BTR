@@ -89,36 +89,37 @@
      *  The below method has to be implemented ONLY ONCE in the SDK. The below conditions are specifically for this app and you will NOT need multiple/ conditional implementation like this in your own app
      */
     
-    int update_app_ID_and_accessToken_to_production;
+    NSLog(@"---0-0-0--000- update_app_ID_and_accessToken_to_production!");
     
-    [[ETPush pushManager] configureSDKWithAppID:@"5f171b92-850b-4207-89a2-f8f688c002a8" // The App ID from Code@ExactTarget
-                                 andAccessToken:@"rwuhkzvm95bcs9aye9x4drc5" // The Access Token from Code@ExactTarget
+    /*
+    [[ETPush pushManager] configureSDKWithAppID:@"287a5914-4541-4941-a9c9-0dcd17c33211"//@"5f171b92-850b-4207-89a2-f8f688c002a8" // The App ID from Code@ExactTarget
+                                 andAccessToken:@"qmcystmu33s4zrppaxerfvyn"//@"rwuhkzvm95bcs9aye9x4drc5" // The Access Token from Code@ExactTarget
                                   withAnalytics:YES // Whether or not you would like to use Salesforce analytics services
                             andLocationServices:YES  // Whether or not you would like to use location-based alerts
                                   andCloudPages:YES]; // Whether or not you would like to use CloudPages.
     
-    /**
-     ET_NOTE: The OpenDirect Delegate must be set in order for OpenDirect to work with URL schemes other than http or https. Set this before you call [[ETPush pushManager] applicationLaunchedWithOptions:launchOptions];
-     */
+    ///
+     //ET_NOTE: The OpenDirect Delegate must be set in order for OpenDirect to work with URL schemes other than http or https. Set this before you call [[ETPush pushManager] applicationLaunchedWithOptions:launchOptions];
+     //
     //[[ETPush pushManager] setOpenDirectDelegate:self];
     
-    /**
-     ET_NOTE: This method delivers the launch options dictionary to the SDK. This is a required implementation step to ensure that pushes are delivered and processed by Salesforce.
-     */
+    ///
+     //ET_NOTE: This method delivers the launch options dictionary to the SDK. This is a required implementation step to ensure that pushes are delivered and processed by Salesforce.
+     //
     [[ETPush pushManager] applicationLaunchedWithOptions:launchOptions];
     
-    /**
-     ET_NOTE: This method begins the push registration workflow. It indicates to iOS (and Apple) that this application wishes to send push messages. It is required for push, but the flags you provide are at your descretion (at least one is required).
+    ////
+     //ET_NOTE: This method begins the push registration workflow. It indicates to iOS (and Apple) that this application wishes to send push messages. It is required for push, but the flags you provide are at your descretion (at least one is required).
      
-     UIRemoteNotificationTypeAlert - This flag will ask for permission to show text to the user, in either Banner or an Alert.
-     UIRemoteNotificationTypeBadge - This flag allows you to update the badge on the app icon
-     UIRemoteNotificationTypeSound - This flag allows you to play a sound when the push is received.
+     //UIRemoteNotificationTypeAlert - This flag will ask for permission to show text to the user, in either Banner or an Alert.
+     //UIRemoteNotificationTypeBadge - This flag allows you to update the badge on the app icon
+     //UIRemoteNotificationTypeSound - This flag allows you to play a sound when the push is received.
      
      // Use these for IOS8 instead of UIRemoteNotificationType...
-     UIUserNotificationTypeBadge - This flag allows you to update the badge on the app icon
-     UIUserNotificationTypeSound - This flag allows you to play a sound when the push is received.
-     UIUserNotificationTypeAlert - This flag will ask for permission to show text to the user, in either Banner or an Alert.
-     */
+     //UIUserNotificationTypeBadge - This flag allows you to update the badge on the app icon
+     //UIUserNotificationTypeSound - This flag allows you to play a sound when the push is received.
+     //UIUserNotificationTypeAlert - This flag will ask for permission to show text to the user, in either Banner or an Alert.
+     //
     
     // See ETPush.h for reasoning behind this #if logic
     // IPHONEOS_DEPLOYMENT_TARGET = 6.X or 7.X
@@ -209,31 +210,24 @@
     [[ETPush pushManager] registerForRemoteNotifications];
 #endif
     
-    /**
-     ET_NOTE: If you specify YES, then a UIAlertView will be shown if a push received and the app is in the active state. This is not the recommended best practice for production apps but is called for in some use cases
-     */
+    ///
+     //ET_NOTE: If you specify YES, then a UIAlertView will be shown if a push received and the app is in the active state. This is not the recommended best practice for production apps but is called for in some use cases
+     //
     [[ETPush pushManager] shouldDisplayAlertViewIfPushReceived:NO];
     
-    /**
-     ET_NOTE: This method is required in order for location messaging to work and the user's location to be processed
-     */
+    //
+     //ET_NOTE: This method is required in order for location messaging to work and the user's location to be processed
+     //
     [[ETLocationManager locationManager] startWatchingLocation];
     
-    /**
-     ET_NOTE: Logging the device id is very useful for debugging purposes. One thing this can help you do is create a filtered list inside of MobilePush that only includes the device that matches this id.
-     */
-    NSLog(@"== DEVICE ID ==\nThe ExactTarget Device ID is: %@\n", [ETPush safeDeviceIdentifier]);
+    ///
+     //ET_NOTE: Logging the device id is very useful for debugging purposes. One thing this can help you do is create a filtered list inside of MobilePush that only includes the device that matches this id.
+     //
+      NSLog(@"== DEVICE ID ==\nThe ExactTarget Device ID is: %@\n", [ETPush safeDeviceIdentifier]);
     
     // To enable logging while debugging
     [ETPush setETLoggerToRequiredState:YES];
-    
-    
-    
-    
-    
-    
-    
-    
+    */
     
     /*
      *
