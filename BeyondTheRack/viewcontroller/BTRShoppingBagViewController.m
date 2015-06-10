@@ -267,6 +267,38 @@
 }
 
 
+- (void)getCheckoutInfoforSessionId:(NSString *)sessionId
+                              success:(void (^)(id  responseObject)) success
+                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforCheckoutInfo]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                  options:0
+                                                                                    error:NULL];
+             NSLog(@"09--09000 -- : %@", entitiesPropertyList);
+             success(@"TRUE");
+             
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"errtr: %@", error);
+             failure(operation, error);
+             
+         }];
+}
+
+
 
 
 #pragma mark - Navigation
@@ -287,7 +319,18 @@
 
 
 - (IBAction)tappedCheckout:(UIButton *)sender {
-
+    
+    
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    
+    [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSString *succString) {
+        
+        // perform BTRCheckoutSegueIdentifier
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
 }
 
 

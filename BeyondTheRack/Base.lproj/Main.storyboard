@@ -1446,7 +1446,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="899A1BBD-9BA7-48D4-9641-0F4EA1B0B370" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="7C46A22C-459A-4EF6-BF93-0696B9067E81" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -2758,7 +2758,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="tappedCheckout:" destination="cAR-4K-mYr" eventType="touchUpInside" id="HqS-g4-0dp"/>
-                                                    <segue destination="0sZ-8O-Aj3" kind="modal" id="Ngf-9h-FfN"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -2775,6 +2774,7 @@
                         <outlet property="subtotalLabel" destination="4gu-Jg-cSw" id="9SZ-2b-xNl"/>
                         <outlet property="tableView" destination="glW-mg-mvP" id="DS9-Fy-eS0"/>
                         <outlet property="youSaveLabel" destination="I0H-aC-zYn" id="Zg0-eJ-ypT"/>
+                        <segue destination="0sZ-8O-Aj3" kind="modal" identifier="BTRCheckoutSegueIdentifier" id="tke-Tx-7sn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wxx-54-p0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2949,7 +2949,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iiR-Cm-vW2">
                                                 <rect key="frame" x="0.0" y="0.0" width="290" height="43"/>
                                                 <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="19"/>
-                                                <state key="normal" title="Approve Purchase">
+                                                <state key="normal" title="Purchase">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -3013,19 +3013,19 @@
                         <sections>
                             <tableViewSection id="rna-5w-f5L">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="CR8-nZ-oRO">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="477" id="CR8-nZ-oRO">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CR8-nZ-oRO" id="olz-jx-hXT">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Lxy-74-gOz">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="490" id="Lxy-74-gOz">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lxy-74-gOz" id="B6b-wn-DVz">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="F58-Y2-8lK">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="146" id="F58-Y2-8lK">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F58-Y2-8lK" id="NPN-qr-9W8">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -3129,7 +3129,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="899A1BBD-9BA7-48D4-9641-0F4EA1B0B370" width="30" height="30">
+        <image name="7C46A22C-459A-4EF6-BF93-0696B9067E81" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
