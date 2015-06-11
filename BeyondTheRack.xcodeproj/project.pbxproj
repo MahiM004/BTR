@@ -134,6 +134,10 @@
 		69BC6D441A94DACB00376D9C /* filtericonYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 69BC6D431A94DACB00376D9C /* filtericonYellow.png */; };
 		69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CEF34C1ABC61BD00835276 /* BTRUserFetcher.m */; };
 		69CEF3501ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CEF34F1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m */; };
+		69D4400A1B2A0D7900070FD8 /* masterpass.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440061B2A0D7900070FD8 /* masterpass.png */; };
+		69D4400B1B2A0D7900070FD8 /* masterpass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440071B2A0D7900070FD8 /* masterpass@2x.png */; };
+		69D4400C1B2A0D7900070FD8 /* VisaCheckout.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440081B2A0D7900070FD8 /* VisaCheckout.png */; };
+		69D4400D1B2A0D7900070FD8 /* VisaCheckout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440091B2A0D7900070FD8 /* VisaCheckout@2x.png */; };
 		69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */; };
@@ -424,6 +428,10 @@
 		69CEF34C1ABC61BD00835276 /* BTRUserFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRUserFetcher.m; sourceTree = "<group>"; };
 		69CEF34E1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAccountEmbeddedTVC.h; sourceTree = "<group>"; };
 		69CEF34F1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRAccountEmbeddedTVC.m; sourceTree = "<group>"; };
+		69D440061B2A0D7900070FD8 /* masterpass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = masterpass.png; sourceTree = "<group>"; };
+		69D440071B2A0D7900070FD8 /* masterpass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masterpass@2x.png"; sourceTree = "<group>"; };
+		69D440081B2A0D7900070FD8 /* VisaCheckout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VisaCheckout.png; sourceTree = "<group>"; };
+		69D440091B2A0D7900070FD8 /* VisaCheckout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VisaCheckout@2x.png"; sourceTree = "<group>"; };
 		69D5663D1A7A8F2300FAEDE2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -735,6 +743,10 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				69D440061B2A0D7900070FD8 /* masterpass.png */,
+				69D440071B2A0D7900070FD8 /* masterpass@2x.png */,
+				69D440081B2A0D7900070FD8 /* VisaCheckout.png */,
+				69D440091B2A0D7900070FD8 /* VisaCheckout@2x.png */,
 				B3C16AA01B1363CA009470EC /* backarrowcool_red.png */,
 				6900B4C71AB7598000930D16 /* BTRLogo.png */,
 				69BC6D431A94DACB00376D9C /* filtericonYellow.png */,
@@ -1146,6 +1158,7 @@
 				6900B4DE1AB7747900930D16 /* FontAwesome+iOS.podspec in Resources */,
 				690A39241B1DF71500D4BA84 /* mycheck.png in Resources */,
 				690A39191B1DF56600D4BA84 /* mychecked@2x.png in Resources */,
+				69D4400A1B2A0D7900070FD8 /* masterpass.png in Resources */,
 				69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */,
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
@@ -1153,6 +1166,7 @@
 				690A390D1B1DEE0000D4BA84 /* checked@2x.png in Resources */,
 				690A390C1B1DEE0000D4BA84 /* checked.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
+				69D4400B1B2A0D7900070FD8 /* masterpass@2x.png in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
 				690A39101B1DEE0000D4BA84 /* unchecked.png in Resources */,
 				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,
@@ -1161,9 +1175,11 @@
 				69807AEA1A4210740001A154 /* neulogo.png in Resources */,
 				B3C16AA11B1363CA009470EC /* backarrowcool_red.png in Resources */,
 				69AB985F1A76AB2200EDB1E6 /* pinteresticonalpha.png in Resources */,
+				69D4400D1B2A0D7900070FD8 /* VisaCheckout@2x.png in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				69AB985D1A76AB2200EDB1E6 /* twittericonalpha.png in Resources */,
 				690A39251B1DF71500D4BA84 /* mycheck@2x.png in Resources */,
+				69D4400C1B2A0D7900070FD8 /* VisaCheckout.png in Resources */,
 				6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */,
 				69AB985E1A76AB2200EDB1E6 /* facebookiconalpha.png in Resources */,
 				690A391D1B1DF57100D4BA84 /* myunchecked@2x.png in Resources */,
