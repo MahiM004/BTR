@@ -325,7 +325,7 @@
     
     [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSString *succString) {
         
-        // perform BTRCheckoutSegueIdentifier
+        [self performSegueWithIdentifier:@"BTRCheckoutSegueIdentifier" sender:self];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
