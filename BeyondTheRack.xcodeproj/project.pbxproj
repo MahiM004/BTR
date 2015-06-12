@@ -58,7 +58,6 @@
 		692F24E41AAF7BC5003AABE1 /* BTRZoomImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24E31AAF7BC5003AABE1 /* BTRZoomImageViewController.m */; };
 		69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */; };
 		69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */; };
-		695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */; };
 		6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */; };
 		696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */; };
 		696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */; };
@@ -138,6 +137,8 @@
 		69D4400B1B2A0D7900070FD8 /* masterpass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440071B2A0D7900070FD8 /* masterpass@2x.png */; };
 		69D4400C1B2A0D7900070FD8 /* VisaCheckout.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440081B2A0D7900070FD8 /* VisaCheckout.png */; };
 		69D4400D1B2A0D7900070FD8 /* VisaCheckout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440091B2A0D7900070FD8 /* VisaCheckout@2x.png */; };
+		69D440111B2B127000070FD8 /* CTCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440101B2B127000070FD8 /* CTCheckbox.m */; };
+		69D440141B2B138000070FD8 /* BTRCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440131B2B138000070FD8 /* BTRCheckoutViewController.m */; };
 		69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */; };
@@ -283,8 +284,6 @@
 		69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRRefineResultsViewController.m; sourceTree = "<group>"; };
 		69385FC31A7BF40A0074FE33 /* BTRSearchFilterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchFilterTVC.h; sourceTree = "<group>"; };
 		69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchFilterTVC.m; sourceTree = "<group>"; };
-		695F99E21A573DB700A80D12 /* BTRApprovePurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRApprovePurchaseViewController.h; sourceTree = "<group>"; };
-		695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRApprovePurchaseViewController.m; sourceTree = "<group>"; };
 		6965085D1AA4B47C00ED28B8 /* BTRProductShowcaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShowcaseVC.h; sourceTree = "<group>"; };
 		6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductShowcaseVC.m; sourceTree = "<group>"; };
 		696508601AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShowcaseCollectionCell.h; sourceTree = "<group>"; };
@@ -432,6 +431,10 @@
 		69D440071B2A0D7900070FD8 /* masterpass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masterpass@2x.png"; sourceTree = "<group>"; };
 		69D440081B2A0D7900070FD8 /* VisaCheckout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VisaCheckout.png; sourceTree = "<group>"; };
 		69D440091B2A0D7900070FD8 /* VisaCheckout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VisaCheckout@2x.png"; sourceTree = "<group>"; };
+		69D4400F1B2B127000070FD8 /* CTCheckbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCheckbox.h; sourceTree = "<group>"; };
+		69D440101B2B127000070FD8 /* CTCheckbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCheckbox.m; sourceTree = "<group>"; };
+		69D440121B2B138000070FD8 /* BTRCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRCheckoutViewController.h; sourceTree = "<group>"; };
+		69D440131B2B138000070FD8 /* BTRCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRCheckoutViewController.m; sourceTree = "<group>"; };
 		69D5663D1A7A8F2300FAEDE2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -693,10 +696,10 @@
 			children = (
 				69B55F0A1A4B1AFC009A5524 /* BTRShoppingBagViewController.h */,
 				69B55F0B1A4B1AFC009A5524 /* BTRShoppingBagViewController.m */,
-				695F99E21A573DB700A80D12 /* BTRApprovePurchaseViewController.h */,
-				695F99E31A573DB700A80D12 /* BTRApprovePurchaseViewController.m */,
 				6901EA1B1ADD51D5002534D9 /* BTREditShoppingBagVC.h */,
 				6901EA1C1ADD51D5002534D9 /* BTREditShoppingBagVC.m */,
+				69D440121B2B138000070FD8 /* BTRCheckoutViewController.h */,
+				69D440131B2B138000070FD8 /* BTRCheckoutViewController.m */,
 			);
 			name = Checkout;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 		69867A0F1A4480C7003CE59C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				69D4400E1B2B127000070FD8 /* CTCheckbox */,
 				692709121B208C6C000A93ED /* etpushsdk */,
 				690A38D81B1DEB7F00D4BA84 /* TNRadioButton */,
 				69B9425B1AE033FD00483950 /* UIKit+AFNetworking */,
@@ -965,6 +969,15 @@
 				69B942801AE033FD00483950 /* AFURLSessionManager.m */,
 			);
 			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		69D4400E1B2B127000070FD8 /* CTCheckbox */ = {
+			isa = PBXGroup;
+			children = (
+				69D4400F1B2B127000070FD8 /* CTCheckbox.h */,
+				69D440101B2B127000070FD8 /* CTCheckbox.m */,
+			);
+			path = CTCheckbox;
 			sourceTree = "<group>";
 		};
 		69D5663C1A7A8F2300FAEDE2 /* UIImageEffects */ = {
@@ -1227,7 +1240,6 @@
 				69B9428E1AE033FD00483950 /* AFURLConnectionOperation.m in Sources */,
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
 				690A38F31B1DEB7F00D4BA84 /* TNRadioButtonGroup.m in Sources */,
-				695F99E41A573DB700A80D12 /* BTRApprovePurchaseViewController.m in Sources */,
 				69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */,
 				6901EA4A1ADEC919002534D9 /* BTRBagHandler.m in Sources */,
 				6901E9E11AC9901D002534D9 /* BTRSelectSizeVC.m in Sources */,
@@ -1256,6 +1268,7 @@
 				B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */,
 				6900B4DD1AB7747900930D16 /* FAImageView.m in Sources */,
 				69B02CF81A605A6300040C86 /* General2+AppServer.m in Sources */,
+				69D440141B2B138000070FD8 /* BTRCheckoutViewController.m in Sources */,
 				692F24E11AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m in Sources */,
 				69BC6D421A8E4F2C00376D9C /* BTRFacetsHandler.m in Sources */,
 				69B942911AE033FD00483950 /* AFURLSessionManager.m in Sources */,
@@ -1275,6 +1288,7 @@
 				69869FAC1A6408D200F986BC /* CoreDataTableViewController.m in Sources */,
 				690A38F51B1DEB7F00D4BA84 /* TNRectangularRadioButtonData.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
+				69D440111B2B127000070FD8 /* CTCheckbox.m in Sources */,
 				69869FA91A64028300F986BC /* BTRAppDelegate+MOC.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */,

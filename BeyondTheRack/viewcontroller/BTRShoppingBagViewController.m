@@ -7,7 +7,6 @@
 //
 
 #import "BTRShoppingBagViewController.h"
-#import "BTRApprovePurchaseViewController.h"
 #import "BTREditShoppingBagVC.h"
 
 #import "BTRBagTableViewCell.h"
