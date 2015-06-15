@@ -10,8 +10,6 @@
 
 @interface BTRSessionSettings ()
 
-@property (nonatomic, assign) BOOL shouldSkipLogin;
-@property (nonatomic, assign) BOOL fbLoggedIn;
 
 @end
 
@@ -35,6 +33,9 @@
 
 static NSString *const kShouldSkipLoginKey = @"shouldSkipLogin";
 static NSString *const kLoggedInWithFacebook = @"loggedInWithFacebook";
+static NSString *const kFbTokenString = @"fbTokenString";
+static NSString *const KFbTokenExpirationDate = @"fbTokenExpirationDate";
+
 static NSString *const kSessionId = @"sessionId";
 static NSString *const kPassword = @"password";
 static NSString *const kEmail = @"email";
@@ -56,7 +57,6 @@ static NSString *const kFullName = @"fullName";
 }
 
 
-
 - (BOOL)fbLoggedIn {
     
     return [[NSUserDefaults standardUserDefaults] boolForKey:kLoggedInWithFacebook];
@@ -71,6 +71,39 @@ static NSString *const kFullName = @"fullName";
 }
 
 
+- (NSString *)fbTokenString {
+    
+    return [[NSUserDefaults standardUserDefaults] stringForKey:kFbTokenString];
+}
+
+- (void)setFbTokenString:(NSString *)fbTokenString {
+ 
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:fbTokenString forKey:kFbTokenString];
+    [defaults synchronize];
+}
+
+- (NSDate *)fbTokenExpirationDate {
+    
+    int properly_convert_to_date_here;
+
+    return [[NSUserDefaults standardUserDefaults] objectForKey:KFbTokenExpirationDate];
+}
+
+- (void)setFbTokenExpirationDate:(NSDate *)fbTokenExpirationDate {
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:fbTokenExpirationDate forKey:KFbTokenExpirationDate];
+    [defaults synchronize];
+}
+
+- (void)updateFacebookTokenString:(NSString *)fbTokenString withExpirationDate:(NSDate *)expirationDate {
+  
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:fbTokenString forKey:kFbTokenString];
+    [defaults setObject:expirationDate forKey:KFbTokenExpirationDate];
+    [defaults synchronize];
+}
 
 - (NSString *)email {
     
@@ -90,12 +123,50 @@ static NSString *const kFullName = @"fullName";
 }
 
 
-- (BOOL)shouldSkipLogin {
+- (BOOL)activeSessionPresent {
+    
+    if ([self fbLoggedIn]) {
+        
+        NSLog(@"jkhsdfkahsdf  -------   :%@", [self fbTokenExpirationDate]);
+        
+        /*
+        NSString *dateString = @"01-02-2010";
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        // this is imporant - we set our input date format to match our input string
+        // if format doesn't match you'll get nil from your string, so be careful
+        [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+        NSDate *dateFromString = [[NSDate alloc] init];
+        // voila!
+        dateFromString = [dateFormatter dateFromString:dateString];*/
+        
+      /*  if ([self isEndDateSmallerThanCurrent:(NSDate *)[self fbTokenExpirationDate]])
+        {
+            NSLog(@"cyyyel");
+        }
+        */
+    }
+    
     
     if ([[self sessionId] length] > 10)
         return YES;
     
     return NO;
+}
+
+- (BOOL)isEndDateSmallerThanCurrent:(NSDate *)checkEndDate
+{
+    NSDate* enddate = checkEndDate;
+    NSDate* currentdate = [NSDate date];
+    NSTimeInterval distanceBetweenDates = [enddate timeIntervalSinceDate:currentdate];
+    double secondsInMinute = 60;
+    NSInteger secondsBetweenDates = distanceBetweenDates / secondsInMinute;
+    
+    if (secondsBetweenDates == 0)
+        return YES;
+    else if (secondsBetweenDates < 0)
+        return YES;
+    else
+        return NO;
 }
 
 
@@ -106,6 +177,8 @@ static NSString *const kFullName = @"fullName";
     [defaults setObject:@"" forKey:kEmail];
     [defaults setObject:@"" forKey:kPassword];
     [defaults setObject:@"" forKey:kFullName];
+    [defaults setObject:@"" forKey:kFbTokenString];
+    [defaults setObject:@"" forKey:KFbTokenExpirationDate];
     [defaults setBool:NO forKey:kLoggedInWithFacebook];
     
     [defaults synchronize];

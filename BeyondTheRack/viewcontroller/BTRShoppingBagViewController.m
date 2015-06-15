@@ -286,7 +286,7 @@
              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
-             NSLog(@"09--09000 -- : %@", entitiesPropertyList);
+             //NSLog(@"09--09000 -- : %@", entitiesPropertyList);
              success(@"TRUE");
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
