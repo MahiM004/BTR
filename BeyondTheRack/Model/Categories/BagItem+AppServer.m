@@ -163,6 +163,8 @@
     
     if ([bagItemDictionary valueForKeyPath:@"cart_time"] && [bagItemDictionary valueForKeyPath:@"cart_time"] != [NSNull null]) {
         
+        NSLog(@"time difference NEEDS to be considered from backend!");
+        
         bagItem.createDateTime = [NSDate dateWithTimeIntervalSince1970:[[bagItemDictionary valueForKeyPath:@"cart_time"] integerValue]];
         NSDate *nowDate = [NSDate date];
         NSTimeInterval interval = [nowDate timeIntervalSinceDate:serverTime];
