@@ -53,12 +53,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *cityBillingTF;
 @property (weak, nonatomic) IBOutlet UITextField *phoneBillingTF;
 
-
-
 @property (weak, nonatomic) IBOutlet CTCheckbox *orderIsGiftCheckbox;
 @property (weak, nonatomic) IBOutlet UIButton *learnAboutGiftsButton;
-
-
 
 
 /**
@@ -78,7 +74,22 @@
 
 
 
+/**
+ 
+ Receipt
+ 
+ */
 
+@property (weak, nonatomic) IBOutlet UIButton *youSaveDollarLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *bagTotalDollarLabel;
+@property (weak, nonatomic) IBOutlet UILabel *subtotalDollarLabel;
+@property (weak, nonatomic) IBOutlet UILabel *gstTaxDollarLabel;
+@property (weak, nonatomic) IBOutlet UILabel *gstTaxLebl;
+@property (weak, nonatomic) IBOutlet UILabel *qstTaxDollarLabel;
+@property (weak, nonatomic) IBOutlet UILabel *qstTaxLabel;
+@property (weak, nonatomic) IBOutlet UILabel *orderTotalDollarLabel;
+@property (weak, nonatomic) IBOutlet UIButton *totalDueDollarLabel;
 
 
 
@@ -89,3 +100,21 @@
 
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
