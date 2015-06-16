@@ -158,8 +158,6 @@
         NSString *tempString = [NSString stringWithFormat:@"%@", [bagItemDictionary valueForKeyPath:@"quantity"]];
         bagItem.quantity = tempString;
     }
-
-    
     
     if ([bagItemDictionary valueForKeyPath:@"cart_time"] && [bagItemDictionary valueForKeyPath:@"cart_time"] != [NSNull null]) {
         
@@ -171,10 +169,6 @@
         bagItem.dueDateTime =  [bagItem.createDateTime dateByAddingTimeInterval:1200];
         bagItem.dueDateTime = [bagItem.dueDateTime dateByAddingTimeInterval:interval];
     }
-    
-
-
-    
     
     return bagItem;
 }

@@ -91,4 +91,71 @@
 }
 
 
+
+
++ (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary withServerTime:(NSDate *)serverTime forBagItem:(BagItem *)bagItem {
+    
+    
+    bagItem.serverDateTime = serverTime;
+    
+    if ([bagItemDictionary valueForKeyPath:@"sku"] && [bagItemDictionary valueForKeyPath:@"sku"] != [NSNull null]) {
+        bagItem.sku = [bagItemDictionary valueForKeyPath:@"sku"];
+    }
+    
+    if ([bagItemDictionary valueForKeyPath:@"variant"] && [bagItemDictionary valueForKeyPath:@"variant"] != [NSNull null]) {
+        bagItem.variant = [bagItemDictionary valueForKeyPath:@"variant"];
+    }
+    
+    if ([bagItemDictionary valueForKeyPath:@"event_id"] && [bagItemDictionary valueForKeyPath:@"event_id"] != [NSNull null])
+        bagItem.eventId = [bagItemDictionary valueForKeyPath:@"event_id"];
+    
+    if ([bagItemDictionary valueForKeyPath:@"quantity"] && [bagItemDictionary valueForKeyPath:@"quantity"] != [NSNull null]) {
+        NSString *tempString = [NSString stringWithFormat:@"%@", [bagItemDictionary valueForKeyPath:@"quantity"]];
+        bagItem.quantity = tempString;
+    }
+    
+    if ([bagItemDictionary valueForKeyPath:@"cart_time"] && [bagItemDictionary valueForKeyPath:@"cart_time"] != [NSNull null]) {
+        
+        NSLog(@"time difference NEEDS to be considered from backend!");
+        
+        bagItem.createDateTime = [NSDate dateWithTimeIntervalSince1970:[[bagItemDictionary valueForKeyPath:@"cart_time"] integerValue]];
+        NSDate *nowDate = [NSDate date];
+        NSTimeInterval interval = [nowDate timeIntervalSinceDate:serverTime];
+        bagItem.dueDateTime =  [bagItem.createDateTime dateByAddingTimeInterval:1200];
+        bagItem.dueDateTime = [bagItem.dueDateTime dateByAddingTimeInterval:interval];
+    }
+    
+    return bagItem;
+}
+
+
+
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
