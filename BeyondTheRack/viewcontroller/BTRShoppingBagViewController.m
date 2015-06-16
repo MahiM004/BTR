@@ -14,6 +14,7 @@
 #import "BagItem+AppServer.h"
 #import "Item+AppServer.h"
 #import "BTRBagFetcher.h"
+#import "BTROrderFetcher.h"
 #import "BTRItemFetcher.h"
 
  
@@ -279,7 +280,7 @@
     
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforCheckoutInfo]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              

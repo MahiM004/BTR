@@ -41,5 +41,40 @@
 @property (nonatomic, retain) NSString * ccvNumber;
 @property (nonatomic, retain) NSString * expiryYear;
 @property (nonatomic, retain) NSString * expiryMonth;
+@property (nonatomic, retain) NSNumber * eligiblePickup;
+@property (nonatomic, retain) NSString * cardToken;
+@property (nonatomic, retain) NSString * paymentType;
+@property (nonatomic, retain) NSNumber * lockCCFields;
+@property (nonatomic, retain) NSNumber * forceCardUpdate;
+@property (nonatomic, retain) NSNumber * vipPickupEligible;
+@property (nonatomic, retain) NSNumber * vipPickup;
+@property (nonatomic, retain) NSString * recipientGiftMessage;
+@property (nonatomic, retain) NSNumber * isPickup;
+@property (nonatomic, retain) NSNumber * isGift;
+@property (nonatomic, retain) NSNumber * isVisaMe;
+@property (nonatomic, retain) NSNumber * isPaypal;
+@property (nonatomic, retain) NSNumber * isMasterpass;
+@property (nonatomic, retain) NSNumber * isInterac;
+@property (nonatomic, retain) NSString * subTotalPrice;
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -40,5 +40,20 @@
 @dynamic ccvNumber;
 @dynamic expiryYear;
 @dynamic expiryMonth;
+@dynamic eligiblePickup;
+@dynamic cardToken;
+@dynamic paymentType;
+@dynamic lockCCFields;
+@dynamic forceCardUpdate;
+@dynamic vipPickupEligible;
+@dynamic vipPickup;
+@dynamic recipientGiftMessage;
+@dynamic isPickup;
+@dynamic isGift;
+@dynamic isVisaMe;
+@dynamic isPaypal;
+@dynamic isMasterpass;
+@dynamic isInterac;
+@dynamic subTotalPrice;
 
 @end
