@@ -93,9 +93,9 @@
 
 
 
-+ (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary withServerTime:(NSDate *)serverTime forBagItem:(BagItem *)bagItem {
++ (Order *)extractOrderfromJSONDictionary:(NSDictionary *)orderDictionary withServerTime:(NSDate *)serverTime forOrder:(Order *)order {
     
-    
+    /*
     bagItem.serverDateTime = serverTime;
     
     if ([bagItemDictionary valueForKeyPath:@"sku"] && [bagItemDictionary valueForKeyPath:@"sku"] != [NSNull null]) {
@@ -124,8 +124,8 @@
         bagItem.dueDateTime =  [bagItem.createDateTime dateByAddingTimeInterval:1200];
         bagItem.dueDateTime = [bagItem.dueDateTime dateByAddingTimeInterval:interval];
     }
-    
-    return bagItem;
+    */
+    return order;
 }
 
 
