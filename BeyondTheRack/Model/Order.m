@@ -2,7 +2,7 @@
 //  Order.m
 //  BeyondTheRack
 //
-//  Created by Hadi Kheyruri on 2015-01-09.
+//  Created by Hadi Kheyruri on 2015-06-16.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
@@ -15,11 +15,30 @@
 @dynamic confirmed;
 @dynamic createDateTime;
 @dynamic expiryDateTime;
+@dynamic orderId;
 @dynamic orderStatus;
-@dynamic paymentDetailsId;
 @dynamic shippingAddressId;
 @dynamic totalPrice;
-@dynamic usernameId;
-@dynamic orderId;
+@dynamic shippingAddressLine1;
+@dynamic shippingAddressLine2;
+@dynamic shippingCity;
+@dynamic shippingCountry;
+@dynamic shippingPhoneNumber;
+@dynamic shippingPostalCode;
+@dynamic shippingRecipientName;
+@dynamic shippingProvince;
+@dynamic billingSameAsShipping;
+@dynamic billingAddressLine1;
+@dynamic billingAddressLine2;
+@dynamic billingCity;
+@dynamic billingCountry;
+@dynamic billingPostalCode;
+@dynamic billingProvince;
+@dynamic billingPhoneNumber;
+@dynamic cardHolderName;
+@dynamic cardType;
+@dynamic ccvNumber;
+@dynamic expiryYear;
+@dynamic expiryMonth;
 
 @end

@@ -1446,7 +1446,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="561CA254-E8B6-45D9-989A-858EBFE9C534" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="125E671D-004D-4A4B-9E9F-B4E2E822A67E" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3763,7 +3763,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="561CA254-E8B6-45D9-989A-858EBFE9C534" width="30" height="30">
+        <image name="125E671D-004D-4A4B-9E9F-B4E2E822A67E" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
