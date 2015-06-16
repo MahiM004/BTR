@@ -194,9 +194,6 @@
                          
                          if ([didLogIn isEqualToString:@"TRUE"]) {
                              
-                             BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-                             [btrSettings updateFacebookTokenString:[[FBSDKAccessToken currentAccessToken] tokenString] withExpirationDate:[[FBSDKAccessToken currentAccessToken] expirationDate]];
-                                                          
                              [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
                              
                          } else {

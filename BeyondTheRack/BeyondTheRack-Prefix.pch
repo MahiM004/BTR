@@ -40,7 +40,7 @@
 #import "NSString+FontAwesome.h"
 #import "UIButton+Badge.h"
 #import "BTRSessionSettings.h"
-
+#import "BTRDateHandler.h"
 
 
 //#import "BTRDateConverter.h"

@@ -139,6 +139,7 @@
 		69D4400D1B2A0D7900070FD8 /* VisaCheckout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440091B2A0D7900070FD8 /* VisaCheckout@2x.png */; };
 		69D440111B2B127000070FD8 /* CTCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440101B2B127000070FD8 /* CTCheckbox.m */; };
 		69D440141B2B138000070FD8 /* BTRCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440131B2B138000070FD8 /* BTRCheckoutViewController.m */; };
+		69D440171B304D8E00070FD8 /* BTRDateHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440161B304D8E00070FD8 /* BTRDateHandler.m */; };
 		69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */; };
@@ -435,6 +436,8 @@
 		69D440101B2B127000070FD8 /* CTCheckbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCheckbox.m; sourceTree = "<group>"; };
 		69D440121B2B138000070FD8 /* BTRCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRCheckoutViewController.h; sourceTree = "<group>"; };
 		69D440131B2B138000070FD8 /* BTRCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRCheckoutViewController.m; sourceTree = "<group>"; };
+		69D440151B304D8E00070FD8 /* BTRDateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRDateHandler.h; sourceTree = "<group>"; };
+		69D440161B304D8E00070FD8 /* BTRDateHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRDateHandler.m; sourceTree = "<group>"; };
 		69D5663D1A7A8F2300FAEDE2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -835,6 +838,8 @@
 				B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */,
 				B3C16A951B038C5D009470EC /* BTRSizeHandler.h */,
 				B3C16A961B038C5D009470EC /* BTRSizeHandler.m */,
+				69D440151B304D8E00070FD8 /* BTRDateHandler.h */,
+				69D440161B304D8E00070FD8 /* BTRDateHandler.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -1247,6 +1252,7 @@
 				69B9428D1AE033FD00483950 /* AFSecurityPolicy.m in Sources */,
 				69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */,
 				69869FA31A63FCA500F986BC /* BTRFetcher.m in Sources */,
+				69D440171B304D8E00070FD8 /* BTRDateHandler.m in Sources */,
 				690A38F11B1DEB7F00D4BA84 /* TNRadioButton.m in Sources */,
 				69B942861AE033FD00483950 /* UIProgressView+AFNetworking.m in Sources */,
 				6901EA461ADEB89A002534D9 /* UIBarButtonItem+Badge.m in Sources */,

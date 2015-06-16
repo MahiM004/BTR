@@ -235,31 +235,22 @@
      *
      */
     NSString *segueId= @"BTRLoginViewController";
+    UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+
     BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
     
-    BOOL shouldSkipLogin = TRUE;
     
-    /*if ([btrSettings fbLoggedIn]) {
-        
-        if (![FBSDKAccessToken currentAccessToken]) {
-
-            //shouldSkipLogin = FALSE;
-            NSLog(@"---000--  FB  %d,,,   -->  %@", shouldSkipLogin, [[FBSDKAccessToken currentAccessToken] tokenString]);
-        }
+    BOOL shouldPresentLogin = FALSE;
     
-    } else */
+    if (![btrSettings activeSessionPresent])
+        shouldPresentLogin = TRUE;
     
-    //if ([_Session length] > 10)
+    if ([btrSettings fbLoggedIn])
+        if ([FBSDKAccessToken currentAccessToken])
+            shouldPresentLogin = TRUE;
     
-    if ([btrSettings activeSessionPresent])
-    {
-        shouldSkipLogin = FALSE;
-    }
+    if (shouldPresentLogin) {
     
-    UIStoryboard *storyboard = self.window.rootViewController.storyboard;
-    
-    if (shouldSkipLogin) {
-        
         UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
         self.window.rootViewController = rootViewController;
         [self.window makeKeyAndVisible];
