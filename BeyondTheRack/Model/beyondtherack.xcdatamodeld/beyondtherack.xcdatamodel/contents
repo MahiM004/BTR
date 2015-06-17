@@ -93,11 +93,13 @@
         <attribute name="billingAddressLine2" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="billingCity" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="billingCountry" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="billingName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="billingPhoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="billingPostalCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="billingProvince" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="billingSameAsShipping" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="cardHolderName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cardNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cardToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cardType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ccvNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -109,6 +111,7 @@
         <attribute name="expiryMonth" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expiryYear" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="forceCardUpdate" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isFreeshipAddress" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isGift" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isInterac" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isMasterpass" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -119,8 +122,24 @@
         <attribute name="orderId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="orderStatus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="paymentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoBillingAddress1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoBillingAddress2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoBillingCity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoBillingCountry" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoBillingName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoBillingPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoBillingPostal" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoBillingState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoShipAddress1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoShipAddress2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoShipCity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoShipCountry" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoShipName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoShipPostal" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoShipState" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recipientGiftMessage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="shippingAddressId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rememberCard" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="requireCcv" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="shippingAddressLine1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shippingAddressLine2" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shippingCity" optional="YES" attributeType="String" syncable="YES"/>
@@ -131,6 +150,7 @@
         <attribute name="shippingRecipientName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subTotalPrice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="totalPrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="useToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vipPickup" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="vipPickupEligible" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
@@ -183,7 +203,7 @@
         <element name="BagItem" positionX="-522" positionY="-64" width="128" height="253"/>
         <element name="Event" positionX="-1010" positionY="-117" width="128" height="538"/>
         <element name="Item" positionX="-839" positionY="-144" width="128" height="568"/>
-        <element name="Order" positionX="-351" positionY="-252" width="128" height="703"/>
+        <element name="Order" positionX="-360" positionY="-252" width="128" height="1003"/>
         <element name="User" positionX="-675" positionY="-126" width="128" height="540"/>
         <element name="UserNotifications" positionX="-522" positionY="224" width="128" height="163"/>
     </elements>

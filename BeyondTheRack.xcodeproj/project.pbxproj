@@ -129,7 +129,7 @@
 		69D440141B2B138000070FD8 /* BTRCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440131B2B138000070FD8 /* BTRCheckoutViewController.m */; };
 		69D440171B304D8E00070FD8 /* BTRDateHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440161B304D8E00070FD8 /* BTRDateHandler.m */; };
 		69D440231B3083CA00070FD8 /* BTROrderFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440221B3083CA00070FD8 /* BTROrderFetcher.m */; };
-		69D440261B30A2AB00070FD8 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440251B30A2AB00070FD8 /* Order.m */; };
+		69D440381B31C01F00070FD8 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440371B31C01F00070FD8 /* Order.m */; };
 		69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */; };
@@ -406,8 +406,8 @@
 		69D440161B304D8E00070FD8 /* BTRDateHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRDateHandler.m; sourceTree = "<group>"; };
 		69D440211B3083CA00070FD8 /* BTROrderFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTROrderFetcher.h; sourceTree = "<group>"; };
 		69D440221B3083CA00070FD8 /* BTROrderFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTROrderFetcher.m; sourceTree = "<group>"; };
-		69D440241B30A2AB00070FD8 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
-		69D440251B30A2AB00070FD8 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		69D440361B31C01F00070FD8 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		69D440371B31C01F00070FD8 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		69D5663D1A7A8F2300FAEDE2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -842,12 +842,12 @@
 				69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */,
 				B3CC532C1B17798D0024EA08 /* User.h */,
 				B3CC532D1B17798D0024EA08 /* User.m */,
-				69D440241B30A2AB00070FD8 /* Order.h */,
-				69D440251B30A2AB00070FD8 /* Order.m */,
 				6901EA151ADC2628002534D9 /* BagItem.h */,
 				6901EA161ADC2628002534D9 /* BagItem.m */,
 				6901E9F11ACC3BA3002534D9 /* Item.h */,
 				6901E9F21ACC3BA3002534D9 /* Item.m */,
+				69D440361B31C01F00070FD8 /* Order.h */,
+				69D440371B31C01F00070FD8 /* Order.m */,
 				69AB98631A77E68F00EDB1E6 /* Event.h */,
 				69AB98641A77E68F00EDB1E6 /* Event.m */,
 				69869F801A6075EA00F986BC /* UserNotifications.h */,
@@ -1183,7 +1183,7 @@
 				69869FAF1A640C0600F986BC /* BTRDocumentHandler.m in Sources */,
 				6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */,
 				69AB98651A77E68F00EDB1E6 /* Event.m in Sources */,
-				69D440261B30A2AB00070FD8 /* Order.m in Sources */,
+				69D440381B31C01F00070FD8 /* Order.m in Sources */,
 				6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
 				690A38F41B1DEB7F00D4BA84 /* TNRectangularRadioButton.m in Sources */,
