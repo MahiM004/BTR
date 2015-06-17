@@ -49,22 +49,9 @@
 }
 
 
-
 + (Order *)extractOrderfromJSONDictionary:(NSDictionary *)orderDictionary forOrder:(Order *)order {
-    
+
     NSDictionary *cardInfoDic = orderDictionary[@"cardInfo"];
-    order = [self extractCardInfofromJSONDictionary:cardInfoDic forOrder:order];
-
-    NSDictionary *orderInfoDic = orderDictionary[@"orderInfo"];
-    order = [self extractOrderfromJSONDictionary:orderInfoDic forOrder:order];
-  
-    return order;
-}
-
-
-
-+ (Order *)extractCardInfofromJSONDictionary:(NSDictionary *)cardInfoDic forOrder:(Order *)order {
-    
     
     if ([cardInfoDic valueForKeyPath:@"cvv"] && [cardInfoDic valueForKeyPath:@"cvv"] != [NSNull null]) {
         order.ccvNumber = [cardInfoDic valueForKeyPath:@"cvv"];
@@ -75,7 +62,7 @@
     }
     
     if ([cardInfoDic valueForKeyPath:@"lockCCFields"] && [cardInfoDic valueForKeyPath:@"lockCCFields"] != [NSNull null]) {
-        order.lockCCFields = [cardInfoDic valueForKeyPath:@"lockCCFields"];
+        order.lockCCFields = [[cardInfoDic valueForKeyPath:@"lockCCFields"] stringValue];
     }
     
     if ([cardInfoDic valueForKeyPath:@"month"] && [cardInfoDic valueForKeyPath:@"month"] != [NSNull null]) {
@@ -95,11 +82,11 @@
     }
     
     if ([cardInfoDic valueForKeyPath:@"remember_card"] && [cardInfoDic valueForKeyPath:@"remember_card"] != [NSNull null]) {
-        order.rememberCard = [cardInfoDic valueForKeyPath:@"remember_card"];
+        order.rememberCard = [[cardInfoDic valueForKeyPath:@"remember_card"] stringValue];
     }
     
     if ([cardInfoDic valueForKeyPath:@"require_ccv"] && [cardInfoDic valueForKeyPath:@"require_ccv"] != [NSNull null]) {
-        order.requireCcv = [cardInfoDic valueForKeyPath:@"require_ccv"];
+        order.requireCcv = [[cardInfoDic valueForKeyPath:@"require_ccv"] stringValue];
     }
     
     if ([cardInfoDic valueForKeyPath:@"token"] && [cardInfoDic valueForKeyPath:@"token"] != [NSNull null]) {
@@ -111,48 +98,43 @@
     }
     
     if ([cardInfoDic valueForKeyPath:@"use_token"] && [cardInfoDic valueForKeyPath:@"use_token"] != [NSNull null]) {
-        order.useToken = [cardInfoDic valueForKeyPath:@"use_token"];
+        order.useToken = [[cardInfoDic valueForKeyPath:@"use_token"] stringValue];
     }
     
     if ([cardInfoDic valueForKeyPath:@"year"] && [cardInfoDic valueForKeyPath:@"year"] != [NSNull null]) {
         order.expiryYear = [cardInfoDic valueForKeyPath:@"year"];
     }
     
-    return order;
-}
-
-
-
-+ (Order *)extractOrderInfofromJSONDictionary:(NSDictionary *)orderInfoDic forOrder:(Order *)order {
     
+    NSDictionary *orderInfoDic = orderDictionary[@"orderInfo"];
     
     
     if ([orderInfoDic valueForKeyPath:@"billto_shipto"] && [orderInfoDic valueForKeyPath:@"billto_shipto"] != [NSNull null]) {
-        order.billingSameAsShipping = [orderInfoDic valueForKeyPath:@"billto_shipto"];
+        order.billingSameAsShipping = [[orderInfoDic valueForKeyPath:@"billto_shipto"] stringValue];
     }
     
     if ([orderInfoDic valueForKeyPath:@"eligible_pickup"] && [orderInfoDic valueForKeyPath:@"eligible_pickup"] != [NSNull null]) {
-        order.eligiblePickup = [orderInfoDic valueForKeyPath:@"eligible_pickup"];
+        order.eligiblePickup = [[orderInfoDic valueForKeyPath:@"eligible_pickup"] stringValue];
     }
- 
+    
     if ([orderInfoDic valueForKeyPath:@"is_gift"] && [orderInfoDic valueForKeyPath:@"is_gift"] != [NSNull null]) {
         order.isGift = [orderInfoDic valueForKeyPath:@"is_gift"];
     }
-
+    
     if ([orderInfoDic valueForKeyPath:@"is_pickup"] && [orderInfoDic valueForKeyPath:@"is_pickup"] != [NSNull null]) {
-        order.isPickup = [orderInfoDic valueForKeyPath:@"is_pickup"];
+        order.isPickup = [[orderInfoDic valueForKeyPath:@"is_pickup"] stringValue];
     }
-
+    
     if ([orderInfoDic valueForKeyPath:@"recipient_message"] && [orderInfoDic valueForKeyPath:@"recipient_massage"] != [NSNull null]) {
         order.recipientGiftMessage = [orderInfoDic valueForKeyPath:@"recipient_massage"];
     }
-
+    
     if ([orderInfoDic valueForKeyPath:@"vip_pickup"] && [orderInfoDic valueForKeyPath:@"vip_pickup"] != [NSNull null]) {
-        order.vipPickup = [orderInfoDic valueForKeyPath:@"vip_pickup"];
+        order.vipPickup = [[orderInfoDic valueForKeyPath:@"vip_pickup"] stringValue];
     }
-
+    
     if ([orderInfoDic valueForKeyPath:@"vip_pickup_eligible"] && [orderInfoDic valueForKeyPath:@"vip_pickup_eligible"] != [NSNull null]) {
-        order.vipPickupEligible = [orderInfoDic valueForKeyPath:@"vip_pickup_eligible"];
+        order.vipPickupEligible = [[orderInfoDic valueForKeyPath:@"vip_pickup_eligible"] stringValue];
     }
     
     
@@ -161,13 +143,13 @@
      Billing Address
      
      */
-
+    
     NSDictionary *billingAddressDic = orderInfoDic[@"billing"];
     
     if ([billingAddressDic valueForKeyPath:@"address1"] && [billingAddressDic valueForKeyPath:@"address1"] != [NSNull null]) {
         order.billingAddressLine1 = [billingAddressDic valueForKeyPath:@"address1"];
     }
-
+    
     if ([billingAddressDic valueForKeyPath:@"address2"] && [billingAddressDic valueForKeyPath:@"address2"] != [NSNull null]) {
         order.billingAddressLine2 = [billingAddressDic valueForKeyPath:@"address2"];
     }
@@ -179,23 +161,23 @@
     if ([billingAddressDic valueForKeyPath:@"country"] && [billingAddressDic valueForKeyPath:@"country"] != [NSNull null]) {
         order.billingCountry = [billingAddressDic valueForKeyPath:@"country"];
     }
-
+    
     if ([billingAddressDic valueForKeyPath:@"name"] && [billingAddressDic valueForKeyPath:@"name"] != [NSNull null]) {
         order.billingName = [billingAddressDic valueForKeyPath:@"name"];
     }
-
+    
     if ([billingAddressDic valueForKeyPath:@"phone"] && [billingAddressDic valueForKeyPath:@"phone"] != [NSNull null]) {
         order.billingPhoneNumber = [billingAddressDic valueForKeyPath:@"phone"];
     }
-
+    
     if ([billingAddressDic valueForKeyPath:@"postal"] && [billingAddressDic valueForKeyPath:@"postal"] != [NSNull null]) {
         order.billingPostalCode = [billingAddressDic valueForKeyPath:@"postal"];
     }
-
+    
     if ([billingAddressDic valueForKeyPath:@"state"] && [billingAddressDic valueForKeyPath:@"state"] != [NSNull null]) {
         order.billingProvince = [billingAddressDic valueForKeyPath:@"state"];
     }
- 
+    
     
     
     /**
@@ -209,35 +191,35 @@
     if ([shippingAddressDic valueForKeyPath:@"address1"] && [shippingAddressDic valueForKeyPath:@"address1"] != [NSNull null]) {
         order.shippingAddressLine1 = [shippingAddressDic valueForKeyPath:@"address1"];
     }
- 
+    
     if ([shippingAddressDic valueForKeyPath:@"address2"] && [shippingAddressDic valueForKeyPath:@"address2"] != [NSNull null]) {
         order.shippingAddressLine2 = [shippingAddressDic valueForKeyPath:@"address2"];
     }
- 
+    
     if ([shippingAddressDic valueForKeyPath:@"city"] && [shippingAddressDic valueForKeyPath:@"city"] != [NSNull null]) {
         order.shippingCity = [shippingAddressDic valueForKeyPath:@"city"];
     }
- 
+    
     if ([shippingAddressDic valueForKeyPath:@"country"] && [shippingAddressDic valueForKeyPath:@"country"] != [NSNull null]) {
         order.shippingCountry = [shippingAddressDic valueForKeyPath:@"country"];
     }
- 
+    
     if ([shippingAddressDic valueForKeyPath:@"name"] && [shippingAddressDic valueForKeyPath:@"name"] != [NSNull null]) {
         order.shippingRecipientName = [shippingAddressDic valueForKeyPath:@"name"];
     }
- 
+    
     if ([shippingAddressDic valueForKeyPath:@"phone"] && [shippingAddressDic valueForKeyPath:@"phone"] != [NSNull null]) {
         order.shippingPhoneNumber = [shippingAddressDic valueForKeyPath:@"phone"];
     }
- 
+    
     if ([shippingAddressDic valueForKeyPath:@"postal"] && [shippingAddressDic valueForKeyPath:@"postal"] != [NSNull null]) {
         order.shippingPostalCode = [shippingAddressDic valueForKeyPath:@"postal"];
     }
- 
+    
     if ([shippingAddressDic valueForKeyPath:@"state"] && [shippingAddressDic valueForKeyPath:@"state"] != [NSNull null]) {
         order.shippingProvince = [shippingAddressDic valueForKeyPath:@"state"];
     }
- 
+    
     
     
     /**
@@ -250,7 +232,7 @@
     
     
     if ([shippingPromo valueForKeyPath:@"isFreeshipAddress"] && [shippingPromo valueForKeyPath:@"isFreeshipAddress"] != [NSNull null]) {
-        order.isFreeshipAddress = [shippingPromo valueForKeyPath:@"isFreeshipAddress"];
+        order.isFreeshipAddress = [[shippingPromo valueForKeyPath:@"isFreeshipAddress"] stringValue];
     }
     
     NSDictionary *shippingPromoBilling = shippingPromo[@"billing"];
@@ -294,7 +276,7 @@
     if ([shippingPromoAddress valueForKeyPath:@"address1"] && [shippingPromoAddress valueForKeyPath:@"address1"] != [NSNull null]) {
         order.promoShipAddress1 = [shippingPromoAddress valueForKeyPath:@"address1"];
     }
- 
+    
     if ([shippingPromoAddress valueForKeyPath:@"address2"] && [shippingPromoAddress valueForKeyPath:@"address2"] != [NSNull null]) {
         order.promoShipAddress2 = [shippingPromoAddress valueForKeyPath:@"address2"];
     }
@@ -322,7 +304,7 @@
     if ([shippingPromoAddress valueForKeyPath:@"state"] && [shippingPromoAddress valueForKeyPath:@"state"] != [NSNull null]) {
         order.promoShipState = [shippingPromoAddress valueForKeyPath:@"state"];
     }
-
+    
     
     /**
      
@@ -340,6 +322,7 @@
         order.subTotalPrice = [totalPriceDictionary valueForKeyPath:@"sub_total"];
     }
     
+
     return order;
 }
 

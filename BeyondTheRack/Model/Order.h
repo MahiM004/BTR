@@ -12,9 +12,9 @@
 
 @interface Order : NSManagedObject
 
-@property (nonatomic, retain) NSDate * confirmDateTime;
+@property (nonatomic, retain) NSString * confirmDateTime;
 @property (nonatomic, retain) NSString * confirmed;
-@property (nonatomic, retain) NSDate * createDateTime;
+@property (nonatomic, retain) NSString * createDateTime;
 @property (nonatomic, retain) NSDate * expiryDateTime;
 @property (nonatomic, retain) NSString * orderId;
 @property (nonatomic, retain) NSString * orderStatus;
@@ -27,7 +27,7 @@
 @property (nonatomic, retain) NSString * shippingPostalCode;
 @property (nonatomic, retain) NSString * shippingRecipientName;
 @property (nonatomic, retain) NSString * shippingProvince;
-@property (nonatomic, retain) NSNumber * billingSameAsShipping;
+@property (nonatomic, retain) NSString * billingSameAsShipping;
 @property (nonatomic, retain) NSString * billingAddressLine1;
 @property (nonatomic, retain) NSString * billingAddressLine2;
 @property (nonatomic, retain) NSString * billingCity;
@@ -40,26 +40,26 @@
 @property (nonatomic, retain) NSString * ccvNumber;
 @property (nonatomic, retain) NSString * expiryYear;
 @property (nonatomic, retain) NSString * expiryMonth;
-@property (nonatomic, retain) NSNumber * eligiblePickup;
+@property (nonatomic, retain) NSString * eligiblePickup;
 @property (nonatomic, retain) NSString * cardToken;
 @property (nonatomic, retain) NSString * paymentType;
-@property (nonatomic, retain) NSNumber * lockCCFields;
+@property (nonatomic, retain) NSString * lockCCFields;
 @property (nonatomic, retain) NSNumber * forceCardUpdate;
-@property (nonatomic, retain) NSNumber * vipPickupEligible;
-@property (nonatomic, retain) NSNumber * vipPickup;
+@property (nonatomic, retain) NSString * vipPickupEligible;
+@property (nonatomic, retain) NSString * vipPickup;
 @property (nonatomic, retain) NSString * recipientGiftMessage;
-@property (nonatomic, retain) NSNumber * isPickup;
-@property (nonatomic, retain) NSNumber * isGift;
-@property (nonatomic, retain) NSNumber * isVisaMe;
-@property (nonatomic, retain) NSNumber * isPaypal;
-@property (nonatomic, retain) NSNumber * isMasterpass;
-@property (nonatomic, retain) NSNumber * isInterac;
+@property (nonatomic, retain) NSString * isPickup;
+@property (nonatomic, retain) NSString * isGift;
+@property (nonatomic, retain) NSString * isVisaMe;
+@property (nonatomic, retain) NSString * isPaypal;
+@property (nonatomic, retain) NSString * isMasterpass;
+@property (nonatomic, retain) NSString * isInterac;
 @property (nonatomic, retain) NSString * subTotalPrice;
 @property (nonatomic, retain) NSString * cardNumber;
 @property (nonatomic, retain) NSString * useToken;
-@property (nonatomic, retain) NSNumber * requireCcv;
-@property (nonatomic, retain) NSNumber * rememberCard;
-@property (nonatomic, retain) NSNumber * isFreeshipAddress;
+@property (nonatomic, retain) NSString * requireCcv;
+@property (nonatomic, retain) NSString * rememberCard;
+@property (nonatomic, retain) NSString * isFreeshipAddress;
 @property (nonatomic, retain) NSString * promoBillingState;
 @property (nonatomic, retain) NSString * promoBillingPostal;
 @property (nonatomic, retain) NSString * promoBillingPhone;

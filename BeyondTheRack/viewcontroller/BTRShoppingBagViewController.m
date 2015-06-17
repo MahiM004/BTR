@@ -286,12 +286,12 @@
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
              NSLog(@"09--09000 -- : %@", entitiesPropertyList);
              
-             [Order loadOrdersFromAppServerArray:entitiesPropertyList intoManagedObjectContext:[self managedObjectContext]];
+             [Order orderWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
 
              success(@"TRUE");
