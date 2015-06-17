@@ -285,7 +285,107 @@
     }
  
     
+    
+    /**
+     
+     Shipping Promo
+     
+     */
+    
+    NSDictionary *shippingPromo = orderInfoDic[@"shipping_promo_address"];
+    
+    
+    if ([shippingPromo valueForKeyPath:@"isFreeshipAddress"] && [shippingPromo valueForKeyPath:@"isFreeshipAddress"] != [NSNull null]) {
+        order.isFreeshipAddress = [shippingPromo valueForKeyPath:@"isFreeshipAddress"];
+    }
+    
+    NSDictionary *shippingPromoBilling = shippingPromo[@"billing"];
+    
+    if ([shippingPromoBilling valueForKeyPath:@"address1"] && [shippingPromoBilling valueForKeyPath:@"address1"] != [NSNull null]) {
+        order.promoBillingAddress1 = [shippingPromoBilling valueForKeyPath:@"address1"];
+    }
+    
+    if ([shippingPromoBilling valueForKeyPath:@"address2"] && [shippingPromoBilling valueForKeyPath:@"address2"] != [NSNull null]) {
+        order.promoBillingAddress2 = [shippingPromoBilling valueForKeyPath:@"address2"];
+    }
+    
+    if ([shippingPromoBilling valueForKeyPath:@"city"] && [shippingPromoBilling valueForKeyPath:@"city"] != [NSNull null]) {
+        order.promoBillingCity = [shippingPromoBilling valueForKeyPath:@"city"];
+    }
+    
+    if ([shippingPromoBilling valueForKeyPath:@"country"] && [shippingPromoBilling valueForKeyPath:@"country"] != [NSNull null]) {
+        order.promoBillingCountry = [shippingPromoBilling valueForKeyPath:@"country"];
+    }
+    
+    if ([shippingAddressDic valueForKeyPath:@"name"] && [shippingAddressDic valueForKeyPath:@"name"] != [NSNull null]) {
+        order.promoBillingName = [shippingAddressDic valueForKeyPath:@"name"];
+    }
+    
+    if ([shippingAddressDic valueForKeyPath:@"phone"] && [shippingAddressDic valueForKeyPath:@"phone"] != [NSNull null]) {
+        order.promoBillingPhone = [shippingAddressDic valueForKeyPath:@"phone"];
+    }
+    
+    if ([shippingAddressDic valueForKeyPath:@"postal"] && [shippingAddressDic valueForKeyPath:@"postal"] != [NSNull null]) {
+        order.promoBillingPostal = [shippingAddressDic valueForKeyPath:@"postal"];
+    }
+    
+    if ([shippingAddressDic valueForKeyPath:@"state"] && [shippingAddressDic valueForKeyPath:@"state"] != [NSNull null]) {
+        order.promoBillingState = [shippingAddressDic valueForKeyPath:@"state"];
+    }
+    
+    
+    
+    NSDictionary *shippingPromoAddress = shippingPromo[@"shipping"];
+    
+    if ([shippingPromoAddress valueForKeyPath:@"address1"] && [shippingPromoAddress valueForKeyPath:@"address1"] != [NSNull null]) {
+        order.promoShipAddress1 = [shippingPromoAddress valueForKeyPath:@"address1"];
+    }
+ 
+    if ([shippingPromoAddress valueForKeyPath:@"address2"] && [shippingPromoAddress valueForKeyPath:@"address2"] != [NSNull null]) {
+        order.promoShipAddress2 = [shippingPromoAddress valueForKeyPath:@"address2"];
+    }
+    
+    if ([shippingPromoAddress valueForKeyPath:@"city"] && [shippingPromoAddress valueForKeyPath:@"city"] != [NSNull null]) {
+        order.promoShipCity = [shippingPromoAddress valueForKeyPath:@"city"];
+    }
+    
+    if ([shippingPromoAddress valueForKeyPath:@"country"] && [shippingPromoAddress valueForKeyPath:@"country"] != [NSNull null]) {
+        order.promoShipCountry = [shippingPromoAddress valueForKeyPath:@"country"];
+    }
+    
+    if ([shippingPromoAddress valueForKeyPath:@"name"] && [shippingPromoAddress valueForKeyPath:@"name"] != [NSNull null]) {
+        order.promoShipName = [shippingPromoAddress valueForKeyPath:@"name"];
+    }
+    
+    if ([shippingPromoAddress valueForKeyPath:@"phone"] && [shippingPromoAddress valueForKeyPath:@"phone"] != [NSNull null]) {
+        order.promoShipPhone = [shippingPromoAddress valueForKeyPath:@"phone"];
+    }
+    
+    if ([shippingPromoAddress valueForKeyPath:@"postal"] && [shippingPromoAddress valueForKeyPath:@"postal"] != [NSNull null]) {
+        order.promoShipPostal = [shippingPromoAddress valueForKeyPath:@"postal"];
+    }
+    
+    if ([shippingPromoAddress valueForKeyPath:@"state"] && [shippingPromoAddress valueForKeyPath:@"state"] != [NSNull null]) {
+        order.promoShipState = [shippingPromoAddress valueForKeyPath:@"state"];
+    }
 
+    
+    /**
+     
+     Total Price
+     
+     */
+    
+    NSDictionary *totalPriceDictionary = shippingPromo[@"total"];
+    
+    if ([totalPriceDictionary valueForKeyPath:@"bag_total"] && [totalPriceDictionary valueForKeyPath:@"bag_total"] != [NSNull null]) {
+        order.totalPrice = [totalPriceDictionary valueForKeyPath:@"bag_total"];
+    }
+    
+    if ([totalPriceDictionary valueForKeyPath:@"sub_total"] && [totalPriceDictionary valueForKeyPath:@"sub_total"] != [NSNull null]) {
+        order.subTotalPrice = [totalPriceDictionary valueForKeyPath:@"sub_total"];
+    }
+    
     return order;
 }
 

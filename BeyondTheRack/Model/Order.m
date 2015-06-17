@@ -75,5 +75,6 @@
 @dynamic promoShipAddress2;
 @dynamic promoShipAddress1;
 @dynamic billingName;
+@dynamic promoShipPhone;
 
 @end

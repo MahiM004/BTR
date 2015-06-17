@@ -76,5 +76,6 @@
 @property (nonatomic, retain) NSString * promoShipAddress2;
 @property (nonatomic, retain) NSString * promoShipAddress1;
 @property (nonatomic, retain) NSString * billingName;
+@property (nonatomic, retain) NSString * promoShipPhone;
 
 @end
