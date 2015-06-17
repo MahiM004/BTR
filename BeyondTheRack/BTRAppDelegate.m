@@ -12,6 +12,9 @@
 
 #import "Event+AppServer.h"
 #import "Item+AppServer.h"
+#import "User+AppServer.h"
+#import "BagItem+AppServer.h"
+#import "Order+AppServer.h"
 //#import "BTRDatabaseAvailibility.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "BTRSearchViewController.h"
@@ -67,7 +70,11 @@
                 if (![firstTime isEqualToString:@"FALSE"]){
                     
                     [Event initInManagedObjectContext:[document managedObjectContext]];
-                    [Item initInManagedObjectContext:[document managedObjectContext]];                    
+                    [Item initInManagedObjectContext:[document managedObjectContext]];
+                    [User initInManagedObjectContext:[document managedObjectContext]];
+                    [BagItem initInManagedObjectContext:[document managedObjectContext]];
+                    [Order initInManagedObjectContext:[document managedObjectContext]];
+
                     [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
                     
                     [self deleteAllObjectsInContext:[[self beyondTheRackDocument] managedObjectContext] usingModel:[[self beyondTheRackDocument] managedObjectModel]];
@@ -333,8 +340,7 @@
 - (void)deleteAllObjectsWithEntityName:(NSString *)entityName
                              inContext:(NSManagedObjectContext *)context
 {
-    NSFetchRequest *fetchRequest =
-    [NSFetchRequest fetchRequestWithEntityName:entityName];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     fetchRequest.includesPropertyValues = NO;
     fetchRequest.includesSubentities = NO;
     

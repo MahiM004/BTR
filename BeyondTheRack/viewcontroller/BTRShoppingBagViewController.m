@@ -13,6 +13,8 @@
 
 #import "BagItem+AppServer.h"
 #import "Item+AppServer.h"
+#import "Order+AppServer.h"
+
 #import "BTRBagFetcher.h"
 #import "BTROrderFetcher.h"
 #import "BTRItemFetcher.h"
@@ -284,10 +286,14 @@
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+             NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
-             //NSLog(@"09--09000 -- : %@", entitiesPropertyList);
+             NSLog(@"09--09000 -- : %@", entitiesPropertyList);
+             
+             [Order loadOrdersFromAppServerArray:entitiesPropertyList intoManagedObjectContext:[self managedObjectContext]];
+             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+
              success(@"TRUE");
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -304,7 +310,6 @@
 #pragma mark - Navigation
 
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
  
     if ([[segue identifier] isEqualToString:@"BTREditBagSegueIdentifier"]) {
@@ -314,8 +319,6 @@
     }
 
 }
-
-
 
 
 - (IBAction)tappedCheckout:(UIButton *)sender {

@@ -16,7 +16,5 @@
 + (Order *)orderWithAppServerInfo:(NSDictionary *)orderDictionary
                                inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (NSMutableArray *)loadOrdersFromAppServerArray:(NSArray *)orders // of AppServer Order NSDictionary
-                                   intoManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
