@@ -51,6 +51,15 @@
         <attribute name="startDateTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="topPerformers" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="EventCategory" representedClassName="EventCategory" syncable="YES">
+        <attribute name="active" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryOrder" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortCriteria" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortCriteriaNewSite" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Item" representedClassName="Item" syncable="YES">
         <attribute name="attributeList" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="brand" optional="YES" attributeType="String" syncable="YES"/>
@@ -207,5 +216,6 @@
         <element name="Order" positionX="-360" positionY="-252" width="128" height="1018"/>
         <element name="User" positionX="-675" positionY="-126" width="128" height="540"/>
         <element name="UserNotifications" positionX="-522" positionY="224" width="128" height="163"/>
+        <element name="EventCategory" positionX="-524" positionY="-243" width="128" height="148"/>
     </elements>
 </model>

@@ -108,7 +108,6 @@
     
     NSDictionary *orderInfoDic = orderDictionary[@"orderInfo"];
     
-    
     if ([orderInfoDic valueForKeyPath:@"billto_shipto"] && [orderInfoDic valueForKeyPath:@"billto_shipto"] != [NSNull null]) {
         order.billingSameAsShipping = [[orderInfoDic valueForKeyPath:@"billto_shipto"] stringValue];
     }
@@ -179,7 +178,6 @@
     }
     
     
-    
     /**
      
      Shipping Address
@@ -219,7 +217,6 @@
     if ([shippingAddressDic valueForKeyPath:@"state"] && [shippingAddressDic valueForKeyPath:@"state"] != [NSNull null]) {
         order.shippingProvince = [shippingAddressDic valueForKeyPath:@"state"];
     }
-    
     
     
     /**
@@ -322,7 +319,6 @@
         order.subTotalPrice = [totalPriceDictionary valueForKeyPath:@"sub_total"];
     }
     
-
     return order;
 }
 
