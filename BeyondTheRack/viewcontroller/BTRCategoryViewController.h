@@ -11,9 +11,7 @@
 #import "TTSlidingPagesDataSource.h"
 #import "TTSliddingPageDelegate.h"
 
-@interface BTRCategoryViewController : UIViewController<TTSlidingPagesDataSource, TTSliddingPageDelegate>{
-}
-
+@interface BTRCategoryViewController : UIViewController<TTSlidingPagesDataSource, TTSliddingPageDelegate>
 
 @property (strong, nonatomic) NSMutableArray *categoryNames;
 @property (strong, nonatomic) NSMutableArray *urlCategoryNames;

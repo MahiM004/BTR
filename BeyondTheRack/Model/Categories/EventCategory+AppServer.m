@@ -61,7 +61,7 @@
             }
         }
         
-        eventCategory = [NSEntityDescription insertNewObjectForEntityForName:@"Event"
+        eventCategory = [NSEntityDescription insertNewObjectForEntityForName:@"EventCategory"
                                               inManagedObjectContext:context];
         
         eventCategory = [self extractCategoriesFromJSONDictionary:eventDictionary forCategory:eventCategory];
@@ -91,12 +91,29 @@
 
 
 + (EventCategory *)extractCategoriesFromJSONDictionary:(NSDictionary *)categoryDictionary forCategory:(EventCategory *)eventCatgeory {
-    
-    
+
     
     if ([categoryDictionary valueForKeyPath:@"id"] && [categoryDictionary valueForKeyPath:@"id"] != [NSNull null])
         eventCatgeory.categoryId = [categoryDictionary valueForKeyPath:@"id"];
 
+    if ([categoryDictionary valueForKeyPath:@"name"] && [categoryDictionary valueForKeyPath:@"name"] != [NSNull null])
+        eventCatgeory.name = [categoryDictionary valueForKeyPath:@"name"];
+    
+    //if ([categoryDictionary valueForKeyPath:@"sort_criteria"] && [categoryDictionary valueForKeyPath:@"sort_criteria"] != [NSNull null])
+      //  eventCatgeory.sortCriteria = [categoryDictionary valueForKeyPath:@"sort_criteria"];
+    
+    //if ([categoryDictionary valueForKeyPath:@"sort_criteria_new_site"] && [categoryDictionary valueForKeyPath:@"sort_criteria_new_site"] != [NSNull null])
+      //  eventCatgeory.sortCriteriaNewSite = [categoryDictionary valueForKeyPath:@"sort_criteria_new_site"];
+    
+    if ([categoryDictionary valueForKeyPath:@"category_order"] && [categoryDictionary valueForKeyPath:@"category_order"] != [NSNull null])
+        eventCatgeory.categoryOrder = [categoryDictionary valueForKeyPath:@"category_order"];
+    
+    if ([categoryDictionary valueForKeyPath:@"active"] && [categoryDictionary valueForKeyPath:@"active"] != [NSNull null])
+        eventCatgeory.active = [categoryDictionary valueForKeyPath:@"active"];
+    
+    if ([categoryDictionary valueForKeyPath:@"display_name"] && [categoryDictionary valueForKeyPath:@"display_name"] != [NSNull null])
+        eventCatgeory.displayName = [categoryDictionary valueForKeyPath:@"display_name"];
+    
     
     
     return eventCatgeory;

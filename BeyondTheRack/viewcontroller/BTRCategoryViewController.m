@@ -15,7 +15,6 @@
 #import "BTREventsCDTVC.h"
 
 
-
 @interface BTRCategoryViewController ()
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
@@ -25,18 +24,15 @@
 
 @implementation BTRCategoryViewController
 
--(void)initData {
- 
-    self.categoryNames = [[NSMutableArray alloc] initWithObjects:@"Women", @"Men", @"Your Catalog", @"Home", @"Kids / Maternity", @"My Curvy Closet", nil];
-    self.urlCategoryNames = [[NSMutableArray alloc] initWithObjects:@"women", @"men", @"all", @"home", @"kids", @"curvy_closet", nil];
-}
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 
-    [self initData];
+    //self.categoryNames = [[NSMutableArray alloc] initWithObjects:@"Women", @"Men", @"Your Catalog", @"Home", @"Kids / Maternity", @"My Curvy Closet", nil];
+    //self.urlCategoryNames = [[NSMutableArray alloc] initWithObjects:@"women", @"men", @"all", @"home", @"kids", @"curvy_closet", nil];
+    
+    
     //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
     
     self.slider = [[TTScrollSlidingPagesController alloc] init];

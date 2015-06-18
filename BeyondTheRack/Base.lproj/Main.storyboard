@@ -1446,7 +1446,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="125E671D-004D-4A4B-9E9F-B4E2E822A67E" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="FA93949F-CA32-41EB-8AC7-058613C7AF3D" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1462,12 +1462,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="9ya-lh-BP7" kind="relationship" relationship="rootViewController" id="d67-F7-6fa"/>
+                        <segue destination="BDi-lM-gfT" kind="relationship" relationship="rootViewController" id="C1K-d2-oNL"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gRv-et-Dkg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-514" y="-378"/>
+            <point key="canvasLocation" x="-604" y="-282"/>
         </scene>
         <!--EventsCDTVC-->
         <scene sceneID="SNB-GM-1gD">
@@ -1872,6 +1872,28 @@
             </objects>
             <point key="canvasLocation" x="3337" y="-1706"/>
         </scene>
+        <!--Initialize View Controller-->
+        <scene sceneID="3gZ-Yg-cjB">
+            <objects>
+                <viewController id="BDi-lM-gfT" customClass="BTRInitializeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Uc-Zb-2fr"/>
+                        <viewControllerLayoutGuide type="bottom" id="R4L-kB-nps"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="o5G-tz-rwQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5ep-m9-G9F"/>
+                    <connections>
+                        <segue destination="9ya-lh-BP7" kind="modal" identifier="BTRMainSceneSegueIdentifier" modalTransitionStyle="crossDissolve" id="uFq-0A-lHx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kNq-du-ASC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-78" y="-648"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="hKI-X9-0EH">
             <objects>
@@ -1935,7 +1957,7 @@
                                 <rect key="frame" x="0.0" y="60" width="320" height="508"/>
                                 <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <segue destination="Pe0-ND-gTo" kind="embed" id="Gty-ah-BVy"/>
+                                    <segue destination="Pe0-ND-gTo" kind="embed" identifier="BTRCategorySegueIdentifier" id="Gty-ah-BVy"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -1949,7 +1971,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RR7-rF-5Oq" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="218" y="-714"/>
+            <point key="canvasLocation" x="374" y="-662"/>
         </scene>
         <!--Product-->
         <scene sceneID="wuF-Dj-fNH">
@@ -3714,7 +3736,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HQR-Xn-3eu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="673" y="-560"/>
+            <point key="canvasLocation" x="811" y="-568"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lvt-wn-93T">
@@ -3759,11 +3781,12 @@
                     <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="1083" y="-518"/>
+            <point key="canvasLocation" x="1202" y="-516"/>
         </scene>
     </scenes>
     <resources>
-        <image name="125E671D-004D-4A4B-9E9F-B4E2E822A67E" width="30" height="30">
+        <image name="BTRLogo.png" width="925" height="125"/>
+        <image name="FA93949F-CA32-41EB-8AC7-058613C7AF3D" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -3820,7 +3843,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>

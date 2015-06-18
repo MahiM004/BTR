@@ -9,6 +9,7 @@
 #import "BTRMainViewController.h"
 #import "BTRShoppingBagViewController.h"
 
+#import "BTRCategoryViewController.h"
 
 
 #import "TTScrollSlidingPagesController.h"
@@ -31,15 +32,31 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
+
 @end
 
 @implementation BTRMainViewController
 
 
+
+- (NSMutableArray *)categoryNames {
+    
+    if (!_categoryNames) _categoryNames = [[NSMutableArray alloc] init];
+    return _categoryNames;
+}
+
+
+- (NSMutableArray *)urlCategoryNames {
+    
+    if (!_urlCategoryNames) _urlCategoryNames = [[NSMutableArray alloc] init];
+    return _urlCategoryNames;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-  
+    
     BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
     
     [self getCartCountServerCallforSessionId:[btrSettings sessionId] success:^(NSString *bagCountString) {
@@ -65,18 +82,14 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
 
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
 }
 
 
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+ 
 
 #pragma mark - Get bag count
 
@@ -113,7 +126,21 @@
          }];
 }
 
+
+
 #pragma mark - Navigation
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"BTRCategorySegueIdentifier"]) {
+        
+        BTRCategoryViewController *categoryVC = [segue destinationViewController];
+        categoryVC.categoryNames = [self categoryNames];
+        categoryVC.urlCategoryNames = [self urlCategoryNames];
+    }
+}
+
 
 
 - (IBAction)searchButtonTapped:(UIButton *)sender {
