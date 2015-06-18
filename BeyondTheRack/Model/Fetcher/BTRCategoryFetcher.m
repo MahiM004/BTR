@@ -10,4 +10,10 @@
 
 @implementation BTRCategoryFetcher
 
+
++ (NSURL *)URLforCategories
+{
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/categories", BASEURL]];
+}
+
 @end
