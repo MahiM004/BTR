@@ -108,7 +108,6 @@
 
 
 - (void)dismissKeyboard {
-    
  
     [self.emailTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];

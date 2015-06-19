@@ -28,7 +28,6 @@ static BTRCategoryData *_sharedInstance;
     self = [super init];
     if (self) {
         
-        
     }
     return self;
 }

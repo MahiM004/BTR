@@ -19,6 +19,9 @@
 #import "BTROrderFetcher.h"
 #import "BTRItemFetcher.h"
 
+#import "BTRPaymentTypesHandler.h"
+
+
  
 @interface BTRShoppingBagViewController ()
 
@@ -171,7 +174,6 @@
         cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Time out!"];
     }
     
-    
     return cell;
 }
 
@@ -289,12 +291,13 @@
              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
-             NSLog(@"09--09000 -- : %@", entitiesPropertyList);
+             
+             NSDictionary *paymentsDictionary = entitiesPropertyList[@"paymentMethods"];
              
              [Order orderWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
 
-             success(@"TRUE");
+             success(paymentsDictionary);
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
@@ -326,7 +329,27 @@
     
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     
-    [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSString *succString) {
+    [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSDictionary *paymentsDictionary) {
+        
+        BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
+        
+        NSArray *allKeysArray = paymentsDictionary.allKeys;
+        
+        for (NSString *key in allKeysArray) {
+            [[sharedPaymentTypes paymentTypesArray] addObject:key];
+        }
+        
+        NSDictionary *creditCardsDic = paymentsDictionary[@"creditcard"][@"type"];
+        NSArray *allCreditCardKeysArray = creditCardsDic.allKeys;
+        
+        for (NSString *key in allCreditCardKeysArray) {
+            
+            [[sharedPaymentTypes creditCardTypeArray] addObject:key];
+            
+            NSString *tempString = [creditCardsDic valueForKey:key];
+            [[sharedPaymentTypes creditCardDisplayNameArray] addObject:tempString];
+        }
+        
         
         [self performSegueWithIdentifier:@"BTRCheckoutSegueIdentifier" sender:self];
         
