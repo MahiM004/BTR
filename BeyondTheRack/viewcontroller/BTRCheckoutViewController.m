@@ -25,22 +25,27 @@
                                    action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
     
+    
+    BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
+    for (NSString *someString in [sharedPaymentTypes paymentTypesArray]) {
+        NSLog(@"-- %@", someString);
+    }
+    
+    for (NSString *someString in [sharedPaymentTypes creditCardTypeArray]) {
+        NSLog(@"++ %@", someString);
+    }
+    
+    for (NSString *someString in [sharedPaymentTypes creditCardDisplayNameArray]) {
+        NSLog(@"** %@", someString);
+    }
+    
+    
 }
 
 
 - (void)dismissKeyboard {
     
     [self.view endEditing:YES];
-}
-
-
-
-#pragma mark - UITextField delegate
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
 }
 
 

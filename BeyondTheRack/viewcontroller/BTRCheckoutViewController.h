@@ -11,7 +11,7 @@
 #import "CTCheckbox.h"
 
 
-@interface BTRCheckoutViewController : UIViewController <UITextFieldDelegate>
+@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIView *viewforPicker;
