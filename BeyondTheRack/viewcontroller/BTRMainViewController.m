@@ -39,20 +39,6 @@
 
 
 
-- (NSMutableArray *)categoryNames {
-    
-    if (!_categoryNames) _categoryNames = [[NSMutableArray alloc] init];
-    return _categoryNames;
-}
-
-
-- (NSMutableArray *)urlCategoryNames {
-    
-    if (!_urlCategoryNames) _urlCategoryNames = [[NSMutableArray alloc] init];
-    return _urlCategoryNames;
-}
-
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -129,18 +115,6 @@
 
 
 #pragma mark - Navigation
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([[segue identifier] isEqualToString:@"BTRCategorySegueIdentifier"]) {
-        
-        BTRCategoryViewController *categoryVC = [segue destinationViewController];
-        categoryVC.categoryNames = [self categoryNames];
-        categoryVC.urlCategoryNames = [self urlCategoryNames];
-    }
-}
-
 
 
 - (IBAction)searchButtonTapped:(UIButton *)sender {

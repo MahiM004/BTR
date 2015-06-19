@@ -143,7 +143,7 @@
         {
             if ([didSignUp  isEqualToString:@"TRUE"]) {
                 
-                [self performSegueWithIdentifier:@"SignUpToMainSceneSegueIdentifier" sender:self];
+                [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
             
             } else {
                 
@@ -295,7 +295,7 @@
                          
                          if ([didLogIn isEqualToString:@"TRUE"]) {
                              
-                             [self performSegueWithIdentifier:@"SignUpToMainSceneSegueIdentifier" sender:self];
+                             [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
                              
                          } else {
                              

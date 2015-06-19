@@ -13,6 +13,8 @@
 
 #import "BTRMainViewController.h"
 
+#import "BTRCategoryData.h"
+
 
 @interface BTRInitializeViewController ()
 
@@ -51,14 +53,11 @@
 
     [self setupDocument];
     
-    
     [self fetchCategoriesIntoDocument:[self beyondTheRackDocument]
                               success:^(NSMutableArray *eventCategoriesArray) {
                                   
                                   [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
 
-                      
-                                  
                               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                   
                               }];
@@ -106,12 +105,14 @@
          NSMutableArray *categoriesArray = [[NSMutableArray alloc] init];
          
          categoriesArray = [EventCategory loadCategoriesFromAppServerArray:entitiesPropertyList intoManagedObjectContext:document.managedObjectContext];
-                  
-         for (EventCategory *eventCategory in categoriesArray) {
-             [[self categoryNames] addObject:[eventCategory displayName]];
-             [[self urlCategoryNames] addObject:[eventCategory name]];
-         }
          
+         BTRCategoryData *sharedCategoryData = [BTRCategoryData sharedCategoryData];
+         
+         for (EventCategory *eventCategory in categoriesArray) {
+             
+             [[sharedCategoryData categoryNameArray]  addObject:[eventCategory displayName]];
+             [[sharedCategoryData categoryUrlArray]  addObject:[eventCategory name]];
+         }
          
          [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
          
@@ -124,22 +125,6 @@
     
 }
 
-
-
-#pragma mark - Navigation
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    
-    if ([[segue identifier] isEqualToString:@"BTRMainSceneSegueIdentifier"]) {
-        
-        BTRMainViewController *mainVC = [segue destinationViewController];
-        mainVC.categoryNames = [self categoryNames];
-        mainVC.urlCategoryNames = [self urlCategoryNames];
-        
-    }
-}
 
 
 

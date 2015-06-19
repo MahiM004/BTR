@@ -105,7 +105,7 @@
         
         if ([didLogIn  isEqualToString:@"TRUE"]) {
 
-            [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+            [self performSegueWithIdentifier:@"BTRinitializeVCIdentifier" sender:self];
         }
         else {
 

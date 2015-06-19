@@ -14,7 +14,5 @@
 
 @interface BTRMainViewController : UIViewController
 
-@property (strong, nonatomic) NSMutableArray *categoryNames;
-@property (strong, nonatomic) NSMutableArray *urlCategoryNames;
 
 @end

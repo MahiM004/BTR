@@ -14,6 +14,8 @@
 #import "TTSlidingPageTitle.h"
 #import "BTREventsCDTVC.h"
 
+#import "BTRCategoryData.h"
+
 
 @interface BTRCategoryViewController ()
 
@@ -25,13 +27,28 @@
 @implementation BTRCategoryViewController
 
 
+- (NSMutableArray *)categoryNames {
+    
+    if (!_categoryNames) _categoryNames = [[NSMutableArray alloc] init];
+    return _categoryNames;
+}
+
+- (NSMutableArray *)urlCategoryNames {
+    
+    if (!_urlCategoryNames) _urlCategoryNames = [[NSMutableArray alloc] init];
+    return _urlCategoryNames;
+}
+
+
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
-    //self.categoryNames = [[NSMutableArray alloc] initWithObjects:@"Women", @"Men", @"Your Catalog", @"Home", @"Kids / Maternity", @"My Curvy Closet", nil];
-    //self.urlCategoryNames = [[NSMutableArray alloc] initWithObjects:@"women", @"men", @"all", @"home", @"kids", @"curvy_closet", nil];
     
+    BTRCategoryData *sharedCategoryData = [BTRCategoryData sharedCategoryData];
+    
+    [[self categoryNames] addObjectsFromArray:[sharedCategoryData categoryNameArray]];
+    [[self urlCategoryNames] addObjectsFromArray:[sharedCategoryData categoryUrlArray]];
     
     //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
     
