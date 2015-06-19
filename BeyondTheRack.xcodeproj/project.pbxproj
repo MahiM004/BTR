@@ -135,6 +135,7 @@
 		69D440561B331AEA00070FD8 /* EventCategory+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440551B331AEA00070FD8 /* EventCategory+AppServer.m */; };
 		69D440591B33478500070FD8 /* BTRInitializeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440581B33478500070FD8 /* BTRInitializeViewController.m */; };
 		69D4405C1B34508600070FD8 /* BTRCategoryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D4405B1B34508600070FD8 /* BTRCategoryData.m */; };
+		69D4405F1B34750500070FD8 /* BTRCardHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D4405E1B34750500070FD8 /* BTRCardHandler.m */; };
 		69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */; };
 		69FF40691A3F8939000BD092 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40681A3F8939000BD092 /* main.m */; };
 		69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */; };
@@ -423,6 +424,8 @@
 		69D440581B33478500070FD8 /* BTRInitializeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRInitializeViewController.m; sourceTree = "<group>"; };
 		69D4405A1B34508600070FD8 /* BTRCategoryData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRCategoryData.h; sourceTree = "<group>"; };
 		69D4405B1B34508600070FD8 /* BTRCategoryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRCategoryData.m; sourceTree = "<group>"; };
+		69D4405D1B34750500070FD8 /* BTRCardHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRCardHandler.h; sourceTree = "<group>"; };
+		69D4405E1B34750500070FD8 /* BTRCardHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRCardHandler.m; sourceTree = "<group>"; };
 		69D5663D1A7A8F2300FAEDE2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		69FF40631A3F8939000BD092 /* BeyondTheRack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeyondTheRack.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -833,6 +836,8 @@
 				69D440161B304D8E00070FD8 /* BTRDateHandler.m */,
 				69D4405A1B34508600070FD8 /* BTRCategoryData.h */,
 				69D4405B1B34508600070FD8 /* BTRCategoryData.m */,
+				69D4405D1B34750500070FD8 /* BTRCardHandler.h */,
+				69D4405E1B34750500070FD8 /* BTRCardHandler.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -1209,6 +1214,7 @@
 				6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */,
 				69AB98651A77E68F00EDB1E6 /* Event.m in Sources */,
 				69D440411B31EA1400070FD8 /* Order.m in Sources */,
+				69D4405F1B34750500070FD8 /* BTRCardHandler.m in Sources */,
 				6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */,
 				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
 				690A38F41B1DEB7F00D4BA84 /* TNRectangularRadioButton.m in Sources */,

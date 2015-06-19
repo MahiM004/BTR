@@ -14,6 +14,9 @@
 @interface BTRCheckoutViewController : UIViewController <UITextFieldDelegate>
 
 
+@property (weak, nonatomic) IBOutlet UIView *viewforPicker;
+@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *chatWithRepButton;
 @property (weak, nonatomic) IBOutlet UIButton *visaCheckoutButton;
