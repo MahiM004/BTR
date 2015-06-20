@@ -26,6 +26,10 @@
 @property (strong, nonatomic) NSArray *provincesArray;
 @property (strong, nonatomic) NSArray *countryNameArray;
 
+@property (strong, nonatomic) NSString *chosenShippingCountryString;
+@property (strong, nonatomic) NSString *chosenBillingCountryString;
+
+
 @end
 
 @implementation BTRCheckoutViewController
@@ -66,9 +70,12 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
     self.pickerView.delegate = self;
     [self.pickerParentView setHidden:TRUE];
 
+    [self setChosenShippingCountryString:@"Canada"];
+    [self setChosenBillingCountryString:@"Canada"];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -114,7 +121,10 @@
 
 - (IBAction)shippingStateButtonTapped:(UIButton *)sender {
     
-    [self loadPickerViewforPickerType:STATE_PICKER andAddressType:SHIPPING_ADDRESS];
+    if ([[[self countryShippingTF] text] isEqualToString:@"USA"])
+        [self loadPickerViewforPickerType:STATE_PICKER andAddressType:SHIPPING_ADDRESS];
+    else
+        [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:SHIPPING_ADDRESS];
 }
 
 
@@ -126,7 +136,10 @@
 
 - (IBAction)billingStateButtonTapped:(UIButton *)sender {
     
-    [self loadPickerViewforPickerType:STATE_PICKER andAddressType:BILLING_ADDRESS];
+    if ([[[self countryBillingTF] text] isEqualToString:@"USA"])
+        [self loadPickerViewforPickerType:STATE_PICKER andAddressType:BILLING_ADDRESS];
+    else
+        [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:BILLING_ADDRESS];
 }
 
 
