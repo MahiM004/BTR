@@ -62,7 +62,21 @@ static BTRPaymentTypesHandler *_sharedInstance;
 }
 
 
+
+- (NSString *)paymentTypeforCardDisplayName:(NSString *)displayName {
+    
+    return [self.paymentTypesArray objectAtIndex:[self.creditCardDisplayNameArray indexOfObjectIdenticalTo:displayName]];
+}
+
+- (NSString *)cardDisplayNameforPaymentType:(NSString *)paymentType {
+    
+    return [self.creditCardDisplayNameArray objectAtIndex:[self.paymentTypesArray indexOfObjectIdenticalTo:paymentType]];
+}
+
+
 @end
+
+
 
 
 

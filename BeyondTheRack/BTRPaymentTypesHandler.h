@@ -18,4 +18,7 @@
 
 - (void)clearData;
 
+- (NSString *)paymentTypeforCardDisplayName:(NSString *)displayName;
+- (NSString *)cardDisplayNameforPaymentType:(NSString *)paymentType;
+
 @end

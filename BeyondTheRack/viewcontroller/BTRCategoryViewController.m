@@ -16,6 +16,7 @@
 
 #import "BTRCategoryData.h"
 
+#define INITIAL_PAGE_INDEX 1
 
 @interface BTRCategoryViewController ()
 
@@ -58,7 +59,7 @@
     
     self.slider.hideStatusBarWhenScrolling = NO;
     self.slider.disableTitleScrollerShadow = YES;
-    self.slider.initialPageNumber = 2;
+    self.slider.initialPageNumber = INITIAL_PAGE_INDEX;
     self.slider.pagingEnabled = YES;
     self.slider.zoomOutAnimationDisabled = YES;
     self.slider.disableTitleShadow = YES;

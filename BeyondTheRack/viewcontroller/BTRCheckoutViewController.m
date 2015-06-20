@@ -10,21 +10,70 @@
 
 #import "BTRPaymentTypesHandler.h"
 
+#define COUNTRY_PICKER      1
+#define PROVINCE_PICKER     2
+#define STATE_PICKER        3
+
+#define BILLING_ADDRESS     1
+#define SHIPPING_ADDRESS    2
 
 @interface BTRCheckoutViewController ()
+
+@property (assign, nonatomic) NSUInteger pickerType;
+@property (assign, nonatomic) NSUInteger billingOrShipping;
+
+@property (strong, nonatomic) NSArray *statesArray;
+@property (strong, nonatomic) NSArray *provincesArray;
+@property (strong, nonatomic) NSArray *countryNameArray;
 
 @end
 
 @implementation BTRCheckoutViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
 
+- (NSArray *)countryNameArray {
+    
+    _countryNameArray = @[@"Canada", @"USA"];
+    return _countryNameArray;
+}
+
+
+- (NSArray *)provincesArray {
+    
+    _provincesArray = @[@"Alberta", @"British Columbia", @"Manitoba", @"New Brunswick",
+                        @"New foundland & Labrador", @"Northwest Territories", @"Nova Scotia",
+                        @"Nunavut", @"Ontario", @"Prince Edward Island", @"Quebec", @"Saskatchewan", @"Yukon"];
+    
+    
+    return _provincesArray;
+}
+
+
+- (NSArray *)statesArray {
+    
+    _statesArray = @[@"Alabama", @"Alaska", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut",
+                     @"Delaware", @"Florida", @"Georgia", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa",
+                     @"Kansas", @"Kentucky", @"Louisiana", @"Maine", @"Maryland", @"Massachusetts", @"Michigan",
+                     @"Minnesota", @"Mississippi", @"Missouri", @"Montana", @"Nebraska", @"Nevada", @"New Hampshire",
+                     @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota", @"Ohio", @"Oklahoma",
+                     @"Oregon", @"Pennsylvania", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee",
+                     @"Texas", @"Utah", @"Vermont", @"Virginia", @"Washington", @"West Virginia", @"Wisconsin", @"Wyoming"];
+    
+    return _statesArray;
+}
+
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    self.pickerView.delegate = self;
+    [self.pickerParentView setHidden:TRUE];
+
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
-    
     
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
     for (NSString *someString in [sharedPaymentTypes paymentTypesArray]) {
@@ -38,8 +87,6 @@
     for (NSString *someString in [sharedPaymentTypes creditCardDisplayNameArray]) {
         NSLog(@"** %@", someString);
     }
-    
-    
 }
 
 
@@ -48,11 +95,148 @@
     [self.view endEditing:YES];
 }
 
+- (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) adressType{
+
+    [self setBillingOrShipping:adressType];
+    [self setPickerType:pickerType];
+    [self.pickerView reloadAllComponents];
+    [self dismissKeyboard];
+    [self.pickerParentView setHidden:FALSE];
+    [self.pickerView becomeFirstResponder];
+}
+
+
+- (IBAction)shippingCountryButtonTapped:(UIButton *)sender {
+    
+    [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:SHIPPING_ADDRESS];
+}
+
+
+- (IBAction)shippingStateButtonTapped:(UIButton *)sender {
+    
+    [self loadPickerViewforPickerType:STATE_PICKER andAddressType:SHIPPING_ADDRESS];
+}
+
+
+- (IBAction)billingCountryButtonTapped:(UIButton *)sender {
+    
+    [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:BILLING_ADDRESS];
+}
+
+
+- (IBAction)billingStateButtonTapped:(UIButton *)sender {
+    
+    [self loadPickerViewforPickerType:STATE_PICKER andAddressType:BILLING_ADDRESS];
+}
+
+
+#pragma mark - PickerView Delegates
+
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
+    
+    if ([self pickerType] == PROVINCE_PICKER) {
+        
+        if ([self billingOrShipping] == BILLING_ADDRESS) {
+            [self.provinceBillingTF setText:[[self provincesArray] objectAtIndex:row]];
+        } else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
+            [self.provinceShippingTF setText:[[self provincesArray] objectAtIndex:row]];
+        }
+    }
+    
+    if ([self pickerType] == STATE_PICKER) {
+        
+        if ([self billingOrShipping] == BILLING_ADDRESS) {
+            [self.provinceBillingTF setText:[[self statesArray] objectAtIndex:row]];
+        } else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
+            [self.provinceShippingTF setText:[[self statesArray] objectAtIndex:row]];
+        }
+    }
+    
+    if ([self pickerType] == COUNTRY_PICKER) {
+        
+        if ([self billingOrShipping] == BILLING_ADDRESS) {
+            [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:row]];
+        } else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
+            [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:row]];
+        }
+    }
+    
+    [self.pickerParentView setHidden:TRUE];
+}
+
+
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    
+    if ([self pickerType] == COUNTRY_PICKER)
+        return [[self countryNameArray] count];
+    
+    if ([self pickerType] == PROVINCE_PICKER)
+        return [[self provincesArray] count];
+    
+    if ([self pickerType] == STATE_PICKER)
+        return [[self statesArray] count];
+    
+    return  [[self countryNameArray] count];
+}
+
+
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    
+    if ([self pickerType] == COUNTRY_PICKER)
+        return [[self countryNameArray] objectAtIndex:row];
+    
+    if ([self pickerType] == PROVINCE_PICKER)
+        return [[self provincesArray] objectAtIndex:row];
+    
+    if ([self pickerType] == STATE_PICKER)
+        return [[self statesArray] objectAtIndex:row];
+    
+    return [[self countryNameArray] objectAtIndex:row];
+}
+
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    int sectionWidth = 300;
+    
+    return sectionWidth;
+}
+
+
+
+
 
 #pragma mark - Navigation
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

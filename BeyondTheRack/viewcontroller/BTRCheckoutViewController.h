@@ -14,7 +14,7 @@
 @interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate>
 
 
-@property (weak, nonatomic) IBOutlet UIView *viewforPicker;
+@property (weak, nonatomic) IBOutlet UIView *pickerParentView;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 

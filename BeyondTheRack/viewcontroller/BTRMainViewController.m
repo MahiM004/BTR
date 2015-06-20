@@ -23,8 +23,6 @@
 #import <math.h>
 
 
-#define YOUR_CATAGORY 4
-
 @interface BTRMainViewController ()
 
 
