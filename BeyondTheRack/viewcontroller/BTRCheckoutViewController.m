@@ -118,9 +118,7 @@
     [self setChosenBillingCountryString:@"Canada"];
     
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
-    for (NSString *someString in [sharedPaymentTypes creditCardDisplayNameArray]) {
-        NSLog(@"** %@", someString);
-    }
+    [[self paymentTypesArray] addObjectsFromArray:[sharedPaymentTypes creditCardDisplayNameArray]];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
