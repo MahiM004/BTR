@@ -10,9 +10,12 @@
 
 #import "BTRPaymentTypesHandler.h"
 
-#define COUNTRY_PICKER      1
-#define PROVINCE_PICKER     2
-#define STATE_PICKER        3
+#define COUNTRY_PICKER          1
+#define PROVINCE_PICKER         2
+#define STATE_PICKER            3
+#define EXPIRY_YEAR_PICKER      4
+#define EXPIRY_MONTH_PICKER     5
+#define PAYMENT_TYPE_PICKER     6
 
 #define BILLING_ADDRESS     1
 #define SHIPPING_ADDRESS    2
@@ -25,6 +28,10 @@
 @property (strong, nonatomic) NSArray *statesArray;
 @property (strong, nonatomic) NSArray *provincesArray;
 @property (strong, nonatomic) NSArray *countryNameArray;
+
+@property (strong, nonatomic) NSArray *expiryMonthsArray;
+@property (strong, nonatomic) NSMutableArray *expiryYearsArray;
+@property (strong, nonatomic) NSMutableArray *paymentTypesArray;
 
 @property (strong, nonatomic) NSString *chosenShippingCountryString;
 @property (strong, nonatomic) NSString *chosenBillingCountryString;
@@ -66,34 +73,59 @@
     return _statesArray;
 }
 
+- (NSArray *)expiryMonthsArray {
+    
+    _expiryMonthsArray = @[@"01 January", @"02 February", @"03 March", @"04 April", @"05 May", @"06 June", @"07 July",
+                           @"08 August", @"09 September", @"10 October", @"11 November", @"12 December"];
+    
+    return _expiryMonthsArray;
+}
+
+
+- (NSMutableArray *)expiryYearsArray {
+    
+    if (!_expiryYearsArray) _expiryYearsArray = [[NSMutableArray alloc] init];
+    return _expiryYearsArray;
+}
+
+
+- (NSMutableArray *)paymentTypesArray {
+    
+    if (!_paymentTypesArray) _paymentTypesArray = [[NSMutableArray alloc] init];
+    return _paymentTypesArray;
+}
+
+
+#pragma mark - UI
+
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
+    NSCalendar *gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    NSInteger currentYear = [gregorian component:NSCalendarUnitYear fromDate:NSDate.date];
+    
+    for (NSInteger i = currentYear; i < 21 + currentYear; i++) {
+        [[self expiryYearsArray] addObject:[NSString stringWithFormat:@"%ld", (long)i]];
+    }
+    
     self.pickerView.delegate = self;
     [self.pickerParentView setHidden:TRUE];
 
+    // setting default value
     [self setChosenShippingCountryString:@"Canada"];
     [self setChosenBillingCountryString:@"Canada"];
+    
+    BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
+    for (NSString *someString in [sharedPaymentTypes creditCardDisplayNameArray]) {
+        NSLog(@"** %@", someString);
+    }
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
-    
-    BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
-    for (NSString *someString in [sharedPaymentTypes paymentTypesArray]) {
-        NSLog(@"-- %@", someString);
-    }
-    
-    for (NSString *someString in [sharedPaymentTypes creditCardTypeArray]) {
-        NSLog(@"++ %@", someString);
-    }
-    
-    for (NSString *someString in [sharedPaymentTypes creditCardDisplayNameArray]) {
-        NSLog(@"** %@", someString);
-    }
 }
 
 
@@ -141,6 +173,22 @@
     else
         [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:BILLING_ADDRESS];
 }
+
+
+- (IBAction)expiryYearButtonTapped:(UIButton *)sender {
+
+}
+
+
+- (IBAction)expiryMonthButtonTapped:(UIButton *)sender {
+
+}
+
+
+- (IBAction)paymentMethodButtonTapped:(UIButton *)sender {
+
+}
+
 
 
 #pragma mark - PickerView Delegates
