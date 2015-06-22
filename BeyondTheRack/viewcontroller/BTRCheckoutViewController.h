@@ -29,16 +29,16 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIControl *childViewforScrollView;
 
-@property (weak, nonatomic) IBOutlet UIView *vipOptionView;
-@property (weak, nonatomic) IBOutlet UIView *shippingDetailsView;
-@property (weak, nonatomic) IBOutlet UIView *billingAddressView;
-@property (weak, nonatomic) IBOutlet UIView *sameAsShippingAddressView;
-@property (weak, nonatomic) IBOutlet UIView *thisIsGiftView;
-@property (weak, nonatomic) IBOutlet UIView *paymentDetailsView;
-@property (weak, nonatomic) IBOutlet UIView *rememberCardInfoView;
-@property (weak, nonatomic) IBOutlet UIView *haveGiftCardView;
-@property (weak, nonatomic) IBOutlet UIView *processOrderView;
-@property (weak, nonatomic) IBOutlet UIView *receiptView;
+@property (weak, nonatomic) IBOutlet UIControl *vipOptionView;
+@property (weak, nonatomic) IBOutlet UIControl *shippingDetailsView;
+@property (weak, nonatomic) IBOutlet UIControl *billingAddressView;
+@property (weak, nonatomic) IBOutlet UIControl *sameAsShippingAddressView;
+@property (weak, nonatomic) IBOutlet UIControl *thisIsGiftView;
+@property (weak, nonatomic) IBOutlet UIControl *paymentDetailsView;
+@property (weak, nonatomic) IBOutlet UIControl *rememberCardInfoView;
+@property (weak, nonatomic) IBOutlet UIControl *haveGiftCardView;
+@property (weak, nonatomic) IBOutlet UIControl *processOrderView;
+@property (weak, nonatomic) IBOutlet UIControl *receiptView;
 
 
 

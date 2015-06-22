@@ -118,10 +118,8 @@
     [self setChosenBillingCountryString:@"Canada"];
     
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
-    [[self paymentTypesArray] addObjectsFromArray:[sharedPaymentTypes creditCardDisplayNameArray]];
- 
- }
-
+    [[self paymentTypesArray] addObjectsFromArray:[sharedPaymentTypes creditCardDisplayNameArray]]; 
+}
 
 - (void)checkboxDidChange:(CTCheckbox *)checkbox
 {
@@ -132,26 +130,73 @@
     }
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UIView * txt in self.view.subviews){
-        if ([txt isKindOfClass:[UITextField class]] && [txt isFirstResponder]) {
-            [txt resignFirstResponder];
-        }
-    }
-}
 
+#pragma mark - Dissmiss Keyboard
 
-- (IBAction)viewTapped:(UIControl *)sender {
-    [self dismissKeyboard];
-}
+/**
+ 
+ Tap Recognizer conflicts with checkbox inside scrollView
+ 
+ */
 
 - (void)dismissKeyboard {
     
     [self.view endEditing:YES];
 }
 
-- (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) adressType{
+- (IBAction)viewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
 
+- (IBAction)vipOptionViewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+
+- (IBAction)shippingDetailsViewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+
+- (IBAction)billingAddressViewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+
+- (IBAction)sameAsShippingAddressViewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+
+- (IBAction)thisIsGiftViewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+
+- (IBAction)paymentDetailsViewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+
+- (IBAction)rememberCardViewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+
+- (IBAction)haveGiftCardView:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+
+- (IBAction)processOrderViewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+
+- (IBAction)receiptViewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+
+
+
+
+#pragma mark - PickerView Delegates
+
+
+
+- (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) adressType{
+    
     [self setBillingOrShipping:adressType];
     [self setPickerType:pickerType];
     [self.pickerView reloadAllComponents];
@@ -192,23 +237,18 @@
 
 
 - (IBAction)expiryYearButtonTapped:(UIButton *)sender {
-
+    
 }
 
 
 - (IBAction)expiryMonthButtonTapped:(UIButton *)sender {
-
+    
 }
 
 
 - (IBAction)paymentMethodButtonTapped:(UIButton *)sender {
-
+    
 }
-
-
-
-#pragma mark - PickerView Delegates
-
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     

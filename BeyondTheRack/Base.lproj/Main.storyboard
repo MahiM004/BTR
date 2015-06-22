@@ -1448,7 +1448,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="00FDDE3F-1A83-4605-8B45-F03C602CFA34" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="413D234F-0792-47A0-BFB9-60E7EBD408F9" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -2671,12 +2671,12 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="210" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="glW-mg-mvP">
-                                <rect key="frame" x="0.0" y="72" width="320" height="369"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="170" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="glW-mg-mvP">
+                                <rect key="frame" x="0.0" y="72" width="320" height="321"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShoppingBagCellIdentifier" rowHeight="210" id="JTT-5a-w3S" customClass="BTRBagTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShoppingBagCellIdentifier" rowHeight="170" id="JTT-5a-w3S" customClass="BTRBagTableViewCell">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JTT-5a-w3S" id="vCo-2j-CJ3">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -2686,32 +2686,33 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRC-YH-2ct" userLabel="BrandLabel">
-                                                    <rect key="frame" x="125" y="35" width="195" height="21"/>
+                                                    <rect key="frame" x="125" y="8" width="195" height="21"/>
                                                     <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOD-97-Ok5" userLabel="ItemLabel">
-                                                    <rect key="frame" x="125" y="64" width="187" height="46"/>
+                                                    <rect key="frame" x="125" y="37" width="187" height="46"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" Qty :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gre-IK-EeF" userLabel="QuantityLabel">
-                                                    <rect key="frame" x="8" y="177" width="56" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="125" y="141" width="56" height="21"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17S-As-Jme" userLabel="PriceLabel">
-                                                    <rect key="frame" x="164" y="177" width="137" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="224" y="141" width="88" height="21"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n9N-PG-t8u">
-                                                    <rect key="frame" x="0.0" y="207" width="320" height="1"/>
-                                                    <color key="backgroundColor" red="0.87191033360000003" green="0.8718842268" blue="0.87189906839999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n9N-PG-t8u" userLabel="Line View">
+                                                    <rect key="frame" x="0.0" y="169" width="320" height="1"/>
+                                                    <color key="backgroundColor" red="0.77752130681818188" green="0.77752130681818188" blue="0.77752130681818188" alpha="1" colorSpace="calibratedRGB"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Z7-I4-Esn">
                                                     <rect key="frame" x="8" y="130" width="109" height="37"/>
@@ -2726,18 +2727,18 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.70000000000000007" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EP7-H4-VGK" userLabel="SizeLabel">
-                                                    <rect key="frame" x="125" y="130" width="187" height="21"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFp-j0-e3X">
-                                                    <rect key="frame" x="75" y="177" width="42" height="21"/>
+                                                    <rect key="frame" x="192" y="141" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EP7-H4-VGK" userLabel="SizeLabel">
+                                                    <rect key="frame" x="125" y="96" width="175" height="21"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -2755,22 +2756,22 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HjT-PF-7g4">
-                                <rect key="frame" x="0.0" y="442" width="320" height="128"/>
+                                <rect key="frame" x="0.0" y="394" width="320" height="174"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gu-Jg-cSw">
-                                        <rect key="frame" x="61" y="8" width="199" height="30"/>
+                                        <rect key="frame" x="61" y="6" width="199" height="30"/>
                                         <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0H-aC-zYn">
-                                        <rect key="frame" x="84" y="39" width="153" height="21"/>
+                                        <rect key="frame" x="84" y="37" width="153" height="21"/>
                                         <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="13"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hJ3-va-HSf">
-                                        <rect key="frame" x="8" y="68" width="304" height="45"/>
+                                        <rect key="frame" x="8" y="66" width="304" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hh-1Y-1En">
                                                 <rect key="frame" x="7" y="0.0" width="290" height="43"/>
@@ -2786,6 +2787,12 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.89411764705882357" green="0.16078431372549021" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXX-bG-CcX" userLabel="Paypal Button">
+                                        <rect key="frame" x="66" y="119" width="188" height="47"/>
+                                        <state key="normal" image="paypal_yellow.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94420770200000004" green="0.94420770200000004" blue="0.94420770200000004" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -2869,26 +2876,20 @@
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jeE-Ze-Qgg" userLabel="BrandLabel">
-                                                            <rect key="frame" x="125" y="35" width="195" height="21"/>
+                                                            <rect key="frame" x="125" y="8" width="195" height="21"/>
                                                             <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="11"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fx-Gp-cYm" userLabel="ItemLabel">
-                                                            <rect key="frame" x="125" y="64" width="187" height="46"/>
+                                                            <rect key="frame" x="125" y="37" width="187" height="46"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" Qty :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUY-tT-FRa" userLabel="QuantityLabel">
-                                                            <rect key="frame" x="8" y="177" width="56" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLe-uv-E2H" userLabel="PriceLabel">
-                                                            <rect key="frame" x="164" y="177" width="137" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="65" y="179" width="56" height="21"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -2897,7 +2898,7 @@
                                                             <color key="backgroundColor" red="0.87191033360000003" green="0.8718842268" blue="0.87189906839999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         </view>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NRk-Mg-U5H" userLabel="stepperView">
-                                                            <rect key="frame" x="58" y="178" width="102" height="22"/>
+                                                            <rect key="frame" x="115" y="180" width="102" height="22"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </view>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3gR-Am-Lxr">
@@ -2914,9 +2915,15 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBE-KI-JFJ" userLabel="SizeLabel">
-                                                            <rect key="frame" x="125" y="130" width="187" height="21"/>
+                                                            <rect key="frame" x="125" y="76" width="187" height="21"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLe-uv-E2H" userLabel="PriceLabel">
+                                                            <rect key="frame" x="175" y="146" width="137" height="21"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -3050,7 +3057,7 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S7k-4C-rbH" userLabel="VIP Option View">
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S7k-4C-rbH" userLabel="VIP Option View" customClass="UIControl">
                                                         <rect key="frame" x="13" y="249" width="293" height="59"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zn-Q3-DuB">
@@ -3079,8 +3086,11 @@
                                                             </view>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="vipOptionViewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="TQH-dp-xDg"/>
+                                                        </connections>
                                                     </view>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lM0-He-9qJ" userLabel="Shipping Details View">
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lM0-He-9qJ" userLabel="Shipping Details View" customClass="UIControl">
                                                         <rect key="frame" x="13" y="311" width="294" height="638"/>
                                                         <subviews>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GMx-zM-xbZ" userLabel="Recipient Text Field">
@@ -3206,6 +3216,9 @@
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="shippingDetailsViewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="rBp-6h-bC3"/>
+                                                        </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dha-OH-czU">
                                                         <rect key="frame" x="8" y="984" width="299" height="1"/>
@@ -3223,7 +3236,7 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8nE-kf-cID" userLabel="Billing Address View">
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8nE-kf-cID" userLabel="Billing Address View" customClass="UIControl">
                                                         <rect key="frame" x="13" y="1136" width="294" height="524"/>
                                                         <subviews>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zmP-Mb-1I5" userLabel="Address Line 1 Text Field">
@@ -3324,8 +3337,11 @@
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="billingAddressViewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="awl-cu-V7o"/>
+                                                        </connections>
                                                     </view>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Jl-PN-R3p" userLabel="Same as Shipping Address View">
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Jl-PN-R3p" userLabel="Same as Shipping Address View" customClass="UIControl">
                                                         <rect key="frame" x="13" y="1083" width="294" height="45"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UMN-N5-CCp" customClass="CTCheckbox">
@@ -3340,8 +3356,11 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="sameAsShippingAddressViewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="rZv-9d-3Wz"/>
+                                                        </connections>
                                                     </view>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-L9-xIy" userLabel="Is This Gift View">
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="caJ-L9-xIy" userLabel="Is This Gift View" customClass="UIControl">
                                                         <rect key="frame" x="11" y="1668" width="296" height="78"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GUj-Ba-z4z" customClass="CTCheckbox">
@@ -3363,6 +3382,9 @@
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="thisIsGiftViewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="Kww-YB-hpp"/>
+                                                        </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yC3-Tr-58E">
                                                         <rect key="frame" x="11" y="1754" width="299" height="1"/>
@@ -3380,7 +3402,7 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UMJ-3u-QOG" userLabel="Payment Details View">
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UMJ-3u-QOG" userLabel="Payment Details View" customClass="UIControl">
                                                         <rect key="frame" x="10" y="1876" width="294" height="395"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PAYMENT METHOD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Lt-Tz-b9X">
@@ -3484,8 +3506,11 @@
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="paymentDetailsViewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="06b-fQ-hZy"/>
+                                                        </connections>
                                                     </view>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9xt-mA-x40" userLabel="Remember Card Info View">
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9xt-mA-x40" userLabel="Remember Card Info View" customClass="UIControl">
                                                         <rect key="frame" x="8" y="2279" width="296" height="78"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SUS-TQ-Ca1" customClass="CTCheckbox">
@@ -3500,8 +3525,11 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="rememberCardViewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="d4e-rI-Lco"/>
+                                                        </connections>
                                                     </view>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Zd-vk-R79" userLabel="Have a Gift Card View">
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Zd-vk-R79" userLabel="Have a Gift Card View" customClass="UIControl">
                                                         <rect key="frame" x="8" y="2365" width="296" height="136"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Have a Gift Card?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSs-Dt-pWV">
@@ -3524,6 +3552,9 @@
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="haveGiftCardView:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="Rr8-wO-IND"/>
+                                                        </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQt-7r-xNe" userLabel="Line View">
                                                         <rect key="frame" x="7" y="2509" width="299" height="1"/>
@@ -3545,7 +3576,7 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hVC-Gn-ZXr" userLabel="Process Order View">
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hVC-Gn-ZXr" userLabel="Process Order View" customClass="UIControl">
                                                         <rect key="frame" x="40" y="2950" width="242" height="45"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rB5-a0-omz">
@@ -3561,8 +3592,11 @@
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.40000000000000002" green="0.60392156860000001" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <connections>
+                                                            <action selector="processOrderViewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="aKt-Bu-x44"/>
+                                                        </connections>
                                                     </view>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lfA-RE-Skl" userLabel="Receipt View">
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lfA-RE-Skl" userLabel="Receipt View" customClass="UIControl">
                                                         <rect key="frame" x="0.0" y="2525" width="320" height="275"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You are about to save" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdW-Q3-jWz">
@@ -3571,7 +3605,7 @@
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$540.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjg-7I-Qij" userLabel="About to Save Price Label">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjg-7I-Qij" userLabel="About to Save Price Label">
                                                                 <rect key="frame" x="205" y="1" width="92" height="21"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                                 <color key="textColor" red="0.43215356690000001" green="0.28986547000000001" blue="0.14890847239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -3599,7 +3633,7 @@
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OVB-K4-cJE">
+                                                            <view alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OVB-K4-cJE" userLabel="Line View">
                                                                 <rect key="frame" x="55" y="98" width="242" height="1"/>
                                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             </view>
@@ -3656,7 +3690,7 @@
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$540.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWR-f5-dPb" userLabel="Total Due Price Label">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWR-f5-dPb" userLabel="Total Due Price Label">
                                                                         <rect key="frame" x="188" y="17" width="124" height="21"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                                         <color key="textColor" red="0.43215356690000001" green="0.28986547000000001" blue="0.14890847239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -3673,6 +3707,9 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <connections>
+                                                            <action selector="receiptViewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="8wk-05-8Gi"/>
+                                                        </connections>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3684,15 +3721,6 @@
                                                     <action selector="viewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="gzB-dD-EjG"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ur5-m7-9SJ" userLabel="Picker Parent View">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="496"/>
-                                                <subviews>
-                                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pKD-Yf-poT">
-                                                        <rect key="frame" x="0.0" y="220" width="320" height="268"/>
-                                                    </pickerView>
-                                                </subviews>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
-                                            </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="c9L-EK-f8Q" secondAttribute="trailing" id="9mf-Mw-vY5"/>
@@ -3701,6 +3729,15 @@
                                             <constraint firstItem="c9L-EK-f8Q" firstAttribute="leading" secondItem="Ol2-Jf-Nst" secondAttribute="leading" id="Upa-2Y-ZKu"/>
                                         </constraints>
                                     </scrollView>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ur5-m7-9SJ" userLabel="Picker Parent View">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="496"/>
+                                        <subviews>
+                                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pKD-Yf-poT">
+                                                <rect key="frame" x="0.0" y="220" width="320" height="268"/>
+                                            </pickerView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -3774,7 +3811,7 @@
                         <outlet property="thisIsGiftView" destination="caJ-L9-xIy" id="vRN-Sh-P1D"/>
                         <outlet property="totalDueDollarLabel" destination="XWR-f5-dPb" id="5eQ-2M-wVy"/>
                         <outlet property="vipOptionCheckbox" destination="9Cb-mb-Lcm" id="QkX-Ap-Iba"/>
-                        <outlet property="vipOptionView" destination="S7k-4C-rbH" id="UZi-aK-oc5"/>
+                        <outlet property="vipOptionView" destination="S7k-4C-rbH" id="nRh-jO-pco"/>
                         <outlet property="visaCheckoutButton" destination="N6S-j5-1Bl" id="NT0-8T-0WX"/>
                         <outlet property="youSaveDollarLabel" destination="wjg-7I-Qij" id="S8x-pN-0AM"/>
                         <outlet property="zipCodeShippingTF" destination="YGG-Uy-qkk" id="eB4-HB-2uw"/>
@@ -3783,7 +3820,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3k-r8-R5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5Wd-id-3W3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3398" y="1034"/>
+            <point key="canvasLocation" x="3355" y="1012"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x8v-mg-mc8">
@@ -3870,7 +3907,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="00FDDE3F-1A83-4605-8B45-F03C602CFA34" width="30" height="30">
+        <image name="413D234F-0792-47A0-BFB9-60E7EBD408F9" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -3937,6 +3974,7 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="masterpass.png" width="135" height="30"/>
         <image name="neulogo.png" width="925" height="125"/>
         <image name="neumyaccount.png" width="600" height="700"/>
+        <image name="paypal_yellow.png" width="240" height="60"/>
         <image name="pinteresticonalpha.png" width="100" height="100"/>
         <image name="searchglass.png" width="500" height="583"/>
         <image name="twittericonalpha.png" width="100" height="100"/>

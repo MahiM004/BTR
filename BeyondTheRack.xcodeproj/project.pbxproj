@@ -59,6 +59,8 @@
 		69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */; };
 		69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */; };
 		695C754B1B3841D1003F65F8 /* CTCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 695C754A1B3841D1003F65F8 /* CTCheckbox.m */; };
+		695C755A1B386677003F65F8 /* paypal_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C75581B386677003F65F8 /* paypal_yellow@2x.png */; };
+		695C755B1B386677003F65F8 /* paypal_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C75591B386677003F65F8 /* paypal_yellow.png */; };
 		6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */; };
 		696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */; };
 		696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */; };
@@ -283,6 +285,8 @@
 		69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchFilterTVC.m; sourceTree = "<group>"; };
 		695C75491B3841D1003F65F8 /* CTCheckbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCheckbox.h; sourceTree = "<group>"; };
 		695C754A1B3841D1003F65F8 /* CTCheckbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCheckbox.m; sourceTree = "<group>"; };
+		695C75581B386677003F65F8 /* paypal_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paypal_yellow@2x.png"; sourceTree = "<group>"; };
+		695C75591B386677003F65F8 /* paypal_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paypal_yellow.png; sourceTree = "<group>"; };
 		6965085D1AA4B47C00ED28B8 /* BTRProductShowcaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShowcaseVC.h; sourceTree = "<group>"; };
 		6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductShowcaseVC.m; sourceTree = "<group>"; };
 		696508601AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShowcaseCollectionCell.h; sourceTree = "<group>"; };
@@ -748,6 +752,8 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				695C75581B386677003F65F8 /* paypal_yellow@2x.png */,
+				695C75591B386677003F65F8 /* paypal_yellow.png */,
 				69D440061B2A0D7900070FD8 /* masterpass.png */,
 				69D440071B2A0D7900070FD8 /* masterpass@2x.png */,
 				69D440081B2A0D7900070FD8 /* VisaCheckout.png */,
@@ -1176,7 +1182,9 @@
 				69D4400D1B2A0D7900070FD8 /* VisaCheckout@2x.png in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				69AB985D1A76AB2200EDB1E6 /* twittericonalpha.png in Resources */,
+				695C755B1B386677003F65F8 /* paypal_yellow.png in Resources */,
 				690A39251B1DF71500D4BA84 /* mycheck@2x.png in Resources */,
+				695C755A1B386677003F65F8 /* paypal_yellow@2x.png in Resources */,
 				69D4400C1B2A0D7900070FD8 /* VisaCheckout.png in Resources */,
 				6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */,
 				69AB985E1A76AB2200EDB1E6 /* facebookiconalpha.png in Resources */,
