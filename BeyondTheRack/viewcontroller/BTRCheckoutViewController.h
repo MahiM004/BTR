@@ -14,18 +14,43 @@
 @interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate>
 
 
+@property (weak, nonatomic) IBOutlet UIButton *chatWithRepButton;
+@property (weak, nonatomic) IBOutlet UIButton *visaCheckoutButton;
+@property (weak, nonatomic) IBOutlet UIButton *masterPassButton;
+
+
+/**
+ 
+ Views
+ 
+ */
 
 @property (weak, nonatomic) IBOutlet UIView *parentViewforScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIControl *childViewforScrollView;
 
+@property (weak, nonatomic) IBOutlet UIView *vipOptionView;
+@property (weak, nonatomic) IBOutlet UIView *shippingDetailsView;
+@property (weak, nonatomic) IBOutlet UIView *billingAddressView;
+@property (weak, nonatomic) IBOutlet UIView *sameAsShippingAddressView;
+@property (weak, nonatomic) IBOutlet UIView *thisIsGiftView;
+@property (weak, nonatomic) IBOutlet UIView *paymentDetailsView;
+@property (weak, nonatomic) IBOutlet UIView *rememberCardInfoView;
+@property (weak, nonatomic) IBOutlet UIView *haveGiftCardView;
+@property (weak, nonatomic) IBOutlet UIView *processOrderView;
+@property (weak, nonatomic) IBOutlet UIView *receiptView;
+
+
+
+/**
+ 
+ Picker
+ 
+ */
+
 @property (weak, nonatomic) IBOutlet UIView *pickerParentView;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
-@property (weak, nonatomic) IBOutlet UIButton *chatWithRepButton;
-@property (weak, nonatomic) IBOutlet UIButton *visaCheckoutButton;
-@property (weak, nonatomic) IBOutlet UIButton *masterPassButton;
-@property (weak, nonatomic) IBOutlet CTCheckbox *vipOptionCheckbox;
 
 
 /**
@@ -34,6 +59,7 @@
  
  */
 
+@property (weak, nonatomic) IBOutlet CTCheckbox *vipOptionCheckbox;
 @property (weak, nonatomic) IBOutlet UITextField *recipientNameShippingTF;
 @property (weak, nonatomic) IBOutlet UITextField *addressLine1ShippingTF;
 @property (weak, nonatomic) IBOutlet UITextField *addressLine2ShippingTF;
