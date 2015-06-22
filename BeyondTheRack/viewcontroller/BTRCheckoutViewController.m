@@ -103,6 +103,8 @@
     
     [super viewDidLoad];
     
+    [self loadOrderData];
+    
     NSCalendar *gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     NSInteger currentYear = [gregorian component:NSCalendarUnitYear fromDate:NSDate.date];
     
@@ -121,14 +123,28 @@
     [[self paymentTypesArray] addObjectsFromArray:[sharedPaymentTypes creditCardDisplayNameArray]]; 
 }
 
-- (void)checkboxDidChange:(CTCheckbox *)checkbox
-{
-    if (checkbox.checked) {
-        NSLog(@"--0-0 Checked");
-    } else {
-        NSLog(@"--00 Not checked");
-    }
+
+- (void)loadOrderData {
+    
+    [self.recipientNameShippingTF setText:[self.order shippingRecipientName]];
+    [self.addressLine1ShippingTF setText:[self.order shippingAddressLine1]];
+    [self.addressLine2ShippingTF setText:[self.order shippingAddressLine2]];
+    [self.countryShippingTF setText:[self.order shippingCountry]];
+    [self.zipCodeShippingTF setText:[self.order shippingPostalCode]];
+    [self.provinceShippingTF setText:[self.order shippingProvince]];
+    [self.cityShippingTF setText:[self.order shippingCity]];
+    [self.phoneShippingTF setText:[self.order shippingPhoneNumber]];
+    
+    [self.addressLine1BillingTF setText:[self.order billingAddressLine1]];
+    [self.addressLine2BillingTF setText:[self.order billingAddressLine2]];
+    [self.countryBillingTF setText:[self.order billingCountry]];
+    [self.postalCodeBillingTF setText:[self.order billingPostalCode]];
+    [self.provinceBillingTF setText:[self.order billingProvince]];
+    [self.cityBillingTF setText:[self.order billingCity]];
+    [self.phoneBillingTF setText:[self.order billingPhoneNumber]];
+    
 }
+
 
 
 #pragma mark - Dissmiss Keyboard

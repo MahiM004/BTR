@@ -62,6 +62,8 @@
 		695C755A1B386677003F65F8 /* paypal_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C75581B386677003F65F8 /* paypal_yellow@2x.png */; };
 		695C755B1B386677003F65F8 /* paypal_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C75591B386677003F65F8 /* paypal_yellow.png */; };
 		695C755D1B386AFD003F65F8 /* paypalcheckout.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C755C1B386AFD003F65F8 /* paypalcheckout.png */; };
+		695C75601B38957A003F65F8 /* masterpass_t.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C755E1B38957A003F65F8 /* masterpass_t.png */; };
+		695C75611B38957A003F65F8 /* masterpass_t@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695C755F1B38957A003F65F8 /* masterpass_t@2x.png */; };
 		6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */; };
 		696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */; };
 		696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */; };
@@ -289,6 +291,8 @@
 		695C75581B386677003F65F8 /* paypal_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paypal_yellow@2x.png"; sourceTree = "<group>"; };
 		695C75591B386677003F65F8 /* paypal_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paypal_yellow.png; sourceTree = "<group>"; };
 		695C755C1B386AFD003F65F8 /* paypalcheckout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paypalcheckout.png; sourceTree = "<group>"; };
+		695C755E1B38957A003F65F8 /* masterpass_t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = masterpass_t.png; sourceTree = "<group>"; };
+		695C755F1B38957A003F65F8 /* masterpass_t@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masterpass_t@2x.png"; sourceTree = "<group>"; };
 		6965085D1AA4B47C00ED28B8 /* BTRProductShowcaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShowcaseVC.h; sourceTree = "<group>"; };
 		6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductShowcaseVC.m; sourceTree = "<group>"; };
 		696508601AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShowcaseCollectionCell.h; sourceTree = "<group>"; };
@@ -754,6 +758,8 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				695C755E1B38957A003F65F8 /* masterpass_t.png */,
+				695C755F1B38957A003F65F8 /* masterpass_t@2x.png */,
 				695C755C1B386AFD003F65F8 /* paypalcheckout.png */,
 				695C75581B386677003F65F8 /* paypal_yellow@2x.png */,
 				695C75591B386677003F65F8 /* paypal_yellow.png */,
@@ -1175,6 +1181,7 @@
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
 				69D4400B1B2A0D7900070FD8 /* masterpass@2x.png in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
+				695C75611B38957A003F65F8 /* masterpass_t@2x.png in Resources */,
 				690A39101B1DEE0000D4BA84 /* unchecked.png in Resources */,
 				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,
 				695C755D1B386AFD003F65F8 /* paypalcheckout.png in Resources */,
@@ -1185,6 +1192,7 @@
 				69AB985F1A76AB2200EDB1E6 /* pinteresticonalpha.png in Resources */,
 				69D4400D1B2A0D7900070FD8 /* VisaCheckout@2x.png in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
+				695C75601B38957A003F65F8 /* masterpass_t.png in Resources */,
 				69AB985D1A76AB2200EDB1E6 /* twittericonalpha.png in Resources */,
 				695C755B1B386677003F65F8 /* paypal_yellow.png in Resources */,
 				690A39251B1DF71500D4BA84 /* mycheck@2x.png in Resources */,

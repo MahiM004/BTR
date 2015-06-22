@@ -8,6 +8,7 @@
 
 #import "BTRShoppingBagViewController.h"
 #import "BTREditShoppingBagVC.h"
+#import "BTRCheckoutViewController.h"
 
 #import "BTRBagTableViewCell.h"
 
@@ -29,10 +30,10 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (weak, nonatomic) IBOutlet UILabel *bagTitle;
-
 @property (weak, nonatomic) IBOutlet UILabel *subtotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *youSaveLabel;
 
+@property (strong, nonatomic) Order *order;
 
 @end
 
@@ -67,7 +68,7 @@
         [[self tableView] reloadData];
         
         NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", [self getSubtotalSale]]];
-        self.subtotalLabel.text = [NSString stringWithFormat:@"Sub total: %@", [nf stringFromNumber:number]];
+        self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
         
         number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", [self getSubtotalRetail] - [self getSubtotalSale]]];
         self.youSaveLabel.text = [NSString stringWithFormat:@"you save: %@", [nf stringFromNumber:number]];
@@ -296,7 +297,7 @@
              
              NSDictionary *paymentsDictionary = entitiesPropertyList[@"paymentMethods"];
              
-             [Order orderWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
+             [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]]];
              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
 
              success(paymentsDictionary);
@@ -321,8 +322,12 @@
         
         BTREditShoppingBagVC *editVC = [segue destinationViewController];
         editVC.bagItemsArray = [self bagItemsArray];
+    
+    } else if ([[segue identifier] isEqualToString:@"BTRCheckoutSegueIdentifier"]) {
+        
+        BTRCheckoutViewController *checkoutVC = [segue destinationViewController];
+        checkoutVC.order = [self order];
     }
-
 }
 
 

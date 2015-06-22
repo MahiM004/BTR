@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Order+AppServer.h"
+
 #import "CTCheckbox.h"
 
 
 @interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate>
 
+@property (strong, nonatomic) Order *order;
 
 @property (weak, nonatomic) IBOutlet UIButton *chatWithRepButton;
 @property (weak, nonatomic) IBOutlet UIButton *visaCheckoutButton;
