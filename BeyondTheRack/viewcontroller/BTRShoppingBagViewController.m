@@ -55,16 +55,6 @@
     
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     self.bagTitle.text = [NSString stringWithFormat:@"Bag (%@)", [sharedShoppingBag totalBagCountString]];
-}
-
-- (void)viewDidLoad {
-    
-    [super viewDidLoad];
-
-    [self setupDocument];
-    
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
     
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -83,10 +73,22 @@
         self.youSaveLabel.text = [NSString stringWithFormat:@"you save: %@", [nf stringFromNumber:number]];
         
         self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
-
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
+}
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+
+    [self setupDocument];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+
     
     NSTimer *timer = [NSTimer timerWithTimeInterval:1.0
                                              target:self
