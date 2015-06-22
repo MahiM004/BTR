@@ -196,6 +196,24 @@
 
 
 
+
++ (NSString *)countryCodeforName:(NSString *)name {
+    
+    if ([name  isEqualToString:@"USA"])
+        return @"US";
+    
+    return @"CA";
+}
+
+
++ (NSString *)countryNameforCode:(NSString *)code {
+    
+    if ([code isEqualToString:@"US"])
+        return @"USA";
+    
+    return @"Canada";
+}
+
 @end
 
 

@@ -26,4 +26,7 @@
 + (NSString *)provinceCodeforName:(NSString *)name;
 + (NSString *)provinceNameforCode:(NSString *)code;
 
++ (NSString *)countryCodeforName:(NSString *)name;
++ (NSString *)countryNameforCode:(NSString *)code;
+
 @end
