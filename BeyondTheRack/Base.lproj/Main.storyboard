@@ -1448,7 +1448,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="0C75DC05-A0B7-4D85-85FA-C9EB02116D52" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="00FDDE3F-1A83-4605-8B45-F03C602CFA34" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3742,6 +3742,7 @@
                         <outlet property="expiryYearPaymentTF" destination="QqB-TQ-m8l" id="JrD-bO-I4b"/>
                         <outlet property="giftCardCodePaymentTF" destination="Y6S-Ql-qDM" id="h5a-0k-5Wz"/>
                         <outlet property="gstTaxDollarLabel" destination="iC9-lk-msb" id="eBG-46-kfe"/>
+                        <outlet property="gstTaxLebl" destination="pwS-aI-tAz" id="1cA-J6-QKy"/>
                         <outlet property="haveGiftCardView" destination="0Zd-vk-R79" id="cD5-de-D7Q"/>
                         <outlet property="learnAboutGiftsButton" destination="gY8-TS-4hU" id="Q8T-VC-Khn"/>
                         <outlet property="masterPassButton" destination="vu1-7h-Jvf" id="TR0-IW-mCL"/>
@@ -3760,6 +3761,7 @@
                         <outlet property="provinceBillingTF" destination="Yw9-Z2-m99" id="Yke-Iq-5Wi"/>
                         <outlet property="provinceShippingTF" destination="MJ1-x5-pVy" id="hSX-N5-bde"/>
                         <outlet property="qstTaxDollarLabel" destination="T2V-jS-MsW" id="WfE-Is-Rvw"/>
+                        <outlet property="qstTaxLabel" destination="dRo-dp-TbC" id="JDt-wk-HBL"/>
                         <outlet property="receiptView" destination="lfA-RE-Skl" id="4SV-9j-DC1"/>
                         <outlet property="recipientNameShippingTF" destination="GMx-zM-xbZ" id="Afx-sA-1Kg"/>
                         <outlet property="remeberCardInfoCheckbox" destination="SUS-TQ-Ca1" id="xHv-m6-hzp"/>
@@ -3770,9 +3772,11 @@
                         <outlet property="shippingDetailsView" destination="lM0-He-9qJ" id="jXJ-OL-M93"/>
                         <outlet property="subtotalDollarLabel" destination="GwV-2m-Dxp" id="zl9-6C-iUG"/>
                         <outlet property="thisIsGiftView" destination="caJ-L9-xIy" id="vRN-Sh-P1D"/>
+                        <outlet property="totalDueDollarLabel" destination="XWR-f5-dPb" id="5eQ-2M-wVy"/>
                         <outlet property="vipOptionCheckbox" destination="9Cb-mb-Lcm" id="QkX-Ap-Iba"/>
                         <outlet property="vipOptionView" destination="S7k-4C-rbH" id="UZi-aK-oc5"/>
                         <outlet property="visaCheckoutButton" destination="N6S-j5-1Bl" id="NT0-8T-0WX"/>
+                        <outlet property="youSaveDollarLabel" destination="wjg-7I-Qij" id="S8x-pN-0AM"/>
                         <outlet property="zipCodeShippingTF" destination="YGG-Uy-qkk" id="eB4-HB-2uw"/>
                     </connections>
                 </viewController>
@@ -3866,7 +3870,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="0C75DC05-A0B7-4D85-85FA-C9EB02116D52" width="30" height="30">
+        <image name="00FDDE3F-1A83-4605-8B45-F03C602CFA34" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
