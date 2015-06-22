@@ -58,6 +58,7 @@
 		692F24E41AAF7BC5003AABE1 /* BTRZoomImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692F24E31AAF7BC5003AABE1 /* BTRZoomImageViewController.m */; };
 		69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */; };
 		69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */; };
+		695C754B1B3841D1003F65F8 /* CTCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 695C754A1B3841D1003F65F8 /* CTCheckbox.m */; };
 		6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */; };
 		696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508611AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m */; };
 		696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */; };
@@ -125,7 +126,6 @@
 		69D4400B1B2A0D7900070FD8 /* masterpass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440071B2A0D7900070FD8 /* masterpass@2x.png */; };
 		69D4400C1B2A0D7900070FD8 /* VisaCheckout.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440081B2A0D7900070FD8 /* VisaCheckout.png */; };
 		69D4400D1B2A0D7900070FD8 /* VisaCheckout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D440091B2A0D7900070FD8 /* VisaCheckout@2x.png */; };
-		69D440111B2B127000070FD8 /* CTCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440101B2B127000070FD8 /* CTCheckbox.m */; };
 		69D440141B2B138000070FD8 /* BTRCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440131B2B138000070FD8 /* BTRCheckoutViewController.m */; };
 		69D440171B304D8E00070FD8 /* BTRDateHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440161B304D8E00070FD8 /* BTRDateHandler.m */; };
 		69D440231B3083CA00070FD8 /* BTROrderFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D440221B3083CA00070FD8 /* BTROrderFetcher.m */; };
@@ -281,6 +281,8 @@
 		69385FBD1A7AD2B70074FE33 /* BTRRefineResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRRefineResultsViewController.m; sourceTree = "<group>"; };
 		69385FC31A7BF40A0074FE33 /* BTRSearchFilterTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSearchFilterTVC.h; sourceTree = "<group>"; };
 		69385FC41A7BF40A0074FE33 /* BTRSearchFilterTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSearchFilterTVC.m; sourceTree = "<group>"; };
+		695C75491B3841D1003F65F8 /* CTCheckbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCheckbox.h; sourceTree = "<group>"; };
+		695C754A1B3841D1003F65F8 /* CTCheckbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCheckbox.m; sourceTree = "<group>"; };
 		6965085D1AA4B47C00ED28B8 /* BTRProductShowcaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShowcaseVC.h; sourceTree = "<group>"; };
 		6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductShowcaseVC.m; sourceTree = "<group>"; };
 		696508601AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShowcaseCollectionCell.h; sourceTree = "<group>"; };
@@ -404,8 +406,6 @@
 		69D440071B2A0D7900070FD8 /* masterpass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "masterpass@2x.png"; sourceTree = "<group>"; };
 		69D440081B2A0D7900070FD8 /* VisaCheckout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VisaCheckout.png; sourceTree = "<group>"; };
 		69D440091B2A0D7900070FD8 /* VisaCheckout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VisaCheckout@2x.png"; sourceTree = "<group>"; };
-		69D4400F1B2B127000070FD8 /* CTCheckbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCheckbox.h; sourceTree = "<group>"; };
-		69D440101B2B127000070FD8 /* CTCheckbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCheckbox.m; sourceTree = "<group>"; };
 		69D440121B2B138000070FD8 /* BTRCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRCheckoutViewController.h; sourceTree = "<group>"; };
 		69D440131B2B138000070FD8 /* BTRCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRCheckoutViewController.m; sourceTree = "<group>"; };
 		69D440151B304D8E00070FD8 /* BTRDateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRDateHandler.h; sourceTree = "<group>"; };
@@ -682,6 +682,15 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
+		695C75481B3841D1003F65F8 /* CTCheckbox */ = {
+			isa = PBXGroup;
+			children = (
+				695C75491B3841D1003F65F8 /* CTCheckbox.h */,
+				695C754A1B3841D1003F65F8 /* CTCheckbox.m */,
+			);
+			path = CTCheckbox;
+			sourceTree = "<group>";
+		};
 		695F99D81A573D1500A80D12 /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
@@ -763,7 +772,7 @@
 		69867A0F1A4480C7003CE59C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				69D4400E1B2B127000070FD8 /* CTCheckbox */,
+				695C75481B3841D1003F65F8 /* CTCheckbox */,
 				692709121B208C6C000A93ED /* etpushsdk */,
 				690A38D81B1DEB7F00D4BA84 /* TNRadioButton */,
 				69B9425B1AE033FD00483950 /* UIKit+AFNetworking */,
@@ -953,15 +962,6 @@
 				69B942801AE033FD00483950 /* AFURLSessionManager.m */,
 			);
 			path = AFNetworking;
-			sourceTree = "<group>";
-		};
-		69D4400E1B2B127000070FD8 /* CTCheckbox */ = {
-			isa = PBXGroup;
-			children = (
-				69D4400F1B2B127000070FD8 /* CTCheckbox.h */,
-				69D440101B2B127000070FD8 /* CTCheckbox.m */,
-			);
-			path = CTCheckbox;
 			sourceTree = "<group>";
 		};
 		69D5663C1A7A8F2300FAEDE2 /* UIImageEffects */ = {
@@ -1272,11 +1272,11 @@
 				69869FAC1A6408D200F986BC /* CoreDataTableViewController.m in Sources */,
 				690A38F51B1DEB7F00D4BA84 /* TNRectangularRadioButtonData.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
-				69D440111B2B127000070FD8 /* CTCheckbox.m in Sources */,
 				69869FA91A64028300F986BC /* BTRAppDelegate+MOC.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */,
 				690A38D51B1DE67F00D4BA84 /* BTRNotificationsVC.m in Sources */,
+				695C754B1B3841D1003F65F8 /* CTCheckbox.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
 				6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */,
 				69B942831AE033FD00483950 /* UIAlertView+AFNetworking.m in Sources */,

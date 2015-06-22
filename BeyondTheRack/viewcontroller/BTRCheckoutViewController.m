@@ -17,8 +17,8 @@
 #define EXPIRY_MONTH_PICKER     5
 #define PAYMENT_TYPE_PICKER     6
 
-#define BILLING_ADDRESS     1
-#define SHIPPING_ADDRESS    2
+#define BILLING_ADDRESS         1
+#define SHIPPING_ADDRESS        2
 
 @interface BTRCheckoutViewController ()
 
@@ -119,13 +119,22 @@
     
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
     [[self paymentTypesArray] addObjectsFromArray:[sharedPaymentTypes creditCardDisplayNameArray]];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:tap];
+ 
+ }
+
+
+- (void)checkboxDidChange:(CTCheckbox *)checkbox
+{
+    if (checkbox.checked) {
+        NSLog(@"--0-0 Checked");
+    } else {
+        NSLog(@"--00 Not checked");
+    }
 }
 
+- (IBAction)viewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
 
 - (void)dismissKeyboard {
     

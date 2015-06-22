@@ -14,9 +14,13 @@
 @interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate>
 
 
+
+@property (weak, nonatomic) IBOutlet UIView *parentViewforScrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIControl *childViewforScrollView;
+
 @property (weak, nonatomic) IBOutlet UIView *pickerParentView;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-
 
 @property (weak, nonatomic) IBOutlet UIButton *chatWithRepButton;
 @property (weak, nonatomic) IBOutlet UIButton *visaCheckoutButton;
