@@ -12,7 +12,6 @@
 #import "Order+AppServer.h"
 
 
-
 #define COUNTRY_PICKER          1
 #define PROVINCE_PICKER         2
 #define STATE_PICKER            3
@@ -39,10 +38,13 @@
 @property (strong, nonatomic) NSString *chosenShippingCountryString;
 @property (strong, nonatomic) NSString *chosenBillingCountryString;
 
-
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property (assign, nonatomic) BOOL checkboxVipOption;
+@property (assign, nonatomic) BOOL checkboxSameAsShipping;
+@property (assign, nonatomic) BOOL checkboxThisOrderIsGift;
+@property (assign, nonatomic) BOOL checkboxRememberCardInfo;
 
 @end
 
@@ -82,8 +84,8 @@
 
 - (NSArray *)expiryMonthsArray {
     
-    _expiryMonthsArray = @[@"01 January", @"02 February", @"03 March", @"04 April", @"05 May", @"06 June", @"07 July",
-                           @"08 August", @"09 September", @"10 October", @"11 November", @"12 December"];
+    _expiryMonthsArray = @[@"01 - jan", @"02 - feb", @"03 - mar", @"04 - apr", @"05 - may", @"06 - jun", @"07 - jul",
+                           @"08 - aug", @"09 - sep", @"10 - oct", @"11 - nov", @"12 - dec"];
     
     return _expiryMonthsArray;
 }
@@ -149,6 +151,8 @@
     [self.provinceBillingTF setText:[BTRViewUtility provinceNameforCode:[self.order billingProvince]]];
     [self.cityBillingTF setText:[self.order billingCity]];
     [self.phoneBillingTF setText:[self.order billingPhoneNumber]];
+    
+    int load_tax_and_dollars;
 }
 
 
@@ -320,8 +324,6 @@
         [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
     }
     
-    
-    
     [self.pickerParentView setHidden:TRUE];
 }
 
@@ -392,14 +394,12 @@
 - (void)setupDocument
 {
     if (!self.managedObjectContext) {
-        
         self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
         self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
     }
     
     int pickUp_UI_for_normal_or_employee;
     int true_false_values;
-    int what_is_the_token_thing;
 }
 
 - (void)makePaymentforSessionId:(NSString *)sessionId
@@ -441,16 +441,16 @@
     [orderInfo setObject:@"" forKey:@"recipient_message"];
     [orderInfo setObject:@true forKey:@"is_pickup"];
     
+    NSInteger expMonthInt = [[[[self expiryMonthPaymentTF] text] componentsSeparatedByString:@" -"][0] integerValue];
+    NSString *expMonth = [NSString stringWithFormat:@"%ld", (long)expMonthInt];
+    
     NSDictionary *cardInfo = (@{@"type": [[self paymentMethodTF] text],
                                 @"name": [[self nameOnCardPaymentTF] text],
                                 @"number": [[self cardNumberPaymentTF] text],
                                 @"year": [[self expiryYearPaymentTF] text],
-                                @"month": [[self expiryMonthPaymentTF] text],
+                                @"month": expMonth,
                                 @"cvv": [[self cardVerificationPaymentTF] text],
-                                @"remember_card": @false,
-                                @"payment_type": @"",
-                                @"use_token": @true,
-                                @"token":@"295219000" });
+                                @"remember_card": @false });
 
     [params setObject:orderInfo forKey:@"orderInfo"];
     [params setObject:@"creditcard" forKey:@"paymentMethod"];
