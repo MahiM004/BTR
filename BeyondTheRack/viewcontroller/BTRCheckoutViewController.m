@@ -387,9 +387,7 @@
     return sectionWidth;
 }
 
-
 #pragma mark - Credit Card RESTful Payment
-
 
 - (void)setupDocument
 {
@@ -398,8 +396,11 @@
         self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
         self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
     }
+    
+    int pickUp_UI_for_normal_or_employee;
+    int true_false_values;
+    int what_is_the_token_thing;
 }
-
 
 - (void)makePaymentforSessionId:(NSString *)sessionId
                            success:(void (^)(id  responseObject)) success
@@ -408,40 +409,63 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     
+    NSDictionary *shippingInfo = (@{@"name": [[self recipientNameShippingTF] text],
+                                    @"address1": [[self addressLine1ShippingTF] text],
+                                    @"address2": [[self addressLine2ShippingTF] text],
+                                    @"country": [BTRViewUtility countryCodeforName:[[self countryShippingTF] text]],
+                                    @"postal": [[self zipCodeShippingTF] text],
+                                    @"state": [BTRViewUtility provinceCodeforName:[[self provinceShippingTF] text]],
+                                    @"city": [[self cityShippingTF] text],
+                                    @"phone": [[self phoneShippingTF] text] });
     
-    (@{
-                                       //  @"event_id": [bagItem eventId],
-                                       //  @"sku": [bagItem sku],
-                                       //  @"variant": [bagItem variant],
-                                       //  @"cart_time": cart_time,
-                                       //  @"quantity": [bagItem quantity]
-                                         });
+    NSDictionary *billingInfo = (@{ @"name": [[self nameOnCardPaymentTF] text],
+                                    @"address1": [[self addressLine1BillingTF] text],
+                                    @"address2": [[self addressLine2BillingTF] text],
+                                    @"country": [BTRViewUtility countryCodeforName:[[self countryBillingTF] text]],
+                                    @"postal": [[self postalCodeBillingTF] text],
+                                    @"state": [BTRViewUtility provinceCodeforName:[[self provinceBillingTF] text]],
+                                    @"city": [[self cityBillingTF] text],
+                                    @"phone": [[self phoneBillingTF] text] });
+    
+    [orderInfo setObject:shippingInfo forKey:@"shipping"];
+    [orderInfo setObject:billingInfo forKey:@"billing"];
+    [orderInfo setObject:@false forKey:@"billto_shipto"];
+    [orderInfo setObject:@true forKey:@"vip_pickup"];
+    [orderInfo setObject:@false forKey:@"is_gift"];
+    [orderInfo setObject:@"" forKey:@"recipient_message"];
+    [orderInfo setObject:@true forKey:@"is_pickup"];
+    
+    NSDictionary *cardInfo = (@{@"type": [[self paymentMethodTF] text],
+                                @"name": [[self nameOnCardPaymentTF] text],
+                                @"number": [[self cardNumberPaymentTF] text],
+                                @"year": [[self expiryYearPaymentTF] text],
+                                @"month": [[self expiryMonthPaymentTF] text],
+                                @"cvv": [[self cardVerificationPaymentTF] text],
+                                @"remember_card": @false,
+                                @"payment_type": @"",
+                                @"use_token": @true,
+                                @"token":@"295219000" });
+
+    [params setObject:orderInfo forKey:@"orderInfo"];
+    [params setObject:@"creditcard" forKey:@"paymentMethod"];
+    [params setObject:cardInfo forKey:@"cardInfo"];
     
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
     [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]]
-       parameters:(NSDictionary *)params
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+       parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
-              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                   options:0
-                                                                                     error:NULL];
-    
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
               [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]]];
               [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-              
-              
               success(@"TRUE");
-              
+           
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
               failure(operation, error);
           }];
 }
