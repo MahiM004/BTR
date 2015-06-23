@@ -7,8 +7,11 @@
 //
 
 #import "BTRCheckoutViewController.h"
-
 #import "BTRPaymentTypesHandler.h"
+#import "BTROrderFetcher.h"
+#import "Order+AppServer.h"
+
+
 
 #define COUNTRY_PICKER          1
 #define PROVINCE_PICKER         2
@@ -35,6 +38,10 @@
 
 @property (strong, nonatomic) NSString *chosenShippingCountryString;
 @property (strong, nonatomic) NSString *chosenBillingCountryString;
+
+
+@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
 @end
@@ -120,7 +127,7 @@
     [self setChosenBillingCountryString:@"Canada"];
     
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
-    [[self paymentTypesArray] addObjectsFromArray:[sharedPaymentTypes creditCardDisplayNameArray]]; 
+    [[self paymentTypesArray] addObjectsFromArray:[sharedPaymentTypes creditCardDisplayNameArray]];
 }
 
 
@@ -209,9 +216,14 @@
 
 
 
-- (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) adressType{
+- (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) addressType{
     
-    [self setBillingOrShipping:adressType];
+    [self setBillingOrShipping:addressType];
+    [self loadPickerViewforPickerType:pickerType];
+}
+
+- (void)loadPickerViewforPickerType:(NSUInteger)pickerType {
+    
     [self setPickerType:pickerType];
     [self.pickerView reloadAllComponents];
     [self dismissKeyboard];
@@ -221,7 +233,7 @@
 
 
 - (IBAction)shippingCountryButtonTapped:(UIButton *)sender {
-    
+
     [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:SHIPPING_ADDRESS];
 }
 
@@ -251,17 +263,20 @@
 
 
 - (IBAction)expiryYearButtonTapped:(UIButton *)sender {
-    
+
+    [self loadPickerViewforPickerType:EXPIRY_YEAR_PICKER];
 }
 
 
 - (IBAction)expiryMonthButtonTapped:(UIButton *)sender {
     
+    [self loadPickerViewforPickerType:EXPIRY_MONTH_PICKER];
 }
 
 
 - (IBAction)paymentMethodButtonTapped:(UIButton *)sender {
     
+    [self loadPickerViewforPickerType:PAYMENT_TYPE_PICKER];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
@@ -293,6 +308,20 @@
         }
     }
     
+    if ([self pickerType] == EXPIRY_MONTH_PICKER) {
+        [self.expiryMonthPaymentTF setText:[[self expiryMonthsArray] objectAtIndex:row]];
+    }
+    
+    if ([self pickerType] == EXPIRY_YEAR_PICKER) {
+        [self.expiryYearPaymentTF setText:[[self expiryYearsArray] objectAtIndex:row]];
+    }
+    
+    if ([self pickerType] == PAYMENT_TYPE_PICKER) {
+        [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
+    }
+    
+    
+    
     [self.pickerParentView setHidden:TRUE];
 }
 
@@ -308,6 +337,15 @@
     
     if ([self pickerType] == STATE_PICKER)
         return [[self statesArray] count];
+    
+    if ([self pickerType] == EXPIRY_MONTH_PICKER)
+        return [[self expiryMonthsArray] count];
+    
+    if ([self pickerType] == EXPIRY_YEAR_PICKER)
+        return [[self expiryYearsArray] count];
+    
+    if ([self pickerType] == PAYMENT_TYPE_PICKER)
+        return [[self paymentTypesArray] count];
     
     return  [[self countryNameArray] count];
 }
@@ -329,6 +367,15 @@
     
     if ([self pickerType] == STATE_PICKER)
         return [[self statesArray] objectAtIndex:row];
+
+    if ([self pickerType] == EXPIRY_MONTH_PICKER)
+        return [[self expiryMonthsArray] objectAtIndex:row];
+    
+    if ([self pickerType] == EXPIRY_YEAR_PICKER)
+        return [[self expiryYearsArray] objectAtIndex:row];
+    
+    if ([self pickerType] == PAYMENT_TYPE_PICKER)
+        return [[self paymentTypesArray] objectAtIndex:row];
     
     return [[self countryNameArray] objectAtIndex:row];
 }
@@ -340,6 +387,64 @@
     return sectionWidth;
 }
 
+
+#pragma mark - Credit Card RESTful Payment
+
+
+- (void)setupDocument
+{
+    if (!self.managedObjectContext) {
+        
+        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
+        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
+    }
+}
+
+
+- (void)makePaymentforSessionId:(NSString *)sessionId
+                           success:(void (^)(id  responseObject)) success
+                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
+    
+    
+    (@{
+                                       //  @"event_id": [bagItem eventId],
+                                       //  @"sku": [bagItem sku],
+                                       //  @"variant": [bagItem variant],
+                                       //  @"cart_time": cart_time,
+                                       //  @"quantity": [bagItem quantity]
+                                         });
+    
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]]
+       parameters:(NSDictionary *)params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+    
+              [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]]];
+              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+              
+              
+              success(@"TRUE");
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              failure(operation, error);
+          }];
+}
 
 
 
