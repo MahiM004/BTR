@@ -1448,7 +1448,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="37877DB6-BAD9-44AB-B231-E1AF9D96441E" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="C61FCF4C-9FCB-4B32-BDF4-AB7FCF607C59" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3057,43 +3057,39 @@
                                                         <rect key="frame" x="11" y="188" width="299" height="1"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shipping Details" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqV-Uu-PnF">
-                                                        <rect key="frame" x="13" y="202" width="149" height="24"/>
-                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location where this order to be shipped." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpb-Vg-Cdu">
-                                                        <rect key="frame" x="13" y="227" width="296" height="21"/>
-                                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
-                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S7k-4C-rbH" userLabel="VIP Option View" customClass="UIControl">
-                                                        <rect key="frame" x="13" y="249" width="293" height="59"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S7k-4C-rbH" userLabel="VIP Option View" customClass="UIControl">
+                                                        <rect key="frame" x="13" y="263" width="293" height="46"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zn-Q3-DuB">
-                                                                <rect key="frame" x="48" y="6" width="237" height="47"/>
+                                                                <rect key="frame" x="48" y="0.0" width="237" height="46"/>
                                                                 <attributedString key="attributedText">
                                                                     <fragment content="VIP Option">
                                                                         <attributes>
                                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" size="15" name="AvenirNext-DemiBold"/>
+                                                                            <font key="NSFont" size="13" name="AvenirNext-DemiBold"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                                         </attributes>
                                                                     </fragment>
-                                                                    <fragment content=": Pick up from BTR Montreal office (no shipping fees)">
+                                                                    <fragment content=": ">
                                                                         <attributes>
                                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" size="15" name="AvenirNext-Medium"/>
+                                                                            <font key="NSFont" size="13" name=".HelveticaNeueDeskInterface-Regular"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                    <fragment content="Pick up from BTR Montreal office (no shipping fees)">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <font key="NSFont" size="14" name="AvenirNext-Regular"/>
                                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                                         </attributes>
                                                                     </fragment>
                                                                 </attributedString>
                                                                 <nil key="highlightedColor"/>
+                                                                <size key="shadowOffset" width="0.0" height="0.0"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Cb-mb-Lcm" customClass="CTCheckbox">
-                                                                <rect key="frame" x="16" y="3" width="57" height="54"/>
+                                                                <rect key="frame" x="16" y="-4" width="57" height="54"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
                                                         </subviews>
@@ -3242,7 +3238,7 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address of the card holder as shown on the credit or Visa Debit card statement" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJn-aA-q8w">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address of the card holder as shown on the credit or Visa Debit card statement." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJn-aA-q8w">
                                                         <rect key="frame" x="8" y="1027" width="304" height="53"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3723,6 +3719,18 @@
                                                             <action selector="receiptViewTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="8wk-05-8Gi"/>
                                                         </connections>
                                                     </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shipping Details" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqV-Uu-PnF">
+                                                        <rect key="frame" x="12" y="209" width="149" height="24"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location where this order to be shipped." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpb-Vg-Cdu">
+                                                        <rect key="frame" x="12" y="234" width="296" height="21"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -3818,7 +3826,9 @@
                         <outlet property="sameAddressCheckbox" destination="UMN-N5-CCp" id="XiS-OZ-v9n"/>
                         <outlet property="sameAsShippingAddressView" destination="0Jl-PN-R3p" id="7vQ-sa-tGg"/>
                         <outlet property="scrollView" destination="Ol2-Jf-Nst" id="qPI-5a-bxn"/>
+                        <outlet property="shippingCountryButton" destination="oLG-Fz-B0w" id="lDZ-2F-LkQ"/>
                         <outlet property="shippingDetailsView" destination="lM0-He-9qJ" id="jXJ-OL-M93"/>
+                        <outlet property="shippingStateButton" destination="GxN-HV-n7l" id="txl-3q-c3y"/>
                         <outlet property="subtotalDollarLabel" destination="GwV-2m-Dxp" id="zl9-6C-iUG"/>
                         <outlet property="thisIsGiftView" destination="caJ-L9-xIy" id="vRN-Sh-P1D"/>
                         <outlet property="totalDueDollarLabel" destination="XWR-f5-dPb" id="5eQ-2M-wVy"/>
@@ -3832,7 +3842,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3k-r8-R5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5Wd-id-3W3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3439" y="1010"/>
+            <point key="canvasLocation" x="3292" y="1021"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x8v-mg-mc8">
@@ -3919,7 +3929,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="37877DB6-BAD9-44AB-B231-E1AF9D96441E" width="30" height="30">
+        <image name="BTRLogo.png" width="925" height="125"/>
+        <image name="C61FCF4C-9FCB-4B32-BDF4-AB7FCF607C59" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -3977,7 +3988,6 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
-        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>

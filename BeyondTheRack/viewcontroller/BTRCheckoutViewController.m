@@ -162,15 +162,95 @@
     [self.sameAddressCheckbox addTarget:self action:@selector(checkboxSameAddressDidChange:) forControlEvents:UIControlEventValueChanged];
     [self checkboxSameAddressDidChange:self.vipOptionCheckbox];
     
-    int load_tax_and_dollars;
+    NSLog(@"SHOULD load_tax_and_dollars!") ;
+    NSLog(@"PickUP UI not available on UI yet!");
     
-    
-    int pickUp_UI_for_normal_or_employee;
 
+    if (![[self.order vipPickupEligible] boolValue]) {
+        [self.vipOptionView setHidden:FALSE];
+        
+    } else if (![[self.order vipPickupEligible] boolValue]) {
+        [self.vipOptionView setHidden:TRUE];
+    }
 }
 
 - (void) checkboxVipOptionDidChange:(CTCheckbox *)checkbox {
     
+    if ([checkbox checked]) {
+        
+        [self.addressLine1ShippingTF setText:@"MONTREAL EMPLOYEE PICKUP"];
+        [self.addressLine2ShippingTF setText:@"4600 HICKMORE"];
+        [self.countryShippingTF setText:@"Canada"];
+        [self.zipCodeShippingTF setText:@"H4T 1K2"];
+        [self.provinceShippingTF setText:@"Quebec"];
+        [self.cityShippingTF setText:@"SAINT-LAURENT"];
+        [self.phoneShippingTF setText:@"613-735-0112"];
+        
+        [self disableShippingAddress];
+        
+    } else if (![checkbox checked]) {
+
+        [self.addressLine1ShippingTF setText:@""];
+        [self.addressLine2ShippingTF setText:@""];
+        [self.countryShippingTF setText:@""];
+        [self.zipCodeShippingTF setText:@""];
+        [self.provinceShippingTF setText:@""];
+        [self.cityShippingTF setText:@""];
+        [self.phoneShippingTF setText:@""];
+        
+        [self enableShippingAddress];
+    }
+    
+}
+
+- (void) disableShippingAddress {
+    
+    [self.sameAsShippingAddressView setHidden:TRUE];
+    [self.sameAddressCheckbox setChecked:FALSE];
+    
+    [self.shippingCountryButton setEnabled:FALSE];
+    [self.shippingStateButton setEnabled:FALSE];
+    
+    [self.addressLine1ShippingTF setEnabled:FALSE];
+    [self.addressLine2ShippingTF setEnabled:FALSE];
+    [self.countryShippingTF setEnabled:FALSE];
+    [self.zipCodeShippingTF setEnabled:FALSE];
+    [self.provinceShippingTF setEnabled:FALSE];
+    [self.cityShippingTF setEnabled:FALSE];
+    [self.phoneShippingTF setEnabled:FALSE];
+    
+    [self.addressLine1ShippingTF setAlpha:0.6f];
+    [self.addressLine2ShippingTF setAlpha:0.6f];
+    [self.countryShippingTF setAlpha:0.6f];
+    [self.zipCodeShippingTF setAlpha:0.6f];
+    [self.provinceShippingTF setAlpha:0.6f];
+    [self.cityShippingTF setAlpha:0.6f];
+    [self.phoneShippingTF setAlpha:0.6f];
+
+}
+
+- (void) enableShippingAddress {
+    
+    [self.sameAsShippingAddressView setHidden:FALSE];
+    
+    [self.shippingCountryButton setEnabled:TRUE];
+    [self.shippingStateButton setEnabled:TRUE];
+    
+    [self.addressLine1BillingTF setEnabled:TRUE];
+    [self.addressLine2BillingTF setEnabled:TRUE];
+    [self.countryBillingTF setEnabled:TRUE];
+    [self.postalCodeBillingTF setEnabled:TRUE];
+    [self.provinceBillingTF setEnabled:TRUE];
+    [self.cityBillingTF setEnabled:TRUE];
+    [self.phoneBillingTF setEnabled:TRUE];
+    
+    [self.addressLine1BillingTF setAlpha:1.0f];
+    [self.addressLine2BillingTF setAlpha:1.0f];
+    [self.countryBillingTF setAlpha:1.0f];
+    [self.postalCodeBillingTF setAlpha:1.0f];
+    [self.provinceBillingTF setAlpha:1.0f];
+    [self.cityBillingTF setAlpha:1.0f];
+    [self.phoneBillingTF setAlpha:1.0f];
 }
 
 - (void) checkboxSameAddressDidChange:(CTCheckbox *)checkbox {
@@ -184,23 +264,9 @@
         [self.provinceBillingTF setText:[[self provinceShippingTF] text]];
         [self.cityBillingTF setText:[[self cityShippingTF] text]];
         [self.phoneBillingTF setText:[[self phoneShippingTF] text]];
-        
-        [self.addressLine1BillingTF setEnabled:FALSE];
-        [self.addressLine2BillingTF setEnabled:FALSE];
-        [self.countryBillingTF setEnabled:FALSE];
-        [self.postalCodeBillingTF setEnabled:FALSE];
-        [self.provinceBillingTF setEnabled:FALSE];
-        [self.cityBillingTF setEnabled:FALSE];
-        [self.phoneBillingTF setEnabled:FALSE];
-        
-        [self.addressLine1BillingTF setAlpha:0.6f];
-        [self.addressLine2BillingTF setAlpha:0.6f];
-        [self.countryBillingTF setAlpha:0.6f];
-        [self.postalCodeBillingTF setAlpha:0.6f];
-        [self.provinceBillingTF setAlpha:0.6f];
-        [self.cityBillingTF setAlpha:0.6f];
-        [self.phoneBillingTF setAlpha:0.6f];
 
+        [self disableBillingAddress];
+        
     } else if (![checkbox checked]) {
         
         [self.addressLine1BillingTF setText:@""];
@@ -211,22 +277,50 @@
         [self.cityBillingTF setText:@""];
         [self.phoneBillingTF setText:@""];
         
-        [self.addressLine1BillingTF setEnabled:TRUE];
-        [self.addressLine2BillingTF setEnabled:TRUE];
-        [self.countryBillingTF setEnabled:TRUE];
-        [self.postalCodeBillingTF setEnabled:TRUE];
-        [self.provinceBillingTF setEnabled:TRUE];
-        [self.cityBillingTF setEnabled:TRUE];
-        [self.phoneBillingTF setEnabled:TRUE];
-        
-        [self.addressLine1BillingTF setAlpha:1.0f];
-        [self.addressLine2BillingTF setAlpha:1.0f];
-        [self.countryBillingTF setAlpha:1.0f];
-        [self.postalCodeBillingTF setAlpha:1.0f];
-        [self.provinceBillingTF setAlpha:1.0f];
-        [self.cityBillingTF setAlpha:1.0f];
-        [self.phoneBillingTF setAlpha:1.0f];
+        [self enableBillingAddress];
     }
+}
+
+- (void) disableBillingAddress {
+    
+    [self.billingAddressView setUserInteractionEnabled:FALSE];
+    
+    [self.addressLine1BillingTF setEnabled:FALSE];
+    [self.addressLine2BillingTF setEnabled:FALSE];
+    [self.countryBillingTF setEnabled:FALSE];
+    [self.postalCodeBillingTF setEnabled:FALSE];
+    [self.provinceBillingTF setEnabled:FALSE];
+    [self.cityBillingTF setEnabled:FALSE];
+    [self.phoneBillingTF setEnabled:FALSE];
+    
+    [self.addressLine1BillingTF setAlpha:0.6f];
+    [self.addressLine2BillingTF setAlpha:0.6f];
+    [self.countryBillingTF setAlpha:0.6f];
+    [self.postalCodeBillingTF setAlpha:0.6f];
+    [self.provinceBillingTF setAlpha:0.6f];
+    [self.cityBillingTF setAlpha:0.6f];
+    [self.phoneBillingTF setAlpha:0.6f];
+}
+
+- (void) enableBillingAddress {
+    
+    [self.billingAddressView setUserInteractionEnabled:TRUE];
+    
+    [self.addressLine1BillingTF setEnabled:TRUE];
+    [self.addressLine2BillingTF setEnabled:TRUE];
+    [self.countryBillingTF setEnabled:TRUE];
+    [self.postalCodeBillingTF setEnabled:TRUE];
+    [self.provinceBillingTF setEnabled:TRUE];
+    [self.cityBillingTF setEnabled:TRUE];
+    [self.phoneBillingTF setEnabled:TRUE];
+    
+    [self.addressLine1BillingTF setAlpha:1.0f];
+    [self.addressLine2BillingTF setAlpha:1.0f];
+    [self.countryBillingTF setAlpha:1.0f];
+    [self.postalCodeBillingTF setAlpha:1.0f];
+    [self.provinceBillingTF setAlpha:1.0f];
+    [self.cityBillingTF setAlpha:1.0f];
+    [self.phoneBillingTF setAlpha:1.0f];
 }
 
 #pragma mark - Dissmiss Keyboard

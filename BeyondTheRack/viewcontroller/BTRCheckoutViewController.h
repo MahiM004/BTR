@@ -71,6 +71,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *provinceShippingTF;
 @property (weak, nonatomic) IBOutlet UITextField *cityShippingTF;
 @property (weak, nonatomic) IBOutlet UITextField *phoneShippingTF;
+@property (weak, nonatomic) IBOutlet UIButton *shippingCountryButton;
+@property (weak, nonatomic) IBOutlet UIButton *shippingStateButton;
 
 
 
