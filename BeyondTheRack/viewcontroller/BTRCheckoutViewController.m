@@ -22,6 +22,9 @@
 #define BILLING_ADDRESS         1
 #define SHIPPING_ADDRESS        2
 
+@class CTCheckbox;
+
+
 @interface BTRCheckoutViewController ()
 
 @property (assign, nonatomic) NSUInteger pickerType;
@@ -41,10 +44,6 @@
 @property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (assign, nonatomic) BOOL checkboxVipOption;
-@property (assign, nonatomic) BOOL checkboxSameAsShipping;
-@property (assign, nonatomic) BOOL checkboxThisOrderIsGift;
-@property (assign, nonatomic) BOOL checkboxRememberCardInfo;
 
 @end
 
@@ -152,10 +151,83 @@
     [self.cityBillingTF setText:[self.order billingCity]];
     [self.phoneBillingTF setText:[self.order billingPhoneNumber]];
     
+    [self.vipOptionCheckbox setChecked:[[self.order vipPickup] boolValue]];
+    [self.sameAddressCheckbox setChecked:[[self.order billingSameAsShipping] boolValue]];
+    [self.orderIsGiftCheckbox setChecked:[[self.order isGift] boolValue]];
+    [self.remeberCardInfoCheckbox setChecked:[[self.order rememberCard] boolValue]];
+    
+    [self.vipOptionCheckbox addTarget:self action:@selector(checkboxVipOptionDidChange:) forControlEvents:UIControlEventValueChanged];
+    [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
+
+    [self.sameAddressCheckbox addTarget:self action:@selector(checkboxSameAddressDidChange:) forControlEvents:UIControlEventValueChanged];
+    [self checkboxSameAddressDidChange:self.vipOptionCheckbox];
+    
     int load_tax_and_dollars;
+    
+    
+    int pickUp_UI_for_normal_or_employee;
+
 }
 
+- (void) checkboxVipOptionDidChange:(CTCheckbox *)checkbox {
+    
+}
 
+- (void) checkboxSameAddressDidChange:(CTCheckbox *)checkbox {
+    
+    if ([checkbox checked]) {
+        
+        [self.addressLine1BillingTF setText:[[self addressLine1ShippingTF] text]];
+        [self.addressLine2BillingTF setText:[[self addressLine2ShippingTF] text]];
+        [self.countryBillingTF setText:[[self countryShippingTF] text]];
+        [self.postalCodeBillingTF setText:[[self zipCodeShippingTF] text]];
+        [self.provinceBillingTF setText:[[self provinceShippingTF] text]];
+        [self.cityBillingTF setText:[[self cityShippingTF] text]];
+        [self.phoneBillingTF setText:[[self phoneShippingTF] text]];
+        
+        [self.addressLine1BillingTF setEnabled:FALSE];
+        [self.addressLine2BillingTF setEnabled:FALSE];
+        [self.countryBillingTF setEnabled:FALSE];
+        [self.postalCodeBillingTF setEnabled:FALSE];
+        [self.provinceBillingTF setEnabled:FALSE];
+        [self.cityBillingTF setEnabled:FALSE];
+        [self.phoneBillingTF setEnabled:FALSE];
+        
+        [self.addressLine1BillingTF setAlpha:0.6f];
+        [self.addressLine2BillingTF setAlpha:0.6f];
+        [self.countryBillingTF setAlpha:0.6f];
+        [self.postalCodeBillingTF setAlpha:0.6f];
+        [self.provinceBillingTF setAlpha:0.6f];
+        [self.cityBillingTF setAlpha:0.6f];
+        [self.phoneBillingTF setAlpha:0.6f];
+
+    } else if (![checkbox checked]) {
+        
+        [self.addressLine1BillingTF setText:@""];
+        [self.addressLine2BillingTF setText:@""];
+        [self.countryBillingTF setText:@""];
+        [self.postalCodeBillingTF setText:@""];
+        [self.provinceBillingTF setText:@""];
+        [self.cityBillingTF setText:@""];
+        [self.phoneBillingTF setText:@""];
+        
+        [self.addressLine1BillingTF setEnabled:TRUE];
+        [self.addressLine2BillingTF setEnabled:TRUE];
+        [self.countryBillingTF setEnabled:TRUE];
+        [self.postalCodeBillingTF setEnabled:TRUE];
+        [self.provinceBillingTF setEnabled:TRUE];
+        [self.cityBillingTF setEnabled:TRUE];
+        [self.phoneBillingTF setEnabled:TRUE];
+        
+        [self.addressLine1BillingTF setAlpha:1.0f];
+        [self.addressLine2BillingTF setAlpha:1.0f];
+        [self.countryBillingTF setAlpha:1.0f];
+        [self.postalCodeBillingTF setAlpha:1.0f];
+        [self.provinceBillingTF setAlpha:1.0f];
+        [self.cityBillingTF setAlpha:1.0f];
+        [self.phoneBillingTF setAlpha:1.0f];
+    }
+}
 
 #pragma mark - Dissmiss Keyboard
 
@@ -168,47 +240,36 @@
 - (void)dismissKeyboard {
     [self.view endEditing:YES];
 }
-
 - (IBAction)viewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
-
 - (IBAction)vipOptionViewTapped:(UIControl *)sender {
-    [self dismissKeyboard];
+[self dismissKeyboard];
 }
-
 - (IBAction)shippingDetailsViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
-
 - (IBAction)billingAddressViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
-
 - (IBAction)sameAsShippingAddressViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
-
 - (IBAction)thisIsGiftViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
-
 - (IBAction)paymentDetailsViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
-
 - (IBAction)rememberCardViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
-
 - (IBAction)haveGiftCardView:(UIControl *)sender {
     [self dismissKeyboard];
 }
-
 - (IBAction)processOrderViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
-
 - (IBAction)receiptViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
@@ -397,9 +458,6 @@
         self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
         self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
     }
-    
-    int pickUp_UI_for_normal_or_employee;
-    int true_false_values;
 }
 
 - (void)makePaymentforSessionId:(NSString *)sessionId
@@ -435,11 +493,12 @@
     
     [orderInfo setObject:shippingInfo forKey:@"shipping"];
     [orderInfo setObject:billingInfo forKey:@"billing"];
-    [orderInfo setObject:@false forKey:@"billto_shipto"];
-    [orderInfo setObject:@true forKey:@"vip_pickup"];
-    [orderInfo setObject:@false forKey:@"is_gift"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:@"" forKey:@"recipient_message"];
-    [orderInfo setObject:@true forKey:@"is_pickup"];
+    //[orderInfo setObject:[NSNumber numberWithBool:[self.pickupAvailable checked]] forKey:@"is_pickup"];
+    
     
     NSInteger expMonthInt = [[[[self expiryMonthPaymentTF] text] componentsSeparatedByString:@" -"][0] integerValue];
     NSString *expMonth = [NSString stringWithFormat:@"%ld", (long)expMonthInt];

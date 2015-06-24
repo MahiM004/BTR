@@ -1045,7 +1045,7 @@
                         <outlet property="fbButton" destination="2IA-bP-OGz" id="EUf-xe-6L1"/>
                         <outlet property="passwordIconLabel" destination="Wo2-OA-zYU" id="bmh-FQ-M9p"/>
                         <outlet property="passwordTextField" destination="ggP-64-4YR" id="el7-KL-jaa"/>
-                        <segue destination="2UK-j1-Cdh" kind="modal" identifier="LaunchCategoriesModalSegue" id="2s1-Dk-Kfr"/>
+                        <segue destination="2UK-j1-Cdh" kind="modal" identifier="BTRInitializeSegueIdentifier" modalTransitionStyle="crossDissolve" animates="NO" id="2s1-Dk-Kfr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uoi-pM-ZX5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1448,7 +1448,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="78B9DA61-2963-4BB3-95BA-5378CABC48E1" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="37877DB6-BAD9-44AB-B231-E1AF9D96441E" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -1885,7 +1885,7 @@
                     <view key="view" contentMode="scaleToFill" id="nxJ-tN-hhn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <segue destination="Kg0-s3-5cm" kind="modal" identifier="BTRMainSceneSegueIdentifier" modalTransitionStyle="crossDissolve" id="1O7-pk-e3g"/>
@@ -3919,7 +3919,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="78B9DA61-2963-4BB3-95BA-5378CABC48E1" width="30" height="30">
+        <image name="37877DB6-BAD9-44AB-B231-E1AF9D96441E" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -3998,7 +3998,7 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="2s1-Dk-Kfr"/>
         <segue reference="rQK-cN-5Fr"/>
-        <segue reference="cgg-l4-kOG"/>
     </inferredMetricsTieBreakers>
 </document>
