@@ -200,7 +200,6 @@
         
         [self enableShippingAddress];
     }
-    
 }
 
 - (void) disableShippingAddress {
