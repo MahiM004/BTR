@@ -933,7 +933,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RFK-fu-chk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xma-Pk-RHZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1639" y="1137"/>
+            <point key="canvasLocation" x="1881" y="933"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="oXh-lA-CfR">
@@ -1448,7 +1448,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="AA7C458E-9BB3-4D58-A7BD-D09747B44854" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="24F199EE-70AA-4F82-A54B-93929306618B" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3886,7 +3886,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mmb-mS-GQB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-73" y="225"/>
+            <point key="canvasLocation" x="-31" y="123"/>
         </scene>
         <!--Category View Controller-->
         <scene sceneID="NBA-r1-ol6">
@@ -3954,7 +3954,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AA7C458E-9BB3-4D58-A7BD-D09747B44854" width="30" height="30">
+        <image name="24F199EE-70AA-4F82-A54B-93929306618B" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
