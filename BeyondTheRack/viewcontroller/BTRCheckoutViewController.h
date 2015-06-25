@@ -42,6 +42,7 @@
 @property (weak, nonatomic) IBOutlet UIControl *haveGiftCardView;
 @property (weak, nonatomic) IBOutlet UIControl *processOrderView;
 @property (weak, nonatomic) IBOutlet UIControl *receiptView;
+@property (weak, nonatomic) IBOutlet UIControl *pleaseFillOutTheShippingFormView;
 
 
 

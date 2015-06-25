@@ -166,10 +166,12 @@
     NSLog(@"PickUP UI not available on UI yet!");
     
 
-    if (![[self.order vipPickupEligible] boolValue]) {
+    if ([[self.order vipPickupEligible] boolValue]) {
+        [self.pleaseFillOutTheShippingFormView setHidden:TRUE];
         [self.vipOptionView setHidden:FALSE];
         
     } else if (![[self.order vipPickupEligible] boolValue]) {
+        [self.pleaseFillOutTheShippingFormView setHidden:FALSE];
         [self.vipOptionView setHidden:TRUE];
     }
 }
@@ -364,6 +366,9 @@
     [self dismissKeyboard];
 }
 - (IBAction)receiptViewTapped:(UIControl *)sender {
+    [self dismissKeyboard];
+}
+- (IBAction)pleaseFillOutShippingFormViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
 
