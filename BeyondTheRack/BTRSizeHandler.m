@@ -11,7 +11,7 @@
 @implementation BTRSizeHandler
 
 
-+ (enum btrSizeMode) extractSizesfromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary
++ (BTRSizeMode) extractSizesfromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary
                                                   toSizesArray:(NSMutableArray *)sizesArray
                                              toSizeCodesArray:(NSMutableArray *)sizeCodesArray
                                            toSizeQuantityArray:(NSMutableArray *)sizesQuantityArray {
@@ -23,8 +23,9 @@
     NSString *keyString = @"";
     NSArray *allKeys = [variantInventoryDictionary allKeys];
     
+    
     if ([allKeys count] == 0) {
-        return btrSizeModeNoInfo;
+        return BTRSizeModeNoInfo;
     }
     
     if ([allKeys count] > 0) {
@@ -32,12 +33,12 @@
         keyString = [allKeys objectAtIndex:0];
         
         if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@"One Size"])
-            return btrSizeModeSingleSizeShow;
+            return BTRSizeModeSingleSizeShow;
         
         else if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] &&
                  [allKeys count] == 1 )  /*  To deal with the follwoing faulty data entry: { "#Z" = 79; "L#L" = 4; "M#M" = 8; }; */
         /*  if #Z and anything else ignore #Z" */
-            return btrSizeModeSingleSizeNoShow;
+            return BTRSizeModeSingleSizeNoShow;
     }
     
     [variantInventoryDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -52,7 +53,7 @@
         }
     }];
     
-    return btrSizeModeMultipleSizes;
+    return BTRSizeModeMultipleSizes;
 }
 
 

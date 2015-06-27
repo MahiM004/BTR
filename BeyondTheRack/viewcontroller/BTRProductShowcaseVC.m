@@ -197,7 +197,6 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
-              
               NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
               NSDate *serverTime = [NSDate date];
               
@@ -232,14 +231,14 @@
     
     BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
     
-    [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self.variantInventoriesArray objectAtIndex:indexPath.row]
+    BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self.variantInventoriesArray objectAtIndex:indexPath.row]
                                                  toSizesArray:[cell sizesArray]
                                              toSizeCodesArray:[cell sizeCodesArray]
                                           toSizeQuantityArray:[cell sizeQuantityArray]];
-    
+
     Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
     
-    cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andIndexPath:indexPath];
+    cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andBTRSizeMode:sizeMode forIndexPath:indexPath];
 
     NSMutableArray *tempSizesArray = [cell sizesArray];
     NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
@@ -306,18 +305,27 @@
 
 
 - (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell
-                                                                    withItem:(Item *)productItem
-                                                                andIndexPath:(NSIndexPath *)indexPath {
-    
-    if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] ) {
-        
-        cell.selectSizeButton.titleLabel.text = @"Select Size";
+                                                                    withItem:(Item *)productItem andBTRSizeMode:(BTRSizeMode)sizeMode
+                                                                forIndexPath:(NSIndexPath *)indexPath {
+
+    if (sizeMode == BTRSizeModeSingleSizeNoShow || sizeMode == BTRSizeModeSingleSizeShow) {
+
+        [[cell.selectSizeButton titleLabel] setText:@"One Size"];
+        [cell.selectSizeButton setAlpha:0.4];
+        [cell.selectSizeButton setEnabled:false];
         
     } else {
         
-        cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
-    }
+        if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] ) {
+            
+            cell.selectSizeButton.titleLabel.text = @"Select Size";
+            
+        } else {
+            
+            cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
+        }
 
+    }
     
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
     

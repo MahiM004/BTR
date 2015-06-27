@@ -9,21 +9,22 @@
 #import <Foundation/Foundation.h>
 
 
-enum btrSizeMode
-{
-    btrSizeModeSoldOut, // == 0 (by default)
-    btrSizeModeSingleSizeShow, // == 1 (incremented by 1 from previous)
-    btrSizeModeSingleSizeNoShow, // == 2
-    btrSizeModeNoInfo,
-    btrSizeModeMultipleSizes
+typedef NS_ENUM(NSInteger, BTRSizeMode) {
+    
+    BTRSizeModeSoldOut, // == 0 (by default)
+    BTRSizeModeSingleSizeShow, // == 1 (incremented by 1 from previous)
+    BTRSizeModeSingleSizeNoShow, // == 2
+    BTRSizeModeNoInfo,
+    BTRSizeModeMultipleSizes
 };
 
 
 @interface BTRSizeHandler : NSObject
 
 
-+ (enum btrSizeMode) extractSizesfromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary
++ (BTRSizeMode) extractSizesfromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary
                                                   toSizesArray:(NSMutableArray *)sizesArray
                                               toSizeCodesArray:(NSMutableArray *)sizeCodesArray
                                            toSizeQuantityArray:(NSMutableArray *)sizesQuantityArray;
+
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "BTRSizeSelector.h"
+#import "BTRSizeHandler.h"
 
 
 @interface BTRProductShowcaseCollectionCell : UICollectionViewCell
@@ -22,7 +23,7 @@
 @property (strong, nonatomic) NSMutableArray *sizesArray;
 @property (strong, nonatomic) NSMutableArray *sizeCodesArray;
 @property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
-
+@property (assign, nonatomic) BTRSizeMode sizeMode;
 @property (nonatomic, strong) BTRSizeSelector *sizeSelector;
 
 @property (assign, nonatomic) BOOL hasSelectedSize;

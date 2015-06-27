@@ -153,7 +153,8 @@
         
         [self.longDescriptionView addSubview:descriptionView];
         
-        enum btrSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self variantInventoryDictionary]
+       
+        BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self variantInventoryDictionary]
                                                                                  toSizesArray:[self sizesArray]
                                                                              toSizeCodesArray:[self sizeCodesArray]
                                                                           toSizeQuantityArray:[self sizeQuantityArray]];
@@ -171,9 +172,9 @@
 }
 
 
-- (void)updateSizeSelectionViewforSizeMode:(enum btrSizeMode)sizeMode {
+- (void)updateSizeSelectionViewforSizeMode:(BTRSizeMode)sizeMode {
     
-    if (sizeMode == btrSizeModeSingleSizeShow || sizeMode == btrSizeModeSingleSizeNoShow) {
+    if (sizeMode == BTRSizeModeSingleSizeShow || sizeMode == BTRSizeModeSingleSizeNoShow) {
         
         [self.selectSizeLabel setAttributedText:[BTRViewUtility crossedOffStringfromString:@"Select Size :"]];
         [self.selectSizeLabel setAlpha:0.4];
