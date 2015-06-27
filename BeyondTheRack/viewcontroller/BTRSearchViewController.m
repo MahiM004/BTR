@@ -357,9 +357,8 @@
          if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
              
              if ([arrayToPass count] != 0) {
-                 
-                 int here;
-                 [self.itemsArray addObjectsFromArray:[Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]]];
+    
+                 self.itemsArray = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]];
              }
          }
          
@@ -444,8 +443,7 @@
         
         if ([arrayToPass count] != 0) {
             
-            int here;
-            [self.itemsArray addObjectsFromArray:[Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]]];
+            self.itemsArray = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]];
         }
 
     }
