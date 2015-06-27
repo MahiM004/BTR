@@ -201,6 +201,7 @@
               NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
               NSDate *serverTime = [NSDate date];
               
+              [[self bagItemsArray] removeAllObjects];
               self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
               
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
@@ -281,7 +282,6 @@
                     
                     UIStoryboard *storyboard = self.storyboard;
                     BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-                    [vc.bagItemsArray addObjectsFromArray:[self bagItemsArray]];
                     [self presentViewController:vc animated:YES completion:nil];
                 }
                 

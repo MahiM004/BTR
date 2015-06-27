@@ -42,6 +42,8 @@
     
     [super viewDidLoad];
     
+    self.user = [[User alloc] init];
+    
     [self fetchUserWithSuccess:^(User *user) {
         
         self.welcomeLabel.text = [NSString stringWithFormat:@"%@ %@", [user name], [user lastName]];

@@ -137,7 +137,7 @@
 - (BTRBagTableViewCell *)configureCell:(BTRBagTableViewCell *)cell forBagItem:(BagItem *)bagItem andItem:(Item *)item {
     
     cell.brandLabel.text = [item brand];
-    cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[item salePrice]];
+    cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[bagItem pricing]];
     cell.itemLabel.text = [item shortItemDescription];
     cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [bagItem  variant]];
     [cell.stepper setValue:[[bagItem quantity] floatValue]];

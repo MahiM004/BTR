@@ -10,7 +10,4 @@
 
 @interface BTRAccountEmbeddedTVC : UITableViewController
 
-
-
-
 @end

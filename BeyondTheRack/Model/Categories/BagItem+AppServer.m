@@ -61,13 +61,29 @@
     
     
     bagItem.serverDateTime = serverTime;
-
+    
     if ([bagItemDictionary valueForKeyPath:@"sku"] && [bagItemDictionary valueForKeyPath:@"sku"] != [NSNull null]) {
         bagItem.sku = [bagItemDictionary valueForKeyPath:@"sku"];
     }
     
     if ([bagItemDictionary valueForKeyPath:@"variant"] && [bagItemDictionary valueForKeyPath:@"variant"] != [NSNull null]) {
         bagItem.variant = [bagItemDictionary valueForKeyPath:@"variant"];
+    }
+
+    if ([bagItemDictionary valueForKeyPath:@"addtionalShipping"] && [bagItemDictionary valueForKeyPath:@"addtionalShipping"] != [NSNull null]) {
+        bagItem.additionalShipping = [bagItemDictionary valueForKeyPath:@"addtionalShipping"];
+    }
+    
+    if ([bagItemDictionary valueForKeyPath:@"employee"] && [bagItemDictionary valueForKeyPath:@"employee"] != [NSNull null]) {
+        bagItem.isEmployee = [[bagItemDictionary valueForKeyPath:@"employee"] stringValue];
+    }
+    
+    if ([bagItemDictionary valueForKeyPath:@"country"] && [bagItemDictionary valueForKeyPath:@"country"] != [NSNull null]) {
+        bagItem.country = [bagItemDictionary valueForKeyPath:@"country"];
+    }
+    
+    if ([bagItemDictionary valueForKeyPath:@"pricing"] && [bagItemDictionary valueForKeyPath:@"pricing"] != [NSNull null]) {
+        bagItem.pricing = [bagItemDictionary valueForKeyPath:@"pricing"];
     }
     
     if ([bagItemDictionary valueForKeyPath:@"event_id"] && [bagItemDictionary valueForKeyPath:@"event_id"] != [NSNull null])

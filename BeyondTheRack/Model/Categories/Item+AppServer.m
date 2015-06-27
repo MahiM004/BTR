@@ -134,7 +134,10 @@
     if ([itemDictionary valueForKeyPath:@"employee_price"] && [itemDictionary valueForKeyPath:@"employee_price"] != [NSNull null])
         item.employeePrice = [itemDictionary valueForKey:@"employee_price"];
     
+    NSLog(@"-00-00-- NOT THE SAME DATA AS WEB-JSON retail: %@ -- regular: %@ -- ", [item retailPrice], [item salePrice]);
+    
     /* handling employee pricing at the JSON reading level */
+    
     if (![[item employeePrice] isEqualToNumber:[NSNumber numberWithFloat:0]])
         item.salePrice = [item employeePrice];
     

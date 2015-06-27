@@ -101,9 +101,7 @@
             if ([successString isEqualToString:@"TRUE"]) {
              
                 UIStoryboard *storyboard = self.storyboard;
-                BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-                [vc.bagItemsArray addObjectsFromArray:[self bagItemsArray]];
-                
+                BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];                
                 [self presentViewController:vc animated:YES completion:nil];
             }
             
@@ -151,6 +149,7 @@
               NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
               NSDate *serverTime = [NSDate date];
               
+              [[self bagItemsArray] removeAllObjects];
               self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
               
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
