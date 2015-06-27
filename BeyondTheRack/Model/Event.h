@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface Event : NSManagedObject
+@interface Event : NSObject
 
 @property (nonatomic, retain) NSString * discount;
 @property (nonatomic, retain) NSString * eventDescription;

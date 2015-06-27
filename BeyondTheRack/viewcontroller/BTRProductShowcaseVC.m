@@ -30,9 +30,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @property (strong, nonatomic) NSMutableArray *itemArray;
 @property (copy, nonatomic) NSMutableArray *variantInventoriesArray; // an Array of variantInventory Dictionaries
 @property (copy, nonatomic) NSMutableArray *attributesArray; // an Array of variantInventory Dictionaries
@@ -109,10 +106,7 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    [self setupDocument];
-    
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument]
-                     forEventSku:[self eventSku]
+    [self fetchItemsforEventSku:[self eventSku]
                          success:^(NSDictionary *responseDictionary) {
                    
                              [self.collectionView reloadData];
@@ -128,16 +122,8 @@
 #pragma mark - Load Event Products RESTful
 
 
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
 
-- (void)fetchItemsIntoDocument:(UIManagedDocument *)document forEventSku:(NSString *)eventSku
+- (void)fetchItemsforEventSku:(NSString *)eventSku
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
@@ -163,8 +149,7 @@
              [self.attributesArray addObject:itemDic[@"attributes"]];
          }
          
-         [self.itemArray addObjectsFromArray:[Item loadItemsfromAppServerArray:entitiesPropertyList intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext withEventId:[self eventSku]]];
-         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         self.itemArray = [Item loadItemsfromAppServerArray:entitiesPropertyList withEventId:[self eventSku] forItemsArray:[self itemArray]];
          
          for (int i = 0; i < [self.itemArray count]; i++)
              [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
@@ -216,8 +201,7 @@
               NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
               NSDate *serverTime = [NSDate date];
               
-              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
-              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+              self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
               
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
               [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
@@ -253,6 +237,7 @@
                                           toSizeQuantityArray:[cell sizeQuantityArray]];
     
     Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
+    
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andIndexPath:indexPath];
 
     NSMutableArray *tempSizesArray = [cell sizesArray];

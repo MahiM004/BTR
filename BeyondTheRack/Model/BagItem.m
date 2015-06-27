@@ -11,19 +11,5 @@
 
 @implementation BagItem
 
-@dynamic bagItemId;
-@dynamic createDateTime;
-@dynamic isInStock;
-@dynamic itemId;
-@dynamic orderId;
-@dynamic quantity;
-@dynamic retailUnitPrice;
-@dynamic saleUnitPrice;
-@dynamic eventId;
-@dynamic sku;
-@dynamic variant;
-@dynamic expiryDuration;
-@dynamic dueDateTime;
-@dynamic serverDateTime;
 
 @end

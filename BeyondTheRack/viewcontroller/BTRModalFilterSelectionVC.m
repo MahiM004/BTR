@@ -20,9 +20,6 @@
     int selectedIndex;
 }
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-
 @property (strong, nonatomic) NSMutableArray *optionsArray;
 @property (strong, nonatomic) NSMutableArray *selectedOptionsArray;
 
@@ -111,7 +108,6 @@
     [super viewDidLoad];
     
     selectedIndex = -1;
-    [self setupDocument];
     self.titleLabel.text = [NSString stringWithFormat:@"Select %@", [self headerTitle]];
     
 }
@@ -218,17 +214,7 @@
 
 #pragma mark - Load Results RESTful
 
-
-- (void)setupDocument {
-    
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
-- (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
+- (void)fetchItemsforSearchQuery:(NSString *)searchQuery
               withFacetsString:(NSString *)facetsString
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
@@ -300,8 +286,7 @@
         
         [self.selectedOptionsArray removeAllObjects];
         
-        [self fetchItemsIntoDocument:[self beyondTheRackDocument]
-                      forSearchQuery:[sharedFacetHandler searchString]
+        [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                     withFacetsString:[sharedFacetHandler getFacetStringForRESTfulRequest]
                              success:^(NSDictionary *responseDictionary) {
                                  
@@ -323,8 +308,7 @@
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument]
-                  forSearchQuery:[sharedFacetHandler searchString]
+    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                 withFacetsString:[self facetsQueryString]
                          success:^(NSDictionary *responseDictionary) {
                              

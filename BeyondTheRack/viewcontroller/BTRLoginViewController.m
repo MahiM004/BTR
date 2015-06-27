@@ -25,9 +25,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordIconLabel;
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 
 @property (nonatomic, strong) NSDictionary *fbUserParams;
 
@@ -61,7 +58,6 @@
     
     self.fbButton.readPermissions = @[@"public_profile", @"email"];
     
-    [self setupDocument];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                  initWithTarget:self
                                action:@selector(dismissKeyboard)];
@@ -73,7 +69,7 @@
     self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
     
     /*
-     FAImageView *imageView = [[FAImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 100.f, 100.f)];
+     FAImageView *imageView = [[FAImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 200.f, 200.f)];
      imageView.image = nil;
      [imageView setDefaultIconIdentifier:@"fa-github"];
      */
@@ -101,7 +97,7 @@
 
 - (IBAction)signInButtonTapped:(UIButton *)sender {
 
-    [self fetchUserIntoDocument:[self beyondTheRackDocument] success:^(NSString *didLogIn) {
+    [self fetchUserWithSuccess:^(NSString *didLogIn) {
         
         if ([didLogIn  isEqualToString:@"TRUE"]) {
 
@@ -223,20 +219,7 @@
 
 #pragma mark - Load User RESTful
 
-
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
-
-
-- (void)fetchUserIntoDocument:(UIManagedDocument *)document
-                       success:(void (^)(id  responseObject)) success
+- (void)fetchUserWithSuccess:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
  
@@ -269,8 +252,8 @@
                   BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
                   [btrSettings initSessionId:sessionIdString withEmail:[[self emailTextField] text] andPassword:[[self passwordTextField] text] hasFBloggedIn:NO];
                   
-                  [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
-                  [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                  User *user = [[User alloc] init];
+                  [User userAuthWithAppServerInfo:userDic forUser:user];
                   
                   success(@"TRUE");
      
@@ -368,8 +351,8 @@
                   
                   [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:YES];
                   
-                  [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
-                  [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                  User *user = [[User alloc] init];
+                  [User userAuthWithAppServerInfo:userDic forUser:user];
                   
                   success(@"TRUE", nil);
                   

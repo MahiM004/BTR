@@ -41,11 +41,8 @@
 @property (strong, nonatomic) NSString *chosenShippingCountryString;
 @property (strong, nonatomic) NSString *chosenBillingCountryString;
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-
 @end
+
 
 @implementation BTRCheckoutViewController
 
@@ -550,14 +547,6 @@
 
 #pragma mark - Credit Card RESTful Payment
 
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
 - (void)makePaymentforSessionId:(NSString *)sessionId
                            success:(void (^)(id  responseObject)) success
                            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
@@ -618,8 +607,7 @@
        parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
-              [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]]];
-              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+              [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList]];
               success(@"TRUE");
            
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

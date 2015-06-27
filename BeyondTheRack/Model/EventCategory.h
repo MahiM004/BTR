@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface EventCategory : NSManagedObject
+@interface EventCategory : NSObject
 
 @property (nonatomic, retain) NSString * active;
 @property (nonatomic, retain) NSString * categoryId;

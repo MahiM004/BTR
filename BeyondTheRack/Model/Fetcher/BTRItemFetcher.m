@@ -19,7 +19,9 @@
 
 + (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku {
     
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@&limit=100", BASEURL, eventSku]];
+    //return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@&limit=200", BASEURL, eventSku]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@", BASEURL, eventSku]];
+
 }
 
 

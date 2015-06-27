@@ -35,9 +35,8 @@
 @property (strong, nonatomic) NSArray *provincesArray;
 @property (strong, nonatomic) NSArray *statesArray;
 
+@property (nonatomic, strong) User *user;
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end
 
@@ -118,8 +117,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self setupDocument];
-
     
     self.pickerView.delegate = self;
     self.pickerView.showsSelectionIndicator = YES;
@@ -339,16 +336,6 @@
 #pragma mark - User Info RESTful
 
 
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
-
 - (void)fetchUserInfoforSessionId:(NSString *)sessionId
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
@@ -370,10 +357,9 @@
                                                                                  error:NULL];
          if (entitiesPropertyList) {
              
-             User *user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
-             [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+             self.user = [User userWithAppServerInfo:entitiesPropertyList forUser:[self user]];
              
-             success(user);
+             success([self user]);
          }
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

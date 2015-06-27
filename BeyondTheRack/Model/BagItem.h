@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface BagItem : NSManagedObject
+@interface BagItem : NSObject
 
 @property (nonatomic, retain) NSString * bagItemId;
 @property (nonatomic, retain) NSDate * createDateTime;

@@ -10,16 +10,12 @@
 
 #import "BTRCategoryFetcher.h"
 #import "EventCategory+AppServer.h"
-
 #import "BTRMainViewController.h"
-
 #import "BTRCategoryData.h"
 
 
 @interface BTRInitializeViewController ()
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) NSMutableArray *categoryNames;
 @property (strong, nonatomic) NSMutableArray *urlCategoryNames;
@@ -50,11 +46,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
-    [self setupDocument];
     
-    [self fetchCategoriesIntoDocument:[self beyondTheRackDocument]
-                              success:^(NSMutableArray *eventCategoriesArray) {
+    [self fetchCategoriesWithSuccess:^(NSMutableArray *eventCategoriesArray) {
                                   
                                   [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
 
@@ -69,18 +62,8 @@
 # pragma mark - Load Categories
 
 
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
 
-
-- (void)fetchCategoriesIntoDocument:(UIManagedDocument *)document
-                            success:(void (^)(id  responseObject)) success
+- (void)fetchCategoriesWithSuccess:(void (^)(id  responseObject)) success
                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     
@@ -104,7 +87,7 @@
          
          NSMutableArray *categoriesArray = [[NSMutableArray alloc] init];
          
-         categoriesArray = [EventCategory loadCategoriesFromAppServerArray:entitiesPropertyList intoManagedObjectContext:document.managedObjectContext];
+         categoriesArray = [EventCategory loadCategoriesfromAppServerArray:entitiesPropertyList forCategoriesArray:categoriesArray];//loadCategoriesFromAppServerArray:entitiesPropertyList];
          
          BTRCategoryData *sharedCategoryData = [BTRCategoryData sharedCategoryData];
          
@@ -113,9 +96,7 @@
              [[sharedCategoryData categoryNameArray]  addObject:[eventCategory displayName]];
              [[sharedCategoryData categoryUrlArray]  addObject:[eventCategory name]];
          }
-         
-         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-         
+    
          success(categoriesArray);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

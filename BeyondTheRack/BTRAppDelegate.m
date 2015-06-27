@@ -8,8 +8,6 @@
 
 #import "BTRAppDelegate.h"
 
-#import "BTRAppDelegate+MOC.h"
-
 #import "Event+AppServer.h"
 #import "Item+AppServer.h"
 #import "User+AppServer.h"
@@ -28,8 +26,6 @@
 
 @interface BTRAppDelegate ()
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
 @end
@@ -60,34 +56,20 @@
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         
-        if (!self.beyondTheRackDocument) {
+        NSString *firstTime = [[NSUserDefaults standardUserDefaults] stringForKey:@"FirstTime"];
+        
+        if (![firstTime isEqualToString:@"FALSE"]){
             
-            [[BTRDocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
-                self.beyondTheRackDocument = document;
-                
-                NSString *firstTime = [[NSUserDefaults standardUserDefaults] stringForKey:@"FirstTime"];
-                
-                if (![firstTime isEqualToString:@"FALSE"]){
-                    
-                    [Event initInManagedObjectContext:[document managedObjectContext]];
-                    [Item initInManagedObjectContext:[document managedObjectContext]];
-                    [User initInManagedObjectContext:[document managedObjectContext]];
-                    [BagItem initInManagedObjectContext:[document managedObjectContext]];
-                    [Order initInManagedObjectContext:[document managedObjectContext]];
-
-                    [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-                    
-                    [self deleteAllObjectsInContext:[[self beyondTheRackDocument] managedObjectContext] usingModel:[[self beyondTheRackDocument] managedObjectModel]];
-                    
-                    [[NSUserDefaults standardUserDefaults] setValue:@"FALSE" forKey:@"FirstTime"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                }
-                
-            }];
+            
+            
+            
+            [[NSUserDefaults standardUserDefaults] setValue:@"FALSE" forKey:@"FirstTime"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
-
+        
+        
     }];
-
+    
     
     
     

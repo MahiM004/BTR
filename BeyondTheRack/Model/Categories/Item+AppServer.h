@@ -10,10 +10,6 @@
 
 @interface Item (AppServer)
 
-
-+ (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
-
-
 /*
  
  *** IMPORTAMT NOTE:
@@ -23,22 +19,21 @@
  
  */
 
-+ (Item *)getItemforSku:(NSString *)uniqueSku fromManagedObjectContext:(NSManagedObjectContext *)context;
-
 + (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
-                               inManagedObjectContext:(NSManagedObjectContext *)context
                     withEventId:(NSString *)eventId;
 
++ (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
+                                    withEventId:(NSString *)eventId
+                                 forItemsArray:(NSMutableArray *)itemsArray;
 
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
-                                   intoManagedObjectContext:(NSManagedObjectContext *)context
-                                    withEventId:(NSString *)eventId;
+                                  forItemsArray:(NSMutableArray *)itemsArray;
 
-+ (Item *)itemWithSearchResponseInfo:(NSDictionary *)itemDictionary
-              inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Item *)itemWithSearchResponseInfo:(NSDictionary *)itemDictionary;
 
-+ (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
-                       intoManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSMutableArray *)loadItemsfromAppSearchServerArray:(NSArray *)items forItemsArray:(NSMutableArray *)itemsArray; // of AppServer Item NSDictionary
+
+
 
 
 @end

@@ -23,9 +23,6 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @property (strong, nonatomic) Item *selectedItem;
 
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
@@ -68,9 +65,6 @@
     
     [super viewDidLoad];
     
-
-    [self setupDocument];
-
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
@@ -206,7 +200,7 @@
     [self assignFilterIcon];
 
     
-    [self fetchItemsIntoDocument:[self beyondTheRackDocument] forSearchQuery:[sharedFacetHandler searchString]
+    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                          success:^(NSMutableArray *responseArray) {
                              
                              [self.originalItemArray addObjectsFromArray:responseArray];
@@ -329,17 +323,7 @@
 
 #pragma mark - Load Results RESTful
 
-
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
-- (void)fetchItemsIntoDocument:(UIManagedDocument *)document forSearchQuery:(NSString *)searchQuery
+- (void)fetchItemsforSearchQuery:(NSString *)searchQuery
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
@@ -374,10 +358,8 @@
              
              if ([arrayToPass count] != 0) {
                  
-                 
-                 [self.itemsArray addObjectsFromArray:[Item loadItemsfromAppServerArray:arrayToPass intoManagedObjectContext:[self.beyondTheRackDocument managedObjectContext]]];
-                 
-                 [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                 int here;
+                 [self.itemsArray addObjectsFromArray:[Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]]];
              }
          }
          
@@ -462,10 +444,10 @@
         
         if ([arrayToPass count] != 0) {
             
-            
-            [self.itemsArray addObjectsFromArray:[Item loadItemsfromAppServerArray:arrayToPass intoManagedObjectContext:self.beyondTheRackDocument.managedObjectContext]];
-            [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+            int here;
+            [self.itemsArray addObjectsFromArray:[Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]]];
         }
+
     }
 
     [self.collectionView reloadData];

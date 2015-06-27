@@ -17,9 +17,6 @@
 
 @interface BTREditShoppingBagVC ()
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *bagTitleLabel;
 
@@ -37,7 +34,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self setupDocument];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -115,7 +111,8 @@
     
     NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
     
-    Item *item = [Item getItemforSku:uniqueSku fromManagedObjectContext:[self managedObjectContext]];
+    NSLog(@"---00--00----0- get item!!!");
+    Item *item;// = [Item getItemforSku:uniqueSku fromManagedObjectContext:[self managedObjectContext]];
     
     [cell.itemImageView setImageWithURL:[BTRItemFetcher
                                          URLforItemImageForSku:uniqueSku]
@@ -158,7 +155,7 @@
     return cell;
 }
 
-
+/*
 - (float)getSubtotalSale {
     
     float subtotal = 0.0;
@@ -186,20 +183,10 @@
     
     return subtotal;
 }
-
+*/
 
 
 #pragma mark - Bag RESTful Calls
-
-
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
 
 
 - (void)setShoppingBagforSessionId:(NSString *)sessionId
@@ -244,9 +231,7 @@
               NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
               NSDate *serverTime = [NSDate date];
               
-              [self.bagItemsArray removeAllObjects];
-              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
-              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+              self.bagItemsArray  = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
  
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
               [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];

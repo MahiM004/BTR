@@ -12,13 +12,9 @@
 
 @interface EventCategory (AppServer)
 
++ (EventCategory *)eventWithAppServerInfo:(NSDictionary *)eventDictionary;
 
-+ (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSMutableArray *)loadCategoriesfromAppServerArray:(NSArray *)eventCategories forCategoriesArray:(NSMutableArray *)categoriesArray; // of AppServer EventCategory NSDictionary
 
-+ (EventCategory *)eventWithAppServerInfo:(NSDictionary *)eventDictionary
-                   inManagedObjectContext:(NSManagedObjectContext *)context;
-
-+ (NSMutableArray *)loadCategoriesFromAppServerArray:(NSArray *)eventCategories // of AppServer EventCategory NSDictionary
-                            intoManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

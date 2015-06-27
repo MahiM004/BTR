@@ -12,137 +12,31 @@
 
 
 
-+ (void)initInManagedObjectContext:(NSManagedObjectContext *)context
++ (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
+                    withEventId:(NSString *)eventId
 {
-    Item *item = nil;
-    
-    item = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
-                                                    inManagedObjectContext:context];
-    
-    item.shortItemDescription = @"dummy";
-}
-
-
-
-
-+ (Item *)getItemforSku:(NSString *)uniqueSku fromManagedObjectContext:(NSManagedObjectContext *)context {
-    
-    Item *item = nil;
-    
-    if(!uniqueSku)
-        return nil;
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Item"];
-    request.predicate = [NSPredicate predicateWithFormat:@"sku == %@", uniqueSku];
-    
-    NSError *error;
-    NSArray *matches = [context executeFetchRequest:request error:&error];
-   
-    if (error) {
-        
-        return nil;
-        
-    } else if ([matches count] >= 1) {
-        
-        item = [matches firstObject];
-    }
+    Item *item = [[Item alloc] init];
+    item.eventId = eventId;
+    item = [self extractItemfromJsonDictionary:itemDictionary forItem:item];
     
     return item;
 }
 
 
 + (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
-         inManagedObjectContext:(NSManagedObjectContext *)context
-                    withEventId:(NSString *)eventId
 {
-    Item *item = nil;
-    NSString *unique = itemDictionary[@"sku"];
     
-    if(!unique)
-        return nil;
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Item"];
-    request.predicate = [NSPredicate predicateWithFormat:@"sku == %@", unique];
-    
-    NSError *error;
-    NSArray *matches = [context executeFetchRequest:request error:&error];
-    
-    // if there is one matching record, update the record
-    // if there is a duplicate records, delete all duplicate record and replace with the fresh record from the server
-    // if there are no matching records create one
-    
-    if (error) {
-        
-        return nil;
-        
-    } else if ([matches count] == 1) {
-        
-        item = [matches firstObject];
-        
-        item = [self extractItemfromJsonDictionary:itemDictionary forItem:item withEventId:eventId];
-        
-    } else if ([matches count] == 0 || [matches count] > 1 ) {
-        
-        if([matches count] > 1) {
-            
-            for (NSManagedObject *someObject in matches) {
-                [context deleteObject:someObject];
-            }
-        }
-        
-        item = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
-                                             inManagedObjectContext:context];
-        
-        item = [self extractItemfromJsonDictionary:itemDictionary forItem:item withEventId:eventId];
-    }
+    Item *item = [[Item alloc] init];
+    item = [self extractItemfromJsonDictionary:itemDictionary forItem:item];
     
     return item;
 }
 
 
-+ (Item *)itemWithSearchResponseInfo:(NSDictionary *)itemDictionary
-         inManagedObjectContext:(NSManagedObjectContext *)context
-{
-    Item *item = nil;
-    NSString *unique = itemDictionary[@"sku"];
++ (Item *)itemWithSearchResponseInfo:(NSDictionary *)itemDictionary {
     
-    if(!unique)
-        return nil;
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Item"];
-    request.predicate = [NSPredicate predicateWithFormat:@"sku == %@", unique];
-    
-    NSError *error;
-    NSArray *matches = [context executeFetchRequest:request error:&error];
-    
-    // if there is one matching record, update the record
-    // if there is a duplicate records, delete all duplicate record and replace with the fresh record from the server
-    // if there are no matching records create one
-    
-    if (error) {
-        
-        return nil;
-        
-    } else if ([matches count] == 1) {
-        
-        item = [matches firstObject];
-        
-        item = [self extractItemfromJsonDictionary:itemDictionary forItem:item];
-        
-    } else if ([matches count] == 0 || [matches count] > 1 ) {
-        
-        if([matches count] > 1) {
-            
-            for (NSManagedObject *someObject in matches) {
-                [context deleteObject:someObject];
-            }
-        }
-        
-        item = [NSEntityDescription insertNewObjectForEntityForName:@"Item"
-                                                        inManagedObjectContext:context];
-        
-        item = [self extractItemfromJsonDictionary:itemDictionary forItem:item];
-    }
+    Item *item = [[Item alloc] init];
+    item = [self extractItemfromSearchJsonDictionary:itemDictionary forItem:item];
     
     return item;
 }
@@ -151,55 +45,61 @@
 
 
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
-                       intoManagedObjectContext:(NSManagedObjectContext *)context
                                     withEventId:(NSString *)eventId
+                                 forItemsArray:(NSMutableArray *)itemsArray
 {
-    
-    NSMutableArray *itemArray = [[NSMutableArray alloc] init];
     
     for (NSDictionary *item in items) {
         
-        NSObject *someObject = [self itemWithAppServerInfo:item inManagedObjectContext:context withEventId:eventId];
-        
+        NSObject *someObject = [self itemWithAppServerInfo:item withEventId:eventId];
         if (someObject)
-            [itemArray addObject:someObject];
-        
+            [itemsArray addObject:someObject];
     }
 
-    return itemArray;
+    return itemsArray;
 }
 
 
 
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
-                       intoManagedObjectContext:(NSManagedObjectContext *)context
+                                  forItemsArray:(NSMutableArray *)itemsArray
 {
-    
-    NSMutableArray *itemArray = [[NSMutableArray alloc] init];
     
     for (NSDictionary *item in items) {
         
-        NSObject *someObject = [self itemWithSearchResponseInfo:item inManagedObjectContext:context];
+        NSObject *someObject = [self itemWithAppServerInfo:item];
+        if (someObject)
+            [itemsArray addObject:someObject];
+    }
+    
+    return itemsArray;
+}
+
+
+
++ (NSMutableArray *)loadItemsfromAppSearchServerArray:(NSArray *)items forItemsArray:(NSMutableArray *)itemsArray// of AppServer Item NSDictionary
+{
+    
+    for (NSDictionary *item in items) {
+        
+        NSObject *someObject = [self itemWithSearchResponseInfo:item];
         
         if (someObject)
-            [itemArray addObject:someObject];
+            [itemsArray addObject:someObject];
         
     }
     
-    return itemArray;
+    return itemsArray;
 }
 
 
 
 
-+ (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item withEventId:(NSString *)eventId {
++ (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
     
     
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
     nformatter.numberStyle = NSNumberFormatterDecimalStyle;
-    
-
-    item.eventId = eventId;
     
     if ([itemDictionary valueForKeyPath:@"short_desc"] && [itemDictionary valueForKeyPath:@"short_desc"] != [NSNull null])
         item.shortItemDescription = [itemDictionary valueForKey:@"short_desc"];
@@ -265,7 +165,7 @@
 
 
 
-+ (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
++ (Item *)extractItemfromSearchJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
     
     /*
      

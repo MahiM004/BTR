@@ -11,37 +11,9 @@
 @implementation Order (AppServer)
 
 
-
-+ (void)initInManagedObjectContext:(NSManagedObjectContext *)context
-{
-    Order *order = nil;
-    
-    order = [NSEntityDescription insertNewObjectForEntityForName:@"Order"
-                                                    inManagedObjectContext:context];
-    
-    order.orderStatus = @"dummy";
-}
-
-
 + (Order *)orderWithAppServerInfo:(NSDictionary *)orderDictionary
-                               inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Order *order = nil;
-    NSError *error;
-    
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Order"];
-    fetchRequest.includesPropertyValues = NO;
-    fetchRequest.includesSubentities = NO;
-    
-    NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
-    
-    for (NSManagedObject *managedObject in items) {
-        [context deleteObject:managedObject];
-    }    if (error) {
-        return nil;
-    }
-    
-    order = [NSEntityDescription insertNewObjectForEntityForName:@"Order" inManagedObjectContext:context];
     
     order = [self extractOrderfromJSONDictionary:orderDictionary forOrder:order];
     

@@ -11,87 +11,32 @@
 @implementation Event (AppServer)
 
 
-
-+ (void)initInManagedObjectContext:(NSManagedObjectContext *)context
++ (Event *)eventWithAppServerInfo:(NSDictionary *)eventDictionary withCategoryName:(NSString *)myCategoryName
 {
-    Event *event = nil;
-    
-    event = [NSEntityDescription insertNewObjectForEntityForName:@"Event"
-                                                    inManagedObjectContext:context];
-    
-    event.eventDescription = @"dummy";
-}
+    Event *event = [[Event alloc] init];
 
-
-+ (Event *)eventWithAppServerInfo:(NSDictionary *)eventDictionary andCategoryName:(NSString *)myCategoryName
-                               inManagedObjectContext:(NSManagedObjectContext *)context
-{
-    Event *event = nil;
-    NSString *unique = eventDictionary[@"event_id"];
-    
-    
-    if(!unique)
-        return nil;
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
-    request.predicate = [NSPredicate predicateWithFormat:@"eventId == %@ AND myCategoryName == %@", unique, myCategoryName];
-    
-    NSError *error;
-    NSArray *matches = [context executeFetchRequest:request error:&error];
-    
-    // if there is one matching record, update the record
-    // if there is a duplicate records, delete all duplicate record and replace with the fresh record from the server
-    // if there are no matching records create one
-    
-    if (error) {
-        
-        return nil;
-        
-    } else if ([matches count] == 1) {
-        
-        event = [matches firstObject];
-        
-        event = [self extractEventFromJSONDictionary:eventDictionary forEvent:event andCategoryName:myCategoryName];
-        
-    } else if ([matches count] == 0 || [matches count] > 1 ) {
-        
-        if([matches count] > 1) {
-            
-            for (NSManagedObject *someObject in matches) {
-                [context deleteObject:someObject];
-            }
-        }
-        
-        event = [NSEntityDescription insertNewObjectForEntityForName:@"Event"
-                                                        inManagedObjectContext:context];
-        
-        event = [self extractEventFromJSONDictionary:eventDictionary forEvent:event andCategoryName:myCategoryName];
-        
-    }
+    event = [self extractEventfromJSONDictionary:eventDictionary forEvent:event withCategoryName:myCategoryName];
     
     return event;
 }
 
-+ (NSMutableArray *)loadEventsFromAppServerArray:(NSArray *)events andCategoryName:(NSString *)myCategoryName// of AppServer Event NSDictionary
-                        intoManagedObjectContext:(NSManagedObjectContext *)context
++ (NSMutableArray *)loadEventsfromAppServerArray:(NSArray *)events withCategoryName:(NSString *)myCategoryName forEventsArray:(NSMutableArray *)eventsArray// of AppServer Event NSDictionary
 {
-    
-    NSMutableArray *eventArray = [[NSMutableArray alloc] init];
     
     
     for (NSDictionary *event in events) {
         
-        NSObject *someObject = [self eventWithAppServerInfo:event andCategoryName:myCategoryName inManagedObjectContext:context];
+        NSObject *someObject = [self eventWithAppServerInfo:event withCategoryName:myCategoryName];
         if (someObject)
-            [eventArray addObject:someObject];
+            [eventsArray addObject:someObject];
         
     }
     
-    return eventArray;
+    return eventsArray;
 }
 
 
-+ (Event *)extractEventFromJSONDictionary:(NSDictionary *)eventDictionary forEvent:(Event *)event andCategoryName:(NSString *)myCategoryName {
++ (Event *)extractEventfromJSONDictionary:(NSDictionary *)eventDictionary forEvent:(Event *)event withCategoryName:(NSString *)myCategoryName {
     
     
     if (myCategoryName)

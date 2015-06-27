@@ -23,8 +23,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, strong) User *user;
 
@@ -44,8 +42,7 @@
     
     [super viewDidLoad];
     
-    [self setupDocument];
-    [self fetchUserDataIntoDocument:[self beyondTheRackDocument] success:^(User *user) {
+    [self fetchUserWithSuccess:^(User *user) {
         
         self.welcomeLabel.text = [NSString stringWithFormat:@"%@ %@", [user name], [user lastName]];
         
@@ -78,18 +75,8 @@
 #pragma mark - Load User Info RESTful
 
 
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
 
-
-- (void)fetchUserDataIntoDocument:(UIManagedDocument *)document
-                          success:(void (^)(id  responseObject)) success
+- (void)fetchUserWithSuccess:(void (^)(id  responseObject)) success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     
@@ -112,8 +99,7 @@
                                                                             error:NULL];
          if (entitiesPropertyList) {
             
-             self.user = [User userWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]];
-             [document saveToURL:[document fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+             self.user = [User userWithAppServerInfo:entitiesPropertyList forUser:[self user]];
          
              success(self.user);
          }

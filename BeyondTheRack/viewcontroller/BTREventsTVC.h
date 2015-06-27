@@ -1,5 +1,5 @@
 //
-//  BTREventsCDTVC.h
+//  BTREventsTVC.h
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-01-07.
@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CoreDataTableViewController.h"
 
-
-@interface BTREventsCDTVC : CoreDataTableViewController{
+@interface BTREventsTVC : UITableViewController{
     UIImageView *imageView;
 }
 

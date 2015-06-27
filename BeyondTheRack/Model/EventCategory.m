@@ -11,12 +11,4 @@
 
 @implementation EventCategory
 
-@dynamic active;
-@dynamic categoryId;
-@dynamic categoryOrder;
-@dynamic displayName;
-@dynamic name;
-@dynamic sortCriteria;
-@dynamic sortCriteriaNewSite;
-
 @end

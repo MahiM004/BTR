@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface Item : NSManagedObject
+@interface Item : NSObject
 
 @property (nonatomic, retain) NSString * attributeList;
 @property (nonatomic, retain) NSString * brand;

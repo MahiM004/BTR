@@ -10,19 +10,12 @@
 
 @interface User (AppServer)
 
++ (User *)userWithAppServerInfo:(NSDictionary *)userDictionary forUser:(User *)user;
 
-+ (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
-
-
-+ (User *)userWithAppServerInfo:(NSDictionary *)userDictionary
-                               inManagedObjectContext:(NSManagedObjectContext *)context;
-
-+ (User *)userAuthWithAppServerInfo:(NSDictionary *)userDictionary
-             inManagedObjectContext:(NSManagedObjectContext *)context;
++ (User *)userAuthWithAppServerInfo:(NSDictionary *)userDictionary forUser:(User *)user;
 
 + (User *)signUpUserWithAppServerInfo:(NSDictionary *)infoDictionary
-                          andUserInfo:(NSDictionary *)userDictionary
-               inManagedObjectContext:(NSManagedObjectContext *)context;
+                          andUserInfo:(NSDictionary *)userDictionary forUser:(User *)user;
 
 + (NSDictionary *)extractFacebookUserParamsfromResponseJsonDictionary:(NSDictionary *)jsonResponse withAccessToken:(NSString *)facebookAccessToken;
 

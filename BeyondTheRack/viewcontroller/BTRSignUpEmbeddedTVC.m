@@ -40,8 +40,6 @@
 
 @property (nonatomic) NSUInteger pickerType;
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
 @property (strong, nonatomic) NSString *sessionId;
@@ -71,10 +69,8 @@
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    
-    [self setupDocument];
-    
  
     self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
     self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
@@ -326,16 +322,6 @@
 
 
 
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
-
 - (void)userRegistrationServerCallforSessionId:(NSString *)sessionId
                                 success:(void (^)(id  responseObject, NSString *messageString)) success
                                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
@@ -384,8 +370,9 @@
                       BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
                       [sessionSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:NO];
                       
-                      [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic inManagedObjectContext:[self managedObjectContext]];
-                      [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                      User *user = [[User alloc] init];
+                      
+                      [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic forUser:user];
                       
                       success(@"TRUE", nil);
 
@@ -485,8 +472,8 @@
                   
                   [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:YES];
                   
-                  [User userAuthWithAppServerInfo:userDic inManagedObjectContext:[self managedObjectContext]];
-                  [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+                  User *user = [[User alloc] init];
+                  [User userAuthWithAppServerInfo:userDic forUser:user];
                   
                   success(@"TRUE", nil);
                   

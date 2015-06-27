@@ -26,14 +26,14 @@
  
 @interface BTRShoppingBagViewController ()
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (weak, nonatomic) IBOutlet UILabel *bagTitle;
 @property (weak, nonatomic) IBOutlet UILabel *subtotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *youSaveLabel;
 
 @property (strong, nonatomic) Order *order;
+
+@property (strong, nonatomic) NSMutableArray *itemsArray;
 
 @end
 
@@ -46,7 +46,12 @@
 
     if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
     return _bagItemsArray;
+}
 
+- (NSMutableArray *)itemsArray {
+    
+    if (!_itemsArray) _itemsArray = [[NSMutableArray alloc] init];
+    return _itemsArray;
 }
 
 
@@ -63,17 +68,18 @@
     
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     
-    [self getCartServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *succString) {
+    [self getCartServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *totalString) {
+
+        //Removed: request by Richard
+        //number = [NSDecimalNumber decimalNumberWithString:@"1000.00"];
+        //self.youSaveLabel.text = [NSString stringWithFormat:@"you save: %@", [nf stringFromNumber:number]];
         
-        [[self tableView] reloadData];
         
-        NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", [self getSubtotalSale]]];
+        NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
         self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
-        
-        number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%f", [self getSubtotalRetail] - [self getSubtotalSale]]];
-        self.youSaveLabel.text = [NSString stringWithFormat:@"you save: %@", [nf stringFromNumber:number]];
-        
         self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
+
+        [[self tableView] reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -83,13 +89,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
-    [self setupDocument];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-
     
     NSTimer *timer = [NSTimer timerWithTimeInterval:1.0
                                              target:self
@@ -142,12 +144,11 @@
         
         NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
         
-        Item *item = [Item getItemforSku:uniqueSku fromManagedObjectContext:[self managedObjectContext]];
         [cell.itemImageView setImageWithURL:[BTRItemFetcher
                                              URLforItemImageForSku:uniqueSku]
                            placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
         
-        cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:item];
+        cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:[indexPath row]] andItem:[self.itemsArray objectAtIndex:[indexPath row]]];
     }
     
     return cell;
@@ -180,48 +181,9 @@
     return cell;
 }
 
-
-- (float)getSubtotalSale {
- 
-    float subtotal = 0.0;
-    
-    for (BagItem *bagItem in self.bagItemsArray) {
-        
-        Item *item = [Item getItemforSku:[bagItem sku] fromManagedObjectContext:[self managedObjectContext]];
-        subtotal += [[bagItem quantity] intValue] * [[item salePrice] floatValue];
-    }
-    
-    return subtotal;
-}
-
-
-
-- (float)getSubtotalRetail {
-    
-    float subtotal = 0.0;
-    
-    for (BagItem *bagItem in self.bagItemsArray) {
-        
-        Item *item = [Item getItemforSku:[bagItem sku] fromManagedObjectContext:[self managedObjectContext]];
-        subtotal += [[bagItem quantity] intValue] * [[item retailPrice] floatValue];
-    }
-    
-    return subtotal;
-}
  
 
 #pragma mark - Bag RESTful Calls
-
-
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
 
 
 - (void)getCartServerCallforSessionId:(NSString *)sessionId
@@ -244,7 +206,6 @@
              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
-             [self.bagItemsArray removeAllObjects];
              NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
              
              NSDate *serverTime = [NSDate date];
@@ -252,18 +213,19 @@
                  
                  serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
              }
+
+             NSNumber *total = entitiesPropertyList[@"total"];
+             NSString *totalString = [NSString stringWithFormat:@"%@",total];
              
-             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
+             self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
             
              NSArray *productJsonArray = entitiesPropertyList[@"products"];
-             [Item loadItemsfromAppServerArray:productJsonArray intoManagedObjectContext:self.managedObjectContext];
+             self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
              
-             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
-
              BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
              [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
              
-             success(@"TRUE");
+             success(totalString);
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
@@ -296,9 +258,7 @@
                                                                                     error:NULL];
              
              NSDictionary *paymentsDictionary = entitiesPropertyList[@"paymentMethods"];
-             
-             [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList inManagedObjectContext:[self managedObjectContext]]];
-             [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+             [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList]];
 
              success(paymentsDictionary);
              

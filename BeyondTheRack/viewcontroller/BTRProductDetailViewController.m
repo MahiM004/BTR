@@ -22,9 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @property (strong, nonatomic) NSString *variant;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 
@@ -59,8 +56,6 @@
     
     self.variant = SIZE_NOT_SELECTED_STRING;
     
-    [self setupDocument];
-    
     NSLog(@"update add_to_bag for search: no event_id is provided");
     
     if ([[[self productItem] brand] length] > 1)
@@ -73,7 +68,7 @@
     
     if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
         
-        [self fetchItemIntoDocument:[self beyondTheRackDocument] forProductSku:[[self productItem] sku]
+        [self fetchItemforProductSku:[[self productItem] sku]
                             success:^(Item *responseObject) {
                                 
                                 [self setItemSelectedfromSearchResult:responseObject];
@@ -124,16 +119,6 @@
 #pragma mark - RESTful Calls
 
 
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
-
 
 - (void)cartIncrementServerCallforSessionId:(NSString *)sessionId
                                     success:(void (^)(id  responseObject)) success
@@ -166,8 +151,7 @@
               NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
               NSDate *serverTime = [NSDate date];
               
-              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime intoManagedObjectContext:self.managedObjectContext]];
-              [self.beyondTheRackDocument saveToURL:self.beyondTheRackDocument.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+              self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
               
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
               [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
@@ -184,7 +168,7 @@
 
 
 
-- (void)fetchItemIntoDocument:(UIManagedDocument *)document forProductSku:(NSString *)productSku
+- (void)fetchItemforProductSku:(NSString *)productSku
                       success:(void (^)(id  responseObject)) success
                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
@@ -208,8 +192,7 @@
          [self setAttributesDictionaryforItemfromSearch:entitiesPropertyList[@"attributes"]];
          [self setVariantInventoryDictionaryforItemfromSearch:entitiesPropertyList[@"variant_inventory"]];
          
-         Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList inManagedObjectContext:document.managedObjectContext withEventId:[self eventId]];
-         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
+         Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList withEventId:[self eventId]];
          
          success(productItem);
          

@@ -77,12 +77,8 @@
 		69867A071A438A8C003CE59C /* bagicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A061A438A8C003CE59C /* bagicon.png */; };
 		69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */ = {isa = PBXBuildFile; fileRef = 69867A0A1A446FCA003CE59C /* backarrowcool.png */; };
 		69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69867A141A44A701003CE59C /* BTRMainViewController.m */; };
-		69869F821A6075EA00F986BC /* UserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869F811A6075EA00F986BC /* UserNotifications.m */; };
 		69869FA31A63FCA500F986BC /* BTRFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FA21A63FCA500F986BC /* BTRFetcher.m */; };
 		69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FA51A63FD6B00F986BC /* BTREventFetcher.m */; };
-		69869FA91A64028300F986BC /* BTRAppDelegate+MOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FA81A64028300F986BC /* BTRAppDelegate+MOC.m */; };
-		69869FAC1A6408D200F986BC /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */; };
-		69869FAF1A640C0600F986BC /* BTRDocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 69869FAE1A640C0600F986BC /* BTRDocumentHandler.m */; };
 		6986A6A21B3D99E900DE481A /* BTRTrackOrdersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986A6A11B3D99E900DE481A /* BTRTrackOrdersVC.m */; };
 		69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 69AB98381A6E95C300EDB1E6 /* searchglass.png */; };
 		69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */; };
@@ -96,11 +92,9 @@
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
 		69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C981A5DA23100040C86 /* TTSlidingPage.m */; };
 		69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */; };
-		69B02CAD1A5DA70700040C86 /* BTREventsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */; };
+		69B02CAD1A5DA70700040C86 /* BTREventsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CAB1A5DA70700040C86 /* BTREventsTVC.m */; };
 		69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */; };
 		69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B02CBF1A60304000040C86 /* CoreData.framework */; };
-		69B02CC71A6031A700040C86 /* beyondtherack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */; };
-		69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CF11A605A2700040C86 /* UserNotifications+AppServer.m */; };
 		69B02D011A605AB700040C86 /* User+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D001A605AB700040C86 /* User+AppServer.m */; };
 		69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D031A605AD200040C86 /* Event+AppServer.m */; };
 		69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D061A605AED00040C86 /* Item+AppServer.m */; };
@@ -316,18 +310,10 @@
 		69867A0A1A446FCA003CE59C /* backarrowcool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrowcool.png; sourceTree = "<group>"; };
 		69867A131A44A701003CE59C /* BTRMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMainViewController.h; sourceTree = "<group>"; };
 		69867A141A44A701003CE59C /* BTRMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMainViewController.m; sourceTree = "<group>"; };
-		69869F801A6075EA00F986BC /* UserNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotifications.h; sourceTree = "<group>"; };
-		69869F811A6075EA00F986BC /* UserNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotifications.m; sourceTree = "<group>"; };
 		69869FA11A63FCA500F986BC /* BTRFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFetcher.h; sourceTree = "<group>"; };
 		69869FA21A63FCA500F986BC /* BTRFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFetcher.m; sourceTree = "<group>"; };
 		69869FA41A63FD6B00F986BC /* BTREventFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventFetcher.h; sourceTree = "<group>"; };
 		69869FA51A63FD6B00F986BC /* BTREventFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventFetcher.m; sourceTree = "<group>"; };
-		69869FA71A64028300F986BC /* BTRAppDelegate+MOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTRAppDelegate+MOC.h"; sourceTree = "<group>"; };
-		69869FA81A64028300F986BC /* BTRAppDelegate+MOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BTRAppDelegate+MOC.m"; sourceTree = "<group>"; };
-		69869FAA1A6408D200F986BC /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
-		69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
-		69869FAD1A640C0600F986BC /* BTRDocumentHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRDocumentHandler.h; sourceTree = "<group>"; };
-		69869FAE1A640C0600F986BC /* BTRDocumentHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRDocumentHandler.m; sourceTree = "<group>"; };
 		6986A6A01B3D99E900DE481A /* BTRTrackOrdersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRTrackOrdersVC.h; sourceTree = "<group>"; };
 		6986A6A11B3D99E900DE481A /* BTRTrackOrdersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRTrackOrdersVC.m; sourceTree = "<group>"; };
 		69AB98381A6E95C300EDB1E6 /* searchglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchglass.png; sourceTree = "<group>"; };
@@ -352,14 +338,11 @@
 		69B02C9A1A5DA23100040C86 /* TTSlidingPageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPageTitle.h; sourceTree = "<group>"; };
 		69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPageTitle.m; sourceTree = "<group>"; };
 		69B02C9C1A5DA23100040C86 /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
-		69B02CAA1A5DA70700040C86 /* BTREventsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventsCDTVC.h; sourceTree = "<group>"; };
-		69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventsCDTVC.m; sourceTree = "<group>"; };
+		69B02CAA1A5DA70700040C86 /* BTREventsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventsTVC.h; sourceTree = "<group>"; };
+		69B02CAB1A5DA70700040C86 /* BTREventsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventsTVC.m; sourceTree = "<group>"; };
 		69B02CB21A5DBAB000040C86 /* BTRCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRCategoryViewController.h; sourceTree = "<group>"; };
 		69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRCategoryViewController.m; sourceTree = "<group>"; };
 		69B02CBF1A60304000040C86 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		69B02CC61A6031A700040C86 /* beyondtherack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = beyondtherack.xcdatamodel; sourceTree = "<group>"; };
-		69B02CF01A605A2700040C86 /* UserNotifications+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UserNotifications+AppServer.h"; sourceTree = "<group>"; };
-		69B02CF11A605A2700040C86 /* UserNotifications+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UserNotifications+AppServer.m"; sourceTree = "<group>"; };
 		69B02CFF1A605AB700040C86 /* User+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+AppServer.h"; sourceTree = "<group>"; };
 		69B02D001A605AB700040C86 /* User+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+AppServer.m"; sourceTree = "<group>"; };
 		69B02D021A605AD200040C86 /* Event+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+AppServer.h"; sourceTree = "<group>"; };
@@ -748,8 +731,8 @@
 				69867A141A44A701003CE59C /* BTRMainViewController.m */,
 				69B02CB21A5DBAB000040C86 /* BTRCategoryViewController.h */,
 				69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */,
-				69B02CAA1A5DA70700040C86 /* BTREventsCDTVC.h */,
-				69B02CAB1A5DA70700040C86 /* BTREventsCDTVC.m */,
+				69B02CAA1A5DA70700040C86 /* BTREventsTVC.h */,
+				69B02CAB1A5DA70700040C86 /* BTREventsTVC.m */,
 				692F24D21AA8E0B4003AABE1 /* MyAccount */,
 				692F24D11AA8E093003AABE1 /* Product */,
 				69385FBF1A7BF3830074FE33 /* Search */,
@@ -845,14 +828,10 @@
 			children = (
 				697E057F1A434121000146C6 /* BTRViewUtility.h */,
 				697E05801A434121000146C6 /* BTRViewUtility.m */,
-				69869FAA1A6408D200F986BC /* CoreDataTableViewController.h */,
-				69869FAB1A6408D200F986BC /* CoreDataTableViewController.m */,
 				69BC6D401A8E4F2C00376D9C /* BTRFacetsHandler.h */,
 				69BC6D411A8E4F2C00376D9C /* BTRFacetsHandler.m */,
 				692CE4951A9684A5007E9C26 /* BTRFacetData.h */,
 				692CE4961A9684A5007E9C26 /* BTRFacetData.m */,
-				69869FAD1A640C0600F986BC /* BTRDocumentHandler.h */,
-				69869FAE1A640C0600F986BC /* BTRDocumentHandler.m */,
 				692F24D61AAE2071003AABE1 /* NSString+HeightCalc.h */,
 				692F24D71AAE2071003AABE1 /* NSString+HeightCalc.m */,
 				6901EA481ADEC919002534D9 /* BTRBagHandler.h */,
@@ -894,7 +873,6 @@
 			children = (
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
-				69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */,
 				B3CC532C1B17798D0024EA08 /* User.h */,
 				B3CC532D1B17798D0024EA08 /* User.m */,
 				69D4404B1B331A5B00070FD8 /* EventCategory.h */,
@@ -907,8 +885,6 @@
 				69D440401B31EA1400070FD8 /* Order.m */,
 				69AB98631A77E68F00EDB1E6 /* Event.h */,
 				69AB98641A77E68F00EDB1E6 /* Event.m */,
-				69869F801A6075EA00F986BC /* UserNotifications.h */,
-				69869F811A6075EA00F986BC /* UserNotifications.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -916,8 +892,6 @@
 		69B02CE91A6058F400040C86 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				69B02CF01A605A2700040C86 /* UserNotifications+AppServer.h */,
-				69B02CF11A605A2700040C86 /* UserNotifications+AppServer.m */,
 				69B02CFF1A605AB700040C86 /* User+AppServer.h */,
 				69B02D001A605AB700040C86 /* User+AppServer.m */,
 				69B02D021A605AD200040C86 /* Event+AppServer.h */,
@@ -1018,8 +992,6 @@
 				69FF40731A3F8939000BD092 /* Main.storyboard */,
 				69FF406A1A3F8939000BD092 /* BTRAppDelegate.h */,
 				69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */,
-				69869FA71A64028300F986BC /* BTRAppDelegate+MOC.h */,
-				69869FA81A64028300F986BC /* BTRAppDelegate+MOC.m */,
 				69FF40761A3F8939000BD092 /* Images.xcassets */,
 				69FF40781A3F8939000BD092 /* LaunchScreen.xib */,
 				69B02CC41A60319600040C86 /* Model */,
@@ -1235,15 +1207,12 @@
 				69B942811AE033FD00483950 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				69B942901AE033FD00483950 /* AFURLResponseSerialization.m in Sources */,
 				B3C16A911B01371C009470EC /* BTRSizeSelector.m in Sources */,
-				69869FAF1A640C0600F986BC /* BTRDocumentHandler.m in Sources */,
 				6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */,
 				69AB98651A77E68F00EDB1E6 /* Event.m in Sources */,
 				69D440411B31EA1400070FD8 /* Order.m in Sources */,
 				69D4405F1B34750500070FD8 /* BTRPaymentTypesHandler.m in Sources */,
 				6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */,
-				69B02CF21A605A2700040C86 /* UserNotifications+AppServer.m in Sources */,
 				690A38F41B1DEB7F00D4BA84 /* TNRectangularRadioButton.m in Sources */,
-				69869F821A6075EA00F986BC /* UserNotifications.m in Sources */,
 				690A38F21B1DEB7F00D4BA84 /* TNRadioButtonData.m in Sources */,
 				69B942851AE033FD00483950 /* UIImageView+AFNetworking.m in Sources */,
 				692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */,
@@ -1271,7 +1240,7 @@
 				69B942881AE033FD00483950 /* UIWebView+AFNetworking.m in Sources */,
 				B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */,
 				69D440231B3083CA00070FD8 /* BTROrderFetcher.m in Sources */,
-				69B02CAD1A5DA70700040C86 /* BTREventsCDTVC.m in Sources */,
+				69B02CAD1A5DA70700040C86 /* BTREventsTVC.m in Sources */,
 				69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */,
@@ -1288,16 +1257,13 @@
 				69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */,
 				6900B4D21AB7649300930D16 /* BTRSignUpViewController.m in Sources */,
-				69B02CC71A6031A700040C86 /* beyondtherack.xcdatamodeld in Sources */,
 				69B942891AE033FD00483950 /* AFHTTPRequestOperation.m in Sources */,
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
 				69D440561B331AEA00070FD8 /* EventCategory+AppServer.m in Sources */,
 				6900B4E11AB7747900930D16 /* UIFont+FontAwesome.m in Sources */,
 				6901E9D51AC09CE3002534D9 /* BTRBagFetcher.m in Sources */,
-				69869FAC1A6408D200F986BC /* CoreDataTableViewController.m in Sources */,
 				690A38F51B1DEB7F00D4BA84 /* TNRectangularRadioButtonData.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
-				69869FA91A64028300F986BC /* BTRAppDelegate+MOC.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
 				69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */,
 				690A38D51B1DE67F00D4BA84 /* BTRNotificationsVC.m in Sources */,
@@ -1573,19 +1539,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		69B02CC51A6031A700040C86 /* beyondtherack.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				69B02CC61A6031A700040C86 /* beyondtherack.xcdatamodel */,
-			);
-			currentVersion = 69B02CC61A6031A700040C86 /* beyondtherack.xcdatamodel */;
-			path = beyondtherack.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 69FF405B1A3F8939000BD092 /* Project object */;
 }

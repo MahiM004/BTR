@@ -19,9 +19,6 @@
 @property (nonatomic, assign) enum btrEmailNotificationFrequency emailFrequency;
 @property (nonatomic, assign) NSString *chosenEmailFrequencyString;
 
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @end
 
 @implementation BTRNotificationsVC
@@ -30,9 +27,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
-    [self setupDocument];
-
     
     [self setupPreferencesListAttributesforList:[[self user] preferencesList]];
     [self createVerticalList];
@@ -188,7 +182,6 @@
     [self updateUserPreferencesListforSessionId:[sessionSettings sessionId] andPreferencesList:neuPreferencesList success:^(NSString *successString) {
         
         [self.user setPreferencesList:neuPreferencesList];
-        [self.beyondTheRackDocument saveToURL:[self.beyondTheRackDocument fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:NULL];
         [self setupPreferencesListAttributesforList:neuPreferencesList];
         
         [self alertUserforSuccessfulUpdate];
@@ -214,17 +207,6 @@
 
 
 #pragma mark - User Info RESTful - Update Preferences List
-
-
-- (void)setupDocument
-{
-    if (!self.managedObjectContext) {
-        
-        self.beyondTheRackDocument = [[BTRDocumentHandler sharedDocumentHandler] document];
-        self.managedObjectContext = [[self beyondTheRackDocument] managedObjectContext];
-    }
-}
-
 
 - (void)updateUserPreferencesListforSessionId:(NSString *)sessionId
                            andPreferencesList:(NSString *)preferencesListString

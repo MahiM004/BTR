@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface Order : NSManagedObject
+@interface Order : NSObject
 
 @property (nonatomic, retain) NSString * confirmDateTime;
 @property (nonatomic, retain) NSString * confirmed;

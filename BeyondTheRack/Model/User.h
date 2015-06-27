@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface User : NSManagedObject
+@interface User : NSObject
 
 @property (nonatomic, retain) NSString * addressLine1;
 @property (nonatomic, retain) NSString * addressLine2;

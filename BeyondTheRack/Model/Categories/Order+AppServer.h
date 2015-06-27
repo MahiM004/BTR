@@ -10,11 +10,8 @@
 
 @interface Order (AppServer)
 
-+ (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
 
-
-+ (Order *)orderWithAppServerInfo:(NSDictionary *)orderDictionary
-                               inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Order *)orderWithAppServerInfo:(NSDictionary *)orderDictionary;
 
 
 @end

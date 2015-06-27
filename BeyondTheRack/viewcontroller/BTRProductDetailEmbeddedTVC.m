@@ -41,10 +41,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *selectSizeLabel;
 
-
-@property (strong, nonatomic) UIManagedDocument *beyondTheRackDocument;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @property (nonatomic) NSInteger customHeight;
 @property (nonatomic) NSInteger descriptionCellHeight;
 

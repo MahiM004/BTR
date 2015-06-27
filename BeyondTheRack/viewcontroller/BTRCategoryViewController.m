@@ -12,7 +12,7 @@
 #import "TTScrollSlidingPagesController.h"
 #import "TTSlidingPage.h"
 #import "TTSlidingPageTitle.h"
-#import "BTREventsCDTVC.h"
+#import "BTREventsTVC.h"
 
 #import "BTRCategoryData.h"
 
@@ -65,7 +65,7 @@
     self.slider.disableTitleShadow = YES;
     self.slider.titleScrollerBackgroundColour = [BTRViewUtility BTRBlack];
     //self.slider.titleScrollerHidden = YES;
-    //slider.titleScrollerHeight = 100;
+    //slider.titleScrollerHeight = 210;
     //slider.titleScrollerItemWidth=60;
     //slider.disableUIPageControl = YES;
     
@@ -112,7 +112,7 @@
 
     UIViewController *viewController;
     
-    BTREventsCDTVC *myVC  = [[BTREventsCDTVC alloc] init];
+    BTREventsTVC *myVC  = [[BTREventsTVC alloc] init];
     viewController = myVC;
     myVC.categoryName = [[self categoryNames] objectAtIndex:index];
     myVC.urlCategoryName = [[self urlCategoryNames] objectAtIndex:index];

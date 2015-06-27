@@ -10,15 +10,10 @@
 
 @interface BagItem (AppServer)
 
-+ (void)initInManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary withServerDateTime:(NSDate *)serverTime
-               inManagedObjectContext:(NSManagedObjectContext *)context;
++ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary withServerDateTime:(NSDate *)serverTime;
 
-+ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime// of AppServer BagItem NSDictionary
-                          intoManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime forBagItemsArray:(NSMutableArray *)bagItemsArray;// of AppServer BagItem NSDictionary
 
-
-+ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime;// of AppServer BagItem NSDictionary
 
 @end

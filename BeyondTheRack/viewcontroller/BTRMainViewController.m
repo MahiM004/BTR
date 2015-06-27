@@ -15,7 +15,7 @@
 #import "TTScrollSlidingPagesController.h"
 #import "TTSlidingPage.h"
 #import "TTSlidingPageTitle.h"
-#import "BTREventsCDTVC.h"
+#import "BTREventsTVC.h"
 #import "BTRFacetsHandler.h"
 #import "BTRSearchViewController.h"
 
