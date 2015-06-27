@@ -108,10 +108,7 @@ static BTRBagHandler *_sharedInstance;
 - (NSUInteger)setBagItems:(NSArray *)bagItemsArray {
     
     [self.bagArray removeAllObjects];
-    for (BagItem *bagItem in bagItemsArray)
-    {
-        [self.bagArray addObject:bagItem];
-    }
+    [[self bagArray] addObjectsFromArray:bagItemsArray];
     
     return [self totalBagCount];
 }

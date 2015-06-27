@@ -11,5 +11,6 @@
 @interface BTREditShoppingBagVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
+@property (strong, nonatomic) NSMutableArray *itemsArray;
 
 @end

@@ -217,6 +217,7 @@
              NSNumber *total = entitiesPropertyList[@"total"];
              NSString *totalString = [NSString stringWithFormat:@"%@",total];
              
+             [[self bagItemsArray] removeAllObjects];
              self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
             
              NSArray *productJsonArray = entitiesPropertyList[@"products"];
@@ -282,6 +283,7 @@
         
         BTREditShoppingBagVC *editVC = [segue destinationViewController];
         editVC.bagItemsArray = [self bagItemsArray];
+        editVC.itemsArray = [self itemsArray];
     
     } else if ([[segue identifier] isEqualToString:@"BTRCheckoutSegueIdentifier"]) {
         

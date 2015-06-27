@@ -24,6 +24,14 @@
 
 @implementation BTREditShoppingBagVC
 
+
+- (NSMutableArray *)itemsArray {
+    
+    if (!_itemsArray) _itemsArray = [[NSMutableArray alloc] init];
+    return _itemsArray;
+}
+
+
 - (NSMutableArray *)bagItemsArray {
     
     if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
@@ -77,7 +85,6 @@
     
     [self setShoppingBagforSessionId:[sessionSettings sessionId] success:^(NSString *succString) {
         
-        
         if ([succString isEqualToString:@"TRUE"]) {
          
             [weakSelf dismissViewControllerAnimated:YES completion:NULL];
@@ -111,14 +118,11 @@
     
     NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
     
-    NSLog(@"---00--00----0- get item!!!");
-    Item *item;// = [Item getItemforSku:uniqueSku fromManagedObjectContext:[self managedObjectContext]];
-    
     [cell.itemImageView setImageWithURL:[BTRItemFetcher
                                          URLforItemImageForSku:uniqueSku]
                        placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
     
-    cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:item];
+    cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:[self.itemsArray objectAtIndex:[indexPath row]]];
     
     cell.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
         
@@ -155,35 +159,6 @@
     return cell;
 }
 
-/*
-- (float)getSubtotalSale {
-    
-    float subtotal = 0.0;
-    
-    for (BagItem *bagItem in self.bagItemsArray) {
-        
-        Item *item = [Item getItemforSku:[bagItem sku] fromManagedObjectContext:[self managedObjectContext]];
-        subtotal += [[bagItem quantity] intValue] * [[item salePrice] floatValue];
-    }
-    
-    return subtotal;
-}
-
-
-
-- (float)getSubtotalRetail {
-    
-    float subtotal = 0.0;
-    
-    for (BagItem *bagItem in self.bagItemsArray) {
-        
-        Item *item = [Item getItemforSku:[bagItem sku] fromManagedObjectContext:[self managedObjectContext]];
-        subtotal += [[bagItem quantity] intValue] * [[item retailPrice] floatValue];
-    }
-    
-    return subtotal;
-}
-*/
 
 
 #pragma mark - Bag RESTful Calls
@@ -231,6 +206,7 @@
               NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
               NSDate *serverTime = [NSDate date];
               
+              [[self bagItemsArray] removeAllObjects];
               self.bagItemsArray  = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
  
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
