@@ -34,7 +34,36 @@
 }
 
 
+
 + (OrderHistoryItem *)extractOrderHistoryItemfromJSONDictionary:(NSDictionary *)jsonDictionary forOrderHistoryItem:(OrderHistoryItem *)orderHistoryItem {
+
+    
+    if ([jsonDictionary valueForKeyPath:@"id"] && [jsonDictionary valueForKeyPath:@"id"] != [NSNull null])
+        orderHistoryItem.orderHistoryItemId = [jsonDictionary valueForKeyPath:@"id"];
+    
+    if ([jsonDictionary valueForKeyPath:@"sku"] && [jsonDictionary valueForKeyPath:@"sku"] != [NSNull null])
+        orderHistoryItem.skuNumber = [jsonDictionary valueForKeyPath:@"sku"];
+    
+    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
+        orderHistoryItem.orderId = [jsonDictionary valueForKeyPath:@"order_id"];
+    
+    int needs_work_PENDING_eric;
+    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
+        orderHistoryItem.shortDescription = [jsonDictionary valueForKeyPath:@"order_id"];
+
+    if ([jsonDictionary valueForKeyPath:@"variant"] && [jsonDictionary valueForKeyPath:@"variant"] != [NSNull null])
+        orderHistoryItem.size = [jsonDictionary valueForKeyPath:@"variant"];
+
+    int needs_work_PENDING_eric2;
+    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
+        orderHistoryItem.price = [jsonDictionary valueForKeyPath:@"order_id"];
+    
+    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
+        orderHistoryItem.status = [jsonDictionary valueForKeyPath:@"order_id"];
+
+    if ([jsonDictionary valueForKeyPath:@"status_note"] && [jsonDictionary valueForKeyPath:@"status_note"] != [NSNull null])
+        orderHistoryItem.statusNote = [jsonDictionary valueForKeyPath:@"status_note"];
+
     
     return orderHistoryItem;
 }
