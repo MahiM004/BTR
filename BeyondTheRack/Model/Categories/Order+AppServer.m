@@ -13,7 +13,7 @@
 
 + (Order *)orderWithAppServerInfo:(NSDictionary *)orderDictionary
 {
-    Order *order = nil;
+    Order *order = [[Order alloc] init];
     
     order = [self extractOrderfromJSONDictionary:orderDictionary forOrder:order];
     

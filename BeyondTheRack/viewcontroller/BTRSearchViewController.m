@@ -279,9 +279,6 @@
                          }];
     }
     
-    
-    
-    
     return [self.itemsArray count];
 }
 
