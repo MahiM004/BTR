@@ -7,7 +7,7 @@
 //
 
 #import "BTRTrackOrdersVC.h"
-
+#import "BTROrderHistoryFetcher.h"
 
 @interface BTRTrackOrdersVC ()
 
@@ -15,12 +15,64 @@
 
 @implementation BTRTrackOrdersVC
 
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    
+    [self fetchOrderHistoryforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
+        
+        [[self tableView] reloadData];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+
 }
+
+
+
+#pragma mark - Track Orders RESTful
+
+
+- (void)fetchOrderHistoryforSessionId:(NSString *)sessionId
+                          success:(void (^)(id  responseObject)) success
+                          failure:(void (^)(NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTROrderHistoryFetcher URLforOrderHistory]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                               options:0
+                                                                                 error:NULL];
+         if (entitiesPropertyList) {
+             
+             NSLog(@"---000- : %@", entitiesPropertyList);
+             success(@"TRUE");
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         NSLog(@"Error: %@", error);
+         failure(error);
+     }];
+}
+
 
 
 #pragma mark - Table view data source
@@ -34,7 +86,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 10;
+    return 6;
+}
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
 }
 
 
@@ -73,17 +131,6 @@
 }
 
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
 

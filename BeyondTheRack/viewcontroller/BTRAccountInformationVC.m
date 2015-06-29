@@ -161,7 +161,7 @@
             [self.countryTextField setText:@"USA"];
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         
     }];
 }
@@ -338,7 +338,7 @@
 
 - (void)fetchUserInfoforSessionId:(NSString *)sessionId
                        success:(void (^)(id  responseObject)) success
-                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                       failure:(void (^)(NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -365,7 +365,7 @@
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
          NSLog(@"Error: %@", error);
-         failure(operation, error);
+         failure(error);
      }];
 }
 

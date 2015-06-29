@@ -1,5 +1,5 @@
 //
-//  BTROHBagFetcher.h
+//  BTROrderHistoryFetcher.h
 //  BeyondTheRack
 //
 //  Created by Hadi Kheyruri on 2015-06-29.
@@ -8,6 +8,8 @@
 
 #import "BTRFetcher.h"
 
-@interface BTROHBagFetcher : BTRFetcher
+@interface BTROrderHistoryFetcher : BTRFetcher
+
++ (NSURL *)URLforOrderHistory;
 
 @end
