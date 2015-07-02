@@ -37,8 +37,6 @@
 + (OrderHistoryBag *)extractOrderHistoryfromJSONDictionary:(NSDictionary *)jsonDictionary forOrderHistoryBag:(OrderHistoryBag *)orderHistoryBag {
     
     
-    
-    
     if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
         orderHistoryBag.orderId = [jsonDictionary valueForKeyPath:@"order_id"];
 

@@ -118,19 +118,44 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    
-    // Avenir Next Condensed Medium 19.0
-    
-    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-    /* Create custom view to display section header... */
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
-    [label setFont:[UIFont fontWithName:@"Avenir Next Condensed Medium" size:15]];
-    //   NSString *string =[list objectAtIndex:section];
-    /* Section header is in 0th index... */
-    [label setText:@"ORDER NO"];
-    [view addSubview:label];
-    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]]; //your background color...
+    
+    NSInteger labelWidth = tableView.frame.size.width/4;
+    NSInteger labelHeight = 18;
+    NSInteger xPadding = tableView.frame.size.width/15;
+    
+    NSInteger firstRowYPostion = 15;
+    NSInteger firstRowXPosition = 18;
+    
+    UILabel *orderNoLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+    [orderNoLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:15]];
+    [orderNoLabel setText:@"ORDER NO"];
+    [view addSubview:orderNoLabel];
+    [orderNoLabel sizeToFit];
+    
+    firstRowXPosition += orderNoLabel.frame.size.width + xPadding;
+    UILabel *orderDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+    [orderDateLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:15]];
+    [orderDateLabel setText:@"ORDER DATE"];
+    [view addSubview:orderDateLabel];
+    [orderDateLabel sizeToFit];
+
+    firstRowXPosition += orderDateLabel.frame.size.width + xPadding;
+    UILabel *subtotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+    [subtotalLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:15]];
+    [subtotalLabel setText:@"SUB TOTAL"];
+    [view addSubview:subtotalLabel];
+    [subtotalLabel sizeToFit];
+
+    firstRowXPosition +=subtotalLabel.frame.size.width + xPadding;
+    UILabel *taxesLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+    [taxesLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:15]];
+    [taxesLabel setText:@"TAXES"];
+    [view addSubview:taxesLabel];
+    [taxesLabel sizeToFit];
+
+    
+    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:0.40]];
     return view;
 }
 
