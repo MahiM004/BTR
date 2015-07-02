@@ -37,29 +37,30 @@
 + (OrderHistoryBag *)extractOrderHistoryfromJSONDictionary:(NSDictionary *)jsonDictionary forOrderHistoryBag:(OrderHistoryBag *)orderHistoryBag {
     
     
-    int needs_work_PENDING_eric;
     
     
     if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
         orderHistoryBag.orderId = [jsonDictionary valueForKeyPath:@"order_id"];
 
-    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
-        orderHistoryBag.orderDate = [jsonDictionary valueForKeyPath:@"order_id"];
-    
+    if ([jsonDictionary valueForKeyPath:@"order_date"] && [jsonDictionary valueForKeyPath:@"order_date"] != [NSNull null])
+        orderHistoryBag.orderDate = [jsonDictionary valueForKeyPath:@"order_date"];
+
+    int subtotal_PENDING_eric;
     if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
         orderHistoryBag.subtotal = [jsonDictionary valueForKeyPath:@"order_id"];
     
+    int total_taxes_PENDING_eric;
     if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
         orderHistoryBag.taxes = [jsonDictionary valueForKeyPath:@"order_id"];
     
-    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
-        orderHistoryBag.shipping = [jsonDictionary valueForKeyPath:@"order_id"];
+    if ([jsonDictionary valueForKeyPath:@"total_shipping"] && [jsonDictionary valueForKeyPath:@"total_shipping"] != [NSNull null])
+        orderHistoryBag.shipping = [jsonDictionary valueForKeyPath:@"total_shipping"];
     
     if ([jsonDictionary valueForKeyPath:@"credit_total"] && [jsonDictionary valueForKeyPath:@"credit_total"] != [NSNull null])
         orderHistoryBag.credits = [jsonDictionary valueForKeyPath:@"credit_total"];
     
-    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
-        orderHistoryBag.total = [jsonDictionary valueForKeyPath:@"order_id"];
+    if ([jsonDictionary valueForKeyPath:@"total_order_value"] && [jsonDictionary valueForKeyPath:@"total_order_value"] != [NSNull null])
+        orderHistoryBag.total = [jsonDictionary valueForKeyPath:@"total_order_value"];
     
     return orderHistoryBag;
 }

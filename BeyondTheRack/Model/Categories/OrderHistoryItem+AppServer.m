@@ -47,24 +47,22 @@
     if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
         orderHistoryItem.orderId = [jsonDictionary valueForKeyPath:@"order_id"];
     
-    int needs_work_PENDING_eric;
-    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
-        orderHistoryItem.shortDescription = [jsonDictionary valueForKeyPath:@"order_id"];
+    if ([jsonDictionary valueForKeyPath:@"description"] && [jsonDictionary valueForKeyPath:@"description"] != [NSNull null])
+        orderHistoryItem.shortDescription = [jsonDictionary valueForKeyPath:@"description"];
 
     if ([jsonDictionary valueForKeyPath:@"variant"] && [jsonDictionary valueForKeyPath:@"variant"] != [NSNull null])
         orderHistoryItem.size = [jsonDictionary valueForKeyPath:@"variant"];
 
-    int needs_work_PENDING_eric2;
-    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
-        orderHistoryItem.price = [jsonDictionary valueForKeyPath:@"order_id"];
+    if ([jsonDictionary valueForKeyPath:@"value"] && [jsonDictionary valueForKeyPath:@"value"] != [NSNull null])
+        orderHistoryItem.price = [jsonDictionary valueForKeyPath:@"value"];
     
-    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
-        orderHistoryItem.status = [jsonDictionary valueForKeyPath:@"order_id"];
-
+    if ([jsonDictionary valueForKeyPath:@"status"] && [jsonDictionary valueForKeyPath:@"status"] != [NSNull null])
+        orderHistoryItem.status = [jsonDictionary valueForKeyPath:@"status"];
+    
+    int needs_work;
     if ([jsonDictionary valueForKeyPath:@"status_note"] && [jsonDictionary valueForKeyPath:@"status_note"] != [NSNull null])
         orderHistoryItem.statusNote = [jsonDictionary valueForKeyPath:@"status_note"];
 
-    
     return orderHistoryItem;
 }
 
