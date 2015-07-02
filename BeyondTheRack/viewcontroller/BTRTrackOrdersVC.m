@@ -125,134 +125,162 @@
     view = [self configureSecondRowHeaderforView:view andTableView:tableView];
 
     
-    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:0.40]];
+    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:0.60]];
     return view;
 }
 
 
 - (UIView *)configureFirstRowHeaderforView:(UIView *)view andTableView:(UITableView *)tableView {
  
-    NSInteger labelWidth = tableView.frame.size.width/4;
-    NSInteger labelHeight = 18;
-    NSInteger xPadding = tableView.frame.size.width/50;
+    CGFloat mainWdith = tableView.frame.size.width/4;
+    CGFloat labelHeight = 18;
+    CGFloat xPadding = 0;
     
-    NSInteger firstRowYPostion = 20;
-    NSInteger firstRowXPosition = 14;
+    CGFloat firstRowYPostion = 20;
+    CGFloat firstRowXPosition = tableView.frame.size.width/15;
     
     NSString *titleStringFont = @"AvenirNextCondensed-Medium";
     NSString *valueStringFont = @"AvenirNextCondensed-Regular";
     
-    UILabel *orderNoLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+    NSString *orderNoString = @"ORDER NO";
+    UILabel *orderNoLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderNoString], labelHeight)];
     [orderNoLabel setFont:[UIFont fontWithName:titleStringFont size:14]];
-    [orderNoLabel setText:@"ORDER NO"];
+    [orderNoLabel setText:orderNoString];
     [view addSubview:orderNoLabel];
     [orderNoLabel sizeToFit];
-    
-    firstRowXPosition += labelWidth + xPadding;
-    UILabel *orderDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+  
+    NSString *orderDateString = @"ORDER DATE";
+    xPadding = mainWdith - [self getExpectedWidthforString:orderDateString];
+    firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:orderDateString] + xPadding;
+    UILabel *orderDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderDateString], labelHeight)];
     [orderDateLabel setFont:[UIFont fontWithName:titleStringFont size:14]];
-    [orderDateLabel setText:@"ORDER DATE"];
+    [orderDateLabel setText:orderDateString];
     [view addSubview:orderDateLabel];
     [orderDateLabel sizeToFit];
     
-    firstRowXPosition += labelWidth + xPadding;
-    UILabel *subtotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+    NSString *orderSubTotalString = @"SUB TOTAL";
+    xPadding = mainWdith - [self getExpectedWidthforString:orderSubTotalString];
+    firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:orderSubTotalString] + xPadding;
+    UILabel *subtotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderSubTotalString], labelHeight)];
     [subtotalLabel setFont:[UIFont fontWithName:titleStringFont size:14]];
-    [subtotalLabel setText:@"SUB TOTAL"];
+    [subtotalLabel setText:orderSubTotalString];
     [view addSubview:subtotalLabel];
     [subtotalLabel sizeToFit];
     
-    firstRowXPosition += labelWidth + xPadding;
-    UILabel *taxesLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+    NSString *taxString = @"TAXES";
+    xPadding = mainWdith - [self getExpectedWidthforString:taxString];
+    firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:taxString] + xPadding;
+    UILabel *taxesLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:taxString], labelHeight)];
     [taxesLabel setFont:[UIFont fontWithName:titleStringFont size:14]];
-    [taxesLabel setText:@"TAXES"];
+    [taxesLabel setText:taxString];
     [view addSubview:taxesLabel];
     [taxesLabel sizeToFit];
     
     firstRowYPostion = 40;
-    firstRowXPosition = 14;
+    firstRowXPosition = tableView.frame.size.width/15;
     
-    UILabel *orderNoValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+    UILabel *orderNoValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderNoString], labelHeight)];
     [orderNoValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [orderNoValueLabel setText:@"ORDER NO"];
+    [orderNoValueLabel setText:orderNoString];
     [view addSubview:orderNoValueLabel];
     [orderNoValueLabel sizeToFit];
     
-    firstRowXPosition += labelWidth + xPadding;
-    UILabel *orderDateValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+    xPadding = mainWdith - [self getExpectedWidthforString:orderDateString];
+    firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:orderDateString] + xPadding;
+    UILabel *orderDateValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderDateString] , labelHeight)];
     [orderDateValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [orderDateValueLabel setText:@"ORDER DATE"];
+    [orderDateValueLabel setText:orderDateString];
     [view addSubview:orderDateValueLabel];
     [orderDateValueLabel sizeToFit];
-    
-    firstRowXPosition += labelWidth + xPadding;
-    UILabel *subtotalValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+
+    xPadding = mainWdith - [self getExpectedWidthforString:orderSubTotalString];
+    firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:orderSubTotalString] + xPadding;
+    UILabel *subtotalValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderSubTotalString] , labelHeight)];
     [subtotalValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [subtotalValueLabel setText:@"SUB TOTAL"];
+    [subtotalValueLabel setText:orderSubTotalString];
     [view addSubview:subtotalValueLabel];
     [subtotalValueLabel sizeToFit];
-    
-    firstRowXPosition += labelWidth + xPadding;
-    UILabel *taxesValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, labelWidth, labelHeight)];
+
+    xPadding = mainWdith - [self getExpectedWidthforString:taxString];
+    firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:taxString] + xPadding;
+    UILabel *taxesValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:taxString], labelHeight)];
     [taxesValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [taxesValueLabel setText:@"TAXES"];
+    [taxesValueLabel setText:taxString];
     [view addSubview:taxesValueLabel];
     [taxesValueLabel sizeToFit];
 
     return view;
 }
 
+- (CGFloat)getExpectedWidthforString:(NSString *)stringValue {
+    
+    UILabel *templateLabel = [[UILabel alloc] init];
+    [templateLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:14]];
+    [templateLabel sizeToFit];
+    CGSize textSize = [[templateLabel text] sizeWithAttributes:@{NSFontAttributeName:[templateLabel font]}];
+    
+    return textSize.width;
+}
+
 - (UIView *)configureSecondRowHeaderforView:(UIView *)view andTableView:(UITableView *)tableView {
     
-    NSInteger labelWidth = tableView.frame.size.width/4;
-    NSInteger labelHeight = 18;
-    NSInteger xPadding = tableView.frame.size.width/50;
+    CGFloat mainWdith = tableView.frame.size.width/4;
+    CGFloat labelHeight = 18;
+    CGFloat xPadding = 0;
+    
+    NSString *titleStringFont = @"AvenirNextCondensed-Medium";
+    NSString *valueStringFont = @"AvenirNextCondensed-Regular";
     
     NSInteger seondRowYPostion = 90;
-    NSInteger secondRowXPosition = 14;
+    NSInteger secondRowXPosition = tableView.frame.size.width/15;
 
-    UILabel *orderNoLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, labelWidth, labelHeight)];
-    [orderNoLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:14]];
-    [orderNoLabel setText:@"SHIPPING"];
-    [view addSubview:orderNoLabel];
-    [orderNoLabel sizeToFit];
+    NSString *shippingString = @"SHIPPING";
+    UILabel *shippingLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:shippingString], labelHeight)];
+    [shippingLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:14]];
+    [shippingLabel setText:@"SHIPPING"];
+    [view addSubview:shippingLabel];
+    [shippingLabel sizeToFit];
+
+    NSString *creditsString = @"CREDITS";
+    xPadding = mainWdith - [self getExpectedWidthforString:creditsString];
+    secondRowXPosition += [self getExpectedWidthforString:creditsString] + xPadding;
+    UILabel *creditsLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:creditsString], labelHeight)];
+    [creditsLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:14]];
+    [creditsLabel setText:@"CREDITS"];
+    [view addSubview:creditsLabel];
+    [creditsLabel sizeToFit];
     
-    secondRowXPosition += labelWidth + xPadding;
-    UILabel *orderDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, labelWidth, labelHeight)];
-    [orderDateLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:14]];
-    [orderDateLabel setText:@"CREDITS"];
-    [view addSubview:orderDateLabel];
-    [orderDateLabel sizeToFit];
-    
-    secondRowXPosition += labelWidth + xPadding;
-    UILabel *subtotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, labelWidth, labelHeight)];
-    [subtotalLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:14]];
-    [subtotalLabel setText:@"TOTAL"];
-    [view addSubview:subtotalLabel];
-    [subtotalLabel sizeToFit];
+    NSString *totalString = @"TOTAL";
+    xPadding = mainWdith - [self getExpectedWidthforString:creditsString];
+    secondRowXPosition += [self getExpectedWidthforString:creditsString] + xPadding;
+    UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:totalString], labelHeight)];
+    [totalLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:14]];
+    [totalLabel setText:totalString];
+    [view addSubview:totalLabel];
+    [totalLabel sizeToFit];
     
     seondRowYPostion = 110;
-    secondRowXPosition = 14;
+    secondRowXPosition = tableView.frame.size.width/15;
+
+    UILabel *shippingValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:shippingString], labelHeight)];
+    [shippingValueLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Regular" size:14]];
+    [shippingValueLabel setText:shippingString];
+    [view addSubview:shippingValueLabel];
+    [shippingValueLabel sizeToFit];
     
-    UILabel *orderNoValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, labelWidth, labelHeight)];
-    [orderNoValueLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Regular" size:14]];
-    [orderNoValueLabel setText:@"SHIPPING"];
-    [view addSubview:orderNoValueLabel];
-    [orderNoValueLabel sizeToFit];
+    secondRowXPosition += [self getExpectedWidthforString:creditsString] + xPadding;
+    UILabel *creditsValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:creditsString], labelHeight)];
+    [creditsValueLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Regular" size:14]];
+    [creditsValueLabel setText:creditsString];
+    [view addSubview:creditsValueLabel];
+    [creditsValueLabel sizeToFit];
     
-    secondRowXPosition += labelWidth + xPadding;
-    UILabel *orderDateValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, labelWidth, labelHeight)];
-    [orderDateValueLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Regular" size:14]];
-    [orderDateValueLabel setText:@"CREDITS"];
-    [view addSubview:orderDateValueLabel];
-    [orderDateValueLabel sizeToFit];
-    
-    secondRowXPosition += labelWidth + xPadding;
-    UILabel *subtotalValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, labelWidth, labelHeight)];
-    [subtotalValueLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Regular" size:14]];
-    [subtotalValueLabel setText:@"TOTAL"];
-    [view addSubview:subtotalValueLabel];
-    [subtotalValueLabel sizeToFit];
+    secondRowXPosition += [self getExpectedWidthforString:totalString] + xPadding;
+    UILabel *totalValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:totalString], labelHeight)];
+    [totalValueLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Regular" size:14]];
+    [totalValueLabel setText:totalString];
+    [view addSubview:totalValueLabel];
+    [totalValueLabel sizeToFit];
     
     return view;
 }
