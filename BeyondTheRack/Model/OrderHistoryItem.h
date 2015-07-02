@@ -17,6 +17,5 @@
 @property (nonatomic, retain) NSString *size;
 @property (nonatomic, retain) NSString *price;
 @property (nonatomic, retain) NSString *status;
-@property (nonatomic, retain) NSString *statusNote;
 
 @end

@@ -36,7 +36,6 @@
 
 
 + (OrderHistoryItem *)extractOrderHistoryItemfromJSONDictionary:(NSDictionary *)jsonDictionary forOrderHistoryItem:(OrderHistoryItem *)orderHistoryItem {
-
     
     if ([jsonDictionary valueForKeyPath:@"id"] && [jsonDictionary valueForKeyPath:@"id"] != [NSNull null])
         orderHistoryItem.orderHistoryItemId = [jsonDictionary valueForKeyPath:@"id"];
@@ -58,10 +57,6 @@
     
     if ([jsonDictionary valueForKeyPath:@"status"] && [jsonDictionary valueForKeyPath:@"status"] != [NSNull null])
         orderHistoryItem.status = [jsonDictionary valueForKeyPath:@"status"];
-    
-    int needs_work;
-    if ([jsonDictionary valueForKeyPath:@"status_note"] && [jsonDictionary valueForKeyPath:@"status_note"] != [NSNull null])
-        orderHistoryItem.statusNote = [jsonDictionary valueForKeyPath:@"status_note"];
 
     return orderHistoryItem;
 }
