@@ -236,7 +236,7 @@
 
     NSString *shippingString = @"SHIPPING";
     UILabel *shippingLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:shippingString], labelHeight)];
-    [shippingLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:14]];
+    [shippingLabel setFont:[UIFont fontWithName:titleStringFont size:14]];
     [shippingLabel setText:@"SHIPPING"];
     [view addSubview:shippingLabel];
     [shippingLabel sizeToFit];
@@ -245,7 +245,7 @@
     xPadding = mainWdith - [self getExpectedWidthforString:creditsString];
     secondRowXPosition += [self getExpectedWidthforString:creditsString] + xPadding;
     UILabel *creditsLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:creditsString], labelHeight)];
-    [creditsLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:14]];
+    [creditsLabel setFont:[UIFont fontWithName:titleStringFont size:14]];
     [creditsLabel setText:@"CREDITS"];
     [view addSubview:creditsLabel];
     [creditsLabel sizeToFit];
@@ -254,7 +254,7 @@
     xPadding = mainWdith - [self getExpectedWidthforString:creditsString];
     secondRowXPosition += [self getExpectedWidthforString:creditsString] + xPadding;
     UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:totalString], labelHeight)];
-    [totalLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:14]];
+    [totalLabel setFont:[UIFont fontWithName:titleStringFont size:14]];
     [totalLabel setText:totalString];
     [view addSubview:totalLabel];
     [totalLabel sizeToFit];
@@ -263,21 +263,21 @@
     secondRowXPosition = tableView.frame.size.width/15;
 
     UILabel *shippingValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:shippingString], labelHeight)];
-    [shippingValueLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Regular" size:14]];
+    [shippingValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
     [shippingValueLabel setText:shippingString];
     [view addSubview:shippingValueLabel];
     [shippingValueLabel sizeToFit];
     
     secondRowXPosition += [self getExpectedWidthforString:creditsString] + xPadding;
     UILabel *creditsValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:creditsString], labelHeight)];
-    [creditsValueLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Regular" size:14]];
+    [creditsValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
     [creditsValueLabel setText:creditsString];
     [view addSubview:creditsValueLabel];
     [creditsValueLabel sizeToFit];
     
     secondRowXPosition += [self getExpectedWidthforString:totalString] + xPadding;
     UILabel *totalValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:totalString], labelHeight)];
-    [totalValueLabel setFont:[UIFont fontWithName:@"AvenirNextCondensed-Regular" size:14]];
+    [totalValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
     [totalValueLabel setText:totalString];
     [view addSubview:totalValueLabel];
     [totalValueLabel sizeToFit];
