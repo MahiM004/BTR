@@ -45,13 +45,11 @@
     if ([jsonDictionary valueForKeyPath:@"order_date"] && [jsonDictionary valueForKeyPath:@"order_date"] != [NSNull null])
         orderHistoryBag.orderDate = [jsonDictionary valueForKeyPath:@"order_date"];
 
-    int subtotal_PENDING_eric;
-    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
-        orderHistoryBag.subtotal = [jsonDictionary valueForKeyPath:@"order_id"];
+    if ([jsonDictionary valueForKeyPath:@"sub_total"] && [jsonDictionary valueForKeyPath:@"sub_total"] != [NSNull null])
+        orderHistoryBag.subtotal = [jsonDictionary valueForKeyPath:@"sub_total"];
     
-    int total_taxes_PENDING_eric;
-    if ([jsonDictionary valueForKeyPath:@"order_id"] && [jsonDictionary valueForKeyPath:@"order_id"] != [NSNull null])
-        orderHistoryBag.taxes = [jsonDictionary valueForKeyPath:@"order_id"];
+    if ([jsonDictionary valueForKeyPath:@"total_taxes"] && [jsonDictionary valueForKeyPath:@"total_taxes"] != [NSNull null])
+        orderHistoryBag.taxes = [jsonDictionary valueForKeyPath:@"total_taxes"];
     
     if ([jsonDictionary valueForKeyPath:@"total_shipping"] && [jsonDictionary valueForKeyPath:@"total_shipping"] != [NSNull null])
         orderHistoryBag.shipping = [jsonDictionary valueForKeyPath:@"total_shipping"];
