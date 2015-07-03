@@ -106,21 +106,34 @@
     return crossedOffText;
 }
 
-
-
 + (NSString *)priceStringfromNumber:(NSNumber *)priceNumber {
+    /*
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+    [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
+    NSString *someString = [nf stringFromNumber:priceNumber];
+    NSString *dollaredString = [NSString stringWithFormat:@"$%@", someString];
+  
+    */
     
-    NSString *dollaredString = [NSString stringWithFormat:@"$%@", priceNumber];
-
-    return dollaredString;
+    NSNumberFormatter *currencyStyle = [[NSNumberFormatter alloc] init];
+    [currencyStyle setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [currencyStyle setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    NSString *formatted = [currencyStyle stringFromNumber:priceNumber];
+    
+    return formatted;
 }
 
 
 + (NSString *)priceStringfromString:(NSString *)priceString {
     
-    NSString *dollaredString = [NSString stringWithFormat:@"$%@", priceString];
+    NSNumberFormatter *currencyStyle = [[NSNumberFormatter alloc] init];
+    [currencyStyle setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [currencyStyle setNumberStyle:NSNumberFormatterCurrencyStyle];
+    NSNumber *amount = [NSNumber numberWithFloat:[priceString floatValue]];
+    NSString* formatted = [currencyStyle stringFromNumber:amount];
     
-    return dollaredString;
+    return formatted;
 }
 
 

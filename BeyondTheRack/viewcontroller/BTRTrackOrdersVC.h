@@ -12,4 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (strong, nonatomic) NSMutableDictionary *itemsDictionary;
+@property (strong, nonatomic) NSMutableArray *headersArray;
+
+
 @end

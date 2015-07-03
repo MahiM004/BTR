@@ -9,11 +9,15 @@
 #import "BTRAccountEmbeddedTVC.h"
 #import "BTRLoginViewController.h"
 #import "BTRNotificationsVC.h"
+#import "BTRTrackOrdersVC.h"
 
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
+#import "BTROrderHistoryFetcher.h"
+#import "OrderHistoryBag+AppServer.h"
+#import "OrderHistoryItem+AppServer.h"
 
 
 @interface BTRAccountEmbeddedTVC ()
@@ -22,6 +26,9 @@
 @property (strong, nonatomic) NSString *sessionId;
 
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
+
+@property (strong, nonatomic) NSMutableDictionary *itemsDictionary;
+@property (strong, nonatomic) NSMutableArray *headersArray;
 
 
 @property (nonatomic, strong) User *user;
@@ -32,9 +39,16 @@
 @implementation BTRAccountEmbeddedTVC
 
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
+- (NSMutableArray *)headersArray {
     
+    if (!_headersArray) _headersArray = [[NSMutableArray alloc] init];
+    return _headersArray;
+}
+
+- (NSMutableDictionary *)itemsDictionary {
+
+    if (!_itemsDictionary) _itemsDictionary = [[NSMutableDictionary alloc] init];
+    return _itemsDictionary;
 }
 
 
@@ -148,6 +162,75 @@
     
 }
 
+#pragma mark - Track Orders RESTful
+
+
+- (void)fetchOrderHistoryforSessionId:(NSString *)sessionId
+                              success:(void (^)(id  responseObject)) success
+                              failure:(void (^)(NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTROrderHistoryFetcher URLforOrderHistory]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                               options:0
+                                                                                 error:NULL];
+         [[self itemsDictionary] removeAllObjects];
+         [[self headersArray] removeAllObjects];
+         
+         if (entitiesPropertyList) {
+             
+             NSArray *allKeysArray = entitiesPropertyList.allKeys;
+             
+             if ([allKeysArray count] != 0) {
+                 
+                 for (NSString *key in allKeysArray) {
+                     
+                     OrderHistoryBag *ohBag = [[OrderHistoryBag alloc] init];
+                     NSDictionary *tempDictionary = [entitiesPropertyList objectForKey:key];
+                     ohBag = [OrderHistoryBag extractOrderHistoryfromJSONDictionary:tempDictionary forOrderHistoryBag:ohBag];
+                     [self.headersArray addObject:ohBag];
+                     
+                     NSArray *tempArray = tempDictionary[@"lines"];
+                     
+                     NSMutableArray *linesArray = [[NSMutableArray alloc] init];
+                     linesArray = [OrderHistoryItem loadOrderHistoryItemsfromAppServerArray:tempArray forOrderHistoryItemsArray:linesArray];
+                     
+                     [self.itemsDictionary setObject:linesArray forKey:key];
+                 }
+             }
+             
+             success(@"TRUE");
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         NSLog(@"Error: %@", error);
+         failure(error);
+     }];
+}
+
+- (IBAction)trackOrdersTapped:(UIButton *)sender {
+    
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    
+    [self fetchOrderHistoryforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
+        
+        [self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 
  #pragma mark - Navigation
@@ -159,6 +242,12 @@
          
          BTRNotificationsVC *vc = [segue destinationViewController];
          vc.user = [self user];
+     
+     } else if ([[segue identifier] isEqualToString:@"BTRTrackOrdersSegueIdentifier"]) {
+         
+         BTRTrackOrdersVC *vc = [segue destinationViewController];
+         vc.headersArray = [self headersArray];
+         vc.itemsDictionary = [self itemsDictionary];
      }
  }
  

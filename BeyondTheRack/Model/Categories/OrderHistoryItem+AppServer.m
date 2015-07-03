@@ -21,10 +21,11 @@
 }
 
 
-+ (NSMutableArray *)loadOrderHistoryItemsfromAppServerArray:(NSArray *)orderHistoryItems withServerDateTime:(NSDate *)serverTime forOrderHistoryItemsArray:(NSMutableArray *)orderHistoryItemsArray// of AppServer BagItem NSDictionary
++ (NSMutableArray *)loadOrderHistoryItemsfromAppServerArray:(NSArray *)jsonArray forOrderHistoryItemsArray:(NSMutableArray *)orderHistoryItemsArray// of AppServer BagItem NSDictionary
 {
-    for (NSDictionary *orderHistoryItem in orderHistoryItemsArray) {
-        
+    
+    for (NSDictionary *orderHistoryItem in jsonArray) {
+    
         NSObject *someObject = [self orderItemWithAppServerInfo:orderHistoryItem];
         if (someObject)
             [orderHistoryItemsArray addObject:someObject];

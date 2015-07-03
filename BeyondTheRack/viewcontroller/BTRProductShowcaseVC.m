@@ -319,6 +319,8 @@
         if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] ) {
             
             cell.selectSizeButton.titleLabel.text = @"Select Size";
+            [cell.selectSizeButton setAlpha:1.0];
+            [cell.selectSizeButton setEnabled:true];
             
         } else {
             

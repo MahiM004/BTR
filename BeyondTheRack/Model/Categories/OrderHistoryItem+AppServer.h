@@ -13,7 +13,7 @@
 
 + (OrderHistoryItem *)orderItemWithAppServerInfo:(NSDictionary *)orderItemDictionary;
 
-+ (NSMutableArray *)loadOrderHistoryItemsfromAppServerArray:(NSArray *)orderHistoryItems withServerDateTime:(NSDate *)serverTime forOrderHistoryItemsArray:(NSMutableArray *)orderHistoryItemsArray;// of AppServer BagItem NSDictionary
++ (NSMutableArray *)loadOrderHistoryItemsfromAppServerArray:(NSArray *)orderHistoryItems forOrderHistoryItemsArray:(NSMutableArray *)orderHistoryItemsArray;// of AppServer BagItem NSDictionary
 
 + (OrderHistoryItem *)extractOrderHistoryItemfromJSONDictionary:(NSDictionary *)jsonDictionary forOrderHistoryItem:(OrderHistoryItem *)orderHistoryItem;
 
