@@ -14,6 +14,7 @@
 
 @interface BTRTrackOrdersVC ()
 
+@property (strong, nonatomic) NSArray *monthsArray;
 
 @end
 
@@ -123,7 +124,7 @@
     CGFloat mainWdith = tableView.frame.size.width/4;
     CGFloat labelHeight = 18;
     CGFloat xPadding = 0;
-    
+
     CGFloat firstRowYPostion = 20;
     CGFloat firstRowXPosition = tableView.frame.size.width/15;
     
@@ -177,9 +178,15 @@
     firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:orderDateString] + xPadding;
     UILabel *orderDateValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderDateString], labelHeight)];
     [orderDateValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [orderDateValueLabel setText:[BTRViewUtility priceStringfromString:[[[self headersArray] objectAtIndex:section] orderId]]];
+    [orderDateValueLabel setText:[self getMonthDayStringfromDateString:[[[self headersArray] objectAtIndex:section] orderDate]]];
     [view addSubview:orderDateValueLabel];
     [orderDateValueLabel sizeToFit];
+
+    UILabel *orderYearValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion + 20, [self getExpectedWidthforString:orderDateString], labelHeight)];
+    [orderYearValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
+    [orderYearValueLabel setText:[self getYearStringfromDateString:[[[self headersArray] objectAtIndex:section] orderDate]]];
+    [view addSubview:orderYearValueLabel];
+    [orderYearValueLabel sizeToFit];
     
     xPadding = mainWdith - [self getExpectedWidthforString:orderSubTotalString];
     firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:orderSubTotalString] + xPadding;
@@ -198,6 +205,31 @@
     [taxesValueLabel sizeToFit];
    
     return view;
+}
+
+
+- (NSString *)getMonthDayStringfromDateString:(NSDate *)myDate {
+
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    
+    NSInteger day = [components day];
+    NSInteger month = [components month];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSArray *monthsArray = [dateFormatter monthSymbols];
+    
+    NSString *stringDate = [NSString stringWithFormat:@"%@ %ld,", [monthsArray objectAtIndex:month], (long)day];
+    
+    return stringDate;
+}
+
+
+- (NSString *)getYearStringfromDateString:(NSDate *)myDate {
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSString *stringDate = [NSString stringWithFormat:@"%ld", (long)[components year]];
+    
+    return stringDate;
 }
 
 - (CGFloat)getExpectedWidthforString:(NSString *)stringValue {

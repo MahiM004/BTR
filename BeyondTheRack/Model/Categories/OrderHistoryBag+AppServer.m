@@ -43,8 +43,10 @@
     if ([jsonDictionary valueForKeyPath:@"order_date"] && [jsonDictionary valueForKeyPath:@"order_date"] != [NSNull null])
         orderHistoryBag.orderDate = [jsonDictionary valueForKeyPath:@"order_date"];
 
-    if ([jsonDictionary valueForKeyPath:@"sub_total"] && [jsonDictionary valueForKeyPath:@"sub_total"] != [NSNull null])
+    if ([jsonDictionary valueForKeyPath:@"sub_total"] && [jsonDictionary valueForKeyPath:@"sub_total"] != [NSNull null]) {
+        
         orderHistoryBag.subtotal = [[jsonDictionary valueForKeyPath:@"sub_total"] stringValue];
+    }
     
     if ([jsonDictionary valueForKeyPath:@"total_taxes"] && [jsonDictionary valueForKeyPath:@"total_taxes"] != [NSNull null])
         orderHistoryBag.taxes = [[jsonDictionary valueForKeyPath:@"total_taxes"] stringValue];
