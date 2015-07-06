@@ -228,25 +228,29 @@
 }
 
 
-+ (NSString *)formatDateToStringforMonthDayDisplay:(NSDate *)someDate
++ (NSString *)formatDateStringToStringforMonthDayDisplay:(NSString *)someDateString
 {
-    
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMMM d"];
-    NSString  *dateString = [dateFormatter stringFromDate:someDate];
-    
-    NSLog(@"--0--00- :%@  --string--:%@", someDate, dateString);
+    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
 
+    NSDate *myDate = [dateFormatter dateFromString:someDateString];
+
+    [dateFormatter setDateFormat:@"MMMM d"];
+    NSString  *dateString = [dateFormatter stringFromDate:myDate];
     
     return dateString;
 }
 
 
-+ (NSString *)formatDateToStringforYearDisplay:(NSDate *)someDate
++ (NSString *)formatDateStringToStringforYearDisplay:(NSString *)someDateString
 {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMMM d"];
-    NSString  *dateString = [dateFormatter stringFromDate:someDate];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    
+    NSDate *myDate = [dateFormatter dateFromString:someDateString];
+    
+    [dateFormatter setDateFormat:@"yyyy"];
+    NSString  *dateString = [dateFormatter stringFromDate:myDate];
     
     return dateString;
 }

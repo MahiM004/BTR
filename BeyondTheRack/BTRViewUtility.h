@@ -29,8 +29,8 @@
 + (NSString *)countryCodeforName:(NSString *)name;
 + (NSString *)countryNameforCode:(NSString *)code;
 
-+ (NSString *)formatDateToStringforMonthDayDisplay:(NSDate *)someDate;
-+ (NSString *)formatDateToStringforYearDisplay:(NSDate *)someDate;
++ (NSString *)formatDateStringToStringforMonthDayDisplay:(NSString  *)someDate;
++ (NSString *)formatDateStringToStringforYearDisplay:(NSString *)someDate;
 
 
 @end

@@ -41,7 +41,7 @@
         orderHistoryBag.orderId = [jsonDictionary valueForKeyPath:@"order_id"];
 
     if ([jsonDictionary valueForKeyPath:@"order_date"] && [jsonDictionary valueForKeyPath:@"order_date"] != [NSNull null])
-        orderHistoryBag.orderDate = [jsonDictionary valueForKeyPath:@"order_date"];
+        orderHistoryBag.orderDateString = [jsonDictionary valueForKeyPath:@"order_date"];
 
     if ([jsonDictionary valueForKeyPath:@"sub_total"] && [jsonDictionary valueForKeyPath:@"sub_total"] != [NSNull null]) {
         
