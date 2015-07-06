@@ -231,7 +231,7 @@
 + (NSString *)formatDateStringToStringforMonthDayDisplay:(NSString *)someDateString
 {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 
     NSDate *myDate = [dateFormatter dateFromString:someDateString];
 
@@ -245,7 +245,7 @@
 + (NSString *)formatDateStringToStringforYearDisplay:(NSString *)someDateString
 {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     NSDate *myDate = [dateFormatter dateFromString:someDateString];
     
