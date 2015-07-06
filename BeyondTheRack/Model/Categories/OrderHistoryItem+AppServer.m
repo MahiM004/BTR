@@ -51,7 +51,7 @@
         orderHistoryItem.shortDescription = [jsonDictionary valueForKeyPath:@"description"];
 
     if ([jsonDictionary valueForKeyPath:@"variant"] && [jsonDictionary valueForKeyPath:@"variant"] != [NSNull null])
-        orderHistoryItem.size = [jsonDictionary valueForKeyPath:@"variant"];
+        orderHistoryItem.variant = [jsonDictionary valueForKeyPath:@"variant"];
 
     if ([jsonDictionary valueForKeyPath:@"value"] && [jsonDictionary valueForKeyPath:@"value"] != [NSNull null])
         orderHistoryItem.price = [jsonDictionary valueForKeyPath:@"value"];

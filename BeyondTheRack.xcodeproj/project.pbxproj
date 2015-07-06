@@ -137,6 +137,7 @@
 		69D4405C1B34508600070FD8 /* BTRCategoryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D4405B1B34508600070FD8 /* BTRCategoryData.m */; };
 		69D4405F1B34750500070FD8 /* BTRPaymentTypesHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D4405E1B34750500070FD8 /* BTRPaymentTypesHandler.m */; };
 		69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */; };
+		69E84ADA1B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E84AD91B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m */; };
 		69F0BAF81B418628008C0498 /* OrderHistoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BAF71B418628008C0498 /* OrderHistoryItem.m */; };
 		69F0BAFB1B41868B008C0498 /* OrderHistoryBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BAFA1B41868B008C0498 /* OrderHistoryBag.m */; };
 		69F0BB041B41871C008C0498 /* OrderHistoryBag+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F0BB031B41871C008C0498 /* OrderHistoryBag+AppServer.m */; };
@@ -451,6 +452,8 @@
 		69D4405E1B34750500070FD8 /* BTRPaymentTypesHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaymentTypesHandler.m; sourceTree = "<group>"; };
 		69D5663D1A7A8F2300FAEDE2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		69E84AD81B4AC22A00C25D75 /* BTRTrackOrdersItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRTrackOrdersItemCell.h; sourceTree = "<group>"; };
+		69E84AD91B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRTrackOrdersItemCell.m; sourceTree = "<group>"; };
 		69F0BAF61B418628008C0498 /* OrderHistoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderHistoryItem.h; sourceTree = "<group>"; };
 		69F0BAF71B418628008C0498 /* OrderHistoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderHistoryItem.m; sourceTree = "<group>"; };
 		69F0BAF91B41868B008C0498 /* OrderHistoryBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderHistoryBag.h; sourceTree = "<group>"; };
@@ -776,6 +779,8 @@
 				6901E9FB1ACD703C002534D9 /* BTRBagTableViewCell.m */,
 				B3C16A8F1B01371C009470EC /* BTRSizeSelector.h */,
 				B3C16A901B01371C009470EC /* BTRSizeSelector.m */,
+				69E84AD81B4AC22A00C25D75 /* BTRTrackOrdersItemCell.h */,
+				69E84AD91B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m */,
 			);
 			name = View;
 			path = view;
@@ -1374,6 +1379,7 @@
 				69BC6D421A8E4F2C00376D9C /* BTRFacetsHandler.m in Sources */,
 				69B942911AE033FD00483950 /* AFURLSessionManager.m in Sources */,
 				697E05811A434121000146C6 /* BTRViewUtility.m in Sources */,
+				69E84ADA1B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m in Sources */,
 				69D4404D1B331A5B00070FD8 /* EventCategory.m in Sources */,
 				69D4405C1B34508600070FD8 /* BTRCategoryData.m in Sources */,
 				690A38EF1B1DEB7F00D4BA84 /* TNImageRadioButton.m in Sources */,

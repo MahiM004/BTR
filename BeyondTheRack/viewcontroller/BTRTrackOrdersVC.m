@@ -12,9 +12,13 @@
 #import "OrderHistoryBag+AppServer.h"
 #import "OrderHistoryItem+AppServer.h"
 
+#import "BTRTrackOrdersItemCell.h"
+#import "BTRItemFetcher.h"
+
 @interface BTRTrackOrdersVC ()
 
 @property (strong, nonatomic) NSArray *monthsArray;
+@property (strong, nonatomic) NSMutableArray *sortedOrdersArray;
 
 @end
 
@@ -36,13 +40,24 @@
 }
 
 
+- (NSMutableArray *)sortedOrdersArray {
+    
+    if (!_sortedOrdersArray) _sortedOrdersArray = [[NSMutableArray alloc] init];
+    return _sortedOrdersArray;
+}
+
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
+    /*
+    NSArray *sortedKeys = [[self.itemsDictionary allKeys] sortedArrayUsingSelector: @selector(compare:)];
+    for (NSString *key in sortedKeys)
+        [se addObject: [dict objectForKey: key]];
+    */
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-
 }
 
 
@@ -53,7 +68,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 161;
+    return 250;
 }
 
 
@@ -91,15 +106,42 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"OrderItemCellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    BTRTrackOrdersItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
         
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[BTRTrackOrdersItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+
+    OrderHistoryItem *orderItem = [[OrderHistoryItem alloc] init];
+    
+    NSArray *allKeysArray = self.itemsDictionary.allKeys;
+    NSArray *tempArray = [[self itemsDictionary] objectForKey:[allKeysArray objectAtIndex:[indexPath section]]];
+    
+    orderItem = [tempArray objectAtIndex:[indexPath row]];
+    
+    [cell.productImageView setImageWithURL:[BTRItemFetcher
+                                            URLforItemImageForSku:[orderItem skuNumber]]
+                          placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    
+    cell = [self configureCell:cell forOrderItem:orderItem];
     
     return cell;
 }
+
+
+- (BTRTrackOrdersItemCell *)configureCell:(BTRTrackOrdersItemCell *)cell forOrderItem:(OrderHistoryItem *)orderItem {
+    
+    [[cell descriptionLabel] setText:[orderItem shortDescription]];
+    [[cell sizeLabel] setText:[orderItem variant]];
+    [[cell priceLabel] setText:[orderItem price]];
+    [[cell skuLabel] setText:[orderItem skuNumber]];
+    [[cell statusLabel] setText:[orderItem status]];
+    
+    return cell;
+}
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
   
@@ -178,13 +220,15 @@
     firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:orderDateString] + xPadding;
     UILabel *orderDateValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderDateString], labelHeight)];
     [orderDateValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [orderDateValueLabel setText:[self getMonthDayStringfromDateString:[[[self headersArray] objectAtIndex:section] orderDate]]];
+    NSString *monthDayString = [BTRViewUtility formatDateToStringforMonthDayDisplay:[[[self headersArray] objectAtIndex:section] orderDate]];
+    [orderDateValueLabel setText:monthDayString];
     [view addSubview:orderDateValueLabel];
     [orderDateValueLabel sizeToFit];
 
     UILabel *orderYearValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion + 20, [self getExpectedWidthforString:orderDateString], labelHeight)];
     [orderYearValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [orderYearValueLabel setText:[self getYearStringfromDateString:[[[self headersArray] objectAtIndex:section] orderDate]]];
+    NSString *yearString = [BTRViewUtility formatDateToStringforYearDisplay:[[[self headersArray] objectAtIndex:section] orderDate]];
+    [orderYearValueLabel setText:yearString];
     [view addSubview:orderYearValueLabel];
     [orderYearValueLabel sizeToFit];
     
@@ -210,7 +254,9 @@
 
 - (NSString *)getMonthDayStringfromDateString:(NSDate *)myDate {
 
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSLog(@"---0--s-  %@", myDate);
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:myDate];
     
     NSInteger day = [components day];
     NSInteger month = [components month];
@@ -226,6 +272,7 @@
 
 - (NSString *)getYearStringfromDateString:(NSDate *)myDate {
     
+    int change_to_myDate;
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     NSString *stringDate = [NSString stringWithFormat:@"%ld", (long)[components year]];
     

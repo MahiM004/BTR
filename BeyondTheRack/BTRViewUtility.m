@@ -227,6 +227,32 @@
     return @"Canada";
 }
 
+
++ (NSString *)formatDateToStringforMonthDayDisplay:(NSDate *)someDate
+{
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMMM d"];
+    NSString  *dateString = [dateFormatter stringFromDate:someDate];
+    
+    NSLog(@"--0--00- :%@  --string--:%@", someDate, dateString);
+
+    
+    return dateString;
+}
+
+
++ (NSString *)formatDateToStringforYearDisplay:(NSDate *)someDate
+{
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MMMM d"];
+    NSString  *dateString = [dateFormatter stringFromDate:someDate];
+    
+    return dateString;
+}
+
+
+
 @end
 
 

@@ -14,7 +14,7 @@
 @property (nonatomic, retain) NSString *skuNumber;
 @property (nonatomic, retain) NSString *orderId;
 @property (nonatomic, retain) NSString *shortDescription;
-@property (nonatomic, retain) NSString *size;
+@property (nonatomic, retain) NSString *variant;
 @property (nonatomic, retain) NSString *price;
 @property (nonatomic, retain) NSString *status;
 
