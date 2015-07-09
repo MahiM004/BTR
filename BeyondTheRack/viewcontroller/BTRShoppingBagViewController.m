@@ -125,8 +125,6 @@
 #pragma mark - Table view Data source
 
 
-
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return [[self bagItemsArray] count];
@@ -158,7 +156,6 @@
     
     return cell;
 }
-
 
 
 
