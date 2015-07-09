@@ -151,11 +151,28 @@
                                              URLforItemImageForSku:uniqueSku]
                            placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
         
-        cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:[indexPath row]] andItem:[self.itemsArray objectAtIndex:[indexPath row]]];
+        Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
+        
+        cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:[indexPath row]] andItem:item];
     }
     
     return cell;
 }
+
+
+
+
+- (Item *)getItemforSku:(NSString *)skuNumber {
+    for (Item *item in [self itemsArray]) {
+        if ([[item sku] isEqualToString:skuNumber]) {
+            return item;
+        }
+    }
+    return nil;
+}
+
+
+
 
 
 - (BTRBagTableViewCell *)configureCell:(BTRBagTableViewCell *)cell forBagItem:(BagItem *)bagItem andItem:(Item *)item {
@@ -209,7 +226,11 @@
              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
+
+             [[self bagItemsArray] removeAllObjects];
+
              NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
+             
              
              NSDate *serverTime = [NSDate date];
              if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
@@ -220,11 +241,13 @@
              NSNumber *total = entitiesPropertyList[@"total"];
              NSString *totalString = [NSString stringWithFormat:@"%@",total];
              
-             [[self bagItemsArray] removeAllObjects];
              self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
             
+             
              NSArray *productJsonArray = entitiesPropertyList[@"products"];
              self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
+             
+             NSLog(@"----0--- count: %lu    ---0-0--  items count: %lu", (unsigned long)[self.bagItemsArray  count], (unsigned long)[self.itemsArray count]);
              
              BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
              [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
