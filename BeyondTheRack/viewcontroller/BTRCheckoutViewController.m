@@ -125,7 +125,7 @@
     [self setChosenBillingCountryString:@"Canada"];
     
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
-    [[self paymentTypesArray] addObjectsFromArray:[sharedPaymentTypes creditCardDisplayNameArray]];
+    self.paymentTypesArray = [sharedPaymentTypes creditCardDisplayNameArray];
 }
 
 
@@ -549,13 +549,15 @@
 
 - (void)makePaymentforSessionId:(NSString *)sessionId
                            success:(void (^)(id  responseObject)) success
-                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                           failure:(void (^)(NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
@@ -586,11 +588,13 @@
     [orderInfo setObject:@"" forKey:@"recipient_message"];
     //[orderInfo setObject:[NSNumber numberWithBool:[self.pickupAvailable checked]] forKey:@"is_pickup"];
     
-    
     NSInteger expMonthInt = [[[[self expiryMonthPaymentTF] text] componentsSeparatedByString:@" -"][0] integerValue];
     NSString *expMonth = [NSString stringWithFormat:@"%ld", (long)expMonthInt];
     
-    NSDictionary *cardInfo = (@{@"type": [[self paymentMethodTF] text],
+    BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
+    NSString *paymentTypeToPass = [sharedPaymentTypes paymentTypeforCardDisplayName:[[self paymentMethodTF] text]];
+    
+    NSDictionary *cardInfo = (@{@"type": paymentTypeToPass,
                                 @"name": [[self nameOnCardPaymentTF] text],
                                 @"number": [[self cardNumberPaymentTF] text],
                                 @"year": [[self expiryYearPaymentTF] text],
@@ -605,17 +609,33 @@
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]]
        parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
-              [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList]];
-              success(@"TRUE");
            
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              failure(operation, error);
-          }];
+           NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
+           NSLog(@"------0--- ent:  %@", entitiesPropertyList);
+           
+           [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList]];
+           success(entitiesPropertyList);
+           
+       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           failure(error);
+       }];
 }
 
 
+- (IBAction)processOrderTpped:(UIButton *)sender {
+    
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    
+    [self makePaymentforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
+        
+        //[self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+
+     
+}
 
 
 #pragma mark - Navigation

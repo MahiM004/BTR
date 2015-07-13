@@ -190,7 +190,7 @@
                          
                          if ([didLogIn isEqualToString:@"TRUE"]) {
                              
-                             [self performSegueWithIdentifier:@"LaunchCategoriesModalSegue" sender:self];
+                             [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
                              
                          } else {
                              

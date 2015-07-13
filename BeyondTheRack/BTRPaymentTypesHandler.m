@@ -65,7 +65,16 @@ static BTRPaymentTypesHandler *_sharedInstance;
 
 - (NSString *)paymentTypeforCardDisplayName:(NSString *)displayName {
     
-    return [self.paymentTypesArray objectAtIndex:[self.creditCardDisplayNameArray indexOfObjectIdenticalTo:displayName]];
+    int i = -1;
+    for (NSString *cardDisplayString in [self creditCardDisplayNameArray]) {
+        i++;
+
+        if ([cardDisplayString containsString:displayName])
+            break;
+        
+    }
+    
+    return [self.creditCardTypeArray objectAtIndex:i];
 }
 
 - (NSString *)cardDisplayNameforPaymentType:(NSString *)paymentType {

@@ -136,8 +136,7 @@
     
     BTRBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingBagCellIdentifier" forIndexPath:indexPath];
     
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[BTRBagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
     }
     
@@ -223,11 +222,13 @@
              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
-
              [[self bagItemsArray] removeAllObjects];
-
              NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
              
+             
+             int expired_reserved;
+             
+             // save expired/reserved in a bagItem field
              
              NSDate *serverTime = [NSDate date];
              if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
@@ -239,12 +240,9 @@
              NSString *totalString = [NSString stringWithFormat:@"%@",total];
              
              self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
-            
              
              NSArray *productJsonArray = entitiesPropertyList[@"products"];
              self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
-             
-             NSLog(@"----0--- count: %lu    ---0-0--  items count: %lu", (unsigned long)[self.bagItemsArray  count], (unsigned long)[self.itemsArray count]);
              
              BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
              [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
@@ -258,6 +256,7 @@
              
          }];
 }
+
 
 
 - (void)getCheckoutInfoforSessionId:(NSString *)sessionId
@@ -283,7 +282,6 @@
              
              NSDictionary *paymentsDictionary = entitiesPropertyList[@"paymentMethods"];
              [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList]];
-
              success(paymentsDictionary);
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -341,7 +339,6 @@
             NSString *tempString = [creditCardsDic valueForKey:key];
             [[sharedPaymentTypes creditCardDisplayNameArray] addObject:tempString];
         }
-        
         
         [self performSegueWithIdentifier:@"BTRCheckoutSegueIdentifier" sender:self];
         
