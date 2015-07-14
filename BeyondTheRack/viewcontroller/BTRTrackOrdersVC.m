@@ -18,12 +18,16 @@
 @interface BTRTrackOrdersVC ()
 
 @property (strong, nonatomic) NSArray *monthsArray;
-@property (strong, nonatomic) NSMutableArray *sortedOrdersArray;
+@property (strong, nonatomic) NSArray *sortedKeys;
 
 @end
 
 
 @implementation BTRTrackOrdersVC
+
+
+
+@synthesize sortedKeys;
 
 
 - (NSMutableArray *)headersArray {
@@ -40,22 +44,14 @@
 }
 
 
-- (NSMutableArray *)sortedOrdersArray {
-    
-    if (!_sortedOrdersArray) _sortedOrdersArray = [[NSMutableArray alloc] init];
-    return _sortedOrdersArray;
-}
-
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
-    /*
-    NSArray *sortedKeys = [[self.itemsDictionary allKeys] sortedArrayUsingSelector: @selector(compare:)];
-    for (NSString *key in sortedKeys)
-        [se addObject: [dict objectForKey: key]];
-    */
+    NSArray *unsortedKeys = [self.itemsDictionary allKeys];
+    NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
+    self.sortedKeys =  [unsortedKeys sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
@@ -74,26 +70,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    
-    
-    NSArray *allKeysArray = self.itemsDictionary.allKeys;
-    
-    NSInteger tempIndex = 0;
-    
-    if ([allKeysArray count] != 0) {
-        
-        for (NSString *key in allKeysArray) {
-            
-            NSArray *tempArray = [[self itemsDictionary] objectForKey:key];
-            
-            if (section == tempIndex)
-                return [tempArray count];
-            
-            tempIndex++;
-        }
-    }
-    
-    return 1;
+    NSNumber *orderId = [self.sortedKeys objectAtIndex:section];
+    NSArray *tempArray = [[self itemsDictionary] objectForKey:orderId];
+    return [tempArray count];
 }
 
 
@@ -112,13 +91,11 @@
         
         cell = [[BTRTrackOrdersItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-
-    OrderHistoryItem *orderItem = [[OrderHistoryItem alloc] init];
     
-    NSArray *allKeysArray = self.itemsDictionary.allKeys;
-    NSArray *tempArray = [[self itemsDictionary] objectForKey:[allKeysArray objectAtIndex:[indexPath section]]];
+    NSNumber *orderId = [self.sortedKeys objectAtIndex:indexPath.section];
+    NSArray *tempArray = [[self itemsDictionary] objectForKey:orderId];
     
-    orderItem = [tempArray objectAtIndex:[indexPath row]];
+    OrderHistoryItem *orderItem = [tempArray objectAtIndex:[indexPath row]];
     
     [cell.productImageView setImageWithURL:[BTRItemFetcher
                                             URLforItemImageForSku:[orderItem skuNumber]]
