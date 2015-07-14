@@ -130,15 +130,26 @@
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
 
-    view = [self configureFirstRowHeaderforView:view withTableView:tableView forSection:section];
-    view = [self configureSecondRowHeaderforView:view withTableView:tableView forSection:section];
+    NSString *orderIdString = [NSString stringWithFormat:@"%@", [self.sortedKeys objectAtIndex:section]];    
+    OrderHistoryBag *orderBag = [[OrderHistoryBag alloc] init];
+    for (int i=0; i < [[self headersArray] count]; i++) {
+        if ([[[[self headersArray]  objectAtIndex:i] orderId] isEqualToString:orderIdString]) {
+            orderBag = [[self headersArray] objectAtIndex:i];
+        }
+    }
+    
+    if (orderBag) {
+        view = [self configureFirstRowHeaderforView:view withTableView:tableView forOrderBag:orderBag];
+        view = [self configureSecondRowHeaderforView:view withTableView:tableView forOrderBag:orderBag];
+    }
+    
     [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:0.60]];
 
     return view;
 }
 
 
-- (UIView *)configureFirstRowHeaderforView:(UIView *)view withTableView:(UITableView *)tableView forSection:(NSInteger)section {
+- (UIView *)configureFirstRowHeaderforView:(UIView *)view withTableView:(UITableView *)tableView forOrderBag:(OrderHistoryBag *)orderBag {
  
     CGFloat mainWdith = tableView.frame.size.width/4;
     CGFloat labelHeight = 18;
@@ -189,7 +200,7 @@
     
     UILabel *orderNoValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderNoString], labelHeight)];
     [orderNoValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [orderNoValueLabel setText:[[[self headersArray] objectAtIndex:section] orderId]];
+    [orderNoValueLabel setText:[orderBag orderId]];
     [view addSubview:orderNoValueLabel];
     [orderNoValueLabel sizeToFit];
     
@@ -197,14 +208,14 @@
     firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:orderDateString] + xPadding;
     UILabel *orderDateValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderDateString], labelHeight)];
     [orderDateValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    NSString *monthDayString = [BTRViewUtility formatDateStringToStringforMonthDayDisplay:[[[self headersArray] objectAtIndex:section] orderDateString]];
+    NSString *monthDayString = [BTRViewUtility formatDateStringToStringforMonthDayDisplay:[orderBag orderDateString]];
     [orderDateValueLabel setText:[NSString stringWithFormat:@"%@,", monthDayString]];
     [view addSubview:orderDateValueLabel];
     [orderDateValueLabel sizeToFit];
 
     UILabel *orderYearValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion + 20, [self getExpectedWidthforString:orderDateString], labelHeight)];
     [orderYearValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    NSString *yearString = [BTRViewUtility formatDateStringToStringforYearDisplay:[[[self headersArray] objectAtIndex:section] orderDateString]];
+    NSString *yearString = [BTRViewUtility formatDateStringToStringforYearDisplay:[orderBag orderDateString]];
     [orderYearValueLabel setText:yearString];
     [view addSubview:orderYearValueLabel];
     [orderYearValueLabel sizeToFit];
@@ -213,7 +224,7 @@
     firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:orderSubTotalString] + xPadding;
     UILabel *subtotalValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:orderSubTotalString], labelHeight)];
     [subtotalValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [subtotalValueLabel setText:[BTRViewUtility priceStringfromString:[[[self headersArray] objectAtIndex:section] subtotal]]];
+    [subtotalValueLabel setText:[BTRViewUtility priceStringfromString:[orderBag subtotal]]];
     [view addSubview:subtotalValueLabel];
     [subtotalValueLabel sizeToFit];
     
@@ -221,7 +232,7 @@
     firstRowXPosition = firstRowXPosition + [self getExpectedWidthforString:taxString] + xPadding;
     UILabel *taxesValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(firstRowXPosition, firstRowYPostion, [self getExpectedWidthforString:taxString], labelHeight)];
     [taxesValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [taxesValueLabel setText:[BTRViewUtility priceStringfromString:[[[self headersArray] objectAtIndex:section] taxes]]];
+    [taxesValueLabel setText:[BTRViewUtility priceStringfromString:[orderBag taxes]]];
     [view addSubview:taxesValueLabel];
     [taxesValueLabel sizeToFit];
    
@@ -240,7 +251,7 @@
 }
 
 
-- (UIView *)configureSecondRowHeaderforView:(UIView *)view withTableView:(UITableView *)tableView forSection:(NSInteger)section {
+- (UIView *)configureSecondRowHeaderforView:(UIView *)view withTableView:(UITableView *)tableView forOrderBag:(OrderHistoryBag *)orderBag {
     
     CGFloat mainWdith = tableView.frame.size.width/4;
     CGFloat labelHeight = 18;
@@ -282,21 +293,21 @@
 
     UILabel *shippingValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:shippingString], labelHeight)];
     [shippingValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [shippingValueLabel setText:[BTRViewUtility priceStringfromString:[[[self headersArray] objectAtIndex:section] shipping]]];
+    [shippingValueLabel setText:[BTRViewUtility priceStringfromString:[orderBag shipping]]];
     [view addSubview:shippingValueLabel];
     [shippingValueLabel sizeToFit];
     
     secondRowXPosition += [self getExpectedWidthforString:creditsString] + xPadding;
     UILabel *creditsValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:creditsString], labelHeight)];
     [creditsValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [creditsValueLabel setText:[BTRViewUtility priceStringfromString:[[[self headersArray] objectAtIndex:section] credits]]];
+    [creditsValueLabel setText:[BTRViewUtility priceStringfromString:[orderBag credits]]];
     [view addSubview:creditsValueLabel];
     [creditsValueLabel sizeToFit];
     
     secondRowXPosition += [self getExpectedWidthforString:totalString] + xPadding;
     UILabel *totalValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(secondRowXPosition, seondRowYPostion, [self getExpectedWidthforString:totalString], labelHeight)];
     [totalValueLabel setFont:[UIFont fontWithName:valueStringFont size:14]];
-    [totalValueLabel setText:[BTRViewUtility priceStringfromString:[[[self headersArray] objectAtIndex:section] total]]];
+    [totalValueLabel setText:[BTRViewUtility priceStringfromString:[orderBag total]]];
     [view addSubview:totalValueLabel];
     [totalValueLabel sizeToFit];
     
