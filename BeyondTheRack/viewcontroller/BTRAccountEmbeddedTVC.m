@@ -169,6 +169,9 @@
                               success:(void (^)(id  responseObject)) success
                               failure:(void (^)(NSError *error)) failure
 {
+    [[self itemsDictionary] removeAllObjects];
+    [[self headersArray] removeAllObjects];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -184,8 +187,6 @@
          NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                                options:0
                                                                                  error:NULL];
-         [[self itemsDictionary] removeAllObjects];
-         [[self headersArray] removeAllObjects];
          
          if (entitiesPropertyList) {
                           
@@ -221,6 +222,8 @@
 
 - (IBAction)trackOrdersTapped:(UIButton *)sender {
     
+    [self.tableView setUserInteractionEnabled:FALSE];
+    
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     
     [self fetchOrderHistoryforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
@@ -230,6 +233,8 @@
     } failure:^(NSError *error) {
         
     }];
+
+    [self.tableView setUserInteractionEnabled:TRUE];
 }
 
 

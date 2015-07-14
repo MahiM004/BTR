@@ -12,9 +12,9 @@
 
 + (BTRPaymentTypesHandler *)sharedPaymentTypes;
 
-@property (strong, nonatomic) NSMutableArray *paymentTypesArray;
-@property (strong, nonatomic) NSMutableArray *creditCardTypeArray;
-@property (strong, nonatomic) NSMutableArray *creditCardDisplayNameArray;
+@property (strong, nonatomic) NSMutableArray *paymentTypesArray;             /*    as recieved from backend   */
+@property (strong, nonatomic) NSMutableArray *creditCardTypeArray;           /*      card codes               */
+@property (strong, nonatomic) NSMutableArray *creditCardDisplayNameArray;    /*      card display names       */
 
 - (void)clearData;
 

@@ -77,7 +77,6 @@
         //number = [NSDecimalNumber decimalNumberWithString:@"1000.00"];
         //self.youSaveLabel.text = [NSString stringWithFormat:@"you save: %@", [nf stringFromNumber:number]];
         
-        
         NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
         self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
         self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
@@ -322,6 +321,7 @@
     [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSDictionary *paymentsDictionary) {
         
         BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
+        [sharedPaymentTypes clearData];
         
         NSArray *allKeysArray = paymentsDictionary.allKeys;
         

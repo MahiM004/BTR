@@ -26,16 +26,11 @@
 + (NSDate *)convertToDatefromString:(NSString *)dateString {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-
-    // e.g. 2015-08-14 15:36:49
-    //[dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
     NSDate *dateFromString = [[NSDate alloc] init];
  
     dateFromString = [dateFormatter dateFromString:dateString];
-
-    NSLog(@"------0 -0- : %@", dateFromString);
     
     return dateFromString;
 }

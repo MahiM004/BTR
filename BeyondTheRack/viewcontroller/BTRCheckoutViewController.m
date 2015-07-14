@@ -162,7 +162,6 @@
     NSLog(@"SHOULD load_tax_and_dollars!") ;
     NSLog(@"PickUP UI not available on UI yet!");
     
-
     if ([[self.order vipPickupEligible] boolValue]) {
         [self.pleaseFillOutTheShippingFormView setHidden:TRUE];
         [self.vipOptionView setHidden:FALSE];
@@ -171,6 +170,8 @@
         [self.pleaseFillOutTheShippingFormView setHidden:FALSE];
         [self.vipOptionView setHidden:TRUE];
     }
+    
+    
 }
 
 - (void) checkboxVipOptionDidChange:(CTCheckbox *)checkbox {
@@ -374,8 +375,6 @@
 
 #pragma mark - PickerView Delegates
 
-
-
 - (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) addressType{
     
     [self setBillingOrShipping:addressType];
@@ -391,12 +390,10 @@
     [self.pickerView becomeFirstResponder];
 }
 
-
 - (IBAction)shippingCountryButtonTapped:(UIButton *)sender {
 
     [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:SHIPPING_ADDRESS];
 }
-
 
 - (IBAction)shippingStateButtonTapped:(UIButton *)sender {
     
@@ -406,12 +403,10 @@
         [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:SHIPPING_ADDRESS];
 }
 
-
 - (IBAction)billingCountryButtonTapped:(UIButton *)sender {
     
     [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:BILLING_ADDRESS];
 }
-
 
 - (IBAction)billingStateButtonTapped:(UIButton *)sender {
     
@@ -421,18 +416,15 @@
         [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:BILLING_ADDRESS];
 }
 
-
 - (IBAction)expiryYearButtonTapped:(UIButton *)sender {
 
     [self loadPickerViewforPickerType:EXPIRY_YEAR_PICKER];
 }
 
-
 - (IBAction)expiryMonthButtonTapped:(UIButton *)sender {
     
     [self loadPickerViewforPickerType:EXPIRY_MONTH_PICKER];
 }
-
 
 - (IBAction)paymentMethodButtonTapped:(UIButton *)sender {
     
@@ -483,8 +475,6 @@
     [self.pickerParentView setHidden:TRUE];
 }
 
-
-
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
     if ([self pickerType] == COUNTRY_PICKER)
@@ -508,12 +498,9 @@
     return  [[self countryNameArray] count];
 }
 
-
-
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
-
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     
@@ -600,12 +587,17 @@
                                 @"year": [[self expiryYearPaymentTF] text],
                                 @"month": expMonth,
                                 @"cvv": [[self cardVerificationPaymentTF] text],
+                                @"use_token": @false,
+                                @"token": @"295219000",
                                 @"remember_card": @false });
 
     [params setObject:orderInfo forKey:@"orderInfo"];
     [params setObject:@"creditcard" forKey:@"paymentMethod"];
     [params setObject:cardInfo forKey:@"cardInfo"];
     
+    
+    NSLog(@"---0-- - %@", params);
+
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]]
        parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
