@@ -142,7 +142,6 @@
     if (indexPath.row < [self.bagItemsArray count]) {
         
         NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
-        
         [cell.itemImageView setImageWithURL:[BTRItemFetcher
                                              URLforItemImageForSku:uniqueSku]
                            placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
@@ -185,11 +184,9 @@
     int minutes = (ti / 60) % 60;
     
     if (seconds > 0 || minutes > 0) {
-        
         cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Remaining time: %02i:%02i", minutes, seconds];
         
     } else if (seconds <= 0 && minutes <= 0) {
-        
         cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Time out!"];
     }
     
@@ -222,16 +219,13 @@
                                                                                   options:0
                                                                                     error:NULL];
              [[self bagItemsArray] removeAllObjects];
-             NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
              
-             
-             
-             int expired_reserved;
-             
-             // save expired/reserved in a bagItem field
-             
+             NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
+             NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
              NSDate *serverTime = [NSDate date];
-             if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
+             
+
+            if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
                  
                  serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
              }
@@ -239,7 +233,15 @@
              NSNumber *total = entitiesPropertyList[@"total"];
              NSString *totalString = [NSString stringWithFormat:@"%@",total];
              
-             self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray] isExpired:@"false"];
+             self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                                                       withServerDateTime:serverTime
+                                                         forBagItemsArray:[self bagItemsArray]
+                                                                isExpired:@"false"];
+             
+             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                                                                          withServerDateTime:serverTime
+                                                                            forBagItemsArray:[self bagItemsArray]
+                                                                                   isExpired:@"true"]];
              
              NSArray *productJsonArray = entitiesPropertyList[@"products"];
              self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
@@ -256,7 +258,6 @@
              
          }];
 }
-
 
 
 - (void)getCheckoutInfoforSessionId:(NSString *)sessionId
@@ -293,8 +294,6 @@
 }
 
 
-
-
 #pragma mark - Navigation
 
 
@@ -318,7 +317,6 @@
     
     
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    
     [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSDictionary *paymentsDictionary) {
         
         BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];

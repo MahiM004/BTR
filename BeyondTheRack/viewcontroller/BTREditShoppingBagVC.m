@@ -203,11 +203,20 @@
                                                                                    options:0
                                                                                      error:NULL];
               
-              NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
+              NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
+              NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
               NSDate *serverTime = [NSDate date];
               
               [[self bagItemsArray] removeAllObjects];
-              self.bagItemsArray  = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
+              self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                                                        withServerDateTime:serverTime
+                                                          forBagItemsArray:[self bagItemsArray]
+                                                                 isExpired:@"false"];
+              
+              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                                                                           withServerDateTime:serverTime
+                                                                             forBagItemsArray:[self bagItemsArray]
+                                                                                    isExpired:@"true"]];
  
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
               [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
