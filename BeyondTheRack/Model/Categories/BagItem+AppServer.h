@@ -11,9 +11,9 @@
 @interface BagItem (AppServer)
 
 
-+ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary withServerDateTime:(NSDate *)serverTime;
++ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary withServerDateTime:(NSDate *)serverTime isExpired:(NSString *)isExpired;
 
-+ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime forBagItemsArray:(NSMutableArray *)bagItemsArray;// of AppServer BagItem NSDictionary
++ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime forBagItemsArray:(NSMutableArray *)bagItemsArray isExpired:(NSString *)isExpireed;// of AppServer BagItem NSDictionary
 
 
 @end

@@ -88,7 +88,6 @@
     BTRTrackOrdersItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        
         cell = [[BTRTrackOrdersItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     

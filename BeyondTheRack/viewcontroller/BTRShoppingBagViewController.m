@@ -225,6 +225,7 @@
              NSArray *bagJsonArray = entitiesPropertyList[@"bag"][@"reserved"];
              
              
+             
              int expired_reserved;
              
              // save expired/reserved in a bagItem field
@@ -238,7 +239,7 @@
              NSNumber *total = entitiesPropertyList[@"total"];
              NSString *totalString = [NSString stringWithFormat:@"%@",total];
              
-             self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray]];
+             self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonArray withServerDateTime:serverTime forBagItemsArray:[self bagItemsArray] isExpired:@"false"];
              
              NSArray *productJsonArray = entitiesPropertyList[@"products"];
              self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];

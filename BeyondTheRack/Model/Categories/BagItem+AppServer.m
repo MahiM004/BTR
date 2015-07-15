@@ -12,24 +12,15 @@
 
 
 
-+ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary withServerDateTime:(NSDate *)serverTime
-                               inManagedObjectContext:(NSManagedObjectContext *)context
-{
-    BagItem *bagItem = [[BagItem alloc] init];
-    
-    if ([bagItemDictionary valueForKeyPath:@"sku"]  && [bagItemDictionary valueForKeyPath:@"variant"])
-        bagItem.bagItemId = [NSString stringWithFormat:@"%@%@", [bagItemDictionary valueForKeyPath:@"sku"], [bagItemDictionary valueForKeyPath:@"variant"]];
-    
-    return bagItem;
-}
 
-
-
-+ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary withServerDateTime:(NSDate *)serverTime
++ (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary
+                   withServerDateTime:(NSDate *)serverTime
+                            isExpired:(NSString *)isExpired
 {
     BagItem *bagItem = [[BagItem alloc] init];
     
     bagItem = [self extractBagItemfromJSONDictionary:bagItemDictionary withServerTime:serverTime forBagItem:bagItem];
+    [bagItem setExpiredItem:isExpired];
     
     if ([bagItemDictionary valueForKeyPath:@"sku"]  && [bagItemDictionary valueForKeyPath:@"variant"])
         bagItem.bagItemId = [NSString stringWithFormat:@"%@%@", [bagItemDictionary valueForKeyPath:@"sku"], [bagItemDictionary valueForKeyPath:@"variant"]];
@@ -40,15 +31,16 @@
 
 
 
-+ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems withServerDateTime:(NSDate *)serverTime forBagItemsArray:(NSMutableArray *)bagItemsArray// of AppServer BagItem NSDictionary
++ (NSMutableArray *)loadBagItemsfromAppServerArray:(NSArray *)bagItems
+                                withServerDateTime:(NSDate *)serverTime forBagItemsArray:(NSMutableArray *)bagItemsArray
+                                         isExpired:(NSString *)isExpireed// of AppServer BagItem NSDictionary
 {
-    
     for (NSDictionary *bagItem in bagItems) {
         
-        NSObject *someObject = [self bagItemWithAppServerInfo:bagItem withServerDateTime:serverTime];
-        if (someObject)
+        NSObject *someObject = [self bagItemWithAppServerInfo:bagItem withServerDateTime:serverTime isExpired:(NSString *)isExpireed];
+        if (someObject) {
             [bagItemsArray addObject:someObject];
-        
+        }
     }
     
     return bagItemsArray;
@@ -57,8 +49,10 @@
 
 
 
-+ (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary withServerTime:(NSDate *)serverTime forBagItem:(BagItem *)bagItem {
-    
++ (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary
+                               withServerTime:(NSDate *)serverTime
+                                   forBagItem:(BagItem *)bagItem
+{
     
     bagItem.serverDateTime = serverTime;
     

@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString * isInStock;
 @property (nonatomic, retain) NSString * itemId;
 @property (nonatomic, retain) NSString * orderId;
+@property (nonatomic, retain) NSString * expiredItem;
 @property (nonatomic, retain) NSString * quantity;
 @property (nonatomic, retain) NSNumber * pricing;
 @property (nonatomic, retain) NSString * country;
