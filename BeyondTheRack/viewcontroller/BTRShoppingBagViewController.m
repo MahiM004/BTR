@@ -100,8 +100,6 @@
                                            selector:@selector(timerFired:)
                                            userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-    
-    NSLog(@"re-reserve is ignored");
 }
 
 
@@ -117,6 +115,7 @@
 
 
 - (void)timerFired:(NSTimer *)timer {
+    
     [self.tableView reloadData];
 }
 
@@ -202,6 +201,8 @@
                               success:(void (^)(id  responseObject)) success
                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
+    [[self bagItemsArray] removeAllObjects];
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -218,11 +219,12 @@
              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
-             [[self bagItemsArray] removeAllObjects];
              
              NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
              NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
              NSDate *serverTime = [NSDate date];
+             
+             NSLog(@"--0---09-  %@", bagJsonExpiredArray);
              
 
             if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
@@ -233,15 +235,15 @@
              NSNumber *total = entitiesPropertyList[@"total"];
              NSString *totalString = [NSString stringWithFormat:@"%@",total];
              
-             self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+             [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
                                                        withServerDateTime:serverTime
                                                          forBagItemsArray:[self bagItemsArray]
                                                                 isExpired:@"false"];
              
-             [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
-                                                                          withServerDateTime:serverTime
-                                                                            forBagItemsArray:[self bagItemsArray]
-                                                                                   isExpired:@"true"]];
+             [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                                  withServerDateTime:serverTime
+                                    forBagItemsArray:[self bagItemsArray]
+                                           isExpired:@"true"];
              
              NSArray *productJsonArray = entitiesPropertyList[@"products"];
              self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];

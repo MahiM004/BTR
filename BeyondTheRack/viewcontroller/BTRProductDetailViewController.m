@@ -122,6 +122,8 @@
                                     success:(void (^)(id  responseObject)) success
                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
+    [[self bagItemsArray] removeAllObjects];
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
 
@@ -150,7 +152,6 @@
               NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
               NSDate *serverTime = [NSDate date];
               
-              [[self bagItemsArray] removeAllObjects];
               self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
                                                         withServerDateTime:serverTime
                                                           forBagItemsArray:[self bagItemsArray]
