@@ -31,7 +31,7 @@
     [self.stepperView addSubview:self.stepper];
     
     [self.removeItemButton addTarget:self action:@selector(didTapRemoveItemButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.rereserveItemButton addTarget:self action:@selector(didTapRereserveItemButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.rereserveItemButton addTarget:self action:@selector(didTapRereserveItemButton:) forControlEvents:UIControlEventTouchUpInside];    
 }
 
 
