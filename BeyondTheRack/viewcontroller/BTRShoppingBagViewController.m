@@ -133,7 +133,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     BTRBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingBagCellIdentifier" forIndexPath:indexPath];
-    
     if (cell == nil) {
         cell = [[BTRBagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
     }
@@ -141,14 +140,33 @@
     if (indexPath.row < [self.bagItemsArray count]) {
         
         NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
-        [cell.itemImageView setImageWithURL:[BTRItemFetcher
-                                             URLforItemImageForSku:uniqueSku]
+        [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:uniqueSku]
                            placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-        
         Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
-        
         cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:[indexPath row]] andItem:item];
     }
+    
+    [cell setDidTapRemoveItemButtonBlock:^(id sender) {
+       
+        BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+
+        // better api - just remove one item(sku/variant/event) from bag
+    }];
+    
+    __block NSString *skuVariant = @"";
+    __block NSString *eventId = @"";
+    
+    [cell setDidTapRereserveItemButtonBlock:^(id sender) {
+        
+        [self rereserveItemforSkuVariant:skuVariant andEventId:eventId success:^(NSString *responseString) {
+            
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    
+    }];
+
     
     return cell;
 }
@@ -195,6 +213,17 @@
  
 
 #pragma mark - Bag RESTful Calls
+
+
+- (void)rereserveItemforSkuVariant:(NSString *)skuVariant andEventId:(NSString *)eventId
+                              success:(void (^)(id  responseObject)) success
+                              failure:(void (^)(NSError *error)) failure
+{
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+
+    
+}
+
 
 
 - (void)getCartServerCallforSessionId:(NSString *)sessionId
