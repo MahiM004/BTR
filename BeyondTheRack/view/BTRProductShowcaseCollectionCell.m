@@ -52,7 +52,6 @@
     [self.sizeSelector setBackgroundColor:[UIColor orangeColor]];
     
     [self.sizeSelector setup];
-    //[self addSubview:self.sizeSelector];
     
     [self.addToBagButton addTarget:self action:@selector(didTapAddtoBagButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.selectSizeButton addTarget:self action:@selector(didTapSelectSizeButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -72,29 +71,6 @@
         self.didTapSelectSizeButtonBlock(sender);
     }
 }
-
-/*
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    
-}
-*/
-/*
-- (void)awakeFromNib {
-    
-    self.stepper = [[PKYStepper alloc] initWithFrame:CGRectMake(0, 0, 90, 20)];
-    self.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
-        stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
-    };
-    
-    [self.stepper setup];
-    [self.stepperView addSubview:self.stepper];
-    
-}
-
-
-
-*/
 
 
 @end
