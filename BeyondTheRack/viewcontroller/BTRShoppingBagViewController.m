@@ -133,22 +133,30 @@
         cell = [[BTRBagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
     }
     
+    Item *item = [[Item alloc] init];
+    BagItem *bagItem = [[BagItem alloc] init];
+    
     if (indexPath.row < [self.bagItemsArray count]) {
         
         NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
         [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:uniqueSku]
                            placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-        Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
-        cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:[indexPath row]] andItem:item];
+        
+        item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
+        bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];
+        
+        cell = [self configureCell:cell forBagItem:bagItem andItem:item];
     }
     
-    
-    __block NSString *skuVariant = @"";
-    __block NSString *eventId = @"";
+    NSString *sku = [bagItem sku];
+    NSString *eventId = [bagItem eventId];
+    NSString *variant = [bagItem variant];
     
     [cell setDidTapRereserveItemButtonBlock:^(id sender) {
         
-        [self rereserveItemServerCallforSkuVariant:skuVariant andEventId:eventId success:^(NSString *responseString) {
+        [self rereserveItemServerCallforSku:sku andVariant:variant andEventId:eventId success:^(NSString *responseString) {
+            
+            [[self tableView] reloadData];
             
         } failure:^(NSError *error) {
             
@@ -189,9 +197,11 @@
     
     if (seconds > 0 || minutes > 0) {
         cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Remaining time: %02i:%02i", minutes, seconds];
+        [cell.rereserveItemButton setHidden:TRUE];
         
     } else if (seconds <= 0 && minutes <= 0) {
         cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Time out!"];
+        [cell.rereserveItemButton setHidden:FALSE];
     }
     
     return cell;
@@ -202,12 +212,10 @@
 #pragma mark - Bag RESTful Calls
 
 
-- (void)rereserveItemServerCallforSkuVariant:(NSString *)skuVariant andEventId:(NSString *)eventId
+- (void)rereserveItemServerCallforSku:(NSString *)skuString andVariant:(NSString *)variantString andEventId:(NSString *)eventIdString
                               success:(void (^)(id  responseObject)) success
                               failure:(void (^)(NSError *error)) failure
 {
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-
     [[self bagItemsArray] removeAllObjects];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -217,9 +225,10 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
+    [manager POST:[NSString stringWithFormat:@"%@/%@/%@/%@", [BTRBagFetcher URLforRereserveBag], skuString, variantString, eventIdString]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
@@ -230,9 +239,6 @@
              NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
              NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
              NSDate *serverTime = [NSDate date];
-             
-             NSLog(@"--0---09-  %@", bagJsonExpiredArray);
-             
              
              if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
                  
@@ -298,9 +304,6 @@
              NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
              NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
              NSDate *serverTime = [NSDate date];
-             
-             NSLog(@"--0---09-  %@", bagJsonExpiredArray);
-             
 
             if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
                  

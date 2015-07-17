@@ -47,6 +47,10 @@
 }
 
 
++ (NSURL *)URLforRereserveBag {
+    
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/bag/rereserve", BASEURL]];
+}
 
 
 @end

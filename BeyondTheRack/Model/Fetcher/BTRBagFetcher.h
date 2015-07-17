@@ -19,6 +19,6 @@
 + (NSURL *)URLforRemovefromBag;
 + (NSURL *)URLforSetBag;
 + (NSURL *)URLforClearBag;
-
++ (NSURL *)URLforRereserveBag;
 
 @end
