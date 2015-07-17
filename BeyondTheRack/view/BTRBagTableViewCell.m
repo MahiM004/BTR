@@ -10,9 +10,7 @@
 
 @interface BTRBagTableViewCell ()
 
-@property (copy, nonatomic) void (^didTapRemoveItemButtonBlock)(id sender);
 @property (copy, nonatomic) void (^didTapRereserveItemButtonBlock)(id sender);
-
 
 @end
 
@@ -30,8 +28,7 @@
     [self.stepper setup];
     [self.stepperView addSubview:self.stepper];
     
-    [self.removeItemButton addTarget:self action:@selector(didTapRemoveItemButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.rereserveItemButton addTarget:self action:@selector(didTapRereserveItemButton:) forControlEvents:UIControlEventTouchUpInside];    
+    [self.rereserveItemButton addTarget:self action:@selector(didTapRereserveItemButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -40,13 +37,6 @@
     [super setSelected:selected animated:animated];
 }
 
-
-- (void)didTapRemoveItemButton:(id)sender {
-    
-    if (self.didTapRemoveItemButtonBlock) {
-        self.didTapRemoveItemButtonBlock(sender);
-    }
-}
 
 
 - (void)didTapRereserveItemButton:(id)sender {

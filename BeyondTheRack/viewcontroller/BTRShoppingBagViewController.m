@@ -72,10 +72,6 @@
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     
     [self getCartServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *totalString) {
-
-        //Removed: request by Richard
-        //number = [NSDecimalNumber decimalNumberWithString:@"1000.00"];
-        //self.youSaveLabel.text = [NSString stringWithFormat:@"you save: %@", [nf stringFromNumber:number]];
         
         NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
         self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
@@ -83,7 +79,7 @@
 
         [[self tableView] reloadData];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         
     }];
 }
@@ -146,20 +142,13 @@
         cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:[indexPath row]] andItem:item];
     }
     
-    [cell setDidTapRemoveItemButtonBlock:^(id sender) {
-       
-        BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-
-        // better api - just remove one item(sku/variant/event) from bag
-    }];
     
     __block NSString *skuVariant = @"";
     __block NSString *eventId = @"";
     
     [cell setDidTapRereserveItemButtonBlock:^(id sender) {
         
-        [self rereserveItemforSkuVariant:skuVariant andEventId:eventId success:^(NSString *responseString) {
-            
+        [self rereserveItemServerCallforSkuVariant:skuVariant andEventId:eventId success:^(NSString *responseString) {
             
         } failure:^(NSError *error) {
             
@@ -181,8 +170,6 @@
     }
     return nil;
 }
-
-
 
 
 
@@ -215,11 +202,70 @@
 #pragma mark - Bag RESTful Calls
 
 
-- (void)rereserveItemforSkuVariant:(NSString *)skuVariant andEventId:(NSString *)eventId
+- (void)rereserveItemServerCallforSkuVariant:(NSString *)skuVariant andEventId:(NSString *)eventId
                               success:(void (^)(id  responseObject)) success
                               failure:(void (^)(NSError *error)) failure
 {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+
+    [[self bagItemsArray] removeAllObjects];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                  options:0
+                                                                                    error:NULL];
+             
+             NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
+             NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
+             NSDate *serverTime = [NSDate date];
+             
+             NSLog(@"--0---09-  %@", bagJsonExpiredArray);
+             
+             
+             if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
+                 
+                 serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
+             }
+             
+             NSNumber *total = entitiesPropertyList[@"total"];
+             NSString *totalString = [NSString stringWithFormat:@"%@",total];
+             
+             [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                                  withServerDateTime:serverTime
+                                    forBagItemsArray:[self bagItemsArray]
+                                           isExpired:@"false"];
+             
+             [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                                  withServerDateTime:serverTime
+                                    forBagItemsArray:[self bagItemsArray]
+                                           isExpired:@"true"];
+             
+             NSArray *productJsonArray = entitiesPropertyList[@"products"];
+             self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
+             
+             BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+             [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+             
+             success(totalString);
+             
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"errtr: %@", error);
+             failure(error);
+             
+         }];
 
     
 }
@@ -228,7 +274,7 @@
 
 - (void)getCartServerCallforSessionId:(NSString *)sessionId
                               success:(void (^)(id  responseObject)) success
-                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                              failure:(void (^)(NSError *error)) failure
 {
     [[self bagItemsArray] removeAllObjects];
 
@@ -285,7 +331,7 @@
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"errtr: %@", error);
-             failure(operation, error);
+             failure(error);
              
          }];
 }
