@@ -9,17 +9,13 @@
 #import "BTRShoppingBagViewController.h"
 #import "BTREditShoppingBagVC.h"
 #import "BTRCheckoutViewController.h"
-
 #import "BTRBagTableViewCell.h"
-
 #import "BagItem+AppServer.h"
 #import "Item+AppServer.h"
 #import "Order+AppServer.h"
-
 #import "BTRBagFetcher.h"
 #import "BTROrderFetcher.h"
 #import "BTRItemFetcher.h"
-
 #import "BTRPaymentTypesHandler.h"
 
 
@@ -27,14 +23,10 @@
 @interface BTRShoppingBagViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-
 @property (weak, nonatomic) IBOutlet UILabel *bagTitle;
 @property (weak, nonatomic) IBOutlet UILabel *subtotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *youSaveLabel;
-
 @property (strong, nonatomic) Order *order;
-
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 
@@ -68,7 +60,6 @@
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setCurrencySymbol:@"$"];
-    
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     
     [self getCartServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *totalString) {
@@ -161,7 +152,6 @@
         } failure:^(NSError *error) {
             
         }];
-    
     }];
 
     
@@ -188,7 +178,6 @@
     cell.itemLabel.text = [item shortItemDescription];
     cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [bagItem  variant]];
     cell.qtyLabel.text = [bagItem quantity];
-    
     cell.dueDateTime = [bagItem dueDateTime];
     
     NSInteger ti = ((NSInteger)[cell.dueDateTime timeIntervalSinceNow]);
@@ -221,13 +210,10 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    
     [manager POST:[NSString stringWithFormat:@"%@/%@/%@/%@", [BTRBagFetcher URLforRereserveBag], skuString, variantString, eventIdString]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -241,7 +227,6 @@
              NSDate *serverTime = [NSDate date];
              
              if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
-                 
                  serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
              }
              
@@ -267,8 +252,6 @@
              success(totalString);
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"errtr: %@", error);
              failure(error);
              
          }];
@@ -287,12 +270,9 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
     [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -306,7 +286,6 @@
              NSDate *serverTime = [NSDate date];
 
             if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
-                 
                  serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
              }
 
@@ -332,27 +311,21 @@
              success(totalString);
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"errtr: %@", error);
              failure(error);
-             
          }];
 }
 
 
 - (void)getCheckoutInfoforSessionId:(NSString *)sessionId
                               success:(void (^)(id  responseObject)) success
-                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                              failure:(void (^)(NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
     [manager GET:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -366,10 +339,7 @@
              success(paymentsDictionary);
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"errtr: %@", error);
-             failure(operation, error);
-             
+             failure(error);
          }];
 }
 
@@ -401,7 +371,6 @@
         
         BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
         [sharedPaymentTypes clearData];
-        
         NSArray *allKeysArray = paymentsDictionary.allKeys;
         
         for (NSString *key in allKeysArray) {
@@ -414,14 +383,13 @@
         for (NSString *key in allCreditCardKeysArray) {
             
             [[sharedPaymentTypes creditCardTypeArray] addObject:key];
-            
             NSString *tempString = [creditCardsDic valueForKey:key];
             [[sharedPaymentTypes creditCardDisplayNameArray] addObject:tempString];
         }
         
         [self performSegueWithIdentifier:@"BTRCheckoutSegueIdentifier" sender:self];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         
     }];
     

@@ -10,7 +10,6 @@
 
 @interface BTRForgotPasswordVC : UIViewController
 
-
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 
 @end

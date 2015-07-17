@@ -29,16 +29,13 @@
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
     self.headerView.opaque = NO;
-    
     self.headerView.backgroundColor = [UIColor clearColor];
     UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:self.headerView.frame];
     bgToolbar.barStyle = UIBarStyleDefault;
     [self.headerView.superview insertSubview:bgToolbar belowSubview:self.headerView];
-    
     UIImageView *backgroundImageView = [[UIImageView alloc ] initWithFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
     backgroundImageView.image = [self.backgroundImage applyDarkEffect];
     [self.view insertSubview:backgroundImageView belowSubview:[self headerView]];
-    
 }
 
 
@@ -50,16 +47,14 @@
                 withSortString:(NSString *)sortString
               withFacetsString:(NSString *)facetsString
                        success:(void (^)(id  responseObject)) success
-                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                       failure:(void (^)(NSError *error)) failure
 {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]];
-    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
@@ -71,17 +66,14 @@
                                                                             options:0
                                                                               error:NULL];
          
-         
          BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
          [sharedFacetsHandler updateFacetsFromResponseDictionary:entitiesPropertyList];
-
+         
          success(entitiesPropertyList);         
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
-         NSLog(@"Error: %@", error);
-         
-         failure(operation, error);
+         failure(error);
      }];
     
 }
@@ -91,13 +83,12 @@
 
 
 - (IBAction)clearTapped:(UIButton *)sender {
-
     
     BTRFacetsHandler * sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     [sharedFacetHandler resetFacets];
-    
     [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
 }
+
 
 - (IBAction)applyButtonTapped:(UIButton *)sender {
 
@@ -116,8 +107,8 @@
                              
                              [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
                              
-                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                             NSLog(@"Error: %@",error);
+                         } failure:^(NSError *error) {
+
                          }];
 }
 

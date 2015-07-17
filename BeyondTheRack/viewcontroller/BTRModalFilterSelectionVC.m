@@ -7,13 +7,10 @@
 //
 
 #import "BTRModalFilterSelectionVC.h"
-
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
 #import "BTRFacetsHandler.h"
-
 #import "BTRSearchFilterTVC.h"
-
 
 
 @interface BTRModalFilterSelectionVC () {
@@ -121,22 +118,19 @@
 #pragma mark - TableView Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     
     return [[self optionsArray] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"ModalFilterSelectionCellIdentifier";
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    static NSString *CellIdentifier = @"ModalFilterSelectionCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    if (cell == nil)
-    {
+    if (cell == nil) {
+        
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
     cell.textLabel.text = [self.optionsArray objectAtIndex:indexPath.row];
     
     if ([self isOptionSelected:[self.optionsArray objectAtIndex:indexPath.row]] >= 0){
@@ -153,8 +147,7 @@
     return cell;
 }
 
-- (int)isOptionSelected:(NSString *)optionString
-{
+- (int)isOptionSelected:(NSString *)optionString {
     
     if ([self.selectedOptionsArray count] == 0)
         return -1;
@@ -183,14 +176,12 @@
             
             cell.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            
             [self.selectedOptionsArray addObject:[[cell textLabel] text]];
             
         } else {
             
             cell.backgroundColor = [UIColor whiteColor];
             cell.accessoryType = UITableViewCellAccessoryNone;
-            
             [self.selectedOptionsArray removeObject:[[cell textLabel] text]];
         }
         
@@ -217,15 +208,13 @@
 - (void)fetchItemsforSearchQuery:(NSString *)searchQuery
               withFacetsString:(NSString *)facetsString
                        success:(void (^)(id  responseObject)) success
-                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                       failure:(void (^)(NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]];
-    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
@@ -244,10 +233,7 @@
          success(entitiesPropertyList);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         NSLog(@"Error: %@", error);
-         
-         failure(operation, error);
+         failure(error);
      }];
     
 }
@@ -292,7 +278,7 @@
                                  
                                  [self performSegueWithIdentifier:@"unwindToBTRSearchFilterTVC" sender:self];
                                  
-                             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                             } failure:^(NSError *error) {
                                  
                              }];
     }
@@ -314,7 +300,7 @@
                              
                              [self dismissViewControllerAnimated:YES completion:NULL];
                              
-                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         } failure:^(NSError *error) {
                              
                          }];
 }

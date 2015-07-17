@@ -7,18 +7,14 @@
 //
 
 #import "UIImage+ImageEffects.h"
-
 #import <UIKit/UIKit.h>
-
 
 @protocol BTRRefineResultsViewController;
 
 
 @interface BTRRefineResultsViewController : UIViewController
 
-
 @property (nonatomic, weak) id<BTRRefineResultsViewController> delegate;
-
 @property (strong, nonatomic) UIImage *backgroundImage;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
@@ -26,14 +22,10 @@
 
 
 
-
 @protocol BTRRefineResultsViewController <NSObject>
 
 @optional
-
-
 - (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary;
-
 
 @end
 

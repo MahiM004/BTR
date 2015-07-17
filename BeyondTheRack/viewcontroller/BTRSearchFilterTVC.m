@@ -129,9 +129,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
  
-    // Return the number of sections.
     return 6;
-;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -170,25 +168,22 @@
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
     if (section == SORT_SECTION)
         return [NSString stringWithFormat:@"        %@", [self.titles objectAtIndex:section]];
     return [NSString stringWithFormat:@"        FILTER BY %@", [self.titles objectAtIndex:section]];
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-{
-    view.tintColor = [UIColor blueColor];
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     
+    view.tintColor = [UIColor blueColor];
     UITableViewHeaderFooterView *headerIndexText = (UITableViewHeaderFooterView *)view;
     [headerIndexText.textLabel setTextColor:[UIColor colorWithWhite:0 alpha:0.8]];
-    
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50;
 }
 
@@ -203,14 +198,11 @@
         UITableViewCell *sortCell = [self.tableView cellForRowAtIndexPath:indexPath];
         
         if (sortCell.textLabel.textColor != [UIColor whiteColor]) {
-            
             sortCell.textLabel.textColor = [UIColor whiteColor];
             sortCell.accessoryType = UITableViewCellAccessoryCheckmark;
-            
             [sharedFacetHandler setSortChosenOptionString:[[sortCell textLabel] text]];
         }
     }
-    
     
     [self.tableView reloadData];
 }
@@ -223,25 +215,20 @@
     if (indexPath.section == SORT_SECTION) {
         
         UITableViewCell *sortCell = [tableView dequeueReusableCellWithIdentifier:@"BTRRefineSortCellIdentifier" forIndexPath:indexPath];
-        
-        if (sortCell == nil)
-        {
+        if (sortCell == nil) {
+            
             sortCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRRefineSortCellIdentifier"];
         }
         
         return  [self configureSortCell:sortCell forIndexPath:indexPath];
-
     }
 
     else if (indexPath.section != SORT_SECTION) {
     
         BTRFilterWithModalTableViewCell *filterCell = [tableView dequeueReusableCellWithIdentifier:@"BTRFilterByModalCellIdentifier" forIndexPath:indexPath];
-        
         if (filterCell == nil) {
-            
             filterCell = [[BTRFilterWithModalTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BTRFilterByModalCellIdentifier"];
         }
-        
         cell = [self configureFilterModalCell:filterCell forIndexPath:indexPath];
     }
 
@@ -252,12 +239,10 @@
 - (UITableViewCell *)configureSortCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     
     if (selectedSortIndex != indexPath.row) {
-        
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.textLabel.textColor = [UIColor lightGrayColor];
         
     } else if (selectedSortIndex == indexPath.row) {
-        
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         cell.textLabel.textColor = [UIColor whiteColor];
     }
@@ -266,7 +251,6 @@
     cell.textLabel.text = [sharedFacetHandler getSortTypeForIndex:indexPath.row];
     
     return  cell;
-    
 }
 
 - (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
@@ -314,7 +298,6 @@
                                 withIndex:indexPath.row
                           isSelectable:[sharedFacetHandler.getPriceFiltersForDisplay count] > 0 ? YES: NO];
     }
-    
 
     return cell;
 }
@@ -343,7 +326,6 @@
     
     cell.rowButton.titleLabel.text = sectionString;
     cell.rowButton.titleLabel.textColor = [UIColor clearColor];
-    
     cell.textLabel.textColor = [UIColor colorWithWhite:255.0/255.0 alpha:1.0];
 
     return cell;
@@ -371,7 +353,6 @@
              
                 destModalVC.headerTitle = COLOR_TITLE;
                 destModalVC.isMultiSelect = YES;
-
             }
             else if ([[[(UIButton *)sender titleLabel] text] isEqualToString:SIZE_TITLE]) {
                 
@@ -388,14 +369,12 @@
                 destModalVC.headerTitle = PRICE_TITLE;
                 destModalVC.isMultiSelect = NO;
             }
-            
         }
     }
 }
 
 
 - (IBAction)unwindToBTRSearchFilterTVC:(UIStoryboardSegue *)unwindSegue {
- 
 
     [self.tableView reloadData];
 }

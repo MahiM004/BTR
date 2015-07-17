@@ -36,10 +36,8 @@
     if ([self.emailField.text length] > 0) {
     
         [self resetPasswordforEmail:[[self emailField] text] success:^(NSString *didSucceed) {
-
             [self alertUserforNewPassword];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSError *error) {
             
             // TODO: Check for internet connectivity!
         }];
@@ -49,7 +47,7 @@
 
 - (void)resetPasswordforEmail:(NSString *)emailString
                            success:(void (^)(id  responseObject)) success
-                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                           failure:(void (^)(NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -59,17 +57,13 @@
     
     NSDictionary *params = (@{ @"email": emailString });
     
-    
     [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforPasswordReset]]
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
               // We will just prompt that 'a new password was sent' whether it was successful or not. This is a secuity measure.
               success(@"TRUE");
-              
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              failure(operation, error);
+              failure(error);
           }];
 }
 
@@ -87,7 +81,6 @@
     [self performSegueWithIdentifier:@"unwindToLoginScene" sender:self];
 
     [alert show];
-    
 }
 
 

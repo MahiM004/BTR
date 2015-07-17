@@ -275,7 +275,6 @@
          if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
              
              if ([arrayToPass count] != 0) {
-    
                  self.itemsArray = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]];
              }
          }
@@ -322,23 +321,19 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"BTRSearchFilterSegue"]) {
-    
+        
         CGSize screenSize = [UIScreen mainScreen].bounds.size;
         UIGraphicsBeginImageContextWithOptions(screenSize, NO, [UIScreen mainScreen].scale);
         CGRect rec = CGRectMake(0, 0, screenSize.width, screenSize.height);
         [self.view drawViewHierarchyInRect:rec afterScreenUpdates:YES];
         UIImage *screenShotImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-        
-        
         BTRRefineResultsViewController *refineVC = [segue destinationViewController];
-
         refineVC.backgroundImage = screenShotImage;
         refineVC.delegate = self;
     }
     
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueFromSearchIdentifier"]) {
-        
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = SEARCH_SCENE;
         productDetailVC.productItem = [self selectedItem];
@@ -350,22 +345,16 @@
     
     [self.itemsArray removeAllObjects];
     [self.collectionView reloadData];
-    
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
-    
     NSMutableArray * arrayToPass = [sharedFacetHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
     
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
-        
         if ([arrayToPass count] != 0) {
-            
             self.itemsArray = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]];
         }
-
     }
 
     [self.collectionView reloadData];
-    
 }
 
 
@@ -373,12 +362,10 @@
 
     [self.itemsArray removeAllObjects];
     [self.itemsArray addObjectsFromArray:[self originalItemArray]];
-    
     [self.collectionView reloadData];
 }
 
-- (IBAction)unwindFromProductDetailToSearchScene:(UIStoryboardSegue *)unwindSegue
-{
+- (IBAction)unwindFromProductDetailToSearchScene:(UIStoryboardSegue *)unwindSegue {
     
 }
 
@@ -386,7 +373,6 @@
 #pragma mark - BTRRefineResultsViewController Delegate
 
 - (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
-    
     self.responseDictionaryFromFacets = responseDictionary;
 }
 

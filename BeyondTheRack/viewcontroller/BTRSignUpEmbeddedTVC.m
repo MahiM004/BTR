@@ -7,18 +7,16 @@
 //
 
 #import "BTRSignUpEmbeddedTVC.h"
-
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
-
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 
 #define COUNTRY_PICKER 1
 #define GENDER_PICKER 2
 
-@interface BTRSignUpEmbeddedTVC ()
 
+@interface BTRSignUpEmbeddedTVC ()
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -28,23 +26,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *passwordIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *genderIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *countryIconLabel;
-
-
 @property (strong, nonatomic) NSString *chosenCountryCodeString;
-
 @property (strong, nonatomic) NSArray *genderNameArray;
 @property (strong, nonatomic) NSArray *countryNameArray;
-
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UIView *viewForPicker;
-
 @property (nonatomic) NSUInteger pickerType;
-
-
-
 @property (strong, nonatomic) NSString *sessionId;
 
 @end
+
+
+
 
 @implementation BTRSignUpEmbeddedTVC
 
@@ -76,22 +69,16 @@
     self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
     self.genderTextField = [BTRViewUtility underlineTextField:[self genderTextField]];
     self.countryTextField = [BTRViewUtility underlineTextField:[self countryTextField]];
- 
     self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.emailIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-envelope-o"];
-    
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
-    
     self.genderIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.genderIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-female"];
-    
     self.countryIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.countryIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-globe"];
-    
     self.pickerView.delegate = self;
     self.pickerView.showsSelectionIndicator = YES;
- 
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -115,7 +102,6 @@
     [self.pickerView reloadAllComponents];
     [self dismissKeyboard];
     [self.viewForPicker setHidden:FALSE];
-    
 }
 
 
@@ -134,12 +120,9 @@
     if ([self allFieldsAreValid]) {
      
         [self userRegistrationServerCallforSessionId:[self sessionId]
-                                             success:^(NSString *didSignUp, NSString *messageString)
-        {
+                                             success:^(NSString *didSignUp, NSString *messageString) {
             if ([didSignUp  isEqualToString:@"TRUE"]) {
-                
                 [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
-            
             } else {
                 
                 if (messageString == nil)
@@ -147,12 +130,10 @@
                 else
                     [self alertUserForLoginErrorWithMessage:messageString];
             }
-            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
         } ];
     }
-    
 }
 
 
@@ -177,22 +158,18 @@
 - (BOOL)allFieldsAreValid {
    
     if ([[[self emailTextField] text] isEqualToString:@""]) {
-        
         [self alertSystemFieldIncomplete:@"Email"];
         return FALSE;
         
     } else if ([[[self passwordTextField] text] isEqualToString:@""]) {
-        
         [self alertSystemFieldIncomplete:@"Password"];
         return FALSE;
         
     } else if ([[[self genderTextField] text] isEqualToString:@""]) {
-        
         [self alertSystemFieldIncomplete:@"Gender"];
         return FALSE;
         
     } else if ([[[self countryTextField] text] isEqualToString:@""]) {
-        
         [self alertSystemFieldIncomplete:@"Country"];
         return FALSE;
     }
@@ -229,7 +206,6 @@
 
 
 - (void)alertUserForLoginErrorWithMessage:(NSString *)messageString {
-    
     
     NSString *alertMessage = @"Email or Password Incorrect !";
     

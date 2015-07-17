@@ -173,12 +173,10 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSMutableArray *params =[[NSMutableArray alloc] init];
-    
     for (BagItem *bagItem in [self bagItemsArray]) {
         
         time_t unixTime = (time_t) [[bagItem createDateTime] timeIntervalSince1970];
@@ -196,7 +194,6 @@
     }
     
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
     [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]]
        parameters:(NSDictionary *)params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -221,7 +218,6 @@
  
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
               [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-        
               success(@"TRUE");
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

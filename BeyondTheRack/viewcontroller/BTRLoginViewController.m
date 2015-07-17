@@ -12,8 +12,6 @@
 #import "User+AppServer.h"
 #import "BagItem+AppServer.h"
 #import "Item+AppServer.h"
-
-
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 
@@ -21,14 +19,12 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
-
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordIconLabel;
-
-
 @property (nonatomic, strong) NSDictionary *fbUserParams;
 
 @end
+
 
 @implementation BTRLoginViewController
 
@@ -57,28 +53,19 @@
     [super viewDidLoad];
     
     self.fbButton.readPermissions = @[@"public_profile", @"email"];
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                  initWithTarget:self
                                action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
-
     [self setNeedsStatusBarAppearanceUpdate];
     
     self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
     self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
-    
-    /*
-     FAImageView *imageView = [[FAImageView alloc] initWithFrame:CGRectMake(0.f, 0.f, 200.f, 200.f)];
-     imageView.image = nil;
-     [imageView setDefaultIconIdentifier:@"fa-github"];
-     */
-    
+
     self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:16];
     self.emailIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-envelope-o"];
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
-    
 }
 
 
@@ -100,16 +87,13 @@
     [self fetchUserWithSuccess:^(NSString *didLogIn) {
         
         if ([didLogIn  isEqualToString:@"TRUE"]) {
-
             [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
         }
         else {
-
             [self alertUserForLoginError];
         }
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+    } failure:^(NSError *error) {
     }];
 }
 
@@ -220,9 +204,8 @@
 #pragma mark - Load User RESTful
 
 - (void)fetchUserWithSuccess:(void (^)(id  responseObject)) success
-                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                       failure:(void (^)(NSError *error)) failure
 {
- 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -248,10 +231,8 @@
                   NSDictionary *tempDic = entitiesPropertyList[@"session"];
                   NSDictionary *userDic = entitiesPropertyList[@"user"];
                   NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
-                  
                   BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
                   [btrSettings initSessionId:sessionIdString withEmail:[[self emailTextField] text] andPassword:[[self passwordTextField] text] hasFBloggedIn:NO];
-                  
                   User *user = [[User alloc] init];
                   [User userAuthWithAppServerInfo:userDic forUser:user];
                   
@@ -284,29 +265,24 @@
                                             success:^(NSString *didLogIn, NSString *alertString)
      {
          if ([didLogIn  isEqualToString:@"TRUE"]) {
-             
              success(@"TRUE");
-             
          } else {
              
              [self attemptRegisterWithFacebookUserParams:fbUserParams success:^(NSString *didLogIn, NSString *alertString) {
                  
                  if ([didLogIn  isEqualToString:@"TRUE"]) {
-                     
                      success(@"TRUE");
-                     
                  } else {
-                     
                      success(@"FALSE");
                  }
                  
-             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             } failure:^(NSError *error) {
                  
                  success(@"FALSE");
              }];
          }
          
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     } failure:^(NSError *error) {
          
          success(@"FALSE");
      }];
@@ -317,7 +293,7 @@
 
 - (void)attemptRegisterWithFacebookUserParams:(NSDictionary *)fbUserParams
                                      success:(void (^)(id  responseObject, NSString *alertString)) success
-                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                                     failure:(void (^)(NSError *error)) failure
 {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -337,36 +313,28 @@
                                                                                      error:NULL];
               
               int i_success = -1;
-              
               if ([entitiesPropertyList valueForKey:@"success"])
                   i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
               
               NSString *alertString = [entitiesPropertyList valueForKey:@"error"];
               
               if (i_success == 1) {
-                  
                   NSDictionary *tempDic = entitiesPropertyList[@"session"];
                   NSDictionary *userDic = entitiesPropertyList[@"user"];
                   NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
-                  
                   [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:YES];
-                  
                   User *user = [[User alloc] init];
                   [User userAuthWithAppServerInfo:userDic forUser:user];
-                  
                   success(@"TRUE", nil);
                   
               } else if (i_success == 0){
                   
                   [btrSettings clearSession];
-                  
                   success(@"FALSE", alertString);
               }
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
               [self alertUserForLoginError];
-              
           }];
     
 }
@@ -375,9 +343,8 @@
 
 - (void)attemptAuthenticateWithFacebookUserParams:(NSDictionary *)fbUserParams
                                       success:(void (^)(id  responseObject, NSString *alertString)) success
-                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                                      failure:(void (^)(NSError *error)) failure
 {
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -389,31 +356,23 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-
-            
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
               
               NSDictionary *sessionObject = entitiesPropertyList[@"session"];
               NSString *sessionIdString = sessionObject[@"session_id"];
-
               NSDictionary *userObject = entitiesPropertyList[@"user"];
               NSString *email = userObject[@"email"];
               NSString *password = userObject[@"password"];
               
               int i_success = -1;
-              
               if ([entitiesPropertyList valueForKey:@"success"])
                   i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
-               
               if (i_success == 1) {
-                  
                   [btrSettings initSessionId:sessionIdString withEmail:email andPassword:password hasFBloggedIn:YES];
                   success(@"TRUE", nil);
-                  
               } else if (i_success == 0){
-                  
                   [btrSettings clearSession];
                   success(@"FALSE", nil);
               }

@@ -11,14 +11,9 @@
 
 @interface BTRModalFilterSelectionVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-
 @property (strong, nonatomic) NSString *headerTitle;
-
-
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-
 @property (nonatomic) BOOL isMultiSelect;
 
 @end

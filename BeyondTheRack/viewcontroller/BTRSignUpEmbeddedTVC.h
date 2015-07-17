@@ -13,8 +13,6 @@
 
 @interface BTRSignUpEmbeddedTVC : UITableViewController <UIPickerViewDelegate, FBSDKLoginButtonDelegate>
 
-
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbButton;
-
 
 @end

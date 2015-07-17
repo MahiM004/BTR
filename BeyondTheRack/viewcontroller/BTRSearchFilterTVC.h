@@ -18,7 +18,6 @@
 
 @interface BTRSearchFilterTVC : UITableViewController
 
-
 @end
 
 
