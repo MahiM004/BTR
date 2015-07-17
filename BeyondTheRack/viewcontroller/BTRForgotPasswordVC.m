@@ -54,9 +54,7 @@
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = serializer;
-    
     NSDictionary *params = (@{ @"email": emailString });
-    
     [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforPasswordReset]]
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
