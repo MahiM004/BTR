@@ -356,15 +356,11 @@
                                                                                options:0
                                                                                  error:NULL];
          if (entitiesPropertyList) {
-             
              self.user = [User userWithAppServerInfo:entitiesPropertyList forUser:[self user]];
-             
              success([self user]);
          }
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         NSLog(@"Error: %@", error);
          failure(error);
      }];
 }
@@ -421,7 +417,7 @@
 
 - (void)updatePasswordforSessionId:(NSString *)sessionId
                            success:(void (^)(id  responseObject)) success
-                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                           failure:(void (^)(NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -445,9 +441,7 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
-         NSLog(@"Error: %@", error);
-         
-         failure(operation, error);
+         failure(error);
      }];
 }
 
@@ -460,17 +454,15 @@
     if ([self.neuPasswordTextField.text isEqualToString:self.retypePasswordTextField.text]) {
     
         BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-        
         [self updatePasswordforSessionId:[sessionSettings sessionId] success:^(NSString *neuPassword) {
             
             BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
             [btrSettings updatePassword:neuPassword];
-            
             [self.neuPasswordTextField setText:@""];
             [self.retypePasswordTextField setText:@""];
             [self alertUserforPasswordUpdate];
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSError *error) {
             
         }];
 
@@ -486,7 +478,6 @@
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     
     [self updateUserInfoforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
- 
         [self alertUserforSuccessfulUserUpdate];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

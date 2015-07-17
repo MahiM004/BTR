@@ -10,8 +10,6 @@
 #import "BTRProductShowcaseCollectionCell.h"
 #import "BTRRefineResultsViewController.h"
 #import "BTRProductDetailViewController.h"
-
-
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
 #import "BTRFacetsHandler.h"
@@ -22,14 +20,12 @@
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
-
 @property (strong, nonatomic) Item *selectedItem;
-
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
 
-
 @end
+
 
 
 @implementation BTRSearchViewController
@@ -67,21 +63,10 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    
-    //UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-      //                             initWithTarget:self
-        //                           action:@selector(dismissKeyboard)];
-    //[self.view addGestureRecognizer:tap];
-    
+  
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
 
-    /*
-     * Getting rid of the magnifying glass in the text area
-     */
-    //[searchBar setImage:[UIImage new] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    //[[UISearchBar appearance] setPositionAdjustment:UIOffsetMake(-10, 0) forSearchBarIcon:UISearchBarIconSearch];
-    
     /*
      * Changing the background color of the SearchBar Text area
      */
@@ -96,8 +81,6 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [self.searchBar setSearchFieldBackgroundImage:image forState:UIControlStateNormal];
-
-    
     
     CGSize size2 = CGSizeMake(1, 1);
     // create context with transparent background
@@ -110,8 +93,6 @@
     UIImage *image2 = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    //UIImage *imgClear = [UIImage imageNamed:@"clear"];
-    //[self.searchBar setImage:imgClear forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     [self.searchBar setImage:image2 forSearchBarIcon:UISearchBarIconClear state:UIControlStateHighlighted];
     [self.searchBar setImage:image2 forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     
@@ -121,7 +102,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:YES];
-    
     if (![self.itemsArray count])
         [self.searchBar becomeFirstResponder];
 }
@@ -130,7 +110,6 @@
 - (void)assignFilterIcon {
 
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
-    
     if ([sharedFacetHandler hasChosenAtLeastOneFacet])
         self.filterIconImageView.image = [UIImage imageNamed:@"filtericonYellow.png"];
     else
@@ -141,7 +120,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
 
     [super viewWillDisappear:YES];
-    
     [self.searchBar resignFirstResponder];
     [self.collectionView becomeFirstResponder];
 
@@ -156,34 +134,6 @@
 
 #pragma mark Content Filtering
 
-/*
--(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
-    
-    [self.filteredItemArray removeAllObjects];
-    // Filter the array using NSPredicate
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchText];
-    _filteredItemArray = [NSMutableArray arrayWithArray:[itemArray filteredArrayUsingPredicate:predicate]];
-}
-
-#pragma mark - UISearchDisplayController Delegate Methods
-
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    // Tells the table data source to reload when text changes
-    [self filterContentForSearchText:searchString scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
-
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
-    // Tells the table data source to reload when scope bar selection changes
-    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
-*/
-
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
@@ -191,7 +141,6 @@
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
     if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]]) {
-        
         [sharedFacetData clearAllData];
         [sharedFacetHandler resetFacets];
         sharedFacetHandler.searchString = [self.searchBar text];
@@ -199,13 +148,11 @@
     
     [self assignFilterIcon];
 
-    
     [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                          success:^(NSMutableArray *responseArray) {
-                             
                              [self.originalItemArray addObjectsFromArray:responseArray];
                              
-                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         } failure:^(NSError *error) {
                          
                          }];
     
@@ -215,31 +162,7 @@
     [self.collectionView reloadData];
 }
 
-/*  TODO: Search Suggestions
- 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    // We don't want to do anything until the user clicks
-    // the 'Search' button.
-    // If you wanted to display results as the user types
-    // you would do that here.
-}
 
-//- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    // searchBarTextDidBeginEditing is called whenever
-    // focus is given to the UISearchBar
-    // call our activate method so that we can do some
-    // additional things when the UISearchBar shows.
-    
-    
-    //[self searchBar:searchBar activate:YES];
-//}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    // searchBarTextDidEndEditing is fired whenever the
-    // UISearchBar loses focus
-    // We don't need to do anything here.
-}
-*/
 
 #pragma mark - UICollectionView Datasource
 
@@ -250,7 +173,6 @@
         
         self.filterIconImageView.hidden = NO;
         self.filterButton.enabled = YES;
-        
         
         [UIView animateWithDuration:0.4
                               delay:0
@@ -322,7 +244,7 @@
 
 - (void)fetchItemsforSearchQuery:(NSString *)searchQuery
                        success:(void (^)(id  responseObject)) success
-                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                       failure:(void (^)(NSError *error)) failure
 {
     [self.itemsArray removeAllObjects];
     [self.collectionView reloadData];
@@ -348,7 +270,6 @@
          [sharedFacetsHandler setSearchString:[self.searchBar text]];
          [sharedFacetsHandler setFacetsFromResponseDictionary:entitiesPropertyList];
          
-         
          NSMutableArray * arrayToPass = [sharedFacetsHandler getItemDataArrayFromResponse:entitiesPropertyList];
          
          if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"]) {
@@ -365,9 +286,7 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
-         NSLog(@"Error: %@", error);
-         
-         failure(operation, error);
+         failure(error);
      }];
     
 }

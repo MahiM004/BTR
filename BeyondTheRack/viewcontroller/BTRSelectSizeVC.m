@@ -54,11 +54,9 @@
     
     
     NSString *CellIdentifier = @"BTRSizeSelectionCellIdentifier";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     if (cell == nil) {
-        
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
@@ -68,7 +66,6 @@
     if ([[self sizesArray] count] > 0) {
 
         cell.detailTextLabel.text = [self getQuantityStringforQuantity:[[self.sizeQuantityArray objectAtIndex:indexPath.row] integerValue]];
-        
         if ([[[cell detailTextLabel] text]  isEqualToString:@"SOLD OUT"])
             cell.userInteractionEnabled = FALSE;
         
@@ -85,15 +82,12 @@
     NSString *quantityString = @"";
     
     if (quantity <= 0) {
-        
         quantityString = @"SOLD OUT";
     
     } else if (quantity < 7) {
-        
         quantityString = [NSString stringWithFormat:@"%lu left", (unsigned long)quantity];
     
     } else if (quantity >= 7) {
-        
         quantityString = [NSString stringWithFormat:@"%lu", (unsigned long)quantity];
     }
     

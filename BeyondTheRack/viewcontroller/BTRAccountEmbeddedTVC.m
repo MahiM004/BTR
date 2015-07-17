@@ -26,15 +26,14 @@
 @property (strong, nonatomic) NSString *sessionId;
 
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
-
 @property (strong, nonatomic) NSMutableDictionary *itemsDictionary;
 @property (strong, nonatomic) NSMutableArray *headersArray;
-
-
 @property (nonatomic, strong) User *user;
 
-
 @end
+
+
+
 
 @implementation BTRAccountEmbeddedTVC
 
@@ -59,7 +58,6 @@
     self.user = [[User alloc] init];
     
     [self fetchUserWithSuccess:^(User *user) {
-        
         self.welcomeLabel.text = [NSString stringWithFormat:@"%@ %@", [user name], [user lastName]];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -95,7 +93,6 @@
 - (void)fetchUserWithSuccess:(void (^)(id  responseObject)) success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -114,9 +111,7 @@
                                                                           options:0
                                                                             error:NULL];
          if (entitiesPropertyList) {
-            
              self.user = [User userWithAppServerInfo:entitiesPropertyList forUser:[self user]];
-         
              success(self.user);
          }
          
@@ -215,7 +210,6 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
-         NSLog(@"Error: %@", error);
          failure(error);
      }];
 }

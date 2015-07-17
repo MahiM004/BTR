@@ -8,9 +8,7 @@
 
 #import "BTREventsTVC.h"
 #import "BTREventFetcher.h"
-
 #import "Event+AppServer.h"
-
 #import "BTRProductShowcaseVC.h"
 
 
@@ -18,8 +16,9 @@
 
 @property (strong, nonatomic) NSMutableArray *eventsArray;
 
-
 @end
+
+
 
 @implementation BTREventsTVC
 
@@ -38,7 +37,6 @@
     
     self.tableView.backgroundColor = [BTRViewUtility BTRBlack];
     self.tableView.separatorColor = [UIColor clearColor];
-   
 }
 
 # pragma mark - Load Events
@@ -66,12 +64,10 @@
                                                                             error:NULL];
          
          self.eventsArray = [Event loadEventsfromAppServerArray:entitiesPropertyList withCategoryName:[self urlCategoryName] forEventsArray:[self eventsArray]];
-         
          [self.tableView reloadData];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
-         //NSLog(@"Error: %@", error);
      }];
     
 }
@@ -95,11 +91,10 @@
     
     
     static NSString *CellIdentifier = @"EventCellIdentifier";
-    UITableViewCell *cell;// = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell;
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 
     cell.backgroundColor = [UIColor darkGrayColor];
-    
     Event *event = [[self eventsArray] objectAtIndex:[indexPath row]];
 
     imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];

@@ -8,7 +8,6 @@
 
 #import "BTRCategoryViewController.h"
 
-
 #import "TTScrollSlidingPagesController.h"
 #import "TTSlidingPage.h"
 #import "TTSlidingPageTitle.h"
@@ -64,16 +63,11 @@
     self.slider.zoomOutAnimationDisabled = YES;
     self.slider.disableTitleShadow = YES;
     self.slider.titleScrollerBackgroundColour = [BTRViewUtility BTRBlack];
-    //self.slider.titleScrollerHidden = YES;
-    //slider.titleScrollerHeight = 210;
-    //slider.titleScrollerItemWidth=60;
-    //slider.disableUIPageControl = YES;
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7){
         self.slider.hideStatusBarWhenScrolling = YES;//this property normally only makes sense on iOS7+. See the documentation in TTScrollSlidingPagesController.h. If you wanted to use it in iOS6 you'd have to make sure the status bar overlapped the TTScrollSlidingPagesController.
     }
     
-    //set the datasource.
     self.slider.dataSource = self;
     //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle)
 
@@ -89,14 +83,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-- (void)tableCellDidSelect:(UITableViewCell *)cell{
-    
-    NSLog(@"Tap %@",cell.textLabel.text);
-    //DetailViewController *detailVC = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
-    //detailVC.label.text = cell.textLabel.text;
-    //[self.navigationController pushViewController:detailVC animated:YES];
-}
 
 
 #pragma mark TTSlidingPagesDataSource methods

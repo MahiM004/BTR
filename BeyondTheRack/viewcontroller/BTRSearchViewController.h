@@ -12,7 +12,6 @@
 
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
 @property (weak, nonatomic) IBOutlet UIImageView *filterIconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *filterButton;
 

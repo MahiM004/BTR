@@ -10,9 +10,7 @@
 #import "BTRProductShowcaseCollectionCell.h"
 #import "BTRProductDetailViewController.h"
 #import "BTRSearchViewController.h"
-
 #import "BTRShoppingBagViewController.h"
-
 #import "Item+AppServer.h"
 #import "BagItem+AppServer.h"
 #import "BTRItemFetcher.h"
@@ -20,22 +18,20 @@
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
+
 @interface BTRProductShowcaseVC ()
 
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath; // used to segue to PDP
 @property (strong, nonatomic) NSString *selectedBrandString; // used to segue to PDP
-
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
-
 @property (strong, nonatomic) NSMutableArray *itemArray;
 @property (copy, nonatomic) NSMutableArray *variantInventoriesArray; // an Array of variantInventory Dictionaries
 @property (copy, nonatomic) NSMutableArray *attributesArray; // an Array of variantInventory Dictionaries
 @property (strong, nonatomic) NSMutableArray *chosenSizesArray;
 @property (assign, nonatomic) NSUInteger selectedCellIndexRow;
-
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 
 @end
@@ -111,7 +107,7 @@
                    
                              [self.collectionView reloadData];
                              
-                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                         } failure:^(NSError *error) {
                              
                          }];
 }
@@ -125,7 +121,7 @@
 
 - (void)fetchItemsforEventSku:(NSString *)eventSku
                        success:(void (^)(id  responseObject)) success
-                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                       failure:(void (^)(NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -158,9 +154,7 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
-         NSLog(@"Error: %@", error);
-         
-         failure(operation, error);
+         failure(error);
      }];
     
 }
@@ -172,18 +166,15 @@
                              addProductItem:(Item *)productItem
                                 withVariant:(NSString *)variant
                                     success:(void (^)(id  responseObject)) success
-                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                                    failure:(void (^)(NSError *error)) failure
 {
     [[self bagItemsArray] removeAllObjects];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
     NSDictionary *params = (@{
@@ -222,7 +213,7 @@
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
-              failure(operation, error);
+              failure(error);
               
           }];
 }
@@ -249,7 +240,6 @@
                                           toSizeQuantityArray:[cell sizeQuantityArray]];
 
     Item *productItem = [self.itemArray objectAtIndex:indexPath.row];
-    
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andBTRSizeMode:sizeMode forIndexPath:indexPath];
 
     NSMutableArray *tempSizesArray = [cell sizesArray];
@@ -296,8 +286,8 @@
                     [self presentViewController:vc animated:YES completion:nil];
                 }
                 
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                
+            } failure:^(NSError *error) {
+
             }];
         }
     }];

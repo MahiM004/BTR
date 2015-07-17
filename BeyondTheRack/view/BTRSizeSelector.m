@@ -7,15 +7,11 @@
 //
 
 #import "BTRSizeSelector.h"
-
 #import "BTRSelectSizeVC.h"
 
 static const float kButtonWidth = 30.0f;
 
-
-
 @implementation BTRSizeSelector
-
 
 
 #pragma mark initialization
@@ -67,7 +63,6 @@ static const float kButtonWidth = 30.0f;
 
 
 
-
 #pragma mark - render
 
 
@@ -96,8 +91,6 @@ static const float kButtonWidth = 30.0f;
     }
     return size;
 }
-
-
 
 
 #pragma mark view customization
@@ -142,6 +135,7 @@ static const float kButtonWidth = 30.0f;
 
 
 #pragma mark setter
+
 
 - (void)setValue:(NSString *)value
 {

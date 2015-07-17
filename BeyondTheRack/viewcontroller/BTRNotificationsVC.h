@@ -21,12 +21,10 @@ enum btrEmailNotificationFrequency
 };
 
 
-
 @interface BTRNotificationsVC : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView *radioView;
 @property (nonatomic, strong) TNRadioButtonGroup *emailNotificationGroup;
-
 @property (weak, nonatomic) IBOutlet UISwitch *pushNotificationSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *womenSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *menSwitch;

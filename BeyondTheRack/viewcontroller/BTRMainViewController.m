@@ -44,11 +44,9 @@
     BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
     
     [self getCartCountServerCallforSessionId:[btrSettings sessionId] success:^(NSString *bagCountString) {
-        
         self.bagButton.badgeValue = bagCountString;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
@@ -67,7 +65,6 @@
     
     [super viewDidLoad];
     
-
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
 }

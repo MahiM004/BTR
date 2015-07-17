@@ -8,11 +8,11 @@
 
 #import "BTRProductDetailViewController.h"
 #import "BTRShoppingBagViewController.h"
-
 #import "BTRProductShowcaseVC.h"
 #import "BTRBagFetcher.h"
 #import "BagItem+AppServer.h"
 #import "BTRItemFetcher.h"
+
 
 #define SIZE_NOT_SELECTED_STRING @"-1"
 
@@ -21,10 +21,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
-
 @property (strong, nonatomic) NSString *variant;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
-
 @property (strong, nonatomic) Item *itemSelectedfromSearchResult;
 @property (strong, nonatomic) NSDictionary *variantInventoryDictionaryforItemfromSearch;
 @property (strong, nonatomic) NSDictionary *attributesDictionaryforItemfromSearch;
@@ -70,10 +68,9 @@
         
         [self fetchItemforProductSku:[[self productItem] sku]
                             success:^(Item *responseObject) {
-                                
                                 [self setItemSelectedfromSearchResult:responseObject];
                                 
-                            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                            } failure:^(NSError *error) {
                                 
                             }];
     }
@@ -95,17 +92,15 @@
     } else {
 
         BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-
         [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
             
             if ([successString isEqualToString:@"TRUE"]) {
-             
                 UIStoryboard *storyboard = self.storyboard;
                 BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];                
                 [self presentViewController:vc animated:YES completion:nil];
             }
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSError *error) {
             
         }];
         
@@ -120,18 +115,15 @@
 
 - (void)cartIncrementServerCallforSessionId:(NSString *)sessionId
                                     success:(void (^)(id  responseObject)) success
-                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                                    failure:(void (^)(NSError *error)) failure
 {
     [[self bagItemsArray] removeAllObjects];
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     
     NSDictionary *params = (@{
@@ -169,7 +161,7 @@
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
-              failure(operation, error);
+              failure(error);
               
           }];
 }
@@ -179,17 +171,15 @@
 
 - (void)fetchItemforProductSku:(NSString *)productSku
                       success:(void (^)(id  responseObject)) success
-                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                      failure:(void (^)(NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    
     [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
@@ -206,10 +196,7 @@
          success(productItem);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         NSLog(@"Error: %@", error);
-         
-         failure(operation, error);
+         failure(error);
      }];
     
 }

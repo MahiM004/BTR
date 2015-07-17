@@ -8,15 +8,7 @@
 
 #import "BTRZoomImageViewController.h"
 #import "BTRZoomImageCollectionViewCell.h"
-
 #import "BTRItemFetcher.h"
-
-
-@interface BTRZoomImageViewController ()
-
-
-@end
-
 
 
 
@@ -37,12 +29,10 @@
 #pragma mark - UICollectionView Datasource
 
 
-
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     
     return [self zoomImageCount];
 }
-
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -61,10 +51,12 @@
 
 
 
-
-
-
 @end
+
+
+
+
+
 
 
 

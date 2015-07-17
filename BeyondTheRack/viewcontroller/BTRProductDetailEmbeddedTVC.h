@@ -9,38 +9,28 @@
 #import <UIKit/UIKit.h>
 #import "Item+AppServer.h"
 #import "BTRSelectSizeVC.h"
-
 #import "BTRSizeHandler.h"
-
 
 @protocol BTRProductDetailEmbeddedTVC;
 
-
 @interface BTRProductDetailEmbeddedTVC : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate, BTRSelectSizeVC>
 
-
 @property (nonatomic, weak) id<BTRProductDetailEmbeddedTVC> delegate;
-
-
 @property (strong, nonatomic) Item *productItem;
 @property (strong, nonatomic) NSDictionary *variantInventoryDictionary;
 @property (strong, nonatomic) NSDictionary *attributesDictionary;
-
 @property (strong, nonatomic) NSString *eventId;
 @property (strong, nonatomic) NSMutableArray *imageArray;
 
-
 @end
+
 
 
 
 @protocol BTRProductDetailEmbeddedTVC <NSObject>
 
 @optional
-
-
 - (void)variantCodeforAddtoBag:(NSString *)variant;
-
 
 @end
 

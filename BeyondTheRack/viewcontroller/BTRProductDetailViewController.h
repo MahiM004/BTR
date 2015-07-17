@@ -8,9 +8,9 @@
 
 
 #import <UIKit/UIKit.h>
-
 #import "Item+AppServer.h"
 #import "BTRProductDetailEmbeddedTVC.h"
+
 
 #define EVENT_SCENE @"EventScene"
 #define SEARCH_SCENE @"SearchScene"
@@ -19,11 +19,9 @@
 
 @property (strong, nonatomic) NSString *originVCString;
 @property (strong, nonatomic) NSString *productSKUfromSearchResult;
-
 @property (strong, nonatomic) Item *productItem;
 @property (strong, nonatomic) NSDictionary *variantInventoryDictionary;
 @property (strong, nonatomic) NSDictionary *attributesDictionary;
-
 @property (strong, nonatomic) NSString *eventId;
 
 

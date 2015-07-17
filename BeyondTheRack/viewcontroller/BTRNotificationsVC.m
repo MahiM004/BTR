@@ -183,10 +183,9 @@
         
         [self.user setPreferencesList:neuPreferencesList];
         [self setupPreferencesListAttributesforList:neuPreferencesList];
-        
         [self alertUserforSuccessfulUpdate];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         
     }];
 }
@@ -211,7 +210,7 @@
 - (void)updateUserPreferencesListforSessionId:(NSString *)sessionId
                            andPreferencesList:(NSString *)preferencesListString
                           success:(void (^)(id  responseObject)) success
-                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                          failure:(void (^)(NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -232,10 +231,7 @@
          success(@"TRUE");
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         NSLog(@"Error: %@", error);
-         
-         failure(operation, error);
+         failure(error);
      }];
 }
 

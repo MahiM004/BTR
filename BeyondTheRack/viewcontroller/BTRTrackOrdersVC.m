@@ -8,10 +8,8 @@
 
 #import "BTRTrackOrdersVC.h"
 #import "BTROrderHistoryFetcher.h"
-
 #import "OrderHistoryBag+AppServer.h"
 #import "OrderHistoryItem+AppServer.h"
-
 #import "BTRTrackOrdersItemCell.h"
 #import "BTRItemFetcher.h"
 
@@ -51,7 +49,6 @@
     NSArray *unsortedKeys = [self.itemsDictionary allKeys];
     NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
     self.sortedKeys =  [unsortedKeys sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
-    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }

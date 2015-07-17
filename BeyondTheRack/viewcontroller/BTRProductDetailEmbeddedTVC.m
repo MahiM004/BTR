@@ -7,22 +7,17 @@
 //
 
 #import "BTRProductDetailEmbeddedTVC.h"
-
 #import "BTRProductImageCollectionCell.h"
 #import "BTRZoomImageViewController.h"
-
 #import "BTRItemFetcher.h"
 #import "NSString+HeightCalc.h"
-
-#define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
 #import <Social/Social.h>
 #import <Pinterest/Pinterest.h>
 
-
+#define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
 #define kMargin             20.0
 #define kSampleImageWidth   320.0
 #define kSampleImageHeight  200.0
-
 #define kPinItButtonWidth   72.0
 #define kPinItButtonHeight  32.0
 
@@ -38,33 +33,25 @@
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *selectSizeButton;
 @property (weak, nonatomic) IBOutlet UILabel *dropdownLabelIcon;
-
 @property (weak, nonatomic) IBOutlet UILabel *selectSizeLabel;
-
 @property (nonatomic) NSInteger customHeight;
 @property (nonatomic) NSInteger descriptionCellHeight;
-
 @property (strong, nonatomic) NSString *productSku;
 @property (nonatomic) NSInteger productImageCount;
-
 @property (strong, nonatomic) NSMutableArray *sizesArray;
 @property (strong, nonatomic) NSMutableArray *sizeCodesArray;
 @property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
-
 @property (strong, nonatomic) NSMutableArray *attributeKeys;
 @property (strong, nonatomic) NSMutableArray *attributeValues;
-
 @property (nonatomic) NSUInteger selectedSizeIndex;
-
 
 @end
 
 
-@implementation BTRProductDetailEmbeddedTVC
-{
+@implementation BTRProductDetailEmbeddedTVC {
+    
     Pinterest*  _pinterest;
 }
-
 
 @synthesize customHeight;
 @synthesize descriptionCellHeight;
@@ -110,6 +97,7 @@
     _productImageCount = productImageCount;
 }
 
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -119,9 +107,7 @@
     
     self.dropdownLabelIcon.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.dropdownLabelIcon.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-caret-down"];
-    
     self.selectedSizeIndex = -1;
-    
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
@@ -145,15 +131,12 @@
         [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
         [self.salePriceLabel setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
         [self.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
-        
         UIView *descriptionView = [[UIView alloc] init];
         descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
         descriptionView = [self getAttribueViewForView:descriptionView];
         descriptionView = [self getSpecialNoteView:descriptionView withSpecialNote:[productItem specialNote]];
-        
         [self.longDescriptionView addSubview:descriptionView];
         
-       
         BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self variantInventoryDictionary]
                                                                                  toSizesArray:[self sizesArray]
                                                                              toSizeCodesArray:[self sizeCodesArray]
@@ -170,6 +153,7 @@
 
     [self.collectionView reloadData];
 }
+
 
 
 - (void)updateSizeSelectionViewforSizeMode:(BTRSizeMode)sizeMode {
@@ -199,11 +183,9 @@
     customHeight = 0;
     
     NSString *descriptionString = longDescriptionString;
-    
     NSMutableArray *descriptionArray = [[NSMutableArray alloc] init];
     
     if ([descriptionString length] == 0 || [descriptionString isEqual:[NSNull null]]) {
-        
         descriptionString = @"no descriptions available for this item.";
     }
     
@@ -214,20 +196,17 @@
         
         NSString *labelText = [NSString stringWithFormat:@" - %@.", [descriptionArray objectAtIndex:i]];
         UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
-        
         int labelHeight = [labelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:descriptionFont];
         CGRect labelFrame = CGRectMake(0, customHeight, self.longDescriptionView.bounds.size.width, labelHeight);
 
         customHeight = customHeight + (labelHeight + 5);
         
         UILabel *myLabel = [[UILabel alloc] initWithFrame:labelFrame];
-        
         [myLabel setFont:descriptionFont];
         [myLabel setText:labelText];
         [myLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
         [myLabel sizeToFit];
         [myLabel setTextAlignment:NSTextAlignmentLeft];
-        
         [descriptionView addSubview:myLabel];
     }
     
@@ -250,13 +229,11 @@
         customHeight = customHeight + (attributeHeight + 5);
         
         UILabel *attributeLabel = [[UILabel alloc] initWithFrame:attributeFrame];
-        
         [attributeLabel setFont:attributeFont];
         [attributeLabel setText:attributeText];
         [attributeLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
         [attributeLabel sizeToFit];
         [attributeLabel setTextAlignment:NSTextAlignmentLeft];
-        
         [attributeView addSubview:attributeLabel];
     }
 
@@ -278,13 +255,11 @@
         
         customHeight = customHeight + specialNoteLabelHeight + 10;
         UILabel *specialNoteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
-        
         [specialNoteLabel setFont:specialNoteFont];
         [specialNoteLabel setText:specialNoteLabelText];
         [specialNoteLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
         [specialNoteLabel sizeToFit];
         [specialNoteLabel setTextAlignment:NSTextAlignmentLeft];
-        
         [specialNoteView addSubview:specialNoteLabel];
     }
     
@@ -323,7 +298,6 @@
 
 
 - (void) extractAttributesFromAttributesDictionary:(NSDictionary *)attributeDictionary {
-    
     
     [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         
@@ -382,7 +356,6 @@
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]]];
-
         [controller setInitialText:SOCIAL_MEDIA_INIT_STRING];
         [controller addImage:image];
         [controller addURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]];
@@ -408,7 +381,7 @@
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
         
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]]];
-        
+
         [tweetSheet setInitialText:SOCIAL_MEDIA_INIT_STRING];
         [tweetSheet addImage:image];
         [tweetSheet addURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]];
@@ -442,7 +415,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"ZoomOnProductImageSegueIdentifier"]) {
-        
         BTRZoomImageViewController *zoomVC = [segue destinationViewController];
         zoomVC.productSkuString = [self productSku];
         zoomVC.zoomImageCount = [self productImageCount];
@@ -454,7 +426,6 @@
 
     UIStoryboard *storyboard = self.storyboard;
     BTRSelectSizeVC * vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
-    
     vc.sizesArray = [self sizesArray];
     vc.sizeQuantityArray = [self sizeQuantityArray];
     vc.delegate = self;
