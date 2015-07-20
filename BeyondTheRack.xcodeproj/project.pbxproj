@@ -94,7 +94,6 @@
 		69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */; };
 		69B02CAD1A5DA70700040C86 /* BTREventsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CAB1A5DA70700040C86 /* BTREventsTVC.m */; };
 		69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */; };
-		69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B02CBF1A60304000040C86 /* CoreData.framework */; };
 		69B02D011A605AB700040C86 /* User+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D001A605AB700040C86 /* User+AppServer.m */; };
 		69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D031A605AD200040C86 /* Event+AppServer.m */; };
 		69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D061A605AED00040C86 /* Item+AppServer.m */; };
@@ -535,7 +534,6 @@
 				B3699B231AEA9CFD009D6A48 /* FBSDKCoreKit.framework in Frameworks */,
 				B3699B241AEA9CFD009D6A48 /* FBSDKLoginKit.framework in Frameworks */,
 				B3699B261AEA9CFD009D6A48 /* FBSDKShareKit.framework in Frameworks */,
-				69B02CC01A60304000040C86 /* CoreData.framework in Frameworks */,
 				B3699B251AEA9CFD009D6A48 /* FBSDKMessengerShareKit.framework in Frameworks */,
 				B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */,
 				B3C16A9E1B0F6A4A009470EC /* Pinterest.framework in Frameworks */,
