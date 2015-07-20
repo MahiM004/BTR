@@ -8,17 +8,13 @@
 
 #import "BTRMainViewController.h"
 #import "BTRShoppingBagViewController.h"
-
 #import "BTRCategoryViewController.h"
-
-
 #import "TTScrollSlidingPagesController.h"
 #import "TTSlidingPage.h"
 #import "TTSlidingPageTitle.h"
 #import "BTREventsTVC.h"
 #import "BTRFacetsHandler.h"
 #import "BTRSearchViewController.h"
-
 #import "BTRBagFetcher.h"
 #import <math.h>
 
@@ -130,33 +126,27 @@
 
 
 
-
-- (IBAction)unwindFromShoppingBagToEventsScene:(UIStoryboardSegue *)unwindSegue
-{
-    
-}
-
-
 - (NSInteger) modulaForIndex:(NSInteger)inputInt withCategoryCount:(NSInteger)count
 {
     NSInteger relevantInt = (inputInt >= 0) ? (inputInt % count) : ((inputInt % count) + count);
-
     return relevantInt;
 }
 
 
-- (IBAction)unwindFromShoppingBagToMainScene:(UIStoryboardSegue *)unwindSegue
-{
+
+- (IBAction)unwindFromShoppingBagToEventsScene:(UIStoryboardSegue *)unwindSegue {
 }
 
 
-- (IBAction)unwindFromMyAccount:(UIStoryboardSegue *)unwindSegue
-{
+- (IBAction)unwindFromShoppingBagToMainScene:(UIStoryboardSegue *)unwindSegue {
 }
 
 
-- (IBAction)unwindToEventViewController:(UIStoryboardSegue *)unwindSegue
-{
+- (IBAction)unwindFromMyAccount:(UIStoryboardSegue *)unwindSegue {
+}
+
+
+- (IBAction)unwindToEventViewController:(UIStoryboardSegue *)unwindSegue {
 }
 
 

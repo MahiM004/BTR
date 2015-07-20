@@ -248,6 +248,8 @@
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
+              NSLog(@"eooorrooorrr --- %@", error);
+
               [self alertUserForLoginError];
 
           }];

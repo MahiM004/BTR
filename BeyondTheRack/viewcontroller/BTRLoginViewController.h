@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-
 
 
 @interface BTRLoginViewController : UIViewController <FBSDKLoginButtonDelegate>

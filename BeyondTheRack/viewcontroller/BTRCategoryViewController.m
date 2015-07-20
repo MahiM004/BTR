@@ -7,12 +7,10 @@
 //
 
 #import "BTRCategoryViewController.h"
-
 #import "TTScrollSlidingPagesController.h"
 #import "TTSlidingPage.h"
 #import "TTSlidingPageTitle.h"
 #import "BTREventsTVC.h"
-
 #import "BTRCategoryData.h"
 
 #define INITIAL_PAGE_INDEX 1
@@ -119,9 +117,7 @@
 #pragma mark - scrollview delegate
 
 
--(void)didScrollToViewAtIndex:(NSUInteger)index
-{
-    NSLog(@"scrolled to view");
+-(void)didScrollToViewAtIndex:(NSUInteger)index {
 }
 
  

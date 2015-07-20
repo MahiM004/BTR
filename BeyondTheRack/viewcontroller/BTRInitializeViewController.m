@@ -51,7 +51,7 @@
                                   
                                   [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
 
-                              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                              } failure:^(NSError *error) {
                                   
                               }];
 
@@ -64,7 +64,7 @@
 
 
 - (void)fetchCategoriesWithSuccess:(void (^)(id  responseObject)) success
-                            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                            failure:(void (^)(NSError *error)) failure
 {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -87,8 +87,7 @@
          
          NSMutableArray *categoriesArray = [[NSMutableArray alloc] init];
          
-         categoriesArray = [EventCategory loadCategoriesfromAppServerArray:entitiesPropertyList forCategoriesArray:categoriesArray];//loadCategoriesFromAppServerArray:entitiesPropertyList];
-         
+         categoriesArray = [EventCategory loadCategoriesfromAppServerArray:entitiesPropertyList forCategoriesArray:categoriesArray];
          BTRCategoryData *sharedCategoryData = [BTRCategoryData sharedCategoryData];
          
          for (EventCategory *eventCategory in categoriesArray) {
@@ -101,9 +100,8 @@
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          
-         //NSLog(@"Error: %@", error);
+         failure(error);
      }];
-    
 }
 
 

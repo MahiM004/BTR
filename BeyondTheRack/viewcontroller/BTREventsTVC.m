@@ -42,8 +42,7 @@
 # pragma mark - Load Events
 
 
-- (void)fetchEventsData
-{
+- (void)fetchEventsData {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -59,11 +58,13 @@
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
          
-         NSArray * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+         
+         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                           options:0
                                                                             error:NULL];
+         NSArray *eventsArray = entitiesPropertyList[@"events"];
+         self.eventsArray = [Event loadEventsfromAppServerArray:eventsArray withCategoryName:[self urlCategoryName] forEventsArray:[self eventsArray]];
          
-         self.eventsArray = [Event loadEventsfromAppServerArray:entitiesPropertyList withCategoryName:[self urlCategoryName] forEventsArray:[self eventsArray]];
          [self.tableView reloadData];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -108,7 +109,7 @@
                                   
                                   UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
                                   if (!strongImageView) return;
-                                  
+                
                                   weakImageView.alpha = 0.9;
                                   weakImageView.image = image;
         
