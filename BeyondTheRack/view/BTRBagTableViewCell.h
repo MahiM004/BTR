@@ -18,16 +18,20 @@
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *quantityLabel;
-
 @property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
 @property (weak, nonatomic) IBOutlet UIView *stepperView;
 @property (weak, nonatomic) IBOutlet UILabel *remainingTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *qtyLabel;
-
 @property (nonatomic, strong) NSDate *dueDateTime;
 @property (nonatomic, strong) PKYStepper *stepper;
-
 @property (weak, nonatomic) IBOutlet UIButton *rereserveItemButton;
+
+
+/**
+ *
+ *  Use the following setter to assign behaviour to each button (Rereserve Item) on each cell
+ *
+ */
 
 - (void)setDidTapRereserveItemButtonBlock:(void (^)(id sender))didTapRereserveItemButtonBlock;
 

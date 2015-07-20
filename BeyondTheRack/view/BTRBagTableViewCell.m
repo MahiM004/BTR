@@ -27,7 +27,6 @@
     
     [self.stepper setup];
     [self.stepperView addSubview:self.stepper];
-    
     [self.rereserveItemButton addTarget:self action:@selector(didTapRereserveItemButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 

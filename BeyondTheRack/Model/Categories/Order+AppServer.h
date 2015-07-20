@@ -8,6 +8,12 @@
 
 #import "Order.h"
 
+/**
+ *
+ *  This category is used to reading the JSON object into its corresponding model
+ *
+ */
+
 @interface Order (AppServer)
 
 

@@ -10,6 +10,11 @@
 
 @interface OrderHistoryItem (AppServer)
 
+/**
+ *
+ *  This category is used to reading the JSON object into its corresponding model
+ *
+ */
 
 + (OrderHistoryItem *)orderItemWithAppServerInfo:(NSDictionary *)orderItemDictionary;
 

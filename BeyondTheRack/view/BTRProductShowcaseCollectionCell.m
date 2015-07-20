@@ -57,6 +57,7 @@
     [self.selectSizeButton addTarget:self action:@selector(didTapSelectSizeButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+
 - (void)didTapAddtoBagButton:(id)sender {
     
     if (self.didTapAddtoBagButtonBlock) {

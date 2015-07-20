@@ -10,6 +10,11 @@
 
 @interface BagItem (AppServer)
 
+/**
+ *
+ *  This category is used to reading the JSON object into its corresponding model
+ *
+ */
 
 + (BagItem *)bagItemWithAppServerInfo:(NSDictionary *)bagItemDictionary withServerDateTime:(NSDate *)serverTime isExpired:(NSString *)isExpired;
 

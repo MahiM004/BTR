@@ -8,6 +8,12 @@
 
 #import "Event.h"
 
+/**
+ *
+ *  This category is used to reading the JSON object into its corresponding model
+ *
+ */
+
 @interface Event (AppServer)
 
 + (Event *)eventWithAppServerInfo:(NSDictionary *)eventDictionary withCategoryName:(NSString *)myCategoryName;

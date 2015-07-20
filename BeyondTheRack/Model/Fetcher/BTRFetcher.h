@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+
+/**
+ *
+ *  Fetcher classes are used to manage all the URLs.
+ *  The BASE_URL is stored in BeyondTheRack-Prefix.pch
+ *
+ */
+
 @interface BTRFetcher : NSObject
 
 + (NSURL *)URLForQuery:(NSString *)query;
@@ -16,17 +24,3 @@
 
 @end
 
-
-
-
-/*
- http://172.30.101.26/apisite/events
- http://172.30.101.26/apisite/events/all
- http://172.30.101.26/apisite/event/25904
- http://172.30.101.26/apisite/eventsku/25904
- http://172.30.101.26/apisite/eventsku/25904/BUC17459BK
- 
- http://static.beyondtherack.com/productimages/MOOB2025FL/large/MOOB2025FL_1.jpg
- 
- 
- */

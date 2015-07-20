@@ -17,16 +17,15 @@
 
 @implementation BTRZoomImageCollectionViewCell
 
-- (void)awakeFromNib{
+- (void)awakeFromNib {
+    
     self.scrollView.minimumZoomScale = 1;
     self.scrollView.maximumZoomScale = 6;
-    
     self.scrollView.delegate=self;
-    
 }
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    
     return self.zoomImageView;
 }
 

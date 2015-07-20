@@ -9,28 +9,18 @@
 #ifndef BeyondTheRack_BeyondTheRack_Prefix_pch
 #define BeyondTheRack_BeyondTheRack_Prefix_pch
 
-
-//#import <UIKit/UIKit.h>
-//#import <Foundation/Foundation.h>
-
 #define BASEURL @"http://www.mobile.btrdev.com/siteapi"
 #define WEBBASEURL @"http://www.mobile.btrdev.com"
 #define STATICURL @"http://static.beyondtherack.com"
 #define LIVEURL @"http://www.beyondtherack.com"
-
-
 #define RC03URL @"http://www.rc03.beyondtherack.com"
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
-
-
-
 //#ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-//#import "Reachability.h"
 #import "AFNetworking.h"
 #import "UIKit+AFNetworking.h"
 #import "BTRViewUtility.h"
@@ -41,11 +31,6 @@
 #import "BTRSessionSettings.h"
 #import "BTRDateHandler.h"
 
-
-//#import "BTRDateConverter.h"
-//#import "BTRRefreshHandler.h"
-
-//#import "PNImports.h"
 
 
 

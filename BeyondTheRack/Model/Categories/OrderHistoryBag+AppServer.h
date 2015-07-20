@@ -10,6 +10,11 @@
 
 @interface OrderHistoryBag (AppServer)
 
+/**
+ *
+ *  This category is used to reading the JSON object into its corresponding model
+ *
+ */
 
 + (OrderHistoryBag *)orderWithAppServerInfo:(NSDictionary *)orderDictionary;
 

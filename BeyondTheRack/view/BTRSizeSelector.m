@@ -19,7 +19,6 @@ static const float kButtonWidth = 30.0f;
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
-        
         [self commonInit];
     }
     return self;
@@ -28,7 +27,6 @@ static const float kButtonWidth = 30.0f;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     
     if (self = [super initWithCoder:aDecoder]) {
-        
         [self commonInit];
     }
     return self;
@@ -47,15 +45,12 @@ static const float kButtonWidth = 30.0f;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.layer.borderWidth = 0.0f;
     [self.titleLabel setFont:[UIFont fontWithName:@"Avenir-Black" size:9.0f]];
-    
     [self.titleLabel setText:@"Select Size"];
 
     [self addSubview:self.titleLabel];
-
     [self setBorderColor:[UIColor blackColor]];
     [self setLabelTextColor:[UIColor blackColor]];
     [self setButtonTextColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
     
     [self setLabelFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0f]];
     [self setButtonFont:[UIFont fontWithName:@"Avenir-Black" size:8.0f]];
@@ -97,38 +92,37 @@ static const float kButtonWidth = 30.0f;
 
 
 - (void)setBorderColor:(UIColor *)color {
-    
     self.layer.borderColor = color.CGColor;
     self.titleLabel.layer.borderColor = color.CGColor;
 }
 
+
 - (void)setBorderWidth:(CGFloat)width {
-    
     self.layer.borderWidth = width;
 }
 
+
 - (void)setCornerRadius:(CGFloat)radius {
-    
     self.layer.cornerRadius = radius;
 }
 
+
 - (void)setLabelTextColor:(UIColor *)color {
-    
     self.titleLabel.textColor = color;
 }
 
+
 - (void)setLabelFont:(UIFont *)font {
-    
     self.titleLabel.font = font;
 }
 
+
 - (void)setButtonTextColor:(UIColor *)color forState:(UIControlState)state {
-    
     [self.selectionButton setTitleColor:color forState:state];
 }
 
+
 - (void)setButtonFont:(UIFont *)font {
-    
     self.selectionButton.titleLabel.font = font;
 }
 
@@ -155,7 +149,6 @@ static const float kButtonWidth = 30.0f;
     if (self.valueChangedCallback) {
         self.valueChangedCallback(self, self.value);
     }
-    
 }
 
 

@@ -17,14 +17,20 @@
 typedef void (^BTRSizeSelectorValueChangedCallback)(BTRSizeSelector *sizeSelector, NSString *newValue);
 
 IB_DESIGNABLE
+
 @interface BTRSizeSelector : UIControl
+
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIColor *labelColor;
 @property (nonatomic, strong) UIButton *selectionButton;
-
 @property (nonatomic, strong) NSString *value; // default: Z
 @property (nonatomic) CGFloat buttonWidth; // default: 44.0f
 
+/**
+ *
+ *  Use the following delegate to when the size has been selected to pass the size back to the parent ViewController
+ *
+ */
 
 @property (nonatomic, copy) BTRSizeSelectorValueChangedCallback valueChangedCallback;
 
@@ -36,10 +42,8 @@ IB_DESIGNABLE
 - (void)setBorderColor:(UIColor *)color;
 - (void)setBorderWidth:(CGFloat)width;
 - (void)setCornerRadius:(CGFloat)radius;
-
 - (void)setLabelTextColor:(UIColor *)color;
 - (void)setLabelFont:(UIFont *)font;
-
 - (void)setButtonTextColor:(UIColor *)color forState:(UIControlState)state;
 - (void)setButtonFont:(UIFont *)font;
 

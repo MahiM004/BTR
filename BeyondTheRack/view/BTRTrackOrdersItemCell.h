@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *skuLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
-
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 
 @end
