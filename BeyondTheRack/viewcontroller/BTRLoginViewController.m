@@ -211,12 +211,12 @@
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = serializer;
-
+    
     NSLog(@"UITextFields are ignored @: signInButtonTapped");
     
     NSDictionary *params = (@{
-                              @"username": @"hadi@jumpinlife.ca",
-                              @"password": @"something1",
+                              @"username": @"hadi@jumpinlife.ca", // TODO: replace with [[self emailTextField] text],
+                              @"password": @"something1" // TODO: replace with [[[self passwordTextField] text]
                               });
     
     [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserAuthentication]]

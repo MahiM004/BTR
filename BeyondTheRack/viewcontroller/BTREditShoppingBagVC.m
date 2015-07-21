@@ -206,15 +206,15 @@
               NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
               NSDate *serverTime = [NSDate date];
               
-              self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+              [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
                                                         withServerDateTime:serverTime
                                                           forBagItemsArray:[self bagItemsArray]
                                                                  isExpired:@"false"];
               
-              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+              [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
                                                                            withServerDateTime:serverTime
                                                                              forBagItemsArray:[self bagItemsArray]
-                                                                                    isExpired:@"true"]];
+                                                                                    isExpired:@"true"];
  
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
               [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
