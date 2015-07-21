@@ -38,6 +38,12 @@
     return _bagItemsArray;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:YES];
+    self.bagTitleLabel.text = [NSString stringWithFormat:@"Edit Bag (%lu)", (unsigned long)[self getCountofBagItems]];
+}
+
 
 - (void)viewDidLoad {
     
@@ -50,7 +56,6 @@
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setCurrencySymbol:@"$"];
     
-    self.bagTitleLabel.text = [NSString stringWithFormat:@"Edit Bag (%lu)", (unsigned long)[self getCountofBagItems]];
     
     NSTimer *timer = [NSTimer timerWithTimeInterval:1.0
                                              target:self
