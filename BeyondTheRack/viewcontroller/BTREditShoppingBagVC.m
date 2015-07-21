@@ -50,7 +50,8 @@
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setCurrencySymbol:@"$"];
     
-    
+    self.bagTitleLabel.text = [NSString stringWithFormat:@"Edit Bag (%@)", [self bagCountString]];
+
     NSTimer *timer = [NSTimer timerWithTimeInterval:1.0
                                              target:self
                                            selector:@selector(timerFired:)
@@ -72,7 +73,6 @@
 
 - (void)timerFired:(NSTimer *)timer {
     
-    self.bagTitleLabel.text = [NSString stringWithFormat:@"Edit Bag (%lu)", (unsigned long)[self getCountofBagItems]];
     [self.tableView reloadData];
 }
 
@@ -88,6 +88,7 @@
             [weakSelf dismissViewControllerAnimated:YES completion:NULL];
         }
         
+
     } failure:^(NSError *error) {
         
     }];
@@ -209,7 +210,7 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
-              
+                            
               NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
               NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
               NSDate *serverTime = [NSDate date];
@@ -226,6 +227,10 @@
  
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
               [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+              
+              [[self bagTitleLabel] setText:[NSString stringWithFormat:@"(%lu)", (unsigned long)[self getCountofBagItems]]];
+
+              
               success(@"TRUE");
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

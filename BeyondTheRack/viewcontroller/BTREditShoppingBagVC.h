@@ -10,6 +10,7 @@
 
 @interface BTREditShoppingBagVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) NSString *bagCountString;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 

@@ -138,8 +138,7 @@
      {
          NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                               options:0
-                                                                                error:NULL];
-         
+                                                                                error:NULL];         
          for (NSDictionary *itemDic in entitiesPropertyList) {
              [self.variantInventoriesArray addObject:itemDic[@"variant_inventory"]];
              [self.attributesArray addObject:itemDic[@"attributes"]];
