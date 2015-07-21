@@ -78,19 +78,16 @@
 
 - (IBAction)doneEditingTapped:(UIButton *)sender {
 
-    
     __weak typeof(self) weakSelf = self;
     
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    
     [self setShoppingBagforSessionId:[sessionSettings sessionId] success:^(NSString *succString) {
         
         if ([succString isEqualToString:@"TRUE"]) {
-         
             [weakSelf dismissViewControllerAnimated:YES completion:NULL];
         }
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         
     }];
 }
@@ -112,18 +109,19 @@
     BTRBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingBagCellIdentifier" forIndexPath:indexPath];
     
     if (cell == nil) {
-        
         cell = [[BTRBagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
     }
     
     NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
-    
-    [cell.itemImageView setImageWithURL:[BTRItemFetcher
-                                         URLforItemImageForSku:uniqueSku]
+
+    BagItem *bagItem = [[BagItem alloc] init];
+    [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:uniqueSku]
                        placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
     
-    cell = [self configureCell:cell forBagItem:[self.bagItemsArray objectAtIndex:indexPath.row] andItem:[self.itemsArray objectAtIndex:[indexPath row]]];
+    Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
+    bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];
     
+    cell = [self configureCell:cell forBagItem:bagItem andItem:item];
     cell.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
         
         [[self.bagItemsArray objectAtIndex:indexPath.row] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
@@ -131,6 +129,17 @@
     };
     
     return cell;
+}
+
+
+
+- (Item *)getItemforSku:(NSString *)skuNumber {
+    for (Item *item in [self itemsArray]) {
+        if ([[item sku] isEqualToString:skuNumber]) {
+            return item;
+        }
+    }
+    return nil;
 }
 
 
@@ -148,11 +157,9 @@
     int minutes = (ti / 60) % 60;
     
     if (seconds > 0 || minutes > 0) {
-        
         cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Remaining time: %02i:%02i", minutes, seconds];
         
     } else if (seconds <= 0 && minutes <= 0) {
-        
         cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Time out!"];
     }
     
@@ -166,7 +173,7 @@
 
 - (void)setShoppingBagforSessionId:(NSString *)sessionId
                            success:(void (^)(id  responseObject)) success
-                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+                           failure:(void (^)(NSError *error)) failure
 {
     [[self bagItemsArray] removeAllObjects];
 
@@ -207,14 +214,14 @@
               NSDate *serverTime = [NSDate date];
               
               [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
-                                                        withServerDateTime:serverTime
-                                                          forBagItemsArray:[self bagItemsArray]
-                                                                 isExpired:@"false"];
+                                   withServerDateTime:serverTime
+                                     forBagItemsArray:[self bagItemsArray]
+                                            isExpired:@"false"];
               
               [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
-                                                                           withServerDateTime:serverTime
-                                                                             forBagItemsArray:[self bagItemsArray]
-                                                                                    isExpired:@"true"];
+                                   withServerDateTime:serverTime
+                                     forBagItemsArray:[self bagItemsArray]
+                                            isExpired:@"true"];
  
               BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
               [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
@@ -222,7 +229,7 @@
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
-              failure(operation, error);
+              failure(error);
           }];
 }
 

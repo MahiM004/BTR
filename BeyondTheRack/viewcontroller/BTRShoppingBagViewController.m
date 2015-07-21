@@ -126,17 +126,14 @@
     
     BagItem *bagItem = [[BagItem alloc] init];
     
-    if (indexPath.row < [self.bagItemsArray count]) {
-        
-        NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
-        [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:uniqueSku]
-                           placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-        
-        Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
-        bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];
-        
-        cell = [self configureCell:cell forBagItem:bagItem andItem:item];
-    }
+    NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
+    [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:uniqueSku]
+                       placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    
+    Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
+    bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];
+    
+    cell = [self configureCell:cell forBagItem:bagItem andItem:item];
     
     NSString *sku = [bagItem sku];
     NSString *eventId = [bagItem eventId];
