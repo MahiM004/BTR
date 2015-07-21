@@ -38,12 +38,6 @@
     return _bagItemsArray;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:YES];
-    self.bagTitleLabel.text = [NSString stringWithFormat:@"Edit Bag (%lu)", (unsigned long)[self getCountofBagItems]];
-}
-
 
 - (void)viewDidLoad {
     
@@ -77,6 +71,8 @@
 
 
 - (void)timerFired:(NSTimer *)timer {
+    
+    self.bagTitleLabel.text = [NSString stringWithFormat:@"Edit Bag (%lu)", (unsigned long)[self getCountofBagItems]];
     [self.tableView reloadData];
 }
 
