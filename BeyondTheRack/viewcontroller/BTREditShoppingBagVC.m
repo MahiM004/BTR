@@ -177,8 +177,6 @@
                            success:(void (^)(id  responseObject)) success
                            failure:(void (^)(NSError *error)) failure
 {
-    [[self bagItemsArray] removeAllObjects];
-
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -186,6 +184,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSMutableArray *params =[[NSMutableArray alloc] init];
+    
     for (BagItem *bagItem in [self bagItemsArray]) {
         
         time_t unixTime = (time_t) [[bagItem createDateTime] timeIntervalSince1970];
@@ -202,6 +201,8 @@
         [params addObject:bagItemDictionary];
     }
     
+    [[self bagItemsArray] removeAllObjects];
+
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]]
        parameters:(NSDictionary *)params
@@ -210,7 +211,7 @@
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
-                            
+              
               NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
               NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
               NSDate *serverTime = [NSDate date];
