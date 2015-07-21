@@ -176,7 +176,6 @@
     if (oneChosen) neuPreferencesList = [neuPreferencesList stringByAppendingString:@","];
     if (self.homeSwitch.on) {
         neuPreferencesList = [neuPreferencesList stringByAppendingString:@"homereminders"];
-        oneChosen = TRUE;
     }
     
     [self updateUserPreferencesListforSessionId:[sessionSettings sessionId] andPreferencesList:neuPreferencesList success:^(NSString *successString) {

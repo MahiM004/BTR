@@ -105,7 +105,9 @@ NSString *const SELECTED_RADIO_BUTTON_CHANGED = @"selectedRadioButtonChanged";
             self.selectedRadioButton = radioButton;
         }
         
-        [tmp addObject:radioButton];
+        if (radioButton != nil)
+            [tmp addObject:radioButton];
+        
         i++;
     }
     

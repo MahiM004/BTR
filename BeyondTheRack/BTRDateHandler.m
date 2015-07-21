@@ -28,9 +28,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
     [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
-    NSDate *dateFromString = [[NSDate alloc] init];
- 
-    dateFromString = [dateFormatter dateFromString:dateString];
+    NSDate *dateFromString = [dateFormatter dateFromString:dateString];
     
     return dateFromString;
 }

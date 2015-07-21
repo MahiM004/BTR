@@ -124,7 +124,6 @@
         cell = [[BTRBagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
     }
     
-    Item *item = [[Item alloc] init];
     BagItem *bagItem = [[BagItem alloc] init];
     
     if (indexPath.row < [self.bagItemsArray count]) {
@@ -133,7 +132,7 @@
         [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:uniqueSku]
                            placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
         
-        item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
+        Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
         bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];
         
         cell = [self configureCell:cell forBagItem:bagItem andItem:item];
