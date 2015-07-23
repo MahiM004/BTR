@@ -184,8 +184,10 @@
                                                                                  error:NULL];
          
          if (entitiesPropertyList) {
-                          
+             
              NSArray *allKeysArray = entitiesPropertyList.allKeys;
+             
+             NSMutableArray *tempHeaderArray = [[NSMutableArray alloc] init];
              
              if ([allKeysArray count] != 0) {
                  
@@ -194,7 +196,7 @@
                      OrderHistoryBag *ohBag = [[OrderHistoryBag alloc] init];
                      NSDictionary *tempDictionary = [entitiesPropertyList objectForKey:key];
                      ohBag = [OrderHistoryBag extractOrderHistoryfromJSONDictionary:tempDictionary forOrderHistoryBag:ohBag];
-                     [self.headersArray addObject:ohBag];
+                     [tempHeaderArray addObject:ohBag];
                      
                      NSArray *tempArray = tempDictionary[@"lines"];
                      
@@ -203,6 +205,7 @@
                      
                      [self.itemsDictionary setObject:linesArray forKey:key];
                  }
+                 self.headersArray = tempHeaderArray;
              }
              
              success(@"TRUE");
