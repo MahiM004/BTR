@@ -15,9 +15,6 @@
 @property (nonatomic, retain) NSString * categoryList;
 @property (nonatomic, retain) NSString * discount;
 @property (nonatomic, retain) NSString * eventId;
-@property (nonatomic, retain) NSString * generalAttribute1;
-@property (nonatomic, retain) NSString * generalAttribute2;
-@property (nonatomic, retain) NSString * generalAttribute3;
 @property (nonatomic, retain) NSString * generalNote;
 @property (nonatomic, retain) NSString * imageCount;
 @property (nonatomic, retain) NSString * imageNameLarge;

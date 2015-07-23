@@ -40,9 +40,6 @@
 @property (nonatomic, retain) NSString * showMinQtyFlag;
 @property (nonatomic, retain) NSString * showMinQtyMinutes;
 @property (nonatomic, retain) NSString * poStatus;
-@property (nonatomic, retain) NSString * generalAttribute1;
-@property (nonatomic, retain) NSString * generalAttribute2;
-@property (nonatomic, retain) NSString * generalAttribute3;
 @property (nonatomic, retain) NSString * myCategoryName;
 
 @end
