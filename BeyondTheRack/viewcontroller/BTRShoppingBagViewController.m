@@ -351,7 +351,7 @@
     if ([[segue identifier] isEqualToString:@"BTREditBagSegueIdentifier"]) {
         
         BTREditShoppingBagVC *editVC = [segue destinationViewController];
-        editVC.bagCountString = [NSString stringWithFormat:@"%lu", [self getCountofBagItems]];
+        editVC.bagCountString = [NSString stringWithFormat:@"%lu", (long)[self getCountofBagItems]];
         editVC.bagItemsArray = [self bagItemsArray];
         editVC.itemsArray = [self itemsArray];
     
