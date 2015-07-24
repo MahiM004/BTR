@@ -9,15 +9,18 @@
 #import "BTRAccountEmbeddedTVC.h"
 #import "BTRLoginViewController.h"
 #import "BTRNotificationsVC.h"
+#import "BTRHelpViewController.h"
 #import "BTRTrackOrdersVC.h"
 
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
+#import "BTRFAQFetcher.h"
 #import "BTROrderHistoryFetcher.h"
 #import "OrderHistoryBag+AppServer.h"
 #import "OrderHistoryItem+AppServer.h"
+#import "FAQ+AppServer.h"
 
 
 @interface BTRAccountEmbeddedTVC ()
@@ -29,6 +32,7 @@
 @property (strong, nonatomic) NSMutableDictionary *itemsDictionary;
 @property (strong, nonatomic) NSMutableArray *headersArray;
 @property (nonatomic, strong) User *user;
+@property (nonatomic, strong) NSArray *faqArray;
 
 @end
 
@@ -59,7 +63,7 @@
     
     [self fetchUserWithSuccess:^(User *user) {
         self.welcomeLabel.text = [NSString stringWithFormat:@"%@ %@", [user name], [user lastName]];
-        
+    
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     
     }];
@@ -217,6 +221,44 @@
      }];
 }
 
+#pragma mark - Getting FAQ
+
+- (void)fetchFAQWithSuccess:(void (^)(id  responseObject)) success
+                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRFAQFetcher URLforFAQ]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+     {
+         
+         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+                                                                               options:0
+                                                                                 error:NULL];
+         if (entitiesPropertyList) {
+             self.faqArray = [FAQ arrayOfFAQWithAppServerInfo:entitiesPropertyList];
+             success(self.faqArray);
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+         failure(operation, error);
+         
+     }];
+    
+}
+
+
+
+
 - (IBAction)trackOrdersTapped:(UIButton *)sender {
     
     [self.tableView setUserInteractionEnabled:FALSE];
@@ -232,6 +274,18 @@
     }];
 
     [self.tableView setUserInteractionEnabled:TRUE];
+}
+
+- (IBAction)helpTapped:(UIButton *)sender {
+    
+    [self fetchFAQWithSuccess:^(id responseObject) {
+       
+        [self performSegueWithIdentifier:@"BTRFAQSegueIdentifier" sender:self];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
 }
 
 
@@ -250,9 +304,15 @@
          BTRTrackOrdersVC *vc = [segue destinationViewController];
          vc.headersArray = [self headersArray];
          vc.itemsDictionary = [self itemsDictionary];
+         
+     } else if ([[segue identifier] isEqualToString:@"BTRFAQSegueIdentifier"]) {
+         
+         BTRHelpViewController* vc = [segue destinationViewController];
+         vc.faqArray = [self faqArray];
+     
      }
  }
- 
+
 
 
 @end

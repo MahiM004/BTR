@@ -170,6 +170,11 @@
 		69FF40771A3F8939000BD092 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40761A3F8939000BD092 /* Images.xcassets */; };
 		69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40781A3F8939000BD092 /* LaunchScreen.xib */; };
 		69FF40861A3F8939000BD092 /* BeyondTheRackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */; };
+		A01142681B61777A0099A40A /* BTRFAQTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A01142671B61777A0099A40A /* BTRFAQTableViewCell.m */; };
+		A011426B1B617A830099A40A /* BTRHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A011426A1B617A830099A40A /* BTRHelpViewController.m */; };
+		A011426E1B6189D40099A40A /* FAQ.m in Sources */ = {isa = PBXBuildFile; fileRef = A011426D1B6189D40099A40A /* FAQ.m */; };
+		A01142711B618AEB0099A40A /* BTRFAQFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01142701B618AEB0099A40A /* BTRFAQFetcher.m */; };
+		A01142741B618D8A0099A40A /* FAQ+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A01142731B618D8A0099A40A /* FAQ+AppServer.m */; };
 		B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */; };
 		B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */; };
 		B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */; };
@@ -496,6 +501,16 @@
 		69FF407F1A3F8939000BD092 /* BeyondTheRackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeyondTheRackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		69FF40841A3F8939000BD092 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BeyondTheRackTests.m; sourceTree = "<group>"; };
+		A01142661B61777A0099A40A /* BTRFAQTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFAQTableViewCell.h; sourceTree = "<group>"; };
+		A01142671B61777A0099A40A /* BTRFAQTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFAQTableViewCell.m; sourceTree = "<group>"; };
+		A01142691B617A830099A40A /* BTRHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRHelpViewController.h; sourceTree = "<group>"; };
+		A011426A1B617A830099A40A /* BTRHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRHelpViewController.m; sourceTree = "<group>"; };
+		A011426C1B6189D40099A40A /* FAQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAQ.h; sourceTree = "<group>"; };
+		A011426D1B6189D40099A40A /* FAQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAQ.m; sourceTree = "<group>"; };
+		A011426F1B618AEB0099A40A /* BTRFAQFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFAQFetcher.h; sourceTree = "<group>"; };
+		A01142701B618AEB0099A40A /* BTRFAQFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFAQFetcher.m; sourceTree = "<group>"; };
+		A01142721B618D8A0099A40A /* FAQ+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FAQ+AppServer.h"; sourceTree = "<group>"; };
+		A01142731B618D8A0099A40A /* FAQ+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FAQ+AppServer.m"; sourceTree = "<group>"; };
 		B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSessionSettings.h; sourceTree = "<group>"; };
 		B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSessionSettings.m; sourceTree = "<group>"; };
 		B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -721,6 +736,8 @@
 				690A38D41B1DE67F00D4BA84 /* BTRNotificationsVC.m */,
 				6986A6A01B3D99E900DE481A /* BTRTrackOrdersVC.h */,
 				6986A6A11B3D99E900DE481A /* BTRTrackOrdersVC.m */,
+				A01142691B617A830099A40A /* BTRHelpViewController.h */,
+				A011426A1B617A830099A40A /* BTRHelpViewController.m */,
 			);
 			name = MyAccount;
 			sourceTree = "<group>";
@@ -779,6 +796,8 @@
 				B3C16A901B01371C009470EC /* BTRSizeSelector.m */,
 				69E84AD81B4AC22A00C25D75 /* BTRTrackOrdersItemCell.h */,
 				69E84AD91B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m */,
+				A01142661B61777A0099A40A /* BTRFAQTableViewCell.h */,
+				A01142671B61777A0099A40A /* BTRFAQTableViewCell.m */,
 			);
 			name = View;
 			path = view;
@@ -870,6 +889,8 @@
 				69D4404F1B331A7F00070FD8 /* BTRCategoryFetcher.m */,
 				69F0BB081B419C2E008C0498 /* BTROrderHistoryFetcher.h */,
 				69F0BB091B419C2E008C0498 /* BTROrderHistoryFetcher.m */,
+				A011426F1B618AEB0099A40A /* BTRFAQFetcher.h */,
+				A01142701B618AEB0099A40A /* BTRFAQFetcher.m */,
 			);
 			path = Fetcher;
 			sourceTree = "<group>";
@@ -953,6 +974,8 @@
 				69F0BAF71B418628008C0498 /* OrderHistoryItem.m */,
 				69F0BAF91B41868B008C0498 /* OrderHistoryBag.h */,
 				69F0BAFA1B41868B008C0498 /* OrderHistoryBag.m */,
+				A011426C1B6189D40099A40A /* FAQ.h */,
+				A011426D1B6189D40099A40A /* FAQ.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -976,6 +999,8 @@
 				69F0BB031B41871C008C0498 /* OrderHistoryBag+AppServer.m */,
 				69F0BB051B418756008C0498 /* OrderHistoryItem+AppServer.h */,
 				69F0BB061B418756008C0498 /* OrderHistoryItem+AppServer.m */,
+				A01142721B618D8A0099A40A /* FAQ+AppServer.h */,
+				A01142731B618D8A0099A40A /* FAQ+AppServer.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1332,11 +1357,14 @@
 				69B942901AE033FD00483950 /* AFURLResponseSerialization.m in Sources */,
 				B3C16A911B01371C009470EC /* BTRSizeSelector.m in Sources */,
 				6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */,
+				A01142711B618AEB0099A40A /* BTRFAQFetcher.m in Sources */,
 				69AB98651A77E68F00EDB1E6 /* Event.m in Sources */,
 				69D440411B31EA1400070FD8 /* Order.m in Sources */,
 				69F0BB0A1B419C2E008C0498 /* BTROrderHistoryFetcher.m in Sources */,
+				A011426B1B617A830099A40A /* BTRHelpViewController.m in Sources */,
 				69D4405F1B34750500070FD8 /* BTRPaymentTypesHandler.m in Sources */,
 				6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */,
+				A011426E1B6189D40099A40A /* FAQ.m in Sources */,
 				690A38F41B1DEB7F00D4BA84 /* TNRectangularRadioButton.m in Sources */,
 				690A38F21B1DEB7F00D4BA84 /* TNRadioButtonData.m in Sources */,
 				69B942851AE033FD00483950 /* UIImageView+AFNetworking.m in Sources */,
@@ -1375,6 +1403,7 @@
 				69D440141B2B138000070FD8 /* BTRCheckoutViewController.m in Sources */,
 				692F24E11AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m in Sources */,
 				69BC6D421A8E4F2C00376D9C /* BTRFacetsHandler.m in Sources */,
+				A01142741B618D8A0099A40A /* FAQ+AppServer.m in Sources */,
 				69B942911AE033FD00483950 /* AFURLSessionManager.m in Sources */,
 				697E05811A434121000146C6 /* BTRViewUtility.m in Sources */,
 				69E84ADA1B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m in Sources */,
@@ -1426,6 +1455,7 @@
 				690A38EE1B1DEB7F00D4BA84 /* TNCircularRadioButtonData.m in Sources */,
 				6901EA0D1AD5BA9A002534D9 /* PKYStepper.m in Sources */,
 				69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */,
+				A01142681B61777A0099A40A /* BTRFAQTableViewCell.m in Sources */,
 				69B9428B1AE033FD00483950 /* AFHTTPSessionManager.m in Sources */,
 				6986A6A21B3D99E900DE481A /* BTRTrackOrdersVC.m in Sources */,
 				69D440501B331A7F00070FD8 /* BTRCategoryFetcher.m in Sources */,
