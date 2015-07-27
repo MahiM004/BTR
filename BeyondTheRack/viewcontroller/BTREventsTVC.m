@@ -78,8 +78,7 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return 161;
+    return tableView.frame.size.height / 3;
 }
 
 
@@ -98,7 +97,7 @@
     cell.backgroundColor = [UIColor darkGrayColor];
     Event *event = [[self eventsArray] objectAtIndex:[indexPath row]];
 
-    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, tableView.frame.size.height / 3)];
     imageView.backgroundColor = [UIColor whiteColor];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]];
 
