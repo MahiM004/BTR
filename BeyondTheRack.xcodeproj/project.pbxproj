@@ -175,6 +175,7 @@
 		A011426E1B6189D40099A40A /* FAQ.m in Sources */ = {isa = PBXBuildFile; fileRef = A011426D1B6189D40099A40A /* FAQ.m */; };
 		A01142711B618AEB0099A40A /* BTRFAQFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01142701B618AEB0099A40A /* BTRFAQFetcher.m */; };
 		A01142741B618D8A0099A40A /* FAQ+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A01142731B618D8A0099A40A /* FAQ+AppServer.m */; };
+		A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */; };
 		B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */; };
 		B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */; };
 		B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */; };
@@ -511,6 +512,8 @@
 		A01142701B618AEB0099A40A /* BTRFAQFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFAQFetcher.m; sourceTree = "<group>"; };
 		A01142721B618D8A0099A40A /* FAQ+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FAQ+AppServer.h"; sourceTree = "<group>"; };
 		A01142731B618D8A0099A40A /* FAQ+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FAQ+AppServer.m"; sourceTree = "<group>"; };
+		A01BCF411B66BA6500A6242F /* BTRPaypalFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPaypalFetcher.h; sourceTree = "<group>"; };
+		A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalFetcher.m; sourceTree = "<group>"; };
 		B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSessionSettings.h; sourceTree = "<group>"; };
 		B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSessionSettings.m; sourceTree = "<group>"; };
 		B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -891,6 +894,8 @@
 				69F0BB091B419C2E008C0498 /* BTROrderHistoryFetcher.m */,
 				A011426F1B618AEB0099A40A /* BTRFAQFetcher.h */,
 				A01142701B618AEB0099A40A /* BTRFAQFetcher.m */,
+				A01BCF411B66BA6500A6242F /* BTRPaypalFetcher.h */,
+				A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */,
 			);
 			path = Fetcher;
 			sourceTree = "<group>";
@@ -1379,6 +1384,7 @@
 				69B9428D1AE033FD00483950 /* AFSecurityPolicy.m in Sources */,
 				69D440591B33478500070FD8 /* BTRInitializeViewController.m in Sources */,
 				69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */,
+				A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */,
 				69869FA31A63FCA500F986BC /* BTRFetcher.m in Sources */,
 				69D440171B304D8E00070FD8 /* BTRDateHandler.m in Sources */,
 				69F0BB071B418756008C0498 /* OrderHistoryItem+AppServer.m in Sources */,
