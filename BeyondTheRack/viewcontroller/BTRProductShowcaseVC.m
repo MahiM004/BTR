@@ -224,7 +224,7 @@
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(collectionView.frame.size.width / 2 - 1, collectionView.frame.size.height / 2);
+    return CGSizeMake(collectionView.frame.size.width / 2 - 1, 410);
 }
 
 
