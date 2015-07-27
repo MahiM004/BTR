@@ -215,8 +215,8 @@
     NSLog(@"UITextFields are ignored @: signInButtonTapped");
     
     NSDictionary *params = (@{
-                              @"username": @"hadi@jumpinlife.ca", // TODO: replace with [[self emailTextField] text],
-                              @"password": @"something1" // TODO: replace with [[[self passwordTextField] text]
+                              @"username" :[NSString stringWithFormat:@"%@",[[self emailTextField] text]],
+                              @"password":[NSString stringWithFormat:@"%@",[[self passwordTextField] text]]
                               });
     
     [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserAuthentication]]
