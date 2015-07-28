@@ -18,6 +18,6 @@
 
 
 + (Order *)orderWithAppServerInfo:(NSDictionary *)orderDictionary;
-
++ (Order *)extractOrderfromJSONDictionary:(NSDictionary *)orderDictionary forOrder:(Order *)order;
 
 @end
