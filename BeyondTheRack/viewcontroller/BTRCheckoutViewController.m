@@ -100,6 +100,51 @@
     return _paymentTypesArray;
 }
 
+#pragma mark - Shipping & Billing & Card Info
+
+- (NSDictionary *)shippingInfo {
+    NSDictionary *info = (@{@"name": [[self recipientNameShippingTF] text],
+                                    @"address1": [[self addressLine1ShippingTF] text],
+                                    @"address2": [[self addressLine2ShippingTF] text],
+                                    @"country": [BTRViewUtility countryCodeforName:[[self countryShippingTF] text]],
+                                    @"postal": [[self zipCodeShippingTF] text],
+                                    @"state": [BTRViewUtility provinceCodeforName:[[self provinceShippingTF] text]],
+                                    @"city": [[self cityShippingTF] text],
+                                    @"phone": [[self phoneShippingTF] text] });
+    return info;
+}
+
+- (NSDictionary *)billingInfo {
+    NSDictionary *info = (@{ @"name": [[self nameOnCardPaymentTF] text],
+                                    @"address1": [[self addressLine1BillingTF] text],
+                                    @"address2": [[self addressLine2BillingTF] text],
+                                    @"country": [BTRViewUtility countryCodeforName:[[self countryBillingTF] text]],
+                                    @"postal": [[self postalCodeBillingTF] text],
+                                    @"state": [BTRViewUtility provinceCodeforName:[[self provinceBillingTF] text]],
+                                    @"city": [[self cityBillingTF] text],
+                                    @"phone": [[self phoneBillingTF] text] });
+    return info;
+}
+
+- (NSDictionary *)cardInfo {
+    
+    BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
+    NSString *paymentTypeToPass = [sharedPaymentTypes paymentTypeforCardDisplayName:[[self paymentMethodTF] text]];
+    
+    NSInteger expMonthInt = [[[[self expiryMonthPaymentTF] text] componentsSeparatedByString:@" -"][0] integerValue];
+    NSString *expMonth = [NSString stringWithFormat:@"%ld", (long)expMonthInt];
+    
+    NSDictionary *info = (@{@"type": paymentTypeToPass,
+                                @"name": [[self nameOnCardPaymentTF] text],
+                                @"number": [[self cardNumberPaymentTF] text],
+                                @"year": [[self expiryYearPaymentTF] text],
+                                @"month": expMonth,
+                                @"cvv": [[self cardVerificationPaymentTF] text],
+                                @"use_token": @false,
+                                @"token": @"295219000",
+                                @"remember_card": @false });
+    return info;
+}
 
 #pragma mark - UI
 
@@ -551,51 +596,17 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     
-    NSDictionary *shippingInfo = (@{@"name": [[self recipientNameShippingTF] text],
-                                    @"address1": [[self addressLine1ShippingTF] text],
-                                    @"address2": [[self addressLine2ShippingTF] text],
-                                    @"country": [BTRViewUtility countryCodeforName:[[self countryShippingTF] text]],
-                                    @"postal": [[self zipCodeShippingTF] text],
-                                    @"state": [BTRViewUtility provinceCodeforName:[[self provinceShippingTF] text]],
-                                    @"city": [[self cityShippingTF] text],
-                                    @"phone": [[self phoneShippingTF] text] });
-    
-    NSDictionary *billingInfo = (@{ @"name": [[self nameOnCardPaymentTF] text],
-                                    @"address1": [[self addressLine1BillingTF] text],
-                                    @"address2": [[self addressLine2BillingTF] text],
-                                    @"country": [BTRViewUtility countryCodeforName:[[self countryBillingTF] text]],
-                                    @"postal": [[self postalCodeBillingTF] text],
-                                    @"state": [BTRViewUtility provinceCodeforName:[[self provinceBillingTF] text]],
-                                    @"city": [[self cityBillingTF] text],
-                                    @"phone": [[self phoneBillingTF] text] });
-    
-    [orderInfo setObject:shippingInfo forKey:@"shipping"];
-    [orderInfo setObject:billingInfo forKey:@"billing"];
+    [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
+    [orderInfo setObject:[self billingInfo] forKey:@"billing"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:@"" forKey:@"recipient_message"];
     //[orderInfo setObject:[NSNumber numberWithBool:[self.pickupAvailable checked]] forKey:@"is_pickup"];
-    
-    NSInteger expMonthInt = [[[[self expiryMonthPaymentTF] text] componentsSeparatedByString:@" -"][0] integerValue];
-    NSString *expMonth = [NSString stringWithFormat:@"%ld", (long)expMonthInt];
-    
-    BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
-    NSString *paymentTypeToPass = [sharedPaymentTypes paymentTypeforCardDisplayName:[[self paymentMethodTF] text]];
-    
-    NSDictionary *cardInfo = (@{@"type": paymentTypeToPass,
-                                @"name": [[self nameOnCardPaymentTF] text],
-                                @"number": [[self cardNumberPaymentTF] text],
-                                @"year": [[self expiryYearPaymentTF] text],
-                                @"month": expMonth,
-                                @"cvv": [[self cardVerificationPaymentTF] text],
-                                @"use_token": @false,
-                                @"token": @"295219000",
-                                @"remember_card": @false });
 
     [params setObject:orderInfo forKey:@"orderInfo"];
     [params setObject:@"creditcard" forKey:@"paymentMethod"];
-    [params setObject:cardInfo forKey:@"cardInfo"];
+    [params setObject:[self cardInfo] forKey:@"cardInfo"];
     
     
     NSLog(@"---0-- - %@", params);
