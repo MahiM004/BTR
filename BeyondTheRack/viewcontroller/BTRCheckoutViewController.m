@@ -629,17 +629,107 @@
 
 - (IBAction)processOrderTpped:(UIButton *)sender {
     
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    // Validation
     
-    [self makePaymentforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
-        
-        //[self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
-        
-    } failure:^(NSError *error) {
-        
-    }];
+    if ([self isCompeletedForm]) {
+        [self validateAddressViaAPI];
+    }
+    
+    
+    
+    
+    
+//    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+//    
+//    [self makePaymentforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
+//        
+//        //[self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
+//        
+//    } failure:^(NSError *error) {
+//        
+//    }];
 
      
+}
+
+
+#pragma mark Validation
+
+- (BOOL)isCompeletedForm {
+    
+    // checking address line
+    if (self.addressLine1ShippingTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill shipping address field" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.addressLine1ShippingTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.addressLine1ShippingTF.frame animated:YES];
+        return NO;
+    }
+    if (self.zipCodeShippingTF.text.length < 6) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your shipping postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.zipCodeShippingTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.zipCodeShippingTF.frame animated:YES];
+        return NO;
+    }
+    if (!self.sameAddressCheckbox.checked && self.addressLine2BillingTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill billing address field" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.addressLine2BillingTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.addressLine2BillingTF.frame animated:YES];
+        return NO;
+    }
+    if (!self.sameAddressCheckbox.checked && self.postalCodeBillingTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill billing postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.postalCodeBillingTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.postalCodeBillingTF.frame animated:YES];
+        return NO;
+    }
+    
+    if (self.cardNumberPaymentTF.text.length > 20 || self.cardNumberPaymentTF.text.length < 13) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.cardNumberPaymentTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.cardNumberPaymentTF.frame animated:YES];
+        return NO;
+    }
+    // form is completed
+    // shoulf validate through webSerive API
+    return YES;
+}
+
+- (void)validateAddressViaAPI {
+
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
+    
+    [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
+    [orderInfo setObject:[self billingInfo] forKey:@"billing"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
+    [orderInfo setObject:[NSNumber numberWithBool:YES] forKey:@"is_pickup"];
+    [params setObject:orderInfo forKey:@"orderInfo"];
+    
+    [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]]
+       parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+           
+           NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
+           NSLog(@"------0--- ent:  %@", entitiesPropertyList);
+           self.order = [Order extractOrderfromJSONDictionary:entitiesPropertyList forOrder:self.order];
+           [self loadOrderData];
+           
+           //           [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList]]; 
+           //           success(entitiesPropertyList);
+           
+       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           NSLog(@"%@",error);
+       }];
+
 }
 
 
