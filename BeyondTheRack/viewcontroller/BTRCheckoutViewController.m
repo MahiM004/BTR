@@ -189,15 +189,6 @@
         [self disableShippingAddress];
         
     } else if (![checkbox checked]) {
-
-        [self.addressLine1ShippingTF setText:@""];
-        [self.addressLine2ShippingTF setText:@""];
-        [self.countryShippingTF setText:@""];
-        [self.zipCodeShippingTF setText:@""];
-        [self.provinceShippingTF setText:@""];
-        [self.cityShippingTF setText:@""];
-        [self.phoneShippingTF setText:@""];
-        
         [self enableShippingAddress];
     }
 }
@@ -267,15 +258,6 @@
         [self disableBillingAddress];
         
     } else if (![checkbox checked]) {
-        
-        [self.addressLine1BillingTF setText:@""];
-        [self.addressLine2BillingTF setText:@""];
-        [self.countryBillingTF setText:@""];
-        [self.postalCodeBillingTF setText:@""];
-        [self.provinceBillingTF setText:@""];
-        [self.cityBillingTF setText:@""];
-        [self.phoneBillingTF setText:@""];
-        
         [self enableBillingAddress];
     }
 }
@@ -320,6 +302,26 @@
     [self.provinceBillingTF setAlpha:1.0f];
     [self.cityBillingTF setAlpha:1.0f];
     [self.phoneBillingTF setAlpha:1.0f];
+}
+
+- (void) clearBillingAddress {
+    [self.addressLine1BillingTF setText:@""];
+    [self.addressLine2BillingTF setText:@""];
+    [self.countryBillingTF setText:@""];
+    [self.postalCodeBillingTF setText:@""];
+    [self.provinceBillingTF setText:@""];
+    [self.cityBillingTF setText:@""];
+    [self.phoneBillingTF setText:@""];
+}
+
+- (void) clearShippingAddress {
+    [self.addressLine1ShippingTF setText:@""];
+    [self.addressLine2ShippingTF setText:@""];
+    [self.countryShippingTF setText:@""];
+    [self.zipCodeShippingTF setText:@""];
+    [self.provinceShippingTF setText:@""];
+    [self.cityShippingTF setText:@""];
+    [self.phoneShippingTF setText:@""];
 }
 
 #pragma mark - Dissmiss Keyboard
