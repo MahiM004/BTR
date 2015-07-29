@@ -196,13 +196,17 @@
     [self.vipOptionCheckbox setChecked:[[self.order vipPickup] boolValue]];
     [self.sameAddressCheckbox setChecked:[[self.order billingSameAsShipping] boolValue]];
     [self.orderIsGiftCheckbox setChecked:[[self.order isGift] boolValue]];
+    [self.pickupOptionCheckbox setChecked:[[self.order isPickup] boolValue]];
     [self.remeberCardInfoCheckbox setChecked:[[self.order rememberCard] boolValue]];
     
-    [self.vipOptionCheckbox addTarget:self action:@selector(checkboxVipOptionDidChange:) forControlEvents:UIControlEventValueChanged];
     [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
+    [self.vipOptionCheckbox addTarget:self action:@selector(checkboxVipOptionDidChange:) forControlEvents:UIControlEventValueChanged];
 
+    [self checkboxSameAddressDidChange:self.sameAddressCheckbox];
     [self.sameAddressCheckbox addTarget:self action:@selector(checkboxSameAddressDidChange:) forControlEvents:UIControlEventValueChanged];
-    [self checkboxSameAddressDidChange:self.vipOptionCheckbox];
+    
+    [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
+    [self.pickupOptionCheckbox addTarget:self action:@selector(checkboxPickupOptionDidChange:) forControlEvents:UIControlEventValueChanged];
     
     [self.bagTotalDollarLabel setText:[self.order bagTotalPrice]];
     [self.subtotalDollarLabel setText:[self.order subTotalPrice]];
@@ -223,6 +227,7 @@
         [self.vipOptionView setHidden:TRUE];
     }
     
+    [self.pickupView setHidden:![[self.order eligiblePickup] boolValue]];
     
 }
 
@@ -238,6 +243,23 @@
         [self.cityShippingTF setText:@"SAINT-LAURENT"];
         [self.phoneShippingTF setText:@"613-735-0112"];
         
+        [self disableShippingAddress];
+        
+    } else if (![checkbox checked]) {
+        [self enableShippingAddress];
+    }
+}
+
+- (void) checkboxPickupOptionDidChange:(CTCheckbox *)checkbox {
+    if ([checkbox checked]) {
+        
+        [self.addressLine1ShippingTF setText:@"MONTREAL EMPLOYEE PICKUP"];
+        [self.addressLine2ShippingTF setText:@"4600 HICKMORE"];
+        [self.countryShippingTF setText:@"Canada"];
+        [self.zipCodeShippingTF setText:@"H4T 1K2"];
+        [self.provinceShippingTF setText:@"Quebec"];
+        [self.cityShippingTF setText:@"SAINT-LAURENT"];
+        [self.phoneShippingTF setText:@"613-735-0112"];
         [self disableShippingAddress];
         
     } else if (![checkbox checked]) {
@@ -278,21 +300,21 @@
     [self.shippingCountryButton setEnabled:TRUE];
     [self.shippingStateButton setEnabled:TRUE];
     
-    [self.addressLine1BillingTF setEnabled:TRUE];
-    [self.addressLine2BillingTF setEnabled:TRUE];
-    [self.countryBillingTF setEnabled:TRUE];
-    [self.postalCodeBillingTF setEnabled:TRUE];
-    [self.provinceBillingTF setEnabled:TRUE];
-    [self.cityBillingTF setEnabled:TRUE];
-    [self.phoneBillingTF setEnabled:TRUE];
+    [self.addressLine1ShippingTF setEnabled:TRUE];
+    [self.addressLine2ShippingTF setEnabled:TRUE];
+    [self.countryShippingTF setEnabled:TRUE];
+    [self.zipCodeShippingTF setEnabled:TRUE];
+    [self.provinceShippingTF setEnabled:TRUE];
+    [self.cityShippingTF setEnabled:TRUE];
+    [self.phoneShippingTF setEnabled:TRUE];
     
-    [self.addressLine1BillingTF setAlpha:1.0f];
-    [self.addressLine2BillingTF setAlpha:1.0f];
-    [self.countryBillingTF setAlpha:1.0f];
-    [self.postalCodeBillingTF setAlpha:1.0f];
-    [self.provinceBillingTF setAlpha:1.0f];
-    [self.cityBillingTF setAlpha:1.0f];
-    [self.phoneBillingTF setAlpha:1.0f];
+    [self.addressLine1ShippingTF setAlpha:1.0f];
+    [self.addressLine2ShippingTF setAlpha:1.0f];
+    [self.countryShippingTF setAlpha:1.0f];
+    [self.zipCodeShippingTF setAlpha:1.0f];
+    [self.provinceShippingTF setAlpha:1.0f];
+    [self.cityShippingTF setAlpha:1.0f];
+    [self.phoneShippingTF setAlpha:1.0f];
 }
 
 - (void) checkboxSameAddressDidChange:(CTCheckbox *)checkbox {

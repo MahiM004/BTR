@@ -64,6 +64,9 @@
  */
 
 @property (weak, nonatomic) IBOutlet CTCheckbox *vipOptionCheckbox;
+@property (weak, nonatomic) IBOutlet CTCheckbox *pickupOptionCheckbox;
+
+@property (weak, nonatomic) IBOutlet UIControl *pickupView;
 @property (weak, nonatomic) IBOutlet UITextField *recipientNameShippingTF;
 @property (weak, nonatomic) IBOutlet UITextField *addressLine1ShippingTF;
 @property (weak, nonatomic) IBOutlet UITextField *addressLine2ShippingTF;
@@ -74,8 +77,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneShippingTF;
 @property (weak, nonatomic) IBOutlet UIButton *shippingCountryButton;
 @property (weak, nonatomic) IBOutlet UIButton *shippingStateButton;
-
-
 
 /**
  
