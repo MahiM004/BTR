@@ -204,6 +204,13 @@
     [self.sameAddressCheckbox addTarget:self action:@selector(checkboxSameAddressDidChange:) forControlEvents:UIControlEventValueChanged];
     [self checkboxSameAddressDidChange:self.vipOptionCheckbox];
     
+    [self.bagTotalDollarLabel setText:[self.order bagTotalPrice]];
+    [self.subtotalDollarLabel setText:[self.order subTotalPrice]];
+    [self.gstTaxDollarLabel setText:[self.order gstTax]];
+    [self.qstTaxDollarLabel setText:[self.order qstTax]];
+    [self.orderTotalDollarLabel setText:[self.order orderTotalPrice]];
+    [self.totalDueDollarLabel setText:[self.order allTotalPrice]];
+    
     NSLog(@"SHOULD load_tax_and_dollars!") ;
     NSLog(@"PickUP UI not available on UI yet!");
     
@@ -717,7 +724,6 @@
     
     [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]]
        parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-           
            NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
            NSLog(@"------0--- ent:  %@", entitiesPropertyList);
            self.order = [Order extractOrderfromJSONDictionary:entitiesPropertyList forOrder:self.order];
