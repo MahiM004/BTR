@@ -299,6 +299,10 @@
         order.allTotalPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"all_total"]];
     }
     
+    if ([totalPriceDictionary valueForKeyPath:@"ship_total"] && [totalPriceDictionary valueForKeyPath:@"ship_total"] != [NSNull null]) {
+        order.shippingPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"ship_total"]];
+    }
+    
     
     /**
      

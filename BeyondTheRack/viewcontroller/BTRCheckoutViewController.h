@@ -122,15 +122,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *youSaveDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bagTotalDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subtotalDollarLabel;
+@property (weak, nonatomic) IBOutlet UILabel *shippingDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gstTaxDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gstTaxLebl;
 @property (weak, nonatomic) IBOutlet UILabel *qstTaxDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *qstTaxLabel;
 @property (weak, nonatomic) IBOutlet UILabel *orderTotalDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalDueDollarLabel;
-
-
-
 
 
 @end

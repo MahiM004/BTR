@@ -78,6 +78,7 @@
 @property (nonatomic, retain) NSString * subTotalPrice;
 @property (nonatomic, retain) NSString * allTotalPrice;
 @property (nonatomic, retain) NSString * orderTotalPrice;
+@property (nonatomic, retain) NSString * shippingPrice;
 @property (nonatomic, retain) NSString * gstTax;
 @property (nonatomic, retain) NSString * qstTax;
 @property (nonatomic, retain) NSString * totalTax;

@@ -206,12 +206,12 @@
     
     [self.bagTotalDollarLabel setText:[self.order bagTotalPrice]];
     [self.subtotalDollarLabel setText:[self.order subTotalPrice]];
+    [self.shippingDollarLabel setText:[self.order shippingPrice]];
     [self.gstTaxDollarLabel setText:[self.order gstTax]];
     [self.qstTaxDollarLabel setText:[self.order qstTax]];
     [self.orderTotalDollarLabel setText:[self.order orderTotalPrice]];
     [self.totalDueDollarLabel setText:[self.order allTotalPrice]];
     
-    NSLog(@"SHOULD load_tax_and_dollars!") ;
     NSLog(@"PickUP UI not available on UI yet!");
     
     if ([[self.order vipPickupEligible] boolValue]) {
