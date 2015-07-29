@@ -17,7 +17,6 @@
 @property (nonatomic, retain) NSDate * expiryDateTime;
 @property (nonatomic, retain) NSString * orderId;
 @property (nonatomic, retain) NSString * orderStatus;
-@property (nonatomic, retain) NSString * totalPrice;
 @property (nonatomic, retain) NSString * shippingAddressLine1;
 @property (nonatomic, retain) NSString * shippingAddressLine2;
 @property (nonatomic, retain) NSString * shippingCity;
@@ -53,7 +52,6 @@
 @property (nonatomic, retain) NSString * isPaypal;
 @property (nonatomic, retain) NSString * isMasterpass;
 @property (nonatomic, retain) NSString * isInterac;
-@property (nonatomic, retain) NSString * subTotalPrice;
 @property (nonatomic, retain) NSString * cardNumber;
 @property (nonatomic, retain) NSString * useToken;
 @property (nonatomic, retain) NSString * requireCcv;
@@ -76,5 +74,12 @@
 @property (nonatomic, retain) NSString * promoShipAddress1;
 @property (nonatomic, retain) NSString * billingName;
 @property (nonatomic, retain) NSString * promoShipPhone;
+@property (nonatomic, retain) NSString * bagTotalPrice;
+@property (nonatomic, retain) NSString * subTotalPrice;
+@property (nonatomic, retain) NSString * allTotalPrice;
+@property (nonatomic, retain) NSString * orderTotalPrice;
+@property (nonatomic, retain) NSString * gstTax;
+@property (nonatomic, retain) NSString * qstTax;
+@property (nonatomic, retain) NSString * totalTax;
 
 @end
