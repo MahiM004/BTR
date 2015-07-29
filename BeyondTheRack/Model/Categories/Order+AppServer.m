@@ -281,14 +281,38 @@
      
      */
     
-    NSDictionary *totalPriceDictionary = shippingPromo[@"total"];
+    NSDictionary *totalPriceDictionary = orderDictionary[@"total"];
     
     if ([totalPriceDictionary valueForKeyPath:@"bag_total"] && [totalPriceDictionary valueForKeyPath:@"bag_total"] != [NSNull null]) {
-        order.totalPrice = [totalPriceDictionary valueForKeyPath:@"bag_total"];
+        order.bagTotalPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"bag_total"]];
     }
     
     if ([totalPriceDictionary valueForKeyPath:@"sub_total"] && [totalPriceDictionary valueForKeyPath:@"sub_total"] != [NSNull null]) {
-        order.subTotalPrice = [totalPriceDictionary valueForKeyPath:@"sub_total"];
+        order.subTotalPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"sub_total"]];
+    }
+    
+    if ([totalPriceDictionary valueForKeyPath:@"order_total"] && [totalPriceDictionary valueForKeyPath:@"order_total"] != [NSNull null]) {
+        order.orderTotalPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"order_total"]];
+    }
+    
+    if ([totalPriceDictionary valueForKeyPath:@"all_total"] && [totalPriceDictionary valueForKeyPath:@"all_total"] != [NSNull null]) {
+        order.allTotalPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"all_total"]];
+    }
+    
+    
+    /**
+     
+    TAX
+     
+     */
+    
+    NSDictionary *taxes = totalPriceDictionary[@"taxes"];
+    NSArray* taxesArray = [taxes valueForKey:@"receipt_lines"];
+    for (NSDictionary *tax in taxesArray) {
+        if ([[tax valueForKey:@"label"]isEqualToString:@"GST"])
+            order.gstTax = [NSString stringWithFormat:@"%@",[tax valueForKey:@"amount"]];
+        if ([[tax valueForKey:@"label"]isEqualToString:@"QST"])
+            order.qstTax = [NSString stringWithFormat:@"%@",[tax valueForKey:@"amount"]];
     }
     
     return order;
