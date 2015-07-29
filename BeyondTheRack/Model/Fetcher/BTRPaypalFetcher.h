@@ -11,4 +11,9 @@
 
 @interface BTRPaypalFetcher : BTRFetcher
 
++ (NSURL *)URLforStartPaypal;
++ (NSURL *)URLforPaypalInfo;
++ (NSURL *)URLforPaypalProcess;
++ (NSURL *)URLforPaypalProcessCallBackWithTransactionNumber:(NSString *)transaction;
+
 @end
