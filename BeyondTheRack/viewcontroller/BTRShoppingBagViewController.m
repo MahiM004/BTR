@@ -17,7 +17,7 @@
 #import "BTROrderFetcher.h"
 #import "BTRItemFetcher.h"
 #import "BTRPaymentTypesHandler.h"
-
+#import "BTRPaypalFetcher.h"
 
  
 @interface BTRShoppingBagViewController ()
@@ -29,6 +29,7 @@
 @property (strong, nonatomic) Order *order;
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
+@property (strong, nonatomic) UIWebView* paypalWebView;
 
 @end
 
@@ -342,6 +343,37 @@
          }];
 }
 
+#pragma mark paypal checkout
+
+- (IBAction)paypalCheckoutTapped:(id)sender {
+    [self getPaypalInfo];
+}
+
+
+- (void)getPaypalInfo {
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                             options:0
+                                                                               error:NULL];
+        self.paypalWebView = [[UIWebView alloc]initWithFrame:CGRectMake(0, self.tableView.frame.origin.y + self.tableView.frame.size.height, self.tableView.frame.size.width, self.tableView.frame.size.height)];
+        [self.view addSubview:self.paypalWebView];
+        [self.paypalWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[entitiesPropertyList valueForKey:@"paypalUrl"]]]];
+        
+        NSLog(@"%@",entitiesPropertyList);
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
 
 #pragma mark - Navigation
 
@@ -398,7 +430,6 @@
 
 
 - (IBAction)tappedClose:(UIButton *)sender {
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

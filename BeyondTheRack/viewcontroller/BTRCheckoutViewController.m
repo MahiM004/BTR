@@ -677,10 +677,10 @@
         [self.scrollView scrollRectToVisible:self.zipCodeShippingTF.frame animated:YES];
         return NO;
     }
-    if (!self.sameAddressCheckbox.checked && self.addressLine2BillingTF.text.length == 0) {
+    if (!self.sameAddressCheckbox.checked && self.addressLine1BillingTF.text.length == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill billing address field" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-        [self.addressLine2BillingTF becomeFirstResponder];
-        [self.scrollView scrollRectToVisible:self.addressLine2BillingTF.frame animated:YES];
+        [self.addressLine1BillingTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.addressLine1BillingTF.frame animated:YES];
         return NO;
     }
     if (!self.sameAddressCheckbox.checked && self.postalCodeBillingTF.text.length == 0) {
@@ -690,12 +690,27 @@
         return NO;
     }
     
+    if (self.nameOnCardPaymentTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill name on card" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.nameOnCardPaymentTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.nameOnCardPaymentTF.frame animated:YES];
+        return NO;
+    }
+    
     if (self.cardNumberPaymentTF.text.length > 20 || self.cardNumberPaymentTF.text.length < 13) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.cardNumberPaymentTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.cardNumberPaymentTF.frame animated:YES];
         return NO;
     }
+    
+    if (self.cardVerificationPaymentTF.text.length < 3 || self.cardVerificationPaymentTF.text.length > 4) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Verification Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.cardVerificationPaymentTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.cardVerificationPaymentTF.frame animated:YES];
+        return NO;
+    }
+    
     // form is completed
     // shoulf validate through webSerive API
     return YES;
@@ -725,19 +740,29 @@
     [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]]
        parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
            NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
-           NSLog(@"------0--- ent:  %@", entitiesPropertyList);
            self.order = [Order extractOrderfromJSONDictionary:entitiesPropertyList forOrder:self.order];
            [self loadOrderData];
-           
-           //           [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList]]; 
-           //           success(entitiesPropertyList);
-           
+           [self makePaymentforSessionId:[sessionSettings sessionId] success:^(id responseObject) {
+               [self orderConfirmationWithReceipt:responseObject];
+           } failure:^(NSError *error) {
+               NSLog(@"%@",error);
+           }];
        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
            NSLog(@"%@",error);
        }];
 
 }
 
+- (void)orderConfirmationWithReceipt:(NSDictionary *)receipt {
+    if ([[[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"] containsString:@"3002"] || [[[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"] containsString:@"3001"]) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.cardNumberPaymentTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.cardNumberPaymentTF.frame animated:YES];
+    }else if (((NSString *)[[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"]).length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"DONE" message:@"YOU DID IT" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+    }
+    
+}
 
 #pragma mark - Navigation
 
