@@ -83,5 +83,6 @@
 @property (nonatomic, retain) NSString * gstTax;
 @property (nonatomic, retain) NSString * qstTax;
 @property (nonatomic, retain) NSString * totalTax;
+@property (nonatomic, retain) NSArray * items;
 
 @end

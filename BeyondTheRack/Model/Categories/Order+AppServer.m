@@ -7,6 +7,7 @@
 //
 
 #import "Order+AppServer.h"
+#import "Item+AppServer.h"
 
 @implementation Order (AppServer)
 
@@ -113,6 +114,19 @@
     if ([orderInfoDic valueForKeyPath:@"vip_pickup_eligible"] && [orderInfoDic valueForKeyPath:@"vip_pickup_eligible"] != [NSNull null]) {
         order.vipPickupEligible = [[orderInfoDic valueForKeyPath:@"vip_pickup_eligible"] stringValue];
     }
+    
+    /**
+     
+     Items in Order
+     
+     */
+    
+    NSArray *ArrayOfItems = orderDictionary[@"products"];
+    NSMutableArray* tempProductArray = [[NSMutableArray alloc]init];
+    for (NSDictionary* itemDic in ArrayOfItems) {
+        [tempProductArray addObject:[Item itemWithSearchResponseInfo:itemDic]];
+    }
+    order.items = ArrayOfItems;
     
     
     /**
