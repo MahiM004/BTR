@@ -11,6 +11,7 @@
 
 @interface Order : NSObject
 
+@property BOOL isAccepted;
 @property (nonatomic, retain) NSString * confirmDateTime;
 @property (nonatomic, retain) NSString * confirmed;
 @property (nonatomic, retain) NSString * createDateTime;

@@ -762,7 +762,7 @@
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.cardNumberPaymentTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.cardNumberPaymentTF.frame animated:YES];
-    }else if (((NSString *)[[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"]).length == 0) {
+    }else if (self.order.isAccepted) {
         [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
     }
     

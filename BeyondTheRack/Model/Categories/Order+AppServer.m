@@ -23,6 +23,12 @@
 
 + (Order *)extractOrderfromJSONDictionary:(NSDictionary *)orderDictionary forOrder:(Order *)order {
 
+    NSDictionary *successfulorder = orderDictionary[@"order"];
+    
+    if ([successfulorder valueForKeyPath:@"order_id"] && [successfulorder valueForKeyPath:@"order_id"] != [NSNull null]) {
+        order.orderId = [successfulorder valueForKeyPath:@"order_id"];
+    }
+    
     NSDictionary *cardInfoDic = orderDictionary[@"cardInfo"];
     
     if ([cardInfoDic valueForKeyPath:@"cvv"] && [cardInfoDic valueForKeyPath:@"cvv"] != [NSNull null]) {
@@ -303,6 +309,10 @@
         order.shippingPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"ship_total"]];
     }
     
+    
+    if ([totalPriceDictionary valueForKeyPath:@"success"] && [totalPriceDictionary valueForKeyPath:@"success"] != [NSNull null]) {
+        order.isAccepted = [[totalPriceDictionary valueForKeyPath:@"success"]boolValue];
+    }
     
     /**
      
