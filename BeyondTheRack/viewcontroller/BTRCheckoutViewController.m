@@ -631,15 +631,12 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:@"" forKey:@"recipient_message"];
-    //[orderInfo setObject:[NSNumber numberWithBool:[self.pickupAvailable checked]] forKey:@"is_pickup"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
 
     [params setObject:orderInfo forKey:@"orderInfo"];
     [params setObject:@"creditcard" forKey:@"paymentMethod"];
     [params setObject:[self cardInfo] forKey:@"cardInfo"];
     
-    
-    NSLog(@"---0-- - %@", params);
-
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]]
        parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -657,28 +654,16 @@
 
 
 - (IBAction)processOrderTpped:(UIButton *)sender {
-    
-    // Validation
-    
-    if ([self isCompeletedForm]) {
-        [self validateAddressViaAPI];
-    }
-    
-    
-    
-    
-    
-//    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-//    
-//    [self makePaymentforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
-//        
-//        //[self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
-//        
-//    } failure:^(NSError *error) {
-//        
-//    }];
 
-     
+    if ([self isCompeletedForm]) {
+        [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
+               [self makePaymentforSessionId:[session sessionId] success:^(id responseObject) {
+                   [self orderConfirmationWithReceipt:responseObject];
+               } failure:^(NSError *error) {
+                   NSLog(@"%@",error);
+               }];
+        }];
+    }
 }
 
 
@@ -738,7 +723,7 @@
     return YES;
 }
 
-- (void)validateAddressViaAPI {
+- (void)validateAddressViaAPIAndInCompletion:(void(^)(BTRSessionSettings *session))completionBlock; {
 
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -764,11 +749,7 @@
            NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
            self.order = [Order extractOrderfromJSONDictionary:entitiesPropertyList forOrder:self.order];
            [self loadOrderData];
-           [self makePaymentforSessionId:[sessionSettings sessionId] success:^(id responseObject) {
-               [self orderConfirmationWithReceipt:responseObject];
-           } failure:^(NSError *error) {
-               NSLog(@"%@",error);
-           }];
+           completionBlock(sessionSettings);
        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
            NSLog(@"%@",error);
        }];
@@ -784,6 +765,34 @@
         [[[UIAlertView alloc]initWithTitle:@"DONE" message:@"YOU DID IT" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
     }
     
+}
+
+#pragma mark giftcard adding
+
+- (IBAction)checkAndValidateGiftCard:(id)sender {
+
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:self.giftCardCodePaymentTF.text,@"code", nil];
+    [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforGiftCardRedeem]]
+       parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+           NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
+           NSLog(@"%@",entitiesPropertyList);
+           if ([[entitiesPropertyList valueForKey:@"success"]boolValue]) {
+               [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
+                   [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@ has been added sucessfully",[entitiesPropertyList valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+               }];
+           }
+       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           NSLog(@"%@",error);
+       }];
 }
 
 #pragma mark - Navigation
