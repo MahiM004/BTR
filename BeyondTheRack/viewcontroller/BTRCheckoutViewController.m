@@ -8,6 +8,7 @@
 
 #import "BTRCheckoutViewController.h"
 #import "BTRPaymentTypesHandler.h"
+#import "BTRConfirmationViewController.h"
 #import "BTROrderFetcher.h"
 #import "Order+AppServer.h"
 
@@ -762,7 +763,7 @@
         [self.cardNumberPaymentTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.cardNumberPaymentTF.frame animated:YES];
     }else if (((NSString *)[[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"]).length == 0) {
-        [[[UIAlertView alloc]initWithTitle:@"DONE" message:@"YOU DID IT" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
     }
     
 }
@@ -799,7 +800,10 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
+    if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"]) {
+        BTRConfirmationViewController* confirm = [segue destinationViewController];
+        confirm.order = self.order;
+    }
 }
 
 @end
