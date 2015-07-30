@@ -214,8 +214,9 @@
     [self.shippingDollarLabel setText:[self.order shippingPrice]];
     [self.gstTaxDollarLabel setText:[self.order gstTax]];
     [self.qstTaxDollarLabel setText:[self.order qstTax]];
-    [self.orderTotalDollarLabel setText:[self.order orderTotalPrice]];
-    [self.totalDueDollarLabel setText:[self.order allTotalPrice]];
+    [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.subtotalDollarLabel.text.floatValue + self.gstTaxDollarLabel.text.floatValue + self.qstTaxDollarLabel.text.floatValue]];
+//    [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.order.allTotalPrice.floatValue - self.subtotalDollarLabel.text.floatValue]];
+    [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
     
     NSLog(@"PickUP UI not available on UI yet!");
     

@@ -39,7 +39,7 @@
     self.shippingAddress.text = shippingAddressString;
     
     NSString* billingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n",self.order.billingAddressLine1,self.order.billingAddressLine2,self.order.billingCity,self.order.billingCountry];
-    self.billingLabel.text = billingAddressString;
+    self.billingAddress.text = billingAddressString;
     
     // order Items
     
