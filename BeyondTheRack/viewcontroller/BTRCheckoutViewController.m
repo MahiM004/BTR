@@ -789,8 +789,10 @@
            NSLog(@"%@",entitiesPropertyList);
            if ([[entitiesPropertyList valueForKey:@"success"]boolValue]) {
                [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
-                   [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@ has been added sucessfully",[entitiesPropertyList valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                   [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@$ has been added sucessfully",[entitiesPropertyList valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
                }];
+           } else {
+               [[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"Your Gift Number is Not Vaild"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
            }
        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
            NSLog(@"%@",error);
