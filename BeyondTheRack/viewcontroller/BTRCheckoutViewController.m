@@ -742,6 +742,7 @@
     
     [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
     [orderInfo setObject:[self billingInfo] forKey:@"billing"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:YES] forKey:@"is_pickup"];
     [params setObject:orderInfo forKey:@"orderInfo"];
