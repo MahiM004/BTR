@@ -124,9 +124,10 @@
     NSArray *ArrayOfItems = orderDictionary[@"products"];
     NSMutableArray* tempProductArray = [[NSMutableArray alloc]init];
     for (NSDictionary* itemDic in ArrayOfItems) {
-        [tempProductArray addObject:[Item itemWithSearchResponseInfo:itemDic]];
+        Item *newItem = [[Item alloc]init];
+        [tempProductArray addObject:[Item extractItemfromJsonDictionary:itemDic forItem:newItem]];
     }
-    order.items = ArrayOfItems;
+    order.items = tempProductArray;
     
     
     /**

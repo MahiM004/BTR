@@ -7,6 +7,7 @@
 //
 
 #import "BTRConfirmationViewController.h"
+#import "Item.h"
 
 @interface BTRConfirmationViewController ()
 
@@ -42,7 +43,17 @@
     self.billingAddress.text = billingAddressString;
     
     // order Items
-    
+    CGPoint begingingpoint = self.orderView.bounds.origin;
+    CGSize size = self.orderView.bounds.size;
+    CGFloat space = 150.0;
+    for (int i = 0; i < self.order.items.count; i++) {
+        Item* item = [self.order.items objectAtIndex:i];
+        UILabel *newLabel = [[UILabel alloc]initWithFrame:CGRectMake(begingingpoint.x, begingingpoint.y + (i * space), size.width, space)];
+        newLabel.numberOfLines = -1;
+        newLabel.font = [UIFont systemFontOfSize:11];
+        newLabel.text = [NSString stringWithFormat:@"%@\n%@\n%@",item.shortItemDescription,item.attributeList,item.brand];
+        [self.orderView addSubview:newLabel];
+    }
     
     
     // Prices

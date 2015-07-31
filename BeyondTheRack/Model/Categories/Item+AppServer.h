@@ -28,6 +28,8 @@
 + (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
                     withEventId:(NSString *)eventId;
 
++ (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item;
+
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                                     withEventId:(NSString *)eventId
                                  forItemsArray:(NSMutableArray *)itemsArray;

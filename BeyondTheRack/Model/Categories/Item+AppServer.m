@@ -101,6 +101,14 @@
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
     nformatter.numberStyle = NSNumberFormatterDecimalStyle;
     
+    if ([itemDictionary valueForKeyPath:@"attributes"] && [itemDictionary valueForKeyPath:@"attributes"] != [NSNull null]) {
+        NSString* attributeListString = [[NSString alloc]init];
+        for (NSString* key in [itemDictionary valueForKey:@"attributes"]) {
+            attributeListString = [attributeListString stringByAppendingFormat:@"%@ : %@ \n",key,[[itemDictionary valueForKey:@"attributes"]valueForKey:key]];
+        }
+        item.attributeList = attributeListString;
+    }
+    
     if ([itemDictionary valueForKeyPath:@"short_desc"] && [itemDictionary valueForKeyPath:@"short_desc"] != [NSNull null])
         item.shortItemDescription = [itemDictionary valueForKey:@"short_desc"];
     
