@@ -143,7 +143,8 @@
                                 @"cvv": [[self cardVerificationPaymentTF] text],
                                 @"use_token": @false,
                                 @"token": @"295219000",
-                                @"remember_card": @false });
+                                @"remember_card": [NSNumber numberWithBool:[self.remeberCardInfoCheckbox checked]]
+                            });
     return info;
 }
 
@@ -176,6 +177,11 @@
 
 
 - (void)loadOrderData {
+    
+    if (self.cardNumberPaymentTF.text.length == 0)
+        [self.cardNumberPaymentTF setText:[self.order cardNumber]];
+    [self.expiryYearPaymentTF setText:[self.order expiryYear]];
+    [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
     
     [self.recipientNameShippingTF setText:[self.order shippingRecipientName]];
     [self.addressLine1ShippingTF setText:[self.order shippingAddressLine1]];
@@ -742,6 +748,7 @@
     
     [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
     [orderInfo setObject:[self billingInfo] forKey:@"billing"];
+    [orderInfo setObject:[self cardInfo] forKey:@"cardInfo"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:YES] forKey:@"is_pickup"];
