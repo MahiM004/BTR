@@ -42,6 +42,8 @@
 @property (strong, nonatomic) NSString *chosenShippingCountryString;
 @property (strong, nonatomic) NSString *chosenBillingCountryString;
 
+@property BOOL isLoading;
+
 @end
 
 
@@ -178,6 +180,8 @@
 
 - (void)loadOrderData {
     
+    self.isLoading = YES;
+    
     if (self.cardNumberPaymentTF.text.length == 0)
         [self.cardNumberPaymentTF setText:[self.order cardNumber]];
     [self.expiryYearPaymentTF setText:[self.order expiryYear]];
@@ -237,9 +241,13 @@
     
     [self.pickupView setHidden:![[self.order eligiblePickup] boolValue]];
     
+    self.isLoading = NO;
 }
 
 - (void) checkboxVipOptionDidChange:(CTCheckbox *)checkbox {
+    
+    if (self.isLoading)
+        return;
     
     if ([checkbox checked]) {
         
@@ -259,6 +267,10 @@
 }
 
 - (void) checkboxPickupOptionDidChange:(CTCheckbox *)checkbox {
+    
+    if (self.isLoading)
+        return;
+    
     if ([checkbox checked]) {
         
         [self.addressLine1ShippingTF setText:@"MONTREAL EMPLOYEE PICKUP"];
@@ -268,6 +280,7 @@
         [self.provinceShippingTF setText:@"Quebec"];
         [self.cityShippingTF setText:@"SAINT-LAURENT"];
         [self.phoneShippingTF setText:@"613-735-0112"];
+        [self validateAddressViaAPIAndInCompletion:nil];
         [self disableShippingAddress];
         
     } else if (![checkbox checked]) {
@@ -326,6 +339,9 @@
 }
 
 - (void) checkboxSameAddressDidChange:(CTCheckbox *)checkbox {
+    
+    if (self.isLoading)
+        return;
     
     if ([checkbox checked]) {
         
@@ -751,7 +767,7 @@
     [orderInfo setObject:[self cardInfo] forKey:@"cardInfo"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
-    [orderInfo setObject:[NSNumber numberWithBool:YES] forKey:@"is_pickup"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
     [params setObject:orderInfo forKey:@"orderInfo"];
     
     [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]]
@@ -759,7 +775,8 @@
            NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
            self.order = [Order extractOrderfromJSONDictionary:entitiesPropertyList forOrder:self.order];
            [self loadOrderData];
-           completionBlock(sessionSettings);
+           if (completionBlock)
+               completionBlock(sessionSettings);
        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
            NSLog(@"%@",error);
        }];
