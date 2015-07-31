@@ -182,11 +182,14 @@
     
     self.isLoading = YES;
     
+    // card info
     if (self.cardNumberPaymentTF.text.length == 0)
         [self.cardNumberPaymentTF setText:[self.order cardNumber]];
     [self.expiryYearPaymentTF setText:[self.order expiryYear]];
-    [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
+    if (self.order.expiryMonth.length > 0)
+        [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
     
+    // shipping
     [self.recipientNameShippingTF setText:[self.order shippingRecipientName]];
     [self.addressLine1ShippingTF setText:[self.order shippingAddressLine1]];
     [self.addressLine2ShippingTF setText:[self.order shippingAddressLine2]];
@@ -196,6 +199,7 @@
     [self.cityShippingTF setText:[self.order shippingCity]];
     [self.phoneShippingTF setText:[self.order shippingPhoneNumber]];
     
+    // billing
     [self.addressLine1BillingTF setText:[self.order billingAddressLine1]];
     [self.addressLine2BillingTF setText:[self.order billingAddressLine2]];
     [self.countryBillingTF setText:[BTRViewUtility countryNameforCode:[self.order billingCountry]]];
@@ -204,6 +208,7 @@
     [self.cityBillingTF setText:[self.order billingCity]];
     [self.phoneBillingTF setText:[self.order billingPhoneNumber]];
     
+    // checkboxes
     [self.vipOptionCheckbox setChecked:[[self.order vipPickup] boolValue]];
     [self.sameAddressCheckbox setChecked:[[self.order billingSameAsShipping] boolValue]];
     [self.orderIsGiftCheckbox setChecked:[[self.order isGift] boolValue]];
@@ -218,6 +223,8 @@
     
     [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
     [self.pickupOptionCheckbox addTarget:self action:@selector(checkboxPickupOptionDidChange:) forControlEvents:UIControlEventValueChanged];
+    
+    // prices
     
     [self.bagTotalDollarLabel setText:[self.order bagTotalPrice]];
     [self.subtotalDollarLabel setText:[self.order subTotalPrice]];
