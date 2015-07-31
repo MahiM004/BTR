@@ -232,10 +232,9 @@
     [self.gstTaxDollarLabel setText:[self.order gstTax]];
     [self.qstTaxDollarLabel setText:[self.order qstTax]];
     [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.subtotalDollarLabel.text.floatValue + self.gstTaxDollarLabel.text.floatValue + self.qstTaxDollarLabel.text.floatValue]];
+    
 //    [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.order.allTotalPrice.floatValue - self.subtotalDollarLabel.text.floatValue]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
-    
-    NSLog(@"PickUP UI not available on UI yet!");
     
     if ([[self.order vipPickupEligible] boolValue]) {
         [self.pleaseFillOutTheShippingFormView setHidden:TRUE];
@@ -359,7 +358,7 @@
         [self.provinceBillingTF setText:[[self provinceShippingTF] text]];
         [self.cityBillingTF setText:[[self cityShippingTF] text]];
         [self.phoneBillingTF setText:[[self phoneShippingTF] text]];
-
+        [self validateAddressViaAPIAndInCompletion:nil];
         [self disableBillingAddress];
         
     } else if (![checkbox checked]) {
@@ -699,6 +698,11 @@
 
 
 #pragma mark Validation
+
+- (IBAction)zipCodeHasBeenEntererd:(id)sender {
+    [self validateAddressViaAPIAndInCompletion:nil];
+}
+
 
 - (BOOL)isCompeletedForm {
     
