@@ -325,8 +325,8 @@
     }
     
     
-    if ([totalPriceDictionary valueForKeyPath:@"success"] && [totalPriceDictionary valueForKeyPath:@"success"] != [NSNull null]) {
-        order.isAccepted = [[totalPriceDictionary valueForKeyPath:@"success"]boolValue];
+    if ([orderDictionary valueForKeyPath:@"sucess"] && [orderDictionary valueForKeyPath:@"sucess"] != [NSNull null]) {
+        order.isAccepted = [[orderDictionary valueForKeyPath:@"sucess"]boolValue];
     }
     
     /**
