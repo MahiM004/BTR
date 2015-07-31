@@ -187,7 +187,7 @@
                                                                                options:0
                                                                                  error:NULL];
          
-         if (entitiesPropertyList) {
+         if (entitiesPropertyList.count > 0) {
              
              NSArray *allKeysArray = entitiesPropertyList.allKeys;
              
@@ -213,6 +213,8 @@
              }
              
              success(@"TRUE");
+         }else {
+             [[[UIAlertView alloc]initWithTitle:@"Empty" message:@"You dont have any order to track" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
          }
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
