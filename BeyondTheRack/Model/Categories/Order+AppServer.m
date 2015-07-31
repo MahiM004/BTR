@@ -305,23 +305,23 @@
     NSDictionary *totalPriceDictionary = orderDictionary[@"total"];
     
     if ([totalPriceDictionary valueForKeyPath:@"bag_total"] && [totalPriceDictionary valueForKeyPath:@"bag_total"] != [NSNull null]) {
-        order.bagTotalPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"bag_total"]];
+        order.bagTotalPrice = [NSString stringWithFormat:@"%.2f",[[totalPriceDictionary valueForKeyPath:@"bag_total"]floatValue]];
     }
     
     if ([totalPriceDictionary valueForKeyPath:@"sub_total"] && [totalPriceDictionary valueForKeyPath:@"sub_total"] != [NSNull null]) {
-        order.subTotalPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"sub_total"]];
+        order.subTotalPrice = [NSString stringWithFormat:@"%.2f",[[totalPriceDictionary valueForKeyPath:@"sub_total"]floatValue]];
     }
     
     if ([totalPriceDictionary valueForKeyPath:@"order_total"] && [totalPriceDictionary valueForKeyPath:@"order_total"] != [NSNull null]) {
-        order.orderTotalPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"order_total"]];
+        order.orderTotalPrice = [NSString stringWithFormat:@"%.2f",[[totalPriceDictionary valueForKeyPath:@"order_total"]floatValue]];
     }
     
     if ([totalPriceDictionary valueForKeyPath:@"all_total"] && [totalPriceDictionary valueForKeyPath:@"all_total"] != [NSNull null]) {
-        order.allTotalPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"all_total"]];
+        order.allTotalPrice = [NSString stringWithFormat:@"%.2f",[[totalPriceDictionary valueForKeyPath:@"all_total"]floatValue]];
     }
     
     if ([totalPriceDictionary valueForKeyPath:@"ship_total"] && [totalPriceDictionary valueForKeyPath:@"ship_total"] != [NSNull null]) {
-        order.shippingPrice = [NSString stringWithFormat:@"%@",[totalPriceDictionary valueForKeyPath:@"ship_total"]];
+        order.shippingPrice = [NSString stringWithFormat:@"%.2f",[[totalPriceDictionary valueForKeyPath:@"ship_total"]floatValue]];
     }
     
     

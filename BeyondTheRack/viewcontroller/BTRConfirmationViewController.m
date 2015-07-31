@@ -33,7 +33,8 @@
     
     // adding last 4 digits of card
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithAttributedString:self.billingLabel.attributedText];
-    [[text mutableString] replaceOccurrencesOfString:@"1111" withString:self.order.cardNumber options:NSCaseInsensitiveSearch range:NSMakeRange(0, text.string.length)];
+    [[text mutableString] replaceOccurrencesOfString:@"1111" withString:[self.order.cardNumber substringWithRange:NSMakeRange(self.order.cardNumber.length - 4, 4)] options:NSCaseInsensitiveSearch range:NSMakeRange(0, text.string.length)];
+    self.billingLabel.attributedText = text;
     
     //address
     NSString* shippingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n",self.order.shippingAddressLine1,self.order.shippingAddressLine2,self.order.shippingCity,self.order.shippingCountry];
