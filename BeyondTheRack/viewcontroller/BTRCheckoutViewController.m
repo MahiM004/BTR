@@ -11,7 +11,7 @@
 #import "BTRConfirmationViewController.h"
 #import "BTROrderFetcher.h"
 #import "Order+AppServer.h"
-
+#import "Item.h"
 
 #define COUNTRY_PICKER          1
 #define PROVINCE_PICKER         2
@@ -43,6 +43,7 @@
 @property (strong, nonatomic) NSString *chosenBillingCountryString;
 
 @property BOOL isLoading;
+@property float totalSave;
 
 @end
 
@@ -157,6 +158,8 @@
     
     [super viewDidLoad];
     
+    self.totalSave = 0;
+    
     [self loadOrderData];
     
     NSCalendar *gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
@@ -225,6 +228,12 @@
     [self.pickupOptionCheckbox addTarget:self action:@selector(checkboxPickupOptionDidChange:) forControlEvents:UIControlEventValueChanged];
     
     // prices
+    if (self.totalSave == 0) {
+        for (Item* item  in self.order.items) {
+            self.totalSave = self.totalSave + (item.retailPrice.floatValue - item.salePrice.floatValue);
+        }
+    }
+   
     
     [self.bagTotalDollarLabel setText:[self.order bagTotalPrice]];
     [self.subtotalDollarLabel setText:[self.order subTotalPrice]];
@@ -232,8 +241,7 @@
     [self.gstTaxDollarLabel setText:[self.order gstTax]];
     [self.qstTaxDollarLabel setText:[self.order qstTax]];
     [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.subtotalDollarLabel.text.floatValue + self.gstTaxDollarLabel.text.floatValue + self.qstTaxDollarLabel.text.floatValue]];
-    
-//    [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.order.allTotalPrice.floatValue - self.subtotalDollarLabel.text.floatValue]];
+    [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.totalSave]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
     
     if ([[self.order vipPickupEligible] boolValue]) {
