@@ -187,7 +187,7 @@
     
     // card info
     if (self.cardNumberPaymentTF.text.length == 0)
-        [self.cardNumberPaymentTF setText:[self.order cardNumber]];
+        [self.cardNumberPaymentTF setPlaceholder:[[self.order cardNumber]stringByReplacingOccurrencesOfString:@" " withString:@""]];
     [self.expiryYearPaymentTF setText:[self.order expiryYear]];
     if (self.order.expiryMonth.length > 0)
         [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
@@ -233,7 +233,6 @@
             self.totalSave = self.totalSave + (item.retailPrice.floatValue - item.salePrice.floatValue);
         }
     }
-   
     
     [self.bagTotalDollarLabel setText:[self.order bagTotalPrice]];
     [self.subtotalDollarLabel setText:[self.order subTotalPrice]];
