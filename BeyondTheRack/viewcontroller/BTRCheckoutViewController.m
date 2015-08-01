@@ -243,6 +243,8 @@
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.totalSave]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
     
+    
+    // pickup
     if ([[self.order vipPickupEligible] boolValue]) {
         [self.pleaseFillOutTheShippingFormView setHidden:TRUE];
         [self.vipOptionView setHidden:FALSE];
@@ -251,11 +253,16 @@
         [self.pleaseFillOutTheShippingFormView setHidden:FALSE];
         [self.vipOptionView setHidden:TRUE];
     }
-    
     [self.pickupView setHidden:![[self.order eligiblePickup] boolValue]];
     
     self.isLoading = NO;
 }
+
+- (IBAction)shippingFieldChanged:(id)sender {
+    if (self.sameAddressCheckbox.checked)
+        [self copyShipingAddressToBillingAddress];
+}
+
 
 - (void) checkboxVipOptionDidChange:(CTCheckbox *)checkbox {
     
@@ -358,19 +365,23 @@
     
     if ([checkbox checked]) {
         
-        [self.addressLine1BillingTF setText:[[self addressLine1ShippingTF] text]];
-        [self.addressLine2BillingTF setText:[[self addressLine2ShippingTF] text]];
-        [self.countryBillingTF setText:[[self countryShippingTF] text]];
-        [self.postalCodeBillingTF setText:[[self zipCodeShippingTF] text]];
-        [self.provinceBillingTF setText:[[self provinceShippingTF] text]];
-        [self.cityBillingTF setText:[[self cityShippingTF] text]];
-        [self.phoneBillingTF setText:[[self phoneShippingTF] text]];
+        [self copyShipingAddressToBillingAddress];
         [self validateAddressViaAPIAndInCompletion:nil];
         [self disableBillingAddress];
         
     } else if (![checkbox checked]) {
         [self enableBillingAddress];
     }
+}
+
+- (void) copyShipingAddressToBillingAddress {
+    [self.addressLine1BillingTF setText:[[self addressLine1ShippingTF] text]];
+    [self.addressLine2BillingTF setText:[[self addressLine2ShippingTF] text]];
+    [self.countryBillingTF setText:[[self countryShippingTF] text]];
+    [self.postalCodeBillingTF setText:[[self zipCodeShippingTF] text]];
+    [self.provinceBillingTF setText:[[self provinceShippingTF] text]];
+    [self.cityBillingTF setText:[[self cityShippingTF] text]];
+    [self.phoneBillingTF setText:[[self phoneShippingTF] text]];
 }
 
 - (void) disableBillingAddress {
