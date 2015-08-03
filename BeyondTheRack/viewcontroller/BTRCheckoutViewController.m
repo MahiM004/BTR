@@ -365,8 +365,8 @@
     
     if ([checkbox checked]) {
         
+        [self enableBillingAddress];
         [self copyShipingAddressToBillingAddress];
-        [self validateAddressViaAPIAndInCompletion:nil];
         [self disableBillingAddress];
         
     } else if (![checkbox checked]) {
