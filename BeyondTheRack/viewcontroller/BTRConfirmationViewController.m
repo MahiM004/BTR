@@ -31,10 +31,20 @@
     //chaning thanks label
     self.thanksLabel.text = [NSString stringWithFormat:@"THANK YOU FOR YOUR ORDER NO. %@",self.order.orderId];
     
-    // adding last 4 digits of card
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithAttributedString:self.billingLabel.attributedText];
-    [[text mutableString] replaceOccurrencesOfString:@"1111" withString:[self.order.cardNumber substringWithRange:NSMakeRange(self.order.cardNumber.length - 4, 4)] options:NSCaseInsensitiveSearch range:NSMakeRange(0, text.string.length)];
-    self.billingLabel.attributedText = text;
+    if (self.transactionID) {
+        // adding transactionID
+        NSString *string = @"we've billed your order to the transaction number : 1111 with following address :";
+        NSRange range = [string rangeOfString:@"1111"];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:string];
+        [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+        self.billingLabel.attributedText = attributedString;
+        
+    } else {
+        // adding last 4 digits of card
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithAttributedString:self.billingLabel.attributedText];
+        [[text mutableString] replaceOccurrencesOfString:@"1111" withString:[self.order.cardNumber substringWithRange:NSMakeRange(self.order.cardNumber.length - 4, 4)] options:NSCaseInsensitiveSearch range:NSMakeRange(0, text.string.length)];
+        self.billingLabel.attributedText = text;
+    }
     
     //address
     NSString* shippingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n",self.order.shippingAddressLine1,self.order.shippingAddressLine2,self.order.shippingCity,self.order.shippingCountry];

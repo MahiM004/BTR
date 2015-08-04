@@ -1799,7 +1799,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="8D73F880-F16A-4334-9F44-555CB9546AB8" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="91CA71B1-C6B7-4614-A1FF-EE63E4A1811C" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -4919,11 +4919,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rim-75-YTG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="cfW-hc-dtx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2400" y="2790"/>
+            <point key="canvasLocation" x="2289" y="2785"/>
         </scene>
     </scenes>
     <resources>
-        <image name="8D73F880-F16A-4334-9F44-555CB9546AB8" width="30" height="30">
+        <image name="91CA71B1-C6B7-4614-A1FF-EE63E4A1811C" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND

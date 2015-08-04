@@ -38,6 +38,8 @@
 // scrollView
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+// paypal
+@property (nonatomic, strong) NSString *transactionID;
 
 
 @end
