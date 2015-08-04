@@ -177,6 +177,7 @@
 		A01142741B618D8A0099A40A /* FAQ+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A01142731B618D8A0099A40A /* FAQ+AppServer.m */; };
 		A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */; };
 		A01E5DFC1B690FBF00B0EC5B /* BTRConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */; };
+		A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */; };
 		B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */; };
 		B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */; };
 		B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */; };
@@ -517,6 +518,8 @@
 		A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalFetcher.m; sourceTree = "<group>"; };
 		A01E5DFA1B690FBF00B0EC5B /* BTRConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRConfirmationViewController.h; sourceTree = "<group>"; };
 		A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRConfirmationViewController.m; sourceTree = "<group>"; };
+		A0ABECCF1B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPaypalCheckoutViewController.h; sourceTree = "<group>"; };
+		A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalCheckoutViewController.m; sourceTree = "<group>"; };
 		B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSessionSettings.h; sourceTree = "<group>"; };
 		B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSessionSettings.m; sourceTree = "<group>"; };
 		B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -783,6 +786,8 @@
 				69D440131B2B138000070FD8 /* BTRCheckoutViewController.m */,
 				A01E5DFA1B690FBF00B0EC5B /* BTRConfirmationViewController.h */,
 				A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */,
+				A0ABECCF1B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.h */,
+				A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */,
 			);
 			name = Checkout;
 			sourceTree = "<group>";
@@ -1438,6 +1443,7 @@
 				69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */,
 				690A38D51B1DE67F00D4BA84 /* BTRNotificationsVC.m in Sources */,
 				695C754B1B3841D1003F65F8 /* CTCheckbox.m in Sources */,
+				A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
 				6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */,
 				69B942831AE033FD00483950 /* UIAlertView+AFNetworking.m in Sources */,

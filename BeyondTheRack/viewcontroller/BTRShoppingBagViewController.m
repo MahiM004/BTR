@@ -18,6 +18,7 @@
 #import "BTRItemFetcher.h"
 #import "BTRPaymentTypesHandler.h"
 #import "BTRPaypalFetcher.h"
+#import "BTRPaypalCheckoutViewController.h"
 
  
 @interface BTRShoppingBagViewController ()
@@ -29,7 +30,7 @@
 @property (strong, nonatomic) Order *order;
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
-@property (strong, nonatomic) UIWebView* paypalWebView;
+@property (strong, nonatomic) NSString *paypalURL;
 
 @end
 
@@ -358,20 +359,54 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                             options:0
-                                                                               error:NULL];
-        self.paypalWebView = [[UIWebView alloc]initWithFrame:CGRectMake(0, self.tableView.frame.origin.y + self.tableView.frame.size.height, self.tableView.frame.size.width, self.tableView.frame.size.height)];
-        [self.view addSubview:self.paypalWebView];
-        [self.paypalWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[entitiesPropertyList valueForKey:@"paypalUrl"]]]];
-        
-        NSLog(@"%@",entitiesPropertyList);
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+    
+    
+    [manager GET:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]]
+      parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                  options:0
+                                                                                    error:NULL];
+             // getting order info
+             [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList]];
+             
+             // getting paypal info
+             [manager GET:[NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                      options:0
+                                                                                        error:NULL];
+                 
+                 if ([entitiesPropertyList valueForKey:@"paypalUrl"] != [NSNull null]) {
+                     self.paypalURL = [entitiesPropertyList valueForKey:@"paypalUrl"];
+                     [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
+                 }
+                 
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 
+             }];
+             
+             
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+         
+         }];
+
+    
+    
+//    [manager GET:[NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+//                                                                             options:0
+//                                                                               error:NULL];
+//        
+//        if ([entitiesPropertyList valueForKey:@"paypalUrl"] != [NSNull null]) {
+//            self.paypalURL = [entitiesPropertyList valueForKey:@"paypalUrl"];
+//            [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
+//        }
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//    }];
 }
 
 
@@ -391,7 +426,12 @@
         
         BTRCheckoutViewController *checkoutVC = [segue destinationViewController];
         checkoutVC.order = [self order];
+        
+    } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
+        BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
+        paypalVC.paypalURL = [self paypalURL];
     }
+    
 }
 
 
