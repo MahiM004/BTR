@@ -45,6 +45,8 @@
 @property BOOL isLoading;
 @property float totalSave;
 
+@property NSMutableArray* arrayOfGiftCards;
+
 @end
 
 
@@ -157,9 +159,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    self.totalSave = 0;
-    
+   
+    [self resetData];
     [self loadOrderData];
     
     NSCalendar *gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
@@ -176,10 +177,19 @@
     [self setChosenShippingCountryString:@"Canada"];
     [self setChosenBillingCountryString:@"Canada"];
     
+    // hidding gift info
+    [self.giftLabel setHidden:YES];
+    [self.giftDollarLabel setHidden:YES];
+    
+    
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
     self.paymentTypesArray = [sharedPaymentTypes creditCardDisplayNameArray];
 }
 
+- (void)resetData {
+    self.arrayOfGiftCards = [[NSMutableArray alloc]init];
+    self.totalSave = 0;
+}
 
 - (void)loadOrderData {
     
@@ -188,7 +198,8 @@
     // card info
     if (self.cardNumberPaymentTF.text.length == 0)
         [self.cardNumberPaymentTF setPlaceholder:[[self.order cardNumber]stringByReplacingOccurrencesOfString:@" " withString:@""]];
-    [self.expiryYearPaymentTF setText:[self.order expiryYear]];
+    if (self.expiryYearPaymentTF.text.length == 0)
+        [self.expiryYearPaymentTF setText:[self.order expiryYear]];
     if (self.order.expiryMonth.length > 0)
         [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
     
@@ -281,9 +292,10 @@
         
         [self disableShippingAddress];
         
-    } else if (![checkbox checked]) {
+    } else if (![checkbox checked])
         [self enableShippingAddress];
-    }
+    
+    [self validateAddressViaAPIAndInCompletion:nil];
 }
 
 - (void) checkboxPickupOptionDidChange:(CTCheckbox *)checkbox {
@@ -300,12 +312,12 @@
         [self.provinceShippingTF setText:@"Quebec"];
         [self.cityShippingTF setText:@"SAINT-LAURENT"];
         [self.phoneShippingTF setText:@"613-735-0112"];
-        [self validateAddressViaAPIAndInCompletion:nil];
         [self disableShippingAddress];
         
-    } else if (![checkbox checked]) {
+    } else if (![checkbox checked])
         [self enableShippingAddress];
-    }
+    
+    [self validateAddressViaAPIAndInCompletion:nil];
 }
 
 - (void) disableShippingAddress {
@@ -371,6 +383,7 @@
         
     } else if (![checkbox checked]) {
         [self enableBillingAddress];
+        [self clearBillingAddress];
     }
 }
 
@@ -427,6 +440,7 @@
 }
 
 - (void) clearBillingAddress {
+    
     [self.addressLine1BillingTF setText:@""];
     [self.addressLine2BillingTF setText:@""];
     [self.countryBillingTF setText:@""];
@@ -437,6 +451,7 @@
 }
 
 - (void) clearShippingAddress {
+    
     [self.addressLine1ShippingTF setText:@""];
     [self.addressLine2ShippingTF setText:@""];
     [self.countryShippingTF setText:@""];
@@ -819,6 +834,8 @@
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.cardNumberPaymentTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.cardNumberPaymentTF.frame animated:YES];
+    } else if ([[[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"] containsString:@"3006"]) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"You submitted an expired credit card number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
     }
     
 }
@@ -827,6 +844,11 @@
 
 - (IBAction)checkAndValidateGiftCard:(id)sender {
 
+    if ([self.arrayOfGiftCards containsObject:self.giftCardCodePaymentTF.text]) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"This gift card is already used" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        return;
+    }
+    
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -843,7 +865,19 @@
            NSLog(@"%@",entitiesPropertyList);
            if ([[entitiesPropertyList valueForKey:@"success"]boolValue]) {
                [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
+                   
+                   // showing successful added alert
                    [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@$ has been added sucessfully",[entitiesPropertyList valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                   
+                   // adding text for gift
+                   float sumOfGifts = [self.giftDollarLabel.text floatValue] - [[entitiesPropertyList valueForKey:@"amount"]floatValue];
+                   self.giftDollarLabel.text = [NSString stringWithFormat:@"%.2f",sumOfGifts];
+                   self.giftDollarLabel.textColor = [UIColor redColor];
+                   [self.giftDollarLabel setHidden:NO];
+                   [self.giftLabel setHidden:NO];
+                   
+                   // save used gift cards
+                   [self.arrayOfGiftCards addObject:self.giftCardCodePaymentTF.text];
                }];
            } else {
                [[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"Your Gift Number is Not Vaild"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
