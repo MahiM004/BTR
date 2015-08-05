@@ -263,8 +263,8 @@
     } else if (![[self.order vipPickupEligible] boolValue]) {
         [self.pleaseFillOutTheShippingFormView setHidden:FALSE];
         [self.vipOptionView setHidden:TRUE];
+        [self.pickupView setHidden:![[self.order eligiblePickup] boolValue]];
     }
-    [self.pickupView setHidden:![[self.order eligiblePickup] boolValue]];
     
     self.isLoading = NO;
 }
