@@ -30,11 +30,9 @@
 @property (strong, nonatomic) Order *order;
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
-@property (strong, nonatomic) NSString *paypalURL;
+@property (strong, nonatomic) NSDictionary *paypal;
 
 @end
-
-
 
 @implementation BTRShoppingBagViewController
 
@@ -366,8 +364,8 @@
                                                                              options:0
                                                                                error:NULL];
         
-        if ([entitiesPropertyList valueForKey:@"paypalUrl"] != [NSNull null]) {
-            self.paypalURL = [entitiesPropertyList valueForKey:@"paypalUrl"];
+        if (entitiesPropertyList) {
+            self.paypal = entitiesPropertyList;
             [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
         }
         
@@ -397,7 +395,7 @@
         
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
         BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
-        paypalVC.paypalURL = [self paypalURL];
+        paypalVC.paypal = self.paypal;
     }
     
 }

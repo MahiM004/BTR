@@ -13,8 +13,7 @@
 
 @interface BTRPaypalCheckoutViewController ()
 @property Order *order;
-@property NSDictionary *paypalInfo;
-@property NSString* resultURL;
+@property NSString *payerEmail;
 @property BOOL didLogined;
 @end
 
@@ -24,8 +23,13 @@
     [super viewDidLoad];
     [self.webView setDelegate:self];
     [self setDidLogined:NO];
-    [self loadPaypalURL];
 
+    if ([[self.paypal valueForKey:@"mode"]isEqualToString:@"token"]) {
+        [self loadPaypalURLWithURL:[self.paypal valueForKey:@"paypalUrl"]];
+    } else {
+        [self setPayerEmail:[self.paypal valueForKey:@"email"]];
+        [self getInfoForPaypalAndRefillWithNewData:nil];
+    }
     // Do any additional setup after loading the view.
 }
 
@@ -34,8 +38,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)loadPaypalURL {
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.paypalURL]]];
+- (void)loadPaypalURLWithURL:(NSString *)url {
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -54,9 +58,13 @@
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         if ([urlString rangeOfString:[[self paymentURL] lowercaseString]].location != NSNotFound) {
-            [self setResultURL:urlString];
             [self setDidLogined:YES];
             [self.webView setHidden:YES];
+        }
+        if ([urlString rangeOfString:[[self fastPayURL] lowercaseString]].location != NSNotFound) {
+            [self.webView setHidden:YES];
+            [self getInfoForPaypalAndRefillWithNewData:[self makePayPalInfoWithURL:urlString]];
+            return false;
         }
     }
     return TRUE;
@@ -64,11 +72,11 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if (self.didLogined)
-        [self getInfoForPaypal];
+        [self getInfoForPaypalAndRefillWithNewData:nil];
 }
 
 
-- (void)getInfoForPaypal {
+- (void)getInfoForPaypalAndRefillWithNewData:(NSDictionary *)newData {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -79,10 +87,14 @@
     [manager GET:[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalInfo]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             self.paypalInfo = [NSJSONSerialization JSONObjectWithData:responseObject
+             NSMutableDictionary* info = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
-             [self processPayPal];
+             if (newData) {
+                 [info removeObjectForKey:@"paypalInfo"];
+                 [info setObject:newData forKey:@"paypalInfo"];
+             }
+             [self processPayPalWithInfo:info];
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
@@ -91,7 +103,7 @@
 }
 
 
-- (void)processPayPal {
+- (void)processPayPalWithInfo:(NSDictionary *)info {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -100,15 +112,16 @@
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     [manager POST:[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcess]]
-       parameters:self.paypalInfo
+       parameters:info
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                    options:0
                                                                                      error:NULL];
-              if ([[[entitiesPropertyList valueForKey:@"payment"]valueForKey:@"success"]boolValue]) {
+              if ([[[entitiesPropertyList valueForKey:@"payment"]valueForKey:@"success"]boolValue])
                   [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
-              }
+              else
+                  [self loadPaypalURLWithURL:[[entitiesPropertyList valueForKey:@"paypalInfo"]valueForKey:@"paypalUrl"]];
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -145,6 +158,27 @@
         BTRConfirmationViewController* confirm = [segue destinationViewController];
         confirm.order = self.order;
     }
+}
+
+- (NSDictionary *)makePayPalInfoWithURL:(NSString *)url {
+    
+    NSMutableDictionary *paypalInfo = [[NSMutableDictionary alloc]init];
+    [paypalInfo setObject:@"token" forKey:@"mode"];
+    [paypalInfo setObject:self.payerEmail forKey:@"email"];
+    NSArray *partsOfURL = [url componentsSeparatedByString:@"/"];
+    NSString *parameters = [partsOfURL lastObject];
+    NSArray *elements = [parameters componentsSeparatedByString:@"?"];
+    NSString *getParams = [elements lastObject];
+    NSArray *keys = [getParams componentsSeparatedByString:@"&"];
+    for (NSString *key in keys) {
+        NSArray *components = [key componentsSeparatedByString:@"="];
+        [paypalInfo setObject:[components lastObject] forKey:[components firstObject]];
+    }
+    return paypalInfo;
+}
+
+- (NSString *)fastPayURL {
+    return @"www.mobile.btrdev.com/siteapi/checkout/process/paypal/";
 }
 
 - (NSString *)paymentURL {

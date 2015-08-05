@@ -12,7 +12,7 @@
 @interface BTRPaypalCheckoutViewController : UIViewController <UIWebViewDelegate>
 
 // paypal URL
-@property (nonatomic,strong) NSString *paypalURL;
+@property (nonatomic,strong) NSDictionary *paypal;
 
 //WebView
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
