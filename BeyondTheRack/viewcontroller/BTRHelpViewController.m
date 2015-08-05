@@ -57,6 +57,7 @@
     FAQ* faq = [self.faqArray objectAtIndex:indexPath.section];
     QA* qa = [faq.questionsAndAnswers objectAtIndex:indexPath.row];
     cell.questionAndAnswerLabel.text = qa.question;
+    cell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
     cell.questionAndAnswerLabel.numberOfLines = -1;
     return cell;
     
@@ -77,22 +78,27 @@
     
     [self.helpTable beginUpdates]; // tell the table you're about to start making changes
     
+    BTRFAQTableViewCell* cell = (BTRFAQTableViewCell *)[self.helpTable cellForRowAtIndexPath:indexPath];
+    FAQ* faq = [self.faqArray objectAtIndex:indexPath.section];
+    NSString* answerString = [[NSString alloc]init];
+    QA* qa = [faq.questionsAndAnswers objectAtIndex:indexPath.row];
+    for (NSString* answer in qa.answer)
+        answerString = [answerString stringByAppendingFormat:@"\n%@",answer];
+    NSString* resultString = [NSString stringWithFormat:@"%@ \n %@",qa.question,answerString];
+
     // If the index path of the currently expanded cell is the same as the index that
     // has just been tapped set the expanded index to nil so that there aren't any
     // expanded cells, otherwise, set the expanded index to the index that has just
     // been selected.
     if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
+        cell.questionAndAnswerLabel.text = qa.question;
+        cell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
         self.expandedIndexPath = nil;
     } else {
+        
         self.expandedIndexPath = indexPath;
-        BTRFAQTableViewCell* cell = (BTRFAQTableViewCell *)[self.helpTable cellForRowAtIndexPath:indexPath];
-        FAQ* faq = [self.faqArray objectAtIndex:indexPath.section];
-        NSString* answerString = [[NSString alloc]init];
-        QA* qa = [faq.questionsAndAnswers objectAtIndex:indexPath.row];
-        for (NSString* answer in qa.answer)
-            answerString = [answerString stringByAppendingFormat:@"\n%@",answer];
-        NSString* resultString = [NSString stringWithFormat:@"%@ \n %@",qa.question,answerString];
-       self.heightOfSelectedCell = [self findHeightForText:resultString havingWidth:self.helpTable.frame.size.width andFont:[UIFont systemFontOfSize:13.0f]];
+        self.heightOfSelectedCell = [self findHeightForText:resultString havingWidth:self.helpTable.frame.size.width andFont:[UIFont systemFontOfSize:13.0f]];
+        cell.questionAndAnswerLabel.font = [UIFont systemFontOfSize:12.0f];
         cell.questionAndAnswerLabel.text = resultString;
     }
     
