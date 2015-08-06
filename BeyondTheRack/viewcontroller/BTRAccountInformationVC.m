@@ -356,6 +356,7 @@
                                                                                options:0
                                                                                  error:NULL];
          if (entitiesPropertyList) {
+             self.user = [[User alloc]init];
              self.user = [User userWithAppServerInfo:entitiesPropertyList forUser:[self user]];
              success([self user]);
          }

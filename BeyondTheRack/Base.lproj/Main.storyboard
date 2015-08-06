@@ -700,7 +700,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VkH-Kh-KN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="uF3-JU-aIU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1591" y="48"/>
+            <point key="canvasLocation" x="1364" y="-50"/>
         </scene>
         <!--Help View Controller-->
         <scene sceneID="J40-P4-0Fc">
@@ -1799,7 +1799,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="432591B3-A0E0-4EB5-A6BD-6C785F115015" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="65ABA8EE-9F2C-4A4A-A7CD-0A4D0263A7A0" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -4957,7 +4957,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="432591B3-A0E0-4EB5-A6BD-6C785F115015" width="30" height="30">
+        <image name="65ABA8EE-9F2C-4A4A-A7CD-0A4D0263A7A0" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
