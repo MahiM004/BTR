@@ -403,6 +403,10 @@
 
 - (IBAction)tappedCheckout:(UIButton *)sender {
     
+    if ([self.bagItemsArray count] == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no item in bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        return;
+    }
     
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSDictionary *paymentsDictionary) {
