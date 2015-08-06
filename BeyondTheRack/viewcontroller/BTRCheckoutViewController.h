@@ -43,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIControl *processOrderView;
 @property (weak, nonatomic) IBOutlet UIControl *receiptView;
 @property (weak, nonatomic) IBOutlet UIControl *pleaseFillOutTheShippingFormView;
+@property (weak, nonatomic) IBOutlet UIControl *changePaymentMethodView;
 
 
 
@@ -103,6 +104,7 @@
  
  */
 
+
 @property (weak, nonatomic) IBOutlet UITextField *paymentMethodTF;
 @property (weak, nonatomic) IBOutlet UITextField *expiryMonthPaymentTF;
 @property (weak, nonatomic) IBOutlet UITextField *expiryYearPaymentTF;
@@ -111,7 +113,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *cardVerificationPaymentTF;
 @property (weak, nonatomic) IBOutlet CTCheckbox *remeberCardInfoCheckbox;
 @property (weak, nonatomic) IBOutlet UITextField *giftCardCodePaymentTF;
-
+@property (weak, nonatomic) IBOutlet CTCheckbox *changePaymentMethodCheckbox;
 
 
 /**

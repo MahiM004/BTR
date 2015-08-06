@@ -139,18 +139,26 @@
     
     NSInteger expMonthInt = [[[[self expiryMonthPaymentTF] text] componentsSeparatedByString:@" -"][0] integerValue];
     NSString *expMonth = [NSString stringWithFormat:@"%ld", (long)expMonthInt];
+    NSDictionary *info;
+    if (self.changePaymentMethodCheckbox.checked == NO && [self.order.useToken boolValue])
+        info = (@{
+                  @"token" : self.order.cardToken,
+                  @"ise_token" : @true,
+                  @"remember_card" : [NSNumber numberWithBool:[self.remeberCardInfoCheckbox checked]]
+                  });
+    else
+        info = (@{
+                  @"type": paymentTypeToPass,
+                  @"name": [[self nameOnCardPaymentTF] text],
+                  @"number": [[self cardNumberPaymentTF] text],
+                  @"year": [[self expiryYearPaymentTF] text],
+                  @"month": expMonth,
+                  @"cvv": [[self cardVerificationPaymentTF] text],
+                  @"use_token": @false,
+                  @"token": @"295219000",
+                  @"remember_card": [NSNumber numberWithBool:[self.remeberCardInfoCheckbox checked]]
+                  });
     
-    NSDictionary *info = (@{
-                            @"type": paymentTypeToPass,
-                            @"name": [[self nameOnCardPaymentTF] text],
-                            @"number": [[self cardNumberPaymentTF] text],
-                            @"year": [[self expiryYearPaymentTF] text],
-                            @"month": expMonth,
-                            @"cvv": [[self cardVerificationPaymentTF] text],
-                            @"use_token": @false,
-                            @"token": @"295219000",
-                            @"remember_card": [NSNumber numberWithBool:[self.remeberCardInfoCheckbox checked]]
-                        });
     return info;
 }
 
@@ -197,14 +205,13 @@
     self.isLoading = YES;
     
     // card info
-    if (self.cardNumberPaymentTF.text.length == 0)
-        [self.cardNumberPaymentTF setPlaceholder:[[self.order cardNumber]stringByReplacingOccurrencesOfString:@" " withString:@""]];
-    if (self.expiryYearPaymentTF.text.length == 0)
-        [self.expiryYearPaymentTF setText:[self.order expiryYear]];
-    if (self.order.expiryMonth.length > 0)
-        [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
-    if (self.paymentMethodTF.text.length == 0 && self.order.cardType.length > 0) {
-        [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
+    [self fillPaymentInfoWithCurrentData];
+    if (self.order.lockCCFields) {
+        [self.changePaymentMethodView setHidden:NO];
+        [self.cardVerificationPaymentTF setText:@"xxx"];
+        [self disablePaymentInfo];
+    } else {
+        [self.changePaymentMethodView setHidden:YES];
     }
     
     // shipping
@@ -232,6 +239,7 @@
     [self.orderIsGiftCheckbox setChecked:[[self.order isGift] boolValue]];
     [self.pickupOptionCheckbox setChecked:[[self.order isPickup] boolValue]];
     [self.remeberCardInfoCheckbox setChecked:[[self.order rememberCard] boolValue]];
+    [self.changePaymentMethodCheckbox setChecked:![[self.order lockCCFields]boolValue]];
     
     [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
     [self.vipOptionCheckbox addTarget:self action:@selector(checkboxVipOptionDidChange:) forControlEvents:UIControlEventValueChanged];
@@ -241,6 +249,9 @@
     
     [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
     [self.pickupOptionCheckbox addTarget:self action:@selector(checkboxPickupOptionDidChange:) forControlEvents:UIControlEventValueChanged];
+    
+    [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
+    [self.changePaymentMethodCheckbox addTarget:self action:@selector(checkboxChangePaymentMethodDidChange:) forControlEvents:UIControlEventValueChanged];
     
     // prices
     if (self.totalSave == 0) {
@@ -276,6 +287,24 @@
 - (IBAction)shippingFieldChanged:(id)sender {
     if (self.sameAddressCheckbox.checked)
         [self copyShipingAddressToBillingAddress];
+}
+
+-(void)checkboxChangePaymentMethodDidChange:(CTCheckbox *)checkbox {
+    
+    if (self.isLoading) {
+        return;
+    }
+    
+    if ([checkbox checked]) {
+        [self enablePaymentInfo];
+        [self clearPaymentInfo];
+    } else {
+        [self fillPaymentInfoWithCurrentData];
+        [self.cardVerificationPaymentTF setText:@"xxx"];
+        [self disablePaymentInfo];
+    }
+    
+    
 }
 
 
@@ -463,6 +492,62 @@
     [self.provinceShippingTF setText:@""];
     [self.cityShippingTF setText:@""];
     [self.phoneShippingTF setText:@""];
+}
+
+- (void) disablePaymentInfo {
+    [self.paymentMethodTF setEnabled:NO];
+    [self.cardNumberPaymentTF setEnabled:NO];
+    [self.cardVerificationPaymentTF setEnabled:NO];
+    [self.nameOnCardPaymentTF setEnabled:NO];
+    [self.expiryYearPaymentTF setEnabled:NO];
+    [self.expiryMonthPaymentTF setEnabled:NO];
+    
+    
+    [self.paymentMethodTF setAlpha:0.6f];
+    [self.cardNumberPaymentTF setAlpha:0.6f];
+    [self.cardVerificationPaymentTF setAlpha:0.6f];
+    [self.nameOnCardPaymentTF setAlpha:0.6f];
+    [self.expiryMonthPaymentTF setAlpha:0.6f];
+    [self.expiryYearPaymentTF setAlpha:0.6f];
+}
+
+- (void) enablePaymentInfo {
+    [self.paymentMethodTF setEnabled:YES];
+    [self.cardNumberPaymentTF setEnabled:YES];
+    [self.cardVerificationPaymentTF setEnabled:YES];
+    [self.nameOnCardPaymentTF setEnabled:YES];
+    [self.expiryYearPaymentTF setEnabled:YES];
+    [self.expiryMonthPaymentTF setEnabled:YES];
+    
+    
+    [self.paymentMethodTF setAlpha:1.0f];
+    [self.cardNumberPaymentTF setAlpha:1.0f];
+    [self.cardVerificationPaymentTF setAlpha:1.0f];
+    [self.nameOnCardPaymentTF setAlpha:1.0f];
+    [self.expiryMonthPaymentTF setAlpha:1.0f];
+    [self.expiryYearPaymentTF setAlpha:1.0f];
+}
+
+- (void) fillPaymentInfoWithCurrentData {
+    if (self.cardNumberPaymentTF.text.length == 0)
+        [self.cardNumberPaymentTF setPlaceholder:self.order.cardNumber];
+    if (self.expiryYearPaymentTF.text.length == 0)
+        [self.expiryYearPaymentTF setText:[self.order expiryYear]];
+    if (self.order.expiryMonth.length > 0)
+        [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
+    if  (self.order.billingName.length > 0)
+        self.nameOnCardPaymentTF.text = self.order.billingName;
+    if (self.paymentMethodTF.text.length == 0 && self.order.cardType.length > 0)
+        [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
+}
+
+- (void) clearPaymentInfo {
+    [self.paymentMethodTF setText:@""];
+    [self.cardNumberPaymentTF setText:@""];
+    [self.cardVerificationPaymentTF setText:@""];
+    [self.nameOnCardPaymentTF setText:@""];
+    [self.expiryYearPaymentTF setText:@""];
+    [self.expiryMonthPaymentTF setText:@""];
 }
 
 #pragma mark - Dissmiss Keyboard
@@ -776,7 +861,7 @@
         return NO;
     }
     
-    if (self.cardNumberPaymentTF.text.length > 20 || self.cardNumberPaymentTF.text.length < 13) {
+    if (self.cardNumberPaymentTF.isEnabled && (self.cardNumberPaymentTF.text.length > 20 || self.cardNumberPaymentTF.text.length < 13)) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.cardNumberPaymentTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.cardNumberPaymentTF.frame animated:YES];
