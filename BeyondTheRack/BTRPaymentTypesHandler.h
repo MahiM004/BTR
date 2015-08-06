@@ -21,4 +21,7 @@
 - (NSString *)paymentTypeforCardDisplayName:(NSString *)displayName;
 - (NSString *)cardDisplayNameforPaymentType:(NSString *)paymentType;
 
+- (NSString *)cardTypeForDispalyName:(NSString *)displayName;
+- (NSString *)cardDisplayNameForType:(NSString *)cardType;
+
 @end

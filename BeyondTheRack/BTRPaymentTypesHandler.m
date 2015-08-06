@@ -52,8 +52,6 @@ static BTRPaymentTypesHandler *_sharedInstance;
     return _creditCardDisplayNameArray;
 }
 
-
-
 - (void)clearData {
     
     [[self paymentTypesArray] removeAllObjects];
@@ -61,6 +59,26 @@ static BTRPaymentTypesHandler *_sharedInstance;
     [[self creditCardDisplayNameArray] removeAllObjects];
 }
 
+- (NSString *)cardTypeForDispalyName:(NSString *)displayName {
+    int i = -1;
+    for (NSString *cardDisplayNameItem in [self creditCardDisplayNameArray]) {
+        i++;
+        if ([cardDisplayNameItem containsString:displayName])
+            break;
+    }
+    return [self.creditCardTypeArray objectAtIndex:i];
+}
+
+- (NSString *)cardDisplayNameForType:(NSString *)cardType {
+    int i = -1;
+    for (NSString *cardTypeItem in [self creditCardTypeArray]) {
+        i++;
+        
+        if ([cardTypeItem containsString:cardType])
+            break;
+    }
+    return [self.creditCardDisplayNameArray objectAtIndex:i];
+}
 
 
 - (NSString *)paymentTypeforCardDisplayName:(NSString *)displayName {

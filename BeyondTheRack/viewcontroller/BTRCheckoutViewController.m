@@ -148,6 +148,7 @@
                                 @"cvv": [[self cardVerificationPaymentTF] text],
                                 @"use_token": @false,
                                 @"token": @"295219000",
+                                @"type" : [sharedPaymentTypes cardTypeForDispalyName:[[self paymentMethodTF]text]],
                                 @"remember_card": [NSNumber numberWithBool:[self.remeberCardInfoCheckbox checked]]
                             });
     return info;
@@ -202,6 +203,9 @@
         [self.expiryYearPaymentTF setText:[self.order expiryYear]];
     if (self.order.expiryMonth.length > 0)
         [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
+    if (self.paymentMethodTF.text.length == 0 && self.order.cardType.length > 0) {
+        [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
+    }
     
     // shipping
     [self.recipientNameShippingTF setText:[self.order shippingRecipientName]];
