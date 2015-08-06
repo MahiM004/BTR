@@ -140,17 +140,17 @@
     NSInteger expMonthInt = [[[[self expiryMonthPaymentTF] text] componentsSeparatedByString:@" -"][0] integerValue];
     NSString *expMonth = [NSString stringWithFormat:@"%ld", (long)expMonthInt];
     
-    NSDictionary *info = (@{@"type": paymentTypeToPass,
-                                @"name": [[self nameOnCardPaymentTF] text],
-                                @"number": [[self cardNumberPaymentTF] text],
-                                @"year": [[self expiryYearPaymentTF] text],
-                                @"month": expMonth,
-                                @"cvv": [[self cardVerificationPaymentTF] text],
-                                @"use_token": @false,
-                                @"token": @"295219000",
-                                @"type" : [sharedPaymentTypes cardTypeForDispalyName:[[self paymentMethodTF]text]],
-                                @"remember_card": [NSNumber numberWithBool:[self.remeberCardInfoCheckbox checked]]
-                            });
+    NSDictionary *info = (@{
+                            @"type": paymentTypeToPass,
+                            @"name": [[self nameOnCardPaymentTF] text],
+                            @"number": [[self cardNumberPaymentTF] text],
+                            @"year": [[self expiryYearPaymentTF] text],
+                            @"month": expMonth,
+                            @"cvv": [[self cardVerificationPaymentTF] text],
+                            @"use_token": @false,
+                            @"token": @"295219000",
+                            @"remember_card": [NSNumber numberWithBool:[self.remeberCardInfoCheckbox checked]]
+                        });
     return info;
 }
 
