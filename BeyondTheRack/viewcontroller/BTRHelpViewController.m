@@ -56,11 +56,22 @@
     BTRFAQTableViewCell* cell = (BTRFAQTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"BTRFAQTableViewCellIdentifier"];
     FAQ* faq = [self.faqArray objectAtIndex:indexPath.section];
     QA* qa = [faq.questionsAndAnswers objectAtIndex:indexPath.row];
-    cell.questionAndAnswerLabel.text = qa.question;
-    cell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
     cell.questionAndAnswerLabel.numberOfLines = -1;
-    return cell;
     
+    if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
+        FAQ* faq = [self.faqArray objectAtIndex:indexPath.section];
+        NSString* answerString = [[NSString alloc]init];
+        QA* qa = [faq.questionsAndAnswers objectAtIndex:indexPath.row];
+        for (NSString* answer in qa.answer)
+            answerString = [answerString stringByAppendingFormat:@"\n%@",answer];
+        NSString* resultString = [NSString stringWithFormat:@"%@ \n %@",qa.question,answerString];
+        cell.questionAndAnswerLabel.text = resultString;
+        cell.questionAndAnswerLabel.font = [UIFont systemFontOfSize:12.0f];
+    } else {
+        cell.questionAndAnswerLabel.text = qa.question;
+        cell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
+    }
+    return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -77,7 +88,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [self.helpTable beginUpdates]; // tell the table you're about to start making changes
-    
+
     BTRFAQTableViewCell* cell = (BTRFAQTableViewCell *)[self.helpTable cellForRowAtIndexPath:indexPath];
     FAQ* faq = [self.faqArray objectAtIndex:indexPath.section];
     NSString* answerString = [[NSString alloc]init];
@@ -86,22 +97,33 @@
         answerString = [answerString stringByAppendingFormat:@"\n%@",answer];
     NSString* resultString = [NSString stringWithFormat:@"%@ \n %@",qa.question,answerString];
 
+    
     // If the index path of the currently expanded cell is the same as the index that
     // has just been tapped set the expanded index to nil so that there aren't any
     // expanded cells, otherwise, set the expanded index to the index that has just
     // been selected.
     if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
+        self.expandedIndexPath = nil;
         cell.questionAndAnswerLabel.text = qa.question;
         cell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
-        self.expandedIndexPath = nil;
+
     } else {
+        
+        if (self.expandedIndexPath) {
+            BTRFAQTableViewCell* oldCell = (BTRFAQTableViewCell *)[self.helpTable cellForRowAtIndexPath:self.expandedIndexPath];
+            oldCell.questionAndAnswerLabel.text = qa.question;
+            oldCell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
+        }
+        
+        cell.questionAndAnswerLabel.text = qa.question;
+        cell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
         
         self.expandedIndexPath = indexPath;
         self.heightOfSelectedCell = [self findHeightForText:resultString havingWidth:self.helpTable.frame.size.width andFont:[UIFont systemFontOfSize:13.0f]];
         cell.questionAndAnswerLabel.font = [UIFont systemFontOfSize:12.0f];
-        cell.questionAndAnswerLabel.text = resultString;
+        cell.questionAndAnswerLabel.text = qa.question;
+        [self crossFadeCurrentTextInView:cell.questionAndAnswerLabel withNewText:resultString duration:0.7];
     }
-    
     [self.helpTable endUpdates];
 }
 
@@ -112,6 +134,28 @@
         
     }
     return 70.0; // Normal height
+}
+
+- (BOOL)crossFadeCurrentTextInView:(UIView *)view withNewText:(NSString *)text duration:(CGFloat)duration {
+    if (!view) { return NO; }
+    // Works only for UILabel or UITextField.
+    if ([view isKindOfClass:[UILabel class]] || [view isKindOfClass:[UITextField class]]) {
+        CATransition *animation = [CATransition animation];
+        animation.duration        = duration;
+        animation.type            = kCATransitionFade;
+        animation.timingFunction= [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        [view.layer addAnimation:animation forKey:@"changeTextTransition"];
+        
+        if ([view isKindOfClass:[UILabel class]]) {
+            ((UILabel *)view).text = text;
+        } else {
+            ((UITextField *)view).text = text;
+        }
+        
+        [view.layer performSelector:@selector(removeAnimationForKey:) withObject:@"changeTextTransition" afterDelay:duration]; // Remove animation.
+        return YES;
+    }
+    return NO;
 }
 
 @end
