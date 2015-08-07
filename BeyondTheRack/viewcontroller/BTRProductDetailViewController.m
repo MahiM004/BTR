@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 @property (strong, nonatomic) NSString *variant;
+@property (strong, nonatomic) NSString *quantity;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 @property (strong, nonatomic) Item *itemSelectedfromSearchResult;
 @property (strong, nonatomic) NSDictionary *variantInventoryDictionaryforItemfromSearch;
@@ -52,7 +53,8 @@
     
     [super viewDidLoad];
     
-    self.variant = SIZE_NOT_SELECTED_STRING;
+    if (self.variant == nil)
+        self.variant = SIZE_NOT_SELECTED_STRING;
     
     NSLog(@"update add_to_bag for search: no event_id is provided");
     
@@ -129,35 +131,30 @@
     NSDictionary *params = (@{
                               @"event_id": [[self productItem] eventId],
                               @"sku": [[self productItem] sku],
-                              @"variant":[self variant]
+                              @"variant":[self variant],
                               });
     
     [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]]
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
-              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                   options:0
-                                                                                     error:NULL];
-              
-              NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
-              NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
-              NSDate *serverTime = [NSDate date];
-              
-              self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
-                                                        withServerDateTime:serverTime
-                                                          forBagItemsArray:[self bagItemsArray]
-                                                                 isExpired:@"false"];
-              
-              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
-                                                                           withServerDateTime:serverTime
-                                                                             forBagItemsArray:[self bagItemsArray]
-                                                                                    isExpired:@"true"]];
-              
-              BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-              [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-              
-              success(@"TRUE");
+              if (self.quantity.intValue > 1) {
+                  NSDictionary *itemInfo = (@{@"event_id": [[self productItem] eventId],
+                                          @"sku": [[self productItem] sku],
+                                          @"variant":[self variant],
+                                          @"quantity":[self quantity]
+                                          });
+                  NSDictionary *updateParam = (@{@"key1" : itemInfo});
+                  [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]] parameters:updateParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      [self updateBagWithJson:responseObject];
+                      success(@"TRUE");
+                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      failure(error);
+                  }];
+              } else {
+                  [self updateBagWithJson:responseObject];
+                  success(@"TRUE");
+              }
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         
@@ -166,6 +163,28 @@
           }];
 }
 
+- (void)updateBagWithJson:(id)responseObject {
+    NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                         options:0
+                                                                           error:NULL];
+    
+    NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
+    NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
+    NSDate *serverTime = [NSDate date];
+    
+    self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                                              withServerDateTime:serverTime
+                                                forBagItemsArray:[self bagItemsArray]
+                                                       isExpired:@"false"];
+    
+    [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                                                                 withServerDateTime:serverTime
+                                                                   forBagItemsArray:[self bagItemsArray]
+                                                                          isExpired:@"true"]];
+    
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+}
 
 
 
@@ -244,8 +263,8 @@
             
             embeddedVC.productItem = [self productItem];
             embeddedVC.eventId = [self eventId];
-            embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
             embeddedVC.attributesDictionary = [self attributesDictionary];
+            embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
         }
 
     }
@@ -255,8 +274,11 @@
 #pragma mark - BTRProductDetailEmbeddedTVC Delegate
 
 - (void)variantCodeforAddtoBag:(NSString *)variant {
-    
     self.variant = variant;
+}
+
+- (void)quantityForAddToBag:(NSString *)qty {
+    self.quantity = qty;
 }
 
 

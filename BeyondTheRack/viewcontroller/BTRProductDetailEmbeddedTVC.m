@@ -13,6 +13,7 @@
 #import "NSString+HeightCalc.h"
 #import <Social/Social.h>
 #import <Pinterest/Pinterest.h>
+#import "PKYStepper.h"
 
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
 #define kMargin             20.0
@@ -34,6 +35,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *selectSizeButton;
 @property (weak, nonatomic) IBOutlet UILabel *dropdownLabelIcon;
 @property (weak, nonatomic) IBOutlet UILabel *selectSizeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *qtyNum;
+@property (weak, nonatomic) IBOutlet UIView *stepperView;
+
 @property (nonatomic) NSInteger customHeight;
 @property (nonatomic) NSInteger descriptionCellHeight;
 @property (strong, nonatomic) NSString *productSku;
@@ -44,6 +48,7 @@
 @property (strong, nonatomic) NSMutableArray *attributeKeys;
 @property (strong, nonatomic) NSMutableArray *attributeValues;
 @property (nonatomic) NSUInteger selectedSizeIndex;
+@property (nonatomic, strong) PKYStepper *stepper;
 
 @end
 
@@ -123,6 +128,7 @@
 - (void)updateViewWithDeatiledItem:(Item *)productItem {
    
     self.productImageCount = [[productItem imageCount] integerValue];
+    __block BTRProductDetailEmbeddedTVC* selfPointer = self;
     
     if (productItem) {
         
@@ -137,11 +143,25 @@
         descriptionView = [self getSpecialNoteView:descriptionView withSpecialNote:[productItem specialNote]];
         [self.longDescriptionView addSubview:descriptionView];
         
+        self.stepper = [[PKYStepper alloc] initWithFrame:CGRectMake(0, 0, 90, 20)];
+        self.stepper.value = 1;
+        self.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
+            if (stepper.value < 1)
+                return;
+            stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
+            [selfPointer quantityChangedWithValue:stepper.countLabel.text];
+        };
+        
+        [self.stepper setup];
+        [self.stepperView addSubview:self.stepper];
+
         BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self variantInventoryDictionary]
                                                                                  toSizesArray:[self sizesArray]
                                                                              toSizeCodesArray:[self sizeCodesArray]
                                                                           toSizeQuantityArray:[self sizeQuantityArray]];
         [self updateSizeSelectionViewforSizeMode:sizeMode];
+        [self quantityChangedWithValue:@"1"];
+        
         
     } else {
         
@@ -327,7 +347,7 @@
             break;
             
         case 1:
-            return 174;
+            return 210;
             break;
             
         case 2:
@@ -459,9 +479,13 @@
     }
 }
 
+#pragma mark - Quantity Delegate
 
-
-
+- (void)quantityChangedWithValue:(NSString *)value {
+    if ([self.delegate respondsToSelector:@selector(quantityForAddToBag:)]) {
+        [self.delegate quantityForAddToBag:self.stepper.countLabel.text];
+    }
+}
 
 @end
 

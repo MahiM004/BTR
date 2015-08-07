@@ -30,7 +30,9 @@
 @protocol BTRProductDetailEmbeddedTVC <NSObject>
 
 @optional
+
 - (void)variantCodeforAddtoBag:(NSString *)variant;
+- (void)quantityForAddToBag:(NSString *)qty;
 
 @end
 
