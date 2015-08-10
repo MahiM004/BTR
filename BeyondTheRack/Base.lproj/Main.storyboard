@@ -1799,7 +1799,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="3B2EFFDB-5452-416D-9FA2-462BD318ADE2" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="5415E406-667C-4756-A186-442109AFFC92" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -4475,6 +4475,7 @@
                         <outlet property="billingAddressView" destination="8nE-kf-cID" id="yKC-3t-cOj"/>
                         <outlet property="cardNumberPaymentTF" destination="LsO-pP-D0H" id="fA5-qY-0Xh"/>
                         <outlet property="cardVerificationPaymentTF" destination="Usu-Zh-w15" id="tuc-Li-Qiv"/>
+                        <outlet property="changePaymentMethodCheckbox" destination="zub-pt-PFd" id="mdD-fK-581"/>
                         <outlet property="changePaymentMethodView" destination="RoO-Fg-VMY" id="wOw-qJ-nI3"/>
                         <outlet property="chatWithRepButton" destination="8DP-Dv-Q1l" id="8G0-Hj-318"/>
                         <outlet property="childViewforScrollView" destination="c9L-EK-f8Q" id="IAD-a9-KWh"/>
@@ -4984,7 +4985,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="3B2EFFDB-5452-416D-9FA2-462BD318ADE2" width="30" height="30">
+        <image name="5415E406-667C-4756-A186-442109AFFC92" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
