@@ -158,4 +158,12 @@
     return NO;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    // Text Color
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    [header.textLabel setFont:[UIFont boldSystemFontOfSize:16]];
+    [header.textLabel setTextColor:[UIColor colorWithRed:78.0/255.0 green:47.0/255.0 blue:47.0/255.0 alpha:1]];
+}
+
 @end
