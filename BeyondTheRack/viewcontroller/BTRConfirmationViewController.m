@@ -33,8 +33,8 @@
     
     if (self.transactionID) {
         // adding transactionID
-        NSString *string = @"we've billed your order to the transaction number : 1111 with following address :";
-        NSRange range = [string rangeOfString:@"1111"];
+        NSString *string = [NSString stringWithFormat:@"we've billed your order to the transaction number : %@ with following address :",self.transactionID];
+        NSRange range = [string rangeOfString:self.transactionID];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:string];
         [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
         self.billingLabel.attributedText = attributedString;
