@@ -324,9 +324,11 @@
         order.shippingPrice = [NSString stringWithFormat:@"%.2f",[[totalPriceDictionary valueForKeyPath:@"ship_total"]floatValue]];
     }
     
-    
-    if ([orderDictionary valueForKeyPath:@"sucess"] && [orderDictionary valueForKeyPath:@"sucess"] != [NSNull null]) {
-        order.isAccepted = [[orderDictionary valueForKeyPath:@"sucess"]boolValue];
+    NSDictionary* payment = [orderDictionary valueForKey:@"payment"];
+    if (payment) {
+        if ([payment valueForKeyPath:@"sucess"] && [payment valueForKeyPath:@"sucess"] != [NSNull null]) {
+            order.isAccepted = [[orderDictionary valueForKeyPath:@"sucess"]boolValue];
+        }
     }
     
     /**
