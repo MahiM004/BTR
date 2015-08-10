@@ -326,8 +326,8 @@
     
     NSDictionary* payment = [orderDictionary valueForKey:@"payment"];
     if (payment) {
-        if ([payment valueForKeyPath:@"sucess"] && [payment valueForKeyPath:@"sucess"] != [NSNull null]) {
-            order.isAccepted = [[orderDictionary valueForKeyPath:@"sucess"]boolValue];
+        if ([payment valueForKeyPath:@"success"] && [payment valueForKeyPath:@"success"] != [NSNull null]) {
+            order.isAccepted = [[orderDictionary valueForKeyPath:@"success"]boolValue];
         }
     }
     
