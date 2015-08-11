@@ -535,8 +535,10 @@
 
 - (void)fillPaymentInfoWithCurrentData {
     
-    if ([self.order.paymentType isEqualToString:@"paypal"])
-        self.paymentMethodTF.text = @"Paypal";
+    if ([self.order.paymentType isEqualToString:@"paypal"]) {
+        [self.paymentMethodTF setText:@"Paypal"];
+        [self changeDetailPaymentFor:paypal];
+    }
     else {
         if (self.cardNumberPaymentTF.text.length == 0)
             [self.cardNumberPaymentTF setText:self.order.cardNumber];
@@ -862,7 +864,9 @@
                }];
         }];
     } else if ([self.paymentMethodTF.text isEqualToString:@"Paypal"]) {
-        [self getPaypalInfo];
+        [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
+            [self getPaypalInfo];
+        }];
     }
 }
 
