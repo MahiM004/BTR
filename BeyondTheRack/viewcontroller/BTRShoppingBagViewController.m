@@ -429,6 +429,9 @@
             [[sharedPaymentTypes creditCardDisplayNameArray] addObject:tempString];
         }
         
+        if ([[sharedPaymentTypes paymentTypesArray] containsObject:@"paypal"])
+            [[sharedPaymentTypes creditCardDisplayNameArray] addObject:@"Paypal"];
+
         [self performSegueWithIdentifier:@"BTRCheckoutSegueIdentifier" sender:self];
         
     } failure:^(NSError *error) {
@@ -436,7 +439,6 @@
     }];
     
 }
-
 
 
 - (IBAction)tappedClose:(UIButton *)sender {

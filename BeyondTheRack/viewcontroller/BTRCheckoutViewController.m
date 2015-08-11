@@ -9,7 +9,9 @@
 #import "BTRCheckoutViewController.h"
 #import "BTRPaymentTypesHandler.h"
 #import "BTRConfirmationViewController.h"
+#import "BTRPaypalCheckoutViewController.h"
 #import "BTROrderFetcher.h"
+#import "BTRPaypalFetcher.h"
 #import "Order+AppServer.h"
 #import "Item.h"
 
@@ -45,7 +47,8 @@
 @property BOOL isLoading;
 @property float totalSave;
 
-@property NSMutableArray* arrayOfGiftCards;
+@property (strong, nonatomic) NSMutableArray* arrayOfGiftCards;
+@property (strong, nonatomic) NSDictionary* paypal;
 
 @end
 
@@ -205,6 +208,8 @@
     self.isLoading = YES;
     
     // card info
+    // check payment method
+    
     [self fillPaymentInfoWithCurrentData];
     if (self.order.lockCCFields) {
         [self.changePaymentMethodView setHidden:NO];
@@ -529,16 +534,23 @@
 }
 
 - (void) fillPaymentInfoWithCurrentData {
-    if (self.cardNumberPaymentTF.text.length == 0)
-        [self.cardNumberPaymentTF setPlaceholder:self.order.cardNumber];
-    if (self.expiryYearPaymentTF.text.length == 0)
-        [self.expiryYearPaymentTF setText:[self.order expiryYear]];
-    if (self.order.expiryMonth.length > 0)
-        [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
+    
+    if ([self.order.paymentType isEqualToString:@"paypal"])
+        self.paymentMethodTF.text = @"Paypal";
+    else {
+        if (self.cardNumberPaymentTF.text.length == 0)
+            [self.cardNumberPaymentTF setText:self.order.cardNumber];
+        if (self.expiryYearPaymentTF.text.length == 0)
+            [self.expiryYearPaymentTF setText:[self.order expiryYear]];
+        if (self.order.expiryMonth.length > 0)
+            [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
+        if  (self.order.billingName.length > 0)
+            self.nameOnCardPaymentTF.text = self.order.billingName;
+        if (self.paymentMethodTF.text.length == 0 && self.order.cardType.length > 0)
+            [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
+    }
     if  (self.order.billingName.length > 0)
         self.nameOnCardPaymentTF.text = self.order.billingName;
-    if (self.paymentMethodTF.text.length == 0 && self.order.cardType.length > 0)
-        [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
 }
 
 - (void) clearPaymentInfo {
@@ -786,8 +798,8 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
 
     [params setObject:orderInfo forKey:@"orderInfo"];
-    [params setObject:@"creditcard" forKey:@"paymentMethod"];
     [params setObject:[self cardInfo] forKey:@"cardInfo"];
+    [params setObject:@"creditcard" forKey:@"paymentMethod"];
     
     [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
     [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]]
@@ -807,7 +819,7 @@
 
 - (IBAction)processOrderTpped:(UIButton *)sender {
 
-    if ([self isCompeletedForm]) {
+    if (![self.paymentMethodTF.text isEqualToString:@"Paypal"] && [self isCompeletedForm]) {
         [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
                [self makePaymentforSessionId:[session sessionId] success:^(id responseObject) {
                    [self orderConfirmationWithReceipt:responseObject];
@@ -815,6 +827,8 @@
                    NSLog(@"%@",error);
                }];
         }];
+    } else if ([self.paymentMethodTF.text isEqualToString:@"Paypal"]) {
+        [self getPaypalInfo];
     }
 }
 
@@ -980,11 +994,44 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"]) {
         BTRConfirmationViewController* confirm = [segue destinationViewController];
         confirm.order = self.order;
+    } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
+        BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
+        paypalVC.paypal = self.paypal;
     }
+
 }
+
+#pragma mark Paypal
+
+- (void)getPaypalInfo {
+    
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                             options:0
+                                                                               error:NULL];
+        
+        if (entitiesPropertyList) {
+            [self setPaypal:entitiesPropertyList];
+            [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
+}
+
 
 @end
 

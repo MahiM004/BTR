@@ -26,9 +26,17 @@
 
     NSDictionary *successfulorder = orderDictionary[@"order"];
     
+    // payment method
+    order.paymentType = [orderDictionary valueForKey:@"paymentMethod"];
+    
+    
+    // order info
     if ([successfulorder valueForKeyPath:@"order_id"] && [successfulorder valueForKeyPath:@"order_id"] != [NSNull null]) {
         order.orderId = [successfulorder valueForKeyPath:@"order_id"];
     }
+    
+    
+    // card info
     
     NSDictionary *cardInfoDic = orderDictionary[@"cardInfo"];
     
