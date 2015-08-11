@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="0sZ-8O-Aj3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2UK-j1-Cdh">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1799,7 +1799,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="057014AE-BF99-479D-BE95-64C9F64701A0" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="459E24F2-3E07-470C-94C6-A6EDBE71FA84" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3571,15 +3571,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Srq-vU-sly">
                                 <rect key="frame" x="0.0" y="72" width="320" height="3128"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ur5-m7-9SJ" userLabel="Picker Parent View">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="496"/>
-                                        <subviews>
-                                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pKD-Yf-poT">
-                                                <rect key="frame" x="0.0" y="220" width="320" height="268"/>
-                                            </pickerView>
-                                        </subviews>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
-                                    </view>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ol2-Jf-Nst">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="3128"/>
                                         <subviews>
@@ -4166,6 +4157,12 @@
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="npG-w9-6PJ" userLabel="Payment Method Text Field">
+                                                                <rect key="frame" x="14" y="48" width="268" height="30"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                                            </textField>
                                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ya-e6-3wO" userLabel="Payment Method Button">
                                                                 <rect key="frame" x="8" y="35" width="281" height="50"/>
                                                                 <state key="normal">
@@ -4175,12 +4172,6 @@
                                                                     <action selector="paymentMethodButtonTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="Vel-ie-Air"/>
                                                                 </connections>
                                                             </button>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="npG-w9-6PJ" userLabel="Payment Method Text Field">
-                                                                <rect key="frame" x="14" y="48" width="268" height="30"/>
-                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
-                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                                                            </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4680,13 +4671,28 @@
                                             <constraint firstItem="c9L-EK-f8Q" firstAttribute="leading" secondItem="Ol2-Jf-Nst" secondAttribute="leading" id="Upa-2Y-ZKu"/>
                                         </constraints>
                                     </scrollView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ur5-m7-9SJ" userLabel="Picker Parent View">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="496"/>
+                                        <subviews>
+                                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pKD-Yf-poT">
+                                                <rect key="frame" x="0.0" y="220" width="320" height="268"/>
+                                            </pickerView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="320" id="IZU-B5-saf"/>
+                                            <constraint firstAttribute="height" constant="496" id="SgR-aO-wcZ"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="Ur5-m7-9SJ" secondAttribute="centerX" id="42x-zB-wHg"/>
                                     <constraint firstAttribute="trailing" secondItem="Ol2-Jf-Nst" secondAttribute="trailing" id="CXL-aI-g0t"/>
                                     <constraint firstAttribute="bottom" secondItem="Ol2-Jf-Nst" secondAttribute="bottom" id="Hge-qo-pcN"/>
                                     <constraint firstItem="Ol2-Jf-Nst" firstAttribute="leading" secondItem="Srq-vU-sly" secondAttribute="leading" id="VTi-D0-amo"/>
                                     <constraint firstItem="Ol2-Jf-Nst" firstAttribute="top" secondItem="Srq-vU-sly" secondAttribute="top" id="WSD-EI-uCn"/>
+                                    <constraint firstItem="Ur5-m7-9SJ" firstAttribute="top" secondItem="Srq-vU-sly" secondAttribute="top" id="xf2-jW-Tuc"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -5224,7 +5230,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="057014AE-BF99-479D-BE95-64C9F64701A0" width="30" height="30">
+        <image name="459E24F2-3E07-470C-94C6-A6EDBE71FA84" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
