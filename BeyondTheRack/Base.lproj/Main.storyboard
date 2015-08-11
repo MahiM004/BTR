@@ -1799,7 +1799,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="459E24F2-3E07-470C-94C6-A6EDBE71FA84" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="012FFCDA-E842-46B5-B5A1-129DA67C6800" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -4179,7 +4179,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UMJ-3u-QOG" userLabel="Payment Credit Details View" customClass="UIControl">
-                                                        <rect key="frame" x="11" y="2078" width="299" height="310"/>
+                                                        <rect key="frame" x="11" y="2086" width="299" height="310"/>
                                                         <subviews>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PM4-29-cSq" userLabel="Expiry Month Text Field">
                                                                 <rect key="frame" x="8" y="45" width="80" height="30"/>
@@ -4269,7 +4269,7 @@
                                                         </connections>
                                                     </view>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4E0-xo-dH1" userLabel="Payment Paypal Details View" customClass="UIControl">
-                                                        <rect key="frame" x="16" y="2158" width="290" height="150"/>
+                                                        <rect key="frame" x="11" y="2086" width="299" height="150"/>
                                                         <subviews>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="225-RN-SZ9" userLabel="Name On Card Text Field">
                                                                 <rect key="frame" x="8" y="45" width="268" height="30"/>
@@ -4297,11 +4297,10 @@
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="150" id="oqg-Hz-Afj"/>
-                                                            <constraint firstAttribute="width" constant="290" id="sWK-N6-qkE"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9xt-mA-x40" userLabel="Remember Card Info View" customClass="UIControl">
-                                                        <rect key="frame" x="13" y="2396" width="295" height="75"/>
+                                                        <rect key="frame" x="13" y="2404" width="295" height="75"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SUS-TQ-Ca1" customClass="CTCheckbox">
                                                                 <rect key="frame" x="35" y="19" width="52" height="39"/>
@@ -4324,11 +4323,11 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OqG-U0-ohC" userLabel="Line View">
-                                                        <rect key="frame" x="13" y="2472" width="299" height="1"/>
+                                                        <rect key="frame" x="13" y="2480" width="299" height="1"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Zd-vk-R79" userLabel="Have a Gift Card View" customClass="UIControl">
-                                                        <rect key="frame" x="16" y="2488" width="290" height="165"/>
+                                                        <rect key="frame" x="11" y="2496" width="299" height="165"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Have a Gift Card?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSs-Dt-pWV">
                                                                 <rect key="frame" x="8" y="0.0" width="227" height="33"/>
@@ -4369,11 +4368,11 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZQt-7r-xNe" userLabel="Line View">
-                                                        <rect key="frame" x="13" y="2668" width="299" height="1"/>
+                                                        <rect key="frame" x="13" y="2676" width="299" height="1"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfA-RE-Skl" userLabel="Receipt View" customClass="UIControl">
-                                                        <rect key="frame" x="16" y="2694" width="290" height="365"/>
+                                                        <rect key="frame" x="11" y="2702" width="299" height="365"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You are about to save" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdW-Q3-jWz">
                                                                 <rect key="frame" x="48" y="-5" width="149" height="33"/>
@@ -4523,7 +4522,7 @@
                                                         </connections>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Return policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Smh-yf-Fky">
-                                                        <rect key="frame" x="16" y="3075" width="225" height="35"/>
+                                                        <rect key="frame" x="11" y="3083" width="225" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="JtY-TL-B1L"/>
                                                             <constraint firstAttribute="width" constant="225" id="aoW-XN-u1j"/>
@@ -4533,7 +4532,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We know it's sometimes necessary to return or exchange an item, and we want to make it easy." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIe-9v-N2g">
-                                                        <rect key="frame" x="16" y="3118" width="290" height="80"/>
+                                                        <rect key="frame" x="11" y="3126" width="299" height="80"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="80" id="bR4-3K-ulp"/>
                                                         </constraints>
@@ -4542,7 +4541,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVC-Gn-ZXr" userLabel="Process Order View" customClass="UIControl">
-                                                        <rect key="frame" x="40" y="3214" width="240" height="45"/>
+                                                        <rect key="frame" x="40" y="3222" width="240" height="45"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rB5-a0-omz">
                                                                 <rect key="frame" x="-17" y="0.0" width="290" height="43"/>
@@ -4584,7 +4583,6 @@
                                                     <constraint firstItem="NJe-U7-eGZ" firstAttribute="leading" secondItem="eJn-aA-q8w" secondAttribute="leading" id="7qH-Sp-psE"/>
                                                     <constraint firstItem="RoO-Fg-VMY" firstAttribute="top" secondItem="B89-fP-zTv" secondAttribute="bottom" constant="8" id="80k-Gi-wtb"/>
                                                     <constraint firstItem="lM0-He-9qJ" firstAttribute="leading" secondItem="5p5-VP-ueI" secondAttribute="leading" id="9aN-bE-3E4"/>
-                                                    <constraint firstItem="4E0-xo-dH1" firstAttribute="centerY" secondItem="UMJ-3u-QOG" secondAttribute="centerY" id="Abu-sg-Oh8"/>
                                                     <constraint firstItem="lfA-RE-Skl" firstAttribute="leading" secondItem="Smh-yf-Fky" secondAttribute="leading" id="AfP-L4-0oz"/>
                                                     <constraint firstItem="ln3-hN-uTx" firstAttribute="width" secondItem="S7k-4C-rbH" secondAttribute="width" id="Bt8-xi-Wdn"/>
                                                     <constraint firstItem="dha-OH-czU" firstAttribute="top" secondItem="lM0-He-9qJ" secondAttribute="bottom" constant="10" id="Ckk-6S-jBX"/>
@@ -4600,7 +4598,7 @@
                                                     <constraint firstItem="RoO-Fg-VMY" firstAttribute="width" secondItem="B89-fP-zTv" secondAttribute="width" id="Hzq-n4-Yfa"/>
                                                     <constraint firstItem="ZQt-7r-xNe" firstAttribute="height" secondItem="yC3-Tr-58E" secondAttribute="height" id="IIm-en-CLJ"/>
                                                     <constraint firstAttribute="centerX" secondItem="S7k-4C-rbH" secondAttribute="centerX" id="JiT-VD-peE"/>
-                                                    <constraint firstItem="UMJ-3u-QOG" firstAttribute="top" secondItem="9fj-xr-tjD" secondAttribute="bottom" id="Lcy-0f-DJX"/>
+                                                    <constraint firstItem="UMJ-3u-QOG" firstAttribute="top" secondItem="9fj-xr-tjD" secondAttribute="bottom" constant="8" id="Lcy-0f-DJX"/>
                                                     <constraint firstItem="4E0-xo-dH1" firstAttribute="trailing" secondItem="0Zd-vk-R79" secondAttribute="trailing" id="MGB-Jh-JxU"/>
                                                     <constraint firstItem="caJ-L9-xIy" firstAttribute="leading" secondItem="8nE-kf-cID" secondAttribute="leading" id="MTq-nG-QIH"/>
                                                     <constraint firstItem="hVC-Gn-ZXr" firstAttribute="top" secondItem="XIe-9v-N2g" secondAttribute="bottom" constant="16" id="Moq-m5-Pte"/>
@@ -4619,6 +4617,7 @@
                                                     <constraint firstItem="N6S-j5-1Bl" firstAttribute="top" secondItem="uYq-Ky-4Bi" secondAttribute="bottom" constant="16" id="U3u-pf-Yy6"/>
                                                     <constraint firstItem="caJ-L9-xIy" firstAttribute="trailing" secondItem="8nE-kf-cID" secondAttribute="trailing" id="UNt-AK-Fi8"/>
                                                     <constraint firstItem="RoO-Fg-VMY" firstAttribute="centerX" secondItem="9xt-mA-x40" secondAttribute="centerX" id="UU6-wN-ITT"/>
+                                                    <constraint firstItem="4E0-xo-dH1" firstAttribute="width" secondItem="9fj-xr-tjD" secondAttribute="width" id="Wor-Wy-C4k"/>
                                                     <constraint firstItem="4E0-xo-dH1" firstAttribute="leading" secondItem="lfA-RE-Skl" secondAttribute="leading" id="XDg-m9-alF"/>
                                                     <constraint firstItem="NJe-U7-eGZ" firstAttribute="leading" secondItem="jqV-Uu-PnF" secondAttribute="leading" constant="3" id="Xk7-7i-yBA"/>
                                                     <constraint firstItem="9xt-mA-x40" firstAttribute="top" secondItem="UMJ-3u-QOG" secondAttribute="bottom" constant="8" id="ZhU-KG-qLS"/>
@@ -4634,6 +4633,7 @@
                                                     <constraint firstItem="9fj-xr-tjD" firstAttribute="trailing" secondItem="UMJ-3u-QOG" secondAttribute="trailing" id="gvL-ES-fih"/>
                                                     <constraint firstItem="OqG-U0-ohC" firstAttribute="width" secondItem="yC3-Tr-58E" secondAttribute="width" id="hFd-CA-asg"/>
                                                     <constraint firstItem="OqG-U0-ohC" firstAttribute="top" secondItem="9xt-mA-x40" secondAttribute="bottom" constant="1" id="hUm-QE-lgQ"/>
+                                                    <constraint firstItem="4E0-xo-dH1" firstAttribute="top" secondItem="9fj-xr-tjD" secondAttribute="bottom" constant="8" id="imj-y0-P5E"/>
                                                     <constraint firstItem="dha-OH-czU" firstAttribute="height" secondItem="5p5-VP-ueI" secondAttribute="height" id="imo-kO-j9P"/>
                                                     <constraint firstItem="dha-OH-czU" firstAttribute="centerX" secondItem="5p5-VP-ueI" secondAttribute="centerX" constant="2" id="itQ-gW-BY8"/>
                                                     <constraint firstItem="NJe-U7-eGZ" firstAttribute="top" secondItem="dha-OH-czU" secondAttribute="bottom" constant="16" id="j01-MF-3XZ"/>
@@ -4727,6 +4727,7 @@
                         <outlet property="cityShippingTF" destination="v95-6M-mek" id="lrq-n1-4Ze"/>
                         <outlet property="countryBillingTF" destination="oWa-2r-R4j" id="JTo-Kg-UNd"/>
                         <outlet property="countryShippingTF" destination="Nnq-TZ-tnm" id="zZE-v6-sgr"/>
+                        <outlet property="creditCardDetailHeight" destination="y2o-J5-x7F" id="5aK-DP-Gyc"/>
                         <outlet property="expiryMonthPaymentTF" destination="PM4-29-cSq" id="tX7-w8-2C4"/>
                         <outlet property="expiryYearPaymentTF" destination="QqB-TQ-m8l" id="JrD-bO-I4b"/>
                         <outlet property="giftCardCodePaymentTF" destination="Y6S-Ql-qDM" id="h5a-0k-5Wz"/>
@@ -4743,6 +4744,8 @@
                         <outlet property="parentViewforScrollView" destination="Srq-vU-sly" id="Qh7-zt-Cc0"/>
                         <outlet property="paymentDetailsView" destination="UMJ-3u-QOG" id="xaD-un-rmy"/>
                         <outlet property="paymentMethodTF" destination="npG-w9-6PJ" id="gGd-5x-2Zr"/>
+                        <outlet property="paypalDetailHeight" destination="oqg-Hz-Afj" id="1eI-FG-uY8"/>
+                        <outlet property="paypalDetailsView" destination="4E0-xo-dH1" id="uk3-TK-mSQ"/>
                         <outlet property="phoneBillingTF" destination="XnV-5y-GNd" id="bln-eT-aLP"/>
                         <outlet property="phoneShippingTF" destination="cso-4f-sfd" id="dcf-ht-L5r"/>
                         <outlet property="pickerParentView" destination="Ur5-m7-9SJ" id="XXd-sM-2k8"/>
@@ -5230,7 +5233,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="459E24F2-3E07-470C-94C6-A6EDBE71FA84" width="30" height="30">
+        <image name="012FFCDA-E842-46B5-B5A1-129DA67C6800" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

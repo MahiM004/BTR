@@ -12,6 +12,11 @@
 
 #import "CTCheckbox.h"
 
+typedef enum {
+    creditCard,
+    paypal
+} paymentType;
+
 
 @interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate>
 
@@ -38,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIControl *sameAsShippingAddressView;
 @property (weak, nonatomic) IBOutlet UIControl *thisIsGiftView;
 @property (weak, nonatomic) IBOutlet UIControl *paymentDetailsView;
+@property (weak, nonatomic) IBOutlet UIControl *paypalDetailsView;
 @property (weak, nonatomic) IBOutlet UIControl *rememberCardInfoView;
 @property (weak, nonatomic) IBOutlet UIControl *haveGiftCardView;
 @property (weak, nonatomic) IBOutlet UIControl *processOrderView;
@@ -45,6 +51,15 @@
 @property (weak, nonatomic) IBOutlet UIControl *pleaseFillOutTheShippingFormView;
 @property (weak, nonatomic) IBOutlet UIControl *changePaymentMethodView;
 
+
+/**
+ 
+ Heights of Views
+ 
+ */
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *creditCardDetailHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *paypalDetailHeight;
 
 
 /**

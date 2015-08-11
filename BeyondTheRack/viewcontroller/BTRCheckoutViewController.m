@@ -313,7 +313,7 @@
 }
 
 
-- (void) checkboxVipOptionDidChange:(CTCheckbox *)checkbox {
+- (void)checkboxVipOptionDidChange:(CTCheckbox *)checkbox {
     
     if (self.isLoading)
         return;
@@ -336,7 +336,7 @@
     [self validateAddressViaAPIAndInCompletion:nil];
 }
 
-- (void) checkboxPickupOptionDidChange:(CTCheckbox *)checkbox {
+- (void)checkboxPickupOptionDidChange:(CTCheckbox *)checkbox {
     
     if (self.isLoading)
         return;
@@ -358,7 +358,7 @@
     [self validateAddressViaAPIAndInCompletion:nil];
 }
 
-- (void) disableShippingAddress {
+- (void)disableShippingAddress {
     
     [self.sameAsShippingAddressView setHidden:TRUE];
     [self.sameAddressCheckbox setChecked:FALSE];
@@ -384,7 +384,7 @@
 
 }
 
-- (void) enableShippingAddress {
+- (void)enableShippingAddress {
     
     [self.sameAsShippingAddressView setHidden:FALSE];
     
@@ -408,7 +408,7 @@
     [self.phoneShippingTF setAlpha:1.0f];
 }
 
-- (void) checkboxSameAddressDidChange:(CTCheckbox *)checkbox {
+- (void)checkboxSameAddressDidChange:(CTCheckbox *)checkbox {
     
     if (self.isLoading)
         return;
@@ -425,7 +425,7 @@
     }
 }
 
-- (void) copyShipingAddressToBillingAddress {
+- (void)copyShipingAddressToBillingAddress {
     [self.addressLine1BillingTF setText:[[self addressLine1ShippingTF] text]];
     [self.addressLine2BillingTF setText:[[self addressLine2ShippingTF] text]];
     [self.countryBillingTF setText:[[self countryShippingTF] text]];
@@ -435,7 +435,7 @@
     [self.phoneBillingTF setText:[[self phoneShippingTF] text]];
 }
 
-- (void) disableBillingAddress {
+- (void)disableBillingAddress {
     
     [self.billingAddressView setUserInteractionEnabled:FALSE];
     
@@ -456,7 +456,7 @@
     [self.phoneBillingTF setAlpha:0.6f];
 }
 
-- (void) enableBillingAddress {
+- (void)enableBillingAddress {
     
     [self.billingAddressView setUserInteractionEnabled:TRUE];
     
@@ -477,7 +477,7 @@
     [self.phoneBillingTF setAlpha:1.0f];
 }
 
-- (void) clearBillingAddress {
+- (void)clearBillingAddress {
     
     [self.addressLine1BillingTF setText:@""];
     [self.addressLine2BillingTF setText:@""];
@@ -488,7 +488,7 @@
     [self.phoneBillingTF setText:@""];
 }
 
-- (void) clearShippingAddress {
+- (void)clearShippingAddress {
     
     [self.addressLine1ShippingTF setText:@""];
     [self.addressLine2ShippingTF setText:@""];
@@ -499,7 +499,7 @@
     [self.phoneShippingTF setText:@""];
 }
 
-- (void) disablePaymentInfo {
+- (void)disablePaymentInfo {
     [self.paymentMethodTF setEnabled:NO];
     [self.cardNumberPaymentTF setEnabled:NO];
     [self.cardVerificationPaymentTF setEnabled:NO];
@@ -516,7 +516,7 @@
     [self.expiryYearPaymentTF setAlpha:0.6f];
 }
 
-- (void) enablePaymentInfo {
+- (void)enablePaymentInfo {
     [self.paymentMethodTF setEnabled:YES];
     [self.cardNumberPaymentTF setEnabled:YES];
     [self.cardVerificationPaymentTF setEnabled:YES];
@@ -533,7 +533,7 @@
     [self.expiryYearPaymentTF setAlpha:1.0f];
 }
 
-- (void) fillPaymentInfoWithCurrentData {
+- (void)fillPaymentInfoWithCurrentData {
     
     if ([self.order.paymentType isEqualToString:@"paypal"])
         self.paymentMethodTF.text = @"Paypal";
@@ -553,13 +553,45 @@
         self.nameOnCardPaymentTF.text = self.order.billingName;
 }
 
-- (void) clearPaymentInfo {
+- (void)clearPaymentInfo {
     [self.paymentMethodTF setText:@""];
     [self.cardNumberPaymentTF setText:@""];
     [self.cardVerificationPaymentTF setText:@""];
     [self.nameOnCardPaymentTF setText:@""];
     [self.expiryYearPaymentTF setText:@""];
     [self.expiryMonthPaymentTF setText:@""];
+}
+
+- (void)changeDetailPaymentFor:(paymentType)type {
+    
+    if (type == creditCard) {
+        self.creditCardDetailHeight.constant = 310;
+        [UIView animateWithDuration:1.0 animations:^{
+            self.paypalDetailsView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:1.0 animations:^{
+                self.paymentDetailsView.alpha = 1;
+            }];
+            self.paymentDetailsView.hidden = NO;
+            self.paypalDetailsView.hidden = YES;
+        }];
+    }else if (type == paypal) {
+        self.creditCardDetailHeight.constant = 160;
+        [UIView animateWithDuration:1.0 animations:^{
+            self.paymentDetailsView.alpha = 0;
+        }completion:^(BOOL finished) {
+            self.paymentDetailsView.hidden = YES;
+            self.paypalDetailsView.hidden = NO;
+            [UIView animateWithDuration:1.0 animations:^{
+                self.paypalDetailsView.alpha = 1;
+            }];
+        }];
+    }
+    
+    [UIView animateWithDuration:2
+                     animations:^{
+                         [self.view layoutIfNeeded]; // Called on parent view
+                     }];
 }
 
 #pragma mark - Dissmiss Keyboard
@@ -710,6 +742,8 @@
     
     if ([self pickerType] == PAYMENT_TYPE_PICKER) {
         [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
+        BOOL isPaypal = [self.paymentMethodTF.text isEqualToString:@"Paypal"];
+        isPaypal ? [self changeDetailPaymentFor:paypal] : [self changeDetailPaymentFor:creditCard];
     }
     
     [self.pickerParentView setHidden:TRUE];
