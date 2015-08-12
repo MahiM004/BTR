@@ -47,6 +47,7 @@
 @property BOOL isLoading;
 @property float totalSave;
 
+@property paymentType currentPaymentType;
 @property (strong, nonatomic) NSMutableArray* arrayOfGiftCards;
 @property (strong, nonatomic) NSDictionary* paypal;
 
@@ -188,6 +189,7 @@
     // setting default value
     [self setChosenShippingCountryString:@"Canada"];
     [self setChosenBillingCountryString:@"Canada"];
+    [self setCurrentPaymentType:creditCard];
     
     // hidding gift info
     [self.giftLabel setHidden:YES];
@@ -506,7 +508,8 @@
     [self.nameOnCardPaymentTF setEnabled:NO];
     [self.expiryYearPaymentTF setEnabled:NO];
     [self.expiryMonthPaymentTF setEnabled:NO];
-    
+    [self.paypalEmailTF setEnabled:NO];
+    [self.paymentMethodButton setEnabled:NO];
     
     [self.paymentMethodTF setAlpha:0.6f];
     [self.cardNumberPaymentTF setAlpha:0.6f];
@@ -514,6 +517,7 @@
     [self.nameOnCardPaymentTF setAlpha:0.6f];
     [self.expiryMonthPaymentTF setAlpha:0.6f];
     [self.expiryYearPaymentTF setAlpha:0.6f];
+    [self.paypalEmailTF setAlpha:0.6f];
 }
 
 - (void)enablePaymentInfo {
@@ -523,7 +527,8 @@
     [self.nameOnCardPaymentTF setEnabled:YES];
     [self.expiryYearPaymentTF setEnabled:YES];
     [self.expiryMonthPaymentTF setEnabled:YES];
-    
+    [self.paymentMethodButton setEnabled:YES];
+    [self.paypalEmailTF setEnabled:YES];
     
     [self.paymentMethodTF setAlpha:1.0f];
     [self.cardNumberPaymentTF setAlpha:1.0f];
@@ -531,28 +536,31 @@
     [self.nameOnCardPaymentTF setAlpha:1.0f];
     [self.expiryMonthPaymentTF setAlpha:1.0f];
     [self.expiryYearPaymentTF setAlpha:1.0f];
+    [self.paypalEmailTF setAlpha:1.0f];
 }
 
 - (void)fillPaymentInfoWithCurrentData {
     
     if ([self.order.paymentType isEqualToString:@"paypal"]) {
         [self.paymentMethodTF setText:@"Paypal"];
-        [self changeDetailPaymentFor:paypal];
+        [self setCurrentPaymentType:paypal];
+        if  (self.order.billingName.length > 0)
+            self.paypalEmailTF.text = self.order.billingName;
     }
     else {
+        if  (self.order.billingName.length > 0)
+            self.nameOnCardPaymentTF.text = self.order.billingName;
         if (self.cardNumberPaymentTF.text.length == 0)
             [self.cardNumberPaymentTF setText:self.order.cardNumber];
         if (self.expiryYearPaymentTF.text.length == 0)
             [self.expiryYearPaymentTF setText:[self.order expiryYear]];
         if (self.order.expiryMonth.length > 0)
             [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
-        if  (self.order.billingName.length > 0)
-            self.nameOnCardPaymentTF.text = self.order.billingName;
-        if (self.paymentMethodTF.text.length == 0 && self.order.cardType.length > 0)
+        if (self.order.cardType.length > 0 && self.order.cardType.length > 0 )
             [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
+        [self setCurrentPaymentType:creditCard];
     }
-    if  (self.order.billingName.length > 0)
-        self.nameOnCardPaymentTF.text = self.order.billingName;
+    [self changeDetailPaymentFor:self.currentPaymentType];
 }
 
 - (void)clearPaymentInfo {
@@ -745,7 +753,8 @@
     if ([self pickerType] == PAYMENT_TYPE_PICKER) {
         [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
         BOOL isPaypal = [self.paymentMethodTF.text isEqualToString:@"Paypal"];
-        isPaypal ? [self changeDetailPaymentFor:paypal] : [self changeDetailPaymentFor:creditCard];
+        isPaypal ? [self setCurrentPaymentType:paypal] : [self setCurrentPaymentType:creditCard];
+        [self changeDetailPaymentFor:self.currentPaymentType];
     }
     
     [self.pickerParentView setHidden:TRUE];
@@ -855,7 +864,7 @@
 
 - (IBAction)processOrderTpped:(UIButton *)sender {
 
-    if (![self.paymentMethodTF.text isEqualToString:@"Paypal"] && [self isCompeletedForm]) {
+    if (self.currentPaymentType == creditCard && [self isCompeletedForm]) {
         [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
                [self makePaymentforSessionId:[session sessionId] success:^(id responseObject) {
                    [self orderConfirmationWithReceipt:responseObject];
@@ -863,7 +872,7 @@
                    NSLog(@"%@",error);
                }];
         }];
-    } else if ([self.paymentMethodTF.text isEqualToString:@"Paypal"]) {
+    } else if (self.currentPaymentType == paypal) {
         [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
             [self getPaypalInfo];
         }];
@@ -949,7 +958,8 @@
     
     [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
     [orderInfo setObject:[self billingInfo] forKey:@"billing"];
-    [orderInfo setObject:[self cardInfo] forKey:@"cardInfo"];
+    if (self.currentPaymentType == creditCard)
+        [orderInfo setObject:[self cardInfo] forKey:@"cardInfo"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];

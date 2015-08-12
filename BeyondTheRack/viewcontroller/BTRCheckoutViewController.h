@@ -119,7 +119,8 @@ typedef enum {
  
  */
 
-
+@property (weak, nonatomic) IBOutlet UITextField *paypalEmailTF;
+@property (weak, nonatomic) IBOutlet UIButton *paymentMethodButton;
 @property (weak, nonatomic) IBOutlet UITextField *paymentMethodTF;
 @property (weak, nonatomic) IBOutlet UITextField *expiryMonthPaymentTF;
 @property (weak, nonatomic) IBOutlet UITextField *expiryYearPaymentTF;

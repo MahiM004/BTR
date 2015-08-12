@@ -1799,7 +1799,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="F7A237FA-76E7-4A35-B8CB-B8B7A0E0C83F" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="63B1E84C-F759-4EBD-A9ED-33D3C4D375C4" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -4295,14 +4295,14 @@
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4E0-xo-dH1" userLabel="Payment Paypal Details View" customClass="UIControl">
                                                         <rect key="frame" x="11" y="2086" width="299" height="150"/>
                                                         <subviews>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="225-RN-SZ9" userLabel="Name On Card Text Field">
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="225-RN-SZ9" userLabel="Paypal EmailTF">
                                                                 <rect key="frame" x="8" y="45" width="268" height="30"/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Paypal Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pke-g2-BEA">
-                                                                <rect key="frame" x="8" y="8" width="268" height="29"/>
+                                                                <rect key="frame" x="14" y="8" width="268" height="29"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-UltraLight" family="Avenir Next Condensed" pointSize="19"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -4767,9 +4767,11 @@
                         <outlet property="orderTotalDollarLabel" destination="zQS-Up-C2G" id="n7u-iS-SPW"/>
                         <outlet property="parentViewforScrollView" destination="Srq-vU-sly" id="Qh7-zt-Cc0"/>
                         <outlet property="paymentDetailsView" destination="UMJ-3u-QOG" id="xaD-un-rmy"/>
+                        <outlet property="paymentMethodButton" destination="4Ya-e6-3wO" id="bYS-PX-7MQ"/>
                         <outlet property="paymentMethodTF" destination="npG-w9-6PJ" id="gGd-5x-2Zr"/>
                         <outlet property="paypalDetailHeight" destination="oqg-Hz-Afj" id="1eI-FG-uY8"/>
                         <outlet property="paypalDetailsView" destination="4E0-xo-dH1" id="uk3-TK-mSQ"/>
+                        <outlet property="paypalEmailTF" destination="225-RN-SZ9" id="hWX-s6-W2P"/>
                         <outlet property="phoneBillingTF" destination="XnV-5y-GNd" id="bln-eT-aLP"/>
                         <outlet property="phoneShippingTF" destination="cso-4f-sfd" id="dcf-ht-L5r"/>
                         <outlet property="pickerParentView" destination="Ur5-m7-9SJ" id="XXd-sM-2k8"/>
@@ -5386,8 +5388,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="F7A237FA-76E7-4A35-B8CB-B8B7A0E0C83F" width="30" height="30">
+        <image name="63B1E84C-F759-4EBD-A9ED-33D3C4D375C4" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -5445,6 +5446,7 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
+        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>
@@ -5468,6 +5470,6 @@ TQAAAAAAAAAAAAAAAAAAC8M
     <inferredMetricsTieBreakers>
         <segue reference="2s1-Dk-Kfr"/>
         <segue reference="bIC-SN-W1I"/>
-        <segue reference="kaV-ql-rAu"/>
+        <segue reference="Hl3-o6-ufa"/>
     </inferredMetricsTieBreakers>
 </document>
