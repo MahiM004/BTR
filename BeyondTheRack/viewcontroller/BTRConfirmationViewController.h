@@ -34,6 +34,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *qstLabel;
 @property (weak, nonatomic) IBOutlet UILabel *orderTotal;
 
+// Heights
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *itemsHeight;
 
 // scrollView
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;

@@ -56,7 +56,7 @@
     // order Items
     CGPoint begingingpoint = self.orderView.bounds.origin;
     CGSize size = self.orderView.bounds.size;
-    CGFloat space = 150.0;
+    CGFloat space = 140.0;
     for (int i = 0; i < self.order.items.count; i++) {
         Item* item = [self.order.items objectAtIndex:i];
         UILabel *newLabel = [[UILabel alloc]initWithFrame:CGRectMake(begingingpoint.x, begingingpoint.y + (i * space), size.width, space)];
@@ -65,7 +65,9 @@
         newLabel.text = [NSString stringWithFormat:@"%@\n%@\n%@",item.shortItemDescription,item.attributeList,item.brand];
         [self.orderView addSubview:newLabel];
     }
-    
+    self.itemsHeight.constant = self.order.items.count * 140;
+    if (self.order.items.count > 1)
+        self.viewHeight.constant = self.viewHeight.constant + (self.order.items.count - 1) * 140;
     
     // Prices
     self.bagTotalLabel.text = [NSString stringWithFormat:@"%@",self.order.bagTotalPrice];
