@@ -1799,7 +1799,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="B3C2C8C0-C8FB-43CA-B338-12AA1FCB79E8" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="F7A237FA-76E7-4A35-B8CB-B8B7A0E0C83F" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3327,17 +3327,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pdi-I7-D0C" userLabel="HeaderView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pdi-I7-D0C" userLabel="HeaderView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PayPal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCh-xE-h58">
-                                        <rect key="frame" x="90" y="31" width="140" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PayPal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCh-xE-h58">
+                                        <rect key="frame" x="90" y="31" width="140" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="fnl-UK-dWS"/>
+                                            <constraint firstAttribute="width" constant="140" id="iNR-eR-gss"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
                                         <color key="textColor" red="1" green="0.80000001192092896" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vba-CT-ow1">
+                                    <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vba-CT-ow1">
                                         <rect key="frame" x="0.0" y="20" width="80" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="6eW-Kh-qFA"/>
+                                            <constraint firstAttribute="width" constant="80" id="uIk-o4-yt7"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3349,9 +3357,16 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Vba-CT-ow1" firstAttribute="top" secondItem="Pdi-I7-D0C" secondAttribute="top" constant="20" id="2zr-JN-9wb"/>
+                                    <constraint firstAttribute="height" constant="70" id="R3g-bO-GmI"/>
+                                    <constraint firstItem="Vba-CT-ow1" firstAttribute="leading" secondItem="Pdi-I7-D0C" secondAttribute="leading" id="R7z-f7-JNk"/>
+                                    <constraint firstItem="hCh-xE-h58" firstAttribute="top" secondItem="Pdi-I7-D0C" secondAttribute="top" constant="31" id="WRx-Mo-KR6"/>
+                                    <constraint firstAttribute="centerX" secondItem="hCh-xE-h58" secondAttribute="centerX" id="cly-9n-TmN"/>
+                                </constraints>
                             </view>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eRg-ec-XXG">
-                                <rect key="frame" x="0.0" y="71" width="320" height="497"/>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRg-ec-XXG">
+                                <rect key="frame" x="0.0" y="70" width="320" height="498"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="T0P-XN-jWh" id="Xem-bP-hhy"/>
@@ -3359,6 +3374,15 @@
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eRg-ec-XXG" firstAttribute="leading" secondItem="Dgh-Fl-acj" secondAttribute="leading" id="22J-sE-Gla"/>
+                            <constraint firstAttribute="trailing" secondItem="eRg-ec-XXG" secondAttribute="trailing" id="X8n-AJ-Rai"/>
+                            <constraint firstItem="Xhg-OX-3na" firstAttribute="top" secondItem="eRg-ec-XXG" secondAttribute="bottom" id="dsd-VI-U6R"/>
+                            <constraint firstAttribute="trailing" secondItem="Pdi-I7-D0C" secondAttribute="trailing" id="e4S-Rd-4Yw"/>
+                            <constraint firstItem="Pdi-I7-D0C" firstAttribute="top" secondItem="Dgh-Fl-acj" secondAttribute="top" id="iOr-0o-hEa"/>
+                            <constraint firstItem="eRg-ec-XXG" firstAttribute="top" secondItem="Pdi-I7-D0C" secondAttribute="bottom" id="l0i-Jx-LQw"/>
+                            <constraint firstItem="Pdi-I7-D0C" firstAttribute="leading" secondItem="Dgh-Fl-acj" secondAttribute="leading" id="rRD-Tc-Jey"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hdS-Rc-q0j"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -5362,7 +5386,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="B3C2C8C0-C8FB-43CA-B338-12AA1FCB79E8" width="30" height="30">
+        <image name="BTRLogo.png" width="925" height="125"/>
+        <image name="F7A237FA-76E7-4A35-B8CB-B8B7A0E0C83F" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -5420,7 +5445,6 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
-        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>
@@ -5444,6 +5468,6 @@ TQAAAAAAAAAAAAAAAAAAC8M
     <inferredMetricsTieBreakers>
         <segue reference="2s1-Dk-Kfr"/>
         <segue reference="bIC-SN-W1I"/>
-        <segue reference="Hl3-o6-ufa"/>
+        <segue reference="kaV-ql-rAu"/>
     </inferredMetricsTieBreakers>
 </document>
