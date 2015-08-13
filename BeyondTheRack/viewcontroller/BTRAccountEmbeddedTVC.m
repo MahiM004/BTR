@@ -280,13 +280,15 @@
 
 - (IBAction)helpTapped:(UIButton *)sender {
     
-    [self fetchFAQWithSuccess:^(id responseObject) {
-       
-        [self performSegueWithIdentifier:@"BTRFAQSegueIdentifier" sender:self];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+    
+    [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
+
+//    [self fetchFAQWithSuccess:^(id responseObject) {
+//       
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//    }];
     
 }
 
@@ -307,10 +309,12 @@
          vc.headersArray = [self headersArray];
          vc.itemsDictionary = [self itemsDictionary];
          
-     } else if ([[segue identifier] isEqualToString:@"BTRFAQSegueIdentifier"]) {
+     } else if ([[segue identifier] isEqualToString:@"test"]) {
          
-         BTRHelpViewController* vc = [segue destinationViewController];
-         vc.faqArray = [self faqArray];
+         NSLog(@"going to segue");
+         
+//         BTRHelpViewController* vc = [segue destinationViewController];
+//         vc.faqArray = [self faqArray];
      
      }
  }
