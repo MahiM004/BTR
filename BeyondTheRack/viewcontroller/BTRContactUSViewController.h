@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRContactUSViewController : UIViewController
+@interface BTRContactUSViewController : UIViewController <UITextFieldDelegate>
 
 
 // TEXT FIELDS

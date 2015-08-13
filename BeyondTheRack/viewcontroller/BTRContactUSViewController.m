@@ -57,9 +57,20 @@
     
 }
 
+// keyboard Management
+
+- (IBAction)viewTapped:(id)sender {
+    [self dismissKeyboard];
+}
 
 - (void)dismissKeyboard {
     [self.view endEditing:YES];
+}
+
+#pragma mark TextField Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return [textField resignFirstResponder];
 }
 
 #pragma mark PickerView Delegate & DataSource
