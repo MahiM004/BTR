@@ -86,9 +86,17 @@
     [manager GET:[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalInfo]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSMutableDictionary* info = [NSJSONSerialization JSONObjectWithData:responseObject
+             NSDictionary* info = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                                   options:0
                                                                                     error:NULL];
+             if (self.isNewAccount) {
+                 NSMutableDictionary* newInfo = [NSMutableDictionary dictionaryWithDictionary:info];
+                 [newInfo removeObjectForKey:@"paypalInfo"];
+                 NSDictionary *paypalInfo = [[NSDictionary alloc]initWithObjectsAndKeys:@"paypalLogin",@"mode", nil];
+                 [newInfo setObject:paypalInfo forKey:@"paypalInfo"];
+                 info = [newInfo mutableCopy];
+                 self.isNewAccount = NO;
+             }
              [self processPayPalWithInfo:info];
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

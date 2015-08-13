@@ -173,8 +173,17 @@
     
     [super viewDidLoad];
    
+    // setting default value
+    [self setChosenShippingCountryString:@"Canada"];
+    [self setChosenBillingCountryString:@"Canada"];
+    [self setCurrentPaymentType:creditCard];
+    [self.paymentMethodTF setText:@"Visa Credit"];
+    [self.changePaymentMethodCheckbox setChecked:NO];
+    
     [self resetData];
     [self loadOrderData];
+    
+    [self fillPaymentInfoWithCurrentData];
     
     NSCalendar *gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     NSInteger currentYear = [gregorian component:NSCalendarUnitYear fromDate:NSDate.date];
@@ -185,11 +194,6 @@
     
     self.pickerView.delegate = self;
     [self.pickerParentView setHidden:TRUE];
-
-    // setting default value
-    [self setChosenShippingCountryString:@"Canada"];
-    [self setChosenBillingCountryString:@"Canada"];
-    [self setCurrentPaymentType:creditCard];
     
     // hidding gift info
     [self.giftLabel setHidden:YES];
@@ -211,15 +215,6 @@
     
     // card info
     // check payment method
-    
-    [self fillPaymentInfoWithCurrentData];
-    if (self.order.lockCCFields) {
-        [self.changePaymentMethodView setHidden:NO];
-        [self.cardVerificationPaymentTF setText:@"xxx"];
-        [self disablePaymentInfo];
-    } else {
-        [self.changePaymentMethodView setHidden:YES];
-    }
     
     // shipping
     [self.recipientNameShippingTF setText:[self.order shippingRecipientName]];
@@ -246,7 +241,6 @@
     [self.orderIsGiftCheckbox setChecked:[[self.order isGift] boolValue]];
     [self.pickupOptionCheckbox setChecked:[[self.order isPickup] boolValue]];
     [self.remeberCardInfoCheckbox setChecked:[[self.order rememberCard] boolValue]];
-    [self.changePaymentMethodCheckbox setChecked:![[self.order lockCCFields]boolValue]];
     
     [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
     [self.vipOptionCheckbox addTarget:self action:@selector(checkboxVipOptionDidChange:) forControlEvents:UIControlEventValueChanged];
@@ -305,13 +299,14 @@
     if ([checkbox checked]) {
         [self enablePaymentInfo];
         [self clearPaymentInfo];
+        [self changeDetailPaymentFor:creditCard];
+        [self.paymentMethodTF setText:@"Visa Credit"];
     } else {
         [self fillPaymentInfoWithCurrentData];
         [self.cardVerificationPaymentTF setText:@"xxx"];
         [self disablePaymentInfo];
     }
-    
-    
+
 }
 
 
@@ -560,6 +555,17 @@
             [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
         [self setCurrentPaymentType:creditCard];
     }
+    
+    if ([self.order.lockCCFields boolValue] || self.currentPaymentType == paypal) {
+        [self.changePaymentMethodView setHidden:NO];
+        [self disablePaymentInfo];
+        if (self.currentPaymentType == creditCard)
+            [self.cardVerificationPaymentTF setText:@"xxx"];
+    }
+    else
+        [self.changePaymentMethodView setHidden:YES];
+
+    
     [self changeDetailPaymentFor:self.currentPaymentType];
 }
 
@@ -570,6 +576,7 @@
     [self.nameOnCardPaymentTF setText:@""];
     [self.expiryYearPaymentTF setText:@""];
     [self.expiryMonthPaymentTF setText:@""];
+    [self.paypalEmailTF setText:@""];
 }
 
 - (void)changeDetailPaymentFor:(paymentType)type {
@@ -586,7 +593,14 @@
             self.paypalDetailsView.hidden = YES;
         }];
     }else if (type == paypal) {
-        self.creditCardDetailHeight.constant = 160;
+        if (self.paypalEmailTF.text.length > 0) {
+            self.paypalEmailTF.hidden = NO;
+            self.creditCardDetailHeight.constant = 160;
+        }
+        else {
+            self.paypalEmailTF.hidden = YES;
+            self.creditCardDetailHeight.constant = 0;
+        }
         [UIView animateWithDuration:1.0 animations:^{
             self.paymentDetailsView.alpha = 0;
         }completion:^(BOOL finished) {
@@ -1049,6 +1063,7 @@
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
         BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
         paypalVC.paypal = self.paypal;
+        paypalVC.isNewAccount = self.changePaymentMethodCheckbox.checked;
     }
 
 }
