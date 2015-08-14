@@ -28,8 +28,12 @@
 
 - (void)loadData {
     
-    //chaning thanks label
-    self.thanksLabel.text = [NSString stringWithFormat:@"THANK YOU FOR YOUR ORDER NO. %@",self.order.orderId];
+    //changing thanks label
+    NSString *thanksString = [NSString stringWithFormat:@"%@,THANK YOU FOR YOUR ORDER NO. %@",self.order.shippingRecipientName,self.order.orderId];
+    NSRange range = [thanksString rangeOfString:self.self.order.shippingRecipientName];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:thanksString];
+    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+    self.thanksLabel.attributedText = attributedString;
     
     if (self.transactionID) {
         // adding transactionID
