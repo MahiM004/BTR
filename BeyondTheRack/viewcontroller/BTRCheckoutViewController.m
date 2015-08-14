@@ -242,16 +242,19 @@
     [self.pickupOptionCheckbox setChecked:[[self.order isPickup] boolValue]];
     [self.remeberCardInfoCheckbox setChecked:[[self.order rememberCard] boolValue]];
     
-    [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
+    
+    [self.orderIsGiftCheckbox addTarget:self action:@selector(checkboxIsGiftChange:) forControlEvents:UIControlEventValueChanged];
+    
+//    [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
     [self.vipOptionCheckbox addTarget:self action:@selector(checkboxVipOptionDidChange:) forControlEvents:UIControlEventValueChanged];
 
-    [self checkboxSameAddressDidChange:self.sameAddressCheckbox];
+//    [self checkboxSameAddressDidChange:self.sameAddressCheckbox];
     [self.sameAddressCheckbox addTarget:self action:@selector(checkboxSameAddressDidChange:) forControlEvents:UIControlEventValueChanged];
     
-    [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
+//    [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
     [self.pickupOptionCheckbox addTarget:self action:@selector(checkboxPickupOptionDidChange:) forControlEvents:UIControlEventValueChanged];
     
-    [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
+//    [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
     [self.changePaymentMethodCheckbox addTarget:self action:@selector(checkboxChangePaymentMethodDidChange:) forControlEvents:UIControlEventValueChanged];
     
     // prices
@@ -403,6 +406,25 @@
     [self.provinceShippingTF setAlpha:1.0f];
     [self.cityShippingTF setAlpha:1.0f];
     [self.phoneShippingTF setAlpha:1.0f];
+}
+
+- (void)checkboxIsGiftChange:(CTCheckbox *)checkbox {
+    if (checkbox.checked) {
+        self.giftViewHeight.constant = 250;
+        self.viewHeight.constant = self.viewHeight.constant + 175;
+    }else {
+        self.giftCardInfoView.hidden = YES;
+        self.giftViewHeight.constant = 75;
+        self.viewHeight.constant = self.viewHeight.constant - 175;
+    }
+    [UIView animateWithDuration:2
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     } completion:^(BOOL finished) {
+                         if ([checkbox checked]) {
+                             self.giftCardInfoView.hidden = NO;
+                         }
+                     }];
 }
 
 - (void)checkboxSameAddressDidChange:(CTCheckbox *)checkbox {
