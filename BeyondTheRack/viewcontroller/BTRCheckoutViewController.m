@@ -195,6 +195,9 @@
     self.pickerView.delegate = self;
     [self.pickerParentView setHidden:TRUE];
     
+    // setting checkboxes
+    [self setCheckboxesTargets];
+    
     // hidding gift info
     [self.giftLabel setHidden:YES];
     [self.giftDollarLabel setHidden:YES];
@@ -243,19 +246,11 @@
     [self.remeberCardInfoCheckbox setChecked:[[self.order rememberCard] boolValue]];
     
     
-    [self.orderIsGiftCheckbox addTarget:self action:@selector(checkboxIsGiftChange:) forControlEvents:UIControlEventValueChanged];
     
-//    [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
-    [self.vipOptionCheckbox addTarget:self action:@selector(checkboxVipOptionDidChange:) forControlEvents:UIControlEventValueChanged];
-
-//    [self checkboxSameAddressDidChange:self.sameAddressCheckbox];
-    [self.sameAddressCheckbox addTarget:self action:@selector(checkboxSameAddressDidChange:) forControlEvents:UIControlEventValueChanged];
-    
-//    [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
-    [self.pickupOptionCheckbox addTarget:self action:@selector(checkboxPickupOptionDidChange:) forControlEvents:UIControlEventValueChanged];
-    
-//    [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
-    [self.changePaymentMethodCheckbox addTarget:self action:@selector(checkboxChangePaymentMethodDidChange:) forControlEvents:UIControlEventValueChanged];
+    [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
+    [self checkboxSameAddressDidChange:self.sameAddressCheckbox];
+    [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
+    [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
     
     // prices
     if (self.totalSave == 0) {
@@ -267,9 +262,21 @@
     [self.bagTotalDollarLabel setText:[self.order bagTotalPrice]];
     [self.subtotalDollarLabel setText:[self.order subTotalPrice]];
     [self.shippingDollarLabel setText:[self.order shippingPrice]];
+    
+    // calculating taxes
     [self.gstTaxDollarLabel setText:[self.order gstTax]];
     [self.qstTaxDollarLabel setText:[self.order qstTax]];
-    [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.subtotalDollarLabel.text.floatValue + self.gstTaxDollarLabel.text.floatValue + self.qstTaxDollarLabel.text.floatValue]];
+    if (self.order.gstTax == nil)
+        [self.gstTaxLebl setHidden:YES];
+    else
+        [self.gstTaxLebl setHidden:NO];
+    if (self.order.qstTax == nil)
+        [self.qstTaxLabel setHidden:YES];
+    else
+        [self.qstTaxLabel setHidden:NO];
+    
+    // Caculating prices
+    [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.subtotalDollarLabel.text.floatValue + self.gstTaxDollarLabel.text.floatValue + self.qstTaxDollarLabel.text.floatValue + self.shippingDollarLabel.text.floatValue]];
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.totalSave]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
     
@@ -287,6 +294,15 @@
     
     self.isLoading = NO;
 }
+
+- (void)setCheckboxesTargets {
+    [self.vipOptionCheckbox addTarget:self action:@selector(checkboxVipOptionDidChange:) forControlEvents:UIControlEventValueChanged];
+    [self.sameAddressCheckbox addTarget:self action:@selector(checkboxSameAddressDidChange:) forControlEvents:UIControlEventValueChanged];
+    [self.pickupOptionCheckbox addTarget:self action:@selector(checkboxPickupOptionDidChange:) forControlEvents:UIControlEventValueChanged];
+    [self.changePaymentMethodCheckbox addTarget:self action:@selector(checkboxChangePaymentMethodDidChange:) forControlEvents:UIControlEventValueChanged];
+    [self.orderIsGiftCheckbox addTarget:self action:@selector(checkboxIsGiftChange:) forControlEvents:UIControlEventValueChanged];
+}
+
 
 - (IBAction)shippingFieldChanged:(id)sender {
     if (self.sameAddressCheckbox.checked)
@@ -409,6 +425,10 @@
 }
 
 - (void)checkboxIsGiftChange:(CTCheckbox *)checkbox {
+    
+    if (self.isLoading)
+        return;
+    
     if (checkbox.checked) {
         self.giftViewHeight.constant = 250;
         self.viewHeight.constant = self.viewHeight.constant + 175;
@@ -433,11 +453,11 @@
         return;
     
     if ([checkbox checked]) {
-        
         [self enableBillingAddress];
         [self copyShipingAddressToBillingAddress];
         [self disableBillingAddress];
-        
+        if (self.zipCodeShippingTF.text.length > 0)
+            [self validateAddressViaAPIAndInCompletion:nil];
     } else if (![checkbox checked]) {
         [self enableBillingAddress];
         [self clearBillingAddress];
@@ -636,7 +656,7 @@
     
     [UIView animateWithDuration:2
                      animations:^{
-                         [self.view layoutIfNeeded]; // Called on parent view
+                         [self.view layoutIfNeeded];
                      }];
 }
 
@@ -936,39 +956,36 @@
         [self.scrollView scrollRectToVisible:self.addressLine1ShippingTF.frame animated:YES];
         return NO;
     }
-    if (self.zipCodeShippingTF.text.length < 6) {
+    if ((self.zipCodeShippingTF.text.length < 5 && [self.countryShippingTF.text isEqualToString:@"USA"]) || (self.zipCodeShippingTF.text.length < 6 && [self.countryShippingTF.text isEqualToString:@"Canada"])) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your shipping postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.zipCodeShippingTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.zipCodeShippingTF.frame animated:YES];
         return NO;
     }
-    if (!self.sameAddressCheckbox.checked && self.addressLine1BillingTF.text.length == 0) {
+    if (self.addressLine1BillingTF.text.length == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill billing address field" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.addressLine1BillingTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.addressLine1BillingTF.frame animated:YES];
         return NO;
     }
-    if (!self.sameAddressCheckbox.checked && self.postalCodeBillingTF.text.length == 0) {
-        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill billing postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+    if ((self.postalCodeBillingTF.text.length < 5 && [self.countryBillingTF.text isEqualToString:@"USA"]) || (self.postalCodeBillingTF.text.length < 6 && [self.countryBillingTF.text isEqualToString:@"Canada"])) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your shipping postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.postalCodeBillingTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.postalCodeBillingTF.frame animated:YES];
         return NO;
     }
-    
     if (self.nameOnCardPaymentTF.text.length == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill name on card" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.nameOnCardPaymentTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.nameOnCardPaymentTF.frame animated:YES];
         return NO;
     }
-    
     if (self.cardNumberPaymentTF.isEnabled && (self.cardNumberPaymentTF.text.length > 20 || self.cardNumberPaymentTF.text.length < 13)) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.cardNumberPaymentTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.cardNumberPaymentTF.frame animated:YES];
         return NO;
     }
-    
     if (self.cardVerificationPaymentTF.text.length < 3 || self.cardVerificationPaymentTF.text.length > 4) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Verification Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.cardVerificationPaymentTF becomeFirstResponder];
@@ -1000,6 +1017,7 @@
     [orderInfo setObject:[self billingInfo] forKey:@"billing"];
     if (self.currentPaymentType == creditCard)
         [orderInfo setObject:[self cardInfo] forKey:@"cardInfo"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
