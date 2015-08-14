@@ -875,7 +875,7 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
-    [orderInfo setObject:@"" forKey:@"recipient_message"];
+    [orderInfo setObject:[self.giftMessageTF text] forKey:@"recipient_message"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
 
     [params setObject:orderInfo forKey:@"orderInfo"];
