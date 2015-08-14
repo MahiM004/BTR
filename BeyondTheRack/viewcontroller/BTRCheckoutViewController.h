@@ -18,7 +18,7 @@ typedef enum {
 } paymentType;
 
 
-@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate>
+@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate>
 
 @property (strong, nonatomic) Order *order;
 

@@ -648,6 +648,10 @@
  
  */
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return [textField resignFirstResponder];
+}
+
 - (void)dismissKeyboard {
     [self.view endEditing:YES];
 }
