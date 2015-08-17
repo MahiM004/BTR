@@ -44,6 +44,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)contactUS:(id)sender {
+    [self.navigationController popViewControllerAnimated:NO];
+}
 
 #pragma mark - FAQ TableView DataSource
 
