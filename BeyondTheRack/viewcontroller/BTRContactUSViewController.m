@@ -126,20 +126,17 @@
 - (IBAction)faqTapped:(id)sender {
     if (self.faqArray == nil) {
         [self fetchFAQWithSuccess:^(id responseObject) {
-            [self performSegueWithIdentifier:@"BTRFAQSegueIdentifier" sender:nil];
+            BTRHelpViewController *help = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRHelpViewController"];
+            [help setFaqArray:self.faqArray];
+            [self.navigationController pushViewController:help animated:NO];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"%@",error);
         }];
-    }else
-        [self performSegueWithIdentifier:@"BTRFAQSegueIdentifier" sender:nil];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"BTRFAQSegueIdentifier"]) {
-        BTRHelpViewController* vc = [segue destinationViewController];
-        vc.faqArray = self.faqArray;
+    }else {
+        BTRHelpViewController *help = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRHelpViewController"];
+        [help setFaqArray:self.faqArray];
+        [self.navigationController pushViewController:help animated:NO];
     }
-    
 }
 
 #pragma mark - keyboard
