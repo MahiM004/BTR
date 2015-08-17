@@ -12,7 +12,7 @@
 
 + (NSURL *)URLforFAQ
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/content/faq?render=[txt]", BASEURL]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/content/faq?lang=en_US&render=txt", BASEURL]];
 }
 
 @end

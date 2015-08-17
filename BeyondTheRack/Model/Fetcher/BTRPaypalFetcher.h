@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BTRFAQFetcher.h"
+#import "BTRFetcher.h"
 
 @interface BTRPaypalFetcher : BTRFetcher
 

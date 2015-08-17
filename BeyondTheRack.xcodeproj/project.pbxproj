@@ -180,6 +180,9 @@
 		A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */; };
 		A01E5DFC1B690FBF00B0EC5B /* BTRConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */; };
 		A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */; };
+		A0D1B45D1B7E495100848FA7 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45C1B7E495100848FA7 /* Contact.m */; };
+		A0D1B4601B7E4FED00848FA7 /* BTRContactFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */; };
+		A0D1B4631B7E510D00848FA7 /* Contact+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */; };
 		B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */; };
 		B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */; };
 		B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */; };
@@ -525,6 +528,12 @@
 		A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRConfirmationViewController.m; sourceTree = "<group>"; };
 		A0ABECCF1B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPaypalCheckoutViewController.h; sourceTree = "<group>"; };
 		A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalCheckoutViewController.m; sourceTree = "<group>"; };
+		A0D1B45B1B7E495100848FA7 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		A0D1B45C1B7E495100848FA7 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		A0D1B45E1B7E4FED00848FA7 /* BTRContactFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRContactFetcher.h; sourceTree = "<group>"; };
+		A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRContactFetcher.m; sourceTree = "<group>"; };
+		A0D1B4611B7E510D00848FA7 /* Contact+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Contact+AppServer.h"; sourceTree = "<group>"; };
+		A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Contact+AppServer.m"; sourceTree = "<group>"; };
 		B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSessionSettings.h; sourceTree = "<group>"; };
 		B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSessionSettings.m; sourceTree = "<group>"; };
 		B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -914,6 +923,8 @@
 				A01142701B618AEB0099A40A /* BTRFAQFetcher.m */,
 				A01BCF411B66BA6500A6242F /* BTRPaypalFetcher.h */,
 				A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */,
+				A0D1B45E1B7E4FED00848FA7 /* BTRContactFetcher.h */,
+				A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */,
 			);
 			path = Fetcher;
 			sourceTree = "<group>";
@@ -999,6 +1010,8 @@
 				69F0BAFA1B41868B008C0498 /* OrderHistoryBag.m */,
 				A011426C1B6189D40099A40A /* FAQ.h */,
 				A011426D1B6189D40099A40A /* FAQ.m */,
+				A0D1B45B1B7E495100848FA7 /* Contact.h */,
+				A0D1B45C1B7E495100848FA7 /* Contact.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1024,6 +1037,8 @@
 				69F0BB061B418756008C0498 /* OrderHistoryItem+AppServer.m */,
 				A01142721B618D8A0099A40A /* FAQ+AppServer.h */,
 				A01142731B618D8A0099A40A /* FAQ+AppServer.m */,
+				A0D1B4611B7E510D00848FA7 /* Contact+AppServer.h */,
+				A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1382,6 +1397,7 @@
 				B3C16A911B01371C009470EC /* BTRSizeSelector.m in Sources */,
 				6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */,
 				A01142711B618AEB0099A40A /* BTRFAQFetcher.m in Sources */,
+				A0D1B4601B7E4FED00848FA7 /* BTRContactFetcher.m in Sources */,
 				69AB98651A77E68F00EDB1E6 /* Event.m in Sources */,
 				69D440411B31EA1400070FD8 /* Order.m in Sources */,
 				69F0BB0A1B419C2E008C0498 /* BTROrderHistoryFetcher.m in Sources */,
@@ -1394,6 +1410,7 @@
 				69B942851AE033FD00483950 /* UIImageView+AFNetworking.m in Sources */,
 				692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */,
 				69B9428E1AE033FD00483950 /* AFURLConnectionOperation.m in Sources */,
+				A0D1B4631B7E510D00848FA7 /* Contact+AppServer.m in Sources */,
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
 				690A38F31B1DEB7F00D4BA84 /* TNRadioButtonGroup.m in Sources */,
 				69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */,
@@ -1474,6 +1491,7 @@
 				6901EA171ADC2628002534D9 /* BagItem.m in Sources */,
 				69B9428C1AE033FD00483950 /* AFNetworkReachabilityManager.m in Sources */,
 				B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */,
+				A0D1B45D1B7E495100848FA7 /* Contact.m in Sources */,
 				69CEF3501ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m in Sources */,
 				69B942821AE033FD00483950 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				B3CC53221B1604580024EA08 /* BTRAccountInformationVC.m in Sources */,

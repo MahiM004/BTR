@@ -9,7 +9,7 @@
 #import "BTRAccountEmbeddedTVC.h"
 #import "BTRLoginViewController.h"
 #import "BTRNotificationsVC.h"
-#import "BTRHelpViewController.h"
+#import "BTRContactUSViewController.h"
 #import "BTRTrackOrdersVC.h"
 
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
@@ -17,10 +17,12 @@
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
 #import "BTRFAQFetcher.h"
+#import "FAQ+AppServer.h"
+#import "BTRContactFetcher.h"
+#import "Contact+AppServer.h"
 #import "BTROrderHistoryFetcher.h"
 #import "OrderHistoryBag+AppServer.h"
 #import "OrderHistoryItem+AppServer.h"
-#import "FAQ+AppServer.h"
 
 
 @interface BTRAccountEmbeddedTVC ()
@@ -32,7 +34,8 @@
 @property (strong, nonatomic) NSMutableDictionary *itemsDictionary;
 @property (strong, nonatomic) NSMutableArray *headersArray;
 @property (nonatomic, strong) User *user;
-@property (nonatomic, strong) NSArray *faqArray;
+@property (nonatomic, strong) Contact *contactInfo;
+//@property (nonatomic, strong) NSArray *faqArray;
 
 @end
 
@@ -225,8 +228,41 @@
 
 #pragma mark - Getting FAQ
 
-- (void)fetchFAQWithSuccess:(void (^)(id  responseObject)) success
-                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+//- (void)fetchFAQWithSuccess:(void (^)(id  responseObject)) success
+//                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+//{
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+//    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+//    manager.responseSerializer = serializer;
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    
+//    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+//    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+//    
+//    [manager GET:[NSString stringWithFormat:@"%@", [BTRFAQFetcher URLforFAQ]]
+//      parameters:nil
+//         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
+//     {
+//         
+//         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
+//                                                                               options:0
+//                                                                                 error:NULL];
+//         if (entitiesPropertyList) {
+//             self.faqArray = [FAQ arrayOfFAQWithAppServerInfo:entitiesPropertyList];
+//             success(self.faqArray);
+//         }
+//         
+//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//         
+//         failure(operation, error);
+//         
+//     }];
+//    
+//}
+
+- (void)fetchContactWithSuccess:(void (^)(id  responseObject)) success
+                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -237,7 +273,7 @@
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRFAQFetcher URLforFAQ]]
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRContactFetcher URLForContact]]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
      {
@@ -246,8 +282,10 @@
                                                                                options:0
                                                                                  error:NULL];
          if (entitiesPropertyList) {
-             self.faqArray = [FAQ arrayOfFAQWithAppServerInfo:entitiesPropertyList];
-             success(self.faqArray);
+             self.contactInfo = [Contact contactWithAppServerInfo:entitiesPropertyList];
+             success(self.contactInfo);
+//             self.faqArray = [FAQ arrayOfFAQWithAppServerInfo:entitiesPropertyList];
+//             success(self.faqArray);
          }
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -280,15 +318,14 @@
 
 - (IBAction)helpTapped:(UIButton *)sender {
     
-    
-    [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
-
-//    [self fetchFAQWithSuccess:^(id responseObject) {
-//       
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        
-//    }];
+    if (self.contactInfo == nil) {
+        [self fetchContactWithSuccess:^(id responseObject) {
+            [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    } else
+        [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
     
 }
 
@@ -309,10 +346,10 @@
          vc.headersArray = [self headersArray];
          vc.itemsDictionary = [self itemsDictionary];
          
-     } else if ([[segue identifier] isEqualToString:@"test"]) {
+     } else if ([[segue identifier] isEqualToString:@"BTRContactusSegueIdentifier"]) {
          
-         NSLog(@"going to segue");
-         
+         BTRContactUSViewController* vc = [segue destinationViewController];
+         vc.contactInformaion = self.contactInfo;
 //         BTRHelpViewController* vc = [segue destinationViewController];
 //         vc.faqArray = [self faqArray];
      
