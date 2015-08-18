@@ -1846,7 +1846,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="B26D4007-A140-421E-825E-68C73CF8B493" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="974C2490-D96F-47A8-A81E-F5C8F233002C" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -2045,6 +2045,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="customSize" width="159" height="330"/>
                                         <connections>
                                             <outlet property="brandLabel" destination="lwu-W7-ozx" id="XUT-Bd-lUN"/>
                                             <outlet property="btrPriceLabel" destination="54Y-hk-yV4" id="bJ8-bw-stg"/>
@@ -6282,7 +6283,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="B26D4007-A140-421E-825E-68C73CF8B493" width="30" height="30">
+        <image name="974C2490-D96F-47A8-A81E-F5C8F233002C" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
