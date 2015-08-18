@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MLPAutoCompleteTextField.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>7E42B181CE9DC376CD7BB50EB2327748</key>
+		<key>C931F716C4491868A72F8FCEBF7921C2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>903F8B2A7D545F35911B471BC983A953</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E0DF4E9817E9740A8EBA0670D9AB3588</key>
+		<key>E0A0843C35E4406010926441E5E9C150</key>
 		<dict>
 			<key>primary</key>
 			<true/>

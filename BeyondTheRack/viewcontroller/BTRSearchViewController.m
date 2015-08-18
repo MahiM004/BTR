@@ -14,6 +14,7 @@
 #import "BTRItemFetcher.h"
 #import "BTRFacetsHandler.h"
 #import "BTRFacetData.h"
+#import "BTRSuggestionFetcher.h"
 
 
 @interface BTRSearchViewController () <BTRRefineResultsViewController>
@@ -23,6 +24,8 @@
 @property (strong, nonatomic) Item *selectedItem;
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
+@property (strong, nonatomic) NSMutableArray* suggestionArray;
+@property CGFloat maxSearchTableSize;
 
 @end
 
@@ -96,11 +99,12 @@
     [self.searchBar setImage:image2 forSearchBarIcon:UISearchBarIconClear state:UIControlStateHighlighted];
     [self.searchBar setImage:image2 forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     
+    self.suggestionArray = [[NSMutableArray alloc]init];
+    self.suggestionTableView.hidden = YES;
 }
 
 
 - (void)viewDidAppear:(BOOL)animated {
-    
     [super viewDidAppear:YES];
     if (![self.itemsArray count])
         [self.searchBar becomeFirstResponder];
@@ -132,8 +136,25 @@
 }
 
 
-#pragma mark Content Filtering
+#pragma mark SearchBar Delegates
 
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self.searchBar setShowsCancelButton:NO animated:YES];
+    [self.suggestionTableView setHidden:YES];
+    [searchBar setText:@""];
+    [searchBar resignFirstResponder];
+}
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length > 2) {
+        [self searchFor:searchText];
+    }
+    if (searchText > 0) {
+        [self.searchBar setShowsCancelButton:YES animated:YES];
+    }
+}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
@@ -160,6 +181,8 @@
     [self.searchBar resignFirstResponder];
     [self.collectionView becomeFirstResponder];
     [self.collectionView reloadData];
+    [self.suggestionTableView setHidden:YES];
+    [self.searchBar setShowsCancelButton:NO animated:YES];
 }
 
 
@@ -173,32 +196,12 @@
         
         self.filterIconImageView.hidden = NO;
         self.filterButton.enabled = YES;
-        
-        [UIView animateWithDuration:0.4
-                              delay:0
-                            options:UIViewAnimationOptionCurveLinear
-                         animations:^ {
-                             
-                             [self.searchBar setFrame:CGRectMake(34,1,200,44)];
-                             
-                         }completion:^(BOOL finished) {
-                             
-                         }];
+    
     } else {
         
         self.filterIconImageView.hidden = YES;
         self.filterButton.enabled = NO;
         
-        [UIView animateWithDuration:0.4
-                              delay:0
-                            options:UIViewAnimationOptionCurveLinear
-                         animations:^ {
-                             
-                             [self.searchBar setFrame:CGRectMake(40,1,234,44)];
-                             
-                         }completion:^(BOOL finished) {
-                             
-                         }];
     }
     
     return [self.itemsArray count];
@@ -377,6 +380,54 @@
 }
 
 
+#pragma mark - SuggestionTableView Delegates and DataSource
+
+
+// DataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.suggestionArray count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    cell.textLabel.text = [self.suggestionArray objectAtIndex:indexPath.row];
+    return cell;
+}
+
+// Delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.searchBar setText:[self.suggestionArray objectAtIndex:indexPath.row]];
+    [self searchBar:self.searchBar textDidChange:[self.suggestionArray objectAtIndex:indexPath.row]];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    
+    return view;
+}
+
+#pragma mark getting suggestions
+
+- (void)searchFor:(NSString *)word {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager GET:[NSString stringWithFormat:@"%@",[BTRSuggestionFetcher URLforSugesstionWithQuery:word]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self.suggestionArray removeAllObjects];
+    
+        [self.suggestionArray addObjectsFromArray:[NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil]];
+        if (self.suggestionArray.count > 0) {
+            
+            [self.suggestionTableView setHidden:NO];
+            [self.suggestionTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 
 @end
 

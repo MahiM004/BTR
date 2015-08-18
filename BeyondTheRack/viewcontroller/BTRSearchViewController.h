@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRSearchViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface BTRSearchViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UITableView *suggestionTableView;
 @property (weak, nonatomic) IBOutlet UIImageView *filterIconImageView;
 @property (weak, nonatomic) IBOutlet UIButton *filterButton;
 
