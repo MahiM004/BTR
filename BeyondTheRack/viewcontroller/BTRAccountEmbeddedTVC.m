@@ -35,7 +35,6 @@
 @property (strong, nonatomic) NSMutableArray *headersArray;
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) Contact *contactInfo;
-//@property (nonatomic, strong) NSArray *faqArray;
 
 @end
 
@@ -226,40 +225,8 @@
      }];
 }
 
-#pragma mark - Getting FAQ
+#pragma mark - Getting Contact US
 
-//- (void)fetchFAQWithSuccess:(void (^)(id  responseObject)) success
-//                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-//{
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-//    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-//    manager.responseSerializer = serializer;
-//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    
-//    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-//    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-//    
-//    [manager GET:[NSString stringWithFormat:@"%@", [BTRFAQFetcher URLforFAQ]]
-//      parameters:nil
-//         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-//     {
-//         
-//         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-//                                                                               options:0
-//                                                                                 error:NULL];
-//         if (entitiesPropertyList) {
-//             self.faqArray = [FAQ arrayOfFAQWithAppServerInfo:entitiesPropertyList];
-//             success(self.faqArray);
-//         }
-//         
-//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//         
-//         failure(operation, error);
-//         
-//     }];
-//    
-//}
 
 - (void)fetchContactWithSuccess:(void (^)(id  responseObject)) success
                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
@@ -284,8 +251,6 @@
          if (entitiesPropertyList) {
              self.contactInfo = [Contact contactWithAppServerInfo:entitiesPropertyList];
              success(self.contactInfo);
-//             self.faqArray = [FAQ arrayOfFAQWithAppServerInfo:entitiesPropertyList];
-//             success(self.faqArray);
          }
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -336,23 +301,17 @@
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
      
      if ([[segue identifier] isEqualToString:@"BTRNotificationsSegueIdentifier"]) {
-         
          BTRNotificationsVC *vc = [segue destinationViewController];
          vc.user = [self user];
      
      } else if ([[segue identifier] isEqualToString:@"BTRTrackOrdersSegueIdentifier"]) {
-         
          BTRTrackOrdersVC *vc = [segue destinationViewController];
          vc.headersArray = [self headersArray];
          vc.itemsDictionary = [self itemsDictionary];
          
      } else if ([[segue identifier] isEqualToString:@"BTRContactusSegueIdentifier"]) {
-         
          BTRContactUSViewController* vc = [segue destinationViewController];
          vc.contactInformaion = self.contactInfo;
-//         BTRHelpViewController* vc = [segue destinationViewController];
-//         vc.faqArray = [self faqArray];
-     
      }
  }
 
