@@ -1,0 +1,5 @@
+#include "MLPAutoCompleteTextField.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/MLPAutoCompleteTextField" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/MLPAutoCompleteTextField"
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

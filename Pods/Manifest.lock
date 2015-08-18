@@ -20,11 +20,14 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - MLPAutoCompleteTextField (1.5)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
+  - MLPAutoCompleteTextField (~> 1.5)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  MLPAutoCompleteTextField: ba4d507bbff2bd4f139d4197814fc8dd39caf77e
 
 COCOAPODS: 0.38.2
