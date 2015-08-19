@@ -195,6 +195,9 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 190;
+}
  
 
 #pragma mark - Bag RESTful Calls
