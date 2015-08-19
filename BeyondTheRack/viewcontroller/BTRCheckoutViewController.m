@@ -319,6 +319,7 @@
         [self enablePaymentInfo];
         [self clearPaymentInfo];
         [self changeDetailPaymentFor:creditCard];
+        [self setCurrentPaymentType:creditCard];
         [self.paymentMethodTF setText:@"Visa Credit"];
     } else {
         [self fillPaymentInfoWithCurrentData];
