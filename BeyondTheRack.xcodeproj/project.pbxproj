@@ -156,6 +156,14 @@
 		69FF40861A3F8939000BD092 /* BeyondTheRackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */; };
 		A00393E61B7B8B4000A3F79F /* delivery.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A00393E51B7B8B4000A3F79F /* delivery.jpg */; };
 		A00C9A331B7CE1E30047D6F5 /* BTRContactUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */; };
+		A00E4DD31B8632ED00C93CD3 /* BTRMasterPass.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD21B8632ED00C93CD3 /* BTRMasterPass.m */; };
+		A00E4DD61B8642FC00C93CD3 /* MasterPassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */; };
+		A00E4DD91B86444700C93CD3 /* MasterPassInfo+Appserver.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD81B86444700C93CD3 /* MasterPassInfo+Appserver.m */; };
+		A00E4DE41B865B5700C93CD3 /* mp_lightbox_base.html in Resources */ = {isa = PBXBuildFile; fileRef = A00E4DDB1B865B5700C93CD3 /* mp_lightbox_base.html */; };
+		A00E4DE51B865B5700C93CD3 /* MPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DDD1B865B5700C93CD3 /* MPAddress.m */; };
+		A00E4DE61B865B5700C93CD3 /* MPCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DDF1B865B5700C93CD3 /* MPCreditCard.m */; };
+		A00E4DE71B865B5700C93CD3 /* MPLightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DE11B865B5700C93CD3 /* MPLightboxViewController.m */; };
+		A00E4DE81B865B5700C93CD3 /* MPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DE31B865B5700C93CD3 /* MPManager.m */; };
 		A01142681B61777A0099A40A /* BTRFAQTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A01142671B61777A0099A40A /* BTRFAQTableViewCell.m */; };
 		A011426B1B617A830099A40A /* BTRHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A011426A1B617A830099A40A /* BTRHelpViewController.m */; };
 		A011426E1B6189D40099A40A /* FAQ.m in Sources */ = {isa = PBXBuildFile; fileRef = A011426D1B6189D40099A40A /* FAQ.m */; };
@@ -464,6 +472,21 @@
 		A00393E51B7B8B4000A3F79F /* delivery.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = delivery.jpg; sourceTree = "<group>"; };
 		A00C9A311B7CE1E30047D6F5 /* BTRContactUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRContactUSViewController.h; sourceTree = "<group>"; };
 		A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRContactUSViewController.m; sourceTree = "<group>"; };
+		A00E4DD11B8632ED00C93CD3 /* BTRMasterPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMasterPass.h; sourceTree = "<group>"; };
+		A00E4DD21B8632ED00C93CD3 /* BTRMasterPass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMasterPass.m; sourceTree = "<group>"; };
+		A00E4DD41B8642FC00C93CD3 /* MasterPassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterPassInfo.h; sourceTree = "<group>"; };
+		A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterPassInfo.m; sourceTree = "<group>"; };
+		A00E4DD71B86444700C93CD3 /* MasterPassInfo+Appserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MasterPassInfo+Appserver.h"; sourceTree = "<group>"; };
+		A00E4DD81B86444700C93CD3 /* MasterPassInfo+Appserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MasterPassInfo+Appserver.m"; sourceTree = "<group>"; };
+		A00E4DDB1B865B5700C93CD3 /* mp_lightbox_base.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = mp_lightbox_base.html; sourceTree = "<group>"; };
+		A00E4DDC1B865B5700C93CD3 /* MPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAddress.h; sourceTree = "<group>"; };
+		A00E4DDD1B865B5700C93CD3 /* MPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAddress.m; sourceTree = "<group>"; };
+		A00E4DDE1B865B5700C93CD3 /* MPCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCreditCard.h; sourceTree = "<group>"; };
+		A00E4DDF1B865B5700C93CD3 /* MPCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCreditCard.m; sourceTree = "<group>"; };
+		A00E4DE01B865B5700C93CD3 /* MPLightboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLightboxViewController.h; sourceTree = "<group>"; };
+		A00E4DE11B865B5700C93CD3 /* MPLightboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLightboxViewController.m; sourceTree = "<group>"; };
+		A00E4DE21B865B5700C93CD3 /* MPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPManager.h; sourceTree = "<group>"; };
+		A00E4DE31B865B5700C93CD3 /* MPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPManager.m; sourceTree = "<group>"; };
 		A01142661B61777A0099A40A /* BTRFAQTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFAQTableViewCell.h; sourceTree = "<group>"; };
 		A01142671B61777A0099A40A /* BTRFAQTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFAQTableViewCell.m; sourceTree = "<group>"; };
 		A01142691B617A830099A40A /* BTRHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRHelpViewController.h; sourceTree = "<group>"; };
@@ -844,6 +867,7 @@
 		69867A0F1A4480C7003CE59C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A00E4DDA1B865B5700C93CD3 /* Masterpass */,
 				695C75481B3841D1003F65F8 /* CTCheckbox */,
 				692709121B208C6C000A93ED /* etpushsdk */,
 				690A38D81B1DEB7F00D4BA84 /* TNRadioButton */,
@@ -883,6 +907,8 @@
 				A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */,
 				A06A40F01B8392C2008DD60B /* BTRSuggestionFetcher.h */,
 				A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */,
+				A00E4DD11B8632ED00C93CD3 /* BTRMasterPass.h */,
+				A00E4DD21B8632ED00C93CD3 /* BTRMasterPass.m */,
 			);
 			path = Fetcher;
 			sourceTree = "<group>";
@@ -952,6 +978,8 @@
 			children = (
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
+				A00E4DD41B8642FC00C93CD3 /* MasterPassInfo.h */,
+				A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */,
 				B3CC532C1B17798D0024EA08 /* User.h */,
 				B3CC532D1B17798D0024EA08 /* User.m */,
 				69D4404B1B331A5B00070FD8 /* EventCategory.h */,
@@ -999,6 +1027,8 @@
 				A01142731B618D8A0099A40A /* FAQ+AppServer.m */,
 				A0D1B4611B7E510D00848FA7 /* Contact+AppServer.h */,
 				A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */,
+				A00E4DD71B86444700C93CD3 /* MasterPassInfo+Appserver.h */,
+				A00E4DD81B86444700C93CD3 /* MasterPassInfo+Appserver.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1107,6 +1137,22 @@
 				69FF40841A3F8939000BD092 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A00E4DDA1B865B5700C93CD3 /* Masterpass */ = {
+			isa = PBXGroup;
+			children = (
+				A00E4DDB1B865B5700C93CD3 /* mp_lightbox_base.html */,
+				A00E4DDC1B865B5700C93CD3 /* MPAddress.h */,
+				A00E4DDD1B865B5700C93CD3 /* MPAddress.m */,
+				A00E4DDE1B865B5700C93CD3 /* MPCreditCard.h */,
+				A00E4DDF1B865B5700C93CD3 /* MPCreditCard.m */,
+				A00E4DE01B865B5700C93CD3 /* MPLightboxViewController.h */,
+				A00E4DE11B865B5700C93CD3 /* MPLightboxViewController.m */,
+				A00E4DE21B865B5700C93CD3 /* MPManager.h */,
+				A00E4DE31B865B5700C93CD3 /* MPManager.m */,
+			);
+			path = Masterpass;
 			sourceTree = "<group>";
 		};
 		B3699B1A1AEA9CFD009D6A48 /* FacebookSDK */ = {
@@ -1246,6 +1292,7 @@
 				69F0BB341B457156008C0498 /* SF-UI-Text-MediumItalic.otf in Resources */,
 				69F0BB2D1B457156008C0498 /* SF-UI-Text-BoldItalic.otf in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
+				A00E4DE41B865B5700C93CD3 /* mp_lightbox_base.html in Resources */,
 				690A391C1B1DF57100D4BA84 /* myunchecked.png in Resources */,
 				69F0BB311B457156008C0498 /* SF-UI-Text-Light.otf in Resources */,
 				690A390D1B1DEE0000D4BA84 /* checked@2x.png in Resources */,
@@ -1362,6 +1409,7 @@
 				690A38F21B1DEB7F00D4BA84 /* TNRadioButtonData.m in Sources */,
 				692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */,
 				A0D1B4631B7E510D00848FA7 /* Contact+AppServer.m in Sources */,
+				A00E4DD61B8642FC00C93CD3 /* MasterPassInfo.m in Sources */,
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
 				690A38F31B1DEB7F00D4BA84 /* TNRadioButtonGroup.m in Sources */,
 				69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */,
@@ -1379,6 +1427,7 @@
 				6901EA461ADEB89A002534D9 /* UIBarButtonItem+Badge.m in Sources */,
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				692F24E41AAF7BC5003AABE1 /* BTRZoomImageViewController.m in Sources */,
+				A00E4DD31B8632ED00C93CD3 /* BTRMasterPass.m in Sources */,
 				69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */,
 				69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */,
 				69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */,
@@ -1391,13 +1440,16 @@
 				6900B4DD1AB7747900930D16 /* FAImageView.m in Sources */,
 				69D440141B2B138000070FD8 /* BTRCheckoutViewController.m in Sources */,
 				692F24E11AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m in Sources */,
+				A00E4DE61B865B5700C93CD3 /* MPCreditCard.m in Sources */,
 				69BC6D421A8E4F2C00376D9C /* BTRFacetsHandler.m in Sources */,
 				A01142741B618D8A0099A40A /* FAQ+AppServer.m in Sources */,
 				697E05811A434121000146C6 /* BTRViewUtility.m in Sources */,
 				69E84ADA1B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m in Sources */,
 				69D4404D1B331A5B00070FD8 /* EventCategory.m in Sources */,
+				A00E4DD91B86444700C93CD3 /* MasterPassInfo+Appserver.m in Sources */,
 				A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */,
 				69D4405C1B34508600070FD8 /* BTRCategoryData.m in Sources */,
+				A00E4DE81B865B5700C93CD3 /* MPManager.m in Sources */,
 				690A38EF1B1DEB7F00D4BA84 /* TNImageRadioButton.m in Sources */,
 				69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */,
@@ -1410,6 +1462,7 @@
 				690A38F51B1DEB7F00D4BA84 /* TNRectangularRadioButtonData.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
+				A00E4DE51B865B5700C93CD3 /* MPAddress.m in Sources */,
 				69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */,
 				690A38D51B1DE67F00D4BA84 /* BTRNotificationsVC.m in Sources */,
 				695C754B1B3841D1003F65F8 /* CTCheckbox.m in Sources */,
@@ -1417,6 +1470,7 @@
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
 				6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */,
 				6900B4DF1AB7747900930D16 /* NSString+FontAwesome.m in Sources */,
+				A00E4DE71B865B5700C93CD3 /* MPLightboxViewController.m in Sources */,
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
 				690A38F01B1DEB7F00D4BA84 /* TNImageRadioButtonData.m in Sources */,
 				6901EA1D1ADD51D5002534D9 /* BTREditShoppingBagVC.m in Sources */,

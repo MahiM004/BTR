@@ -12,6 +12,7 @@
 #import "BTRPaypalCheckoutViewController.h"
 #import "BTROrderFetcher.h"
 #import "BTRPaypalFetcher.h"
+#import "BTRMasterPass.h"
 #import "Order+AppServer.h"
 #import "Item.h"
 
@@ -205,6 +206,9 @@
     
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
     self.paymentTypesArray = [sharedPaymentTypes creditCardDisplayNameArray];
+    
+    // TEST
+    [self getMasterPassInfo];
 }
 
 - (void)resetData {
@@ -1138,6 +1142,29 @@
         
     }];
     
+}
+
+- (void)getMasterPassInfo {
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRMasterPass URLforStartMasterPass]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                             options:0
+                                                                               error:NULL];
+        
+        if (entitiesPropertyList) {
+
+            NSLog(@"%@",entitiesPropertyList);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
 }
 
 

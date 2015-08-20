@@ -14,7 +14,8 @@
 
 typedef enum {
     creditCard,
-    paypal
+    paypal,
+    masterPass
 } paymentType;
 
 

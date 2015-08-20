@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ObjectiveSugar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>C931F716C4491868A72F8FCEBF7921C2</key>
+		<key>6F442D06FF3F02CA49623E6DDF112981</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E0A0843C35E4406010926441E5E9C150</key>
+		<key>74761B7AB908ED18DA2EF1A9712E5104</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D68FD27B688E6AD1937A9FF1A5A563F5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
