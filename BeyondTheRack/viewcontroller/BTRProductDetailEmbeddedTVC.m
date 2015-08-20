@@ -347,7 +347,7 @@
             break;
             
         case 1:
-            return 210;
+            return 240;
             break;
             
         case 2:
@@ -486,6 +486,16 @@
         [self.delegate quantityForAddToBag:self.stepper.countLabel.text];
     }
 }
+
+#pragma mark SizeChart
+
+- (IBAction)showSizeChart:(id)sender {
+    
+    NSLog(@"chart");
+
+}
+
+
 
 @end
 
