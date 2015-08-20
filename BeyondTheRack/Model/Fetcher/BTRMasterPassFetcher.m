@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
 
-#import "BTRMasterPass.h"
+#import "BTRMasterPassFetcher.h"
 
-@implementation BTRMasterPass
+@implementation BTRMasterPassFetcher
 
 + (NSURL *)URLforStartMasterPass {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/checkout/masterpass", BASEURL]];

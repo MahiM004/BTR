@@ -11,4 +11,6 @@
 
 @interface MasterPassInfo (AppServer)
 
++ (MasterPassInfo *)masterPassInfoWithAppServerInfo:(NSDictionary *)dictionary;
+
 @end

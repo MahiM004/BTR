@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BTRFetcher.h"
 
-@interface BTRMasterPass : BTRFetcher
+@interface BTRMasterPassFetcher : BTRFetcher
 
 + (NSURL *)URLforStartMasterPass;
 + (NSURL *)URLforMasterPassInfo;

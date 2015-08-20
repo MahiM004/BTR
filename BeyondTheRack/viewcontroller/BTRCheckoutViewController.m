@@ -10,9 +10,11 @@
 #import "BTRPaymentTypesHandler.h"
 #import "BTRConfirmationViewController.h"
 #import "BTRPaypalCheckoutViewController.h"
+#import "BTRMasterPassViewController.h"
 #import "BTROrderFetcher.h"
 #import "BTRPaypalFetcher.h"
-#import "BTRMasterPass.h"
+#import "MasterPassInfo+Appserver.h"
+#import "BTRMasterPassFetcher.h"
 #import "Order+AppServer.h"
 #import "Item.h"
 
@@ -51,6 +53,7 @@
 @property paymentType currentPaymentType;
 @property (strong, nonatomic) NSMutableArray* arrayOfGiftCards;
 @property (strong, nonatomic) NSDictionary* paypal;
+@property (strong, nonatomic) MasterPassInfo* masterpass;
 
 @end
 
@@ -1113,6 +1116,9 @@
         BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
         paypalVC.paypal = self.paypal;
         paypalVC.isNewAccount = self.changePaymentMethodCheckbox.checked;
+    } else if ([[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueIdentifier"]) {
+        BTRMasterPassViewController* mpVC = [segue destinationViewController];
+        mpVC.info = self.masterpass;
     }
 
 }
@@ -1152,7 +1158,7 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRMasterPass URLforStartMasterPass]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
                                                                              options:0
                                                                                error:NULL];
@@ -1160,6 +1166,9 @@
         if (entitiesPropertyList) {
 
             NSLog(@"%@",entitiesPropertyList);
+            MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:entitiesPropertyList];
+            self.masterpass= master;
+            [self performSegueWithIdentifier:@"BTRMasterPassCheckoutSegueIdentifier" sender:self];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

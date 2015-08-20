@@ -156,7 +156,7 @@
 		69FF40861A3F8939000BD092 /* BeyondTheRackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */; };
 		A00393E61B7B8B4000A3F79F /* delivery.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A00393E51B7B8B4000A3F79F /* delivery.jpg */; };
 		A00C9A331B7CE1E30047D6F5 /* BTRContactUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */; };
-		A00E4DD31B8632ED00C93CD3 /* BTRMasterPass.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD21B8632ED00C93CD3 /* BTRMasterPass.m */; };
+		A00E4DD31B8632ED00C93CD3 /* BTRMasterPassFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD21B8632ED00C93CD3 /* BTRMasterPassFetcher.m */; };
 		A00E4DD61B8642FC00C93CD3 /* MasterPassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */; };
 		A00E4DD91B86444700C93CD3 /* MasterPassInfo+Appserver.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD81B86444700C93CD3 /* MasterPassInfo+Appserver.m */; };
 		A00E4DE41B865B5700C93CD3 /* mp_lightbox_base.html in Resources */ = {isa = PBXBuildFile; fileRef = A00E4DDB1B865B5700C93CD3 /* mp_lightbox_base.html */; };
@@ -174,6 +174,7 @@
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
 		A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */; };
+		A0CE31431B8665BA007D7682 /* BTRMasterPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */; };
 		A0D1B45D1B7E495100848FA7 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45C1B7E495100848FA7 /* Contact.m */; };
 		A0D1B4601B7E4FED00848FA7 /* BTRContactFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */; };
 		A0D1B4631B7E510D00848FA7 /* Contact+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */; };
@@ -472,8 +473,8 @@
 		A00393E51B7B8B4000A3F79F /* delivery.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = delivery.jpg; sourceTree = "<group>"; };
 		A00C9A311B7CE1E30047D6F5 /* BTRContactUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRContactUSViewController.h; sourceTree = "<group>"; };
 		A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRContactUSViewController.m; sourceTree = "<group>"; };
-		A00E4DD11B8632ED00C93CD3 /* BTRMasterPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMasterPass.h; sourceTree = "<group>"; };
-		A00E4DD21B8632ED00C93CD3 /* BTRMasterPass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMasterPass.m; sourceTree = "<group>"; };
+		A00E4DD11B8632ED00C93CD3 /* BTRMasterPassFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMasterPassFetcher.h; sourceTree = "<group>"; };
+		A00E4DD21B8632ED00C93CD3 /* BTRMasterPassFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMasterPassFetcher.m; sourceTree = "<group>"; };
 		A00E4DD41B8642FC00C93CD3 /* MasterPassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterPassInfo.h; sourceTree = "<group>"; };
 		A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterPassInfo.m; sourceTree = "<group>"; };
 		A00E4DD71B86444700C93CD3 /* MasterPassInfo+Appserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MasterPassInfo+Appserver.h"; sourceTree = "<group>"; };
@@ -506,6 +507,8 @@
 		A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSuggestionFetcher.m; sourceTree = "<group>"; };
 		A0ABECCF1B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPaypalCheckoutViewController.h; sourceTree = "<group>"; };
 		A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalCheckoutViewController.m; sourceTree = "<group>"; };
+		A0CE31411B8665BA007D7682 /* BTRMasterPassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMasterPassViewController.h; sourceTree = "<group>"; };
+		A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMasterPassViewController.m; sourceTree = "<group>"; };
 		A0D1B45B1B7E495100848FA7 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		A0D1B45C1B7E495100848FA7 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		A0D1B45E1B7E4FED00848FA7 /* BTRContactFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRContactFetcher.h; sourceTree = "<group>"; };
@@ -785,6 +788,8 @@
 				A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */,
 				A0ABECCF1B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.h */,
 				A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */,
+				A0CE31411B8665BA007D7682 /* BTRMasterPassViewController.h */,
+				A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */,
 			);
 			name = Checkout;
 			sourceTree = "<group>";
@@ -907,8 +912,8 @@
 				A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */,
 				A06A40F01B8392C2008DD60B /* BTRSuggestionFetcher.h */,
 				A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */,
-				A00E4DD11B8632ED00C93CD3 /* BTRMasterPass.h */,
-				A00E4DD21B8632ED00C93CD3 /* BTRMasterPass.m */,
+				A00E4DD11B8632ED00C93CD3 /* BTRMasterPassFetcher.h */,
+				A00E4DD21B8632ED00C93CD3 /* BTRMasterPassFetcher.m */,
 			);
 			path = Fetcher;
 			sourceTree = "<group>";
@@ -1427,8 +1432,9 @@
 				6901EA461ADEB89A002534D9 /* UIBarButtonItem+Badge.m in Sources */,
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				692F24E41AAF7BC5003AABE1 /* BTRZoomImageViewController.m in Sources */,
-				A00E4DD31B8632ED00C93CD3 /* BTRMasterPass.m in Sources */,
+				A00E4DD31B8632ED00C93CD3 /* BTRMasterPassFetcher.m in Sources */,
 				69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */,
+				A0CE31431B8665BA007D7682 /* BTRMasterPassViewController.m in Sources */,
 				69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */,
 				69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */,
 				B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */,

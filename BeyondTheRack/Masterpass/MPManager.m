@@ -86,6 +86,19 @@ NSInteger const MPErrorCodeBadRequest = 400;
     
 }
 
+- (void)pairInViewController:(UIViewController *)viewController WithInfo:(MasterPassInfo *)Info {
+    NSDictionary *lightBoxParams = @{@"requestedDataTypes":Info.allowedCardTypes,
+                                     @"pairingRequestToken":Info.requestToken,
+                                     @"callbackUrl":Info.callbackUrl,
+                                     @"merchantCheckoutId":Info.merchantCheckoutId,
+                                     @"requestPairing":@1,
+                                     @"version":MPVersion};
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showLightboxWindowOfType:MPLightBoxTypeConnect options:lightBoxParams inViewController:viewController];
+    });
+}
+
 - (void)requestPairing:(void (^)(NSDictionary *pairingDetails, NSError *error))callback{
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/masterpass/pair",[self.delegate serverAddress]]];
     

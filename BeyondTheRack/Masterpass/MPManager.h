@@ -10,6 +10,7 @@
 #import "MPLightboxViewController.h"
 #import "MPCreditCard.h"
 #import "MPAddress.h"
+#import "MasterPassInfo.h"
 
 @protocol MPManagerDelegate <NSObject>
 @required
@@ -174,5 +175,7 @@ FOUNDATION_EXPORT NSString *const MPErrorNotPaired;
 #pragma mark - Manual Checkout
 
 - (void)completeManualCheckoutForOrder:(NSString *)orderNumber;
+
+- (void)pairInViewController:(UIViewController *)viewController WithInfo:(MasterPassInfo *)Info;
 
 @end
