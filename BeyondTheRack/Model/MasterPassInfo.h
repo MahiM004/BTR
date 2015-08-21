@@ -11,6 +11,7 @@
 @interface MasterPassInfo : NSObject
 
 @property (nonatomic, retain) NSArray * allowedCardTypes;
+@property (nonatomic, retain) NSArray * requestDataType;
 @property (nonatomic, retain) NSString * callbackUrl;
 @property (nonatomic, retain) NSString * cancelCallback;
 @property (nonatomic, retain) NSNumber * loyaltyEnabled;

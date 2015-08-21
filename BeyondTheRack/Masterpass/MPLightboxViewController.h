@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, MPLightBoxType) {
 
 -(void)lightBox:(MPLightboxViewController *)lightBoxViewController didCompletePreCheckout:(BOOL)success data:(NSDictionary *)data error:(NSError *)error;
 
--(void)lightBox:(MPLightboxViewController *)pairingViewController didCompleteCheckout:(BOOL)success error:(NSError *)error;
+-(void)lightBox:(MPLightboxViewController *)pairingViewController didCompleteCheckout:(BOOL)success error:(NSError *)error withInfo:(NSDictionary *)info;
 
 @end // end of delegate protocol
 

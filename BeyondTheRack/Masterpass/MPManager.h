@@ -13,39 +13,6 @@
 #import "MasterPassInfo.h"
 
 @protocol MPManagerDelegate <NSObject>
-@required
-
-/**
- * Provides the server address (url) at which the MasterPass services reside
- *
- * @return the server address at which the MasterPass service resides
- */
-- (NSString *)serverAddress;
-
-/**
- * Provides the logic from the host app to determine if the current
- * user is paired. Usually this incorporates some logic to determine
- * if a user has a long access token, which is stored server-side.
- *
- * @return the current pairing status
- */
-- (BOOL)isAppPaired;
-
-/**
- * Returns an array of supported data types (card, address, profile, etc)
- * for this app
- *
- * @return the supported data types
- */
-- (NSArray *)supportedDataTypes;
-
-/**
- * Returns an array of supported card types (MasterCard, Visa, Discover, etc)
- * for this app
- *
- * @return the supported card types
- */
-- (NSArray *)supportedCardTypes;
 
 @optional
 
@@ -63,7 +30,7 @@
  * @param success the status of the checkout
  * @param error any errors that occurred during checkout
  */
-- (void)checkoutDidComplete:(BOOL)success error:(NSError *)error;
+- (void)checkoutDidComplete:(BOOL)success error:(NSError *)error withInfo:(NSDictionary *)info;
 
 /**
  * Method that executes when precheckout completes
@@ -126,56 +93,10 @@ FOUNDATION_EXPORT NSString *const MPErrorNotPaired;
  */
 + (instancetype)sharedInstance;
 
-#pragma mark - Pairing
-
-/**
- * Opens the pairing modal over a viewcontroller.
- *
- * @param viewController The viewcontroller to show the pairing modal over
- */
-- (void)pairInViewController:(UIViewController *)viewController;
-
-/**
- * The current pairing status as defined by the delegate.
- * This is just a convience method for [self.delegate isAppPaired]
- *
- * @return the current pairing status
- */
-- (BOOL)isAppPaired;
-
-#pragma mark - Return Checkout
-
-/**
- * Retrieves the precheckout data from the MasterPass service
- *
- * @param callback The block to execute with the precheckout data
- */
-- (void)precheckoutDataCallback:(void (^)(NSArray *cards,
-                                              NSArray *addresses,
-                                              NSDictionary *contactInfo,
-                                              NSDictionary *walletInfo,
-                                              NSError *error)
-                                     )callback;
-
-- (void)returnCheckoutForOrder:(NSString *)orderNumber
-                   walletInfo:(NSDictionary *)walletInfo
-                         card:(MPCreditCard *)card
-              shippingAddress:(MPAddress *)shippingAddress
-         showInViewController:(UIViewController*)viewController;
-
-#pragma mark - Pair Checkout
-
--(void)pairCheckoutForOrder:(NSString *)orderNumber
-       showInViewController:(UIViewController*)viewController;
-
-- (void)completePairCheckoutForOrder:(NSString *)orderNumber
-                        transaction:(NSString *)transactionId
-             preCheckoutTransaction:(NSString *)precheckoutTransactionId;
 
 #pragma mark - Manual Checkout
 
-- (void)completeManualCheckoutForOrder:(NSString *)orderNumber;
 
-- (void)pairInViewController:(UIViewController *)viewController WithInfo:(MasterPassInfo *)Info;
+- (void)pairAndCheckoutInViewController:(UIViewController *)viewController WithInfo:(MasterPassInfo *)info;
 
 @end

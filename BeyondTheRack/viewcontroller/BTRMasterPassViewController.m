@@ -8,9 +8,10 @@
 
 #import "BTRMasterPassViewController.h"
 #import "BTRMasterPassFetcher.h"
+#import "Order+AppServer.h"
 
 @interface BTRMasterPassViewController ()
-
+@property (nonatomic,strong) Order *order;
 @end
 
 @implementation BTRMasterPassViewController
@@ -20,7 +21,7 @@
     
     //initilizing
     [[MPManager sharedInstance]setDelegate:self];
-    [[MPManager sharedInstance]pairInViewController:self WithInfo:self.info];
+    [[MPManager sharedInstance]pairAndCheckoutInViewController:self WithInfo:self.info];
     // Do any additional setup after loading the view.
 }
 
@@ -29,48 +30,70 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)preCheckoutDidComplete:(BOOL)success data:(NSDictionary *)data error:(NSError *)error {
+    NSLog(@"PRECHECK");
+}
+
 -(void)pairingDidComplete:(BOOL)success error:(NSError *)error {
+    NSLog(@"PAIRD");
+}
+
+- (void)checkoutDidComplete:(BOOL)success error:(NSError *)error withInfo:(NSDictionary *)info;{
     
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+    NSLog(@"Sold");
+    [self processMasterPassWithInfo:info];
+
+}
+
+//- (void)getInfoForMasterPassAndAddMasterPassInfo:(NSDictionary *)checkoutInfo {
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+//    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+//    manager.responseSerializer = serializer;
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+//    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+//    [manager GET:[NSString stringWithFormat:@"%@",[BTRMasterPassFetcher URLforMasterPassInfo]]
+//      parameters:nil
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             NSDictionary* info = [NSJSONSerialization JSONObjectWithData:responseObject
+//                                                                  options:0
+//                                                                    error:NULL];
+//             NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:info];
+//             [dic removeObjectForKey:@"masterPassInfo"];
+//             [dic setValue:[checkoutInfo valueForKey:@"masterPassInfo"] forKey:@"masterPassInfo"];
+//             [self processMasterPassWithInfo:dic];
+//             
+//         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             
+//         }];
+//    
+//}
+
+- (void)processMasterPassWithInfo:(NSDictionary *)info {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforMasterPassInfo]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                             options:0
-                                                                               error:NULL];
-        
-        if (entitiesPropertyList) {
-            
-            NSLog(@"%@",entitiesPropertyList);
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
-    
-    
-    NSLog(@"compelete");
-}
-- (void)checkoutDidComplete:(BOOL)success error:(NSError *)error {
-    NSLog(@"Sold");
-}
+    [manager POST:[NSString stringWithFormat:@"%@",[BTRMasterPassFetcher URLforMasterPassProcess]]
+       parameters:info
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
+              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                   options:0
+                                                                                     error:NULL];
+              if ([[[entitiesPropertyList valueForKey:@"payment"]valueForKey:@"success"]boolValue]) {
+                  self.order =[[Order alloc]init];
+                  self.order = [Order orderWithAppServerInfo:entitiesPropertyList];
+                  [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
+              }
 
-- (NSString *)serverAddress{
-    return self.info.callbackUrl;
-}
-- (BOOL)isAppPaired{
-    return YES;
-}
-- (NSArray *)supportedDataTypes{
-    return nil;
-}
-- (NSArray *)supportedCardTypes {
-    return nil;
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"%@",error);
+          }];
 }
 
 @end

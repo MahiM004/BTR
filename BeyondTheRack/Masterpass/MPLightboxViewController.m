@@ -113,16 +113,19 @@
                     
                     BOOL success = [json[@"status"] isEqualToString:@"success"];
                     if (self.type == MPLightBoxTypeConnect) {
+                        NSLog(@"PAIR LIGHT");
                         if (self.delegate && [self.delegate respondsToSelector:@selector(pairingView:didCompletePairing:error:)]) {
                             [self.delegate pairingView:self didCompletePairing:success error:error];
                         }
                     }
                     else if (self.type == MPLightBoxTypeCheckout) {
-                        if (self.delegate && [self.delegate respondsToSelector:@selector(lightBox:didCompleteCheckout:error:)]) {
-                            [self.delegate lightBox:self didCompleteCheckout:success error:error];
+                        NSLog(@"chekout LIGHT");
+                        if (self.delegate && [self.delegate respondsToSelector:@selector(lightBox:didCompleteCheckout:error:withInfo:)]) {
+                            [self.delegate lightBox:self didCompleteCheckout:success error:error withInfo:json];
                         }
                     }
                     else if (self.type == MPLightBoxTypePreCheckout){
+                        NSLog(@"PRECHECK LIGHT");
                         if (self.delegate && [self.delegate respondsToSelector:@selector(lightBox:didCompletePreCheckout:data:error:)]) {
                             [self.delegate lightBox:self didCompletePreCheckout:success data:json error:error];
                         }

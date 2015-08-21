@@ -26,6 +26,9 @@
     if ([masterPassDictionary valueForKeyPath:@"allowedCardTypes"] && [masterPassDictionary valueForKeyPath:@"allowedCardTypes"] != [NSNull null])
         masterPassInfo.allowedCardTypes = [[masterPassDictionary valueForKey:@"allowedCardTypes"] componentsSeparatedByString:@","];
 
+    if ([masterPassDictionary valueForKeyPath:@"requestedDataTypes"] && [masterPassDictionary valueForKeyPath:@"requestedDataTypes"] != [NSNull null])
+        masterPassInfo.requestDataType = [masterPassDictionary valueForKey:@"requestedDataTypes"];
+    
     if ([masterPassDictionary valueForKeyPath:@"callbackUrl"] && [masterPassDictionary valueForKeyPath:@"callbackUrl"] != [NSNull null])
         masterPassInfo.callbackUrl = [masterPassDictionary valueForKey:@"callbackUrl"];
     
@@ -39,7 +42,7 @@
         masterPassInfo.merchantCheckoutId = [masterPassDictionary valueForKey:@"merchantCheckoutId"];
     
     if ([masterPassDictionary valueForKeyPath:@"pairingRequestToken"] && [masterPassDictionary valueForKeyPath:@"pairingRequestToken"] != [NSNull null])
-        masterPassInfo.allowedCardTypes = [masterPassDictionary valueForKey:@"pairingRequestToken"];
+        masterPassInfo.pairingRequestToken = [masterPassDictionary valueForKey:@"pairingRequestToken"];
     
     if ([masterPassDictionary valueForKeyPath:@"requestBasicCheckout"] && [masterPassDictionary valueForKeyPath:@"requestBasicCheckout"] != [NSNull null])
         masterPassInfo.requestBasicCheckout = [masterPassDictionary valueForKey:@"requestBasicCheckout"];
