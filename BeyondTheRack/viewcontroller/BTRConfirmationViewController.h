@@ -28,8 +28,14 @@
 @property (weak, nonatomic) IBOutlet UIView *orderView;
 
 // receipt
+
 @property (weak, nonatomic) IBOutlet UILabel *bagTotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shippingPriceLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *gstTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *qstTextLabel;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *gstLabel;
 @property (weak, nonatomic) IBOutlet UILabel *qstLabel;
 @property (weak, nonatomic) IBOutlet UILabel *orderTotal;

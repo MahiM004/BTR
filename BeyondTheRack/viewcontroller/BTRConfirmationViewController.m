@@ -75,10 +75,20 @@
     
     // Prices
     self.bagTotalLabel.text = [NSString stringWithFormat:@"%@",self.order.bagTotalPrice];
-    self.qstLabel.text = [NSString stringWithFormat:@"%@",self.order.qstTax];
-    self.gstLabel.text = [NSString stringWithFormat:@"%@",self.order.gstTax];
     self.orderTotal.text = [NSString stringWithFormat:@"%@",self.order.orderTotalPrice];
     self.shippingPriceLabel.text = [NSString stringWithFormat:@"%@",self.order.shippingPrice];
+    
+    if (self.order.qstTax == nil) {
+        self.qstLabel.hidden = YES;
+        self.qstTextLabel.hidden = YES;
+    } else
+        self.qstLabel.text = [NSString stringWithFormat:@"%.2f",self.order.qstTax.floatValue];
+    if (self.order.gstTax == nil) {
+        self.gstLabel.hidden = YES;
+        self.gstTextLabel.hidden = YES;
+    } else
+        self.gstLabel.text = [NSString stringWithFormat:@"%.2f@",self.order.gstTax.floatValue];
+
     
     
 }
