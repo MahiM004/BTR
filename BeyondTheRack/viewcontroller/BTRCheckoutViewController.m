@@ -209,9 +209,6 @@
     
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
     self.paymentTypesArray = [sharedPaymentTypes creditCardDisplayNameArray];
-    
-    // TEST
-    [self getMasterPassInfo];
 }
 
 - (void)resetData {
@@ -271,8 +268,8 @@
     [self.shippingDollarLabel setText:[self.order shippingPrice]];
     
     // calculating taxes
-    [self.gstTaxDollarLabel setText:[self.order gstTax]];
-    [self.qstTaxDollarLabel setText:[self.order qstTax]];
+    [self.gstTaxDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order gstTax].floatValue]];
+    [self.qstTaxDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order qstTax].floatValue]];
     if (self.order.gstTax == nil)
         [self.gstTaxLebl setHidden:YES];
     else
@@ -660,7 +657,12 @@
                 self.paypalDetailsView.alpha = 1;
             }];
         }];
+    } else if (type == masterPass) {
+        self.paymentDetailsView.hidden = YES;
+        self.paypalEmailTF.hidden = YES;
+        self.creditCardDetailHeight.constant = 0;
     }
+    
     
     [UIView animateWithDuration:2
                      animations:^{
@@ -820,8 +822,13 @@
     
     if ([self pickerType] == PAYMENT_TYPE_PICKER) {
         [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
-        BOOL isPaypal = [self.paymentMethodTF.text isEqualToString:@"Paypal"];
-        isPaypal ? [self setCurrentPaymentType:paypal] : [self setCurrentPaymentType:creditCard];
+        if ([self.paymentMethodTF.text isEqualToString:@"Paypal"]) {
+            [self setCurrentPaymentType:paypal];
+        }else if ([self.paymentMethodTF.text isEqualToString:@"MasterPass"]) {
+            [self setCurrentPaymentType:masterPass];
+        }else{
+            [self setCurrentPaymentType:creditCard];
+        }
         [self changeDetailPaymentFor:self.currentPaymentType];
     }
     
@@ -897,8 +904,6 @@
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     
@@ -943,6 +948,10 @@
     } else if (self.currentPaymentType == paypal) {
         [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
             [self getPaypalInfo];
+        }];
+    } else if (self.currentPaymentType == masterPass){
+        [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
+            [self getMasterPassInfo];
         }];
     }
 }
