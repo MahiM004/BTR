@@ -18,11 +18,11 @@ typedef NS_ENUM(NSInteger, MPLightBoxType) {
 
 @protocol MPLightboxViewControllerDelegate <NSObject>
 @required
--(void)pairingView:(MPLightboxViewController *)pairingViewController didCompletePairing:(BOOL)success error:(NSError *)error;
+-(void)pairingView:(MPLightboxViewController *)pairingViewController didCompletePairingWithError:(NSError *)error;
 
--(void)lightBox:(MPLightboxViewController *)lightBoxViewController didCompletePreCheckout:(BOOL)success data:(NSDictionary *)data error:(NSError *)error;
+-(void)lightBox:(MPLightboxViewController *)lightBoxViewController didCompletePreCheckoutWithData:(NSDictionary *)data error:(NSError *)error;
 
--(void)lightBox:(MPLightboxViewController *)pairingViewController didCompleteCheckout:(BOOL)success error:(NSError *)error withInfo:(NSDictionary *)info;
+-(void)lightBox:(MPLightboxViewController *)pairingViewController didCompleteCheckoutWithError:(NSError *)error Info:(NSString *)info;
 
 @end // end of delegate protocol
 

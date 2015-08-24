@@ -75,29 +75,26 @@ NSInteger const MPErrorCodeBadRequest = 400;
 
 #pragma mark - Delegates
 
-- (void)pairingView:(MPLightboxViewController *)pairingViewController didCompletePairing:(BOOL)success error:(NSError *)error{
+-(void)pairingView:(MPLightboxViewController *)pairingViewController didCompletePairingWithError:(NSError *)error{
     [pairingViewController dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"PAIR MANAGER");
-        if ([self.delegate respondsToSelector:@selector(pairingDidComplete:error:)]) {
-            [self.delegate pairingDidComplete:success error:error];
+        if ([self.delegate respondsToSelector:@selector(pairingDidCompleteError:)]) {
+            [self.delegate pairingDidCompleteError:error];
         }
     }];
 }
 
--(void)lightBox:(MPLightboxViewController *)pairingViewController didCompleteCheckout:(BOOL)success error:(NSError *)error withInfo:(NSDictionary *)info{
-    NSLog(@"CHECKOUR MANAGER , DELEGATE : %@",self.delegate);
+- (void)lightBox:(MPLightboxViewController *)pairingViewController didCompleteCheckoutWithError:(NSError *)error Info:(NSString *)info {
     [pairingViewController dismissViewControllerAnimated:YES completion:^{
-        if ([self.delegate respondsToSelector:@selector(checkoutDidComplete:error:withInfo:)]) {
-            [self.delegate checkoutDidComplete:success error:error withInfo:info];
+        if ([self.delegate respondsToSelector:@selector(checkoutDidCompleteWithError:withInfo:)]) {
+            [self.delegate checkoutDidCompleteWithError:error withInfo:info];
         }
     }];
 }
 
--(void)lightBox:(MPLightboxViewController *)lightBoxViewController didCompletePreCheckout:(BOOL)success data:(NSDictionary *)data error:(NSError *)error{
-    NSLog(@"PRECHECKOUT MANAGER");
+-(void)lightBox:(MPLightboxViewController *)lightBoxViewController didCompletePreCheckoutWithData:(NSDictionary *)data error:(NSError *)error{
     [lightBoxViewController dismissViewControllerAnimated:YES completion:^{
-        if ([self.delegate respondsToSelector:@selector(preCheckoutDidComplete:data:error:)]) {
-            [self.delegate preCheckoutDidComplete:success data:data error:error];
+        if ([self.delegate respondsToSelector:@selector(preCheckoutDidCompleteWithData:error:)]) {
+            [self.delegate preCheckoutDidCompleteWithData:data error:error];
         }
     }];
 }

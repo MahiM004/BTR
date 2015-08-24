@@ -22,7 +22,7 @@
  * @param success the status of the pairing
  * @param error any errors that occurred during pairing
  */
--(void)pairingDidComplete:(BOOL)success error:(NSError *)error;
+-(void)pairingDidCompleteError:(NSError *)error;
 
 /**
  * Method that executes when checkout completes
@@ -30,7 +30,7 @@
  * @param success the status of the checkout
  * @param error any errors that occurred during checkout
  */
-- (void)checkoutDidComplete:(BOOL)success error:(NSError *)error withInfo:(NSDictionary *)info;
+- (void)checkoutDidCompleteWithError:(NSError *)error withInfo:(NSString *)info;
 
 /**
  * Method that executes when precheckout completes
@@ -39,7 +39,7 @@
  * @param data the precheckout data
  * @param error any errors that occurred during checkout
  */
-- (void)preCheckoutDidComplete:(BOOL)success data:(NSDictionary *)data error:(NSError *)error;
+- (void)preCheckoutDidCompleteWithData:(NSDictionary *)data error:(NSError *)error;
 
 /**
  * Method that executes when pair & checkout completes
@@ -47,7 +47,7 @@
  * @param success the status of the checkout
  * @param error any errors that occurred during checkout
  */
-- (void)pairCheckoutDidComplete:(BOOL)success error:(NSError *)error;
+- (void)pairCheckoutDidCompleteWithError:(NSError *)error;
 
 /**
  * Method that executes when manual checkout completes

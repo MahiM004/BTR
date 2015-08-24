@@ -88,56 +88,27 @@
     NSString *currentUrlString = [NSString stringWithFormat:@"%@://%@%@",currentUrl.scheme,currentUrl.host,currentUrl.path];
     
     if ([currentUrlString isEqualToString:[[self.options objectForKey:@"callbackUrl"] stringByReplacingOccurrencesOfString:@"\\" withString:@""]]) {
-        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-        [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-            
-            if (error) {
-                NSLog(@"Error: %@",[error localizedDescription]);
-            }
-            else{
-                
-                NSLog(@"%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
-                
-                NSError * jsonError;
-                NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
-                                                                     options:0
-                                                                       error:&jsonError];
-                
-                NSLog(@"%@",json);
-                
-                if (jsonError) {
-                    NSLog(@"Error: %@",[jsonError localizedDescription]);
-                }
-                else {
-                    NSLog(@"Callback Success: %@",json);
-                    
-                    BOOL success = [json[@"status"] isEqualToString:@"success"];
-                    if (self.type == MPLightBoxTypeConnect) {
-                        NSLog(@"PAIR LIGHT");
-                        if (self.delegate && [self.delegate respondsToSelector:@selector(pairingView:didCompletePairing:error:)]) {
-                            [self.delegate pairingView:self didCompletePairing:success error:error];
-                        }
-                    }
-                    else if (self.type == MPLightBoxTypeCheckout) {
-                        NSLog(@"chekout LIGHT");
-                        if (self.delegate && [self.delegate respondsToSelector:@selector(lightBox:didCompleteCheckout:error:withInfo:)]) {
-                            [self.delegate lightBox:self didCompleteCheckout:success error:error withInfo:json];
-                        }
-                    }
-                    else if (self.type == MPLightBoxTypePreCheckout){
-                        NSLog(@"PRECHECK LIGHT");
-                        if (self.delegate && [self.delegate respondsToSelector:@selector(lightBox:didCompletePreCheckout:data:error:)]) {
-                            [self.delegate lightBox:self didCompletePreCheckout:success data:json error:error];
-                        }
-                    }
-                }
-                
-            }
-            
-        }];
         
-        
+        if (self.type == MPLightBoxTypeConnect) {
+            NSLog(@"PAIR LIGHT");
+            if (self.delegate && [self.delegate respondsToSelector:@selector(pairingDidCompleteError:)]) {
+                [self.delegate pairingView:self didCompletePairingWithError:nil];
+            }
+        }
+        else if (self.type == MPLightBoxTypeCheckout) {
+            NSLog(@"chekout LIGHT");
+            if (self.delegate && [self.delegate respondsToSelector:@selector(lightBox:didCompleteCheckoutWithError:Info:)]) {
+                [self.delegate lightBox:self didCompleteCheckoutWithError:nil Info:[request.URL.absoluteString stringByReplacingOccurrencesOfString:[self.options objectForKey:@"callbackUrl"] withString:@""]];
+            }
+        }
+        else if (self.type == MPLightBoxTypePreCheckout){
+            NSLog(@"PRECHECK LIGHT");
+            if (self.delegate && [self.delegate respondsToSelector:@selector(lightBox:didCompletePreCheckoutWithData:error:)]) {
+                [self.delegate lightBox:self didCompletePreCheckoutWithData:nil error:nil];
+            }
+        }
         return NO;
+
     }
     return YES;
 }
