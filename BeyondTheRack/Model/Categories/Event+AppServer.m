@@ -113,7 +113,7 @@
 
     if ([eventDictionary valueForKeyPath:@"end_time"] && [eventDictionary valueForKeyPath:@"end_time"] != [NSNull null]) {
         NSDateFormatter *serverFormatter = [[NSDateFormatter alloc] init];
-        [serverFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
+        [serverFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"EST"]];
         [serverFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         event.endDateTime = [serverFormatter dateFromString:[eventDictionary valueForKey:@"end_time"]];
     }
