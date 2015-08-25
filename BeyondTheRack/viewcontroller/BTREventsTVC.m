@@ -102,6 +102,14 @@
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]];
 
     __weak UIImageView *weakImageView = imageView;
+    UILabel *durationLabel = [[UILabel alloc]initWithFrame:CGRectMake(imageView.frame.size.width / 3.0, imageView.frame.size.height - 20, (imageView.frame.size.width * 2) / 3.0, 20)];
+    durationLabel.font = [UIFont systemFontOfSize:11];
+    durationLabel.textColor = [UIColor whiteColor];
+    durationLabel.adjustsFontSizeToFitWidth = YES;
+    durationLabel.textAlignment = NSTextAlignmentCenter;
+    durationLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.65];
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeDateForLabel:) userInfo:[NSDictionary dictionaryWithObjectsAndKeys:durationLabel,@"label",event.endDateTime,@"date", nil] repeats:YES];
+    
     [imageView setImageWithURLRequest:urlRequest placeholderImage:[UIImage imageNamed:@"neulogo.png"]
      
                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -127,12 +135,32 @@
                               }];
 
     [cell addSubview:imageView];
-    
+    [cell addSubview:durationLabel];
+
     return cell;
 }
 
 
 #pragma mark - Navigation
+
+- (void)changeDateForLabel:(NSTimer *)timer{
+    
+    NSDate *date = [[timer userInfo] objectForKey:@"date"];
+    UILabel *label = [[timer userInfo] objectForKey:@"label"];
+
+    NSCalendar *sysCalendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [sysCalendar components: (NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear )
+                                                  fromDate:[NSDate date]
+                                                    toDate:date
+                                                   options:0];
+    if (components.hour < 0 || components.minute < 0 || components.second < 0) {
+        [timer invalidate];
+        label.text = [NSString stringWithFormat:@"Expired"];
+        label.textColor = [UIColor redColor];
+    } else {
+        label.text = [NSString stringWithFormat:@" Event Ends In %i days %02d:%02d:%02d",components.day,components.hour,components.minute,components.second];
+    }
+}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

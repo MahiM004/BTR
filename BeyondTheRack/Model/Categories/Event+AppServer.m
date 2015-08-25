@@ -110,8 +110,15 @@
     
     if ([eventDictionary valueForKeyPath:@"show_min_qty_minutes"] && [eventDictionary valueForKeyPath:@"show_min_qty_minutes"] != [NSNull null])
         event.showMinQtyMinutes = [eventDictionary valueForKey:@"show_min_qty_minutes"];
-    
 
+    if ([eventDictionary valueForKeyPath:@"end_time"] && [eventDictionary valueForKeyPath:@"end_time"] != [NSNull null]) {
+        NSDateFormatter *serverFormatter = [[NSDateFormatter alloc] init];
+        [serverFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
+        [serverFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        event.endDateTime = [serverFormatter dateFromString:[eventDictionary valueForKey:@"end_time"]];
+    }
+    
+    
     /*
      @dynamic expiryDateTime;
      @dynamic startDateTime;
