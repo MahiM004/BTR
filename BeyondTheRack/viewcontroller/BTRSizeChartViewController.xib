@@ -39,7 +39,7 @@
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gzz-bZ-DWu">
                     <rect key="frame" x="8" y="76" width="312" height="30"/>
-                    <color key="backgroundColor" white="0.96455320560000002" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="waV-pb-T5G"/>
                     </constraints>
@@ -75,7 +75,7 @@
                 <constraint firstAttribute="trailing" secondItem="gzz-bZ-DWu" secondAttribute="trailing" id="wfa-7F-3ap"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="47" y="217"/>
+            <point key="canvasLocation" x="-153" y="40"/>
         </view>
     </objects>
 </document>

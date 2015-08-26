@@ -22,17 +22,19 @@
 @property (nonatomic, strong) NSArray* apparelArray;
 @property (nonatomic, strong) NSArray* apparelImages;
 
+@property (nonatomic, strong) NSIndexPath* selectedIndexPath;
+
 @end
 
 @implementation BTRSizeChartViewController
 
 
 - (NSArray *)apparelArray {
-    _apparelArray = @[@"WOMEN",@"MEN",@"KID",@"HOW TO MEASURE"];
+    _apparelArray = @[@"WOMEN",@"MEN",@"KID",@"HOW TO MEASURE ( MEN )",@"HOW TO MEASURE ( WOMEN )"];
     return _apparelArray;
 }
 - (NSArray *)apparelImages {
-    _apparelImages = @[@"women_size_chart.jpg",@"men_size_chart.jpg",@"kids_size_chart.jpg",@"how_to_measure_men.jpg"];
+    _apparelImages = @[@"women_size_chart.jpg",@"men_size_chart.jpg",@"kids_size_chart.jpg",@"how_to_measure_men.jpg",@"how_to_measure_women.jpg"];
     return _apparelImages;
 }
 
@@ -60,11 +62,13 @@
     // cell of collection view
     UINib *cellNib = [UINib nibWithNibName:@"BTRSizeChartCategoryCollectionViewCell" bundle:nil];
     [self.chartCategoryCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"cvCell"];
-    // Do any additional setup after loading the view from its nib.
+    
+    // selecting first cell
+    self.selectedIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self.chartCategoryCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    [self collectionView:self.chartCategoryCollectionView didSelectItemAtIndexPath:self.selectedIndexPath];
 }
 
 
@@ -81,18 +85,30 @@
     
     BTRSizeChartCategoryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cvCell" forIndexPath:indexPath];
     cell.categoryTitleLabel.text = [self.currentCategoryArray objectAtIndex:indexPath.row];
+    if ([indexPath isEqual:self.selectedIndexPath]) {
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+    else
+        cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
     
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(160, 30);
+    if (indexPath.row == [self.currentCategoryArray count] - 2 || indexPath.row == [self.currentCategoryArray count] - 1) {
+        return CGSizeMake(230, 30);
+    }
+    return CGSizeMake(80, 30);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [self.chartScrollView setZoomScale:1.0];
     [self.imageView removeFromSuperview];
     __weak typeof(self) weakSelf = self;
+    if (self.selectedIndexPath) {
+        BTRSizeChartCategoryCollectionViewCell *lastSelectedCell  = (BTRSizeChartCategoryCollectionViewCell *)[collectionView cellForItemAtIndexPath:self.selectedIndexPath];
+        lastSelectedCell.backgroundColor = [UIColor lightGrayColor];
+    }
     BTRSizeChartCategoryCollectionViewCell *cell  = (BTRSizeChartCategoryCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
     if (self.imageView == nil) {
@@ -113,12 +129,13 @@
             [weakSelf.chartScrollView setZoomScale:1.0];
 
         [weakSelf scrollViewDidZoom:weakSelf.chartScrollView];
-        [cell setBackgroundColor:[UIColor grayColor]];
+        [cell setBackgroundColor:[UIColor whiteColor]];
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"%@",error);
     }];
     
+    self.selectedIndexPath = indexPath;
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)aScrollView {
