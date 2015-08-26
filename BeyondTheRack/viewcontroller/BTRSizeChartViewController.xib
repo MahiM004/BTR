@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BTRSizeChartViewController">
+            <connections>
+                <outlet property="chartCategoryCollectionView" destination="gzz-bZ-DWu" id="erl-bm-DqM"/>
+                <outlet property="chartScrollView" destination="gBL-Uh-9O9" id="VYm-KR-tzx"/>
+                <outlet property="chartTitleLabel" destination="NF0-cB-pQN" id="10n-Vj-Pty"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APPAREL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NF0-cB-pQN">
+                    <rect key="frame" x="8" y="15" width="227" height="60"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                    <color key="textColor" white="0.96455320560000002" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qiD-MG-bfW">
+                    <rect key="frame" x="235" y="16" width="85" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="85" id="e7a-9Y-74E"/>
+                        <constraint firstAttribute="height" constant="60" id="n9P-2b-zgf"/>
+                    </constraints>
+                    <state key="normal" title="Close">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="close:" destination="-1" eventType="touchUpInside" id="ufu-As-MfY"/>
+                    </connections>
+                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gzz-bZ-DWu">
+                    <rect key="frame" x="8" y="76" width="312" height="30"/>
+                    <color key="backgroundColor" white="0.96455320560000002" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="waV-pb-T5G"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ink-AL-ejo">
+                        <size key="itemSize" width="100" height="30"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="6A7-Ej-mgH"/>
+                        <outlet property="delegate" destination="-1" id="Hdd-bJ-fVj"/>
+                    </connections>
+                </collectionView>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBL-Uh-9O9">
+                    <rect key="frame" x="8" y="106" width="312" height="494"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="qiD-MG-bfW" firstAttribute="leading" secondItem="NF0-cB-pQN" secondAttribute="trailing" id="165-8b-JfC"/>
+                <constraint firstItem="NF0-cB-pQN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="63S-ee-YAi"/>
+                <constraint firstItem="gzz-bZ-DWu" firstAttribute="top" secondItem="qiD-MG-bfW" secondAttribute="bottom" id="8oJ-N4-aNn"/>
+                <constraint firstAttribute="trailing" secondItem="qiD-MG-bfW" secondAttribute="trailing" id="J5G-WR-S60"/>
+                <constraint firstAttribute="bottom" secondItem="gBL-Uh-9O9" secondAttribute="bottom" id="Rtq-w0-gWf"/>
+                <constraint firstItem="qiD-MG-bfW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="SHY-5k-DxU"/>
+                <constraint firstItem="gzz-bZ-DWu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="TwW-Zj-3jX"/>
+                <constraint firstItem="gBL-Uh-9O9" firstAttribute="top" secondItem="gzz-bZ-DWu" secondAttribute="bottom" id="Up6-N7-z8M"/>
+                <constraint firstItem="gBL-Uh-9O9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Yf8-Df-Lrx"/>
+                <constraint firstItem="qiD-MG-bfW" firstAttribute="centerY" secondItem="NF0-cB-pQN" secondAttribute="centerY" constant="1" id="bvu-Qt-M3T"/>
+                <constraint firstItem="qiD-MG-bfW" firstAttribute="height" secondItem="NF0-cB-pQN" secondAttribute="height" id="f6D-cX-kk9"/>
+                <constraint firstAttribute="trailing" secondItem="gBL-Uh-9O9" secondAttribute="trailing" id="ltT-3X-4mk"/>
+                <constraint firstAttribute="trailing" secondItem="gzz-bZ-DWu" secondAttribute="trailing" id="wfa-7F-3ap"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="47" y="217"/>
+        </view>
+    </objects>
+</document>

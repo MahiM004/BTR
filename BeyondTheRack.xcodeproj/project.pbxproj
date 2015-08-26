@@ -155,6 +155,7 @@
 		69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40781A3F8939000BD092 /* LaunchScreen.xib */; };
 		69FF40861A3F8939000BD092 /* BeyondTheRackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */; };
 		A00393E61B7B8B4000A3F79F /* delivery.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A00393E51B7B8B4000A3F79F /* delivery.jpg */; };
+		A00A7FEC1B8E102200568BB6 /* BTRChartFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */; };
 		A00C9A331B7CE1E30047D6F5 /* BTRContactUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */; };
 		A00E4DD31B8632ED00C93CD3 /* BTRMasterPassFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD21B8632ED00C93CD3 /* BTRMasterPassFetcher.m */; };
 		A00E4DD61B8642FC00C93CD3 /* MasterPassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */; };
@@ -169,6 +170,10 @@
 		A011426E1B6189D40099A40A /* FAQ.m in Sources */ = {isa = PBXBuildFile; fileRef = A011426D1B6189D40099A40A /* FAQ.m */; };
 		A01142711B618AEB0099A40A /* BTRFAQFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01142701B618AEB0099A40A /* BTRFAQFetcher.m */; };
 		A01142741B618D8A0099A40A /* FAQ+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A01142731B618D8A0099A40A /* FAQ+AppServer.m */; };
+		A01670671B8CF11400448EF3 /* BTRSizeChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01670651B8CF11400448EF3 /* BTRSizeChartViewController.m */; };
+		A01670681B8CF11400448EF3 /* BTRSizeChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A01670661B8CF11400448EF3 /* BTRSizeChartViewController.xib */; };
+		A016706F1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A016706D1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.m */; };
+		A01670701B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A016706E1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib */; };
 		A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */; };
 		A01E5DFC1B690FBF00B0EC5B /* BTRConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
@@ -471,6 +476,8 @@
 		69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BeyondTheRackTests.m; sourceTree = "<group>"; };
 		712E4DFD1AB764A322A67A99 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A00393E51B7B8B4000A3F79F /* delivery.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = delivery.jpg; sourceTree = "<group>"; };
+		A00A7FEA1B8E102200568BB6 /* BTRChartFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRChartFetcher.h; sourceTree = "<group>"; };
+		A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRChartFetcher.m; sourceTree = "<group>"; };
 		A00C9A311B7CE1E30047D6F5 /* BTRContactUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRContactUSViewController.h; sourceTree = "<group>"; };
 		A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRContactUSViewController.m; sourceTree = "<group>"; };
 		A00E4DD11B8632ED00C93CD3 /* BTRMasterPassFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMasterPassFetcher.h; sourceTree = "<group>"; };
@@ -498,6 +505,12 @@
 		A01142701B618AEB0099A40A /* BTRFAQFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFAQFetcher.m; sourceTree = "<group>"; };
 		A01142721B618D8A0099A40A /* FAQ+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FAQ+AppServer.h"; sourceTree = "<group>"; };
 		A01142731B618D8A0099A40A /* FAQ+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FAQ+AppServer.m"; sourceTree = "<group>"; };
+		A01670641B8CF11400448EF3 /* BTRSizeChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSizeChartViewController.h; sourceTree = "<group>"; };
+		A01670651B8CF11400448EF3 /* BTRSizeChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSizeChartViewController.m; sourceTree = "<group>"; };
+		A01670661B8CF11400448EF3 /* BTRSizeChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRSizeChartViewController.xib; sourceTree = "<group>"; };
+		A016706C1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSizeChartCategoryCollectionViewCell.h; sourceTree = "<group>"; };
+		A016706D1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSizeChartCategoryCollectionViewCell.m; sourceTree = "<group>"; };
+		A016706E1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRSizeChartCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		A01BCF411B66BA6500A6242F /* BTRPaypalFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPaypalFetcher.h; sourceTree = "<group>"; };
 		A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalFetcher.m; sourceTree = "<group>"; };
 		A01E5DFA1B690FBF00B0EC5B /* BTRConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRConfirmationViewController.h; sourceTree = "<group>"; };
@@ -829,6 +842,7 @@
 				69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */,
 				69B02CAA1A5DA70700040C86 /* BTREventsTVC.h */,
 				69B02CAB1A5DA70700040C86 /* BTREventsTVC.m */,
+				A01670631B8CF0E700448EF3 /* SizeChart */,
 				692F24D21AA8E0B4003AABE1 /* MyAccount */,
 				692F24D11AA8E093003AABE1 /* Product */,
 				69385FBF1A7BF3830074FE33 /* Search */,
@@ -914,6 +928,8 @@
 				A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */,
 				A00E4DD11B8632ED00C93CD3 /* BTRMasterPassFetcher.h */,
 				A00E4DD21B8632ED00C93CD3 /* BTRMasterPassFetcher.m */,
+				A00A7FEA1B8E102200568BB6 /* BTRChartFetcher.h */,
+				A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */,
 			);
 			path = Fetcher;
 			sourceTree = "<group>";
@@ -1160,6 +1176,19 @@
 			path = Masterpass;
 			sourceTree = "<group>";
 		};
+		A01670631B8CF0E700448EF3 /* SizeChart */ = {
+			isa = PBXGroup;
+			children = (
+				A01670641B8CF11400448EF3 /* BTRSizeChartViewController.h */,
+				A01670651B8CF11400448EF3 /* BTRSizeChartViewController.m */,
+				A01670661B8CF11400448EF3 /* BTRSizeChartViewController.xib */,
+				A016706C1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.h */,
+				A016706D1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.m */,
+				A016706E1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib */,
+			);
+			name = SizeChart;
+			sourceTree = "<group>";
+		};
 		B3699B1A1AEA9CFD009D6A48 /* FacebookSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1301,6 +1330,7 @@
 				690A391C1B1DF57100D4BA84 /* myunchecked.png in Resources */,
 				69F0BB311B457156008C0498 /* SF-UI-Text-Light.otf in Resources */,
 				690A390D1B1DEE0000D4BA84 /* checked@2x.png in Resources */,
+				A01670701B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib in Resources */,
 				69F0BB321B457156008C0498 /* SF-UI-Text-LightItalic.otf in Resources */,
 				690A390C1B1DEE0000D4BA84 /* checked.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
@@ -1311,6 +1341,7 @@
 				69F0BB371B457156008C0498 /* SF-UI-Text-SemiboldItalic.otf in Resources */,
 				695C75611B38957A003F65F8 /* masterpass_t@2x.png in Resources */,
 				690A39101B1DEE0000D4BA84 /* unchecked.png in Resources */,
+				A01670681B8CF11400448EF3 /* BTRSizeChartViewController.xib in Resources */,
 				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,
 				69F0BB291B457156008C0498 /* SF-UI-Display-Semibold.otf in Resources */,
 				695C755D1B386AFD003F65F8 /* paypalcheckout.png in Resources */,
@@ -1425,6 +1456,7 @@
 				69D440591B33478500070FD8 /* BTRInitializeViewController.m in Sources */,
 				69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */,
 				A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */,
+				A016706F1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.m in Sources */,
 				69869FA31A63FCA500F986BC /* BTRFetcher.m in Sources */,
 				69D440171B304D8E00070FD8 /* BTRDateHandler.m in Sources */,
 				69F0BB071B418756008C0498 /* OrderHistoryItem+AppServer.m in Sources */,
@@ -1463,6 +1495,7 @@
 				6900B4D21AB7649300930D16 /* BTRSignUpViewController.m in Sources */,
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
 				69D440561B331AEA00070FD8 /* EventCategory+AppServer.m in Sources */,
+				A00A7FEC1B8E102200568BB6 /* BTRChartFetcher.m in Sources */,
 				6900B4E11AB7747900930D16 /* UIFont+FontAwesome.m in Sources */,
 				6901E9D51AC09CE3002534D9 /* BTRBagFetcher.m in Sources */,
 				690A38F51B1DEB7F00D4BA84 /* TNRectangularRadioButtonData.m in Sources */,
@@ -1485,6 +1518,7 @@
 				A00C9A331B7CE1E30047D6F5 /* BTRContactUSViewController.m in Sources */,
 				696508621AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.m in Sources */,
 				692F24D01AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m in Sources */,
+				A01670671B8CF11400448EF3 /* BTRSizeChartViewController.m in Sources */,
 				69765FED1A51BE5A004A0F46 /* BTRMyAccountViewController.m in Sources */,
 				6901EA471ADEB89A002534D9 /* UIButton+Badge.m in Sources */,
 				6901E9FC1ACD703C002534D9 /* BTRBagTableViewCell.m in Sources */,

@@ -10,6 +10,7 @@
 #import "BTRProductImageCollectionCell.h"
 #import "BTRZoomImageViewController.h"
 #import "BTRItemFetcher.h"
+#import "BTRSizeChartViewController.h"
 #import "NSString+HeightCalc.h"
 #import <Social/Social.h>
 #import <Pinterest/Pinterest.h>
@@ -482,17 +483,21 @@
 #pragma mark - Quantity Delegate
 
 - (void)quantityChangedWithValue:(NSString *)value {
+    
     if ([self.delegate respondsToSelector:@selector(quantityForAddToBag:)]) {
         [self.delegate quantityForAddToBag:self.stepper.countLabel.text];
     }
+    
 }
 
 #pragma mark SizeChart
 
 - (IBAction)showSizeChart:(id)sender {
-    
-    NSLog(@"chart");
 
+    BTRSizeChartViewController* sizechart = [[BTRSizeChartViewController alloc]initWithNibName:@"BTRSizeChartViewController" bundle:nil];
+    [sizechart setCategory:apparel];
+    [self presentViewController:sizechart animated:YES completion:nil];
+    
 }
 
 
