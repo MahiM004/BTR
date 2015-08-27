@@ -185,6 +185,7 @@
     if (!tView){
         tView = [[UILabel alloc] init];
         tView.adjustsFontSizeToFitWidth = YES;
+        tView.textAlignment = NSTextAlignmentCenter;
     }
     tView.text = [[self inquiryArray] objectAtIndex:row];
     return tView;
