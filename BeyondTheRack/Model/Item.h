@@ -13,7 +13,6 @@
 @property (nonatomic, retain) NSString * attributeList;
 @property (nonatomic, retain) NSString * brand;
 @property (nonatomic, retain) NSString * categoryList;
-@property (nonatomic, retain) NSString * discount;
 @property (nonatomic, retain) NSString * eventId;
 @property (nonatomic, retain) NSString * generalNote;
 @property (nonatomic, retain) NSString * imageCount;
@@ -42,5 +41,6 @@
 @property (nonatomic, retain) NSNumber * retailPrice;
 @property (nonatomic, retain) NSNumber * employeePrice;
 @property (nonatomic, retain) NSNumber * salePrice;
+@property float discount;
 
 @end

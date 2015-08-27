@@ -165,6 +165,7 @@
     if ([itemDictionary valueForKeyPath:@"restricted_shipping"] && [itemDictionary valueForKeyPath:@"restricted_shipping"] != [NSNull null])
         item.restrictedShipping = [itemDictionary valueForKey:@"restricted_shipping"];
 
+    item.discount = [item.retailPrice floatValue] - [[item salePrice]floatValue];
     
     return item;
 
