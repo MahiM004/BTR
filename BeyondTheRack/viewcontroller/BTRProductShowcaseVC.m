@@ -39,6 +39,9 @@
 
 
 // sort and filter
+
+@property (weak, nonatomic) IBOutlet UIView *sortAndFilterView;
+
 @property (strong, nonatomic) NSArray* collectionViewResourceArray;
 @property (strong, nonatomic) NSArray* sortedItemsArray;
 
@@ -301,7 +304,7 @@
     } else {
         selectedSizeString = [[cell sizeCodesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]];
     }
-    
+    __weak typeof(cell) weakCell = cell;
     [cell setDidTapAddtoBagButtonBlock:^(id sender) {
     
         if ([sizeLabelText isEqualToString:SIZE_NOT_SELECTED_STRING]) {
@@ -310,23 +313,74 @@
             [alert show];
         } else {
             
+            UICollectionViewLayoutAttributes *attr = [cv layoutAttributesForItemAtIndexPath:indexPath];
+            CGPoint correctedOffset = CGPointMake(cell.frame.origin.x - cv.contentOffset.x,cell.frame.origin.y - cv.contentOffset.y);
+
+            CGPoint cellOrigin = [attr frame].origin;
+            cellOrigin = CGPointMake(cellOrigin.x + attr.frame.size.width / 2, cellOrigin.y + attr.frame.size.height / 2);
+            
+            CGRect frame = CGRectMake(0.0,0.0,weakCell.frame.size.width,weakCell.frame.size.height);
+
+            frame.origin = [weakCell convertPoint:correctedOffset toView:self.view];
+            CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , weakCell.productImageView.frame.size.width, weakCell.productImageView.frame.size.height);
+            UIImageView *starView = [[UIImageView alloc] initWithImage:weakCell.productImageView.image];
+            [starView setFrame:rect];
+            starView.layer.cornerRadius=5;
+            starView.layer.borderColor=[[UIColor blackColor]CGColor];
+            starView.layer.borderWidth=1;
+            [self.view addSubview:starView];
+            
+            
+            // begin
+            
+            CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+            pathAnimation.calculationMode = kCAAnimationPaced;
+            pathAnimation.fillMode = kCAFillModeForwards;
+            pathAnimation.removedOnCompletion = NO;
+            pathAnimation.duration=0.65;
+            pathAnimation.delegate=self;
+            
+            // end point
+            
+            CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
+            CGMutablePathRef curvedPath = CGPathCreateMutable();
+            CGPathMoveToPoint(curvedPath, NULL, starView.frame.origin.x, starView.frame.origin.y);
+            CGPathAddCurveToPoint(curvedPath, NULL, endPoint.x, starView.frame.origin.y, endPoint.x, starView.frame.origin.y, endPoint.x, endPoint.y);
+            pathAnimation.path = curvedPath;
+            CGPathRelease(curvedPath);
+
+            // transform
+            
+            CABasicAnimation *basic=[CABasicAnimation animationWithKeyPath:@"transform"];
+            [basic setToValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01, 0.01, 0.01)]];
+            [basic setAutoreverses:NO];
+            [basic setDuration:0.65];
+            [starView.layer addAnimation:pathAnimation forKey:@"curveAnimation"];
+            [starView.layer addAnimation:basic forKey:@"transform"];
+            [starView performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.65];
+            
+            // calling add to bag
+            
             BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
             [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] addProductItem:productItem withVariant:selectedSizeString  success:^(NSString *successString) {
                 
-                if ([successString isEqualToString:@"TRUE"]) {
-                    
-                    UIStoryboard *storyboard = self.storyboard;
-                    BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-                    [self presentViewController:vc animated:YES completion:nil];
-                }
+                if ([successString isEqualToString:@"TRUE"])
+                    [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
                 
             } failure:^(NSError *error) {
 
             }];
+            
         }
     }];
     
     return cell;
+}
+
+- (void)moveToCheckout {
+    UIStoryboard *storyboard = self.storyboard;
+    BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 
