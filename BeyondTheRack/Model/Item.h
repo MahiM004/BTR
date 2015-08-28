@@ -10,7 +10,7 @@
 
 @interface Item : NSObject
 
-@property (nonatomic, retain) NSString * attributeList;
+@property (nonatomic, retain) NSDictionary * attributeDictionary;
 @property (nonatomic, retain) NSString * brand;
 @property (nonatomic, retain) NSString * categoryList;
 @property (nonatomic, retain) NSString * eventId;
@@ -35,7 +35,7 @@
 @property (nonatomic, retain) NSString * shortItemDescription;
 @property (nonatomic, retain) NSString * sku;
 @property (nonatomic, retain) NSString * specialNote;
-@property (nonatomic, retain) NSString * variantInventory;
+@property (nonatomic, retain) NSDictionary * variantInventory;
 @property (nonatomic, retain) NSString * videoCount;
 @property (nonatomic, retain) NSString * videoName;
 @property (nonatomic, retain) NSNumber * retailPrice;
