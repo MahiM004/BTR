@@ -7,6 +7,7 @@
 //
 
 #import "BTRConfirmationViewController.h"
+#import "BTRAttributeHandler.h"
 #import "Item.h"
 
 @interface BTRConfirmationViewController ()
@@ -66,7 +67,7 @@
         UILabel *newLabel = [[UILabel alloc]initWithFrame:CGRectMake(begingingpoint.x, begingingpoint.y + (i * space), size.width, space)];
         newLabel.numberOfLines = -1;
         newLabel.font = [UIFont systemFontOfSize:11];
-        newLabel.text = [NSString stringWithFormat:@"%@\n%@\n%@",item.shortItemDescription,item.attributeList,item.brand];
+        newLabel.text = [NSString stringWithFormat:@"%@\n%@\n%@",item.shortItemDescription,[BTRAttributeHandler attributeDictionaryToString:item.attributeDictionary],item.brand];
         [self.orderView addSubview:newLabel];
     }
     self.itemsHeight.constant = self.order.items.count * 140;
