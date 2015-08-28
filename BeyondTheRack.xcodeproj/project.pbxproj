@@ -180,6 +180,7 @@
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
 		A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */; };
 		A0CE31431B8665BA007D7682 /* BTRMasterPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */; };
+		A0D037481B90A82300EA9E48 /* BTRAttributeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D037471B90A82300EA9E48 /* BTRAttributeHandler.m */; };
 		A0D1B45D1B7E495100848FA7 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45C1B7E495100848FA7 /* Contact.m */; };
 		A0D1B4601B7E4FED00848FA7 /* BTRContactFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */; };
 		A0D1B4631B7E510D00848FA7 /* Contact+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */; };
@@ -522,6 +523,8 @@
 		A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalCheckoutViewController.m; sourceTree = "<group>"; };
 		A0CE31411B8665BA007D7682 /* BTRMasterPassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMasterPassViewController.h; sourceTree = "<group>"; };
 		A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMasterPassViewController.m; sourceTree = "<group>"; };
+		A0D037461B90A82300EA9E48 /* BTRAttributeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAttributeHandler.h; sourceTree = "<group>"; };
+		A0D037471B90A82300EA9E48 /* BTRAttributeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRAttributeHandler.m; sourceTree = "<group>"; };
 		A0D1B45B1B7E495100848FA7 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		A0D1B45C1B7E495100848FA7 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		A0D1B45E1B7E4FED00848FA7 /* BTRContactFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRContactFetcher.h; sourceTree = "<group>"; };
@@ -972,6 +975,8 @@
 				69D4405B1B34508600070FD8 /* BTRCategoryData.m */,
 				69D4405D1B34750500070FD8 /* BTRPaymentTypesHandler.h */,
 				69D4405E1B34750500070FD8 /* BTRPaymentTypesHandler.m */,
+				A0D037461B90A82300EA9E48 /* BTRAttributeHandler.h */,
+				A0D037471B90A82300EA9E48 /* BTRAttributeHandler.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -1489,6 +1494,7 @@
 				69D4405C1B34508600070FD8 /* BTRCategoryData.m in Sources */,
 				A00E4DE81B865B5700C93CD3 /* MPManager.m in Sources */,
 				690A38EF1B1DEB7F00D4BA84 /* TNImageRadioButton.m in Sources */,
+				A0D037481B90A82300EA9E48 /* BTRAttributeHandler.m in Sources */,
 				69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */,
 				69F0BAFB1B41868B008C0498 /* OrderHistoryBag.m in Sources */,

@@ -2304,7 +2304,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="271D0CD5-C8DD-4EB5-A056-73CE2A85449B" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="5ED8A301-C614-461F-A360-4FA0FCE3C944" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3161,7 +3161,7 @@
                                         <color key="textColor" red="0.94452303650000002" green="0.94333380460000005" blue="0.98011469839999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Size" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6Vu-ck-Ix6">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Size" borderStyle="roundedRect" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6Vu-ck-Ix6">
                                         <rect key="frame" x="68" y="5" width="49" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="B3E-dR-m7s"/>
@@ -3294,7 +3294,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2507" y="-522"/>
+            <point key="canvasLocation" x="2471" y="-632"/>
         </scene>
         <!--Product Detail View Controller-->
         <scene sceneID="tn9-0f-X2L">
@@ -7290,7 +7290,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="271D0CD5-C8DD-4EB5-A056-73CE2A85449B" width="30" height="30">
+        <image name="5ED8A301-C614-461F-A360-4FA0FCE3C944" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND

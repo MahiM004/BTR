@@ -30,8 +30,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
-@property (copy, nonatomic) NSMutableArray *variantInventoriesArray; // an Array of variantInventory Dictionaries
-@property (copy, nonatomic) NSMutableArray *attributesArray; // an Array of variantInventory Dictionaries
+@property (copy, nonatomic) NSDictionary *selectedVariantInventories; // an Array of variantInventory Dictionaries
+@property (copy, nonatomic) NSDictionary *selectedAttributes; // an Array of variantInventory Dictionaries
 
 @property (strong, nonatomic) NSMutableArray *chosenSizesArray;
 @property (assign, nonatomic) NSUInteger selectedCellIndexRow;
@@ -50,7 +50,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *filterSizeTextField;
 @property (weak, nonatomic) IBOutlet UITextField *sortTextField;
 
-
 // picker
 
 @property (nonatomic) NSUInteger pickerType;
@@ -65,7 +64,7 @@
 
 
 - (NSArray *)collectionViewResourceArray {
-    if ([self.sortTextField.text isEqualToString:@"Suggested"])
+    if ([self.sortTextField.text isEqualToString:@"Suggested"] && [self.filterSizeTextField.text isEqualToString:@"Size"])
         return self.originalItemArray;
     return self.sortedItemsArray;
 }
@@ -78,25 +77,22 @@
 
 
 - (NSMutableArray *)chosenSizesArray {
-    
     if (!_chosenSizesArray) _chosenSizesArray = [[NSMutableArray alloc] init];
     return _chosenSizesArray;
 }
 
 
-
-- (NSMutableArray *)attributesArray {
-    
-    if (!_attributesArray) _attributesArray = [[NSMutableArray alloc] init];
-    return _attributesArray;
-}
-
-
-- (NSMutableArray *)variantInventoriesArray {
-    
-    if (!_variantInventoriesArray) _variantInventoriesArray = [[NSMutableArray alloc] init];
-    return _variantInventoriesArray;
-}
+//
+//- (NSMutableArray *)attributesArray {
+//    if (!_attributesArray) _attributesArray = [[NSMutableArray alloc] init];
+//    return _attributesArray;
+//}
+//
+//
+//- (NSMutableArray *)variantInventoriesArray {
+//    if (!_variantInventoriesArray) _variantInventoriesArray = [[NSMutableArray alloc] init];
+//    return _variantInventoriesArray;
+//}
 
 
 - (NSMutableArray *)originalItemArray {
@@ -109,11 +105,34 @@
     return _sortArray;
 }
 
+- (NSArray *)sizeArray {
+    if (!_sizeArray)  {
+        
+        NSMutableArray* allSizes = [[NSMutableArray alloc]init];
+        for (Item* item in self.originalItemArray) {
+            if ([item.variantInventory isKindOfClass:[NSDictionary class]]){
+                for (NSString *key in [item.variantInventory keyEnumerator])
+                    if (![allSizes containsObject:[[key componentsSeparatedByString:@"#"]firstObject]])
+                        [allSizes addObject:[[key componentsSeparatedByString:@"#"]firstObject]];
+            }
+        }
+        allSizes = [NSMutableArray arrayWithArray:[allSizes sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [(NSString *)obj1 compare:(NSString *)obj2 options:NSNumericSearch];
+        }]];
+        
+        if ([allSizes containsObject:@"One Size"])
+            [allSizes removeObject:@"One Size"];
+        
+        [allSizes insertObject:@"Size" atIndex:0];
+        _sizeArray = [allSizes mutableCopy];
+    }
+    return _sizeArray;
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
@@ -143,6 +162,8 @@
                          } failure:^(NSError *error) {
                              
                          }];
+    
+    [self setSortedItemsArray:self.originalItemArray];
 }
 
 
@@ -172,10 +193,10 @@
          NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                               options:0
                                                                                 error:NULL];         
-         for (NSDictionary *itemDic in entitiesPropertyList) {
-             [self.variantInventoriesArray addObject:itemDic[@"variant_inventory"]];
-             [self.attributesArray addObject:itemDic[@"attributes"]];
-         }
+//         for (NSDictionary *itemDic in entitiesPropertyList) {
+//             [self.variantInventoriesArray addObject:itemDic[@"variant_inventory"]];
+//             [self.attributesArray addObject:itemDic[@"attributes"]];
+//         }
          
          self.originalItemArray = [Item loadItemsfromAppServerArray:entitiesPropertyList withEventId:[self eventSku] forItemsArray:[self originalItemArray]];
          
@@ -190,9 +211,6 @@
      }];
     
 }
-
-
-
 
 - (void)cartIncrementServerCallforSessionId:(NSString *)sessionId
                              addProductItem:(Item *)productItem
@@ -255,8 +273,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(collectionView.frame.size.width / 2 - 1, 410);
 }
 
@@ -266,18 +283,15 @@
     return [self.collectionViewResourceArray count];
 }
 
-
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
     
-    BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:[self.variantInventoriesArray objectAtIndex:indexPath.row]
-                                                 toSizesArray:[cell sizesArray]
-                                             toSizeCodesArray:[cell sizeCodesArray]
-                                          toSizeQuantityArray:[cell sizeQuantityArray]];
-
     Item *productItem = [self.collectionViewResourceArray objectAtIndex:indexPath.row];
+    BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:productItem.variantInventory
+                                                                        toSizesArray:[cell sizesArray]
+                                                                    toSizeCodesArray:[cell sizeCodesArray]
+                                                                 toSizeQuantityArray:[cell sizeQuantityArray]];
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andBTRSizeMode:sizeMode forIndexPath:indexPath];
 
     NSMutableArray *tempSizesArray = [cell sizesArray];
@@ -342,8 +356,6 @@
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
-
-
 - (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell
                                                                     withItem:(Item *)productItem andBTRSizeMode:(BTRSizeMode)sizeMode
                                                                 forIndexPath:(NSIndexPath *)indexPath {
@@ -378,15 +390,15 @@
     return cell;
 }
 
-
 #pragma mark - Navigation
-
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
-    Item *productItem = [self.originalItemArray objectAtIndex:indexPath.row];
+    Item *productItem = [self.collectionViewResourceArray objectAtIndex:indexPath.row];
     [self setSelectedIndexPath:indexPath];
     [self setSelectedBrandString:[productItem brand]];
+    [self setSelectedAttributes:productItem.attributeDictionary];
+    [self setSelectedVariantInventories:productItem.variantInventory];
     [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
 }
 
@@ -398,29 +410,24 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"]) {
-        
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = EVENT_SCENE;
-        productDetailVC.productItem = [self.originalItemArray objectAtIndex:[self.selectedIndexPath row]];
+        productDetailVC.productItem = [self.collectionViewResourceArray objectAtIndex:[self.selectedIndexPath row]];
         productDetailVC.eventId = [self eventSku];
-        productDetailVC.variantInventoryDictionary = [self.variantInventoriesArray objectAtIndex:[self.selectedIndexPath row]];
-        productDetailVC.attributesDictionary = [self.attributesArray objectAtIndex:[self.selectedIndexPath row]];
+        productDetailVC.variantInventoryDictionary = self.selectedVariantInventories;
+        productDetailVC.attributesDictionary = self.selectedAttributes;
     }
 }
-
 
 - (IBAction)unwindFromProductDetailToShowcase:(UIStoryboardSegue *)unwindSegue
 {
 
 }
-
 
 #pragma mark - Filter & Suggestion
 
@@ -465,49 +472,20 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     
     [self.pickerParentView setHidden:TRUE];
-    
     if ([self pickerType] == SORT_PICKER) {
-        
-        
         if ([self.sortTextField.text isEqualToString:[self.sortArray objectAtIndex:row]])
             return; // we dont need reload collectionView
-        
         [self.sortTextField setText:[self.sortArray objectAtIndex:row]];
-        
-        NSSortDescriptor *sortDescriptor;
-        switch (row) {
-            case 0:
-                break;
-            case 1:
-                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"discount" ascending:YES];
-                break;
-            case 2:
-                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"discount" ascending:NO];
-                break;
-            case 3:
-                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"salePrice" ascending:YES];
-                break;
-            case 4:
-                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"salePrice" ascending:NO];
-                break;
-            case 5:
-                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sku" ascending:YES];
-                break;
-            default:
-                break;
-        }
-        
-        
-        
-        
-        NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-        self.sortedItemsArray = [self.originalItemArray sortedArrayUsingDescriptors:sortDescriptors];
     }
     
     if ([self pickerType] == SIZE_PICKER) {
+        if ([self.filterSizeTextField.text isEqualToString:[self.sizeArray objectAtIndex:row]])
+            return;
         [self.filterSizeTextField setText:[self.sizeArray objectAtIndex:row]];
     }
     
+    [self sortItems];
+    [self filterItems];
     [self.collectionView reloadData];
 }
 
@@ -525,17 +503,65 @@
     return tView;
 }
 
+
+
+- (void)sortItems {
+    NSSortDescriptor *sortDescriptor;
+    switch ([self.sortArray indexOfObject:self.sortTextField.text]) {
+        case 0:
+            self.sortedItemsArray = self.originalItemArray;
+            return;
+        case 1:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"discount" ascending:YES];
+            break;
+        case 2:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"discount" ascending:NO];
+            break;
+        case 3:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"salePrice" ascending:YES];
+            break;
+        case 4:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"salePrice" ascending:NO];
+            break;
+        case 5:
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sku" ascending:YES];
+            break;
+        default:
+            break;
+    }
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    self.sortedItemsArray = [self.originalItemArray sortedArrayUsingDescriptors:sortDescriptors];
+}
+
+- (void)filterItems {
+    NSInteger selectedIndex = [self.sizeArray indexOfObject:self.filterSizeTextField.text];
+    if (selectedIndex == 0)
+        return;
+    NSMutableArray* tempArray = [self.sortedItemsArray mutableCopy];
+    for (Item* item in self.sortedItemsArray) {
+        if ([item.variantInventory isKindOfClass:[NSDictionary class]]){
+            BOOL found = NO;
+            for (NSString *key in [item.variantInventory keyEnumerator])
+                if ([key hasPrefix:[NSString stringWithFormat:@"%@#",[self.sizeArray objectAtIndex:selectedIndex]]])
+                    found = YES;
+            if (!found)
+                [tempArray removeObject:item];
+        }
+        
+    }
+    self.sortedItemsArray = tempArray;
+}
+
+
+
+
 #pragma mark - BTRSelectSizeVC Delegate
 
 
-
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
-    
     self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:(int)selectedIndex];
-
     [self.collectionView reloadData];
 }
-
 
 @end
 
