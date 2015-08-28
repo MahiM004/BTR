@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSDate *dueDateTime;
 @property (nonatomic, strong) PKYStepper *stepper;
 @property (weak, nonatomic) IBOutlet UIButton *rereserveItemButton;
+@property (weak, nonatomic) IBOutlet UIButton *removeButton;
 
 
 /**

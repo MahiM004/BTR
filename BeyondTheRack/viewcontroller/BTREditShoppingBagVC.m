@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *bagTitleLabel;
+@property (strong , nonatomic) NSArray *originalBagItemsArray;
 
 @end
 
@@ -57,6 +58,8 @@
                                            selector:@selector(timerFired:)
                                            userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    
+    self.originalBagItemsArray = [self.bagItemsArray mutableCopy];
 }
 
 
@@ -94,8 +97,6 @@
     }];
 }
 
-
-
 #pragma mark - Table view Data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -127,14 +128,26 @@
     
     cell = [self configureCell:cell forBagItem:bagItem andItem:item];
     cell.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
-        
-        [[self.bagItemsArray objectAtIndex:indexPath.row] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
+        [[self.bagItemsArray objectAtIndex:stepper.tag] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
+        NSInteger editedObjIndex = [self.originalBagItemsArray indexOfObject:[self.bagItemsArray objectAtIndex:stepper.tag]];
+        [[self.originalBagItemsArray objectAtIndex:editedObjIndex] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
         stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
     };
+    
+    [cell.removeButton setTag:indexPath.row];
+    [cell.removeButton addTarget:self action:@selector(removeProductItem:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 
+- (void)removeProductItem:(UIButton *)sender {
+    BTRBagTableViewCell *cell = (BTRBagTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:sender.tag inSection:0]];
+    [cell.stepper setTag:sender.tag];
+    [cell.stepper setValue:0];
+    [self.bagItemsArray removeObjectAtIndex:sender.tag];
+    [self.tableView reloadData];
+    [self.bagTitleLabel setText:[NSString stringWithFormat:@"Edit Bag (%lu)", (unsigned long)[self.bagItemsArray count]]];
+}
 
 
 - (Item *)getItemforSku:(NSString *)skuNumber {
@@ -187,7 +200,7 @@
     
     NSMutableArray *params =[[NSMutableArray alloc] init];
     
-    for (BagItem *bagItem in [self bagItemsArray]) {
+    for (BagItem *bagItem in [self originalBagItemsArray]) {
         
         time_t unixTime = (time_t) [[bagItem createDateTime] timeIntervalSince1970];
         NSString *cart_time = [NSString stringWithFormat:@"%@", @(unixTime)];

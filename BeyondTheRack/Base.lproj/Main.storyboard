@@ -2304,7 +2304,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="06BFAEA3-A5ED-4453-A674-E40B0FCE00C9" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="EEE55535-9F8E-42C6-9E47-45FB0209AAC4" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -4334,7 +4334,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wxx-54-p0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2845" y="261"/>
+            <point key="canvasLocation" x="2579" y="261"/>
         </scene>
         <!--Paypal Checkout View Controller-->
         <scene sceneID="hyl-SQ-ef7">
@@ -4568,22 +4568,48 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bNA-tp-RwB">
-                                                    <rect key="frame" x="53" y="184" width="215" height="36"/>
+                                                    <rect key="frame" x="8" y="184" width="304" height="36"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Quantity:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUY-tT-FRa" userLabel="QuantityLabel">
-                                                            <rect key="frame" x="8" y="8" width="83" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUY-tT-FRa" userLabel="QuantityLabel">
+                                                            <rect key="frame" x="0.0" y="8" width="76" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="3C2-IS-9jB"/>
+                                                                <constraint firstAttribute="width" constant="76" id="NGk-lj-YSl"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NRk-Mg-U5H" userLabel="stepperView">
-                                                            <rect key="frame" x="105" y="6" width="102" height="22"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRk-Mg-U5H" userLabel="stepperView">
+                                                            <rect key="frame" x="84" y="9" width="102" height="22"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="22" id="rdQ-xv-X1U"/>
+                                                                <constraint firstAttribute="width" constant="102" id="zuK-D9-4VB"/>
+                                                            </constraints>
                                                         </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Nk-Ba-wdy">
+                                                            <rect key="frame" x="204" y="6" width="100" height="25"/>
+                                                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="YCf-ct-Web"/>
+                                                                <constraint firstAttribute="height" constant="25" id="x0W-1l-C5A"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <state key="normal" title="Remove">
+                                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="215" id="UaW-wl-4RL"/>
-                                                        <constraint firstAttribute="height" constant="36" id="aJw-BI-i8q"/>
+                                                        <constraint firstItem="NRk-Mg-U5H" firstAttribute="centerY" secondItem="YUY-tT-FRa" secondAttribute="centerY" constant="1" id="BQ0-mm-VMv"/>
+                                                        <constraint firstAttribute="centerY" secondItem="YUY-tT-FRa" secondAttribute="centerY" constant="-0.5" id="K4T-Kc-sue"/>
+                                                        <constraint firstItem="YUY-tT-FRa" firstAttribute="leading" secondItem="bNA-tp-RwB" secondAttribute="leading" id="RRg-1l-ugY"/>
+                                                        <constraint firstAttribute="height" constant="36" id="RSB-05-60i"/>
+                                                        <constraint firstAttribute="trailing" secondItem="4Nk-Ba-wdy" secondAttribute="trailing" id="gDz-mK-bgK"/>
+                                                        <constraint firstItem="YUY-tT-FRa" firstAttribute="centerY" secondItem="4Nk-Ba-wdy" secondAttribute="centerY" id="lhN-Jw-doZ"/>
+                                                        <constraint firstItem="NRk-Mg-U5H" firstAttribute="leading" secondItem="YUY-tT-FRa" secondAttribute="trailing" constant="8" id="tiG-rK-rSZ"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -4598,12 +4624,13 @@
                                                 <constraint firstItem="qyr-Zq-XrA" firstAttribute="width" secondItem="3gR-Am-Lxr" secondAttribute="width" id="Qg6-X6-mj8"/>
                                                 <constraint firstItem="uBE-KI-JFJ" firstAttribute="trailing" secondItem="PJR-kl-bJo" secondAttribute="trailingMargin" id="R8i-Gg-dwE"/>
                                                 <constraint firstItem="3fx-Gp-cYm" firstAttribute="top" secondItem="jeE-Ze-Qgg" secondAttribute="bottom" constant="8" id="XMa-6O-5Kq"/>
-                                                <constraint firstItem="bNA-tp-RwB" firstAttribute="top" secondItem="qyr-Zq-XrA" secondAttribute="bottom" constant="16" id="YEm-mu-ewh"/>
+                                                <constraint firstItem="bNA-tp-RwB" firstAttribute="top" secondItem="qyr-Zq-XrA" secondAttribute="bottom" constant="16" id="Yob-oZ-xHn"/>
                                                 <constraint firstItem="WLe-uv-E2H" firstAttribute="bottom" secondItem="qyr-Zq-XrA" secondAttribute="bottom" id="bQe-cN-DFJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="1GC-DA-cNZ" secondAttribute="trailing" id="cX9-A4-V46"/>
                                                 <constraint firstItem="uBE-KI-JFJ" firstAttribute="leading" secondItem="qyr-Zq-XrA" secondAttribute="trailing" constant="8" id="da5-aT-xEH"/>
+                                                <constraint firstItem="qyr-Zq-XrA" firstAttribute="leading" secondItem="bNA-tp-RwB" secondAttribute="leading" id="e2w-ch-B9y"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="bNA-tp-RwB" secondAttribute="trailing" id="ezP-mj-FRP"/>
                                                 <constraint firstItem="1GC-DA-cNZ" firstAttribute="leading" secondItem="PJR-kl-bJo" secondAttribute="leading" id="i8s-ee-MnC"/>
-                                                <constraint firstAttribute="centerX" secondItem="bNA-tp-RwB" secondAttribute="centerX" id="iTA-PD-lBF"/>
                                                 <constraint firstItem="qyr-Zq-XrA" firstAttribute="centerX" secondItem="3gR-Am-Lxr" secondAttribute="centerX" id="mJw-Im-gT3"/>
                                                 <constraint firstItem="3fx-Gp-cYm" firstAttribute="leading" secondItem="qyr-Zq-XrA" secondAttribute="trailing" constant="8" id="mq5-kS-WXD"/>
                                                 <constraint firstItem="uBE-KI-JFJ" firstAttribute="top" secondItem="3fx-Gp-cYm" secondAttribute="bottom" constant="8" id="nbT-wn-RAX"/>
@@ -4618,6 +4645,7 @@
                                             <outlet property="priceLabel" destination="WLe-uv-E2H" id="oCa-Td-4RP"/>
                                             <outlet property="quantityLabel" destination="YUY-tT-FRa" id="yh8-W8-2P9"/>
                                             <outlet property="remainingTimeLabel" destination="qvq-WV-GZb" id="2gM-G4-xsG"/>
+                                            <outlet property="removeButton" destination="4Nk-Ba-wdy" id="Sdt-1r-zTp"/>
                                             <outlet property="sizeLabel" destination="uBE-KI-JFJ" id="yOk-eq-Ozu"/>
                                             <outlet property="stepperView" destination="NRk-Mg-U5H" id="AWA-hn-jGv"/>
                                         </connections>
@@ -4645,7 +4673,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8zv-xt-AdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ZYe-oG-2yB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3288" y="261"/>
+            <point key="canvasLocation" x="2964" y="249"/>
         </scene>
         <!--Checkout View Controller-->
         <scene sceneID="ohB-Tf-V6s">
@@ -7291,7 +7319,8 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="06BFAEA3-A5ED-4453-A674-E40B0FCE00C9" width="30" height="30">
+        <image name="BTRLogo.png" width="925" height="125"/>
+        <image name="EEE55535-9F8E-42C6-9E47-45FB0209AAC4" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -7348,7 +7377,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>
