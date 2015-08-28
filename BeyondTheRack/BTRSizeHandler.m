@@ -20,6 +20,9 @@
     [sizeCodesArray removeAllObjects];
     [sizesQuantityArray removeAllObjects];
     
+    if (![variantInventoryDictionary isKindOfClass:[NSDictionary class]])
+        return BTRSizeModeNoInfo;
+    
     NSString *keyString = @"";
     NSArray *allKeys = [variantInventoryDictionary allKeys];
     
