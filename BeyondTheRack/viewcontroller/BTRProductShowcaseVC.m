@@ -81,20 +81,6 @@
     return _chosenSizesArray;
 }
 
-
-//
-//- (NSMutableArray *)attributesArray {
-//    if (!_attributesArray) _attributesArray = [[NSMutableArray alloc] init];
-//    return _attributesArray;
-//}
-//
-//
-//- (NSMutableArray *)variantInventoriesArray {
-//    if (!_variantInventoriesArray) _variantInventoriesArray = [[NSMutableArray alloc] init];
-//    return _variantInventoriesArray;
-//}
-
-
 - (NSMutableArray *)originalItemArray {
     if (!_originalItemArray) _originalItemArray = [[NSMutableArray alloc] init];
     return _originalItemArray;
@@ -192,11 +178,7 @@
      {
          NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
                                                                               options:0
-                                                                                error:NULL];         
-//         for (NSDictionary *itemDic in entitiesPropertyList) {
-//             [self.variantInventoriesArray addObject:itemDic[@"variant_inventory"]];
-//             [self.attributesArray addObject:itemDic[@"attributes"]];
-//         }
+                                                                                error:NULL];
          
          self.originalItemArray = [Item loadItemsfromAppServerArray:entitiesPropertyList withEventId:[self eventSku] forItemsArray:[self originalItemArray]];
          
