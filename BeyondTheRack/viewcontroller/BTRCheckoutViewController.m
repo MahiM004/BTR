@@ -17,6 +17,7 @@
 #import "BTRMasterPassFetcher.h"
 #import "Order+AppServer.h"
 #import "Item.h"
+#import "BTRConnectionHelper.h"
 
 #define COUNTRY_PICKER          1
 #define PROVINCE_PICKER         2
@@ -894,16 +895,10 @@
 
 #pragma mark - Credit Card RESTful Payment
 
-- (void)makePaymentforSessionId:(NSString *)sessionId
-                           success:(void (^)(id  responseObject)) success
-                           failure:(void (^)(NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+- (void)makePaymentWithSuccess:(void (^)(id  responseObject)) success
+                           failure:(void (^)(NSError *error)) failure {
     
+    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     
@@ -914,43 +909,39 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[self.giftMessageTF text] forKey:@"recipient_message"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
-
+    
     [params setObject:orderInfo forKey:@"orderInfo"];
     [params setObject:[self cardInfo] forKey:@"cardInfo"];
     [params setObject:@"creditcard" forKey:@"paymentMethod"];
     
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]]
-       parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-           
-           NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
-           NSLog(@"------0--- ent:  %@", entitiesPropertyList);
-           
-           [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList]];
-           success(entitiesPropertyList);
-           
-       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-           failure(error);
-       }];
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+        [self setOrder:[Order orderWithAppServerInfo:response]];
+        success(response);
+    } faild:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+    
 }
 
 
 - (IBAction)processOrderTpped:(UIButton *)sender {
 
     if (self.currentPaymentType == creditCard && [self isCompeletedForm]) {
-        [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
-               [self makePaymentforSessionId:[session sessionId] success:^(id responseObject) {
+        [self validateAddressViaAPIAndInCompletion:^() {
+            [self makePaymentWithSuccess:^(id responseObject) {
                    [self orderConfirmationWithReceipt:responseObject];
                } failure:^(NSError *error) {
                    NSLog(@"%@",error);
                }];
         }];
     } else if (self.currentPaymentType == paypal) {
-        [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
+        [self validateAddressViaAPIAndInCompletion:^() {
             [self getPaypalInfo];
         }];
     } else if (self.currentPaymentType == masterPass){
-        [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
+        [self validateAddressViaAPIAndInCompletion:^() {
             [self getMasterPassInfo];
         }];
     }
@@ -1015,18 +1006,7 @@
     return YES;
 }
 
-- (void)validateAddressViaAPIAndInCompletion:(void(^)(BTRSessionSettings *session))completionBlock; {
-
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    
+- (void)validateAddressViaAPIAndInCompletion:(void(^)())completionBlock; {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     
@@ -1039,18 +1019,17 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
     [params setObject:orderInfo forKey:@"orderInfo"];
-    
-    [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]]
-       parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-           NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
-           self.order = [Order extractOrderfromJSONDictionary:entitiesPropertyList forOrder:self.order];
-           [self loadOrderData];
-           if (completionBlock)
-               completionBlock(sessionSettings);
-       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-           NSLog(@"%@",error);
-       }];
 
+    
+    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]];
+   [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+       self.order = [Order extractOrderfromJSONDictionary:response forOrder:self.order];
+       [self loadOrderData];
+       if (completionBlock)
+           completionBlock(nil);
+   } faild:^(NSError *error) {
+       
+   }];
 }
 
 - (void)orderConfirmationWithReceipt:(NSDictionary *)receipt {
@@ -1075,42 +1054,35 @@
         return;
     }
     
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    if (self.giftCardCodePaymentTF.text.length < 3) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your gift card code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        return;
+    }
     
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforGiftCardRedeem]];
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:self.giftCardCodePaymentTF.text,@"code", nil];
-    [manager POST:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforGiftCardRedeem]]
-       parameters:(NSDictionary *)params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-           NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
-           NSLog(@"%@",entitiesPropertyList);
-           if ([[entitiesPropertyList valueForKey:@"success"]boolValue]) {
-               [self validateAddressViaAPIAndInCompletion:^(BTRSessionSettings *session) {
-                   
-                   // showing successful added alert
-                   [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@$ has been added sucessfully",[entitiesPropertyList valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-                   
-                   // adding text for gift
-                   float sumOfGifts = [self.giftDollarLabel.text floatValue] - [[entitiesPropertyList valueForKey:@"amount"]floatValue];
-                   self.giftDollarLabel.text = [NSString stringWithFormat:@"%.2f",sumOfGifts];
-                   self.giftDollarLabel.textColor = [UIColor redColor];
-                   [self.giftDollarLabel setHidden:NO];
-                   [self.giftLabel setHidden:NO];
-                   
-                   // save used gift cards
-                   [self.arrayOfGiftCards addObject:self.giftCardCodePaymentTF.text];
-               }];
-           } else {
-               [[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"Your Gift Number is Not Vaild"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-           }
-       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-           NSLog(@"%@",error);
-       }];
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+            [self validateAddressViaAPIAndInCompletion:^{
+                 if ([[response valueForKey:@"success"]boolValue]) {
+                    [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@$ has been added sucessfully",[response valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                    
+                    // adding text for gift
+                    float sumOfGifts = [self.giftDollarLabel.text floatValue] - [[response valueForKey:@"amount"]floatValue];
+                    self.giftDollarLabel.text = [NSString stringWithFormat:@"%.2f",sumOfGifts];
+                    self.giftDollarLabel.textColor = [UIColor redColor];
+                    [self.giftDollarLabel setHidden:NO];
+                    [self.giftLabel setHidden:NO];
+                    
+                    // save used gift cards
+                    [self.arrayOfGiftCards addObject:self.giftCardCodePaymentTF.text];
+                 } else {
+                     [[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"Your Gift Number is Not Vaild"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                 }
+            }];
+        } faild:^(NSError *error) {
+            NSLog(@"%@",error);
+        }
+     ];
 }
 
 #pragma mark - Navigation
@@ -1135,53 +1107,27 @@
 #pragma mark Paypal
 
 - (void)getPaypalInfo {
-    
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                             options:0
-                                                                               error:NULL];
-        
-        if (entitiesPropertyList) {
-            [self setPaypal:entitiesPropertyList];
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (response) {
+            [self setPaypal:response];
             [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } faild:^(NSError *error) {
         
     }];
-    
 }
 
 - (void)getMasterPassInfo {
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                             options:0
-                                                                               error:NULL];
-        
-        if (entitiesPropertyList) {
-
-            NSLog(@"%@",entitiesPropertyList);
-            MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:entitiesPropertyList];
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (response) {
+            MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:response];
             self.masterpass= master;
             [self performSegueWithIdentifier:@"BTRMasterPassCheckoutSegueIdentifier" sender:self];
         }
+    } faild:^(NSError *error) {
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@",error);
     }];
 }
 
