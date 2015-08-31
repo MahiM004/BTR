@@ -23,6 +23,7 @@
 #import "BTROrderHistoryFetcher.h"
 #import "OrderHistoryBag+AppServer.h"
 #import "OrderHistoryItem+AppServer.h"
+#import "BTRConnectionHelper.h"
 
 
 @interface BTRAccountEmbeddedTVC ()
@@ -56,7 +57,6 @@
     return _itemsDictionary;
 }
 
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -71,12 +71,9 @@
     }];
 }
 
-
 - (IBAction)signOutButtonTapped:(UIButton *)sender {
     
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    
-    [self logutUserServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *didSucceed) {
+    [self logutUserServerCallWithSuccess:^(NSString *didSucceed) {
         
         BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
         [btrSettings clearSession];
@@ -94,186 +91,89 @@
 
 #pragma mark - Load User Info RESTful
 
-
-
 - (void)fetchUserWithSuccess:(void (^)(id  responseObject)) success
-                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         
-         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                          options:0
-                                                                            error:NULL];
-         if (entitiesPropertyList) {
-             self.user = [User userWithAppServerInfo:entitiesPropertyList forUser:[self user]];
-             success(self.user);
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
- 
-         failure(operation, error);
- 
-     }];
-    
+                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (response) {
+            self.user = [User userWithAppServerInfo:response forUser:[self user]];
+            success(self.user);
+        }
+    } faild:^(NSError *error) {
+        failure(nil, error);
+    }];
 }
-
 
 #pragma mark - Logout User RESTful
 
-
-- (void)logutUserServerCallforSessionId:(NSString *)sessionId
-                          success:(void (^)(id  responseObject)) success
-                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserLogout]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData) {
-             
-             FBSDKLoginManager *fbAuth = [[FBSDKLoginManager alloc] init];
-             [fbAuth logOut];
-             
-             success(@"TRUE");
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         failure(operation, error);
-         
-     }];
-    
+- (void)logutUserServerCallWithSuccess:(void (^)(id  responseObject)) success
+                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserLogout]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        FBSDKLoginManager *fbAuth = [[FBSDKLoginManager alloc] init];
+        [fbAuth logOut];
+        success(@"TRUE");
+    } faild:^(NSError *error) {
+        failure(nil, error);
+    }];
 }
 
 #pragma mark - Track Orders RESTful
 
-
-- (void)fetchOrderHistoryforSessionId:(NSString *)sessionId
-                              success:(void (^)(id  responseObject)) success
-                              failure:(void (^)(NSError *error)) failure
-{
+- (void)fetchOrderHistoryWithSuccess:(void (^)(id  responseObject)) success
+                              failure:(void (^)(NSError *error)) failure {
+    
     [[self itemsDictionary] removeAllObjects];
     [[self headersArray] removeAllObjects];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTROrderHistoryFetcher URLforOrderHistory]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                               options:0
-                                                                                 error:NULL];
-         
-         if (entitiesPropertyList.count > 0) {
-             
-             NSArray *allKeysArray = entitiesPropertyList.allKeys;
-             
-             NSMutableArray *tempHeaderArray = [[NSMutableArray alloc] init];
-             
-             if ([allKeysArray count] != 0) {
-                 
-                 for (NSString *key in allKeysArray) {
-                     
-                     OrderHistoryBag *ohBag = [[OrderHistoryBag alloc] init];
-                     NSDictionary *tempDictionary = [entitiesPropertyList objectForKey:key];
-                     ohBag = [OrderHistoryBag extractOrderHistoryfromJSONDictionary:tempDictionary forOrderHistoryBag:ohBag];
-                     [tempHeaderArray addObject:ohBag];
-                     
-                     NSArray *tempArray = tempDictionary[@"lines"];
-                     
-                     NSMutableArray *linesArray = [[NSMutableArray alloc] init];
-                     linesArray = [OrderHistoryItem loadOrderHistoryItemsfromAppServerArray:tempArray forOrderHistoryItemsArray:linesArray];
-                     
-                     [self.itemsDictionary setObject:linesArray forKey:key];
-                 }
-                 self.headersArray = tempHeaderArray;
-             }
-             
-             success(@"TRUE");
-         }else {
-             [[[UIAlertView alloc]initWithTitle:@"Empty" message:@"You dont have any order to track" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
+    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderHistoryFetcher URLforOrderHistory]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (response.count > 0) {
+            NSArray *allKeysArray = response.allKeys;
+            NSMutableArray *tempHeaderArray = [[NSMutableArray alloc] init];
+            if ([allKeysArray count] != 0) {
+                for (NSString *key in allKeysArray) {
+                    OrderHistoryBag *ohBag = [[OrderHistoryBag alloc] init];
+                    NSDictionary *tempDictionary = [response objectForKey:key];
+                    ohBag = [OrderHistoryBag extractOrderHistoryfromJSONDictionary:tempDictionary forOrderHistoryBag:ohBag];
+                    [tempHeaderArray addObject:ohBag];
+                    NSArray *tempArray = tempDictionary[@"lines"];
+                    NSMutableArray *linesArray = [[NSMutableArray alloc] init];
+                    linesArray = [OrderHistoryItem loadOrderHistoryItemsfromAppServerArray:tempArray forOrderHistoryItemsArray:linesArray];
+                    [self.itemsDictionary setObject:linesArray forKey:key];
+                }
+                self.headersArray = tempHeaderArray;
+            }
+            success(@"TRUE");
+        }else {
+            [[[UIAlertView alloc]initWithTitle:@"Empty" message:@"You dont have any order to track" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        }
+
+    } faild:^(NSError *error) {
          failure(error);
-     }];
+    }];
 }
 
 #pragma mark - Getting Contact US
 
-
 - (void)fetchContactWithSuccess:(void (^)(id  responseObject)) success
-                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRContactFetcher URLForContact]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         
-         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                               options:0
-                                                                                 error:NULL];
-         if (entitiesPropertyList) {
-             self.contactInfo = [Contact contactWithAppServerInfo:entitiesPropertyList];
-             success(self.contactInfo);
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         failure(operation, error);
-         
-     }];
-    
+                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRContactFetcher URLForContact]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (response) {
+            self.contactInfo = [Contact contactWithAppServerInfo:response];
+            success(self.contactInfo);
+        }
+    } faild:^(NSError *error) {
+        failure(nil,error);
+    }];
 }
-
-
-
 
 - (IBAction)trackOrdersTapped:(UIButton *)sender {
     
     [self.tableView setUserInteractionEnabled:FALSE];
-    
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    
-    [self fetchOrderHistoryforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
-        
+    [self fetchOrderHistoryWithSuccess:^(NSString *successString) {
         [self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
-        
     } failure:^(NSError *error) {
         
     }];
@@ -282,7 +182,6 @@
 }
 
 - (IBAction)helpTapped:(UIButton *)sender {
-    
     if (self.contactInfo == nil) {
         [self fetchContactWithSuccess:^(id responseObject) {
             [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
@@ -291,9 +190,7 @@
         }];
     } else
         [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
-    
 }
-
 
  #pragma mark - Navigation
  
@@ -314,8 +211,6 @@
          vc.contactInformaion = self.contactInfo;
      }
  }
-
-
 
 @end
 
