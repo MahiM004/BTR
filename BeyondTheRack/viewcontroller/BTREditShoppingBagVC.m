@@ -8,6 +8,7 @@
 
 #import "BTREditShoppingBagVC.h"
 #import "BTRBagTableViewCell.h"
+#import "BTRConnectionHelper.h"
 
 #import "BTRItemFetcher.h"
 #import "BTRBagFetcher.h"
@@ -192,14 +193,8 @@
                            success:(void (^)(id  responseObject)) success
                            failure:(void (^)(NSError *error)) failure
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
     NSMutableArray *params =[[NSMutableArray alloc] init];
-    
     for (BagItem *bagItem in [self originalBagItemsArray]) {
         
         time_t unixTime = (time_t) [[bagItem createDateTime] timeIntervalSince1970];
@@ -217,42 +212,32 @@
     }
     
     [[self bagItemsArray] removeAllObjects];
-
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]]
-       parameters:(NSDictionary *)params
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                   options:0
-                                                                                     error:NULL];
-              
-              NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
-              NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
-              NSDate *serverTime = [NSDate date];
-              
-              [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
-                                   withServerDateTime:serverTime
-                                     forBagItemsArray:[self bagItemsArray]
-                                            isExpired:@"false"];
-              
-              [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
-                                   withServerDateTime:serverTime
-                                     forBagItemsArray:[self bagItemsArray]
-                                            isExpired:@"true"];
- 
-              BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-              [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-              
-              [[self bagTitleLabel] setText:[NSString stringWithFormat:@"(%lu)", (unsigned long)[self getCountofBagItems]]];
-
-              
-              success(@"TRUE");
-              
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              failure(error);
-          }];
+    [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES success:^(NSDictionary *response) {
+        
+        NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
+        NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
+        NSDate *serverTime = [NSDate date];
+        
+        [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                             withServerDateTime:serverTime
+                               forBagItemsArray:[self bagItemsArray]
+                                      isExpired:@"false"];
+        
+        [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                             withServerDateTime:serverTime
+                               forBagItemsArray:[self bagItemsArray]
+                                      isExpired:@"true"];
+        
+        BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+        [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+        
+        [[self bagTitleLabel] setText:[NSString stringWithFormat:@"(%lu)", (unsigned long)[self getCountofBagItems]]];
+        success(@"TRUE");
+    } faild:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
 }
 
 
