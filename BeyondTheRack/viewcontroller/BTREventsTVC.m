@@ -10,7 +10,7 @@
 #import "BTREventFetcher.h"
 #import "Event+AppServer.h"
 #import "BTRProductShowcaseVC.h"
-
+#import "BTRConnectionHelper.h"
 
 @interface BTREventsTVC ()
 
@@ -43,34 +43,14 @@
 
 
 - (void)fetchEventsData {
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName]]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         
-         
-         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                          options:0
-                                                                            error:NULL];
-         NSArray *eventsArray = entitiesPropertyList[@"events"];
-         self.eventsArray = [Event loadEventsfromAppServerArray:eventsArray withCategoryName:[self urlCategoryName] forEventsArray:[self eventsArray]];
-         
-         [self.tableView reloadData];
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-     }];
-    
+    NSString* url = [NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName]]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        NSArray *eventsArray = response[@"events"];
+        self.eventsArray = [Event loadEventsfromAppServerArray:eventsArray withCategoryName:[self urlCategoryName] forEventsArray:[self eventsArray]];
+        [self.tableView reloadData];
+    } faild:^(NSError *error) {
+        
+    }];
 }
 
 
