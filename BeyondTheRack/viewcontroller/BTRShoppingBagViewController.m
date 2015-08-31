@@ -19,7 +19,7 @@
 #import "BTRPaymentTypesHandler.h"
 #import "BTRPaypalFetcher.h"
 #import "BTRPaypalCheckoutViewController.h"
-
+#import "BTRConnectionHelper.h"
  
 @interface BTRShoppingBagViewController ()
 
@@ -208,141 +208,98 @@
                               failure:(void (^)(NSError *error)) failure
 {
     [[self bagItemsArray] removeAllObjects];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    [manager POST:[NSString stringWithFormat:@"%@/%@/%@/%@", [BTRBagFetcher URLforRereserveBag], skuString, variantString, eventIdString]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                  options:0
-                                                                                    error:NULL];
-             
-             NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
-             NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
-             NSDate *serverTime = [NSDate date];
-             
-             if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
-                 serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
-             }
-             
-             NSNumber *total = entitiesPropertyList[@"total"];
-             NSString *totalString = [NSString stringWithFormat:@"%@",total];
-             
-             [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
-                                  withServerDateTime:serverTime
-                                    forBagItemsArray:[self bagItemsArray]
-                                           isExpired:@"false"];
-             
-             [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
-                                  withServerDateTime:serverTime
-                                    forBagItemsArray:[self bagItemsArray]
-                                           isExpired:@"true"];
-             
-             NSArray *productJsonArray = entitiesPropertyList[@"products"];
-             self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
-             
-             BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-             [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-             
-             success(totalString);
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             failure(error);
-             
-         }];
+    NSString* url = [NSString stringWithFormat:@"%@/%@/%@/%@", [BTRBagFetcher URLforRereserveBag], skuString, variantString, eventIdString];
+    [BTRConnectionHelper postDataToURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
 
-    
+        NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
+        NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
+        NSDate *serverTime = [NSDate date];
+        
+        if ([response valueForKeyPath:@"time"] && [response valueForKeyPath:@"time"] != [NSNull null]) {
+            serverTime = [NSDate dateWithTimeIntervalSince1970:[[response valueForKeyPath:@"time"] integerValue]];
+        }
+        
+        NSNumber *total = response[@"total"];
+        NSString *totalString = [NSString stringWithFormat:@"%@",total];
+        
+        [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                             withServerDateTime:serverTime
+                               forBagItemsArray:[self bagItemsArray]
+                                      isExpired:@"false"];
+        
+        [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                             withServerDateTime:serverTime
+                               forBagItemsArray:[self bagItemsArray]
+                                      isExpired:@"true"];
+        
+        NSArray *productJsonArray = response[@"products"];
+        self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
+        
+        BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+        [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+        
+        success(totalString);
+
+    } faild:^(NSError *error) {
+        
+    }];
 }
-
-
 
 - (void)getCartServerCallforSessionId:(NSString *)sessionId
                               success:(void (^)(id  responseObject)) success
                               failure:(void (^)(NSError *error)) failure
 {
     [[self bagItemsArray] removeAllObjects];
+    
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
+        NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
+        NSDate *serverTime = [NSDate date];
+        if ([response valueForKeyPath:@"time"] && [response valueForKeyPath:@"time"] != [NSNull null]) {
+            serverTime = [NSDate dateWithTimeIntervalSince1970:[[response valueForKeyPath:@"time"] integerValue]];
+        }
+        
+        NSNumber *total = response[@"total"];
+        NSString *totalString = [NSString stringWithFormat:@"%@",total];
+        
+        [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                             withServerDateTime:serverTime
+                               forBagItemsArray:[self bagItemsArray]
+                                      isExpired:@"false"];
+        
+        [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                             withServerDateTime:serverTime
+                               forBagItemsArray:[self bagItemsArray]
+                                      isExpired:@"true"];
+        
+        NSArray *productJsonArray = response[@"products"];
+        self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
+        
+        BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+        [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+        
+        success(totalString);
 
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                  options:0
-                                                                                    error:NULL];
-             
-             NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
-             NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
-             NSDate *serverTime = [NSDate date];
-
-            if ([entitiesPropertyList valueForKeyPath:@"time"] && [entitiesPropertyList valueForKeyPath:@"time"] != [NSNull null]) {
-                 serverTime = [NSDate dateWithTimeIntervalSince1970:[[entitiesPropertyList valueForKeyPath:@"time"] integerValue]];
-             }
-
-             NSNumber *total = entitiesPropertyList[@"total"];
-             NSString *totalString = [NSString stringWithFormat:@"%@",total];
-             
-             [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
-                                                       withServerDateTime:serverTime
-                                                         forBagItemsArray:[self bagItemsArray]
-                                                                isExpired:@"false"];
-             
-             [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
-                                  withServerDateTime:serverTime
-                                    forBagItemsArray:[self bagItemsArray]
-                                           isExpired:@"true"];
-             
-             NSArray *productJsonArray = entitiesPropertyList[@"products"];
-             self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
-             
-             BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-             [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-             
-             success(totalString);
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             failure(error);
-         }];
+    } faild:^(NSError *error) {
+        if (failure)
+            failure(error);
+    }];
 }
-
 
 - (void)getCheckoutInfoforSessionId:(NSString *)sessionId
                               success:(void (^)(id  responseObject)) success
                               failure:(void (^)(NSError *error)) failure
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    [manager GET:[NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                  options:0
-                                                                                    error:NULL];
-             
-             NSDictionary *paymentsDictionary = entitiesPropertyList[@"paymentMethods"];
-             [self setOrder:[Order orderWithAppServerInfo:entitiesPropertyList]];
-             success(paymentsDictionary);
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             failure(error);
-         }];
+    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        NSDictionary *paymentsDictionary = response[@"paymentMethods"];
+        [self setOrder:[Order orderWithAppServerInfo:response]];
+        success(paymentsDictionary);
+
+    } faild:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark paypal checkout
