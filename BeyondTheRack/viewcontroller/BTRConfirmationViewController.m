@@ -88,7 +88,7 @@
         self.gstLabel.hidden = YES;
         self.gstTextLabel.hidden = YES;
     } else
-        self.gstLabel.text = [NSString stringWithFormat:@"%.2f@",self.order.gstTax.floatValue];
+        self.gstLabel.text = [NSString stringWithFormat:@"%.2f",self.order.gstTax.floatValue];
 
     
     
