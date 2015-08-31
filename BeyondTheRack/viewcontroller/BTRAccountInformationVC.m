@@ -7,6 +7,7 @@
 //
 
 #import "BTRAccountInformationVC.h"
+#import "BTRConnectionHelper.h"
 
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
@@ -340,30 +341,17 @@
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                               options:0
-                                                                                 error:NULL];
-         if (entitiesPropertyList) {
-             self.user = [[User alloc]init];
-             self.user = [User userWithAppServerInfo:entitiesPropertyList forUser:[self user]];
-             success([self user]);
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         failure(error);
-     }];
+    [BTRConnectionHelper getDataFromURL:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]] withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (response) {
+            self.user = [[User alloc]init];
+            self.user = [User userWithAppServerInfo:response forUser:[self user]];
+            success([self user]);
+        }
+    } faild:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
 }
 
 
@@ -371,16 +359,7 @@
                           success:(void (^)(id  responseObject)) success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
     NSString *provinceToPost = [BTRViewUtility provinceCodeforName:[[self provinceTextField] text]];
-    
     NSDictionary *params = (@{
                               @"address1": [[self address1TextField] text],
                               @"address2": [[self address2TextField] text],
@@ -398,19 +377,12 @@
                               @"region": provinceToPost,
                               @"postal": [[self postalCodeTextField] text]
                               });
-    
-    [manager PUT:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]]
-      parameters:params
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         success(@"TRUE");
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         NSLog(@"Error: %@", error);
-         
-         failure(operation, error);
-     }];
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]];
+    [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+        success(@"TRUE");
+    } faild:^(NSError *error) {
+        failure(nil, error);
+    }];
 }
 
 
