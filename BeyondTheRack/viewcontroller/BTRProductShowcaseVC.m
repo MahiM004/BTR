@@ -15,6 +15,7 @@
 #import "BagItem+AppServer.h"
 #import "BTRItemFetcher.h"
 #import "BTRBagFetcher.h"
+#import "BTRConnectionHelper.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -166,35 +167,15 @@
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         NSArray *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                              options:0
-                                                                                error:NULL];
-         
-         self.originalItemArray = [Item loadItemsfromAppServerArray:entitiesPropertyList withEventId:[self eventSku] forItemsArray:[self originalItemArray]];
-         
-         for (int i = 0; i < [self.originalItemArray count]; i++)
-             [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
-         
-         success([self originalItemArray]);
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         failure(error);
-     }];
-    
+    NSString *url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        self.originalItemArray = [Item loadItemsfromAppServerArray:(NSArray *)response withEventId:[self eventSku] forItemsArray:[self originalItemArray]];
+        for (int i = 0; i < [self.originalItemArray count]; i++)
+            [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+        success([self originalItemArray]);
+    } faild:^(NSError *error) {
+        
+    }];
 }
 
 - (void)cartIncrementServerCallforSessionId:(NSString *)sessionId
@@ -204,53 +185,37 @@
                                     failure:(void (^)(NSError *error)) failure
 {
     [[self bagItemsArray] removeAllObjects];
-
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
     NSDictionary *params = (@{
                               @"event_id": [productItem eventId],
                               @"sku": [productItem sku],
                               @"variant": variant
                               });
     
-    [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]]
-       parameters:params
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [BTRConnectionHelper postDataToURL:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]] withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+        NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
+        NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
+        NSDate *serverTime = [NSDate date];
+        
+        self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                                                  withServerDateTime:serverTime
+                                                    forBagItemsArray:[self bagItemsArray]
+                                                           isExpired:@"false"];
+        
+        [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                                                                     withServerDateTime:serverTime
+                                                                       forBagItemsArray:[self bagItemsArray]
+                                                                              isExpired:@"true"]];
+        
+        BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+        [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+        
+        success(@"TRUE");
 
+    } faild:^(NSError *error) {
 
-              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                   options:0
-                                                                                     error:NULL];
-              
-              NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
-              NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
-              NSDate *serverTime = [NSDate date];
-              
-              self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
-                                                        withServerDateTime:serverTime
-                                                          forBagItemsArray:[self bagItemsArray]
-                                                                 isExpired:@"false"];
-              
-              [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
-                                                                           withServerDateTime:serverTime
-                                                                             forBagItemsArray:[self bagItemsArray]
-                                                                                    isExpired:@"true"]];
-              
-              BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-              [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-              
-              success(@"TRUE");
-              
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              failure(error);
-              
-          }];
+    
+    }];
+    
 }
 
 
