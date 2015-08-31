@@ -411,8 +411,9 @@
 - (BOOL)haveTimedOutItem {
     BOOL timeOuted = NO;
     for (int i = 0; i < [self.bagItemsArray count] ; i++) {
-        BTRBagTableViewCell *cell = (BTRBagTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        if (cell.rereserveItemButton.hidden == NO)
+        BagItem* currentItem = [self.bagItemsArray objectAtIndex:i];
+        NSInteger ti = ((NSInteger)[currentItem.dueDateTime timeIntervalSinceNow]);
+        if (ti <= 0)
             timeOuted = YES;
     }
     return timeOuted;
