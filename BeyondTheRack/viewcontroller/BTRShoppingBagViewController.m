@@ -368,6 +368,11 @@
         return;
     }
     
+    if ([self haveTimedOutItem]) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"You have expired item in your list" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+        return;
+    }
+    
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSDictionary *paymentsDictionary) {
         
@@ -402,6 +407,17 @@
     }];
     
 }
+
+- (BOOL)haveTimedOutItem {
+    BOOL timeOuted = NO;
+    for (int i = 0; i < [self.bagItemsArray count] ; i++) {
+        BTRBagTableViewCell *cell = (BTRBagTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        if (cell.rereserveItemButton.hidden == NO)
+            timeOuted = YES;
+    }
+    return timeOuted;
+}
+
 
 
 - (IBAction)tappedClose:(UIButton *)sender {
