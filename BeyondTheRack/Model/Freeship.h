@@ -10,13 +10,13 @@
 
 @interface Freeship : NSObject
 
-@property (nonatomic, strong) NSString * banner;
-@property (nonatomic, strong) NSString * checkout;
-@property (nonatomic, strong) NSString * checkoutImage;
-@property (nonatomic, strong) NSString * confirmation;
-@property (nonatomic, strong) NSString * bagImage;
-@property (nonatomic, strong) NSString * bagbackgroundImage;
-@property (nonatomic, strong) NSNumber * endTimestamp;
-@property (nonatomic, strong) NSString * headerImage;
+@property (nonatomic, retain) NSString * banner;
+@property (nonatomic, retain) NSString * checkout;
+@property (nonatomic, retain) NSString * checkoutImage;
+@property (nonatomic, retain) NSString * confirmation;
+@property (nonatomic, retain) NSString * bagImage;
+@property (nonatomic, retain) NSString * bagbackgroundImage;
+@property (nonatomic, retain) NSNumber * endTimestamp;
+@property (nonatomic, retain) NSString * headerImage;
 
 @end
