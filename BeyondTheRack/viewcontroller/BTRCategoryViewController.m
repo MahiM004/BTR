@@ -82,14 +82,16 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     // adding banner
-    _bannerView = [[MarqueeLabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) rate:70.0 andFadeLength:30.0];
-    _bannerView.textAlignment = NSTextAlignmentCenter;
-    _bannerView.marqueeType = MLContinuous;
-    _bannerView.backgroundColor = [BTRViewUtility BTRBlack];
-    _bannerView.textColor = [UIColor whiteColor];
-    _bannerView.font = [UIFont systemFontOfSize:13];
-    _bannerView.text = @"Beyond The Rack";
-    [self.view addSubview:_bannerView];
+    if (_bannerView == nil) {
+        _bannerView = [[MarqueeLabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) rate:70.0 andFadeLength:30.0];
+        _bannerView.textAlignment = NSTextAlignmentCenter;
+        _bannerView.marqueeType = MLContinuous;
+        _bannerView.backgroundColor = [BTRViewUtility BTRBlack];
+        _bannerView.textColor = [UIColor whiteColor];
+        _bannerView.font = [UIFont systemFontOfSize:13];
+        _bannerView.text = @"Beyond The Rack";
+        [self.view addSubview:_bannerView];
+    }
     
     // adding tableview frame
     self.slider.view.frame = CGRectMake(0, _bannerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
