@@ -119,6 +119,14 @@
     return _sizeArray;
 }
 
+- (BOOL)isItemSoldOutWithVariant:(NSArray *)variantArray {
+    for (int i = 0; i < [variantArray count]; i++)
+        if ([[variantArray objectAtIndex:i]intValue] > 0)
+            return NO;
+    return YES;
+}
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -243,10 +251,21 @@
                                                                     toSizeCodesArray:[cell sizeCodesArray]
                                                                  toSizeQuantityArray:[cell sizeQuantityArray]];
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andBTRSizeMode:sizeMode forIndexPath:indexPath];
-
-    if ([productItem.allReserved boolValue]) {
+    
+    BOOL allReserved = [productItem.allReserved boolValue];
+    BOOL soldOut = [self isItemSoldOutWithVariant:[cell sizeQuantityArray]];
+    
+    
+    if (allReserved || soldOut) {
         [self disableCell:cell];
-        [cell.productStatusMessageLabel setText:@"Reserved By Others\n\nCheck back in\n20 minutes"];
+        if (soldOut) {
+            [cell.productStatusMessageLabel setText:@"SOLD OUT"];
+            [cell.productStatusMessageLabel setTextColor:[UIColor redColor]];
+        }
+        else if (allReserved) {
+            [cell.productStatusMessageLabel setText:@"Reserved By Others\n\nCheck back in\n20 minutes"];
+            [cell.productStatusMessageLabel setTextColor:[UIColor blackColor]];
+        }
     } else
         [self enableCell:cell];
     
@@ -348,7 +367,6 @@
     return cell;
 }
 
-
 - (void)disableCell:(BTRProductShowcaseCollectionCell *)cell {
     [cell.productImageView setAlpha:0.5];
     [cell.addToBagButton setAlpha:0.5];
@@ -423,9 +441,6 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
     Item *productItem = [self.collectionViewResourceArray objectAtIndex:indexPath.row];
-    if ([productItem.allReserved boolValue]) // should return when product is not avialble
-        return;
-    
     [self setSelectedIndexPath:indexPath];
     [self setSelectedBrandString:[productItem brand]];
     [self setSelectedAttributes:productItem.attributeDictionary];
@@ -452,6 +467,11 @@
         productDetailVC.eventId = [self eventSku];
         productDetailVC.variantInventoryDictionary = self.selectedVariantInventories;
         productDetailVC.attributesDictionary = self.selectedAttributes;
+        
+        BTRProductShowcaseCollectionCell* cell = (BTRProductShowcaseCollectionCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPath];
+        if ([productDetailVC.productItem.allReserved boolValue] || [self isItemSoldOutWithVariant:[cell sizeQuantityArray]])
+            productDetailVC.disableAddToCart = YES;
+        
     }
 }
 
