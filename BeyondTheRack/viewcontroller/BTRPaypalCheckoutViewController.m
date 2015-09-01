@@ -10,6 +10,7 @@
 #import "Order+AppServer.h"
 #import "BTRPaypalFetcher.h"
 #import "BTRConfirmationViewController.h"
+#import "BTRConnectionHelper.h"
 
 @interface BTRPaypalCheckoutViewController ()
 @property Order *order;
@@ -76,33 +77,21 @@
 
 
 - (void)getInfoForPaypal {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    [manager GET:[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalInfo]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSDictionary* info = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                  options:0
-                                                                                    error:NULL];
-             if (self.isNewAccount) {
-                 NSMutableDictionary* newInfo = [NSMutableDictionary dictionaryWithDictionary:info];
-                 [newInfo removeObjectForKey:@"paypalInfo"];
-                 NSDictionary *paypalInfo = [[NSDictionary alloc]initWithObjectsAndKeys:@"paypalLogin",@"mode", nil];
-                 [newInfo setObject:paypalInfo forKey:@"paypalInfo"];
-                 info = [newInfo mutableCopy];
-                 self.isNewAccount = NO;
-             }
-             [self processPayPalWithInfo:info];
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-         }];
+    NSString* url = [NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalInfo]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (self.isNewAccount) {
+            NSMutableDictionary* newInfo = [NSMutableDictionary dictionaryWithDictionary:response];
+            [newInfo removeObjectForKey:@"paypalInfo"];
+            NSDictionary *paypalInfo = [[NSDictionary alloc]initWithObjectsAndKeys:@"paypalLogin",@"mode", nil];
+            [newInfo setObject:paypalInfo forKey:@"paypalInfo"];
+            response = [newInfo mutableCopy];
+            self.isNewAccount = NO;
+        }
+        [self processPayPalWithInfo:response];
 
+    } faild:^(NSError *error) {
+        
+    }];
 }
 
 
