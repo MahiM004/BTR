@@ -12,13 +12,18 @@
 #import "TTSlidingPageTitle.h"
 #import "BTREventsTVC.h"
 #import "BTRCategoryData.h"
+#import "MarqueeLabel.h"
+#import "Freeship+appServer.h"
+#import "BTRConnectionHelper.h"
+#import "BTRFreeshipFetcher.h"
 
 #define INITIAL_PAGE_INDEX 1
 
 @interface BTRCategoryViewController ()
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
-
+@property (strong, nonatomic) MarqueeLabel *bannerView;
+@property (strong, nonatomic) Freeship* freeshipInfo;
 
 @end
 
@@ -69,10 +74,25 @@
     self.slider.dataSource = self;
     //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle
     
+    // getting header's info
+    [self getheaderInfo];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.slider.view.frame = self.view.frame;
+    
+    // adding banner
+    _bannerView = [[MarqueeLabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) rate:70.0 andFadeLength:30.0];
+    _bannerView.textAlignment = NSTextAlignmentCenter;
+    _bannerView.marqueeType = MLContinuous;
+    _bannerView.backgroundColor = [BTRViewUtility BTRBlack];
+    _bannerView.textColor = [UIColor whiteColor];
+    _bannerView.font = [UIFont systemFontOfSize:13];
+    _bannerView.text = @"Beyond The Rack";
+    [self.view addSubview:_bannerView];
+    
+    // adding tableview frame
+    self.slider.view.frame = CGRectMake(0, _bannerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
     [self.view addSubview:self.slider.view];
     [self addChildViewController:self.slider];
 }
@@ -124,7 +144,22 @@
 }
 
  
+#pragma mark header info
 
+- (void)getheaderInfo {
+    
+    NSString* url = [NSString stringWithFormat:@"%@",[BTRFreeshipFetcher URLforFreeship]];
+    self.freeshipInfo = [[Freeship alloc]init];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        self.freeshipInfo = [Freeship extractFreeshipInfofromJSONDictionary:response forFreeship:self.freeshipInfo];
+        [self.bannerView setText:self.freeshipInfo.banner];
+        [self.bannerView resetLabel];
+    } faild:^(NSError *error) {
+        
+    }];
+    
+    
+}
 
 
 @end
