@@ -16,9 +16,9 @@
 
 
 @interface BTRLoginViewController ()
-
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordIconLabel;
 @property (nonatomic, strong) NSDictionary *fbUserParams;
@@ -59,9 +59,11 @@
     [self.view addGestureRecognizer:tap];
     [self setNeedsStatusBarAppearanceUpdate];
     
+    //setting bottom Line
     self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
     self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
 
+    //setting email and password icons with Font Awesome
     self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:16];
     self.emailIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-envelope-o"];
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
@@ -84,17 +86,22 @@
 
 - (IBAction)signInButtonTapped:(UIButton *)sender {
 
-    [self fetchUserWithSuccess:^(NSString *didLogIn) {
-        
-        if ([didLogIn  isEqualToString:@"TRUE"]) {
-            [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
-        }
-        else {
-            [self alertUserForLoginError];
-        }
-        
-    } failure:^(NSError *error) {
-    }];
+    if (_emailTextField.text.length != 0 && _passwordTextField.text.length != 0) {
+        [self fetchUserWithSuccess:^(NSString *didLogIn) {
+            
+            if ([didLogIn  isEqualToString:@"TRUE"]) {
+                [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
+            }
+            else {
+                [self alertUserForLoginError];
+            }
+            
+        } failure:^(NSError *error) {
+        }];
+    } else {
+        [[[UIAlertView alloc]initWithTitle:@"Please try again" message:@"Email and Password should not be empty" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+    }
+    
 }
 
 
