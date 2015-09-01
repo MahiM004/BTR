@@ -160,6 +160,7 @@
 		A00C9C161B960051004A2629 /* BTRFreeshipFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9C151B960051004A2629 /* BTRFreeshipFetcher.m */; };
 		A00C9C191B960817004A2629 /* Freeship.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9C181B960817004A2629 /* Freeship.m */; };
 		A00C9C1C1B9609E4004A2629 /* Freeship+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9C1B1B9609E4004A2629 /* Freeship+AppServer.m */; };
+		A00C9C1E1B962705004A2629 /* btrbagreserved_new.png in Resources */ = {isa = PBXBuildFile; fileRef = A00C9C1D1B962705004A2629 /* btrbagreserved_new.png */; };
 		A00E4DD31B8632ED00C93CD3 /* BTRMasterPassFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD21B8632ED00C93CD3 /* BTRMasterPassFetcher.m */; };
 		A00E4DD61B8642FC00C93CD3 /* MasterPassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */; };
 		A00E4DD91B86444700C93CD3 /* MasterPassInfo+Appserver.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD81B86444700C93CD3 /* MasterPassInfo+Appserver.m */; };
@@ -491,6 +492,7 @@
 		A00C9C181B960817004A2629 /* Freeship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Freeship.m; sourceTree = "<group>"; };
 		A00C9C1A1B9609E4004A2629 /* Freeship+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Freeship+AppServer.h"; sourceTree = "<group>"; };
 		A00C9C1B1B9609E4004A2629 /* Freeship+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Freeship+AppServer.m"; sourceTree = "<group>"; };
+		A00C9C1D1B962705004A2629 /* btrbagreserved_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btrbagreserved_new.png; sourceTree = "<group>"; };
 		A00E4DD11B8632ED00C93CD3 /* BTRMasterPassFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMasterPassFetcher.h; sourceTree = "<group>"; };
 		A00E4DD21B8632ED00C93CD3 /* BTRMasterPassFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMasterPassFetcher.m; sourceTree = "<group>"; };
 		A00E4DD41B8642FC00C93CD3 /* MasterPassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterPassInfo.h; sourceTree = "<group>"; };
@@ -871,6 +873,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A00C9C1D1B962705004A2629 /* btrbagreserved_new.png */,
 				A00393E51B7B8B4000A3F79F /* delivery.jpg */,
 				695C755E1B38957A003F65F8 /* masterpass_t.png */,
 				695C755F1B38957A003F65F8 /* masterpass_t@2x.png */,
@@ -1398,6 +1401,7 @@
 				690A391D1B1DF57100D4BA84 /* myunchecked@2x.png in Resources */,
 				69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */,
 				690A39111B1DEE0000D4BA84 /* unchecked@2x.png in Resources */,
+				A00C9C1E1B962705004A2629 /* btrbagreserved_new.png in Resources */,
 				69867A071A438A8C003CE59C /* bagicon.png in Resources */,
 				690A39201B1DF70B00D4BA84 /* myuncheck.png in Resources */,
 				B3C16A9F1B0F6A4A009470EC /* PinterestSDKResources.bundle in Resources */,

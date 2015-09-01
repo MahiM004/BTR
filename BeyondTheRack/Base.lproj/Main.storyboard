@@ -2303,7 +2303,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="5057D6C0-0380-494F-A5B0-D46439B36E1F" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="B0C3EB5E-E537-4871-8CE5-6866B896E88B" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3044,6 +3044,15 @@
                                                         <constraint firstAttribute="height" constant="180" id="nMf-V3-avP"/>
                                                     </constraints>
                                                 </imageView>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" alpha="0.45000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btrbagreserved_new.png" translatesAutoresizingMaskIntoConstraints="NO" id="0XK-ag-GOj" userLabel="AllReservedImageView">
+                                                    <rect key="frame" x="19" y="29" width="120" height="90"/>
+                                                </imageView>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reserved By Others" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCm-Sj-49K">
+                                                    <rect key="frame" x="19" y="119" width="120" height="80"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHz-PE-dCV">
                                                     <rect key="frame" x="0.0" y="203" width="159" height="199"/>
                                                     <subviews>
@@ -3128,19 +3137,29 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="0XK-ag-GOj" firstAttribute="top" secondItem="X2x-Al-l8F" secondAttribute="top" constant="10" id="2rc-dy-P6n"/>
                                             <constraint firstAttribute="centerX" secondItem="X2x-Al-l8F" secondAttribute="centerX" constant="0.5" id="4FY-xV-F4G"/>
+                                            <constraint firstItem="aCm-Sj-49K" firstAttribute="centerX" secondItem="0XK-ag-GOj" secondAttribute="centerX" id="7cr-AG-9xn"/>
+                                            <constraint firstItem="0XK-ag-GOj" firstAttribute="width" secondItem="X2x-Al-l8F" secondAttribute="width" id="AX2-fT-5f2"/>
+                                            <constraint firstItem="aCm-Sj-49K" firstAttribute="top" secondItem="0XK-ag-GOj" secondAttribute="bottom" id="KBY-lJ-IIf"/>
                                             <constraint firstItem="eHz-PE-dCV" firstAttribute="leading" secondItem="CBc-zJ-Yde" secondAttribute="leadingMargin" constant="-8" id="Kqd-PN-l47"/>
+                                            <constraint firstItem="aCm-Sj-49K" firstAttribute="bottom" secondItem="X2x-Al-l8F" secondAttribute="bottom" id="QSV-Yh-MYV"/>
                                             <constraint firstItem="X2x-Al-l8F" firstAttribute="top" secondItem="eHz-PE-dCV" secondAttribute="top" constant="-184" id="XtR-2D-E67"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="eHz-PE-dCV" secondAttribute="bottom" id="YEf-Md-QnP"/>
+                                            <constraint firstItem="0XK-ag-GOj" firstAttribute="height" secondItem="X2x-Al-l8F" secondAttribute="height" multiplier="0.5" id="bCx-FU-q6o"/>
+                                            <constraint firstItem="aCm-Sj-49K" firstAttribute="width" secondItem="0XK-ag-GOj" secondAttribute="width" id="kVy-OH-Tba"/>
                                             <constraint firstItem="X2x-Al-l8F" firstAttribute="top" secondItem="CBc-zJ-Yde" secondAttribute="topMargin" constant="11" id="twf-Sn-2su"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="eHz-PE-dCV" secondAttribute="trailing" constant="-8" id="wnO-l4-hzd"/>
+                                            <constraint firstItem="0XK-ag-GOj" firstAttribute="centerX" secondItem="X2x-Al-l8F" secondAttribute="centerX" id="xnh-MP-dKL"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="addToBagButton" destination="4Cb-5y-alS" id="M3s-YN-Ha7"/>
+                                            <outlet property="allReservedImageView" destination="0XK-ag-GOj" id="vwH-bL-3Zq"/>
                                             <outlet property="brandLabel" destination="xAe-91-hi2" id="wow-Hg-MPy"/>
                                             <outlet property="btrPriceLabel" destination="3d3-jC-cQH" id="EWo-hl-H8l"/>
                                             <outlet property="originalPrice" destination="2fF-Qk-orP" id="vJ2-Kj-lkz"/>
                                             <outlet property="productImageView" destination="X2x-Al-l8F" id="GRQ-NQ-ROt"/>
+                                            <outlet property="productStatusMessageLabel" destination="aCm-Sj-49K" id="c9W-Db-ozn"/>
                                             <outlet property="productTitleLabel" destination="1zc-uF-TtV" id="zAT-he-bbR"/>
                                             <outlet property="selectSizeButton" destination="467-5r-hi3" id="GBh-19-i9u"/>
                                         </connections>
@@ -7318,7 +7337,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="5057D6C0-0380-494F-A5B0-D46439B36E1F" width="30" height="30">
+        <image name="B0C3EB5E-E537-4871-8CE5-6866B896E88B" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -7380,6 +7399,7 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>
+        <image name="btrbagreserved_new.png" width="96" height="100"/>
         <image name="delivery.jpg" width="475" height="264"/>
         <image name="facebookiconalpha.png" width="100" height="100"/>
         <image name="filtericon.png" width="420" height="490"/>

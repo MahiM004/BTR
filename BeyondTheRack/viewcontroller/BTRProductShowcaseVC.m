@@ -244,6 +244,12 @@
                                                                  toSizeQuantityArray:[cell sizeQuantityArray]];
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andBTRSizeMode:sizeMode forIndexPath:indexPath];
 
+    if ([productItem.allReserved boolValue]) {
+        [self disableCell:cell];
+        [cell.productStatusMessageLabel setText:@"Reserved By Others\n\nCheck back in\n20 minutes"];
+    } else
+        [self enableCell:cell];
+    
     NSMutableArray *tempSizesArray = [cell sizesArray];
     NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
     
@@ -342,6 +348,27 @@
     return cell;
 }
 
+
+- (void)disableCell:(BTRProductShowcaseCollectionCell *)cell {
+    [cell.productImageView setAlpha:0.5];
+    [cell.addToBagButton setAlpha:0.5];
+    [cell.selectSizeButton setAlpha:0.5];
+    [cell.addToBagButton setEnabled:NO];
+    [cell.selectSizeButton setEnabled:NO];
+    [cell.allReservedImageView setHidden:NO];
+    [cell.productStatusMessageLabel setHidden:NO];
+}
+
+- (void)enableCell:(BTRProductShowcaseCollectionCell *)cell {
+    [cell.productImageView setAlpha:1.0];
+    [cell.addToBagButton setAlpha:1.0];
+    [cell.selectSizeButton setAlpha:1.0];
+    [cell.selectSizeButton setEnabled:YES];
+    [cell.addToBagButton setEnabled:YES];
+    [cell.allReservedImageView setHidden:YES];
+    [cell.productStatusMessageLabel setHidden:YES];
+}
+
 - (void)moveToCheckout {
     UIStoryboard *storyboard = self.storyboard;
     BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
@@ -396,6 +423,9 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     
     Item *productItem = [self.collectionViewResourceArray objectAtIndex:indexPath.row];
+    if ([productItem.allReserved boolValue]) // should return when product is not avialble
+        return;
+    
     [self setSelectedIndexPath:indexPath];
     [self setSelectedBrandString:[productItem brand]];
     [self setSelectedAttributes:productItem.attributeDictionary];
