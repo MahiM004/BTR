@@ -27,6 +27,9 @@
 @property (strong, nonatomic) Item *itemSelectedfromSearchResult;
 @property (strong, nonatomic) NSDictionary *variantInventoryDictionaryforItemfromSearch;
 @property (strong, nonatomic) NSDictionary *attributesDictionaryforItemfromSearch;
+@property (weak, nonatomic) IBOutlet UIButton *addTobagButton;
+@property (weak, nonatomic) IBOutlet UIView *addToBagView;
+
 
 @end
 
@@ -75,6 +78,11 @@
                             } failure:^(NSError *error) {
                                 
                             }];
+    }
+    
+    if (self.disableAddToCart) {
+        self.addTobagButton.enabled = NO;
+        self.addToBagView.backgroundColor = [UIColor grayColor];
     }
 }
 

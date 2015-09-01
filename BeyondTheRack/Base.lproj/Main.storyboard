@@ -2303,7 +2303,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="9E46BE8C-A207-4AC2-A7DA-1475ADF6984A" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="3399DAD6-E10B-40B1-867D-D38A4CC74FEA" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3449,6 +3449,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="WJa-g9-E6T"/>
                     <connections>
+                        <outlet property="addToBagView" destination="vQ4-TZ-ApM" id="c8r-Eh-cIc"/>
+                        <outlet property="addTobagButton" destination="rOn-q9-wRV" id="h3a-j0-UNm"/>
                         <outlet property="bagButton" destination="qse-C9-6z2" id="f8E-L4-1WH"/>
                         <outlet property="eventTitleLabel" destination="zAp-aR-pfL" id="WOU-JS-27W"/>
                         <outlet property="headerView" destination="Iic-uO-423" id="nlh-K5-gqk"/>
@@ -7337,7 +7339,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="9E46BE8C-A207-4AC2-A7DA-1475ADF6984A" width="30" height="30">
+        <image name="3399DAD6-E10B-40B1-867D-D38A4CC74FEA" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
