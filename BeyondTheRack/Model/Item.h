@@ -10,6 +10,7 @@
 
 @interface Item : NSObject
 
+@property (nonatomic, retain) NSNumber * allReserved;
 @property (nonatomic, retain) NSDictionary * attributeDictionary;
 @property (nonatomic, retain) NSString * brand;
 @property (nonatomic, retain) NSString * categoryList;
