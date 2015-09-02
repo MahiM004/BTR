@@ -171,6 +171,44 @@
     return info;
 }
 
+
+#pragma mark FastPayment
+
+- (IBAction)paypalCheckoutTapped:(id)sender {
+    
+    if (self.changePaymentMethodCheckbox.checked) {
+        [self.changePaymentMethodCheckbox setChecked:NO];
+        [self fillPaymentInfoWithCurrentData];
+    }
+    
+    if (!self.changePaymentMethodCheckbox.checked) {
+        if (self.currentPaymentType == paypal) {
+            [[[UIAlertView alloc]initWithTitle:@"PayPal" message:@"Your current payment method is Paypal, Continue to checkout" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+            return;
+        }else {
+            [self.paymentMethodTF setText:@"Paypal"];
+            [self.changePaymentMethodCheckbox setChecked:YES];
+            [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
+        }
+    }
+    [self setCurrentPaymentType:paypal];
+    [self changeDetailPaymentFor:paypal];
+    [[[UIAlertView alloc]initWithTitle:@"PayPal" message:@"Paypal has been selected as payment method, please fill form" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+}
+
+
+- (IBAction)masterPassCheckoutTapped:(id)sender {
+    if (!self.changePaymentMethodCheckbox.checked && self.currentPaymentType != masterPass) {
+        [self.changePaymentMethodCheckbox setChecked:YES];
+        [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
+    }
+    [self.paymentMethodTF setText:@"MasterPass"];
+    [self setCurrentPaymentType:masterPass];
+    [self changeDetailPaymentFor:masterPass];
+    [[[UIAlertView alloc]initWithTitle:@"MasterPass" message:@"MasterPass has been selected as payment method, please fill form" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+}
+
+
 #pragma mark - UI
 
 
