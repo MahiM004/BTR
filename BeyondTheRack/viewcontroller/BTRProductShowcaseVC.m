@@ -16,6 +16,7 @@
 #import "BTRItemFetcher.h"
 #import "BTRBagFetcher.h"
 #import "BTRConnectionHelper.h"
+#import "BTRAnimationHandler.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -313,41 +314,15 @@
 
             frame.origin = [weakCell convertPoint:correctedOffset toView:self.view];
             CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , weakCell.productImageView.frame.size.width, weakCell.productImageView.frame.size.height);
-            UIImageView *starView = [[UIImageView alloc] initWithImage:weakCell.productImageView.image];
-            [starView setFrame:rect];
-            starView.layer.cornerRadius=5;
-            starView.layer.borderColor=[[UIColor blackColor]CGColor];
-            starView.layer.borderWidth=1;
-            [self.view addSubview:starView];
-            
-            
-            // begin
-            
-            CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-            pathAnimation.calculationMode = kCAAnimationPaced;
-            pathAnimation.fillMode = kCAFillModeForwards;
-            pathAnimation.removedOnCompletion = NO;
-            pathAnimation.duration=0.65;
-            pathAnimation.delegate=self;
-            
-            // end point
+            UIImageView *startView = [[UIImageView alloc] initWithImage:weakCell.productImageView.image];
+            [startView setFrame:rect];
+            startView.layer.cornerRadius=5;
+            startView.layer.borderColor=[[UIColor blackColor]CGColor];
+            startView.layer.borderWidth=1;
+            [self.view addSubview:startView];
             
             CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
-            CGMutablePathRef curvedPath = CGPathCreateMutable();
-            CGPathMoveToPoint(curvedPath, NULL, starView.frame.origin.x, starView.frame.origin.y);
-            CGPathAddCurveToPoint(curvedPath, NULL, endPoint.x, starView.frame.origin.y, endPoint.x, starView.frame.origin.y, endPoint.x, endPoint.y);
-            pathAnimation.path = curvedPath;
-            CGPathRelease(curvedPath);
-
-            // transform
-            
-            CABasicAnimation *basic=[CABasicAnimation animationWithKeyPath:@"transform"];
-            [basic setToValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01, 0.01, 0.01)]];
-            [basic setAutoreverses:NO];
-            [basic setDuration:0.65];
-            [starView.layer addAnimation:pathAnimation forKey:@"curveAnimation"];
-            [starView.layer addAnimation:basic forKey:@"transform"];
-            [starView performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.65];
+            [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
             
             // calling add to bag
             
