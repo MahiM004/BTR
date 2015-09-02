@@ -12,6 +12,7 @@
 #import "User+AppServer.h"
 #import "BagItem+AppServer.h"
 #import "Item+AppServer.h"
+#import "BTRConnectionHelper.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 
@@ -31,8 +32,7 @@
 
 #pragma mark - Object lifecycle
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // We wire up the FBSDKLoginButton using the interface builder
         // but we could have also explicitly wired its delegate here.
@@ -72,7 +72,6 @@
 
 
 - (void)dismissKeyboard {
-    
     [self.passwordTextField resignFirstResponder];
     [self.emailTextField resignFirstResponder];
 }
@@ -85,7 +84,6 @@
 
 
 - (IBAction)signInButtonTapped:(UIButton *)sender {
-
     if (_emailTextField.text.length != 0 && _passwordTextField.text.length != 0) {
         [self fetchUserWithSuccess:^(NSString *didLogIn) {
             
@@ -101,12 +99,10 @@
     } else {
         [[[UIAlertView alloc]initWithTitle:@"Please try again" message:@"Email and Password should not be empty" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
     }
-    
 }
 
 
 - (void)alertUserForLoginError {
-    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please try agian"
                                                     message:@"Email or Password Incorrect !"
                                                    delegate:self
@@ -118,13 +114,9 @@
 
 
 - (void)alertUserForLoginErrorWithMessage:(NSString *)messageString {
-    
-    
     NSString *alertMessage = @"Email or Password Incorrect !";
-    
     if ([messageString length] > 0)
         alertMessage = messageString;
-    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error!"
                                                     message:alertMessage
                                                    delegate:self
@@ -140,10 +132,7 @@
 
 
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
-    
-    
     if (error) {
-        
         NSLog(@"Unexpected login error: %@", error);
         NSString *alertMessage = error.userInfo[FBSDKErrorLocalizedDescriptionKey] ?: @"There was a problem logging in. Please try again later.";
         NSString *alertTitle = error.userInfo[FBSDKErrorLocalizedTitleKey] ?: @"Oops";
@@ -153,21 +142,16 @@
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];
     } else {
-        
         if ([FBSDKAccessToken currentAccessToken]) {
-            
             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
-                 
                  if (!error) {
-                     
                      NSString *email = [responseObject valueForKeyPath:@"email"];
                      NSString *firstName = [responseObject valueForKeyPath:@"first_name"];
                      NSString *lastName = [responseObject valueForKeyPath:@"last_name"];
                      NSString *gender=[responseObject valueForKeyPath:@"gender"];
                      NSString *fbUserId = [responseObject valueForKeyPath:@"id"];
                      NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
-                     
                      NSDictionary *fbParams = (@{
                                                  @"id": fbUserId,
                                                  @"access_token": fbAccessToken,
@@ -178,22 +162,14 @@
                                                  });
                      
                      [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
-                         
                          if ([didLogIn isEqualToString:@"TRUE"]) {
-                             
                              [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
-                             
                          } else {
-                             
                              [self alertUserForLoginError];
                          }
-                         
                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                         
                          [self alertUserForLoginError];
-                         
                      }];
-                     
                  } else {
                      NSLog(@"graph api error: %@", error);
                  }
@@ -211,55 +187,31 @@
 #pragma mark - Load User RESTful
 
 - (void)fetchUserWithSuccess:(void (^)(id  responseObject)) success
-                       failure:(void (^)(NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    
-    NSLog(@"UITextFields are ignored @: signInButtonTapped");
-    
+                       failure:(void (^)(NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserAuthentication]];
     NSDictionary *params = (@{
                               @"username" :[NSString stringWithFormat:@"%@",[[self emailTextField] text]],
                               @"password":[NSString stringWithFormat:@"%@",[[self passwordTextField] text]]
                               });
-    
-    [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserAuthentication]]
-       parameters:params
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                   options:0
-                                                                                     error:NULL];
-              if (entitiesPropertyList) {
-              
-                  NSDictionary *tempDic = entitiesPropertyList[@"session"];
-                  NSDictionary *userDic = entitiesPropertyList[@"user"];
-                  NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
-                  BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-                  [btrSettings initSessionId:sessionIdString withEmail:[[self emailTextField] text] andPassword:[[self passwordTextField] text] hasFBloggedIn:NO];
-                  User *user = [[User alloc] init];
-                  [User userAuthWithAppServerInfo:userDic forUser:user];
-                  
-                  success(@"TRUE");
-     
-              } else {
-                  
-                  BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-                  [btrSettings clearSession];
-                  
-                  success(@"FALSE");
-              }
-              
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"eooorrooorrr --- %@", error);
-
-              [self alertUserForLoginError];
-
-          }];
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:NO success:^(NSDictionary *response) {
+        if (response) {
+            NSDictionary *tempDic = response[@"session"];
+            NSDictionary *userDic = response[@"user"];
+            NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
+            BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+            [btrSettings initSessionId:sessionIdString withEmail:[[self emailTextField] text] andPassword:[[self passwordTextField] text] hasFBloggedIn:NO];
+            User *user = [[User alloc] init];
+            [User userAuthWithAppServerInfo:userDic forUser:user];
+            success(@"TRUE");
+        } else {
+            BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+            [btrSettings clearSession];
+            success(@"FALSE");
+        }
+    } faild:^(NSError *error) {
+        NSLog(@"eooorrooorrr --- %@", error);
+        [self alertUserForLoginError];
+    }];
 }
 
 
@@ -267,8 +219,7 @@
 
 - (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
                                      success:(void (^)(id  responseObject)) success
-                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
+                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
 
     [self attemptAuthenticateWithFacebookUserParams:fbUserParams
                                             success:^(NSString *didLogIn, NSString *alertString)
@@ -276,122 +227,76 @@
          if ([didLogIn  isEqualToString:@"TRUE"]) {
              success(@"TRUE");
          } else {
-             
              [self attemptRegisterWithFacebookUserParams:fbUserParams success:^(NSString *didLogIn, NSString *alertString) {
-                 
                  if ([didLogIn  isEqualToString:@"TRUE"]) {
                      success(@"TRUE");
                  } else {
                      success(@"FALSE");
                  }
-                 
              } failure:^(NSError *error) {
-                 
                  success(@"FALSE");
              }];
          }
-         
      } failure:^(NSError *error) {
-         
          success(@"FALSE");
      }];
-
 }
 
 
 
 - (void)attemptRegisterWithFacebookUserParams:(NSDictionary *)fbUserParams
                                      success:(void (^)(id  responseObject, NSString *alertString)) success
-                                     failure:(void (^)(NSError *error)) failure
-{
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    
-    [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookRegistration]]
-       parameters:fbUserParams
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-
-              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                   options:0
-                                                                                     error:NULL];
-              
-              int i_success = -1;
-              if ([entitiesPropertyList valueForKey:@"success"])
-                  i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
-              
-              NSString *alertString = [entitiesPropertyList valueForKey:@"error"];
-              
-              if (i_success == 1) {
-                  NSDictionary *tempDic = entitiesPropertyList[@"session"];
-                  NSDictionary *userDic = entitiesPropertyList[@"user"];
-                  NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
-                  [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:YES];
-                  User *user = [[User alloc] init];
-                  [User userAuthWithAppServerInfo:userDic forUser:user];
-                  success(@"TRUE", nil);
-                  
-              } else if (i_success == 0){
-                  
-                  [btrSettings clearSession];
-                  success(@"FALSE", alertString);
-              }
-              
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              [self alertUserForLoginError];
-          }];
-    
+                                     failure:(void (^)(NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookRegistration]];
+    [BTRConnectionHelper postDataToURL:url withParameters:fbUserParams setSessionInHeader:NO success:^(NSDictionary *response) {
+        BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+        int i_success = -1;
+        if ([response valueForKey:@"success"])
+            i_success = [[response valueForKey:@"success"] intValue];
+        NSString *alertString = [response valueForKey:@"error"];
+        if (i_success == 1) {
+            NSDictionary *tempDic = response[@"session"];
+            NSDictionary *userDic = response[@"user"];
+            NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
+            [btrSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:YES];
+            User *user = [[User alloc] init];
+            [User userAuthWithAppServerInfo:userDic forUser:user];
+            success(@"TRUE", nil);
+        } else if (i_success == 0){
+            [btrSettings clearSession];
+            success(@"FALSE", alertString);
+        }
+    } faild:^(NSError *error) {
+        [self alertUserForLoginError];
+    }];
 }
 
 
 
 - (void)attemptAuthenticateWithFacebookUserParams:(NSDictionary *)fbUserParams
                                       success:(void (^)(id  responseObject, NSString *alertString)) success
-                                      failure:(void (^)(NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    
-    [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookAuthentication]]
-       parameters:fbUserParams
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-              NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                                   options:0
-                                                                                     error:NULL];
-              
-              NSDictionary *sessionObject = entitiesPropertyList[@"session"];
-              NSString *sessionIdString = sessionObject[@"session_id"];
-              NSDictionary *userObject = entitiesPropertyList[@"user"];
-              NSString *email = userObject[@"email"];
-              NSString *password = userObject[@"password"];
-              
-              int i_success = -1;
-              if ([entitiesPropertyList valueForKey:@"success"])
-                  i_success = [[entitiesPropertyList valueForKey:@"success"] intValue];
-              if (i_success == 1) {
-                  [btrSettings initSessionId:sessionIdString withEmail:email andPassword:password hasFBloggedIn:YES];
-                  success(@"TRUE", nil);
-              } else if (i_success == 0){
-                  [btrSettings clearSession];
-                  success(@"FALSE", nil);
-              }
-              
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              [self alertUserForLoginError];
-              
-          }];
-    
+                                      failure:(void (^)(NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookAuthentication]];
+    [BTRConnectionHelper postDataToURL:url withParameters:fbUserParams setSessionInHeader:NO success:^(NSDictionary *response) {
+        BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
+        NSDictionary *sessionObject = response[@"session"];
+        NSString *sessionIdString = sessionObject[@"session_id"];
+        NSDictionary *userObject = response[@"user"];
+        NSString *email = userObject[@"email"];
+        NSString *password = userObject[@"password"];
+        int i_success = -1;
+        if ([response valueForKey:@"success"])
+            i_success = [[response valueForKey:@"success"] intValue];
+        if (i_success == 1) {
+            [btrSettings initSessionId:sessionIdString withEmail:email andPassword:password hasFBloggedIn:YES];
+            success(@"TRUE", nil);
+        } else if (i_success == 0){
+            [btrSettings clearSession];
+            success(@"FALSE", nil);
+        }
+    } faild:^(NSError *error) {
+        [self alertUserForLoginError];
+    }];
 }
 
 
