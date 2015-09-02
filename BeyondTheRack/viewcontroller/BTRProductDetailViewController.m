@@ -12,7 +12,7 @@
 #import "BTRBagFetcher.h"
 #import "BagItem+AppServer.h"
 #import "BTRItemFetcher.h"
-
+#import "BTRConnectionHelper.h"
 
 #define SIZE_NOT_SELECTED_STRING @"-1"
 
@@ -100,16 +100,12 @@
         [alert show];
         
     } else {
-
-        BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-        [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
-            
+        [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
             if ([successString isEqualToString:@"TRUE"]) {
                 UIStoryboard *storyboard = self.storyboard;
                 BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];                
                 [self presentViewController:vc animated:YES completion:nil];
             }
-            
         } failure:^(NSError *error) {
             
         }];
@@ -123,58 +119,51 @@
 
 
 
-- (void)cartIncrementServerCallforSessionId:(NSString *)sessionId
-                                    success:(void (^)(id  responseObject)) success
+- (void)cartIncrementServerCallWithSuccess:(void (^)(id  responseObject)) success
                                     failure:(void (^)(NSError *error)) failure
 {
     [[self bagItemsArray] removeAllObjects];
 
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
+    NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]];
     NSDictionary *params = (@{
                               @"event_id": [[self productItem] eventId],
                               @"sku": [[self productItem] sku],
                               @"variant":[self variant],
                               });
-    
-    [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]]
-       parameters:params
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (![[response valueForKey:@"success"]boolValue]) {
+            if ([response valueForKey:@"error_message"]) {
+                [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            }
+            return;
+        }
+        if (self.quantity.intValue > 1) {
+            NSDictionary *itemInfo = (@{@"event_id": [[self productItem] eventId],
+                                        @"sku": [[self productItem] sku],
+                                        @"variant":[self variant],
+                                        @"quantity":[self quantity]
+                                        });
+            NSDictionary *updateParam = (@{@"key1" : itemInfo});
+            NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
+            [BTRConnectionHelper postDataToURL:url withParameters:updateParam setSessionInHeader:YES success:^(NSDictionary *response) {
+                [self updateBagWithDictionary:response];
+                success(@"TRUE");
+            } faild:^(NSError *error) {
+                failure(error);
+            }];
+            
+        } else {
+            
+            [self updateBagWithDictionary:response];
+            success(@"TRUE");
+        }
 
-              if (self.quantity.intValue > 1) {
-                  NSDictionary *itemInfo = (@{@"event_id": [[self productItem] eventId],
-                                          @"sku": [[self productItem] sku],
-                                          @"variant":[self variant],
-                                          @"quantity":[self quantity]
-                                          });
-                  NSDictionary *updateParam = (@{@"key1" : itemInfo});
-                  [manager POST:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]] parameters:updateParam success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      [self updateBagWithJson:responseObject];
-                      success(@"TRUE");
-                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                      failure(error);
-                  }];
-              } else {
-                  [self updateBagWithJson:responseObject];
-                  success(@"TRUE");
-              }
-              
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        
-              failure(error);
-              
-          }];
+    } faild:^(NSError *error) {
+        failure(error);
+    }];
 }
 
-- (void)updateBagWithJson:(id)responseObject {
-    NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                         options:0
-                                                                           error:NULL];
+- (void)updateBagWithDictionary:(NSDictionary *)entitiesPropertyList {
     
     NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
     NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
@@ -198,34 +187,16 @@
 
 - (void)fetchItemforProductSku:(NSString *)productSku
                       success:(void (^)(id  responseObject)) success
-                      failure:(void (^)(NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                              options:0
-                                                                                error:NULL];
-         
-         [self setAttributesDictionaryforItemfromSearch:entitiesPropertyList[@"attributes"]];
-         [self setVariantInventoryDictionaryforItemfromSearch:entitiesPropertyList[@"variant_inventory"]];
-         
-         Item *productItem = [Item itemWithAppServerInfo:entitiesPropertyList withEventId:[self eventId]];
-         
-         success(productItem);
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         failure(error);
-     }];
-    
+                      failure:(void (^)(NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        [self setAttributesDictionaryforItemfromSearch:response[@"attributes"]];
+        [self setVariantInventoryDictionaryforItemfromSearch:response[@"variant_inventory"]];
+        Item *productItem = [Item itemWithAppServerInfo:response withEventId:[self eventId]];
+        success(productItem);
+    } faild:^(NSError *error) {
+        failure(error);
+    }];
 }
 
 
