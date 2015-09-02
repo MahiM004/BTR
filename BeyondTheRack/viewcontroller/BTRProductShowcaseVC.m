@@ -134,7 +134,7 @@
     [super viewWillAppear:animated];
     
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
+    self.bagButton.badgeValue = [NSString stringWithFormat:@"%i",[sharedShoppingBag bagCount]];
 }
 
 
@@ -187,8 +187,7 @@
     }];
 }
 
-- (void)cartIncrementServerCallforSessionId:(NSString *)sessionId
-                             addProductItem:(Item *)productItem
+- (void)cartIncrementServerCallToAddProductItem:(Item *)productItem
                                 withVariant:(NSString *)variant
                                     success:(void (^)(id  responseObject)) success
                                     failure:(void (^)(NSError *error)) failure
@@ -201,6 +200,14 @@
                               });
     
     [BTRConnectionHelper postDataToURL:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]] withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+        
+        if (![[response valueForKey:@"success"]boolValue]) {
+            if ([response valueForKey:@"error_message"]) {
+                [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            }
+            return;
+        }
+        
         NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
         NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
         NSDate *serverTime = [NSDate date];
@@ -325,9 +332,7 @@
             [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
             
             // calling add to bag
-            
-            BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-            [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] addProductItem:productItem withVariant:selectedSizeString  success:^(NSString *successString) {
+            [self cartIncrementServerCallToAddProductItem:productItem withVariant:selectedSizeString  success:^(NSString *successString) {
                 
                 if ([successString isEqualToString:@"TRUE"])
                     [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
