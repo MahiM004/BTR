@@ -150,7 +150,6 @@
 #pragma mark header info
 
 - (void)getheaderInfo {
-    
     NSString* url = [NSString stringWithFormat:@"%@",[BTRFreeshipFetcher URLforFreeship]];
     self.freeshipInfo = [[Freeship alloc]init];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
@@ -166,8 +165,6 @@
     } faild:^(NSError *error) {
         
     }];
-    
-    
 }
 
 - (void)changeTimerString:(NSTimer *)timer {
