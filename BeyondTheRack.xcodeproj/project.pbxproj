@@ -156,6 +156,7 @@
 		69FF40861A3F8939000BD092 /* BeyondTheRackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */; };
 		A00393E61B7B8B4000A3F79F /* delivery.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A00393E51B7B8B4000A3F79F /* delivery.jpg */; };
 		A00A7FEC1B8E102200568BB6 /* BTRChartFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */; };
+		A00BD8741B97370D00B4693E /* BTRAnimationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A00BD8731B97370D00B4693E /* BTRAnimationHandler.m */; };
 		A00C9A331B7CE1E30047D6F5 /* BTRContactUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */; };
 		A00C9C161B960051004A2629 /* BTRFreeshipFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9C151B960051004A2629 /* BTRFreeshipFetcher.m */; };
 		A00C9C191B960817004A2629 /* Freeship.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9C181B960817004A2629 /* Freeship.m */; };
@@ -484,6 +485,8 @@
 		A00393E51B7B8B4000A3F79F /* delivery.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = delivery.jpg; sourceTree = "<group>"; };
 		A00A7FEA1B8E102200568BB6 /* BTRChartFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRChartFetcher.h; sourceTree = "<group>"; };
 		A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRChartFetcher.m; sourceTree = "<group>"; };
+		A00BD8721B97370D00B4693E /* BTRAnimationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAnimationHandler.h; sourceTree = "<group>"; };
+		A00BD8731B97370D00B4693E /* BTRAnimationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRAnimationHandler.m; sourceTree = "<group>"; };
 		A00C9A311B7CE1E30047D6F5 /* BTRContactUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRContactUSViewController.h; sourceTree = "<group>"; };
 		A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRContactUSViewController.m; sourceTree = "<group>"; };
 		A00C9C141B960051004A2629 /* BTRFreeshipFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFreeshipFetcher.h; sourceTree = "<group>"; };
@@ -996,6 +999,8 @@
 				A0D037471B90A82300EA9E48 /* BTRAttributeHandler.m */,
 				A097F08B1B948F56002CBB71 /* BTRConnectionHelper.h */,
 				A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */,
+				A00BD8721B97370D00B4693E /* BTRAnimationHandler.h */,
+				A00BD8731B97370D00B4693E /* BTRAnimationHandler.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -1574,6 +1579,7 @@
 				69D440501B331A7F00070FD8 /* BTRCategoryFetcher.m in Sources */,
 				692F24DB1AAF31C0003AABE1 /* BTRProductImageCollectionCell.m in Sources */,
 				69B55F0D1A4B1AFC009A5524 /* BTRShoppingBagViewController.m in Sources */,
+				A00BD8741B97370D00B4693E /* BTRAnimationHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
