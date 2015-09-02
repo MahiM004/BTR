@@ -11,6 +11,6 @@
 @implementation BTRFreeshipFetcher
 
 + (NSURL *)URLforFreeship{
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/freeship", BASEURL]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/freeship?html=false", BASEURL]];
 }
 @end

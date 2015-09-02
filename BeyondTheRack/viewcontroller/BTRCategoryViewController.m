@@ -24,6 +24,7 @@
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
 @property (strong, nonatomic) MarqueeLabel *bannerView;
 @property (strong, nonatomic) Freeship* freeshipInfo;
+@property (strong, nonatomic) NSDate* dueDate;
 
 @end
 
@@ -154,6 +155,12 @@
     self.freeshipInfo = [[Freeship alloc]init];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
         self.freeshipInfo = [Freeship extractFreeshipInfofromJSONDictionary:response forFreeship:self.freeshipInfo];
+        if ([self.freeshipInfo.banner containsString:@"##counter##"]) {
+            self.dueDate = [NSDate dateWithTimeIntervalSince1970:[self.freeshipInfo.endTimestamp integerValue]];
+            [self changeTimerString:nil];
+            [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(changeTimerString:) userInfo:nil repeats:YES];
+            return ;
+        }
         [self.bannerView setText:self.freeshipInfo.banner];
         [self.bannerView resetLabel];
     } faild:^(NSError *error) {
@@ -161,6 +168,26 @@
     }];
     
     
+}
+
+- (void)changeTimerString:(NSTimer *)timer {
+    NSInteger ti = ((NSInteger)[self.dueDate timeIntervalSinceNow]);
+    int seconds = ti % 60;
+    int minutes = (ti / 60) % 60;
+    int hours = ((ti / 60) / 60) % 24;
+    int days = ((ti / 60) / 60) / 24;
+    if (seconds < 0) {
+        [timer invalidate];
+        return;
+    }
+    NSString* timerString;
+    if (minutes == 0 && hours == 0)
+        timerString = [NSString stringWithFormat:@"Less than a minute"];
+    else {
+        timerString = [NSString stringWithFormat:@"%02d days %02d Hours : %02d Minutes",days,hours,minutes];
+    }
+    NSString* bannerString = [self.freeshipInfo.banner stringByReplacingOccurrencesOfString:@"##counter##" withString:timerString];
+    [self.bannerView setText:bannerString];
 }
 
 
