@@ -16,6 +16,7 @@
 #import "BTRFacetsHandler.h"
 #import "BTRSearchViewController.h"
 #import "BTRBagFetcher.h"
+#import "BTRConnectionHelper.h"
 #import <math.h>
 
 
@@ -36,10 +37,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-    
-    [self getCartCountServerCallforSessionId:[btrSettings sessionId] success:^(NSString *bagCountString) {
+    [self getCartCountServerCallWithSuccess:^(NSString *bagCountString) {
         self.bagButton.badgeValue = bagCountString;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -70,37 +68,18 @@
 
 #pragma mark - Get bag count
 
-- (void)getCartCountServerCallforSessionId:(NSString *)sessionId
-                                   success:(void (^)(id  responseObject)) success
-                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBagCount]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSDictionary  *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
-             
-             NSString *bagCount = [NSString stringWithFormat:@"%@",entitiesPropertyList[@"count"]];
-             BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-             sharedShoppingBag.bagCount = [bagCount integerValue];
-             
-             success(bagCount);
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"errtr: %@", error);
-             failure(operation, error);
-             
-         }];
+- (void)getCartCountServerCallWithSuccess:(void (^)(id  responseObject)) success
+                                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBagCount]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        NSString *bagCount = [NSString stringWithFormat:@"%@",response[@"count"]];
+        BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+        sharedShoppingBag.bagCount = [bagCount integerValue];
+        success(bagCount);
+    } faild:^(NSError *error) {
+        NSLog(@"errtr: %@", error);
+        failure(nil, error);
+    }];
 }
 
 
