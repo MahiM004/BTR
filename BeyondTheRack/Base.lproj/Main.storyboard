@@ -2303,7 +2303,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="E5500536-574E-4E79-BD36-F60BAD4D4A44" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="79EE3ACF-4A0E-41F9-950B-0E4DA7711EE6" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -7347,8 +7347,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="E5500536-574E-4E79-BD36-F60BAD4D4A44" width="30" height="30">
+        <image name="79EE3ACF-4A0E-41F9-950B-0E4DA7711EE6" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -7406,6 +7405,7 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
+        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>

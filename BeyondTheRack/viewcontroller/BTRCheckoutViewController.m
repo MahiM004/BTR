@@ -390,8 +390,10 @@
         
         [self disableShippingAddress];
         
-    } else if (![checkbox checked])
+    } else if (![checkbox checked]) {
+        [self clearShippingAddress];
         [self enableShippingAddress];
+    }
     
     [self validateAddressViaAPIAndInCompletion:nil];
 }
@@ -412,8 +414,10 @@
         [self.phoneShippingTF setText:@"613-735-0112"];
         [self disableShippingAddress];
         
-    } else if (![checkbox checked])
+    } else if (![checkbox checked]) {
+        [self clearShippingAddress];
         [self enableShippingAddress];
+    }
     
     [self validateAddressViaAPIAndInCompletion:nil];
 }
@@ -965,8 +969,9 @@
 
 
 - (IBAction)processOrderTpped:(UIButton *)sender {
-
-    if (self.currentPaymentType == creditCard && [self isCompeletedForm]) {
+    if (![self isShippingAddressCompeleted])
+        return;
+    if (self.currentPaymentType == creditCard && [self isBillingAddressCompeleted] && [self isCardInfoCompeleted]) {
         [self validateAddressViaAPIAndInCompletion:^() {
             [self makePaymentWithSuccess:^(id responseObject) {
                    [self orderConfirmationWithReceipt:responseObject];
@@ -993,7 +998,7 @@
 }
 
 
-- (BOOL)isCompeletedForm {
+- (BOOL)isShippingAddressCompeleted {
     
     // checking address line
     if (self.addressLine1ShippingTF.text.length == 0) {
@@ -1008,6 +1013,12 @@
         [self.scrollView scrollRectToVisible:self.zipCodeShippingTF.frame animated:YES];
         return NO;
     }
+    return YES;
+}
+
+- (BOOL)isBillingAddressCompeleted {
+
+    // Checking billing address
     if (self.addressLine1BillingTF.text.length == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill billing address field" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.addressLine1BillingTF becomeFirstResponder];
@@ -1020,6 +1031,10 @@
         [self.scrollView scrollRectToVisible:self.postalCodeBillingTF.frame animated:YES];
         return NO;
     }
+    return YES;
+}
+
+- (BOOL)isCardInfoCompeleted {
     if (self.nameOnCardPaymentTF.text.length == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill name on card" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.nameOnCardPaymentTF becomeFirstResponder];
@@ -1038,9 +1053,6 @@
         [self.scrollView scrollRectToVisible:self.cardVerificationPaymentTF.frame animated:YES];
         return NO;
     }
-    
-    // form is completed
-    // shoulf validate through webSerive API
     return YES;
 }
 
