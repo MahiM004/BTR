@@ -119,8 +119,15 @@
     NSString *sku = [bagItem sku];
     NSString *eventId = [bagItem eventId];
     NSString *variant = [bagItem variant];
+    
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+    [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [nf setCurrencySymbol:@"$"];
+    
     [cell setDidTapRereserveItemButtonBlock:^(id sender) {
         [self rereserveItemServerCallforSku:sku andVariant:variant andEventId:eventId success:^(NSString *responseString) {
+            NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:responseString];
+            self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
             [[self tableView] reloadData];
         } failure:^(NSError *error) {
             
@@ -197,7 +204,7 @@
         
         BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
         [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-        
+
         success(totalString);
 
     } faild:^(NSError *error) {
