@@ -317,8 +317,6 @@
 - (void)enableCell:(BTRProductShowcaseCollectionCell *)cell {
     [cell.productImageView setAlpha:1.0];
     [cell.addToBagButton setAlpha:1.0];
-    [cell.selectSizeButton setAlpha:1.0];
-    [cell.selectSizeButton setEnabled:YES];
     [cell.addToBagButton setEnabled:YES];
     [cell.allReservedImageView setHidden:YES];
     [cell.productStatusMessageLabel setHidden:YES];
