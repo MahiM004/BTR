@@ -25,7 +25,6 @@
 
 @property (nonatomic) NSUInteger pickerType;
 
-
 @property (strong, nonatomic) NSArray *genderArray;
 @property (strong, nonatomic) NSArray *countryNameArray;
 @property (strong, nonatomic) NSArray *incomeBracketArray;
@@ -38,7 +37,6 @@
 
 @property (nonatomic, strong) User *user;
 
-
 @end
 
 
@@ -46,59 +44,48 @@
 
 @implementation BTRAccountInformationVC
 
-
 - (NSArray *)genderArray {
-    
     _genderArray = @[@"Female", @"Male"];
     return _genderArray;
 }
 
 - (NSArray *)countryNameArray {
-    
     _countryNameArray = @[@"Canada", @"USA"];
     return _countryNameArray;
 }
 
 - (NSArray *)incomeBracketArray {
-    
     _incomeBracketArray = @[@"Up to $60,000", @"$60,000 to $100,000", @"$100,000 to $150,000", @"Over $150,000"];
     return _incomeBracketArray;
 }
 
 - (NSArray *)childrenArray {
-    
     _childrenArray = @[@"Young children", @"Teenage children", @"Adult children"];
     return _childrenArray;
 }
 
 
 - (NSArray *)maritalStatusArray {
-    
     _maritalStatusArray = @[@"Single", @"Unmarried", @"Married", @"Divorced", @"Widowed"];
     return _maritalStatusArray;
 }
 
 
 - (NSArray *)formalEducationArray {
-    
     _formalEducationArray = @[@"Primary school", @"Secondary school", @"College", @"University", @"Graduate studies"];
     return _formalEducationArray;
 }
 
 
 - (NSArray *)provincesArray {
-    
     _provincesArray = @[@"Alberta", @"British Columbia", @"Manitoba", @"New Brunswick",
                         @"New foundland & Labrador", @"Northwest Territories", @"Nova Scotia",
                         @"Nunavut", @"Ontario", @"Prince Edward Island", @"Quebec", @"Saskatchewan", @"Yukon"];
-    
-    
     return _provincesArray;
 }
 
 
 - (NSArray *)statesArray {
-    
     _statesArray = @[@"Alabama", @"Alaska", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut",
                      @"Delaware", @"Florida", @"Georgia", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa",
                      @"Kansas", @"Kentucky", @"Louisiana", @"Maine", @"Maryland", @"Massachusetts", @"Michigan",
@@ -153,14 +140,10 @@
         
         [self.provinceTextField setText:provinceToShow];
         
-        if ([user.country isEqualToString:@"CA"]) {
-            
+        if ([user.country isEqualToString:@"CA"])
             [self.countryTextField setText:@"Canada"];
-            
-        } else if ([user.country isEqualToString:@"US"]) {
-            
+        else if ([user.country isEqualToString:@"US"])
             [self.countryTextField setText:@"USA"];
-        }
         
     } failure:^(NSError *error) {
         
@@ -169,7 +152,6 @@
 
 
 - (void)loadPickerViewforType:(NSUInteger)type {
-    
     [self setPickerType:type];
     [self.pickerView reloadAllComponents];
     [self dismissKeyboard];
@@ -179,50 +161,39 @@
 
 
 - (IBAction)genderTapped:(UIButton *)sender {
-    
     [self loadPickerViewforType:GENDER_PICKER];
 }
 
 
 - (IBAction)maritalStatusTapped:(UIButton *)sender {
-    
     [self loadPickerViewforType:MARITAL_PICKER];
 }
 
 
 - (IBAction)childrenTapped:(UIButton *)sender {
-    
     [self loadPickerViewforType:CHILDREN_PICKER];
 }
 
 
 - (IBAction)education:(UIButton *)sender {
-    
     [self loadPickerViewforType:EDUCATION_PICKER];
 }
 
 
 - (IBAction)incomeBracketTapped:(UIButton *)sender {
-    
     [self loadPickerViewforType:INCOME_PICKER];
 }
 
 
 - (IBAction)provinceButton:(UIButton *)sender {
-    
-    if ([self.countryTextField.text isEqualToString:@"Canada"]) {
-        
+    if ([self.countryTextField.text isEqualToString:@"Canada"])
         [self loadPickerViewforType:PROVINCE_PICKER];
-        
-    } else if ([self.countryTextField.text isEqualToString:@"USA"]) {
-     
+    else if ([self.countryTextField.text isEqualToString:@"USA"])
         [self loadPickerViewforType:STATE_PICKER];
-    }
 }
 
 
 - (void)dismissKeyboard {
-    
     [self.view endEditing:YES];
 }
 
@@ -231,42 +202,31 @@
 
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    
-    
-    if ([self pickerType] == GENDER_PICKER) {
+    if ([self pickerType] == GENDER_PICKER)
         [self.genderTextField setText:[[self genderArray] objectAtIndex:row]];
-    }
 
-    if ([self pickerType] == MARITAL_PICKER) {
+    if ([self pickerType] == MARITAL_PICKER)
         [self.maritalStatusTextField setText:[[self maritalStatusArray] objectAtIndex:row]];
-    }
 
-    if ([self pickerType] == EDUCATION_PICKER) {
+    if ([self pickerType] == EDUCATION_PICKER)
         [self.formalEducationTextField setText:[[self formalEducationArray] objectAtIndex:row]];
-    }
 
-    if ([self pickerType] == CHILDREN_PICKER) {
+    if ([self pickerType] == CHILDREN_PICKER)
         [self.childrenTextField setText:[[self childrenArray] objectAtIndex:row]];
-    }
 
-    if ([self pickerType] == INCOME_PICKER) {
+    if ([self pickerType] == INCOME_PICKER)
         [self.incomeBracketTextField setText:[[self incomeBracketArray] objectAtIndex:row]];
-    }
  
-    if ([self pickerType] == PROVINCE_PICKER) {
+    if ([self pickerType] == PROVINCE_PICKER)
         [self.provinceTextField setText:[[self provincesArray] objectAtIndex:row]];
-    }
-    if ([self pickerType] == STATE_PICKER) {
+    
+    if ([self pickerType] == STATE_PICKER)
         [self.provinceTextField setText:[[self statesArray] objectAtIndex:row]];
-    }
     
     [self.pickerParentView setHidden:TRUE];
 }
 
-
-
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] count];
 
@@ -291,15 +251,11 @@
     return [[self genderArray] count];
 }
 
-
-
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
-
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] objectAtIndex:row];
 
@@ -326,21 +282,14 @@
 
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    int sectionWidth = 300;
-    
-    return sectionWidth;
+    return 300.0;
 }
-
-
-
 
 #pragma mark - User Info RESTful
 
-
 - (void)fetchUserInfoforSessionId:(NSString *)sessionId
                        success:(void (^)(id  responseObject)) success
-                       failure:(void (^)(NSError *error)) failure
-{
+                       failure:(void (^)(NSError *error)) failure {
     [BTRConnectionHelper getDataFromURL:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]] withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
         if (response) {
             self.user = [[User alloc]init];
@@ -354,11 +303,8 @@
     }];
 }
 
-
-- (void)updateUserInfoforSessionId:(NSString *)sessionId
-                          success:(void (^)(id  responseObject)) success
-                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
+- (void)updateUserInfoWithSuccess:(void (^)(id  responseObject)) success
+                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString *provinceToPost = [BTRViewUtility provinceCodeforName:[[self provinceTextField] text]];
     NSDictionary *params = (@{
                               @"address1": [[self address1TextField] text],
@@ -385,37 +331,18 @@
     }];
 }
 
-
-
-
-- (void)updatePasswordforSessionId:(NSString *)sessionId
-                           success:(void (^)(id  responseObject)) success
-                           failure:(void (^)(NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
+- (void)updatePasswordWithSuccess:(void (^)(id  responseObject)) success
+                           failure:(void (^)(NSError *error)) failure {
     NSDictionary *params = (@{
                               @"email": [[self emailTextField] text],
                               @"password": [[self retypePasswordTextField] text]
                               });
-    
-    
-    [manager PUT:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforCurrentUser]]
-       parameters:params
-          success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         success([[self retypePasswordTextField] text]);
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         failure(error);
-     }];
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforCurrentUser]];
+    [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+        success([[self retypePasswordTextField] text]);
+    } faild:^(NSError *error) {
+        failure(error);
+    }];
 }
 
 
@@ -423,36 +350,24 @@
 
 
 - (IBAction)updatePasswordTapped:(UIButton *)sender {
-    
     if ([self.neuPasswordTextField.text isEqualToString:self.retypePasswordTextField.text]) {
-    
-        BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-        [self updatePasswordforSessionId:[sessionSettings sessionId] success:^(NSString *neuPassword) {
-            
+        [self updatePasswordWithSuccess:^(NSString *neuPassword) {
             BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
             [btrSettings updatePassword:neuPassword];
             [self.neuPasswordTextField setText:@""];
             [self.retypePasswordTextField setText:@""];
             [self alertUserforPasswordUpdate];
-            
         } failure:^(NSError *error) {
             
         }];
-
-    } else {
-
+    } else
         [self alertUserforPasswordStringNotEqual];
-    }
 }
 
 
 - (IBAction)updateInfoTapped:(UIButton *)sender {
-
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    
-    [self updateUserInfoforSessionId:[sessionSettings sessionId] success:^(NSString *successString) {
+    [self updateUserInfoWithSuccess:^(NSString *successString) {
         [self alertUserforSuccessfulUserUpdate];
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
@@ -463,7 +378,6 @@
 
 
 - (void)alertUserforPasswordUpdate {
-    
     [self dismissKeyboard];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful"
                                                     message:@"Your password was updated successfully."
@@ -475,7 +389,6 @@
 
 
 - (void)alertUserforPasswordStringNotEqual {
-    
     [self dismissKeyboard];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention"
                                                     message:@"The passwords do not match!"
@@ -487,7 +400,6 @@
 }
 
 - (void)alertUserforSuccessfulUserUpdate {
-    
     [self dismissKeyboard];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful"
                                                     message:@"Your info was updated successfully."

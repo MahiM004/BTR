@@ -28,7 +28,6 @@
 
 @interface BTRAccountEmbeddedTVC ()
 
-
 @property (strong, nonatomic) NSString *sessionId;
 
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
@@ -44,15 +43,12 @@
 
 @implementation BTRAccountEmbeddedTVC
 
-
 - (NSMutableArray *)headersArray {
-    
     if (!_headersArray) _headersArray = [[NSMutableArray alloc] init];
     return _headersArray;
 }
 
 - (NSMutableDictionary *)itemsDictionary {
-
     if (!_itemsDictionary) _itemsDictionary = [[NSMutableDictionary alloc] init];
     return _itemsDictionary;
 }
@@ -65,7 +61,6 @@
     
     [self fetchUserWithSuccess:^(User *user) {
         self.welcomeLabel.text = [NSString stringWithFormat:@"%@ %@", [user name], [user lastName]];
-    
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     
     }];
@@ -87,7 +82,6 @@
     }];
     
 }
-
 
 #pragma mark - Load User Info RESTful
 
@@ -170,14 +164,12 @@
 }
 
 - (IBAction)trackOrdersTapped:(UIButton *)sender {
-    
     [self.tableView setUserInteractionEnabled:FALSE];
     [self fetchOrderHistoryWithSuccess:^(NSString *successString) {
         [self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
     } failure:^(NSError *error) {
         
     }];
-
     [self.tableView setUserInteractionEnabled:TRUE];
 }
 
@@ -196,7 +188,6 @@
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     
      if ([[segue identifier] isEqualToString:@"BTRNotificationsSegueIdentifier"]) {
          BTRNotificationsVC *vc = [segue destinationViewController];
          vc.user = [self user];
@@ -210,8 +201,7 @@
          BTRContactUSViewController* vc = [segue destinationViewController];
          vc.contactInformaion = self.contactInfo;
      }
- }
-
+}
 @end
 
 

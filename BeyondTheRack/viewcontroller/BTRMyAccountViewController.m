@@ -16,18 +16,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
 }
-
 
 #pragma mark - Navigation
 
-
-- (IBAction)unwindToMyAccountViewController:(UIStoryboardSegue *)unwindSegue
-{
+- (IBAction)unwindToMyAccountViewController:(UIStoryboardSegue *)unwindSegue {
 }
-
-
-
 
 @end

@@ -8,6 +8,7 @@
 
 #import "BTRNotificationsVC.h"
 #import "BTRUserFetcher.h"
+#import "BTRConnectionHelper.h"
 
 @interface BTRNotificationsVC ()
 
@@ -25,16 +26,13 @@
 
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     [self setupPreferencesListAttributesforList:[[self user] preferencesList]];
     [self createVerticalList];
 }
 
-
 - (void)setupPreferencesListAttributesforList:(NSString *)preferencesList {
-    
     if (![self user])
         return;
     
@@ -56,37 +54,28 @@
     if ([preferencesList containsString:@"dailyreminders"]) {
         
         if (![preferencesList containsString:@"oncedailyreminders"]) {
-
             [self setChosenEmailFrequencyString:@"dailyreminders"];
             [self setEmailFrequency:btrAllEmails];
             
         } else if ([preferencesList containsString:@"oncedailyreminders"]) {
-            
             [self setChosenEmailFrequencyString:@"oncedailyreminders"];
             [self setEmailFrequency:btrDailyEmails];
         }
         
     } else if ([preferencesList containsString:@"threetimesweeklyreminders"]) {
-
         [self setChosenEmailFrequencyString:@"threetimesweeklyreminders"];
         [self setEmailFrequency:btrThreeTimesAWeekEmails];
     
     } else if ([preferencesList containsString:@"weeklyreminders"]) {
-
         [self setChosenEmailFrequencyString:@"weeklyreminders"];
         [self setEmailFrequency:btrWeeklyEmails];
-    
     } else {
-    
         [self setChosenEmailFrequencyString:@"-"];
         [self setEmailFrequency:btrNoEmails];
     }
 }
 
-
-
 - (void)createVerticalList {
-    
     TNRectangularRadioButtonData *allEmailsData = [TNRectangularRadioButtonData new];
     allEmailsData.labelText = @"ALL";
     allEmailsData.identifier = @"dailyreminders";
@@ -134,12 +123,7 @@
     [self.emailNotificationGroup update];
 }
 
-
-
 - (IBAction)updatedTapped:(UIButton *)sender {
-
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-
     BOOL oneChosen = FALSE;
     NSString *neuPreferencesList = @"";
     
@@ -147,48 +131,39 @@
         neuPreferencesList = [neuPreferencesList stringByAppendingString:@"MobilePush"];
         oneChosen = TRUE;
     }
-
     if (![self.chosenEmailFrequencyString isEqualToString:@"-"]) {
         
         if (oneChosen) neuPreferencesList = [neuPreferencesList stringByAppendingString:@","];
         neuPreferencesList = [neuPreferencesList stringByAppendingString:[self chosenEmailFrequencyString]];
         oneChosen = TRUE;
     }
-    
     if (oneChosen) neuPreferencesList = [neuPreferencesList stringByAppendingString:@","];
     if (self.womenSwitch.on) {
         neuPreferencesList = [neuPreferencesList stringByAppendingString:@"womenreminders"];
         oneChosen = TRUE;
     }
-    
     if (oneChosen) neuPreferencesList = [neuPreferencesList stringByAppendingString:@","];
     if (self.menSwitch.on) {
         neuPreferencesList = [neuPreferencesList stringByAppendingString:@"mensreminders"];
         oneChosen = TRUE;
     }
-    
     if (oneChosen) neuPreferencesList = [neuPreferencesList stringByAppendingString:@","];
     if (self.childrenSwitch.on) {
         neuPreferencesList = [neuPreferencesList stringByAppendingString:@"childreminders"];
         oneChosen = TRUE;
     }
-    
     if (oneChosen) neuPreferencesList = [neuPreferencesList stringByAppendingString:@","];
     if (self.homeSwitch.on) {
         neuPreferencesList = [neuPreferencesList stringByAppendingString:@"homereminders"];
     }
-    
-    [self updateUserPreferencesListforSessionId:[sessionSettings sessionId] andPreferencesList:neuPreferencesList success:^(NSString *successString) {
-        
+    [self updateUserPreferencesList:neuPreferencesList success:^(NSString *successString) {
         [self.user setPreferencesList:neuPreferencesList];
         [self setupPreferencesListAttributesforList:neuPreferencesList];
         [self alertUserforSuccessfulUpdate];
-        
     } failure:^(NSError *error) {
         
     }];
 }
-
 
 # pragma mark - User alerts
 
@@ -206,47 +181,28 @@
 
 #pragma mark - User Info RESTful - Update Preferences List
 
-- (void)updateUserPreferencesListforSessionId:(NSString *)sessionId
-                           andPreferencesList:(NSString *)preferencesListString
+- (void)updateUserPreferencesList:(NSString *)preferencesListString
                           success:(void (^)(id  responseObject)) success
-                          failure:(void (^)(NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager.requestSerializer setValue:sessionId forHTTPHeaderField:@"SESSION"];
-    
+                          failure:(void (^)(NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]];
     NSDictionary *params = (@{
                               @"preferences_list": preferencesListString
                               });
-    
-    [manager PUT:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]]
-      parameters:params
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         success(@"TRUE");
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         failure(error);
-     }];
+    [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+        success(@"TRUE");
+    } faild:^(NSError *error) {
+        failure(error);
+    }];
 }
-
 
 #pragma mark - Handle Notifications
 
-
-
 - (void)emailGroupUpdated:(NSNotification *)notification {
-    
     [self setChosenEmailFrequencyString:self.emailNotificationGroup.selectedRadioButton.data.identifier];
 }
 
 
 - (void)dealloc {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SELECTED_RADIO_BUTTON_CHANGED object:self.emailNotificationGroup];
 }
 

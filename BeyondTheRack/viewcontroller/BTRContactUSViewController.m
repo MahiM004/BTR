@@ -11,13 +11,12 @@
 #import "BTRFAQFetcher.h"
 #import "FAQ.h"
 #import "FAQ+AppServer.h"
+#import "BTRConnectionHelper.h"
 
 @interface BTRContactUSViewController ()
 @property (strong, nonatomic) NSArray *inquiryArray;
 @property (nonatomic, strong) NSArray *faqArray;
 @end
-
-
 
 @implementation BTRContactUSViewController
 
@@ -33,16 +32,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self fillData];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)fillData {
-    
     // message
     if (self.contactInformaion.lostEmail) {
         self.messageLabel.text = [self.contactInformaion lostEmail];
@@ -81,20 +73,14 @@
     
     // order number
     NSMutableAttributedString *orderText = [[NSMutableAttributedString alloc]initWithAttributedString:self.orderNumberLabel.attributedText];
-    
     [[orderText mutableString] replaceOccurrencesOfString:@"if applicable" withString:self.contactInformaion.ifApplicable options:NSCaseInsensitiveSearch range:NSMakeRange(0, orderText.string.length)];
-    
     [[orderText mutableString] replaceOccurrencesOfString:@"Order number" withString:self.contactInformaion.orderNumber options:NSCaseInsensitiveSearch range:NSMakeRange(0, orderText.string.length)];
-    
     self.orderNumberLabel.attributedText = orderText;
     
     // product information
     NSMutableAttributedString *productText = [[NSMutableAttributedString alloc]initWithAttributedString:self.productLabel.attributedText];
-    
     [[productText mutableString] replaceOccurrencesOfString:@"if applicable" withString:self.contactInformaion.ifApplicable options:NSCaseInsensitiveSearch range:NSMakeRange(0, productText.string.length)];
-    
     [[productText mutableString] replaceOccurrencesOfString:@"Product, brand or item number" withString:self.contactInformaion.product options:NSCaseInsensitiveSearch range:NSMakeRange(0, productText.string.length)];
-    
     self.productLabel.attributedText = productText;
     
     // Help Message
@@ -116,11 +102,7 @@
 // send messsage
 
 - (IBAction)sendMessage:(id)sender {
-    
-    
-    
-    
-    
+
 }
 
 - (IBAction)faqTapped:(id)sender {
@@ -164,7 +146,6 @@
     [self.pickerParentView setHidden:TRUE];
 }
 
-
 // PickerView DataSource
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
@@ -191,40 +172,19 @@
     return tView;
 }
 
-
 // getting FAQ
 
 - (void)fetchFAQWithSuccess:(void (^)(id  responseObject)) success
-                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRFAQFetcher URLforFAQ]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-
-         NSDictionary * entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                               options:0
-                                                                                 error:NULL];
-         if (entitiesPropertyList) {
-             self.faqArray = [FAQ arrayOfFAQWithAppServerInfo:entitiesPropertyList];
-             success(self.faqArray);
-         }
-
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
-         failure(operation, error);
-
-     }];
-
+                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRFAQFetcher URLforFAQ]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (response) {
+            self.faqArray = [FAQ arrayOfFAQWithAppServerInfo:response];
+            success(self.faqArray);
+        }
+    } faild:^(NSError *error) {
+        failure(nil, error);
+    }];
 }
 
 
