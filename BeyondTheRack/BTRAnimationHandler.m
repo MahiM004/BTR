@@ -30,7 +30,7 @@
     [basic setDuration:duration];
     [view.layer addAnimation:pathAnimation forKey:@"curveAnimation"];
     [view.layer addAnimation:basic forKey:@"transform"];
-    [view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:duration];
+    [view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:duration - 0.1];
 }
 
 
