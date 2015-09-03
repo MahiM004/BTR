@@ -14,7 +14,7 @@
 #import "Item+AppServer.h"
 #import "BTRConnectionHelper.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-
+#import "MBProgressHUD.h"
 
 @interface BTRLoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
@@ -85,8 +85,9 @@
 
 - (IBAction)signInButtonTapped:(UIButton *)sender {
     if (_emailTextField.text.length != 0 && _passwordTextField.text.length != 0) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [self fetchUserWithSuccess:^(NSString *didLogIn) {
-            
+            [hud hide:YES];
             if ([didLogIn  isEqualToString:@"TRUE"]) {
                 [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
             }
@@ -194,7 +195,7 @@
                               @"password":[NSString stringWithFormat:@"%@",[[self passwordTextField] text]]
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:NO success:^(NSDictionary *response) {
-        if (response) {
+        if ([[response valueForKey:@"success"]boolValue]) {
             NSDictionary *tempDic = response[@"session"];
             NSDictionary *userDic = response[@"user"];
             NSString *sessionIdString = [tempDic valueForKey:@"session_id"];
