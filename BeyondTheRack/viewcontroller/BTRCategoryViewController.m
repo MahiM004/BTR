@@ -30,23 +30,17 @@
 
 @implementation BTRCategoryViewController
 
-
 - (NSMutableArray *)categoryNames {
-    
     if (!_categoryNames) _categoryNames = [[NSMutableArray alloc] init];
     return _categoryNames;
 }
 
 - (NSMutableArray *)urlCategoryNames {
-    
     if (!_urlCategoryNames) _urlCategoryNames = [[NSMutableArray alloc] init];
     return _urlCategoryNames;
 }
 
-
-
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     BTRCategoryData *sharedCategoryData = [BTRCategoryData sharedCategoryData];
@@ -81,7 +75,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
     // adding banner
     if (_bannerView == nil) {
         _bannerView = [[MarqueeLabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) rate:70.0 andFadeLength:30.0];
@@ -100,26 +93,13 @@
     [self addChildViewController:self.slider];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
 #pragma mark TTSlidingPagesDataSource methods
 
-
--(int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source{
-   
+- (int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source{
     return (int)[[self categoryNames] count];
 }
 
-
 -(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index{
-
     UIViewController *viewController;
     
     BTREventsTVC *myVC  = [[BTREventsTVC alloc] init];
@@ -130,22 +110,17 @@
     return [[TTSlidingPage alloc] initWithContentViewController:viewController];
 }
 
-
 -(TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index{
-    
     TTSlidingPageTitle *title;
     title = [[TTSlidingPageTitle alloc] initWithHeaderText:[[self categoryNames] objectAtIndex:index]];
-    
     return title;
 }
-
 
 #pragma mark - scrollview delegate
 
 
 -(void)didScrollToViewAtIndex:(NSUInteger)index {
 }
-
  
 #pragma mark header info
 

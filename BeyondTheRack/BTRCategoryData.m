@@ -12,8 +12,7 @@
 
 static BTRCategoryData *_sharedInstance;
 
-+ (BTRCategoryData *)sharedCategoryData
-{
++ (BTRCategoryData *)sharedCategoryData {
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         _sharedInstance = [[self alloc] init];
@@ -22,9 +21,7 @@ static BTRCategoryData *_sharedInstance;
     return _sharedInstance;
 }
 
-
-- (id)init
-{
+- (id)init {
     self = [super init];
     if (self) {
         
@@ -32,19 +29,14 @@ static BTRCategoryData *_sharedInstance;
     return self;
 }
 
-
 - (NSMutableArray *)categoryNameArray {
-    
     if (!_categoryNameArray) _categoryNameArray = [[NSMutableArray alloc] init];
     return _categoryNameArray;
 }
 
-
 - (NSMutableArray *)categoryUrlArray {
-    
     if (!_categoryUrlArray) _categoryUrlArray = [[NSMutableArray alloc] init];
     return _categoryUrlArray;
 }
-
 
 @end
