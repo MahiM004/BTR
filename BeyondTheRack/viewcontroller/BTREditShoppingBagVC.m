@@ -26,23 +26,17 @@
 
 @implementation BTREditShoppingBagVC
 
-
 - (NSMutableArray *)itemsArray {
-    
     if (!_itemsArray) _itemsArray = [[NSMutableArray alloc] init];
     return _itemsArray;
 }
 
-
 - (NSMutableArray *)bagItemsArray {
-    
     if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
     return _bagItemsArray;
 }
 
-
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     self.tableView.delegate = self;
@@ -65,34 +59,23 @@
 
 
 - (NSInteger)getCountofBagItems {
-    
     NSInteger counter = 0;
     for (int i = 0; i < [[self bagItemsArray] count]; i++) {
         counter += [[[[self bagItemsArray] objectAtIndex:i] quantity] integerValue];
     }
-    
     return counter;
 }
 
-
 - (void)timerFired:(NSTimer *)timer {
-    
     [self.tableView reloadData];
 }
 
-
 - (IBAction)doneEditingTapped:(UIButton *)sender {
-
     __weak typeof(self) weakSelf = self;
     
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [self setShoppingBagforSessionId:[sessionSettings sessionId] success:^(NSString *succString) {
-        
-        if ([succString isEqualToString:@"TRUE"]) {
+    [self setShoppingBagWithSuccess:^(NSString *succString) {
+        if ([succString isEqualToString:@"TRUE"])
             [weakSelf dismissViewControllerAnimated:YES completion:NULL];
-        }
-        
-
     } failure:^(NSError *error) {
         
     }];
@@ -105,18 +88,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return [[self bagItemsArray] count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     BTRBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingBagCellIdentifier" forIndexPath:indexPath];
-    
-    if (cell == nil) {
+    if (cell == nil)
         cell = [[BTRBagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
-    }
     
     NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
 
@@ -134,7 +112,6 @@
         [[self.originalBagItemsArray objectAtIndex:editedObjIndex] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
         stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
     };
-    
     [cell.removeButton setTag:indexPath.row];
     [cell.removeButton addTarget:self action:@selector(removeProductItem:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -150,19 +127,14 @@
     [self.bagTitleLabel setText:[NSString stringWithFormat:@"Edit Bag (%lu)", (unsigned long)[self.bagItemsArray count]]];
 }
 
-
 - (Item *)getItemforSku:(NSString *)skuNumber {
-    for (Item *item in [self itemsArray]) {
-        if ([[item sku] isEqualToString:skuNumber]) {
+    for (Item *item in [self itemsArray])
+        if ([[item sku] isEqualToString:skuNumber])
             return item;
-        }
-    }
     return nil;
 }
 
-
 - (BTRBagTableViewCell *)configureCell:(BTRBagTableViewCell *)cell forBagItem:(BagItem *)bagItem andItem:(Item *)item {
-    
     cell.brandLabel.text = [item brand];
     cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[bagItem pricing]];
     cell.itemLabel.text = [item shortItemDescription];
@@ -174,29 +146,21 @@
     int seconds = ti % 60;
     int minutes = (ti / 60) % 60;
     
-    if (seconds > 0 || minutes > 0) {
+    if (seconds > 0 || minutes > 0)
         cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Remaining time: %02i:%02i", minutes, seconds];
-        
-    } else if (seconds <= 0 && minutes <= 0) {
+    else if (seconds <= 0 && minutes <= 0)
         cell.remainingTimeLabel.text = [NSString stringWithFormat:@"Time out!"];
-    }
-    
+
     return cell;
 }
 
-
-
 #pragma mark - Bag RESTful Calls
 
-
-- (void)setShoppingBagforSessionId:(NSString *)sessionId
-                           success:(void (^)(id  responseObject)) success
-                           failure:(void (^)(NSError *error)) failure
-{
+- (void)setShoppingBagWithSuccess:(void (^)(id  responseObject)) success
+                           failure:(void (^)(NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
     NSMutableArray *params =[[NSMutableArray alloc] init];
     for (BagItem *bagItem in [self originalBagItemsArray]) {
-        
         time_t unixTime = (time_t) [[bagItem createDateTime] timeIntervalSince1970];
         NSString *cart_time = [NSString stringWithFormat:@"%@", @(unixTime)];
         
@@ -239,7 +203,6 @@
         }
     }];
 }
-
 
 @end
 

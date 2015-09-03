@@ -28,7 +28,6 @@
 }
 
 - (void)loadData {
-    
     //changing thanks label
     NSString *thanksString = [NSString stringWithFormat:@"%@,THANK YOU FOR YOUR ORDER NO. %@",self.order.shippingRecipientName,self.order.orderId];
     NSRange range = [thanksString rangeOfString:self.self.order.shippingRecipientName];
@@ -89,9 +88,6 @@
         self.gstTextLabel.hidden = YES;
     } else
         self.gstLabel.text = [NSString stringWithFormat:@"%.2f",self.order.gstTax.floatValue];
-
-    
-    
 }
 
 - (IBAction)viewTapped:(id)sender {

@@ -63,25 +63,18 @@
 
 
 - (NSArray *)countryNameArray {
-    
     _countryNameArray = @[@"Canada", @"USA"];
     return _countryNameArray;
 }
 
-
 - (NSArray *)provincesArray {
-    
     _provincesArray = @[@"Alberta", @"British Columbia", @"Manitoba", @"New Brunswick",
                         @"New foundland & Labrador", @"Northwest Territories", @"Nova Scotia",
                         @"Nunavut", @"Ontario", @"Prince Edward Island", @"Quebec", @"Saskatchewan", @"Yukon"];
-    
-    
     return _provincesArray;
 }
 
-
 - (NSArray *)statesArray {
-    
     _statesArray = @[@"Alabama", @"Alaska", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut",
                      @"Delaware", @"Florida", @"Georgia", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa",
                      @"Kansas", @"Kentucky", @"Louisiana", @"Maine", @"Maryland", @"Massachusetts", @"Michigan",
@@ -89,28 +82,21 @@
                      @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota", @"Ohio", @"Oklahoma",
                      @"Oregon", @"Pennsylvania", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee",
                      @"Texas", @"Utah", @"Vermont", @"Virginia", @"Washington", @"West Virginia", @"Wisconsin", @"Wyoming"];
-    
     return _statesArray;
 }
 
 - (NSArray *)expiryMonthsArray {
-    
     _expiryMonthsArray = @[@"01 - jan", @"02 - feb", @"03 - mar", @"04 - apr", @"05 - may", @"06 - jun", @"07 - jul",
                            @"08 - aug", @"09 - sep", @"10 - oct", @"11 - nov", @"12 - dec"];
-    
     return _expiryMonthsArray;
 }
 
-
 - (NSMutableArray *)expiryYearsArray {
-    
     if (!_expiryYearsArray) _expiryYearsArray = [[NSMutableArray alloc] init];
     return _expiryYearsArray;
 }
 
-
 - (NSMutableArray *)paymentTypesArray {
-    
     if (!_paymentTypesArray) _paymentTypesArray = [[NSMutableArray alloc] init];
     return _paymentTypesArray;
 }
@@ -142,7 +128,6 @@
 }
 
 - (NSDictionary *)cardInfo {
-    
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
     NSString *paymentTypeToPass = [sharedPaymentTypes paymentTypeforCardDisplayName:[[self paymentMethodTF] text]];
     
@@ -171,11 +156,9 @@
     return info;
 }
 
-
 #pragma mark FastPayment
 
 - (IBAction)paypalCheckoutTapped:(id)sender {
-    
     if (self.changePaymentMethodCheckbox.checked) {
         [self.changePaymentMethodCheckbox setChecked:NO];
         [self fillPaymentInfoWithCurrentData];
@@ -196,7 +179,6 @@
     [[[UIAlertView alloc]initWithTitle:@"PayPal" message:@"Paypal has been selected as payment method, please fill form" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
 }
 
-
 - (IBAction)masterPassCheckoutTapped:(id)sender {
     if (!self.changePaymentMethodCheckbox.checked && self.currentPaymentType != masterPass) {
         [self.changePaymentMethodCheckbox setChecked:YES];
@@ -208,12 +190,9 @@
     [[[UIAlertView alloc]initWithTitle:@"MasterPass" message:@"MasterPass has been selected as payment method, please fill form" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
 }
 
-
 #pragma mark - UI
 
-
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
    
     // setting default value
@@ -231,9 +210,8 @@
     NSCalendar *gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     NSInteger currentYear = [gregorian component:NSCalendarUnitYear fromDate:NSDate.date];
     
-    for (NSInteger i = currentYear; i < 21 + currentYear; i++) {
+    for (NSInteger i = currentYear; i < 21 + currentYear; i++)
         [[self expiryYearsArray] addObject:[NSString stringWithFormat:@"%ld", (long)i]];
-    }
     
     self.pickerView.delegate = self;
     [self.pickerParentView setHidden:TRUE];
@@ -245,7 +223,6 @@
     [self.giftLabel setHidden:YES];
     [self.giftDollarLabel setHidden:YES];
     
-    
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
     self.paymentTypesArray = [sharedPaymentTypes creditCardDisplayNameArray];
 }
@@ -256,7 +233,6 @@
 }
 
 - (void)loadOrderData {
-    
     self.isLoading = YES;
     
     // card info
@@ -288,19 +264,15 @@
     [self.pickupOptionCheckbox setChecked:[[self.order isPickup] boolValue]];
     [self.remeberCardInfoCheckbox setChecked:[[self.order rememberCard] boolValue]];
     
-    
-    
     [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
     [self checkboxSameAddressDidChange:self.sameAddressCheckbox];
     [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
     [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
     
     // prices
-    if (self.totalSave == 0) {
-        for (Item* item  in self.order.items) {
+    if (self.totalSave == 0)
+        for (Item* item  in self.order.items)
             self.totalSave = self.totalSave + (item.retailPrice.floatValue - item.salePrice.floatValue);
-        }
-    }
     
     [self.bagTotalDollarLabel setText:[self.order bagTotalPrice]];
     [self.subtotalDollarLabel setText:[self.order subTotalPrice]];
@@ -334,7 +306,6 @@
         [self.vipOptionView setHidden:TRUE];
         [self.pickupView setHidden:![[self.order eligiblePickup] boolValue]];
     }
-    
     self.isLoading = NO;
 }
 
@@ -346,17 +317,14 @@
     [self.orderIsGiftCheckbox addTarget:self action:@selector(checkboxIsGiftChange:) forControlEvents:UIControlEventValueChanged];
 }
 
-
 - (IBAction)shippingFieldChanged:(id)sender {
     if (self.sameAddressCheckbox.checked)
         [self copyShipingAddressToBillingAddress];
 }
 
 -(void)checkboxChangePaymentMethodDidChange:(CTCheckbox *)checkbox {
-    
-    if (self.isLoading) {
+    if (self.isLoading)
         return;
-    }
     
     if ([checkbox checked]) {
         [self enablePaymentInfo];
@@ -369,12 +337,9 @@
         [self.cardVerificationPaymentTF setText:@"xxx"];
         [self disablePaymentInfo];
     }
-
 }
 
-
 - (void)checkboxVipOptionDidChange:(CTCheckbox *)checkbox {
-    
     if (self.isLoading)
         return;
     
@@ -394,17 +359,14 @@
         [self clearShippingAddress];
         [self enableShippingAddress];
     }
-    
     [self validateAddressViaAPIAndInCompletion:nil];
 }
 
 - (void)checkboxPickupOptionDidChange:(CTCheckbox *)checkbox {
-    
     if (self.isLoading)
         return;
     
     if ([checkbox checked]) {
-        
         [self.addressLine1ShippingTF setText:@"MONTREAL EMPLOYEE PICKUP"];
         [self.addressLine2ShippingTF setText:@"4600 HICKMORE"];
         [self.countryShippingTF setText:@"Canada"];
@@ -413,17 +375,15 @@
         [self.cityShippingTF setText:@"SAINT-LAURENT"];
         [self.phoneShippingTF setText:@"613-735-0112"];
         [self disableShippingAddress];
-        
+
     } else if (![checkbox checked]) {
         [self clearShippingAddress];
         [self enableShippingAddress];
     }
-    
     [self validateAddressViaAPIAndInCompletion:nil];
 }
 
 - (void)disableShippingAddress {
-    
     [self.sameAsShippingAddressView setHidden:TRUE];
     [self.sameAddressCheckbox setChecked:FALSE];
     
@@ -445,11 +405,9 @@
     [self.provinceShippingTF setAlpha:0.6f];
     [self.cityShippingTF setAlpha:0.6f];
     [self.phoneShippingTF setAlpha:0.6f];
-
 }
 
 - (void)enableShippingAddress {
-    
     [self.sameAsShippingAddressView setHidden:FALSE];
     
     [self.shippingCountryButton setEnabled:TRUE];
@@ -473,7 +431,6 @@
 }
 
 - (void)checkboxIsGiftChange:(CTCheckbox *)checkbox {
-    
     if (self.isLoading)
         return;
     
@@ -496,7 +453,6 @@
 }
 
 - (void)checkboxSameAddressDidChange:(CTCheckbox *)checkbox {
-    
     if (self.isLoading)
         return;
     
@@ -523,7 +479,6 @@
 }
 
 - (void)disableBillingAddress {
-    
     [self.billingAddressView setUserInteractionEnabled:FALSE];
     
     [self.addressLine1BillingTF setEnabled:FALSE];
@@ -544,7 +499,6 @@
 }
 
 - (void)enableBillingAddress {
-    
     [self.billingAddressView setUserInteractionEnabled:TRUE];
     
     [self.addressLine1BillingTF setEnabled:TRUE];
@@ -565,7 +519,6 @@
 }
 
 - (void)clearBillingAddress {
-    
     [self.addressLine1BillingTF setText:@""];
     [self.addressLine2BillingTF setText:@""];
     [self.countryBillingTF setText:@""];
@@ -576,7 +529,6 @@
 }
 
 - (void)clearShippingAddress {
-    
     [self.addressLine1ShippingTF setText:@""];
     [self.addressLine2ShippingTF setText:@""];
     [self.countryShippingTF setText:@""];
@@ -625,7 +577,6 @@
 }
 
 - (void)fillPaymentInfoWithCurrentData {
-    
     if ([self.order.paymentType isEqualToString:@"paypal"]) {
         [self.paymentMethodTF setText:@"Paypal"];
         [self setCurrentPaymentType:paypal];
@@ -645,7 +596,6 @@
             [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
         [self setCurrentPaymentType:creditCard];
     }
-    
     if ([self.order.lockCCFields boolValue] || self.currentPaymentType == paypal) {
         [self.changePaymentMethodView setHidden:NO];
         [self disablePaymentInfo];
@@ -654,7 +604,6 @@
     }
     else
         [self.changePaymentMethodView setHidden:YES];
-
     
     [self changeDetailPaymentFor:self.currentPaymentType];
 }
@@ -670,7 +619,6 @@
 }
 
 - (void)changeDetailPaymentFor:(paymentType)type {
-    
     if (type == creditCard) {
         self.creditCardDetailHeight.constant = 310;
         [UIView animateWithDuration:1.0 animations:^{
@@ -706,7 +654,6 @@
         self.creditCardDetailHeight.constant = 0;
     }
     
-    
     [UIView animateWithDuration:2
                      animations:^{
                          [self.view layoutIfNeeded];
@@ -728,56 +675,63 @@
 - (void)dismissKeyboard {
     [self.view endEditing:YES];
 }
+
 - (IBAction)viewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
+
 - (IBAction)vipOptionViewTapped:(UIControl *)sender {
-[self dismissKeyboard];
+    [self dismissKeyboard];
 }
+
 - (IBAction)shippingDetailsViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
+
 - (IBAction)billingAddressViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
+
 - (IBAction)sameAsShippingAddressViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
+
 - (IBAction)thisIsGiftViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
+
 - (IBAction)paymentDetailsViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
+
 - (IBAction)rememberCardViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
+
 - (IBAction)haveGiftCardView:(UIControl *)sender {
     [self dismissKeyboard];
 }
+
 - (IBAction)processOrderViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
+
 - (IBAction)receiptViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
+
 - (IBAction)pleaseFillOutShippingFormViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
 
-
-
-
 #pragma mark - PickerView Delegates
 
-- (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) addressType{
-    
+- (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) addressType {
     [self setBillingOrShipping:addressType];
     [self loadPickerViewforPickerType:pickerType];
 }
 
 - (void)loadPickerViewforPickerType:(NSUInteger)pickerType {
-    
     [self setPickerType:pickerType];
     [self.pickerView reloadAllComponents];
     [self dismissKeyboard];
@@ -786,12 +740,10 @@
 }
 
 - (IBAction)shippingCountryButtonTapped:(UIButton *)sender {
-
     [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:SHIPPING_ADDRESS];
 }
 
 - (IBAction)shippingStateButtonTapped:(UIButton *)sender {
-    
     if ([[[self countryShippingTF] text] isEqualToString:@"USA"])
         [self loadPickerViewforPickerType:STATE_PICKER andAddressType:SHIPPING_ADDRESS];
     else
@@ -799,12 +751,10 @@
 }
 
 - (IBAction)billingCountryButtonTapped:(UIButton *)sender {
-    
     [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:BILLING_ADDRESS];
 }
 
 - (IBAction)billingStateButtonTapped:(UIButton *)sender {
-    
     if ([[[self countryBillingTF] text] isEqualToString:@"USA"])
         [self loadPickerViewforPickerType:STATE_PICKER andAddressType:BILLING_ADDRESS];
     else
@@ -812,56 +762,44 @@
 }
 
 - (IBAction)expiryYearButtonTapped:(UIButton *)sender {
-
     [self loadPickerViewforPickerType:EXPIRY_YEAR_PICKER];
 }
 
 - (IBAction)expiryMonthButtonTapped:(UIButton *)sender {
-    
     [self loadPickerViewforPickerType:EXPIRY_MONTH_PICKER];
 }
 
 - (IBAction)paymentMethodButtonTapped:(UIButton *)sender {
-    
     [self loadPickerViewforPickerType:PAYMENT_TYPE_PICKER];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    
     if ([self pickerType] == PROVINCE_PICKER) {
-        
-        if ([self billingOrShipping] == BILLING_ADDRESS) {
+        if ([self billingOrShipping] == BILLING_ADDRESS)
             [self.provinceBillingTF setText:[[self provincesArray] objectAtIndex:row]];
-        } else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
+        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
             [self.provinceShippingTF setText:[[self provincesArray] objectAtIndex:row]];
-        }
     }
     
     if ([self pickerType] == STATE_PICKER) {
-        
-        if ([self billingOrShipping] == BILLING_ADDRESS) {
+        if ([self billingOrShipping] == BILLING_ADDRESS)
             [self.provinceBillingTF setText:[[self statesArray] objectAtIndex:row]];
-        } else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
+        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
             [self.provinceShippingTF setText:[[self statesArray] objectAtIndex:row]];
-        }
     }
     
     if ([self pickerType] == COUNTRY_PICKER) {
-        
-        if ([self billingOrShipping] == BILLING_ADDRESS) {
+        if ([self billingOrShipping] == BILLING_ADDRESS)
             [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:row]];
-        } else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
+        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
             [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:row]];
-        }
     }
     
-    if ([self pickerType] == EXPIRY_MONTH_PICKER) {
+    if ([self pickerType] == EXPIRY_MONTH_PICKER)
         [self.expiryMonthPaymentTF setText:[[self expiryMonthsArray] objectAtIndex:row]];
-    }
     
-    if ([self pickerType] == EXPIRY_YEAR_PICKER) {
+    if ([self pickerType] == EXPIRY_YEAR_PICKER)
         [self.expiryYearPaymentTF setText:[[self expiryYearsArray] objectAtIndex:row]];
-    }
     
     if ([self pickerType] == PAYMENT_TYPE_PICKER) {
         [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
@@ -879,7 +817,6 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] count];
     
@@ -906,7 +843,6 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] objectAtIndex:row];
     
@@ -930,16 +866,13 @@
 
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    int sectionWidth = 300;
-    
-    return sectionWidth;
+    return 300.0;
 }
 
 #pragma mark - Credit Card RESTful Payment
 
 - (void)makePaymentWithSuccess:(void (^)(id  responseObject)) success
                            failure:(void (^)(NSError *error)) failure {
-    
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
@@ -964,9 +897,7 @@
             failure(error);
         }
     }];
-    
 }
-
 
 - (IBAction)processOrderTpped:(UIButton *)sender {
     if (![self isShippingAddressCompeleted])
@@ -990,16 +921,13 @@
     }
 }
 
-
 #pragma mark Validation
 
 - (IBAction)zipCodeHasBeenEntererd:(id)sender {
     [self validateAddressViaAPIAndInCompletion:nil];
 }
 
-
 - (BOOL)isShippingAddressCompeleted {
-    
     // checking address line
     if (self.addressLine1ShippingTF.text.length == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill shipping address field" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
@@ -1017,7 +945,6 @@
 }
 
 - (BOOL)isBillingAddressCompeleted {
-
     // Checking billing address
     if (self.addressLine1BillingTF.text.length == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill billing address field" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
@@ -1098,7 +1025,6 @@
 #pragma mark giftcard adding
 
 - (IBAction)checkAndValidateGiftCard:(id)sender {
-
     if ([self.arrayOfGiftCards containsObject:self.giftCardCodePaymentTF.text]) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"This gift card is already used" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
@@ -1137,9 +1063,7 @@
 
 #pragma mark - Navigation
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
     if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"]) {
         BTRConfirmationViewController* confirm = [segue destinationViewController];
         confirm.order = self.order;
@@ -1151,7 +1075,6 @@
         BTRMasterPassViewController* mpVC = [segue destinationViewController];
         mpVC.info = self.masterpass;
     }
-
 }
 
 #pragma mark Paypal
@@ -1180,7 +1103,6 @@
         
     }];
 }
-
 
 @end
 
