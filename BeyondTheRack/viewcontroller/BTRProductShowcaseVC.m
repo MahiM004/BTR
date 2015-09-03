@@ -39,7 +39,6 @@
 @property (assign, nonatomic) NSUInteger selectedCellIndexRow;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 
-
 // sort and filter
 @property (weak, nonatomic) IBOutlet UIView *sortAndFilterView;
 
@@ -60,7 +59,6 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 @end
-
 
 @implementation BTRProductShowcaseVC
 
@@ -119,8 +117,7 @@
     return YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     self.bagButton.badgeValue = [NSString stringWithFormat:@"%i",[sharedShoppingBag bagCount]];
@@ -128,7 +125,6 @@
 
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     [self setSelectedCellIndexRow:NSUIntegerMax];
@@ -150,12 +146,7 @@
     [self setSortedItemsArray:self.originalItemArray];
 }
 
-
-
-
 #pragma mark - Load Event Products RESTful
-
-
 
 - (void)fetchItemsforEventSku:(NSString *)eventSku
                        success:(void (^)(id  responseObject)) success
