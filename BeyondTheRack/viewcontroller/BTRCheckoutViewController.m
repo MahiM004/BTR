@@ -169,11 +169,11 @@
             [[[UIAlertView alloc]initWithTitle:@"PayPal" message:@"Your current payment method is Paypal, Continue to checkout" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
             return;
         }else {
-            [self.paymentMethodTF setText:@"Paypal"];
             [self.changePaymentMethodCheckbox setChecked:YES];
             [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
         }
     }
+    [self.paymentMethodTF setText:@"Paypal"];
     [self setCurrentPaymentType:paypal];
     [self changeDetailPaymentFor:paypal];
     [[[UIAlertView alloc]initWithTitle:@"PayPal" message:@"Paypal has been selected as payment method, please fill form" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
