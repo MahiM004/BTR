@@ -106,6 +106,7 @@
     bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];
     
     cell = [self configureCell:cell forBagItem:bagItem andItem:item];
+    cell.stepper.tag = indexPath.row;
     cell.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
         [[self.bagItemsArray objectAtIndex:stepper.tag] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
         NSInteger editedObjIndex = [self.originalBagItemsArray indexOfObject:[self.bagItemsArray objectAtIndex:stepper.tag]];
