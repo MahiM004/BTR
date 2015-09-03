@@ -69,7 +69,6 @@
 - (IBAction)signOutButtonTapped:(UIButton *)sender {
     
     [self logutUserServerCallWithSuccess:^(NSString *didSucceed) {
-        
         BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
         [btrSettings clearSession];
         
