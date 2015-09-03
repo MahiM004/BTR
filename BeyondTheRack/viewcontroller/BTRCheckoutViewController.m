@@ -281,14 +281,22 @@
     // calculating taxes
     [self.gstTaxDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order gstTax].floatValue]];
     [self.qstTaxDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order qstTax].floatValue]];
-    if (self.order.gstTax == nil)
+    if (self.order.gstTax == nil) {
         [self.gstTaxLebl setHidden:YES];
-    else
+        [self.gstTaxDollarLabel setHidden:YES];
+    }
+    else {
         [self.gstTaxLebl setHidden:NO];
-    if (self.order.qstTax == nil)
+        [self.gstTaxDollarLabel setHidden:NO];
+    }
+    if (self.order.qstTax == nil) {
         [self.qstTaxLabel setHidden:YES];
-    else
+        [self.qstTaxDollarLabel setHidden:YES];
+    }
+    else {
         [self.qstTaxLabel setHidden:NO];
+        [self.qstTaxDollarLabel setHidden:NO];
+    }
     
     // Caculating prices
     [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.subtotalDollarLabel.text.floatValue + self.gstTaxDollarLabel.text.floatValue + self.qstTaxDollarLabel.text.floatValue + self.shippingDollarLabel.text.floatValue]];
