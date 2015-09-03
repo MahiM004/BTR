@@ -321,14 +321,18 @@
 
 - (void)searchFor:(NSString *)word {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRSuggestionFetcher URLforSugesstionWithQuery:word]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO success:^(NSDictionary *response) {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer = serializer;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.suggestionArray removeAllObjects];
-        [self.suggestionArray addObjectsFromArray:(NSArray *)response];
+        [self.suggestionArray addObjectsFromArray:[NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil]];
         if (self.suggestionArray.count > 0) {
             [self.suggestionTableView setHidden:NO];
             [self.suggestionTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
         }
-    } faild:^(NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",error);
     }];
 }
