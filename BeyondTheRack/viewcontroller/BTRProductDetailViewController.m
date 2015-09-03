@@ -30,32 +30,23 @@
 @property (weak, nonatomic) IBOutlet UIButton *addTobagButton;
 @property (weak, nonatomic) IBOutlet UIView *addToBagView;
 
-
 @end
 
 @implementation BTRProductDetailViewController
 
-
 - (NSMutableArray *)bagItemsArray {
-    
     if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
     return _bagItemsArray;
 }
 
-
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
 }
-
  
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    
     if (self.variant == nil)
         self.variant = SIZE_NOT_SELECTED_STRING;
     
@@ -70,28 +61,21 @@
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
     
     if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
-        
         [self fetchItemforProductSku:[[self productItem] sku]
                             success:^(Item *responseObject) {
                                 [self setItemSelectedfromSearchResult:responseObject];
-                                
                             } failure:^(NSError *error) {
                                 
                             }];
     }
-    
     if (self.disableAddToCart) {
         self.addTobagButton.enabled = NO;
         self.addToBagView.backgroundColor = [UIColor grayColor];
     }
 }
 
-
 - (IBAction)addToBagTapped:(UIButton *)sender {
-    
-      
      if ([[self variant] isEqualToString:SIZE_NOT_SELECTED_STRING]) {
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Size"
                                                        message:@"Please select a size!"
                                                       delegate:self
@@ -109,21 +93,14 @@
         } failure:^(NSError *error) {
             
         }];
-        
     }
- 
 }
-
 
 #pragma mark - RESTful Calls
 
-
-
 - (void)cartIncrementServerCallWithSuccess:(void (^)(id  responseObject)) success
-                                    failure:(void (^)(NSError *error)) failure
-{
+                                    failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
-
     NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]];
     NSDictionary *params = (@{
                               @"event_id": [[self productItem] eventId],
@@ -164,11 +141,9 @@
 }
 
 - (void)updateBagWithDictionary:(NSDictionary *)entitiesPropertyList {
-    
     NSArray *bagJsonReservedArray = entitiesPropertyList[@"bag"][@"reserved"];
     NSArray *bagJsonExpiredArray = entitiesPropertyList[@"bag"][@"expired"];
     NSDate *serverTime = [NSDate date];
-    
     self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
                                               withServerDateTime:serverTime
                                                 forBagItemsArray:[self bagItemsArray]
@@ -182,8 +157,6 @@
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
 }
-
-
 
 - (void)fetchItemforProductSku:(NSString *)productSku
                       success:(void (^)(id  responseObject)) success
@@ -199,14 +172,9 @@
     }];
 }
 
-
-
 #pragma mark - Navigation
 
-
-
 - (IBAction)backButtonTapped:(UIButton *)sender {
-    
     if ([[self originVCString] isEqualToString:SEARCH_SCENE])
         [self performSegueWithIdentifier:@"unwindFromProductDetailToSearchScene" sender:self];
     
@@ -214,41 +182,29 @@
         [self performSegueWithIdentifier:@"unwindFromProductDetailToShowcase" sender:self];
 }
 
-
 - (IBAction)bagButtonTapped:(UIButton *)sender {
-    
     UIStoryboard *storyboard = self.storyboard;
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
     if ([[segue identifier] isEqualToString:@"ProductDetailEmbeddedSegueIdentifier"]) {
-        
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
         embeddedVC.delegate = self;
-        
         if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
-            
             embeddedVC.productItem = [self itemSelectedfromSearchResult];
             embeddedVC.variantInventoryDictionary = [self variantInventoryDictionaryforItemfromSearch];
             embeddedVC.attributesDictionary = [self attributesDictionaryforItemfromSearch];
-            
             NSLog(@"search item selection to PDP not tested DUE to CONSTRUCTION OF BACKEND API!");
-            
         } else {
-            
             embeddedVC.productItem = [self productItem];
             embeddedVC.eventId = [self eventId];
             embeddedVC.attributesDictionary = [self attributesDictionary];
             embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
         }
-
     }
 }
-
 
 #pragma mark - BTRProductDetailEmbeddedTVC Delegate
 
@@ -259,10 +215,6 @@
 - (void)quantityForAddToBag:(NSString *)qty {
     self.quantity = qty;
 }
-
-
-
-
 
 @end
 
