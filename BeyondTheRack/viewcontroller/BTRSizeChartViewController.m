@@ -42,7 +42,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     // initialization
     switch (self.category) {
         case apparel:
@@ -112,13 +111,10 @@
         [weakSelf.imageView setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
         [weakSelf.chartScrollView setContentSize:CGSizeMake(weakSelf.imageView.frame.size.width, weakSelf.imageView.frame.size.height)];
         [weakSelf.chartScrollView addSubview:weakSelf.imageView];
-        if (image.size.width > 500) {
-            [weakSelf.chartScrollView setZoomScale:weakSelf.chartScrollView.frame.size.width/image.size.width];
-            [weakSelf.chartScrollView setNeedsDisplay];
-        }else
-            [weakSelf.chartScrollView setZoomScale:1.0];
-
+        [weakSelf.chartScrollView setZoomScale:weakSelf.chartScrollView.frame.size.width/image.size.width];
+        [weakSelf.chartScrollView setNeedsDisplay];
         [weakSelf scrollViewDidZoom:weakSelf.chartScrollView];
+        [weakSelf.chartScrollView setContentOffset:CGPointZero animated:YES];
         [cell setBackgroundColor:[UIColor whiteColor]];
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
