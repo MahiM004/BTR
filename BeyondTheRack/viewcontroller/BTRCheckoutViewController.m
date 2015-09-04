@@ -299,8 +299,10 @@
     }
     
     // Caculating prices
-    [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.subtotalDollarLabel.text.floatValue + self.gstTaxDollarLabel.text.floatValue + self.qstTaxDollarLabel.text.floatValue + self.shippingDollarLabel.text.floatValue]];
-    [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.totalSave]];
+//    [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.subtotalDollarLabel.text.floatValue + self.gstTaxDollarLabel.text.floatValue + self.qstTaxDollarLabel.text.floatValue + self.shippingDollarLabel.text.floatValue]];
+    
+    [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order.orderTotalPrice floatValue]]];
+    [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order.saving floatValue]]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
     
     

@@ -303,6 +303,15 @@
         order.promoShipState = [shippingPromoAddress valueForKeyPath:@"state"];
     }
     
+    /**
+     
+     Saving
+     
+     */
+    
+    if ([orderDictionary valueForKeyPath:@"savings"] && [orderDictionary valueForKeyPath:@"savings"] != [NSNull null]) {
+        order.saving = [orderDictionary valueForKeyPath:@"savings"];
+    }
     
     /**
      
