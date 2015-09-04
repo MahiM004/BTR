@@ -62,6 +62,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
  
+    self.fbButton.readPermissions = @[@"public_profile", @"email"];
     self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
     self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
     self.genderTextField = [BTRViewUtility underlineTextField:[self genderTextField]];
