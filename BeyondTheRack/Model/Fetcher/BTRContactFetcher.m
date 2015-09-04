@@ -12,7 +12,7 @@
 
 + (NSURL *)URLForContact
 {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/content/contact?lang=en_US&render=txt", BASEURL]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/content/contact?lang=en_CA&render=text", BASEURL]];
 }
 
 @end
