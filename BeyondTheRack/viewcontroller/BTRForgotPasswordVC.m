@@ -36,7 +36,7 @@
 
 
 - (IBAction)newPasswordTapped:(UIButton *)sender {
-    if ([self.emailField.text length] > 0 && [self validateEmailWithString:_emailField.text]) {
+    if ([self.emailField.text length] == 0 || [self validateEmailWithString:_emailField.text]) {
         
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
