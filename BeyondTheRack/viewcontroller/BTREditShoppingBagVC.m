@@ -110,8 +110,10 @@
     cell.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
         [[self.bagItemsArray objectAtIndex:stepper.tag] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
         NSInteger editedObjIndex = [self.originalBagItemsArray indexOfObject:[self.bagItemsArray objectAtIndex:stepper.tag]];
-        [[self.originalBagItemsArray objectAtIndex:editedObjIndex] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
-        stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
+        if (editedObjIndex >= 0 && editedObjIndex != NSNotFound) {
+            [[self.originalBagItemsArray objectAtIndex:editedObjIndex] setQuantity:[NSString stringWithFormat:@"%@", @(count)]];
+            stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
+        }
     };
     [cell.removeButton setTag:indexPath.row];
     [cell.removeButton addTarget:self action:@selector(removeProductItem:) forControlEvents:UIControlEventTouchUpInside];
@@ -197,6 +199,17 @@
         [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
         
         [[self bagTitleLabel] setText:[NSString stringWithFormat:@"(%lu)", (unsigned long)[self getCountofBagItems]]];
+        
+        NSArray* responseResult = [[response valueForKey:@"response"]valueForKey:@"response"];
+        for (int i = 0 ; i < [responseResult count]; i++) {
+            if ([[responseResult objectAtIndex:i] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary * result = [responseResult objectAtIndex:i];
+                if (![[result valueForKey:@"success"]boolValue]) {
+                    [[[UIAlertView alloc]initWithTitle:@"Error" message:[result valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                }
+            }
+        }
+        
         success(@"TRUE");
     } faild:^(NSError *error) {
         if (failure) {
