@@ -55,7 +55,6 @@
 
 
 @implementation BTRProductDetailEmbeddedTVC {
-    
     Pinterest*  _pinterest;
 }
 
@@ -63,46 +62,37 @@
 @synthesize descriptionCellHeight;
 
 - (NSMutableArray *)sizesArray {
-    
     if (!_sizesArray) _sizesArray = [[NSMutableArray alloc] init];
     return _sizesArray;
 }
 
 
 - (NSMutableArray *)sizeCodesArray {
-    
     if (!_sizeCodesArray) _sizeCodesArray = [[NSMutableArray alloc] init];
     return _sizeCodesArray;
 }
 
 
 - (NSMutableArray *)sizeQuantityArray {
-    
     if (!_sizeQuantityArray) _sizeQuantityArray = [[NSMutableArray alloc]  init];
     return _sizeQuantityArray;
 }
 
 
 - (NSMutableArray *)attributeKeys {
-    
     if (!_attributeKeys) _attributeKeys = [[NSMutableArray alloc] init];
     return _attributeKeys;
 }
 
 
 - (NSMutableArray *)attributeValues {
-    
     if (!_attributeValues) _attributeValues = [[NSMutableArray alloc] init];
     return  _attributeValues;
 }
-
-
  
 - (void)setProductImageCount:(NSInteger)productImageCount {
-    
     _productImageCount = productImageCount;
 }
-
 
 - (void)viewDidLoad {
     
@@ -121,18 +111,13 @@
     [self updateViewWithDeatiledItem:[self productItem]];
 }
 
-
-
 #pragma mark - Update Detail View
 
-
 - (void)updateViewWithDeatiledItem:(Item *)productItem {
-   
     self.productImageCount = [[productItem imageCount] integerValue];
     __block BTRProductDetailEmbeddedTVC* selfPointer = self;
     
     if (productItem) {
-        
         [self setProductSku:[productItem sku]];
         [self.brandLabel setText:[productItem brand]];
         [self.shortDescriptionLabel setText:[productItem shortItemDescription]];
@@ -162,32 +147,23 @@
                                                                           toSizeQuantityArray:[self sizeQuantityArray]];
         [self updateSizeSelectionViewforSizeMode:sizeMode];
         [self quantityChangedWithValue:@"1"];
-        
-        
     } else {
-        
         [self.brandLabel setText:@""];
         [self.shortDescriptionLabel setText:@""];
         [self.salePriceLabel setText:@""];
         [self.crossedOffPriceLabel setText:@""];
     }
-
     [self.collectionView reloadData];
 }
 
-
-
 - (void)updateSizeSelectionViewforSizeMode:(BTRSizeMode)sizeMode {
-    
     if (sizeMode == BTRSizeModeSingleSizeShow || sizeMode == BTRSizeModeSingleSizeNoShow) {
-        
         [self.selectSizeLabel setAttributedText:[BTRViewUtility crossedOffStringfromString:@"Select Size :"]];
         [self.selectSizeLabel setAlpha:0.4];
         [self.selectSizeButton setEnabled:false];
         [self.sizeLabel setText:@"One Size"];
         [self.sizeLabel setTextColor:[UIColor blackColor]];
         [self.dropdownLabelIcon setHidden:YES];
-        
         if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
             [self.delegate variantCodeforAddtoBag:@"Z"];
         }
@@ -197,10 +173,7 @@
 
 #pragma mark - Construct Description Views
 
-
-
 - (UIView *)getDescriptionViewForView:(UIView *)descriptionView withDescriptionString:(NSString *)longDescriptionString {
-  
     customHeight = 0;
     
     NSString *descriptionString = longDescriptionString;
@@ -209,10 +182,8 @@
     if ([descriptionString length] == 0 || [descriptionString isEqual:[NSNull null]]) {
         descriptionString = @"no descriptions available for this item.";
     }
-    
     [descriptionArray addObjectsFromArray:[descriptionString componentsSeparatedByString:@"."]];
     [descriptionArray removeLastObject];
-    
     for (int i = 0; i < [descriptionArray count]; i++) {
         
         NSString *labelText = [NSString stringWithFormat:@" - %@.", [descriptionArray objectAtIndex:i]];
@@ -236,9 +207,7 @@
     return descriptionView;
 }
 
-
 - (UIView *)getAttribueViewForView:(UIView *)attributeView {
-
     for (int i = 0; i < [self.attributeKeys count]; i++) {
         
         NSString *attributeText = [NSString stringWithFormat:@"    %@ : %@", [self.attributeKeys objectAtIndex:i], [self.attributeValues objectAtIndex:i]];
@@ -257,15 +226,11 @@
         [attributeLabel setTextAlignment:NSTextAlignmentLeft];
         [attributeView addSubview:attributeLabel];
     }
-
     return attributeView;
 }
 
-
 - (UIView *)getSpecialNoteView:(UIView *)specialNoteView withSpecialNote:(NSString *)specialNoteString {
-
     if ([specialNoteString length] > 2) {
-        
         customHeight += 20;
 
         NSString *specialNoteLabelText = [NSString stringWithFormat:@"Special Note: %@", specialNoteString];
@@ -285,94 +250,62 @@
     }
     
     self.descriptionCellHeight = customHeight + 80;
-    
     return specialNoteView;
 }
 
-
-
 #pragma mark - UICollectionView Datasource
 
-
-
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    
     return [self productImageCount];
 }
 
-
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     BTRProductImageCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductImageCollectionCellIdentifier" forIndexPath:indexPath];
-    
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
                                                                        withCount:1+indexPath.row
                                                                          andSize:@"large"]
                           placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-
     return cell;
 }
 
-
 #pragma mark -  Handle JSON with Arbitrary Keys (attributes)
 
-
 - (void) extractAttributesFromAttributesDictionary:(NSDictionary *)attributeDictionary {
-    
     [attributeDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        
         NSString *keyString = key;
         NSString *objString = obj;
-        
         if (![keyString isEqualToString:@""]) {
-            
             [[self attributeKeys] addObject:keyString];
             [[self attributeValues] addObject:objString];
         }
     }];
-    
 }
-
 
 #pragma mark - Table view data source
 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
-        
         case 0:
             return 312;
             break;
-            
         case 1:
             return 240;
             break;
-            
         case 2:
             return [self descriptionCellHeight];
             break;
-            
         case 3:
             return 206;
             break;
-            
         default:
             break;
     }
-    
     return 1;
 }
 
-
-
 #pragma mark - Social Media Sharing
 
-
 - (IBAction)shareOnFacebookTapped:(UIButton *)sender {
-    
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
@@ -383,7 +316,6 @@
         [self presentViewController:controller animated:YES completion:Nil];
     
     } else {
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Facebook not available"
                                                         message:@"Your facebook account is not setup on this phone!"
                                                        delegate:self
@@ -393,23 +325,18 @@
     }
 }
 
-
 - (IBAction)twitter:(UIButton *)sender {
-    
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
-    {
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
         
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]]];
-
         [tweetSheet setInitialText:SOCIAL_MEDIA_INIT_STRING];
         [tweetSheet addImage:image];
         [tweetSheet addURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]];
         [self presentViewController:tweetSheet animated:YES completion:nil];
     
     } else {
-        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Twitter not available"
                                                         message:@"Your twitter account is not setup on this phone!"
                                                        delegate:self
@@ -419,19 +346,13 @@
     }
 }
 
-
-
 - (IBAction)shareOnPinterestTapped:(UIButton *)sender {
-   
     [_pinterest createPinWithImageURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]
                             sourceURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]
                           description:SOCIAL_MEDIA_INIT_STRING];
 }
 
-
-
 #pragma mark - Navigation
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
@@ -442,9 +363,7 @@
     }
 }
 
-
 - (IBAction)selectSizeTapped:(UIButton *)sender {
-
     UIStoryboard *storyboard = self.storyboard;
     BTRSelectSizeVC * vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
     vc.sizesArray = [self sizesArray];
@@ -454,24 +373,17 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-
 - (IBAction)unwindFromImageZoomToProductDetail:(UIStoryboardSegue *)unwindSegue {
     
 }
-
 
 - (IBAction)unwindFromSelectSizeToProductDetail:(UIStoryboardSegue *)unwindSegue {
     
 }
 
-
-
 #pragma mark - BTRSelectSizeVC Delegate
 
-
-
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
-    
     self.selectedSizeIndex = selectedIndex;
     self.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
     
@@ -483,24 +395,18 @@
 #pragma mark - Quantity Delegate
 
 - (void)quantityChangedWithValue:(NSString *)value {
-    
     if ([self.delegate respondsToSelector:@selector(quantityForAddToBag:)]) {
         [self.delegate quantityForAddToBag:self.stepper.countLabel.text];
     }
-    
 }
 
 #pragma mark SizeChart
 
 - (IBAction)showSizeChart:(id)sender {
-
     BTRSizeChartViewController* sizechart = [[BTRSizeChartViewController alloc]initWithNibName:@"BTRSizeChartViewController" bundle:nil];
     [sizechart setCategory:apparel];
     [self presentViewController:sizechart animated:YES completion:nil];
-    
 }
-
-
 
 @end
 

@@ -20,30 +20,22 @@
 
 
 - (void)awakeFromNib {
-
     self.stepper = [[PKYStepper alloc] initWithFrame:CGRectMake(0, 0, 90, 20)];
     self.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
         stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
     };
-    
     [self.stepper setup];
     [self.stepperView addSubview:self.stepper];
     [self.rereserveItemButton addTarget:self action:@selector(didTapRereserveItemButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    
     [super setSelected:selected animated:animated];
 }
 
-
-
 - (void)didTapRereserveItemButton:(id)sender {
-    
-    if (self.didTapRereserveItemButtonBlock) {
+    if (self.didTapRereserveItemButtonBlock)
         self.didTapRereserveItemButtonBlock(sender);
-    }
 }
 
 

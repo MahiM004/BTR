@@ -16,6 +16,7 @@
 #import "BTRItemFetcher.h"
 #import "BTRBagFetcher.h"
 #import "BTRConnectionHelper.h"
+#import "BTRAnimationHandler.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -38,9 +39,7 @@
 @property (assign, nonatomic) NSUInteger selectedCellIndexRow;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 
-
 // sort and filter
-
 @property (weak, nonatomic) IBOutlet UIView *sortAndFilterView;
 
 @property (strong, nonatomic) NSArray* collectionViewResourceArray;
@@ -50,12 +49,10 @@
 @property (strong, nonatomic) NSArray* sortArray;
 
 // textFields
-
 @property (weak, nonatomic) IBOutlet UITextField *filterSizeTextField;
 @property (weak, nonatomic) IBOutlet UITextField *sortTextField;
 
 // picker
-
 @property (nonatomic) NSUInteger pickerType;
 
 @property (weak, nonatomic) IBOutlet UIView *pickerParentView;
@@ -63,9 +60,7 @@
 
 @end
 
-
 @implementation BTRProductShowcaseVC
-
 
 - (NSArray *)collectionViewResourceArray {
     if ([self.sortTextField.text isEqualToString:@"Suggested"] && [self.filterSizeTextField.text isEqualToString:@"Size"])
@@ -74,11 +69,9 @@
 }
 
 - (NSMutableArray *)bagItemsArray {
-    
     if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
     return _bagItemsArray;
 }
-
 
 - (NSMutableArray *)chosenSizesArray {
     if (!_chosenSizesArray) _chosenSizesArray = [[NSMutableArray alloc] init];
@@ -97,7 +90,6 @@
 
 - (NSArray *)sizeArray {
     if (!_sizeArray)  {
-        
         NSMutableArray* allSizes = [[NSMutableArray alloc]init];
         for (Item* item in self.originalItemArray) {
             if ([item.variantInventory isKindOfClass:[NSDictionary class]]){
@@ -109,7 +101,6 @@
         allSizes = [NSMutableArray arrayWithArray:[allSizes sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             return [(NSString *)obj1 compare:(NSString *)obj2 options:NSNumericSearch];
         }]];
-        
         if ([allSizes containsObject:@"One Size"])
             [allSizes removeObject:@"One Size"];
         
@@ -119,23 +110,25 @@
     return _sizeArray;
 }
 
+- (BOOL)isItemSoldOutWithVariant:(NSArray *)variantArray {
+    for (int i = 0; i < [variantArray count]; i++)
+        if ([[variantArray objectAtIndex:i]intValue] > 0)
+            return NO;
+    return YES;
+}
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
+    self.bagButton.badgeValue = [NSString stringWithFormat:@"%i",[sharedShoppingBag bagCount]];
 }
 
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     [self setSelectedCellIndexRow:NSUIntegerMax];
 
-    
     [self.eventTitleLabel setText:[self eventTitleString]];
     
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
@@ -146,27 +139,18 @@
     
     [self fetchItemsforEventSku:[self eventSku]
                          success:^(NSDictionary *responseDictionary) {
-                   
                              [self.collectionView reloadData];
-                             
                          } failure:^(NSError *error) {
                              
                          }];
-    
     [self setSortedItemsArray:self.originalItemArray];
 }
 
-
-
-
 #pragma mark - Load Event Products RESTful
-
-
 
 - (void)fetchItemsforEventSku:(NSString *)eventSku
                        success:(void (^)(id  responseObject)) success
-                       failure:(void (^)(NSError *error)) failure
-{
+                       failure:(void (^)(NSError *error)) failure {
     NSString *url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
         self.originalItemArray = [Item loadItemsfromAppServerArray:(NSArray *)response withEventId:[self eventSku] forItemsArray:[self originalItemArray]];
@@ -178,12 +162,10 @@
     }];
 }
 
-- (void)cartIncrementServerCallforSessionId:(NSString *)sessionId
-                             addProductItem:(Item *)productItem
+- (void)cartIncrementServerCallToAddProductItem:(Item *)productItem
                                 withVariant:(NSString *)variant
                                     success:(void (^)(id  responseObject)) success
-                                    failure:(void (^)(NSError *error)) failure
-{
+                                    failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
     NSDictionary *params = (@{
                               @"event_id": [productItem eventId],
@@ -192,6 +174,13 @@
                               });
     
     [BTRConnectionHelper postDataToURL:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]] withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (![[response valueForKey:@"success"]boolValue]) {
+            if ([response valueForKey:@"error_message"]) {
+                [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            }
+            return;
+        }
+        
         NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
         NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
         NSDate *serverTime = [NSDate date];
@@ -200,22 +189,16 @@
                                                   withServerDateTime:serverTime
                                                     forBagItemsArray:[self bagItemsArray]
                                                            isExpired:@"false"];
-        
         [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
                                                                      withServerDateTime:serverTime
                                                                        forBagItemsArray:[self bagItemsArray]
                                                                               isExpired:@"true"]];
-        
         BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
         [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-        
         success(@"TRUE");
-
     } faild:^(NSError *error) {
-
     
     }];
-    
 }
 
 
@@ -227,14 +210,11 @@
     return CGSizeMake(collectionView.frame.size.width / 2 - 1, 410);
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    
     return [self.collectionViewResourceArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
     
     Item *productItem = [self.collectionViewResourceArray objectAtIndex:indexPath.row];
@@ -243,12 +223,27 @@
                                                                     toSizeCodesArray:[cell sizeCodesArray]
                                                                  toSizeQuantityArray:[cell sizeQuantityArray]];
     cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andBTRSizeMode:sizeMode forIndexPath:indexPath];
-
+    
+    BOOL allReserved = [productItem.allReserved boolValue];
+    BOOL soldOut = [self isItemSoldOutWithVariant:[cell sizeQuantityArray]];
+    
+    if (allReserved || soldOut) {
+        [self disableCell:cell];
+        if (soldOut) {
+            [cell.productStatusMessageLabel setText:@"SOLD OUT"];
+            [cell.productStatusMessageLabel setTextColor:[UIColor redColor]];
+        }
+        else if (allReserved) {
+            [cell.productStatusMessageLabel setText:@"Reserved By Others\n\nCheck back in\n20 minutes"];
+            [cell.productStatusMessageLabel setTextColor:[UIColor blackColor]];
+        }
+    } else
+        [self enableCell:cell];
+    
     NSMutableArray *tempSizesArray = [cell sizesArray];
     NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
     
     [cell setDidTapSelectSizeButtonBlock:^(id sender) {
-        
         UIStoryboard *storyboard = self.storyboard;
         BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
         viewController.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -261,14 +256,13 @@
         [self presentViewController:viewController animated:YES completion:nil];
     }];
     
-    
     __block NSString *sizeLabelText = [cell.selectSizeButton.titleLabel text];
     __block NSString *selectedSizeString = @"";
-    if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] ) {
+    if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] )
         selectedSizeString = @"Z";
-    } else {
+    else
         selectedSizeString = [[cell sizeCodesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]];
-    }
+        
     __weak typeof(cell) weakCell = cell;
     [cell setDidTapAddtoBagButtonBlock:^(id sender) {
     
@@ -288,58 +282,44 @@
 
             frame.origin = [weakCell convertPoint:correctedOffset toView:self.view];
             CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , weakCell.productImageView.frame.size.width, weakCell.productImageView.frame.size.height);
-            UIImageView *starView = [[UIImageView alloc] initWithImage:weakCell.productImageView.image];
-            [starView setFrame:rect];
-            starView.layer.cornerRadius=5;
-            starView.layer.borderColor=[[UIColor blackColor]CGColor];
-            starView.layer.borderWidth=1;
-            [self.view addSubview:starView];
-            
-            
-            // begin
-            
-            CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-            pathAnimation.calculationMode = kCAAnimationPaced;
-            pathAnimation.fillMode = kCAFillModeForwards;
-            pathAnimation.removedOnCompletion = NO;
-            pathAnimation.duration=0.65;
-            pathAnimation.delegate=self;
-            
-            // end point
+            UIImageView *startView = [[UIImageView alloc] initWithImage:weakCell.productImageView.image];
+            [startView setFrame:rect];
+            startView.layer.cornerRadius=5;
+            startView.layer.borderColor=[[UIColor blackColor]CGColor];
+            startView.layer.borderWidth=1;
+            [self.view addSubview:startView];
             
             CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
-            CGMutablePathRef curvedPath = CGPathCreateMutable();
-            CGPathMoveToPoint(curvedPath, NULL, starView.frame.origin.x, starView.frame.origin.y);
-            CGPathAddCurveToPoint(curvedPath, NULL, endPoint.x, starView.frame.origin.y, endPoint.x, starView.frame.origin.y, endPoint.x, endPoint.y);
-            pathAnimation.path = curvedPath;
-            CGPathRelease(curvedPath);
-
-            // transform
-            
-            CABasicAnimation *basic=[CABasicAnimation animationWithKeyPath:@"transform"];
-            [basic setToValue:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01, 0.01, 0.01)]];
-            [basic setAutoreverses:NO];
-            [basic setDuration:0.65];
-            [starView.layer addAnimation:pathAnimation forKey:@"curveAnimation"];
-            [starView.layer addAnimation:basic forKey:@"transform"];
-            [starView performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.65];
+            [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
             
             // calling add to bag
-            
-            BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-            [self cartIncrementServerCallforSessionId:[sessionSettings sessionId] addProductItem:productItem withVariant:selectedSizeString  success:^(NSString *successString) {
-                
+            [self cartIncrementServerCallToAddProductItem:productItem withVariant:selectedSizeString  success:^(NSString *successString) {
                 if ([successString isEqualToString:@"TRUE"])
                     [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
-                
             } failure:^(NSError *error) {
 
             }];
-            
         }
     }];
-    
     return cell;
+}
+
+- (void)disableCell:(BTRProductShowcaseCollectionCell *)cell {
+    [cell.productImageView setAlpha:0.5];
+    [cell.addToBagButton setAlpha:0.5];
+    [cell.selectSizeButton setAlpha:0.5];
+    [cell.addToBagButton setEnabled:NO];
+    [cell.selectSizeButton setEnabled:NO];
+    [cell.allReservedImageView setHidden:NO];
+    [cell.productStatusMessageLabel setHidden:NO];
+}
+
+- (void)enableCell:(BTRProductShowcaseCollectionCell *)cell {
+    [cell.productImageView setAlpha:1.0];
+    [cell.addToBagButton setAlpha:1.0];
+    [cell.addToBagButton setEnabled:YES];
+    [cell.allReservedImageView setHidden:YES];
+    [cell.productStatusMessageLabel setHidden:YES];
 }
 
 - (void)moveToCheckout {
@@ -348,53 +328,39 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-
-- (void)customActionPressed:(id)sender{
-
+- (void)customActionPressed:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     BTRSelectSizeVC *viewController = (BTRSelectSizeVC *)[storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
-    
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell
                                                                     withItem:(Item *)productItem andBTRSizeMode:(BTRSizeMode)sizeMode
                                                                 forIndexPath:(NSIndexPath *)indexPath {
-
     if (sizeMode == BTRSizeModeSingleSizeNoShow || sizeMode == BTRSizeModeSingleSizeShow) {
-
         [[cell.selectSizeButton titleLabel] setText:@"One Size"];
         [cell.selectSizeButton setAlpha:0.4];
         [cell.selectSizeButton setEnabled:false];
-        
     } else {
-        
         if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] ) {
-            
             cell.selectSizeButton.titleLabel.text = @"Select Size";
             [cell.selectSizeButton setAlpha:1.0];
             [cell.selectSizeButton setEnabled:true];
-            
         } else {
-            
             cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
         }
     }
-    
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-    
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
     [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
     [cell.originalPrice setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
-    
     return cell;
 }
 
 #pragma mark - Navigation
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
-    
     Item *productItem = [self.collectionViewResourceArray objectAtIndex:indexPath.row];
     [self setSelectedIndexPath:indexPath];
     [self setSelectedBrandString:[productItem brand]];
@@ -403,9 +369,7 @@
     [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
 }
 
-
 - (IBAction)bagButtonTapped:(UIButton *)sender {
-    
     UIStoryboard *storyboard = self.storyboard;
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
     [self presentViewController:vc animated:YES completion:nil];
@@ -422,11 +386,14 @@
         productDetailVC.eventId = [self eventSku];
         productDetailVC.variantInventoryDictionary = self.selectedVariantInventories;
         productDetailVC.attributesDictionary = self.selectedAttributes;
+        
+        BTRProductShowcaseCollectionCell* cell = (BTRProductShowcaseCollectionCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPath];
+        if ([productDetailVC.productItem.allReserved boolValue] || [self isItemSoldOutWithVariant:[cell sizeQuantityArray]])
+            productDetailVC.disableAddToCart = YES;
     }
 }
 
-- (IBAction)unwindFromProductDetailToShowcase:(UIStoryboardSegue *)unwindSegue
-{
+- (IBAction)unwindFromProductDetailToShowcase:(UIStoryboardSegue *)unwindSegue {
 
 }
 
@@ -443,7 +410,6 @@
 - (IBAction)sortSelectionTapped:(id)sender {
     [self loadPickerViewforType:SORT_PICKER];
 }
-
 
 #pragma mark PickerView
 
@@ -471,7 +437,6 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    
     [self.pickerParentView setHidden:TRUE];
     if ([self pickerType] == SORT_PICKER) {
         if ([self.sortTextField.text isEqualToString:[self.sortArray objectAtIndex:row]])
@@ -484,7 +449,6 @@
             return;
         [self.filterSizeTextField setText:[self.sizeArray objectAtIndex:row]];
     }
-    
     [self sortItems];
     [self filterItems];
     [self.collectionView reloadData];
@@ -503,8 +467,6 @@
         [tView setText:[self.sizeArray objectAtIndex:row]];
     return tView;
 }
-
-
 
 - (void)sortItems {
     NSSortDescriptor *sortDescriptor;
@@ -553,11 +515,7 @@
     self.sortedItemsArray = tempArray;
 }
 
-
-
-
 #pragma mark - BTRSelectSizeVC Delegate
-
 
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:(int)selectedIndex];

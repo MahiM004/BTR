@@ -71,18 +71,11 @@
     [self collectionView:self.chartCategoryCollectionView didSelectItemAtIndexPath:self.selectedIndexPath];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return [self.currentCategoryArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
     BTRSizeChartCategoryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cvCell" forIndexPath:indexPath];
     cell.categoryTitleLabel.text = [self.currentCategoryArray objectAtIndex:indexPath.row];
     if ([indexPath isEqual:self.selectedIndexPath]) {
@@ -91,7 +84,6 @@
     else
         cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
-    
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -110,11 +102,9 @@
         lastSelectedCell.backgroundColor = [UIColor lightGrayColor];
     }
     BTRSizeChartCategoryCollectionViewCell *cell  = (BTRSizeChartCategoryCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
-    if (self.imageView == nil) {
+    if (self.imageView == nil)
         self.imageView = [[UIImageView alloc]init];
-    }
-    
+
     NSURLRequest* request = [NSURLRequest requestWithURL:[BTRChartFetcher URLforImagesOfChartsWithName:[self.currentImagesArray objectAtIndex:indexPath.row]] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30.0];
     
     [self.imageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"neulogo.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {

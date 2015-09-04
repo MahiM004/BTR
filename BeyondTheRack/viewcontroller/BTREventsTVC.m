@@ -39,6 +39,11 @@
     self.tableView.separatorColor = [UIColor clearColor];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+
+}
+
+
 # pragma mark - Load Events
 
 

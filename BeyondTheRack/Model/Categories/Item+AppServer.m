@@ -101,6 +101,9 @@
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
     nformatter.numberStyle = NSNumberFormatterDecimalStyle;
     
+    if ([itemDictionary valueForKeyPath:@"allReserved"] && [itemDictionary valueForKeyPath:@"allReserved"] != [NSNull null])
+        item.allReserved = [itemDictionary valueForKey:@"allReserved"];
+    
     if ([itemDictionary valueForKeyPath:@"attributes"] && [itemDictionary valueForKeyPath:@"attributes"] != [NSNull null])
         item.attributeDictionary = [itemDictionary valueForKey:@"attributes"];
     

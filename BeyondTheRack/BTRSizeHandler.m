@@ -34,9 +34,11 @@
     if ([allKeys count] > 0) {
         
         keyString = [allKeys objectAtIndex:0];
-        
-        if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@"One Size"])
+        [sizesQuantityArray addObject:variantInventoryDictionary[keyString]];
+
+        if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@"One Size"]) {
             return BTRSizeModeSingleSizeShow;
+        }
         
         else if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] &&
                  [allKeys count] == 1 )  /*  To deal with the follwoing faulty data entry: { "#Z" = 79; "L#L" = 4; "M#M" = 8; }; */

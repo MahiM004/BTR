@@ -9,7 +9,7 @@
 #import "BTRRefineResultsViewController.h"
 #import "BTRSearchFilterTVC.h"
 #import "BTRItemFetcher.h"
-
+#import "BTRConnectionHelper.h"
 #import "BTRFacetsHandler.h"
 
 @interface BTRRefineResultsViewController ()
@@ -23,7 +23,6 @@
 
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
             
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
@@ -38,81 +37,47 @@
     [self.view insertSubview:backgroundImageView belowSubview:[self headerView]];
 }
 
-
-
 #pragma mark - Load Results RESTful
-
 
 - (void)fetchItemsforSearchQuery:(NSString *)searchQuery
                 withSortString:(NSString *)sortString
               withFacetsString:(NSString *)facetsString
                        success:(void (^)(id  responseObject)) success
-                       failure:(void (^)(NSError *error)) failure
-{
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:[BTRItemFetcher contentTypeForSearchQuery]];
-    manager.responseSerializer = serializer;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
-    
-    [manager GET:[NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortString withFacetString:facetsString andPageNumber:0]]
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id appServerJSONData)
-     {
-         NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:appServerJSONData
-                                                                            options:0
-                                                                              error:NULL];
-         
-         BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
-         [sharedFacetsHandler updateFacetsFromResponseDictionary:entitiesPropertyList];
-         
-         success(entitiesPropertyList);         
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-         failure(error);
-     }];
-    
+                       failure:(void (^)(NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortString withFacetString:facetsString andPageNumber:0]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
+        [sharedFacetsHandler updateFacetsFromResponseDictionary:response];
+        success(response);
+    } faild:^(NSError *error) {
+        failure(error);
+    }];
 }
-
 
 #pragma mark - Navigation
 
-
 - (IBAction)clearTapped:(UIButton *)sender {
-    
     BTRFacetsHandler * sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     [sharedFacetHandler resetFacets];
     [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
 }
 
-
 - (IBAction)applyButtonTapped:(UIButton *)sender {
-
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     NSString *facetString = [sharedFacetHandler getFacetStringForRESTfulRequest];
     NSString *sortString = [sharedFacetHandler getSortStringForRESTfulRequest];
-    
     [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                   withSortString:sortString
                 withFacetsString:facetString
                          success:^(NSDictionary *responseDictionary) {
-                             
                              if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
                                  [self.delegate refineSceneWillDisappearWithResponseDictionary:responseDictionary];
                              }
-                             
                              [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
-                             
                          } failure:^(NSError *error) {
 
                          }];
 }
-
-
 
 @end
 

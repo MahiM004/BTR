@@ -20,16 +20,19 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - MarqueeLabel (2.2.5)
   - MBProgressHUD (0.9.1)
   - ObjectiveSugar (1.1.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
+  - MarqueeLabel (~> 2.2)
   - MBProgressHUD (~> 0.9.1)
   - ObjectiveSugar
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  MarqueeLabel: 65ca60ee9ba554be34f35339004c6c9fe6366a31
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
 

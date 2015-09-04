@@ -12,35 +12,35 @@
 #import "TTSlidingPageTitle.h"
 #import "BTREventsTVC.h"
 #import "BTRCategoryData.h"
+#import "MarqueeLabel.h"
+#import "Freeship+appServer.h"
+#import "BTRConnectionHelper.h"
+#import "BTRFreeshipFetcher.h"
 
 #define INITIAL_PAGE_INDEX 1
 
 @interface BTRCategoryViewController ()
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
-
+@property (strong, nonatomic) MarqueeLabel *bannerView;
+@property (strong, nonatomic) Freeship* freeshipInfo;
+@property (strong, nonatomic) NSDate* dueDate;
 
 @end
 
 @implementation BTRCategoryViewController
 
-
 - (NSMutableArray *)categoryNames {
-    
     if (!_categoryNames) _categoryNames = [[NSMutableArray alloc] init];
     return _categoryNames;
 }
 
 - (NSMutableArray *)urlCategoryNames {
-    
     if (!_urlCategoryNames) _urlCategoryNames = [[NSMutableArray alloc] init];
     return _urlCategoryNames;
 }
 
-
-
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     BTRCategoryData *sharedCategoryData = [BTRCategoryData sharedCategoryData];
@@ -69,34 +69,37 @@
     self.slider.dataSource = self;
     //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle
     
+    // getting header's info
+    [self getheaderInfo];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.slider.view.frame = self.view.frame;
+    // adding banner
+    if (_bannerView == nil) {
+        _bannerView = [[MarqueeLabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) rate:70.0 andFadeLength:30.0];
+        _bannerView.textAlignment = NSTextAlignmentCenter;
+        _bannerView.marqueeType = MLContinuous;
+        _bannerView.backgroundColor = [BTRViewUtility BTRBlack];
+        _bannerView.textColor = [UIColor whiteColor];
+        _bannerView.font = [UIFont systemFontOfSize:13];
+        _bannerView.text = @"Beyond The Rack";
+        [self.view addSubview:_bannerView];
+    }
+    
+    // adding tableview frame
+    self.slider.view.frame = CGRectMake(0, _bannerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
     [self.view addSubview:self.slider.view];
     [self addChildViewController:self.slider];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
 #pragma mark TTSlidingPagesDataSource methods
 
-
--(int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source{
-   
+- (int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source{
     return (int)[[self categoryNames] count];
 }
 
-
 -(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index{
-
     UIViewController *viewController;
     
     BTREventsTVC *myVC  = [[BTREventsTVC alloc] init];
@@ -107,24 +110,57 @@
     return [[TTSlidingPage alloc] initWithContentViewController:viewController];
 }
 
-
 -(TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index{
-    
     TTSlidingPageTitle *title;
     title = [[TTSlidingPageTitle alloc] initWithHeaderText:[[self categoryNames] objectAtIndex:index]];
-    
     return title;
 }
-
 
 #pragma mark - scrollview delegate
 
 
 -(void)didScrollToViewAtIndex:(NSUInteger)index {
 }
-
  
+#pragma mark header info
 
+- (void)getheaderInfo {
+    NSString* url = [NSString stringWithFormat:@"%@",[BTRFreeshipFetcher URLforFreeship]];
+    self.freeshipInfo = [[Freeship alloc]init];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+        self.freeshipInfo = [Freeship extractFreeshipInfofromJSONDictionary:response forFreeship:self.freeshipInfo];
+        if ([self.freeshipInfo.banner containsString:@"##counter##"]) {
+            self.dueDate = [NSDate dateWithTimeIntervalSince1970:[self.freeshipInfo.endTimestamp integerValue]];
+            [self changeTimerString:nil];
+            [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(changeTimerString:) userInfo:nil repeats:YES];
+            return ;
+        }
+        [self.bannerView setText:self.freeshipInfo.banner];
+        [self.bannerView resetLabel];
+    } faild:^(NSError *error) {
+        
+    }];
+}
+
+- (void)changeTimerString:(NSTimer *)timer {
+    NSInteger ti = ((NSInteger)[self.dueDate timeIntervalSinceNow]);
+    int seconds = ti % 60;
+    int minutes = (ti / 60) % 60;
+    int hours = ((ti / 60) / 60) % 24;
+    int days = ((ti / 60) / 60) / 24;
+    if (seconds < 0) {
+        [timer invalidate];
+        return;
+    }
+    NSString* timerString;
+    if (minutes == 0 && hours == 0)
+        timerString = [NSString stringWithFormat:@"Less than a minute"];
+    else {
+        timerString = [NSString stringWithFormat:@"%02d days %02d Hours : %02d Minutes",days,hours,minutes];
+    }
+    NSString* bannerString = [self.freeshipInfo.banner stringByReplacingOccurrencesOfString:@"##counter##" withString:timerString];
+    [self.bannerView setText:bannerString];
+}
 
 
 @end

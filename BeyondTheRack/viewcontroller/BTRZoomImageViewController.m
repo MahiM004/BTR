@@ -16,7 +16,6 @@
 
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
 
     self.collectionView.dataSource = self;
@@ -24,32 +23,21 @@
     
 }
 
-
-
 #pragma mark - UICollectionView Datasource
 
-
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    
     return [self zoomImageCount];
 }
 
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     BTRZoomImageCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ZoomImageCollectionCellIdentifier" forIndexPath:indexPath];
     
     [cell.zoomImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSkuString]
                                                                        withCount:1+indexPath.row
                                                                          andSize:@"large"]
                           placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
-    
-    
     return cell;
 }
-
-
-
 
 @end
 

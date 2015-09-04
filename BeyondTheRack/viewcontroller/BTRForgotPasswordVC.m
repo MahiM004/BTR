@@ -8,6 +8,7 @@
 
 #import "BTRForgotPasswordVC.h"
 #import "BTRUserFetcher.h"
+#import "BTRConnectionHelper.h"
 
 @interface BTRForgotPasswordVC ()
 
@@ -17,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
@@ -26,19 +26,15 @@
 
 
 - (void)dismissKeyboard {
-    
     [self.emailField resignFirstResponder];
 }
 
 
 - (IBAction)newPasswordTapped:(UIButton *)sender {
-    
     if ([self.emailField.text length] > 0) {
-    
         [self resetPasswordforEmail:[[self emailField] text] success:^(NSString *didSucceed) {
             [self alertUserforNewPassword];
         } failure:^(NSError *error) {
-            
             // TODO: Check for internet connectivity!
         }];
     }
@@ -47,37 +43,25 @@
 
 - (void)resetPasswordforEmail:(NSString *)emailString
                            success:(void (^)(id  responseObject)) success
-                           failure:(void (^)(NSError *error)) failure
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = serializer;
+                           failure:(void (^)(NSError *error)) failure {
+    NSString *url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforPasswordReset]];
     NSDictionary *params = (@{ @"email": emailString });
-    [manager POST:[NSString stringWithFormat:@"%@",[BTRUserFetcher URLforPasswordReset]]
-       parameters:params
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              // We will just prompt that 'a new password was sent' whether it was successful or not. This is a secuity measure.
-              success(@"TRUE");
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              failure(error);
-          }];
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:NO success:^(NSDictionary *response) {
+        success(@"TRUE");
+    } faild:^(NSError *error) {
+        failure(error);
+    }];
 }
 
 
 - (void)alertUserforNewPassword {
-    
     [self dismissKeyboard];
-    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check your email"
                                                     message:@"A new password was sent to your email address!"
                                                    delegate:self
                                           cancelButtonTitle:nil
                                           otherButtonTitles:@"Ok", nil];
-    
     [self performSegueWithIdentifier:@"unwindToLoginScene" sender:self];
-
     [alert show];
 }
 

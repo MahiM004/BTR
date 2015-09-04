@@ -156,7 +156,12 @@
 		69FF40861A3F8939000BD092 /* BeyondTheRackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */; };
 		A00393E61B7B8B4000A3F79F /* delivery.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A00393E51B7B8B4000A3F79F /* delivery.jpg */; };
 		A00A7FEC1B8E102200568BB6 /* BTRChartFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */; };
+		A00BD8741B97370D00B4693E /* BTRAnimationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A00BD8731B97370D00B4693E /* BTRAnimationHandler.m */; };
 		A00C9A331B7CE1E30047D6F5 /* BTRContactUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */; };
+		A00C9C161B960051004A2629 /* BTRFreeshipFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9C151B960051004A2629 /* BTRFreeshipFetcher.m */; };
+		A00C9C191B960817004A2629 /* Freeship.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9C181B960817004A2629 /* Freeship.m */; };
+		A00C9C1C1B9609E4004A2629 /* Freeship+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9C1B1B9609E4004A2629 /* Freeship+AppServer.m */; };
+		A00C9C1E1B962705004A2629 /* btrbagreserved_new.png in Resources */ = {isa = PBXBuildFile; fileRef = A00C9C1D1B962705004A2629 /* btrbagreserved_new.png */; };
 		A00E4DD31B8632ED00C93CD3 /* BTRMasterPassFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD21B8632ED00C93CD3 /* BTRMasterPassFetcher.m */; };
 		A00E4DD61B8642FC00C93CD3 /* MasterPassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */; };
 		A00E4DD91B86444700C93CD3 /* MasterPassInfo+Appserver.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DD81B86444700C93CD3 /* MasterPassInfo+Appserver.m */; };
@@ -480,8 +485,17 @@
 		A00393E51B7B8B4000A3F79F /* delivery.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = delivery.jpg; sourceTree = "<group>"; };
 		A00A7FEA1B8E102200568BB6 /* BTRChartFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRChartFetcher.h; sourceTree = "<group>"; };
 		A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRChartFetcher.m; sourceTree = "<group>"; };
+		A00BD8721B97370D00B4693E /* BTRAnimationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAnimationHandler.h; sourceTree = "<group>"; };
+		A00BD8731B97370D00B4693E /* BTRAnimationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRAnimationHandler.m; sourceTree = "<group>"; };
 		A00C9A311B7CE1E30047D6F5 /* BTRContactUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRContactUSViewController.h; sourceTree = "<group>"; };
 		A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRContactUSViewController.m; sourceTree = "<group>"; };
+		A00C9C141B960051004A2629 /* BTRFreeshipFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFreeshipFetcher.h; sourceTree = "<group>"; };
+		A00C9C151B960051004A2629 /* BTRFreeshipFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFreeshipFetcher.m; sourceTree = "<group>"; };
+		A00C9C171B960817004A2629 /* Freeship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Freeship.h; sourceTree = "<group>"; };
+		A00C9C181B960817004A2629 /* Freeship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Freeship.m; sourceTree = "<group>"; };
+		A00C9C1A1B9609E4004A2629 /* Freeship+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Freeship+AppServer.h"; sourceTree = "<group>"; };
+		A00C9C1B1B9609E4004A2629 /* Freeship+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Freeship+AppServer.m"; sourceTree = "<group>"; };
+		A00C9C1D1B962705004A2629 /* btrbagreserved_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btrbagreserved_new.png; sourceTree = "<group>"; };
 		A00E4DD11B8632ED00C93CD3 /* BTRMasterPassFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMasterPassFetcher.h; sourceTree = "<group>"; };
 		A00E4DD21B8632ED00C93CD3 /* BTRMasterPassFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMasterPassFetcher.m; sourceTree = "<group>"; };
 		A00E4DD41B8642FC00C93CD3 /* MasterPassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterPassInfo.h; sourceTree = "<group>"; };
@@ -862,6 +876,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A00C9C1D1B962705004A2629 /* btrbagreserved_new.png */,
 				A00393E51B7B8B4000A3F79F /* delivery.jpg */,
 				695C755E1B38957A003F65F8 /* masterpass_t.png */,
 				695C755F1B38957A003F65F8 /* masterpass_t@2x.png */,
@@ -936,6 +951,8 @@
 				A00E4DD21B8632ED00C93CD3 /* BTRMasterPassFetcher.m */,
 				A00A7FEA1B8E102200568BB6 /* BTRChartFetcher.h */,
 				A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */,
+				A00C9C141B960051004A2629 /* BTRFreeshipFetcher.h */,
+				A00C9C151B960051004A2629 /* BTRFreeshipFetcher.m */,
 			);
 			path = Fetcher;
 			sourceTree = "<group>";
@@ -982,6 +999,8 @@
 				A0D037471B90A82300EA9E48 /* BTRAttributeHandler.m */,
 				A097F08B1B948F56002CBB71 /* BTRConnectionHelper.h */,
 				A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */,
+				A00BD8721B97370D00B4693E /* BTRAnimationHandler.h */,
+				A00BD8731B97370D00B4693E /* BTRAnimationHandler.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -1031,6 +1050,8 @@
 				A011426D1B6189D40099A40A /* FAQ.m */,
 				A0D1B45B1B7E495100848FA7 /* Contact.h */,
 				A0D1B45C1B7E495100848FA7 /* Contact.m */,
+				A00C9C171B960817004A2629 /* Freeship.h */,
+				A00C9C181B960817004A2629 /* Freeship.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1060,6 +1081,8 @@
 				A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */,
 				A00E4DD71B86444700C93CD3 /* MasterPassInfo+Appserver.h */,
 				A00E4DD81B86444700C93CD3 /* MasterPassInfo+Appserver.m */,
+				A00C9C1A1B9609E4004A2629 /* Freeship+AppServer.h */,
+				A00C9C1B1B9609E4004A2629 /* Freeship+AppServer.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1383,6 +1406,7 @@
 				690A391D1B1DF57100D4BA84 /* myunchecked@2x.png in Resources */,
 				69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */,
 				690A39111B1DEE0000D4BA84 /* unchecked@2x.png in Resources */,
+				A00C9C1E1B962705004A2629 /* btrbagreserved_new.png in Resources */,
 				69867A071A438A8C003CE59C /* bagicon.png in Resources */,
 				690A39201B1DF70B00D4BA84 /* myuncheck.png in Resources */,
 				B3C16A9F1B0F6A4A009470EC /* PinterestSDKResources.bundle in Resources */,
@@ -1443,6 +1467,7 @@
 				B3C16A911B01371C009470EC /* BTRSizeSelector.m in Sources */,
 				6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */,
 				A01142711B618AEB0099A40A /* BTRFAQFetcher.m in Sources */,
+				A00C9C191B960817004A2629 /* Freeship.m in Sources */,
 				A0D1B4601B7E4FED00848FA7 /* BTRContactFetcher.m in Sources */,
 				69AB98651A77E68F00EDB1E6 /* Event.m in Sources */,
 				69D440411B31EA1400070FD8 /* Order.m in Sources */,
@@ -1518,6 +1543,7 @@
 				695C754B1B3841D1003F65F8 /* CTCheckbox.m in Sources */,
 				A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
+				A00C9C1C1B9609E4004A2629 /* Freeship+AppServer.m in Sources */,
 				6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */,
 				6900B4DF1AB7747900930D16 /* NSString+FontAwesome.m in Sources */,
 				A00E4DE71B865B5700C93CD3 /* MPLightboxViewController.m in Sources */,
@@ -1535,6 +1561,7 @@
 				6901EA471ADEB89A002534D9 /* UIButton+Badge.m in Sources */,
 				6901E9FC1ACD703C002534D9 /* BTRBagTableViewCell.m in Sources */,
 				B3CC532E1B17798D0024EA08 /* User.m in Sources */,
+				A00C9C161B960051004A2629 /* BTRFreeshipFetcher.m in Sources */,
 				69F0BB041B41871C008C0498 /* OrderHistoryBag+AppServer.m in Sources */,
 				6901EA171ADC2628002534D9 /* BagItem.m in Sources */,
 				B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */,
@@ -1552,6 +1579,7 @@
 				69D440501B331A7F00070FD8 /* BTRCategoryFetcher.m in Sources */,
 				692F24DB1AAF31C0003AABE1 /* BTRProductImageCollectionCell.m in Sources */,
 				69B55F0D1A4B1AFC009A5524 /* BTRShoppingBagViewController.m in Sources */,
+				A00BD8741B97370D00B4693E /* BTRAnimationHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
