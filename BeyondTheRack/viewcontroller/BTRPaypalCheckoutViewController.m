@@ -51,14 +51,14 @@
             // adding steps
         }
         
-        if ([urlString rangeOfString:[[self cancelURL] lowercaseString]].location != NSNotFound)
+        if ([urlString rangeOfString:[[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforCancelPaypal]] lowercaseString]].location != NSNotFound)
             [self dismissViewControllerAnimated:YES completion:nil];
 
-        if ([urlString rangeOfString:[[self paymentURL] lowercaseString]].location != NSNotFound) {
+        if ([urlString rangeOfString:[[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPayment]] lowercaseString]].location != NSNotFound) {
             [self setDidLogined:YES];
             [self.webView setHidden:YES];
         }
-        if ([urlString rangeOfString:[[self fastPayURL] lowercaseString]].location != NSNotFound) {
+        if ([urlString rangeOfString:[[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcess]] lowercaseString]].location != NSNotFound) {
             [self.webView setHidden:YES];
             [self getInfoForPaypal];
             return false;
@@ -120,18 +120,6 @@
         confirm.order = self.order;
         confirm.transactionID = self.transactionID;
     }
-}
-
-- (NSString *)fastPayURL {
-    return @"www.mobile.btrdev.com/siteapi/checkout/process/paypal/";
-}
-
-- (NSString *)paymentURL {
-    return @"www.mobile.btrdev.com/siteapi/checkout/info/paypal?token=";
-}
-
-- (NSString *)cancelURL {
-    return @"http://www.mobile.btrdev.com/siteapi/checkout/paypal?token=";
 }
 
 @end

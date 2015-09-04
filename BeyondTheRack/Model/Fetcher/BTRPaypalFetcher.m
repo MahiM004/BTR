@@ -10,24 +10,28 @@
 
 @implementation BTRPaypalFetcher
 
-+ (NSURL *)URLforStartPaypal
-{
++ (NSURL *)URLforStartPaypal {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/checkout/paypal", BASEURL]];
 }
 
-+ (NSURL *)URLforPaypalInfo
-{
++ (NSURL *)URLforPaypalInfo {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/checkout/info/paypal", BASEURL]];
 }
 
-+ (NSURL *)URLforPaypalProcess
-{
++ (NSURL *)URLforPaypalProcess {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/checkout/process/paypal", BASEURL]];
 }
 
-+ (NSURL *)URLforPaypalProcessCallBackWithTransactionNumber:(NSString *)transaction
-{
++ (NSURL *)URLforPaypalProcessCallBackWithTransactionNumber:(NSString *)transaction {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/checkout/process/paypal/%@", BASEURL,transaction]];
+}
+
++ (NSURL *)URLforCancelPaypal {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/checkout/paypal?token=", BASEURL]];
+}
+
++ (NSURL *)URLforPayment {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/checkout/info/paypal?token=", BASEURL]];
 }
 
 @end

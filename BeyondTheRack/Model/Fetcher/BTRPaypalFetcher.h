@@ -15,5 +15,7 @@
 + (NSURL *)URLforPaypalInfo;
 + (NSURL *)URLforPaypalProcess;
 + (NSURL *)URLforPaypalProcessCallBackWithTransactionNumber:(NSString *)transaction;
++ (NSURL *)URLforCancelPaypal;
++ (NSURL *)URLforPayment;
 
 @end
