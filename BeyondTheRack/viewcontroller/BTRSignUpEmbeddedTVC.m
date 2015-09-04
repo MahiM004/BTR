@@ -290,10 +290,6 @@
         failure(nil, error);
     }];
 }
-
-
-
-
 - (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
                                               success:(void (^)(id  responseObject)) success
                                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {

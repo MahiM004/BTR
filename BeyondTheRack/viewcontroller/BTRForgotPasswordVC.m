@@ -26,7 +26,10 @@
     [self.view addGestureRecognizer:tap];
 }
 
-
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [_emailField becomeFirstResponder];
+}
 - (void)dismissKeyboard {
     [self.emailField resignFirstResponder];
 }
@@ -56,7 +59,7 @@
             }];
         });
     } else {
-        [self showAlert:@"Failed" msg:@"It seems to be you did not given valid email , Please check Once (or) Check the Active Internet Connection"];
+        [self showAlert:@"Failed" msg:@"It seems to be you did not given valid email address (or) Check the Active Internet Connection"];
         [self hideHUD];
     }
 }

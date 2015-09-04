@@ -10,7 +10,6 @@
 		5EF64B82268F5B93BD9E3D57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00303CA259B636FFAA0B08E0 /* libPods.a */; };
 		6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4C71AB7598000930D16 /* BTRLogo.png */; };
 		6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */; };
-		6900B4D21AB7649300930D16 /* BTRSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4D11AB7649300930D16 /* BTRSignUpViewController.m */; };
 		6900B4DD1AB7747900930D16 /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4D51AB7747900930D16 /* FAImageView.m */; };
 		6900B4DE1AB7747900930D16 /* FontAwesome+iOS.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4D61AB7747900930D16 /* FontAwesome+iOS.podspec */; };
 		6900B4DF1AB7747900930D16 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4D81AB7747900930D16 /* NSString+FontAwesome.m */; };
@@ -224,8 +223,6 @@
 		6900B4C71AB7598000930D16 /* BTRLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BTRLogo.png; sourceTree = "<group>"; };
 		6900B4C91AB75A9E00930D16 /* BTRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoginViewController.h; sourceTree = "<group>"; };
 		6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoginViewController.m; sourceTree = "<group>"; };
-		6900B4D01AB7649300930D16 /* BTRSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSignUpViewController.h; sourceTree = "<group>"; };
-		6900B4D11AB7649300930D16 /* BTRSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSignUpViewController.m; sourceTree = "<group>"; };
 		6900B4D41AB7747900930D16 /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
 		6900B4D51AB7747900930D16 /* FAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAImageView.m; sourceTree = "<group>"; };
 		6900B4D61AB7747900930D16 /* FontAwesome+iOS.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "FontAwesome+iOS.podspec"; sourceTree = "<group>"; };
@@ -610,8 +607,6 @@
 			children = (
 				6900B4C91AB75A9E00930D16 /* BTRLoginViewController.h */,
 				6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */,
-				6900B4D01AB7649300930D16 /* BTRSignUpViewController.h */,
-				6900B4D11AB7649300930D16 /* BTRSignUpViewController.m */,
 				6900B4E91AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.h */,
 				6900B4EA1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m */,
 				B3C16AA21B137079009470EC /* BTRForgotPasswordVC.h */,
@@ -1148,16 +1143,16 @@
 		69FF40651A3F8939000BD092 /* BeyondTheRack */ = {
 			isa = PBXGroup;
 			children = (
-				69FF40731A3F8939000BD092 /* Main.storyboard */,
 				69FF406A1A3F8939000BD092 /* BTRAppDelegate.h */,
 				69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */,
+				69FF40731A3F8939000BD092 /* Main.storyboard */,
 				69FF40761A3F8939000BD092 /* Images.xcassets */,
-				69FF40781A3F8939000BD092 /* LaunchScreen.xib */,
 				69B02CC41A60319600040C86 /* Model */,
 				697E057B1A432FCD000146C6 /* View */,
 				697E057C1A432FCD000146C6 /* ViewController */,
 				69AB98311A6D50E300EDB1E6 /* BTRHelpClasses */,
 				69867A0F1A4480C7003CE59C /* Resources */,
+				69FF40781A3F8939000BD092 /* LaunchScreen.xib */,
 				69FF40661A3F8939000BD092 /* Supporting Files */,
 			);
 			path = BeyondTheRack;
@@ -1528,7 +1523,6 @@
 				69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */,
 				69F0BAFB1B41868B008C0498 /* OrderHistoryBag.m in Sources */,
-				6900B4D21AB7649300930D16 /* BTRSignUpViewController.m in Sources */,
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
 				69D440561B331AEA00070FD8 /* EventCategory+AppServer.m in Sources */,
 				A00A7FEC1B8E102200568BB6 /* BTRChartFetcher.m in Sources */,

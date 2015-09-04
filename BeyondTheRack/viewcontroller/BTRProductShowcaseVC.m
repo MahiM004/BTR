@@ -120,7 +120,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagButton.badgeValue = [NSString stringWithFormat:@"%i",[sharedShoppingBag bagCount]];
+    self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];
 }
 
 
