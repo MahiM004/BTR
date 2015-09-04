@@ -107,32 +107,12 @@
 
 - (void)alertUserForLoginError {
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please try agian"
+    [[[UIAlertView alloc] initWithTitle:@"Please try agian"
                                                     message:@"Email or Password Incorrect !"
                                                    delegate:self
                                           cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil];
-    [alert show];
+                                          otherButtonTitles:@"Ok", nil] show];
 }
-
-
-
-- (void)alertUserForLoginErrorWithMessage:(NSString *)messageString {
-    
-    
-    NSString *alertMessage = @"Email or Password Incorrect !";
-    
-    if ([messageString length] > 0)
-        alertMessage = messageString;
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error!"
-                                                    message:alertMessage
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil];
-    [alert show];
-}
-
 
 
 #pragma mark - FBSDKLoginButtonDelegate
