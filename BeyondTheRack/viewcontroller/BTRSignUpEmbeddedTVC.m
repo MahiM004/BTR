@@ -87,18 +87,12 @@
     [self.view addGestureRecognizer:tap];
 }
 
-- (void)dismissKeyboard {
-    [self.emailTextField resignFirstResponder];
-    [self.passwordTextField resignFirstResponder];
-}
-
 - (IBAction)genderButtonTapped:(UIButton *)sender {
     [self setPickerType:GENDER_PICKER];
     [self.pickerView reloadAllComponents];
     [self dismissKeyboard];
     [self.viewForPicker setHidden:FALSE];
 }
-
 
 - (IBAction)countryButtonTapped:(UIButton *)sender {
     [self setPickerType:COUNTRY_PICKER];
@@ -108,7 +102,7 @@
 }
 
 
-
+//Manual Join SignUP
 - (IBAction)joinButtonTapped:(UIButton *)sender {
     if ([_emailTextField.text length] == 0 || ![self validateEmailWithString:_emailTextField.text]) {
         
@@ -127,25 +121,67 @@
         [self showAlert:@"Failed" msg:@"Please choose the Country"];
         
     } else {
-        [self userRegistrationServerCallWithSuccess:^(NSString *didSignUp, NSString *messageString) {
-            if ([didSignUp  isEqualToString:@"TRUE"]) {
-                [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
-            } else {
-                if (messageString == nil)
-                    [self showAlert:@"Please try agian" msg:@"Sign Up Failed !"];
-                else
+        
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [self userRegistrationServerCallWithSuccess:^(NSString *didSignUp, NSString *messageString) {
+                if ([didSignUp  isEqualToString:@"TRUE"]) {
+                    [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
+                } else {
                     if (messageString.length != 0) {
-                        [self showAlert:@"Email or Password Incorrect !" msg:messageString];
+                        [self showAlert:@"Please try agian" msg:messageString];
+                        [self hideHUD];
+                    } else {
+                        [self showAlert:@"Email or Password Incorrect !" msg:@"Sign Up Failed !"];
+                        [self hideHUD];
                     }
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self showAlert:@"Ooops...!" msg:@"Something went Wrong Please try Again !"];
-        }];
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [self showAlert:@"Ooops...!" msg:@"Something went Wrong Please try Again !"];
+                [self hideHUD];
+            }];
+        });
     }
 }
+#pragma mark - User Registration RESTful
+- (void)userRegistrationServerCallWithSuccess:(void (^)(id  responseObject, NSString *messageString)) success
+                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserRegistration]];
+    NSDictionary *params = (@{
+                              @"email": [[self emailTextField] text],
+                              @"password": [[self passwordTextField] text],
+                              @"gender": [[self genderTextField] text],
+                              @"country": [self chosenCountryCodeString],
+                              });
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (response) {
+            int error_code = (int)[[response valueForKey:@"error_code"] intValue];
+            if (error_code == 400) {
+                NSArray *messageArray = response[@"messages"];
+                success(@"FALSE", messageArray[0]);
+            } else {
+                NSDictionary *infoDic = response[@"info"];
+                NSDictionary *sessionDic = response[@"session"];
+                NSDictionary *userDic = response[@"user"];
+                NSString *sessionIdString = [sessionDic valueForKey:@"session_id"];
+                BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+                [sessionSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:NO];
+                User *user = [[User alloc] init];
+                [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic forUser:user];
+                success(@"TRUE", nil);
+            }
+            
+        } else
+            success(@"FALSE", nil);
+        
+    } faild:^(NSError *error) {
+        [self showAlert:@"Please try agian" msg:@"Sign Up Failed !"];
+        failure(nil, error);
+    }];
+}
+
+//FaceBook SignUP
 #pragma mark - FBSDKLoginButtonDelegate
-
-
 
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
     if (error) {
@@ -191,48 +227,10 @@
         }
     }
 }
-
-
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
 }
 
-#pragma mark - User Registration RESTful
 
-- (void)userRegistrationServerCallWithSuccess:(void (^)(id  responseObject, NSString *messageString)) success
-                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
-    NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserRegistration]];
-    NSDictionary *params = (@{
-                              @"email": [[self emailTextField] text],
-                              @"password": [[self passwordTextField] text],
-                              @"gender": [[self genderTextField] text],
-                              @"country": [self chosenCountryCodeString],
-                              });
-    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
-        if (response) {
-            int error_code = (int)[[response valueForKey:@"error_code"] intValue];
-            if (error_code == 400) {
-                NSArray *messageArray = response[@"messages"];
-                success(@"FALSE", messageArray[0]);
-            } else {
-                NSDictionary *infoDic = response[@"info"];
-                NSDictionary *sessionDic = response[@"session"];
-                NSDictionary *userDic = response[@"user"];
-                NSString *sessionIdString = [sessionDic valueForKey:@"session_id"];
-                BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-                [sessionSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:NO];
-                User *user = [[User alloc] init];
-                [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic forUser:user];
-                success(@"TRUE", nil);
-            }
-            
-        } else
-            success(@"FALSE", nil);
-
-    } faild:^(NSError *error) {
-        [self showAlert:@"Please try agian" msg:@"Sign Up Failed !"];
-        failure(nil, error);
-    }];
-}
 - (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
                                               success:(void (^)(id  responseObject)) success
                                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
@@ -338,6 +336,15 @@
     return 300.0;
 }
 
+- (void)dismissKeyboard {
+    [self.emailTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+}
+-(void)hideHUD {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+}
 -(UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege {
     UIAlertView * aa = [[UIAlertView alloc]initWithTitle:title message:messege delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [aa show];

@@ -69,20 +69,6 @@
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
 }
-
-
-- (void)dismissKeyboard {
-    [self.passwordTextField resignFirstResponder];
-    [self.emailTextField resignFirstResponder];
-}
-
-
-
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
-}
-
-
 - (IBAction)signInButtonTapped:(UIButton *)sender {
     if (_emailTextField.text.length != 0 && _passwordTextField.text.length != 0) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -102,21 +88,7 @@
     }
 }
 
-
-- (void)alertUserForLoginError {
-    
-    [[[UIAlertView alloc] initWithTitle:@"Please try agian"
-                                                    message:@"Email or Password Incorrect !"
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil] show];
-}
-
-
 #pragma mark - FBSDKLoginButtonDelegate
-
-
-
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
     if (error) {
         NSLog(@"Unexpected login error: %@", error);
@@ -199,10 +171,6 @@
         [self alertUserForLoginError];
     }];
 }
-
-
-
-
 - (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
                                      success:(void (^)(id  responseObject)) success
                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
@@ -227,9 +195,6 @@
          success(@"FALSE");
      }];
 }
-
-
-
 - (void)attemptRegisterWithFacebookUserParams:(NSDictionary *)fbUserParams
                                      success:(void (^)(id  responseObject, NSString *alertString)) success
                                      failure:(void (^)(NSError *error)) failure {
@@ -256,9 +221,6 @@
         [self alertUserForLoginError];
     }];
 }
-
-
-
 - (void)attemptAuthenticateWithFacebookUserParams:(NSDictionary *)fbUserParams
                                       success:(void (^)(id  responseObject, NSString *alertString)) success
                                       failure:(void (^)(NSError *error)) failure {
@@ -286,33 +248,18 @@
 }
 
 
-# pragma mark - Navigation
-
-
-- (IBAction)unwindToLoginScene:(UIStoryboardSegue *)unwindSegue
-{
-    
+- (void)alertUserForLoginError {
+    [[[UIAlertView alloc] initWithTitle:@"Please try agian"
+                                message:@"Email or Password Incorrect !"
+                               delegate:self
+                      cancelButtonTitle:nil
+                      otherButtonTitles:@"Ok", nil] show];
 }
-
-
-
-
+- (void)dismissKeyboard {
+    [self.passwordTextField resignFirstResponder];
+    [self.emailTextField resignFirstResponder];
+}
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
