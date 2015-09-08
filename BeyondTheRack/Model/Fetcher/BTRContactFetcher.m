@@ -7,11 +7,14 @@
 //
 
 #import "BTRContactFetcher.h"
+#import "BTRSettingManager.h"
 
 @implementation BTRContactFetcher
 
-+ (NSURL *)URLForContact
-{
++ (NSURL *)URLForContact {
+    NSString* location = [[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERLOCATION];
+    if ([location isEqualToString:@"US"])
+        return [self URLForQuery:[NSString stringWithFormat:@"%@/content/contact?lang=en_US&render=text", BASEURL]];
     return [self URLForQuery:[NSString stringWithFormat:@"%@/content/contact?lang=en_CA&render=text", BASEURL]];
 }
 
