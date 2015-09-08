@@ -30,11 +30,11 @@
 
 
 - (NSArray *)apparelArray {
-    _apparelArray = @[@"WOMEN",@"MEN",@"KID",@"HOW TO MEASURE ( MEN )",@"HOW TO MEASURE ( WOMEN )"];
+    _apparelArray = @[@"WOMEN",@"MEN",@"KID",@"HOW TO MEASURE ( MEN )",@"HOW TO MEASURE ( WOMEN )",@"RINGS"];
     return _apparelArray;
 }
 - (NSArray *)apparelImages {
-    _apparelImages = @[@"women_size_chart.jpg",@"men_size_chart.jpg",@"kids_size_chart.jpg",@"how_to_measure_men.jpg",@"how_to_measure_women.jpg"];
+    _apparelImages = @[@"women_size_chart.jpg",@"men_size_chart.jpg",@"kids_size_chart.jpg",@"how_to_measure_men.jpg",@"how_to_measure_women.jpg",@"ring_sizer.jpg"];
     return _apparelImages;
 }
 
@@ -86,7 +86,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == [self.currentCategoryArray count] - 2 || indexPath.row == [self.currentCategoryArray count] - 1) {
+    if (indexPath.row == [self.currentCategoryArray count] - 3 || indexPath.row == [self.currentCategoryArray count] - 2) {
         return CGSizeMake(230, 30);
     }
     return CGSizeMake(80, 30);
