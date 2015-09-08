@@ -143,7 +143,7 @@
         label.text = [NSString stringWithFormat:@"Expired"];
         label.textColor = [UIColor redColor];
     } else {
-        label.text = [NSString stringWithFormat:@" Event Ends In %i days %02d:%02d:%02d",components.day,components.hour,components.minute,components.second];
+        label.text = [NSString stringWithFormat:@" Event Ends In %li days %02ld:%02ld:%02ld",(long)components.day,(long)components.hour,(long)components.minute,(long)components.second];
     }
 }
 
