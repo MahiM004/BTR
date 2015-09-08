@@ -126,6 +126,7 @@
         UIView *descriptionView = [[UIView alloc] init];
         descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
         descriptionView = [self getAttribueViewForView:descriptionView];
+        descriptionView = [self getGeneralNoteView:descriptionView withSpecialNote:[productItem generalNote]];
         descriptionView = [self getSpecialNoteView:descriptionView withSpecialNote:[productItem specialNote]];
         [self.longDescriptionView addSubview:descriptionView];
         
@@ -227,6 +228,31 @@
         [attributeView addSubview:attributeLabel];
     }
     return attributeView;
+}
+
+- (UIView *)getGeneralNoteView:(UIView *)generalNoteView withSpecialNote:(NSString *)generalNote {
+    if ([generalNote length] > 2) {
+        customHeight += 20;
+        
+        NSString *specialNoteLabelText = generalNote;
+        UIFont *specialNoteFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+        
+        int specialNoteLabelHeight = [specialNoteLabelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:specialNoteFont];
+        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.longDescriptionView.bounds.size.width, specialNoteLabelHeight);
+        
+        customHeight = customHeight + specialNoteLabelHeight + 10;
+        UILabel *generalNoteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
+        [generalNoteLabel setFont:specialNoteFont];
+        [generalNoteLabel setText:specialNoteLabelText];
+        [generalNoteLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
+        [generalNoteLabel sizeToFit];
+        [generalNoteLabel setTextColor:[UIColor redColor]];
+        [generalNoteLabel setTextAlignment:NSTextAlignmentLeft];
+        [generalNoteView addSubview:generalNoteLabel];
+    }
+    
+    self.descriptionCellHeight = customHeight + 80;
+    return generalNoteView;
 }
 
 - (UIView *)getSpecialNoteView:(UIView *)specialNoteView withSpecialNote:(NSString *)specialNoteString {
