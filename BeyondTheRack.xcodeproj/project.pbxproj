@@ -189,6 +189,7 @@
 		A0D1B45D1B7E495100848FA7 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45C1B7E495100848FA7 /* Contact.m */; };
 		A0D1B4601B7E4FED00848FA7 /* BTRContactFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */; };
 		A0D1B4631B7E510D00848FA7 /* Contact+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */; };
+		A0E277FC1B9F32F4006E7D33 /* BTRSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E277FB1B9F32F4006E7D33 /* BTRSettingManager.m */; };
 		B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */; };
 		B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */; };
 		B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */; };
@@ -545,6 +546,9 @@
 		A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRContactFetcher.m; sourceTree = "<group>"; };
 		A0D1B4611B7E510D00848FA7 /* Contact+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Contact+AppServer.h"; sourceTree = "<group>"; };
 		A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Contact+AppServer.m"; sourceTree = "<group>"; };
+		A0E277FA1B9F32F4006E7D33 /* BTRSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSettingManager.h; sourceTree = "<group>"; };
+		A0E277FB1B9F32F4006E7D33 /* BTRSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSettingManager.m; sourceTree = "<group>"; };
+		A0E277FD1B9F3BA5006E7D33 /* SettingsKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsKeys.h; sourceTree = "<group>"; };
 		B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSessionSettings.h; sourceTree = "<group>"; };
 		B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSessionSettings.m; sourceTree = "<group>"; };
 		B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -996,6 +1000,9 @@
 				A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */,
 				A00BD8721B97370D00B4693E /* BTRAnimationHandler.h */,
 				A00BD8731B97370D00B4693E /* BTRAnimationHandler.m */,
+				A0E277FA1B9F32F4006E7D33 /* BTRSettingManager.h */,
+				A0E277FB1B9F32F4006E7D33 /* BTRSettingManager.m */,
+				A0E277FD1B9F3BA5006E7D33 /* SettingsKeys.h */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -1545,6 +1552,7 @@
 				A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */,
 				690A38F01B1DEB7F00D4BA84 /* TNImageRadioButtonData.m in Sources */,
 				6901EA1D1ADD51D5002534D9 /* BTREditShoppingBagVC.m in Sources */,
+				A0E277FC1B9F32F4006E7D33 /* BTRSettingManager.m in Sources */,
 				6901E9F31ACC3BA3002534D9 /* Item.m in Sources */,
 				696508651AA4F26600ED28B8 /* BTRProductDetailViewController.m in Sources */,
 				A00C9A331B7CE1E30047D6F5 /* BTRContactUSViewController.m in Sources */,
