@@ -8,7 +8,7 @@
 
 #import "BTRAccountInformationVC.h"
 #import "BTRConnectionHelper.h"
-
+#import "BTRSettingManager.h"
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
 
@@ -144,6 +144,8 @@
             [self.countryTextField setText:@"Canada"];
         else if ([user.country isEqualToString:@"US"])
             [self.countryTextField setText:@"USA"];
+        
+        [[BTRSettingManager defaultManager]setObject:user.country forKey:kUSERLOCATION];
         
     } failure:^(NSError *error) {
         
