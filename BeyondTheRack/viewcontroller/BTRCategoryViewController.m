@@ -85,7 +85,7 @@
     }
     
     // adding tableview frame
-    self.slider.view.frame = CGRectMake(0, _bannerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+    self.slider.view.frame = CGRectMake(0, _bannerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.bannerView.frame.size.height);
     [self.view addSubview:self.slider.view];
     [self addChildViewController:self.slider];
 }
