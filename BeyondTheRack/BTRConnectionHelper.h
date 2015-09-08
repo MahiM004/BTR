@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NSString *const contentType;
-static contentType kContentTypeJSON = @"application/json", kContentTypeHTMLOrText = @"application/json";
+static contentType kContentTypeJSON = @"application/json", kContentTypeHTMLOrText = @"text/html";
 
 @interface BTRConnectionHelper : NSObject
 
