@@ -87,7 +87,7 @@
 - (void)fetchUserWithSuccess:(void (^)(id  responseObject)) success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
             self.user = [User userWithAppServerInfo:response forUser:[self user]];
             success(self.user);
@@ -102,7 +102,7 @@
 - (void)logutUserServerCallWithSuccess:(void (^)(id  responseObject)) success
                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserLogout]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         FBSDKLoginManager *fbAuth = [[FBSDKLoginManager alloc] init];
         [fbAuth logOut];
         success(@"TRUE");
@@ -120,7 +120,7 @@
     [[self headersArray] removeAllObjects];
     
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderHistoryFetcher URLforOrderHistory]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response.count > 0) {
             NSArray *allKeysArray = response.allKeys;
             NSMutableArray *tempHeaderArray = [[NSMutableArray alloc] init];
@@ -152,7 +152,7 @@
 - (void)fetchContactWithSuccess:(void (^)(id  responseObject)) success
                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRContactFetcher URLForContact]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
             self.contactInfo = [Contact contactWithAppServerInfo:response];
             success(self.contactInfo);

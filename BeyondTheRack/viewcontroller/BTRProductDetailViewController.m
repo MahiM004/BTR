@@ -107,7 +107,7 @@
                               @"sku": [[self productItem] sku],
                               @"variant":[self variant],
                               });
-    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (![[response valueForKey:@"success"]boolValue]) {
             if ([response valueForKey:@"error_message"]) {
                 [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
@@ -122,7 +122,7 @@
                                         });
             NSDictionary *updateParam = (@{@"key1" : itemInfo});
             NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
-            [BTRConnectionHelper postDataToURL:url withParameters:updateParam setSessionInHeader:YES success:^(NSDictionary *response) {
+            [BTRConnectionHelper postDataToURL:url withParameters:updateParam setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
                 [self updateBagWithDictionary:response];
                 success(@"TRUE");
             } faild:^(NSError *error) {
@@ -162,7 +162,7 @@
                       success:(void (^)(id  responseObject)) success
                       failure:(void (^)(NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         [self setAttributesDictionaryforItemfromSearch:response[@"attributes"]];
         [self setVariantInventoryDictionaryforItemfromSearch:response[@"variant_inventory"]];
         Item *productItem = [Item itemWithAppServerInfo:response withEventId:[self eventId]];

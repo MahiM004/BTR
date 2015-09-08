@@ -69,7 +69,7 @@
                            failure:(void (^)(NSError *error)) failure {
     NSString *url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforPasswordReset]];
     NSDictionary *params = (@{ @"email": emailString });
-    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:NO success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:NO contentType:kContentTypeJSON success:^(NSDictionary *response) {
         responseDic = [NSDictionary dictionaryWithDictionary:response];
         success(@"TRUE");
     } faild:^(NSError *error) {

@@ -188,7 +188,7 @@
     NSDictionary *params = (@{
                               @"preferences_list": preferencesListString
                               });
-    [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(@"TRUE");
     } faild:^(NSError *error) {
         failure(error);

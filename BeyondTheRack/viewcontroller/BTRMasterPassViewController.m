@@ -41,7 +41,7 @@
 
 - (void)getInfoForMasterPassAndAddMasterPassInfo:(NSString *)checkoutInfo {
     NSString* url = [NSString stringWithFormat:@"%@%@",[BTRMasterPassFetcher URLforMasterPassInfo],checkoutInfo];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         [self processMasterPassWithInfo:response];
     } faild:^(NSError *error) {
         
@@ -50,7 +50,7 @@
 
 - (void)processMasterPassWithInfo:(NSDictionary *)info {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRMasterPassFetcher URLforMasterPassProcess]];
-    [BTRConnectionHelper postDataToURL:url withParameters:info setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:info setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue]) {
             self.order =[[Order alloc]init];
             self.order = [Order orderWithAppServerInfo:response];

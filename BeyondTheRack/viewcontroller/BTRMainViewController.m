@@ -54,7 +54,7 @@
 - (void)getCartCountServerCallWithSuccess:(void (^)(id  responseObject)) success
                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBagCount]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         NSString *bagCount = [NSString stringWithFormat:@"%@",response[@"count"]];
         BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
         sharedShoppingBag.bagCount = [bagCount integerValue];

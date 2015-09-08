@@ -10,12 +10,12 @@
 
 @implementation BTRConnectionHelper
 
-+ (void)postDataToURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
++ (void)postDataToURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(contentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    serializer.acceptableContentTypes = [NSSet setWithObject:contentType];
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
@@ -35,12 +35,12 @@
     
 }
 
-+ (void)getDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
++ (void)getDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(contentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    serializer.acceptableContentTypes = [NSSet setWithObject:contentType];
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
@@ -59,12 +59,12 @@
     }];
 }
 
-+ (void)putDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
++ (void)putDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(contentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     
-    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    serializer.acceptableContentTypes = [NSSet setWithObject:contentType];
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     

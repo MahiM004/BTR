@@ -74,7 +74,7 @@
 
 - (void)getInfoForPaypal {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalInfo]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (self.isNewAccount) {
             NSMutableDictionary* newInfo = [NSMutableDictionary dictionaryWithDictionary:response];
             [newInfo removeObjectForKey:@"paypalInfo"];
@@ -91,7 +91,7 @@
 
 - (void)processPayPalWithInfo:(NSDictionary *)info {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcess]];
-    [BTRConnectionHelper postDataToURL:url withParameters:info setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:info setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue]) {
             self.order =[[Order alloc]init];
             self.order = [Order orderWithAppServerInfo:response];
@@ -107,7 +107,7 @@
 
 - (void)callBackProcessWithTransactionID:(NSString *)transatcionID {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcessCallBackWithTransactionNumber:transatcionID]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         NSLog(@"%@",response);
     } faild:^(NSError *error) {
         

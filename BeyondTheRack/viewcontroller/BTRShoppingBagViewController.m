@@ -176,7 +176,7 @@
                               failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
     NSString* url = [NSString stringWithFormat:@"%@/%@/%@/%@", [BTRBagFetcher URLforRereserveBag], skuString, variantString, eventIdString];
-    [BTRConnectionHelper postDataToURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
 
         NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
         NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
@@ -217,7 +217,7 @@
     [[self bagItemsArray] removeAllObjects];
     
     NSString* url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
         NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
         NSDate *serverTime = [NSDate date];
@@ -255,7 +255,7 @@
                               success:(void (^)(id  responseObject)) success
                               failure:(void (^)(NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         NSDictionary *paymentsDictionary = response[@"paymentMethods"];
         [self setOrder:[Order orderWithAppServerInfo:response]];
         success(paymentsDictionary);

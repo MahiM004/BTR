@@ -179,7 +179,7 @@
     }
     
     [[self bagItemsArray] removeAllObjects];
-    [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         
         NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
         NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];

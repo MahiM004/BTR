@@ -48,7 +48,7 @@
 - (void)fetchCategoriesWithSuccess:(void (^)(id  responseObject)) success
                             failure:(void (^)(NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRCategoryFetcher URLforCategories]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         NSArray * entitiesPropertyList = (NSArray *)response;
         NSMutableArray *categoriesArray = [[NSMutableArray alloc] init];
         categoriesArray = [EventCategory loadCategoriesfromAppServerArray:entitiesPropertyList forCategoriesArray:categoriesArray];

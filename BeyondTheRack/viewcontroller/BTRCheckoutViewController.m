@@ -899,7 +899,7 @@
     [params setObject:[self cardInfo] forKey:@"cardInfo"];
     [params setObject:@"creditcard" forKey:@"paymentMethod"];
     
-    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         [self setOrder:[Order orderWithAppServerInfo:response]];
         success(response);
     } faild:^(NSError *error) {
@@ -1009,7 +1009,7 @@
 
     
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]];
-   [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+   [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
        self.order = [Order extractOrderfromJSONDictionary:response forOrder:self.order];
        [self loadOrderData];
        if (completionBlock)
@@ -1047,7 +1047,7 @@
     
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforGiftCardRedeem]];
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:self.giftCardCodePaymentTF.text,@"code", nil];
-    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
             [self validateAddressViaAPIAndInCompletion:^{
                  if ([[response valueForKey:@"success"]boolValue]) {
                     [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@$ has been added sucessfully",[response valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
@@ -1091,7 +1091,7 @@
 
 - (void)getPaypalInfo {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
             [self setPaypal:response];
             [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
@@ -1103,7 +1103,7 @@
 
 - (void)getMasterPassInfo {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
             MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:response];
             self.masterpass= master;

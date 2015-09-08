@@ -290,7 +290,7 @@
 - (void)fetchUserInfoforSessionId:(NSString *)sessionId
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure {
-    [BTRConnectionHelper getDataFromURL:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]] withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]] withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
             self.user = [[User alloc]init];
             self.user = [User userWithAppServerInfo:response forUser:[self user]];
@@ -324,7 +324,7 @@
                               @"postal": [[self postalCodeTextField] text]
                               });
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]];
-    [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(@"TRUE");
     } faild:^(NSError *error) {
         failure(nil, error);
@@ -338,7 +338,7 @@
                               @"password": [[self retypePasswordTextField] text]
                               });
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforCurrentUser]];
-    [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success([[self retypePasswordTextField] text]);
     } faild:^(NSError *error) {
         failure(error);

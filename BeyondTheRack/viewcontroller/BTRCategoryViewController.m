@@ -124,7 +124,7 @@
 - (void)getheaderInfo {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRFreeshipFetcher URLforFreeship]];
     self.freeshipInfo = [[Freeship alloc]init];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         self.freeshipInfo = [Freeship extractFreeshipInfofromJSONDictionary:response forFreeship:self.freeshipInfo];
         if ([self.freeshipInfo.banner containsString:@"##counter##"]) {
             self.dueDate = [NSDate dateWithTimeIntervalSince1970:[self.freeshipInfo.endTimestamp integerValue]];

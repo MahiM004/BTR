@@ -153,7 +153,7 @@
                               @"gender": [[self genderTextField] text],
                               @"country": [self chosenCountryCodeString],
                               });
-    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
             int error_code = (int)[[response valueForKey:@"error_code"] intValue];
             if (error_code == 400) {
@@ -256,7 +256,7 @@
                                       success:(void (^)(id  responseObject, NSString *alertString)) success
                                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookRegistration]];
-    [BTRConnectionHelper postDataToURL:url withParameters:fbUserParams setSessionInHeader:NO success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:fbUserParams setSessionInHeader:NO contentType:kContentTypeJSON success:^(NSDictionary *response) {
         BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
         int i_success = -1;
         if ([response valueForKey:@"success"])
@@ -283,7 +283,7 @@
                                           success:(void (^)(id  responseObject, NSString *alertString)) success
                                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookAuthentication]];
-    [BTRConnectionHelper postDataToURL:url withParameters:fbUserParams setSessionInHeader:NO success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:fbUserParams setSessionInHeader:NO contentType:kContentTypeJSON success:^(NSDictionary *response) {
         BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
         NSDictionary *sessionObject = response[@"session"];
         NSString *sessionIdString = sessionObject[@"session_id"];
