@@ -37,10 +37,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self fetchCategoriesWithSuccess:^(NSMutableArray *eventCategoriesArray) {
-                                  [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
-                              } failure:^(NSError *error) {
-                                  
-                              }];
+        [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
+    } failure:^(NSError *error) {
+    
+    }];
 }
 
 # pragma mark - Load Categories

@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "TTSlidingPagesDataSource.h"
-#import "TTSliddingPageDelegate.h"
-
 
 @interface BTRMainViewController : UIViewController
-
 
 @end
