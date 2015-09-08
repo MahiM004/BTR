@@ -8,29 +8,29 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NSString *const contentType;
-static contentType kContentTypeJSON = @"application/json", kContentTypeHTMLOrText = @"text/html";
+typedef NSString *const ContentType;
+static ContentType kContentTypeJSON = @"application/json", kContentTypeHTMLOrText = @"text/html";
 
 @interface BTRConnectionHelper : NSObject
 
 + (void)postDataToURL:(NSString *)url
        withParameters:(NSDictionary *)param
    setSessionInHeader:(BOOL)needSession
-          contentType:(contentType)contentType
+          contentType:(ContentType)contentType
               success:(void (^) (NSDictionary *response))success
                 faild:(void (^) (NSError *error))faild;
 
 + (void)getDataFromURL:(NSString *)url
         withParameters:(NSDictionary *)param
     setSessionInHeader:(BOOL)needSession
-           contentType:(contentType)contentType
+           contentType:(ContentType)contentType
                success:(void (^) (NSDictionary *response))success
                  faild:(void (^) (NSError *error))faild;
 
 + (void)putDataFromURL:(NSString *)url
         withParameters:(NSDictionary *)param
     setSessionInHeader:(BOOL)needSession
-           contentType:(contentType)contentType
+           contentType:(ContentType)contentType
                success:(void (^) (NSDictionary *response))success
                  faild:(void (^) (NSError *error))faild;
 @end

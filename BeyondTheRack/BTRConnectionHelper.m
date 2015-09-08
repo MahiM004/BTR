@@ -10,7 +10,7 @@
 
 @implementation BTRConnectionHelper
 
-+ (void)postDataToURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(contentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
++ (void)postDataToURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -35,7 +35,7 @@
     
 }
 
-+ (void)getDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(contentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
++ (void)getDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
@@ -59,7 +59,7 @@
     }];
 }
 
-+ (void)putDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(contentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
++ (void)putDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
