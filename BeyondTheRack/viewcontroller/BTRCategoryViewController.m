@@ -147,7 +147,7 @@
     int seconds = ti % 60;
     int minutes = (ti / 60) % 60;
     int hours = ((ti / 60) / 60) % 24;
-    int days = ((ti / 60) / 60) / 24;
+    long days = ((ti / 60) / 60) / 24;
     if (seconds < 0) {
         [timer invalidate];
         return;
@@ -156,7 +156,7 @@
     if (minutes == 0 && hours == 0)
         timerString = [NSString stringWithFormat:@"Less than a minute"];
     else {
-        timerString = [NSString stringWithFormat:@"%02d days %02d Hours : %02d Minutes",days,hours,minutes];
+        timerString = [NSString stringWithFormat:@"%02ld days %02d Hours : %02d Minutes",days,hours,minutes];
     }
     NSString* bannerString = [self.freeshipInfo.banner stringByReplacingOccurrencesOfString:@"##counter##" withString:timerString];
     [self.bannerView setText:bannerString];
