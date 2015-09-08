@@ -7,9 +7,6 @@
 //
 
 #import "BTRCategoryViewController.h"
-#import "TTScrollSlidingPagesController.h"
-#import "TTSlidingPage.h"
-#import "TTSlidingPageTitle.h"
 #import "BTREventsTVC.h"
 #import "BTRCategoryData.h"
 #import "MarqueeLabel.h"

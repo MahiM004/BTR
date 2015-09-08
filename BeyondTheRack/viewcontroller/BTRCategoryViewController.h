@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-#import "TTSlidingPagesDataSource.h"
-#import "TTSliddingPageDelegate.h"
+#import "TTUIScrollViewSlidingPages.h"
 
 @interface BTRCategoryViewController : UIViewController<TTSlidingPagesDataSource, TTSliddingPageDelegate>
 

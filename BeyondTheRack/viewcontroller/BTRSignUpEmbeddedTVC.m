@@ -61,31 +61,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+    
+    self.fbButton.readPermissions = @[@"public_profile", @"email"];
+    
     self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
-    self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
-    self.genderTextField = [BTRViewUtility underlineTextField:[self genderTextField]];
-    self.countryTextField = [BTRViewUtility underlineTextField:[self countryTextField]];
     self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.emailIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-envelope-o"];
+    
+    self.passwordTextField = [BTRViewUtility underlineTextField:[self passwordTextField]];
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
+    
+    self.genderTextField = [BTRViewUtility underlineTextField:[self genderTextField]];
     self.genderIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.genderIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-female"];
+    
+    self.countryTextField = [BTRViewUtility underlineTextField:[self countryTextField]];
     self.countryIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.countryIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-globe"];
+    
     self.pickerView.delegate = self;
     self.pickerView.showsSelectionIndicator = YES;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(dismissKeyboard)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
-}
-
-- (void)dismissKeyboard {
-    [self.emailTextField resignFirstResponder];
-    [self.passwordTextField resignFirstResponder];
 }
 
 - (IBAction)genderButtonTapped:(UIButton *)sender {
@@ -95,7 +94,6 @@
     [self.viewForPicker setHidden:FALSE];
 }
 
-
 - (IBAction)countryButtonTapped:(UIButton *)sender {
     [self setPickerType:COUNTRY_PICKER];
     [self.pickerView reloadAllComponents];
@@ -104,105 +102,86 @@
 }
 
 
-
+//Manual Join SignUP
 - (IBAction)joinButtonTapped:(UIButton *)sender {
-    if ([self allFieldsAreValid]) {
-        [self userRegistrationServerCallWithSuccess:^(NSString *didSignUp, NSString *messageString) {
-            if ([didSignUp  isEqualToString:@"TRUE"]) {
-                [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
-            } else {
-                
-                if (messageString == nil)
-                    [self alertUserForSignUpError];
-                else
-                    [self alertUserForLoginErrorWithMessage:messageString];
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-        } ];
-    }
-}
-
-
-
-
-#pragma mark - Alerts
-
-
-
-- (void)alertUserForSignUpError {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please try agian"
-                                                    message:@"Sign Up Failed !"
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil];
-    [alert show];
-}
-
-
-
-- (BOOL)allFieldsAreValid {
-    if ([[[self emailTextField] text] isEqualToString:@""]) {
-        [self alertSystemFieldIncomplete:@"Email"];
-        return FALSE;
+    if ([_emailTextField.text length] == 0 || ![self validateEmailWithString:_emailTextField.text]) {
         
-    } else if ([[[self passwordTextField] text] isEqualToString:@""]) {
-        [self alertSystemFieldIncomplete:@"Password"];
-        return FALSE;
+        [self showAlert:@"Failed" msg:@"Please give the Valid Email ID"];
+        
+    } else if (_passwordTextField.text.length < 3){
+        
+        [self showAlert:@"Failed" msg:@"Password should be minimum 3 characters"];
         
     } else if ([[[self genderTextField] text] isEqualToString:@""]) {
-        [self alertSystemFieldIncomplete:@"Gender"];
-        return FALSE;
+        
+        [self showAlert:@"Failed" msg:@"Please Choose the Gender"];
         
     } else if ([[[self countryTextField] text] isEqualToString:@""]) {
-        [self alertSystemFieldIncomplete:@"Country"];
-        return FALSE;
+        
+        [self showAlert:@"Failed" msg:@"Please choose the Country"];
+        
+    } else {
+        
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [self userRegistrationServerCallWithSuccess:^(NSString *didSignUp, NSString *messageString) {
+                if ([didSignUp  isEqualToString:@"TRUE"]) {
+                    [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
+                } else {
+                    if (messageString.length != 0) {
+                        [self showAlert:@"Please try agian" msg:messageString];
+                        [self hideHUD];
+                    } else {
+                        [self showAlert:@"Email or Password Incorrect !" msg:@"Sign Up Failed !"];
+                        [self hideHUD];
+                    }
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [self showAlert:@"Ooops...!" msg:@"Something went Wrong Please try Again !"];
+                [self hideHUD];
+            }];
+        });
     }
-    return TRUE;
+}
+#pragma mark - User Registration RESTful
+- (void)userRegistrationServerCallWithSuccess:(void (^)(id  responseObject, NSString *messageString)) success
+                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserRegistration]];
+    NSDictionary *params = (@{
+                              @"email": [[self emailTextField] text],
+                              @"password": [[self passwordTextField] text],
+                              @"gender": [[self genderTextField] text],
+                              @"country": [self chosenCountryCodeString],
+                              });
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
+        if (response) {
+            int error_code = (int)[[response valueForKey:@"error_code"] intValue];
+            if (error_code == 400) {
+                NSArray *messageArray = response[@"messages"];
+                success(@"FALSE", messageArray[0]);
+            } else {
+                NSDictionary *infoDic = response[@"info"];
+                NSDictionary *sessionDic = response[@"session"];
+                NSDictionary *userDic = response[@"user"];
+                NSString *sessionIdString = [sessionDic valueForKey:@"session_id"];
+                BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+                [sessionSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:NO];
+                User *user = [[User alloc] init];
+                [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic forUser:user];
+                success(@"TRUE", nil);
+            }
+            
+        } else
+            success(@"FALSE", nil);
+        
+    } faild:^(NSError *error) {
+        [self showAlert:@"Please try agian" msg:@"Sign Up Failed !"];
+        failure(nil, error);
+    }];
 }
 
-
-
-
-- (void)alertSystemFieldIncomplete:(NSString *)fieldString {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incomplete Form"
-                                                    message:[NSString stringWithFormat:@"%@ required.", fieldString]
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil];
-    [alert show];
-}
-
-
-
-
-- (void)alertUserForLoginError {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please try agian"
-                                                    message:@"Email or Password Incorrect !"
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil];
-    [alert show];
-}
-
-
-
-- (void)alertUserForLoginErrorWithMessage:(NSString *)messageString {
-    NSString *alertMessage = @"Email or Password Incorrect !";
-    if ([messageString length] > 0)
-        alertMessage = messageString;
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error!"
-                                                    message:alertMessage
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil];
-    [alert show];
-}
-
-
+//FaceBook SignUP
 #pragma mark - FBSDKLoginButtonDelegate
-
-
 
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
     if (error) {
@@ -238,9 +217,9 @@
                          if ([didLogIn isEqualToString:@"TRUE"])
                              [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
                         else
-                             [self alertUserForLoginError];
+                            [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                         [self alertUserForLoginError];
+                         [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
                      }];
                  } else
                      NSLog(@"graph api error: %@", error);
@@ -248,48 +227,10 @@
         }
     }
 }
-
-
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
 }
 
-#pragma mark - User Registration RESTful
 
-- (void)userRegistrationServerCallWithSuccess:(void (^)(id  responseObject, NSString *messageString)) success
-                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
-    NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserRegistration]];
-    NSDictionary *params = (@{
-                              @"email": [[self emailTextField] text],
-                              @"password": [[self passwordTextField] text],
-                              @"gender": [[self genderTextField] text],
-                              @"country": [self chosenCountryCodeString],
-                              });
-    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES success:^(NSDictionary *response) {
-        if (response) {
-            int error_code = (int)[[response valueForKey:@"error_code"] intValue];
-            if (error_code == 400) {
-                NSArray *messageArray = response[@"messages"];
-                success(@"FALSE", messageArray[0]);
-            } else {
-                NSDictionary *infoDic = response[@"info"];
-                NSDictionary *sessionDic = response[@"session"];
-                NSDictionary *userDic = response[@"user"];
-                NSString *sessionIdString = [sessionDic valueForKey:@"session_id"];
-                BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-                [sessionSettings initSessionId:sessionIdString withEmail:[self.emailTextField text] andPassword:[self.passwordTextField text] hasFBloggedIn:NO];
-                User *user = [[User alloc] init];
-                [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic forUser:user];
-                success(@"TRUE", nil);
-            }
-            
-        } else
-            success(@"FALSE", nil);
-
-    } faild:^(NSError *error) {
-        [self alertUserForSignUpError];
-        failure(nil, error);
-    }];
-}
 - (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
                                               success:(void (^)(id  responseObject)) success
                                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
@@ -311,9 +252,6 @@
         success(@"FALSE");
     }];
 }
-
-
-
 - (void)attemptRegisterWithFacebookUserParams:(NSDictionary *)fbUserParams
                                       success:(void (^)(id  responseObject, NSString *alertString)) success
                                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
@@ -337,7 +275,7 @@
             success(@"FALSE", alertString);
         }
     } faild:^(NSError *error) {
-        [self alertUserForLoginError];
+        [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
     }];
 }
 
@@ -363,14 +301,12 @@
             success(@"FALSE", nil);
         }
     } faild:^(NSError *error) {
-        [self alertUserForLoginError];
+        [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
     }];
 }
 
 
 #pragma mark - PickerView Delegates
-
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     if ([self pickerType] == COUNTRY_PICKER) {
         [self.countryTextField setText:[[self countryNameArray] objectAtIndex:row]];
@@ -383,66 +319,44 @@
         [self.genderTextField setText:[[self genderNameArray] objectAtIndex:row]];
     [self.viewForPicker setHidden:TRUE];
 }
-
-
-
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] count];
     return [[self genderNameArray] count];
 }
-
-
-
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
-
-
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] objectAtIndex:row];
     return [[self genderNameArray] objectAtIndex:row];
 }
-
-
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     return 300.0;
 }
 
-
-
-
+- (void)dismissKeyboard {
+    [self.emailTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+}
+-(void)hideHUD {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+}
+-(UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege {
+    UIAlertView * aa = [[UIAlertView alloc]initWithTitle:title message:messege delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [aa show];
+    return aa;
+}
+- (BOOL)validateEmailWithString:(NSString*)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
