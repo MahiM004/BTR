@@ -199,6 +199,7 @@
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];
     } else {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         if ([FBSDKAccessToken currentAccessToken]) {
             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {

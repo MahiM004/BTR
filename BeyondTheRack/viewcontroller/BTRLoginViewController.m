@@ -114,6 +114,7 @@
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];
     } else {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         if ([FBSDKAccessToken currentAccessToken]) {
             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
@@ -262,7 +263,10 @@
     }];
 }
 
-
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self hideHUD];
+}
 - (void)alertUserForLoginError {
     [[[UIAlertView alloc] initWithTitle:@"Please try agian"
                                 message:@"Email or Password Incorrect !"
@@ -283,6 +287,7 @@
 -(void)hideHUD {
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [MBProgressHUD ]
     });
 }
 - (BOOL)validateEmailWithString:(NSString*)checkString
