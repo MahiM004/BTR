@@ -8,26 +8,36 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>MarqueeLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>ObjectiveSugar.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>Reachability.xcscheme</key>
 		<dict>
@@ -53,6 +63,26 @@
 			<true/>
 		</dict>
 		<key>5D6C055923076A819C4D76030235FFED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>78974E0C47E13A59689396EEE9B479DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7FFAAD0790CB57C759E5950C057944D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A203003382718613655F97196AB91DB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A965EF85D98202EC2E85986B925F0292</key>
 		<dict>
 			<key>primary</key>
 			<true/>
