@@ -36,11 +36,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self fetchCategoriesWithSuccess:^(NSMutableArray *eventCategoriesArray) {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // Do something...
+        [self fetchCategoriesWithSuccess:^(NSMutableArray *eventCategoriesArray) {
         [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
     } failure:^(NSError *error) {
     
     }];
+        
+    });
+    
 }
 
 # pragma mark - Load Categories
@@ -62,7 +68,12 @@
         failure(error);
     }];
 }
-
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+}
 
 
 

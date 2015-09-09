@@ -62,6 +62,7 @@
      */
     
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
+    NSLog(@"%d",[self connected]);
     
     
     /**
@@ -180,6 +181,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-
+- (BOOL)connected {
+    return [AFNetworkReachabilityManager sharedManager].reachable;
+}
 
 @end
