@@ -31,6 +31,8 @@
 #import "BTRSessionSettings.h"
 #import "BTRDateHandler.h"
 #import <MBProgressHUD.h>
+#import <Reachability.h>
+#import "BTRAppDelegate.h"
 
 
 

@@ -180,6 +180,19 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-
+- (BOOL)connected {
+    BOOL rechable ;
+    Reachability *networkReachability = [Reachability reachabilityWithHostname:@"www.google.com"];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        rechable = NO;
+    }
+    else
+    {
+        rechable = YES;
+    }
+    return rechable;
+}
 
 @end

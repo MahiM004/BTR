@@ -13,6 +13,7 @@
 @interface BTRForgotPasswordVC ()
 {
     NSDictionary * responseDic;
+    BTRAppDelegate * appDelegate;
 }
 @end
 
@@ -20,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    appDelegate = [[UIApplication sharedApplication]delegate];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
@@ -36,32 +38,39 @@
 
 
 - (IBAction)newPasswordTapped:(UIButton *)sender {
-    if ([self.emailField.text length] == 0 || [self validateEmailWithString:_emailField.text]) {
+    
+    if ([appDelegate connected] == 1) {
         
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            [self resetPasswordforEmail:[[self emailField] text] success:^(NSString *didSucceed) {
-                
-                int successUser = [responseDic[@"success"] intValue];
-                NSString * messege = responseDic[@"message"];
-                if (successUser == 1) {
-                    [self dismissKeyboard];
-                    [self showAlert:@"Check your email" msg:messege];
-                    [self performSegueWithIdentifier:@"unwindToLoginScene" sender:self];
+        if ([self.emailField.text length] != 0 && [self validateEmailWithString:_emailField.text]) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                [self resetPasswordforEmail:[[self emailField] text] success:^(NSString *didSucceed) {
+                    
+                    int successUser = [responseDic[@"success"] intValue];
+                    NSString * messege = responseDic[@"message"];
+                    if (successUser == 1) {
+                        [self dismissKeyboard];
+                        [self showAlert:@"Check your email" msg:messege];
+                        [self performSegueWithIdentifier:@"unwindToLoginScene" sender:self];
+                        [self hideHUD];
+                    } else {
+                        [self showAlert:@"Failed" msg:messege];
+                        [self hideHUD];
+                    }
+                    
+                } failure:^(NSError *error) {
                     [self hideHUD];
-                } else {
-                    [self showAlert:@"Failed" msg:messege];
-                    [self hideHUD];
-                }
-                
-            } failure:^(NSError *error) {
-                [self hideHUD];
-            }];
-        });
+                }];
+            });
+        }
+        else {
+            [self showAlert:@"Failed" msg:@"It seems to be you did not given valid email address"];
+            [self hideHUD];
+        }
     } else {
-        [self showAlert:@"Failed" msg:@"It seems to be you did not given valid email address (or) Check the Active Internet Connection"];
-        [self hideHUD];
+        [self showAlert:@"Network Error !" msg:@"Please check the internet"];
     }
+    
 }
 
 - (void)resetPasswordforEmail:(NSString *)emailString

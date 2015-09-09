@@ -17,6 +17,9 @@
 #import "MBProgressHUD.h"
 
 @interface BTRLoginViewController ()
+{
+    BTRAppDelegate * appDelegate;
+}
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
@@ -51,6 +54,7 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    appDelegate = [[UIApplication sharedApplication]delegate];
     
     self.fbButton.readPermissions = @[@"public_profile", @"email"];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -70,21 +74,31 @@
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
 }
 - (IBAction)signInButtonTapped:(UIButton *)sender {
-    if (_emailTextField.text.length != 0 && _passwordTextField.text.length != 0) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [self fetchUserWithSuccess:^(NSString *didLogIn) {
-            [hud hide:YES];
-            if ([didLogIn  isEqualToString:@"TRUE"]) {
-                [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
-            }
-            else {
-                [self alertUserForLoginError];
-            }
-            
-        } failure:^(NSError *error) {
-        }];
-    } else {
-        [[[UIAlertView alloc]initWithTitle:@"Please try again" message:@"Email and Password should not be empty" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+    if ([appDelegate connected] == 1) {
+        if (_emailTextField.text.length != 0 & _passwordTextField.text.length != 0 & [self validateEmailWithString:_emailTextField.text]) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                [self fetchUserWithSuccess:^(NSString *didLogIn) {
+                    [hud hide:YES];
+                    if ([didLogIn  isEqualToString:@"TRUE"]) {
+                        [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
+                    }
+                    else {
+                        [self alertUserForLoginError];
+                        [self hideHUD];
+                    }
+                    
+                } failure:^(NSError *error) {
+                    [self hideHUD];
+                }];
+            });
+        }
+        else {
+            [self showAlert:@"Please try again" msg:@"Please check the Email and Password !"];
+        }
+    }
+    else {
+        [self showAlert:@"Network Error !" msg:@"Please check the internet"];
     }
 }
 
@@ -100,6 +114,7 @@
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];
     } else {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         if ([FBSDKAccessToken currentAccessToken]) {
             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
@@ -169,6 +184,7 @@
     } faild:^(NSError *error) {
         NSLog(@"eooorrooorrr --- %@", error);
         [self alertUserForLoginError];
+        [self hideHUD];
     }];
 }
 - (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
@@ -247,7 +263,10 @@
     }];
 }
 
-
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self hideHUD];
+}
 - (void)alertUserForLoginError {
     [[[UIAlertView alloc] initWithTitle:@"Please try agian"
                                 message:@"Email or Password Incorrect !"
@@ -258,6 +277,27 @@
 - (void)dismissKeyboard {
     [self.passwordTextField resignFirstResponder];
     [self.emailTextField resignFirstResponder];
+}
+
+-(UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege {
+    UIAlertView * aa = [[UIAlertView alloc]initWithTitle:title message:messege delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [aa show];
+    return aa;
+}
+-(void)hideHUD {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [MBProgressHUD ]
+    });
+}
+- (BOOL)validateEmailWithString:(NSString*)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
 }
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;

@@ -6,68 +6,63 @@
 	<dict>
 		<key>AFNetworking.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MarqueeLabel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>ObjectiveSugar.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Reachability.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0755474BB1C54CBF8C3431EF78CE2053</key>
+		<key>1893DE70459B9C5430E1E53597BF9817</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>08AA77E34B387F17F5ED0245CA17589B</key>
+		<key>3A2F56DAA02CEDBE8ADDE252591D7AE9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>46E6895C98F41A41B1C07A98E004902C</key>
+		<key>455BE3685C83C826BE6326FDBBB3040F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>545E52B577D2981C05F561D76159925E</key>
+		<key>5D6C055923076A819C4D76030235FFED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5A575320B69C3E3ABB5F40BED427BB20</key>
+		<key>B9BDE3210EBA76479F69865489EF7F49</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5A636438A76A38A26054D575228517F0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6C56E842546906135F87B8EDBFA3C3EE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>70573B3203BFBDC8A92E4986F6606882</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F0F3C3D973098ADD49384F0D29830D87</key>
+		<key>E930EB6BA9203AB542007E02699D9A1C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
