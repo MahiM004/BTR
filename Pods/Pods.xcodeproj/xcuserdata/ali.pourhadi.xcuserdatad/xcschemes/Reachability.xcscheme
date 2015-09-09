@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "572519F22F6D91C8B96C2195"
-               BuildableName = "libMarqueeLabel.a"
-               BlueprintName = "MarqueeLabel"
+               BlueprintIdentifier = "EE6E175804304D69B4BB12D3"
+               BuildableName = "libReachability.a"
+               BlueprintName = "Reachability"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
