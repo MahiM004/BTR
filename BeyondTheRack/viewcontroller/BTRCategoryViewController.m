@@ -74,7 +74,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     // adding banner
     if (_bannerView == nil) {
-        _bannerView = [[MarqueeLabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 25) rate:70.0 andFadeLength:30.0];
+        _bannerView = [[MarqueeLabel alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen]applicationFrame].size.width, 25) rate:70.0 andFadeLength:30.0];
         _bannerView.textAlignment = NSTextAlignmentCenter;
         _bannerView.marqueeType = MLContinuous;
         _bannerView.backgroundColor = [BTRViewUtility BTRBlack];
