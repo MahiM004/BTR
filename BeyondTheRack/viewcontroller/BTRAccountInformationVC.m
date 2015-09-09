@@ -145,7 +145,7 @@
         else if ([user.country isEqualToString:@"US"])
             [self.countryTextField setText:@"USA"];
         
-        [[BTRSettingManager defaultManager]setObject:user.country forKey:kUSERLOCATION];
+        [[BTRSettingManager defaultManager]setInSetting:user.country forKey:kUSERLOCATION];
         
     } failure:^(NSError *error) {
         
