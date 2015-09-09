@@ -96,27 +96,19 @@
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeDateForLabel:) userInfo:[NSDictionary dictionaryWithObjectsAndKeys:durationLabel,@"label",event.endDateTime,@"date", nil] repeats:YES];
     
     [imageView setImageWithURLRequest:urlRequest placeholderImage:[UIImage imageNamed:@"neulogo.png"]
-     
                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                  
                                   UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
                                   if (!strongImageView) return;
-                
+                                  
                                   weakImageView.alpha = 0.9;
                                   weakImageView.image = image;
-        
                                   [UIView animateWithDuration:0.6
                                                    animations:^{
-                                                    weakImageView.alpha = 1;
+                                                       weakImageView.alpha = 1;
                                                    }
-                                   
                                                    completion:nil];
-                              
                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                              
-                                  
                                   weakImageView.image = [UIImage imageNamed:nil];
-                              
                               }];
 
     [cell addSubview:imageView];

@@ -17,7 +17,9 @@
 
 
 @interface BTRSignUpEmbeddedTVC ()
-
+{
+    BTRAppDelegate * appDelegate;
+}
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
@@ -61,7 +63,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    appDelegate = [[UIApplication sharedApplication]delegate];
     self.fbButton.readPermissions = @[@"public_profile", @"email"];
     
     self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
@@ -106,7 +108,7 @@
 - (IBAction)joinButtonTapped:(UIButton *)sender {
     if ([_emailTextField.text length] == 0 || ![self validateEmailWithString:_emailTextField.text]) {
         
-        [self showAlert:@"Failed" msg:@"Please give the Valid Email ID"];
+        [self showAlert:@"Failed" msg:@"Please give Valid Email ID"];
         
     } else if (_passwordTextField.text.length < 3){
         
@@ -121,26 +123,29 @@
         [self showAlert:@"Failed" msg:@"Please choose the Country"];
         
     } else {
-        
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            [self userRegistrationServerCallWithSuccess:^(NSString *didSignUp, NSString *messageString) {
-                if ([didSignUp  isEqualToString:@"TRUE"]) {
-                    [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
-                } else {
-                    if (messageString.length != 0) {
-                        [self showAlert:@"Please try agian" msg:messageString];
-                        [self hideHUD];
+        if ([appDelegate connected] == 1) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                [self userRegistrationServerCallWithSuccess:^(NSString *didSignUp, NSString *messageString) {
+                    if ([didSignUp  isEqualToString:@"TRUE"]) {
+                        [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
                     } else {
-                        [self showAlert:@"Email or Password Incorrect !" msg:@"Sign Up Failed !"];
-                        [self hideHUD];
+                        if (messageString.length != 0) {
+                            [self showAlert:@"Please try agian" msg:messageString];
+                            [self hideHUD];
+                        } else {
+                            [self showAlert:@"Email or Password Incorrect !" msg:@"Sign Up Failed !"];
+                            [self hideHUD];
+                        }
                     }
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                [self showAlert:@"Ooops...!" msg:@"Something went Wrong Please try Again !"];
-                [self hideHUD];
-            }];
-        });
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [self showAlert:@"Ooops...!" msg:@"Something went Wrong Please try Again !"];
+                    [self hideHUD];
+                }];
+            });
+        } else {
+            [self showAlert:@"Network Error !" msg:@"Please check the internet"];
+        }
     }
 }
 #pragma mark - User Registration RESTful

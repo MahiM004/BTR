@@ -62,7 +62,6 @@
      */
     
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
-    NSLog(@"%d",[self connected]);
     
     
     /**
@@ -182,7 +181,18 @@
 }
 
 - (BOOL)connected {
-    return [AFNetworkReachabilityManager sharedManager].reachable;
+    BOOL rechable ;
+    Reachability *networkReachability = [Reachability reachabilityWithHostname:@"www.google.com"];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable)
+    {
+        rechable = NO;
+    }
+    else
+    {
+        rechable = YES;
+    }
+    return rechable;
 }
 
 @end

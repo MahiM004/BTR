@@ -40,10 +40,10 @@
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         // Do something...
         [self fetchCategoriesWithSuccess:^(NSMutableArray *eventCategoriesArray) {
-        [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
-    } failure:^(NSError *error) {
-    
-    }];
+            [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
+        } failure:^(NSError *error) {
+            
+        }];
         
     });
     
