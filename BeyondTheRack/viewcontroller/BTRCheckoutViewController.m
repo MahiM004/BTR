@@ -240,22 +240,22 @@
     
     // shipping
     [self.recipientNameShippingTF setText:[self.order shippingRecipientName]];
-    [self.addressLine1ShippingTF setText:[self.order shippingAddressLine1]];
-    [self.addressLine2ShippingTF setText:[self.order shippingAddressLine2]];
-    [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:[self.order shippingCountry]]];
-    [self.zipCodeShippingTF setText:[self.order shippingPostalCode]];
-    [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:[self.order shippingProvince]]];
-    [self.cityShippingTF setText:[self.order shippingCity]];
-    [self.phoneShippingTF setText:[self.order shippingPhoneNumber]];
+    [self.addressLine1ShippingTF setText:[[self.order shippingAddress]addressLine1]];
+    [self.addressLine2ShippingTF setText:[[self.order shippingAddress]addressLine2]];
+    [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:[[self.order shippingAddress]country]]];
+    [self.zipCodeShippingTF setText:[[self.order shippingAddress]postalCode]];
+    [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:[[self.order shippingAddress]province]]];
+    [self.cityShippingTF setText:[[self.order shippingAddress]city]];
+    [self.phoneShippingTF setText:[[self.order shippingAddress]phoneNumber]];
     
     // billing
-    [self.addressLine1BillingTF setText:[self.order billingAddressLine1]];
-    [self.addressLine2BillingTF setText:[self.order billingAddressLine2]];
-    [self.countryBillingTF setText:[BTRViewUtility countryNameforCode:[self.order billingCountry]]];
-    [self.postalCodeBillingTF setText:[self.order billingPostalCode]];
-    [self.provinceBillingTF setText:[BTRViewUtility provinceNameforCode:[self.order billingProvince]]];
-    [self.cityBillingTF setText:[self.order billingCity]];
-    [self.phoneBillingTF setText:[self.order billingPhoneNumber]];
+    [self.addressLine1BillingTF setText:[[self.order billingAddress]addressLine1]];
+    [self.addressLine2BillingTF setText:[[self.order billingAddress]addressLine2]];
+    [self.countryBillingTF setText:[BTRViewUtility countryNameforCode:[[self.order billingAddress]country]]];
+    [self.postalCodeBillingTF setText:[[self.order billingAddress]postalCode]];
+    [self.provinceBillingTF setText:[BTRViewUtility provinceNameforCode:[[self.order billingAddress]province]]];
+    [self.cityBillingTF setText:[[self.order billingAddress]city]];
+    [self.phoneBillingTF setText:[[self.order billingAddress]phoneNumber]];
     
     // checkboxes
     [self.vipOptionCheckbox setChecked:[[self.order vipPickup] boolValue]];
@@ -355,12 +355,13 @@
     
     if ([checkbox checked]) {
         
-        [self.addressLine1ShippingTF setText:@"MONTREAL EMPLOYEE PICKUP"];
-        [self.addressLine2ShippingTF setText:@"4600 HICKMORE"];
-        [self.countryShippingTF setText:@"Canada"];
-        [self.zipCodeShippingTF setText:@"H4T 1K2"];
-        [self.provinceShippingTF setText:@"Quebec"];
-        [self.cityShippingTF setText:@"SAINT-LAURENT"];
+        [self.addressLine1ShippingTF setText:self.order.pickupAddress.addressLine1];
+        [self.addressLine2ShippingTF setText:self.order.pickupAddress.addressLine2];
+        [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:self.order.pickupAddress.country]];
+        [self.zipCodeShippingTF setText:self.order.pickupAddress.postalCode];
+        [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:self.order.pickupAddress.province]];
+        [self.cityShippingTF setText:self.order.pickupAddress.city];
+        [self.recipientNameShippingTF setText:self.order.pickupTitle];
         [self.phoneShippingTF setText:@"613-735-0112"];
         
         [self disableShippingAddress];
@@ -377,12 +378,13 @@
         return;
     
     if ([checkbox checked]) {
-        [self.addressLine1ShippingTF setText:@"MONTREAL EMPLOYEE PICKUP"];
-        [self.addressLine2ShippingTF setText:@"4600 HICKMORE"];
-        [self.countryShippingTF setText:@"Canada"];
-        [self.zipCodeShippingTF setText:@"H4T 1K2"];
-        [self.provinceShippingTF setText:@"Quebec"];
-        [self.cityShippingTF setText:@"SAINT-LAURENT"];
+        [self.addressLine1ShippingTF setText:self.order.pickupAddress.addressLine1];
+        [self.addressLine2ShippingTF setText:self.order.pickupAddress.addressLine2];
+        [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:self.order.pickupAddress.country]];
+        [self.zipCodeShippingTF setText:self.order.pickupAddress.postalCode];
+        [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:self.order.pickupAddress.province]];
+        [self.cityShippingTF setText:self.order.pickupAddress.city];
+        [self.recipientNameShippingTF setText:self.order.pickupTitle];
         [self.phoneShippingTF setText:@"613-735-0112"];
         [self disableShippingAddress];
 

@@ -51,10 +51,10 @@
     }
     
     //address
-    NSString* shippingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n",self.order.shippingAddressLine1,self.order.shippingAddressLine2,self.order.shippingCity,self.order.shippingCountry];
+    NSString* shippingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n",self.order.shippingAddress.addressLine1,self.order.shippingAddress.addressLine2,self.order.shippingAddress.city,self.order.shippingAddress.country];
     self.shippingAddress.text = shippingAddressString;
     
-    NSString* billingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n",self.order.billingAddressLine1,self.order.billingAddressLine2,self.order.billingCity,self.order.billingCountry];
+    NSString* billingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n",self.order.billingAddress.addressLine1,self.order.billingAddress.addressLine2,self.order.billingAddress.city,self.order.billingAddress.country];
     self.billingAddress.text = billingAddressString;
     
     // order Items

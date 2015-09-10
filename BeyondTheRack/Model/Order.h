@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Address.h"
 
 @interface Order : NSObject
 
@@ -18,22 +18,12 @@
 @property (nonatomic, retain) NSDate * expiryDateTime;
 @property (nonatomic, retain) NSString * orderId;
 @property (nonatomic, retain) NSString * orderStatus;
-@property (nonatomic, retain) NSString * shippingAddressLine1;
-@property (nonatomic, retain) NSString * shippingAddressLine2;
-@property (nonatomic, retain) NSString * shippingCity;
-@property (nonatomic, retain) NSString * shippingCountry;
-@property (nonatomic, retain) NSString * shippingPhoneNumber;
-@property (nonatomic, retain) NSString * shippingPostalCode;
+@property (nonatomic, retain) Address * pickupAddress;
+@property (nonatomic, retain) NSString * pickupTitle;
+@property (nonatomic, retain) Address * shippingAddress;
 @property (nonatomic, retain) NSString * shippingRecipientName;
-@property (nonatomic, retain) NSString * shippingProvince;
 @property (nonatomic, retain) NSString * billingSameAsShipping;
-@property (nonatomic, retain) NSString * billingAddressLine1;
-@property (nonatomic, retain) NSString * billingAddressLine2;
-@property (nonatomic, retain) NSString * billingCity;
-@property (nonatomic, retain) NSString * billingCountry;
-@property (nonatomic, retain) NSString * billingPostalCode;
-@property (nonatomic, retain) NSString * billingProvince;
-@property (nonatomic, retain) NSString * billingPhoneNumber;
+@property (nonatomic, retain) Address * billingAddress;
 @property (nonatomic, retain) NSString * cardHolderName;
 @property (nonatomic, retain) NSString * cardType;
 @property (nonatomic, retain) NSString * ccvNumber;
@@ -58,21 +48,10 @@
 @property (nonatomic, retain) NSString * requireCcv;
 @property (nonatomic, retain) NSString * rememberCard;
 @property (nonatomic, retain) NSString * isFreeshipAddress;
-@property (nonatomic, retain) NSString * promoBillingState;
-@property (nonatomic, retain) NSString * promoBillingPostal;
-@property (nonatomic, retain) NSString * promoBillingPhone;
+@property (nonatomic, retain) Address * promoBillingAddress;
 @property (nonatomic, retain) NSString * promoBillingName;
-@property (nonatomic, retain) NSString * promoBillingCountry;
-@property (nonatomic, retain) NSString * promoBillingCity;
-@property (nonatomic, retain) NSString * promoBillingAddress2;
-@property (nonatomic, retain) NSString * promoBillingAddress1;
-@property (nonatomic, retain) NSString * promoShipState;
-@property (nonatomic, retain) NSString * promoShipPostal;
+@property (nonatomic, retain) Address * promoShippingAddress;
 @property (nonatomic, retain) NSString * promoShipName;
-@property (nonatomic, retain) NSString * promoShipCountry;
-@property (nonatomic, retain) NSString * promoShipCity;
-@property (nonatomic, retain) NSString * promoShipAddress2;
-@property (nonatomic, retain) NSString * promoShipAddress1;
 @property (nonatomic, retain) NSString * billingName;
 @property (nonatomic, retain) NSString * promoShipPhone;
 @property (nonatomic, retain) NSString * bagTotalPrice;
@@ -85,5 +64,6 @@
 @property (nonatomic, retain) NSString * qstTax;
 @property (nonatomic, retain) NSString * totalTax;
 @property (nonatomic, retain) NSArray * items;
+
 
 @end

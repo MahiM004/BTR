@@ -190,6 +190,7 @@
 		A0D1B4601B7E4FED00848FA7 /* BTRContactFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */; };
 		A0D1B4631B7E510D00848FA7 /* Contact+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */; };
 		A0E277FC1B9F32F4006E7D33 /* BTRSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E277FB1B9F32F4006E7D33 /* BTRSettingManager.m */; };
+		A0FCDED51BA0C69900CD476B /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FCDED41BA0C69900CD476B /* Address.m */; };
 		B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */; };
 		B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */; };
 		B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */; };
@@ -549,6 +550,8 @@
 		A0E277FA1B9F32F4006E7D33 /* BTRSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSettingManager.h; sourceTree = "<group>"; };
 		A0E277FB1B9F32F4006E7D33 /* BTRSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSettingManager.m; sourceTree = "<group>"; };
 		A0E277FD1B9F3BA5006E7D33 /* SettingsKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsKeys.h; sourceTree = "<group>"; };
+		A0FCDED31BA0C69900CD476B /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
+		A0FCDED41BA0C69900CD476B /* Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Address.m; sourceTree = "<group>"; };
 		B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSessionSettings.h; sourceTree = "<group>"; };
 		B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSessionSettings.m; sourceTree = "<group>"; };
 		B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -1054,6 +1057,8 @@
 				A0D1B45C1B7E495100848FA7 /* Contact.m */,
 				A00C9C171B960817004A2629 /* Freeship.h */,
 				A00C9C181B960817004A2629 /* Freeship.m */,
+				A0FCDED31BA0C69900CD476B /* Address.h */,
+				A0FCDED41BA0C69900CD476B /* Address.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1481,6 +1486,7 @@
 				690A38F41B1DEB7F00D4BA84 /* TNRectangularRadioButton.m in Sources */,
 				690A38F21B1DEB7F00D4BA84 /* TNRadioButtonData.m in Sources */,
 				692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */,
+				A0FCDED51BA0C69900CD476B /* Address.m in Sources */,
 				A0D1B4631B7E510D00848FA7 /* Contact+AppServer.m in Sources */,
 				A00E4DD61B8642FC00C93CD3 /* MasterPassInfo.m in Sources */,
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
