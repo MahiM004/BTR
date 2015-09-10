@@ -14,7 +14,6 @@
 #import "Item+AppServer.h"
 #import "BTRConnectionHelper.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import "MBProgressHUD.h"
 
 @interface BTRLoginViewController ()
 {
@@ -85,7 +84,6 @@
                     }
                     else {
                         [self alertUserForLoginError];
-                        [self hideHUD];
                     }
                     
                 } failure:^(NSError *error) {
@@ -145,6 +143,7 @@
                      }];
                  } else {
                      NSLog(@"graph api error: %@", error);
+                     [self hideHUD];
                  }
              }];
         }
@@ -184,7 +183,6 @@
     } faild:^(NSError *error) {
         NSLog(@"eooorrooorrr --- %@", error);
         [self alertUserForLoginError];
-        [self hideHUD];
     }];
 }
 - (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
@@ -273,6 +271,7 @@
                                delegate:self
                       cancelButtonTitle:nil
                       otherButtonTitles:@"Ok", nil] show];
+    [self hideHUD];
 }
 - (void)dismissKeyboard {
     [self.passwordTextField resignFirstResponder];
@@ -287,7 +286,6 @@
 -(void)hideHUD {
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-//        [MBProgressHUD ]
     });
 }
 - (BOOL)validateEmailWithString:(NSString*)checkString

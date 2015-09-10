@@ -16,23 +16,10 @@
 
 @interface BTRInitializeViewController ()
 
-@property (strong, nonatomic) NSMutableArray *categoryNames;
-@property (strong, nonatomic) NSMutableArray *urlCategoryNames;
-
 @end
 
 
 @implementation BTRInitializeViewController
-
-- (NSMutableArray *)categoryNames {
-    if (!_categoryNames) _categoryNames = [[NSMutableArray alloc] init];
-    return _categoryNames;
-}
-
-- (NSMutableArray *)urlCategoryNames {
-    if (!_urlCategoryNames) _urlCategoryNames = [[NSMutableArray alloc] init];
-    return _urlCategoryNames;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +29,7 @@
         [self fetchCategoriesWithSuccess:^(NSMutableArray *eventCategoriesArray) {
             [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
         } failure:^(NSError *error) {
-            
+            [self hideHUD];
         }];
         
     });
@@ -70,17 +57,11 @@
 }
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    [self hideHUD];
+}
+-(void)hideHUD {
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     });
 }
-
-
-
 @end
-
-
-
-
-
-

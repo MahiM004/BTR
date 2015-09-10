@@ -19,7 +19,6 @@
 
 @interface BTRMainViewController ()
 
-@property (strong, nonatomic) TTScrollSlidingPagesController *slider;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 
@@ -73,7 +72,8 @@
 - (IBAction)searchButtonTapped:(UIButton *)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     BTRSearchViewController *viewController = (BTRSearchViewController *)[storyboard instantiateViewControllerWithIdentifier:@"SearchNavigationControllerIdentifier"];
-    [self presentViewController:viewController animated:NO completion:nil];
+    viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 
@@ -83,38 +83,4 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-- (NSInteger) modulaForIndex:(NSInteger)inputInt withCategoryCount:(NSInteger)count {
-    NSInteger relevantInt = (inputInt >= 0) ? (inputInt % count) : ((inputInt % count) + count);
-    return relevantInt;
-}
-
-- (IBAction)unwindFromShoppingBagToEventsScene:(UIStoryboardSegue *)unwindSegue {
-}
-
-
-- (IBAction)unwindFromShoppingBagToMainScene:(UIStoryboardSegue *)unwindSegue {
-}
-
-
-- (IBAction)unwindFromMyAccount:(UIStoryboardSegue *)unwindSegue {
-}
-
-
-- (IBAction)unwindToEventViewController:(UIStoryboardSegue *)unwindSegue {
-}
-
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-

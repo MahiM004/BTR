@@ -227,8 +227,10 @@
                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                          [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
                      }];
-                 } else
+                 } else {
                      NSLog(@"graph api error: %@", error);
+                     [self hideHUD];
+                 }
              }];
         }
     }
@@ -354,6 +356,7 @@
 -(UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege {
     UIAlertView * aa = [[UIAlertView alloc]initWithTitle:title message:messege delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [aa show];
+    [self hideHUD];
     return aa;
 }
 - (BOOL)validateEmailWithString:(NSString*)checkString
