@@ -102,6 +102,8 @@
      */
     
     NSDictionary *billingAddressDic = orderInfoDic[@"billing"];
+    if (!order.billingAddress)
+        order.billingAddress = [[Address alloc]init];
     
     if ([billingAddressDic valueForKeyPath:@"address1"] && [billingAddressDic valueForKeyPath:@"address1"] != [NSNull null])
         order.billingAddress.addressLine1 = [billingAddressDic valueForKeyPath:@"address1"];
