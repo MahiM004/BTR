@@ -16,6 +16,12 @@
 #import "BTRFacetData.h"
 #import "BTRSuggestionFetcher.h"
 #import "BTRConnectionHelper.h"
+#import "BagItem+AppServer.h"
+#import "BTRBagFetcher.h"
+#import "BTRShoppingBagViewController.h"
+#import "BTRAnimationHandler.h"
+
+#define SIZE_NOT_SELECTED_STRING @"Select Size"
 
 @interface BTRSearchViewController () <BTRRefineResultsViewController>
 
@@ -25,6 +31,13 @@
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
 @property (strong, nonatomic) NSMutableArray* suggestionArray;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+
+@property (strong, nonatomic) NSMutableArray *chosenSizesArray;
+@property (assign, nonatomic) NSUInteger selectedCellIndexRow;
+@property (strong, nonatomic) NSMutableArray *bagItemsArray;
+
+
 @property CGFloat maxSearchTableSize;
 
 @end
@@ -39,6 +52,16 @@
 - (NSMutableArray *)itemsArray {
     if (!_itemsArray) _itemsArray = [[NSMutableArray alloc] init];
     return _itemsArray;
+}
+
+- (NSMutableArray *)bagItemsArray {
+    if (!_bagItemsArray) _bagItemsArray = [[NSMutableArray alloc] init];
+    return _bagItemsArray;
+}
+
+- (NSMutableArray *)chosenSizesArray {
+    if (!_chosenSizesArray) _chosenSizesArray = [[NSMutableArray alloc] init];
+    return _chosenSizesArray;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -143,7 +166,6 @@
         [sharedFacetHandler resetFacets];
         sharedFacetHandler.searchString = [self.searchBar text];
     }
-    
     [self assignFilterIcon];
     [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                          success:^(NSMutableArray *responseArray) {
@@ -152,7 +174,6 @@
                          } failure:^(NSError *error) {
                          
                          }];
-    
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
     [self.collectionView becomeFirstResponder];
@@ -166,7 +187,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(collectionView.frame.size.width / 2 - 1, (collectionView.frame.size.height * 2) / 3);
+    return CGSizeMake(collectionView.frame.size.width / 2 - 1, (collectionView.frame.size.height * 4) / 5);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
@@ -184,13 +205,92 @@
     static NSString *CellIdentifier = @"ProductShowcaseCollectionCellIdentifier";
     BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     Item *productItem = [self.itemsArray objectAtIndex:indexPath.row];
+    BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:productItem.variantInventory
+                                                                        toSizesArray:[cell sizesArray]
+                                                                    toSizeCodesArray:[cell sizeCodesArray]
+                                                                 toSizeQuantityArray:[cell sizeQuantityArray]];
     if ([productItem sku])
-        cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem];
+        cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andBTRSizeMode:sizeMode forIndexPath:indexPath];
     else
         self.itemsArray = [self originalItemArray];
+    
+    BOOL allReserved = [productItem.allReserved boolValue];
+    BOOL soldOut = [self isItemSoldOutWithVariant:[cell sizeQuantityArray]];
+    if (allReserved || soldOut) {
+        [self disableCell:cell];
+        if (soldOut) {
+            [cell.productStatusMessageLabel setText:@"SOLD OUT"];
+            [cell.productStatusMessageLabel setTextColor:[UIColor redColor]];
+        }
+        else if (allReserved) {
+            [cell.productStatusMessageLabel setText:@"Reserved By Others\n\nCheck back in\n20 minutes"];
+            [cell.productStatusMessageLabel setTextColor:[UIColor blackColor]];
+        }
+    } else ;
+        [self enableCell:cell];
+
+    
+    NSMutableArray *tempSizesArray = [cell sizesArray];
+    NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
+    
+    [cell setDidTapSelectSizeButtonBlock:^(id sender) {
+        UIStoryboard *storyboard = self.storyboard;
+        BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
+        viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        viewController.sizesArray = tempSizesArray;
+        viewController.sizeQuantityArray = tempQuantityArray;
+        viewController.delegate = self;
+        
+        self.selectedCellIndexRow = indexPath.row;
+        [self presentViewController:viewController animated:YES completion:nil];
+    }];
+    
+    __weak typeof(cell) weakCell = cell;
+    __block NSString *sizeLabelText = [cell.selectSizeButton.titleLabel text];
+    __block NSString *selectedSizeString = @"";
+    if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] )
+        selectedSizeString = @"Z";
+    else
+        selectedSizeString = [[cell sizeCodesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]];
+    
+    [cell setDidTapAddtoBagButtonBlock:^(id sender) {
+        
+        if ([sizeLabelText isEqualToString:SIZE_NOT_SELECTED_STRING]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Size" message:@"Please select a size!" delegate:self cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        } else {
+            // animation
+            UICollectionViewLayoutAttributes *attr = [cv layoutAttributesForItemAtIndexPath:indexPath];
+            CGPoint correctedOffset = CGPointMake(cell.frame.origin.x - cv.contentOffset.x,cell.frame.origin.y - cv.contentOffset.y);
+            CGPoint cellOrigin = [attr frame].origin;
+            cellOrigin = CGPointMake(cellOrigin.x + attr.frame.size.width / 2, cellOrigin.y + attr.frame.size.height / 2);
+            CGRect frame = CGRectMake(0.0,0.0,weakCell.frame.size.width,weakCell.frame.size.height);
+            frame.origin = [weakCell convertPoint:correctedOffset toView:self.view];
+            CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , weakCell.productImageView.frame.size.width, weakCell.productImageView.frame.size.height);
+            
+            UIImageView *startView = [[UIImageView alloc] initWithImage:weakCell.productImageView.image];
+            [startView setFrame:rect];
+            startView.layer.cornerRadius=5;
+            startView.layer.borderColor=[[UIColor blackColor]CGColor];
+            startView.layer.borderWidth=1;
+            [self.view addSubview:startView];
+            
+            CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
+            [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
+            // end of animation
+            [self cartIncrementServerCallToAddProductItem:productItem withVariant:selectedSizeString  success:^(NSString *successString) {
+                if ([successString isEqualToString:@"TRUE"])
+                    [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
+            } failure:^(NSError *error) {
+                NSLog(@"%@",error);
+            }];
+        }
+    }];
+    
     return cell;
 }
-
 
 - (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell withItem:(Item *)productItem {
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
@@ -215,10 +315,15 @@
         BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
         [sharedFacetsHandler setSearchString:[self.searchBar text]];
         [sharedFacetsHandler setFacetsFromResponseDictionary:response];
+        
         NSMutableArray * arrayToPass = [sharedFacetsHandler getItemDataArrayFromResponse:response];
         if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"])
             if ([arrayToPass count] != 0)
                 self.itemsArray = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]];
+        
+        for (int i = 0; i < [self.itemsArray count]; i++)
+            [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+        
         [self.collectionView reloadData];
         success([self itemsArray]);
     } faild:^(NSError *error) {
@@ -309,7 +414,8 @@
 // Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.searchBar setText:[self.suggestionArray objectAtIndex:indexPath.row]];
-    [self searchBar:self.searchBar textDidChange:[self.suggestionArray objectAtIndex:indexPath.row]];
+    [self searchBarSearchButtonClicked:self.searchBar];
+//    [self searchBar:self.searchBar textDidChange:[self.suggestionArray objectAtIndex:indexPath.row]];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -331,6 +437,112 @@
     } faild:^(NSError *error) {
         NSLog(@"%@",error);
     }];
+}
+
+- (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell
+                                                                    withItem:(Item *)productItem andBTRSizeMode:(BTRSizeMode)sizeMode
+                                                                forIndexPath:(NSIndexPath *)indexPath {
+    if (sizeMode == BTRSizeModeSingleSizeNoShow || sizeMode == BTRSizeModeSingleSizeShow) {
+        [[cell.selectSizeButton titleLabel] setText:@"One Size"];
+        [cell.selectSizeButton setAlpha:0.4];
+        [cell.selectSizeButton setEnabled:false];
+    } else {
+        if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] ) {
+            cell.selectSizeButton.titleLabel.text = @"Select Size";
+            [cell.selectSizeButton setAlpha:1.0];
+            [cell.selectSizeButton setEnabled:true];
+        } else {
+            cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
+        }
+    }
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    [cell.productTitleLabel setText:[productItem shortItemDescription]];
+    [cell.brandLabel setText:[productItem brand]];
+    [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
+    [cell.originalPrice setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
+    return cell;
+}
+
+- (void)disableCell:(BTRProductShowcaseCollectionCell *)cell {
+    [cell.productImageView setAlpha:0.5];
+    [cell.addToBagButton setAlpha:0.5];
+    [cell.selectSizeButton setAlpha:0.5];
+    [cell.addToBagButton setEnabled:NO];
+    [cell.selectSizeButton setEnabled:NO];
+    [cell.allReservedImageView setHidden:NO];
+    [cell.productStatusMessageLabel setHidden:NO];
+}
+
+- (void)enableCell:(BTRProductShowcaseCollectionCell *)cell {
+    [cell.productImageView setAlpha:1.0];
+    [cell.addToBagButton setAlpha:1.0];
+    [cell.addToBagButton setEnabled:YES];
+    [cell.allReservedImageView setHidden:YES];
+    [cell.productStatusMessageLabel setHidden:YES];
+}
+
+#pragma mark cart functions
+
+- (void)cartIncrementServerCallToAddProductItem:(Item *)productItem
+                                    withVariant:(NSString *)variant
+                                        success:(void (^)(id  responseObject)) success
+                                        failure:(void (^)(NSError *error)) failure {
+    [[self bagItemsArray] removeAllObjects];
+    NSDictionary *params = (@{
+                              @"event_id": [productItem eventId],
+                              @"sku": [productItem sku],
+                              @"variant": variant
+                              });
+    
+    [BTRConnectionHelper postDataToURL:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]] withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        if (![[response valueForKey:@"success"]boolValue]) {
+            if ([response valueForKey:@"error_message"]) {
+                [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            }
+            return;
+        }
+        
+        NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
+        NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
+        NSDate *serverTime = [NSDate date];
+        
+        self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                                                  withServerDateTime:serverTime
+                                                    forBagItemsArray:[self bagItemsArray]
+                                                           isExpired:@"false"];
+        [self.bagItemsArray addObjectsFromArray:[BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                                                                     withServerDateTime:serverTime
+                                                                       forBagItemsArray:[self bagItemsArray]
+                                                                              isExpired:@"true"]];
+        BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+        [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+        success(@"TRUE");
+    } faild:^(NSError *error) {
+        
+    }];
+}
+
+
+#pragma mark utility functions
+
+- (BOOL)isItemSoldOutWithVariant:(NSArray *)variantArray {
+    for (int i = 0; i < [variantArray count]; i++)
+        if ([[variantArray objectAtIndex:i]intValue] > 0)
+            return NO;
+    return YES;
+}
+
+- (void)moveToCheckout {
+    UIStoryboard *storyboard = self.storyboard;
+    BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark size selecting delegate
+
+- (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
+    self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:(int)selectedIndex];
+    [self.collectionView reloadData];
 }
 
 @end

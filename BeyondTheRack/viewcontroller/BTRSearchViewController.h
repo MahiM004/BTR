@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BTRSelectSizeVC.h"
 
-@interface BTRSearchViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
+@interface BTRSearchViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,BTRSelectSizeVC>
 
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
