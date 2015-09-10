@@ -94,6 +94,8 @@
     durationLabel.textAlignment = NSTextAlignmentCenter;
     durationLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.65];
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeDateForLabel:) userInfo:[NSDictionary dictionaryWithObjectsAndKeys:durationLabel,@"label",event.endDateTime,@"date", nil] repeats:YES];
+
+    //Plaseholder image should be some Visible
     
     [imageView setImageWithURLRequest:urlRequest placeholderImage:[UIImage imageNamed:@"neulogo.png"]
                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {

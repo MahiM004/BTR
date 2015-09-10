@@ -16,23 +16,10 @@
 
 @interface BTRInitializeViewController ()
 
-@property (strong, nonatomic) NSMutableArray *categoryNames;
-@property (strong, nonatomic) NSMutableArray *urlCategoryNames;
-
 @end
 
 
 @implementation BTRInitializeViewController
-
-- (NSMutableArray *)categoryNames {
-    if (!_categoryNames) _categoryNames = [[NSMutableArray alloc] init];
-    return _categoryNames;
-}
-
-- (NSMutableArray *)urlCategoryNames {
-    if (!_urlCategoryNames) _urlCategoryNames = [[NSMutableArray alloc] init];
-    return _urlCategoryNames;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
