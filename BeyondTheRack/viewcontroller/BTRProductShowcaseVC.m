@@ -522,6 +522,13 @@
     [self.collectionView reloadData];
 }
 
+#pragma mark back
+
+- (IBAction)backBouttonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 @end
 
 
