@@ -42,7 +42,7 @@
         [self fetchCategoriesWithSuccess:^(NSMutableArray *eventCategoriesArray) {
             [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
         } failure:^(NSError *error) {
-            
+            [self hideHUD];
         }];
         
     });
@@ -70,17 +70,11 @@
 }
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    [self hideHUD];
+}
+-(void)hideHUD {
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     });
 }
-
-
-
 @end
-
-
-
-
-
-
