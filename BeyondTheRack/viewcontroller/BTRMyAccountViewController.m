@@ -18,9 +18,7 @@
     [super viewDidLoad];
 }
 
-#pragma mark - Navigation
-
-- (IBAction)unwindToMyAccountViewController:(UIStoryboardSegue *)unwindSegue {
+-(IBAction)closeAccountVC:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 @end

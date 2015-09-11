@@ -10,5 +10,5 @@
 
 @interface BTRMyAccountViewController : UIViewController 
 
-
+-(IBAction)closeAccountVC:(id)sender;
 @end

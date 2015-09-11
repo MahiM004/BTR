@@ -62,7 +62,7 @@
     [self fetchUserWithSuccess:^(User *user) {
         self.welcomeLabel.text = [NSString stringWithFormat:@"%@ %@", [user name], [user lastName]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    
+        
     }];
 }
 
@@ -85,7 +85,7 @@
 #pragma mark - Load User Info RESTful
 
 - (void)fetchUserWithSuccess:(void (^)(id  responseObject)) success
-                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
@@ -100,7 +100,7 @@
 #pragma mark - Logout User RESTful
 
 - (void)logutUserServerCallWithSuccess:(void (^)(id  responseObject)) success
-                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserLogout]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         FBSDKLoginManager *fbAuth = [[FBSDKLoginManager alloc] init];
@@ -114,7 +114,7 @@
 #pragma mark - Track Orders RESTful
 
 - (void)fetchOrderHistoryWithSuccess:(void (^)(id  responseObject)) success
-                              failure:(void (^)(NSError *error)) failure {
+                             failure:(void (^)(NSError *error)) failure {
     
     [[self itemsDictionary] removeAllObjects];
     [[self headersArray] removeAllObjects];
@@ -139,18 +139,20 @@
             }
             success(@"TRUE");
         }else {
+            [self hideHUD];
             [[[UIAlertView alloc]initWithTitle:@"Empty" message:@"You dont have any order to track" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         }
-
+        
     } faild:^(NSError *error) {
-         failure(error);
+        [self hideHUD];
+        failure(error);
     }];
 }
 
 #pragma mark - Getting Contact US
 
 - (void)fetchContactWithSuccess:(void (^)(id  responseObject)) success
-                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRContactFetcher URLForContact]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
@@ -163,12 +165,16 @@
 }
 
 - (IBAction)trackOrdersTapped:(UIButton *)sender {
+    
     [self.tableView setUserInteractionEnabled:FALSE];
-    [self fetchOrderHistoryWithSuccess:^(NSString *successString) {
-        [self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
-    } failure:^(NSError *error) {
-        
-    }];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [self fetchOrderHistoryWithSuccess:^(NSString *successString) {
+            [self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
+        } failure:^(NSError *error) {
+            [self hideHUD];
+        }];
+    });
     [self.tableView setUserInteractionEnabled:TRUE];
 }
 
@@ -183,23 +189,28 @@
         [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
 }
 
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     if ([[segue identifier] isEqualToString:@"BTRNotificationsSegueIdentifier"]) {
-         BTRNotificationsVC *vc = [segue destinationViewController];
-         vc.user = [self user];
-     
-     } else if ([[segue identifier] isEqualToString:@"BTRTrackOrdersSegueIdentifier"]) {
-         BTRTrackOrdersVC *vc = [segue destinationViewController];
-         vc.headersArray = [self headersArray];
-         vc.itemsDictionary = [self itemsDictionary];
-         
-     } else if ([[segue identifier] isEqualToString:@"BTRContactusSegueIdentifier"]) {
-         BTRContactUSViewController* vc = [segue destinationViewController];
-         vc.contactInformaion = self.contactInfo;
-     }
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"BTRNotificationsSegueIdentifier"]) {
+        BTRNotificationsVC *vc = [segue destinationViewController];
+        vc.user = [self user];
+        
+    } else if ([[segue identifier] isEqualToString:@"BTRTrackOrdersSegueIdentifier"]) {
+        BTRTrackOrdersVC *vc = [segue destinationViewController];
+        vc.headersArray = [self headersArray];
+        vc.itemsDictionary = [self itemsDictionary];
+        
+    } else if ([[segue identifier] isEqualToString:@"BTRContactusSegueIdentifier"]) {
+        BTRContactUSViewController* vc = [segue destinationViewController];
+        vc.contactInformaion = self.contactInfo;
+    }
+}
+-(void)hideHUD {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
 }
 @end
 
