@@ -207,8 +207,11 @@
 }
 
 
+#pragma mark back
 
-
+- (IBAction)backbuttonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end
 

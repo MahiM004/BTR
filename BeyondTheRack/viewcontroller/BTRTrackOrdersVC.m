@@ -276,6 +276,12 @@
     return view;
 }
 
+- (IBAction)backbuttonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+
 @end
 
 
