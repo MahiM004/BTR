@@ -10,7 +10,7 @@
 #import "BTRSelectSizeVC.h"
 
 
-@interface BTRProductShowcaseVC : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,BTRSelectSizeVC>
+@interface BTRProductShowcaseVC : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,BTRSelectSizeVC,UIScrollViewDelegate>
 
 @property (strong, nonatomic) NSString *eventSku;
 @property (strong, nonatomic) NSString *eventTitleString;
