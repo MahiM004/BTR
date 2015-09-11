@@ -28,7 +28,7 @@
 
 - (NSMutableDictionary *)currentSetting {
     NSUserDefaults *userDefault = [[NSUserDefaults alloc]init];
-    NSMutableDictionary* currentSetting = [userDefault valueForKey:SETTING];
+    NSMutableDictionary* currentSetting = [NSMutableDictionary dictionaryWithDictionary:[userDefault valueForKey:SETTING]];
     if (!currentSetting)
         currentSetting = [[NSMutableDictionary alloc]init];
     return currentSetting;
