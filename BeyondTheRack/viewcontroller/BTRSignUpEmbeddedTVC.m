@@ -14,7 +14,8 @@
 
 #define COUNTRY_PICKER 1
 #define GENDER_PICKER 2
-
+#define IDIOM    UI_USER_INTERFACE_IDIOM()
+#define IPAD     UIUserInterfaceIdiomPad
 
 @interface BTRSignUpEmbeddedTVC ()
 {
@@ -153,15 +154,25 @@
 #pragma mark - User Registration RESTful
 - (void)userRegistrationServerCallWithSuccess:(void (^)(id  responseObject, NSString *messageString)) success
                                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    if (_hasPromoTF.text.length == 0) {
+        if ( IDIOM == IPAD ) {
+            _hasPromoTF.text = @"IOSTABLETAPP2";
+        } else {
+            _hasPromoTF.text = @"IOSMOBILEAPP2";
+        }
+        NSLog(@"%@",_hasPromoTF.text);
+    }
     NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserRegistration]];
     NSDictionary *params = (@{
                               @"email": [[self emailTextField] text],
                               @"password": [[self passwordTextField] text],
                               @"gender": [[self genderTextField] text],
                               @"country": [self chosenCountryCodeString],
+                              @"invite": [[self hasPromoTF]text]
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
+            NSLog(@"RESPONSE : %@",response);
             int error_code = (int)[[response valueForKey:@"error_code"] intValue];
             if (error_code == 400) {
                 NSArray *messageArray = response[@"messages"];
