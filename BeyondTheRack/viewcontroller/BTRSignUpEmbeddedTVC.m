@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
 @property (weak, nonatomic) IBOutlet UITextField *countryTextField;
+@property (weak, nonatomic) IBOutlet UITextField *hasPromoTF;
+
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *genderIconLabel;
@@ -81,7 +83,7 @@
     self.countryTextField = [BTRViewUtility underlineTextField:[self countryTextField]];
     self.countryIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.countryIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-globe"];
-    
+     self.hasPromoTF = [BTRViewUtility underlineTextField:[self hasPromoTF]];
     self.pickerView.delegate = self;
     self.pickerView.showsSelectionIndicator = YES;
     
@@ -347,6 +349,7 @@
 - (void)dismissKeyboard {
     [self.emailTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
+    [self.hasPromoTF resignFirstResponder];
 }
 -(void)hideHUD {
     dispatch_async(dispatch_get_main_queue(), ^{
