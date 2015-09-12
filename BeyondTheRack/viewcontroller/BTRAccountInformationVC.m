@@ -330,8 +330,10 @@
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]];
     [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(@"TRUE");
+        [self hideHUD];
     } faild:^(NSError *error) {
         failure(nil, error);
+        [self hideHUD];
     }];
 }
 
@@ -388,11 +390,18 @@
 
 
 - (IBAction)updateInfoTapped:(UIButton *)sender {
-    [self updateUserInfoWithSuccess:^(NSString *successString) {
-        [self showAlert:@"Successful" msg:@"Your info was updated successfully."];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+    if ([appDelegate connected] == 1) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [self updateUserInfoWithSuccess:^(NSString *successString) {
+                [self showAlert:@"Successful" msg:@"Your info was updated successfully."];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
+            }];
+        });
+    } else {
+        [self showAlert:@"Network Error !" msg:@"Please check the internet"];
+    }
 }
 
 #pragma mark back
