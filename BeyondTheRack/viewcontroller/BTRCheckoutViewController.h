@@ -63,6 +63,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *paypalDetailHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *giftViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *billingAddressHeight;
 
 
 /**
