@@ -22,7 +22,9 @@
 #define STATE_PICKER       8
 
 @interface BTRAccountInformationVC ()
-
+{
+    BTRAppDelegate * appDelegate;
+}
 @property (nonatomic) NSUInteger pickerType;
 
 @property (strong, nonatomic) NSArray *genderArray;
@@ -105,7 +107,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+     appDelegate = [[UIApplication sharedApplication]delegate];
     self.pickerView.delegate = self;
     self.pickerView.showsSelectionIndicator = YES;
     [self.pickerParentView setHidden:TRUE];
@@ -328,23 +330,37 @@
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]];
     [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(@"TRUE");
+        [self hideHUD];
     } faild:^(NSError *error) {
         failure(nil, error);
+        [self hideHUD];
     }];
 }
 
 - (void)updatePasswordWithSuccess:(void (^)(id  responseObject)) success
-                           failure:(void (^)(NSError *error)) failure {
-    NSDictionary *params = (@{
-                              @"email": [[self emailTextField] text],
-                              @"password": [[self retypePasswordTextField] text]
-                              });
-    NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforCurrentUser]];
-    [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        success([[self retypePasswordTextField] text]);
-    } faild:^(NSError *error) {
-        failure(error);
-    }];
+                          failure:(void (^)(NSError *error)) failure {
+    if ([appDelegate connected] == 1) {
+        if (_retypePasswordTextField.text.length == 0 || _neuPasswordTextField.text.length == 0) {
+            [self showAlert:@"" msg:@"Please Fill the Both Fields to Update the Password"];
+            
+        } else {
+            NSDictionary *params = (@{
+                                      @"email": [[self emailTextField] text],
+                                      @"password": [[self retypePasswordTextField] text]
+                                      });
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforCurrentUser]];
+                [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+                    success([[self retypePasswordTextField] text]);
+                } faild:^(NSError *error) {
+                    failure(error);
+                }];
+            });
+        }
+    } else {
+        [self showAlert:@"Network Error !" msg:@"Please check the internet"];
+    }
 }
 
 
@@ -352,63 +368,40 @@
 
 
 - (IBAction)updatePasswordTapped:(UIButton *)sender {
-    if ([self.neuPasswordTextField.text isEqualToString:self.retypePasswordTextField.text]) {
+    if (_retypePasswordTextField.text.length == 0 || _neuPasswordTextField.text.length == 0) {
+        [self showAlert:@"" msg:@"Please Fill the Both Fields to Update the Password"];
+        
+    }else if ([self.neuPasswordTextField.text isEqualToString:self.retypePasswordTextField.text]) {
         [self updatePasswordWithSuccess:^(NSString *neuPassword) {
             BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
             [btrSettings updatePassword:neuPassword];
             [self.neuPasswordTextField setText:@""];
             [self.retypePasswordTextField setText:@""];
-            [self alertUserforPasswordUpdate];
+            [self hideHUD];
+            [self showAlert:@"Successful" msg:@"Your password was updated successfully."];
+            [_retypePasswordTextField resignFirstResponder];
+            [_neuPasswordTextField resignFirstResponder];
         } failure:^(NSError *error) {
-            
+            [self hideHUD];
         }];
     } else
-        [self alertUserforPasswordStringNotEqual];
+        [self showAlert:@"Attention" msg:@"The passwords do not match!"];
 }
 
 
 - (IBAction)updateInfoTapped:(UIButton *)sender {
-    [self updateUserInfoWithSuccess:^(NSString *successString) {
-        [self alertUserforSuccessfulUserUpdate];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
-}
-
-
-# pragma mark - User alerts
-
-
-- (void)alertUserforPasswordUpdate {
-    [self dismissKeyboard];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful"
-                                                    message:@"Your password was updated successfully."
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil];
-    [alert show];
-}
-
-
-- (void)alertUserforPasswordStringNotEqual {
-    [self dismissKeyboard];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention"
-                                                    message:@"The passwords do not match!"
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil];
-    
-    [alert show];
-}
-
-- (void)alertUserforSuccessfulUserUpdate {
-    [self dismissKeyboard];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful"
-                                                    message:@"Your info was updated successfully."
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil];
-    [alert show];
+    if ([appDelegate connected] == 1) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [self updateUserInfoWithSuccess:^(NSString *successString) {
+                [self showAlert:@"Successful" msg:@"Your info was updated successfully."];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
+            }];
+        });
+    } else {
+        [self showAlert:@"Network Error !" msg:@"Please check the internet"];
+    }
 }
 
 #pragma mark back
@@ -416,7 +409,16 @@
 - (IBAction)backbuttonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+-(void)hideHUD {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+}
+-(UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege {
+    UIAlertView * aa = [[UIAlertView alloc]initWithTitle:title message:messege delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [aa show];
+    return aa;
+}
 @end
 
 

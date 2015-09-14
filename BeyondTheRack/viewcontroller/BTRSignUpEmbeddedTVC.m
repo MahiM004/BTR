@@ -14,7 +14,8 @@
 
 #define COUNTRY_PICKER 1
 #define GENDER_PICKER 2
-
+#define IDIOM    UI_USER_INTERFACE_IDIOM()
+#define IPAD     UIUserInterfaceIdiomPad
 
 @interface BTRSignUpEmbeddedTVC ()
 {
@@ -24,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
 @property (weak, nonatomic) IBOutlet UITextField *countryTextField;
+@property (weak, nonatomic) IBOutlet UITextField *hasPromoTF;
+
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *genderIconLabel;
@@ -81,7 +84,7 @@
     self.countryTextField = [BTRViewUtility underlineTextField:[self countryTextField]];
     self.countryIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.countryIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-globe"];
-    
+     self.hasPromoTF = [BTRViewUtility underlineTextField:[self hasPromoTF]];
     self.pickerView.delegate = self;
     self.pickerView.showsSelectionIndicator = YES;
     
@@ -151,15 +154,25 @@
 #pragma mark - User Registration RESTful
 - (void)userRegistrationServerCallWithSuccess:(void (^)(id  responseObject, NSString *messageString)) success
                                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    if (_hasPromoTF.text.length == 0) {
+        if ( IDIOM == IPAD ) {
+            _hasPromoTF.text = @"IOSTABLETAPP2";
+        } else {
+            _hasPromoTF.text = @"IOSMOBILEAPP2";
+        }
+        NSLog(@"%@",_hasPromoTF.text);
+    }
     NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserRegistration]];
     NSDictionary *params = (@{
                               @"email": [[self emailTextField] text],
                               @"password": [[self passwordTextField] text],
                               @"gender": [[self genderTextField] text],
                               @"country": [self chosenCountryCodeString],
+                              @"invite": [[self hasPromoTF]text]
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
+            NSLog(@"RESPONSE : %@",response);
             int error_code = (int)[[response valueForKey:@"error_code"] intValue];
             if (error_code == 400) {
                 NSArray *messageArray = response[@"messages"];
@@ -347,6 +360,7 @@
 - (void)dismissKeyboard {
     [self.emailTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
+    [self.hasPromoTF resignFirstResponder];
 }
 -(void)hideHUD {
     dispatch_async(dispatch_get_main_queue(), ^{

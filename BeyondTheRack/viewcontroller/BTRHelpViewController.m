@@ -153,5 +153,9 @@
     [header.textLabel setFont:[UIFont boldSystemFontOfSize:16]];
     [header.textLabel setTextColor:[UIColor colorWithRed:78.0/255.0 green:47.0/255.0 blue:47.0/255.0 alpha:1]];
 }
+#pragma mark back
 
+- (IBAction)backbuttonTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end
