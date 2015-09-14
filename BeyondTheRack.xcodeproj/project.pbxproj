@@ -191,6 +191,7 @@
 		A0D1B4631B7E510D00848FA7 /* Contact+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */; };
 		A0E277FC1B9F32F4006E7D33 /* BTRSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E277FB1B9F32F4006E7D33 /* BTRSettingManager.m */; };
 		A0FCDED51BA0C69900CD476B /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FCDED41BA0C69900CD476B /* Address.m */; };
+		A0FD34281BA75CFB00B6B2C3 /* cardImages.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FD34271BA75CFB00B6B2C3 /* cardImages.png */; };
 		B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */; };
 		B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */; };
 		B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */; };
@@ -552,6 +553,7 @@
 		A0E277FD1B9F3BA5006E7D33 /* SettingsKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsKeys.h; sourceTree = "<group>"; };
 		A0FCDED31BA0C69900CD476B /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
 		A0FCDED41BA0C69900CD476B /* Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Address.m; sourceTree = "<group>"; };
+		A0FD34271BA75CFB00B6B2C3 /* cardImages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardImages.png; sourceTree = "<group>"; };
 		B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSessionSettings.h; sourceTree = "<group>"; };
 		B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSessionSettings.m; sourceTree = "<group>"; };
 		B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -878,6 +880,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A0FD34271BA75CFB00B6B2C3 /* cardImages.png */,
 				A00C9C1D1B962705004A2629 /* btrbagreserved_new.png */,
 				A00393E51B7B8B4000A3F79F /* delivery.jpg */,
 				695C755E1B38957A003F65F8 /* masterpass_t.png */,
@@ -1380,6 +1383,7 @@
 				69F0BB2A1B457156008C0498 /* SF-UI-Display-Thin.otf in Resources */,
 				69F0BB371B457156008C0498 /* SF-UI-Text-SemiboldItalic.otf in Resources */,
 				695C75611B38957A003F65F8 /* masterpass_t@2x.png in Resources */,
+				A0FD34281BA75CFB00B6B2C3 /* cardImages.png in Resources */,
 				690A39101B1DEE0000D4BA84 /* unchecked.png in Resources */,
 				A01670681B8CF11400448EF3 /* BTRSizeChartViewController.xib in Resources */,
 				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,

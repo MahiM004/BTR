@@ -359,7 +359,6 @@
         return;
     
     if ([checkbox checked]) {
-        
         [self.addressLine1ShippingTF setText:self.order.pickupAddress.addressLine1];
         [self.addressLine2ShippingTF setText:self.order.pickupAddress.addressLine2];
         [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:self.order.pickupAddress.country]];
@@ -615,6 +614,8 @@
     }
     if ([self.order.lockCCFields boolValue] || self.currentPaymentType == paypal) {
         [self.changePaymentMethodView setHidden:NO];
+        [self.sendmeToPaypalCheckbox setHidden:NO];
+        [self.sendmeToPaypalLabel setHidden:NO];
         [self disablePaymentInfo];
         if (self.currentPaymentType == creditCard)
             [self.cardVerificationPaymentTF setText:@"xxx"];
@@ -637,6 +638,7 @@
 
 - (void)changeDetailPaymentFor:(paymentType)type {
     if (type == creditCard) {
+        [self.paymentMethodImageView setImage:[UIImage imageNamed:@"cardImages"]];
         [self showBillingAddress];
         [self showCardPaymentTip];
         self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
@@ -650,8 +652,11 @@
             self.paypalDetailsView.hidden = YES;
         }];
     }else if (type == paypal) {
+        [self.paymentMethodImageView setImage:[UIImage imageNamed:@"paypal_yellow"]];
         [self hideBillingAddress];
         [self hideCardPaymentTip];
+        [self.changePaymentMethodView setHidden:NO];
+        [self.sendmeToPaypalCheckbox setHidden:NO];
         if (self.paypalEmailTF.text.length > 0) {
             self.paypalEmailTF.hidden = NO;
             self.creditCardDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
@@ -670,6 +675,7 @@
             }];
         }];
     } else if (type == masterPass) {
+        [self.paymentMethodImageView setImage:[UIImage imageNamed:@"masterpass"]];
         [self hideCardPaymentTip];
         [self showBillingAddress];
         self.paymentDetailsView.hidden = YES;
@@ -1121,7 +1127,8 @@
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
         BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
         paypalVC.paypal = self.paypal;
-        paypalVC.isNewAccount = self.changePaymentMethodCheckbox.checked;
+        if (self.changePaymentMethodCheckbox.checked || self.sendmeToPaypalCheckbox.checked)
+            paypalVC.isNewAccount = YES;
     } else if ([[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueIdentifier"]) {
         BTRMasterPassViewController* mpVC = [segue destinationViewController];
         mpVC.info = self.masterpass;
