@@ -29,6 +29,11 @@
 #define BILLING_ADDRESS         1
 #define SHIPPING_ADDRESS        2
 
+#define BILLING_ADDRESS_HEIGHT 685.0
+#define CARD_PAYMENT_HEIGHT 310.0
+#define PAYPAL_PAYMENT_HEIGHT 160.0
+#define CARD_PAYMENT_TIP_HEIGHT 65.0
+
 @class CTCheckbox;
 
 
@@ -632,7 +637,9 @@
 
 - (void)changeDetailPaymentFor:(paymentType)type {
     if (type == creditCard) {
-        self.creditCardDetailHeight.constant = 310;
+        [self showBillingAddress];
+        [self showCardPaymentTip];
+        self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
         [UIView animateWithDuration:1.0 animations:^{
             self.paypalDetailsView.alpha = 0;
         } completion:^(BOOL finished) {
@@ -643,9 +650,11 @@
             self.paypalDetailsView.hidden = YES;
         }];
     }else if (type == paypal) {
+        [self hideBillingAddress];
+        [self hideCardPaymentTip];
         if (self.paypalEmailTF.text.length > 0) {
             self.paypalEmailTF.hidden = NO;
-            self.creditCardDetailHeight.constant = 160;
+            self.creditCardDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
         }
         else {
             self.paypalEmailTF.hidden = YES;
@@ -661,6 +670,8 @@
             }];
         }];
     } else if (type == masterPass) {
+        [self hideCardPaymentTip];
+        [self showBillingAddress];
         self.paymentDetailsView.hidden = YES;
         self.paypalEmailTF.hidden = YES;
         self.creditCardDetailHeight.constant = 0;
@@ -670,6 +681,34 @@
                      animations:^{
                          [self.view layoutIfNeeded];
                      }];
+}
+
+- (void)hideCardPaymentTip {
+    [self.cardPaymentTipHeight setConstant:0];
+    [self.cardPaymentTipLabel setHidden:YES];
+}
+
+- (void)showCardPaymentTip {
+    [self.cardPaymentTipHeight setConstant:CARD_PAYMENT_TIP_HEIGHT];
+    [self.cardPaymentTipLabel setHidden:NO];
+}
+
+- (void)hideBillingAddress {
+    if (self.billingAddressHeight.constant == BILLING_ADDRESS_HEIGHT) {
+        self.billingAddressHeight.constant  =  0;
+        self.viewHeight.constant = self.viewHeight.constant - BILLING_ADDRESS_HEIGHT;
+        self.billingAddressView.hidden = YES;
+        [self.view layoutIfNeeded];
+    }
+}
+
+- (void)showBillingAddress {
+    if (self.billingAddressHeight.constant == 0) {
+        self.viewHeight.constant = self.viewHeight.constant + BILLING_ADDRESS_HEIGHT;
+        self.billingAddressHeight.constant  =  BILLING_ADDRESS_HEIGHT;
+        self.billingAddressView.hidden = NO;
+        [self.view layoutIfNeeded];
+    }
 }
 
 #pragma mark - Dissmiss Keyboard
