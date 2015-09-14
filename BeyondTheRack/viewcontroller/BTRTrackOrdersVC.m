@@ -74,7 +74,7 @@
     OrderHistoryItem *orderItem = [tempArray objectAtIndex:[indexPath row]];
     [cell.productImageView setImageWithURL:[BTRItemFetcher
                                             URLforItemImageForSku:[orderItem skuNumber]]
-                          placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+                          placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     
     cell = [self configureCell:cell forOrderItem:orderItem];
     return cell;

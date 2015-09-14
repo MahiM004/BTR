@@ -100,7 +100,7 @@
 
     BagItem *bagItem = [[BagItem alloc] init];
     [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:uniqueSku]
-                       placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+                       placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     
     Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
     bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];

@@ -35,7 +35,7 @@
     [cell.zoomImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSkuString]
                                                                        withCount:1+indexPath.row
                                                                          andSize:@"large"]
-                          placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+                          placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     return cell;
 }
 

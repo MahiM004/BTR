@@ -367,7 +367,8 @@ typedef enum ScrollDirection {
             cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
         }
     }
-    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    [cell.productImageView setContentMode:UIViewContentModeScaleAspectFit];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
     [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
