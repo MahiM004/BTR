@@ -695,18 +695,18 @@
 
 - (void)hideBillingAddress {
     if (self.billingAddressHeight.constant == BILLING_ADDRESS_HEIGHT) {
+        self.billingAddressView.hidden = YES;
         self.billingAddressHeight.constant  =  0;
         self.viewHeight.constant = self.viewHeight.constant - BILLING_ADDRESS_HEIGHT;
-        self.billingAddressView.hidden = YES;
         [self.view layoutIfNeeded];
     }
 }
 
 - (void)showBillingAddress {
     if (self.billingAddressHeight.constant == 0) {
+        self.billingAddressView.hidden = NO;
         self.viewHeight.constant = self.viewHeight.constant + BILLING_ADDRESS_HEIGHT;
         self.billingAddressHeight.constant  =  BILLING_ADDRESS_HEIGHT;
-        self.billingAddressView.hidden = NO;
         [self.view layoutIfNeeded];
     }
 }
