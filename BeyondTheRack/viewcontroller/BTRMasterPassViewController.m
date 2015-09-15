@@ -35,6 +35,10 @@
     NSLog(@"PAIRD");
 }
 
+- (void)checkoutDidCancel {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)checkoutDidCompleteWithError:(NSError *)error withInfo:(NSString *)info {
     [self getInfoForMasterPassAndAddMasterPassInfo:info];
 }

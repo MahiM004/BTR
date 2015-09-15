@@ -20,5 +20,7 @@
 @property (nonatomic, retain) NSNumber * requestBasicCheckout;
 @property (nonatomic, retain) NSNumber * requestPairing;
 @property (nonatomic, retain) NSString * requestToken;
+@property (nonatomic, retain) NSString * version;
+@property (nonatomic, retain) NSArray * shippingLocationProfile;
 
 @end

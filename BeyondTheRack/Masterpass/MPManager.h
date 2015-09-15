@@ -64,6 +64,14 @@
  */
 - (void)resetUserPairing;
 
+
+/**
+ * Method that executes when checkout has been canceled
+ *
+ *
+ */
+- (void)checkoutDidCancel;
+
 @end
 
 @interface MPManager : NSObject

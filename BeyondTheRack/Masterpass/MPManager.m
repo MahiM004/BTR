@@ -55,9 +55,10 @@ NSInteger const MPErrorCodeBadRequest = 400;
                                      @"callbackUrl":info.callbackUrl,
                                      @"pairingRequestToken":info.pairingRequestToken,
                                      @"allowedCardTypes":info.allowedCardTypes,
-                                     @"requestPairing":@1,
-                                     @"version":MPVersion};
-    
+                                     @"requestPairing":info.requestPairing,
+                                     @"version":info.version,
+                                     @"shippingLocationProfile":info.shippingLocationProfile
+                                     };
     dispatch_async(dispatch_get_main_queue(), ^{
         [self showLightboxWindowOfType:MPLightBoxTypeCheckout options:lightBoxParams inViewController:viewController];
     });
@@ -85,6 +86,13 @@ NSInteger const MPErrorCodeBadRequest = 400;
 
 - (void)lightBox:(MPLightboxViewController *)pairingViewController didCompleteCheckoutWithError:(NSError *)error Info:(NSString *)info {
     [pairingViewController dismissViewControllerAnimated:YES completion:^{
+        
+        if ([info containsString:@"cancel"]) {
+            if ([self.delegate respondsToSelector:@selector(checkoutDidCancel)])
+                [self.delegate checkoutDidCancel];
+            return;
+        }
+        
         if ([self.delegate respondsToSelector:@selector(checkoutDidCompleteWithError:withInfo:)]) {
             [self.delegate checkoutDidCompleteWithError:error withInfo:info];
         }
