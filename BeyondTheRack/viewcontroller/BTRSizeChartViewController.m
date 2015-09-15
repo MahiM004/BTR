@@ -106,7 +106,7 @@
 
     NSURLRequest* request = [NSURLRequest requestWithURL:[BTRChartFetcher URLforImagesOfChartsWithName:[self.currentImagesArray objectAtIndex:indexPath.row]] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30.0];
     
-    [self.imageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"neulogo.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+    [self.imageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"placeHolderImage"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         [weakSelf.imageView setImage:image];
         [weakSelf.imageView setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
         [weakSelf.chartScrollView setContentSize:CGSizeMake(weakSelf.imageView.frame.size.width, weakSelf.imageView.frame.size.height)];

@@ -109,7 +109,7 @@
     if (indexPath.row < [self.bagItemsArray count]) {
         NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
         [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:uniqueSku]
-                           placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+                           placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
         
         Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
         bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];

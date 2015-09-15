@@ -63,7 +63,8 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *paypalDetailHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *giftViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *billingAddressHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cardPaymentTipHeight;
 
 /**
  
@@ -73,8 +74,6 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet UIView *pickerParentView;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-
-
 
 /**
  
@@ -103,6 +102,9 @@ typedef enum {
  
  */
 
+@property (weak, nonatomic) IBOutlet UIImageView *paymentMethodImageView;
+@property (weak, nonatomic) IBOutlet UILabel *cardPaymentTipLabel;
+
 @property (weak, nonatomic) IBOutlet CTCheckbox *sameAddressCheckbox;
 @property (weak, nonatomic) IBOutlet UITextField *addressLine1BillingTF;
 @property (weak, nonatomic) IBOutlet UITextField *addressLine2BillingTF;
@@ -126,6 +128,9 @@ typedef enum {
  */
 
 @property (weak, nonatomic) IBOutlet UITextField *paypalEmailTF;
+@property (weak, nonatomic) IBOutlet UILabel *sendmeToPaypalLabel;
+@property (weak, nonatomic) IBOutlet CTCheckbox *sendmeToPaypalCheckbox;
+
 @property (weak, nonatomic) IBOutlet UIButton *paymentMethodButton;
 @property (weak, nonatomic) IBOutlet UITextField *paymentMethodTF;
 @property (weak, nonatomic) IBOutlet UITextField *expiryMonthPaymentTF;

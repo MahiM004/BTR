@@ -290,7 +290,7 @@
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
                                                                        withCount:1+indexPath.row
                                                                          andSize:@"large"]
-                          placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+                          placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     return cell;
 }
 

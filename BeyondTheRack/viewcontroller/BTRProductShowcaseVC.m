@@ -23,8 +23,25 @@
 #define SIZE_PICKER     1
 #define SORT_PICKER      2
 
+typedef enum ScrollDirection {
+    ScrollDirectionNone,
+    ScrollDirectionRight,
+    ScrollDirectionLeft,
+    ScrollDirectionUp,
+    ScrollDirectionDown,
+    ScrollDirectionCrazy,
+} ScrollDirection;
+
 @interface BTRProductShowcaseVC ()
 
+// scrollview
+@property (nonatomic, assign) CGFloat lastContentOffset;
+
+// Heights
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sortViewHeight;
+
+// UI Views
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath; // used to segue to PDP
 @property (strong, nonatomic) NSString *selectedBrandString; // used to segue to PDP
 @property (weak, nonatomic) IBOutlet UIView *headerView;
@@ -350,7 +367,8 @@
             cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
         }
     }
-    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"neulogo.png"]];
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    [cell.productImageView setContentMode:UIViewContentModeScaleAspectFit];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
     [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
@@ -528,6 +546,32 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark Scrollview Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if  ([self scrollDirectionOfScrollView:scrollView] == ScrollDirectionDown) {
+        if (scrollView.contentOffset.y > 240)
+            self.sortViewHeight.constant = 0;
+    } else
+        if (scrollView.contentOffset.y < 200)
+            self.sortViewHeight.constant = 40;
+    [self.view needsUpdateConstraints];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.lastContentOffset = scrollView.contentOffset.y;
+}
+
+- (ScrollDirection)scrollDirectionOfScrollView:(UIScrollView *)scrollView {
+    ScrollDirection scrollDirection;
+    if (self.lastContentOffset > scrollView.contentOffset.y)
+        scrollDirection = ScrollDirectionUp;
+    else if (self.lastContentOffset < scrollView.contentOffset.y)
+        scrollDirection = ScrollDirectionDown;
+    
+    self.lastContentOffset = scrollView.contentOffset.x;
+    return scrollDirection;
+}
 
 @end
 
