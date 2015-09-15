@@ -107,4 +107,7 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:checkString];
 }
+-(IBAction)backToLogin:(id)sender {
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
 @end
