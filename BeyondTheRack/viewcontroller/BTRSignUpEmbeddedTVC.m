@@ -223,14 +223,20 @@
                      NSString *gender=[responseObject valueForKeyPath:@"gender"];
                      NSString *fbUserId = [responseObject valueForKeyPath:@"id"];
                      NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
-                     
+                     NSString *inviteCode = nil;
+                     if ( IDIOM == IPAD ) {
+                         inviteCode = @"IOSTABLETAPP2";
+                     } else {
+                         inviteCode = @"IOSMOBILEAPP2";
+                     }
                      NSDictionary *fbParams = (@{
                                                  @"id": fbUserId,
                                                  @"access_token": fbAccessToken,
                                                  @"email": email,
                                                  @"first_name": firstName,
                                                  @"last_name": lastName,
-                                                 @"gender": gender
+                                                 @"gender": gender,
+                                                 @"invite": inviteCode
                                                  });
                      [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
                          if ([didLogIn isEqualToString:@"TRUE"])
@@ -276,6 +282,8 @@
 - (void)attemptRegisterWithFacebookUserParams:(NSDictionary *)fbUserParams
                                       success:(void (^)(id  responseObject, NSString *alertString)) success
                                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    NSLog(@"Data we are sending to the server Through FB Profile with Invite Code %@",fbUserParams);
+
     NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookRegistration]];
     [BTRConnectionHelper postDataToURL:url withParameters:fbUserParams setSessionInHeader:NO contentType:kContentTypeJSON success:^(NSDictionary *response) {
         BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
