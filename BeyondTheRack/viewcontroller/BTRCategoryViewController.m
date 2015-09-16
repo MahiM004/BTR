@@ -132,7 +132,6 @@
             [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(changeTimerString:) userInfo:nil repeats:YES];
             return ;
         }
-        NSLog(@"%@",_freeshipInfo.banner);
         [self.bannerView setText:self.freeshipInfo.banner];
         [self.bannerView resetLabel];
     } faild:^(NSError *error) {
