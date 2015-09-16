@@ -660,6 +660,7 @@
         if (self.paypalEmailTF.text.length > 0) {
             self.paypalEmailTF.hidden = NO;
             self.creditCardDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
+            self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
         }
         else {
             self.paypalEmailTF.hidden = YES;
@@ -683,7 +684,7 @@
         self.creditCardDetailHeight.constant = 0;
     }
     
-    [UIView animateWithDuration:2
+    [UIView animateWithDuration:1
                      animations:^{
                          [self.view layoutIfNeeded];
                      }];
