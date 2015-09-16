@@ -32,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self fillData];
+    self.view.backgroundColor = [BTRViewUtility BTRBlack];
 }
 
 - (void)fillData {

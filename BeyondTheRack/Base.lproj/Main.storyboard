@@ -1192,7 +1192,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hL9-nW-JGX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="juC-zG-rXg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-2283" y="1753"/>
+            <point key="canvasLocation" x="-2412" y="1910"/>
         </scene>
         <!--Track OrdersVC-->
         <scene sceneID="sIK-QS-P9h">
@@ -2338,7 +2338,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="072903F2-7B73-42F9-8E0A-EE00D108F69B" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="CAA44E7A-0EAA-4A9A-AFC7-7B1E9D717235" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -2394,7 +2394,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Dp-1j-X2m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-369" y="-1649"/>
+            <point key="canvasLocation" x="-564" y="-1725"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="30i-NF-B2R">
@@ -3410,7 +3410,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-920" y="-1489"/>
+            <point key="canvasLocation" x="-1019" y="-1482"/>
         </scene>
         <!--Product Detail View Controller-->
         <scene sceneID="tn9-0f-X2L">
@@ -3556,7 +3556,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XwV-pQ-6xb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="DVa-au-CuN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1300" y="-1489"/>
+            <point key="canvasLocation" x="-1433" y="-1474"/>
         </scene>
         <!--Product Detail EmbeddedTVC-->
         <scene sceneID="OeH-x2-7fy">
@@ -3923,7 +3923,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q8n-17-yoU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1300" y="-489"/>
+            <point key="canvasLocation" x="-1300" y="-447"/>
         </scene>
         <!--Select SizeVC-->
         <scene sceneID="lMB-QA-car">
@@ -6226,6 +6226,30 @@
             </objects>
             <point key="canvasLocation" x="-1511" y="-2325"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="C4a-Pj-tQF">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xkb-Ey-GhV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="yco-tz-MU0">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                </view>
+                <navigationController restorationIdentifier="EventsNavigationControllerIdentifier" storyboardIdentifier="EventsNavigationControllerIdentifier" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Nqp-fW-g9N" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jgT-RP-ytT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fbg-gu-FX8" kind="relationship" relationship="rootViewController" id="qvF-xz-EuB"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-674" y="-953"/>
+        </scene>
         <!--Confirmation View Controller-->
         <scene sceneID="fxE-pb-akI">
             <objects>
@@ -6760,7 +6784,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="Ove-wg-yEg" secondAttribute="centerX" id="GgX-Nl-NpN"/>
                                     <constraint firstItem="GAh-NL-DEf" firstAttribute="leading" secondItem="z4b-n4-qIM" secondAttribute="leading" id="Qo7-08-wQg"/>
@@ -7415,7 +7438,8 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="072903F2-7B73-42F9-8E0A-EE00D108F69B" width="30" height="30">
+        <image name="BTRLogo.png" width="925" height="125"/>
+        <image name="CAA44E7A-0EAA-4A9A-AFC7-7B1E9D717235" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -7473,7 +7497,6 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
-        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="backarrowcool.png" width="420" height="490"/>
         <image name="bagicon.png" width="420" height="490"/>
