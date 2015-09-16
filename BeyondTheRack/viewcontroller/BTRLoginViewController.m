@@ -197,8 +197,6 @@
 - (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
                                      success:(void (^)(id  responseObject)) success
                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
-    NSLog(@"Data we are sending to the server Through FB Profile with Invite Code%@",fbUserParams);
-
     [self attemptAuthenticateWithFacebookUserParams:fbUserParams
                                             success:^(NSString *didLogIn, NSString *alertString)
      {

@@ -48,6 +48,7 @@
                     
                     int successUser = [responseDic[@"success"] intValue];
                     NSString * messege = responseDic[@"message"];
+                    NSLog(@"%@",responseDic);
                     if (successUser == 1) {
                         [self dismissKeyboard];
                         [self showAlert:@"Check your email" msg:messege];
