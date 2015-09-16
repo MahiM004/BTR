@@ -9,10 +9,9 @@
 #import "BTREditShoppingBagVC.h"
 #import "BTRBagTableViewCell.h"
 #import "BTRConnectionHelper.h"
-
+#import "UIImageView+AFNetworking.h"
 #import "BTRItemFetcher.h"
 #import "BTRBagFetcher.h"
-
 #import "Item+AppServer.h"
 #import "BagItem+AppServer.h"
 

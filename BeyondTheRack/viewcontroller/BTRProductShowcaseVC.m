@@ -17,6 +17,7 @@
 #import "BTRBagFetcher.h"
 #import "BTRConnectionHelper.h"
 #import "BTRAnimationHandler.h"
+#import "UIImageView+AFNetworking.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 

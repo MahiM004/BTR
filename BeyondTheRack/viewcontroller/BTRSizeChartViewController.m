@@ -8,6 +8,7 @@
 
 #import "BTRSizeChartViewController.h"
 #import "BTRChartFetcher.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface BTRSizeChartViewController ()
 

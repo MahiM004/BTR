@@ -8,6 +8,7 @@
 
 #import "BTRZoomImageViewController.h"
 #import "BTRZoomImageCollectionViewCell.h"
+#import "UIImageView+AFNetworking.h"
 #import "BTRItemFetcher.h"
 
 

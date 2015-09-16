@@ -12,6 +12,7 @@
 #import "OrderHistoryItem+AppServer.h"
 #import "BTRTrackOrdersItemCell.h"
 #import "BTRItemFetcher.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface BTRTrackOrdersVC ()
 

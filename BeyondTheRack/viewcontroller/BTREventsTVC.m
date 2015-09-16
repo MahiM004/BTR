@@ -11,6 +11,7 @@
 #import "Event+AppServer.h"
 #import "BTRProductShowcaseVC.h"
 #import "BTRConnectionHelper.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface BTREventsTVC ()
 

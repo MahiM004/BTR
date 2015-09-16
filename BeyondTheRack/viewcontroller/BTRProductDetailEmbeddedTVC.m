@@ -15,6 +15,7 @@
 #import <Social/Social.h>
 #import <Pinterest/Pinterest.h>
 #import "PKYStepper.h"
+#import "UIImageView+AFNetworking.h"
 
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
 #define kMargin             20.0

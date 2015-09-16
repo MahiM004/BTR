@@ -20,7 +20,8 @@
 #import "BTRPaypalFetcher.h"
 #import "BTRPaypalCheckoutViewController.h"
 #import "BTRConnectionHelper.h"
- 
+#import "UIImageView+AFNetworking.h"
+
 @interface BTRShoppingBagViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
