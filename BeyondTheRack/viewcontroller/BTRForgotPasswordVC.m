@@ -48,9 +48,14 @@
                     
                     int successUser = [responseDic[@"success"] intValue];
                     NSString * messege = responseDic[@"message"];
+                    NSLog(@"%@",responseDic);
                     if (successUser == 1) {
                         [self dismissKeyboard];
-                        [self showAlert:@"Check your email" msg:messege];
+                        if (messege.length != 0) {
+                            [self showAlert:@"Check your email" msg:messege];
+                        } else {
+                            [self showAlert:@"Success" msg:@"Reset link is sent to Your given Email"];
+                        }
                         [self performSegueWithIdentifier:@"unwindToLoginScene" sender:self];
                         [self hideHUD];
                     } else {

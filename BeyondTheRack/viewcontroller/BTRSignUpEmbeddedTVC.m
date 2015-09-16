@@ -160,7 +160,6 @@
         } else {
             _hasPromoTF.text = @"IOSMOBILEAPP2";
         }
-        NSLog(@"%@",_hasPromoTF.text);
     }
     NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforUserRegistration]];
     NSDictionary *params = (@{
@@ -172,7 +171,6 @@
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
-            NSLog(@"RESPONSE : %@",response);
             int error_code = (int)[[response valueForKey:@"error_code"] intValue];
             if (error_code == 400) {
                 NSArray *messageArray = response[@"messages"];
@@ -282,8 +280,6 @@
 - (void)attemptRegisterWithFacebookUserParams:(NSDictionary *)fbUserParams
                                       success:(void (^)(id  responseObject, NSString *alertString)) success
                                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
-    NSLog(@"Data we are sending to the server Through FB Profile with Invite Code %@",fbUserParams);
-
     NSString* url = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforFacebookRegistration]];
     [BTRConnectionHelper postDataToURL:url withParameters:fbUserParams setSessionInHeader:NO contentType:kContentTypeJSON success:^(NSDictionary *response) {
         BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];

@@ -158,6 +158,7 @@
         if (response) {
             self.contactInfo = [Contact contactWithAppServerInfo:response];
             success(self.contactInfo);
+            [self hideHUD];
         }
     } faild:^(NSError *error) {
         failure(nil,error);
@@ -180,11 +181,16 @@
 
 - (IBAction)helpTapped:(UIButton *)sender {
     if (self.contactInfo == nil) {
-        [self fetchContactWithSuccess:^(id responseObject) {
-            [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@",error);
-        }];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [self fetchContactWithSuccess:^(id responseObject) {
+                [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"%@",error);
+                [self hideHUD];
+            }];
+        });
+        
     } else
         [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
 }

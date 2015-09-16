@@ -156,6 +156,7 @@
 #pragma mark back
 
 - (IBAction)backbuttonTapped:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"BackButtonPressed"];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 @end
