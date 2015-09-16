@@ -58,7 +58,7 @@
     self.slider.zoomOutAnimationDisabled = YES;
     self.slider.disableTitleShadow = YES;
     self.slider.titleScrollerBackgroundColour = [BTRViewUtility BTRBlack];
-    
+    self.view.backgroundColor = [BTRViewUtility BTRBlack];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7){
         self.slider.hideStatusBarWhenScrolling = YES;//this property normally only makes sense on iOS7+. See the documentation in TTScrollSlidingPagesController.h. If you wanted to use it in iOS6 you'd have to make sure the status bar overlapped the TTScrollSlidingPagesController.
     }
@@ -132,6 +132,7 @@
             [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(changeTimerString:) userInfo:nil repeats:YES];
             return ;
         }
+        NSLog(@"%@",_freeshipInfo.banner);
         [self.bannerView setText:self.freeshipInfo.banner];
         [self.bannerView resetLabel];
     } faild:^(NSError *error) {
