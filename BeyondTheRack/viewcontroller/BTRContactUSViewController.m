@@ -34,7 +34,23 @@
     [self fillData];
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
 }
-
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    BOOL close = [[NSUserDefaults standardUserDefaults]boolForKey:@"BackButtonPressed"];
+    if (close == YES) {
+        [self.navigationController popViewControllerAnimated:YES];
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"BackButtonPressed"];
+    }
+}
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self hideHUD];
+}
+-(void)hideHUD {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+}
 - (void)fillData {
     // message
     if (self.contactInformaion.lostEmail) {
@@ -108,6 +124,8 @@
 
 - (IBAction)faqTapped:(id)sender {
     if (self.faqArray == nil) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [self fetchFAQWithSuccess:^(id responseObject) {
             BTRHelpViewController *help = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRHelpViewController"];
             [help setFaqArray:self.faqArray];
@@ -115,6 +133,7 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"%@",error);
         }];
+            });
     }else {
         BTRHelpViewController *help = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRHelpViewController"];
         [help setFaqArray:self.faqArray];

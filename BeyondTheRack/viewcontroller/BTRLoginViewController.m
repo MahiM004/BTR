@@ -77,10 +77,9 @@
 - (IBAction)signInButtonTapped:(UIButton *)sender {
     if ([appDelegate connected] == 1) {
         if (_emailTextField.text.length != 0 & _passwordTextField.text.length != 0 & [self validateEmailWithString:_emailTextField.text]) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [self fetchUserWithSuccess:^(NSString *didLogIn) {
-                    [hud hide:YES];
                     if ([didLogIn  isEqualToString:@"TRUE"]) {
                         [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
                     }
