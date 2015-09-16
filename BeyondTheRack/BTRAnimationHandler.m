@@ -33,5 +33,13 @@
     [view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:duration - 0.1];
 }
 
++ (void)showViewController:(UIViewController *)viewController atLeftOfViewController:(UIViewController *)mainViewController inDuration:(CGFloat)duration {
+    [viewController.view setFrame:CGRectMake(0, 0, 0, mainViewController.view.frame.size.height)];
+    [UIView animateWithDuration:duration animations:^{
+        [mainViewController.view setFrame:CGRectMake(300, 0, mainViewController.view.frame.size.width, mainViewController.view.frame.size.height)];
+        [viewController.view setFrame:CGRectMake(0, 0, 300, mainViewController.view.frame.size.height)];
+    }];
+}
+
 
 @end
