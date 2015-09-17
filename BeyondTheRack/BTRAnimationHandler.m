@@ -34,10 +34,22 @@
 }
 
 + (void)showViewController:(UIViewController *)viewController atLeftOfViewController:(UIViewController *)mainViewController inDuration:(CGFloat)duration {
-    [viewController.view setFrame:CGRectMake(0, 0, 0, mainViewController.view.frame.size.height)];
+    [viewController.view setFrame:CGRectMake(-200, 0, 200, mainViewController.view.frame.size.height)];
+    [mainViewController.view.superview addSubview:viewController.view];
     [UIView animateWithDuration:duration animations:^{
-        [mainViewController.view setFrame:CGRectMake(300, 0, mainViewController.view.frame.size.width, mainViewController.view.frame.size.height)];
-        [viewController.view setFrame:CGRectMake(0, 0, 300, mainViewController.view.frame.size.height)];
+        [mainViewController.view setFrame:CGRectMake(200, 0, mainViewController.view.frame.size.width, mainViewController.view.frame.size.height)];
+        [viewController.view setFrame:CGRectMake(0, 0, 200, mainViewController.view.frame.size.height)];
+    } completion:^(BOOL finished) {
+        [viewController.view needsUpdateConstraints];
+    }];;
+}
+
++ (void)hideViewController:(UIViewController *)viewController fromMainViewController:(UIViewController *)mainViewController inDuration:(CGFloat)duration {
+    [UIView animateWithDuration:duration animations:^{
+        [mainViewController.view setFrame:CGRectMake(0, 0, mainViewController.view.frame.size.width, mainViewController.view.frame.size.height)];
+        [viewController.view setFrame:CGRectMake(-200, 0, 200, mainViewController.view.frame.size.height)];
+    } completion:^(BOOL finished) {
+        [viewController.view removeFromSuperview];
     }];
 }
 

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BTRAccountEmbeddedTVC.h"
 
-
-@interface BTRMainViewController : UIViewController
-
+@interface BTRMainViewController : UIViewController <BTRAccountDelegate>
+@property (nonatomic, strong) User *user;
 @end

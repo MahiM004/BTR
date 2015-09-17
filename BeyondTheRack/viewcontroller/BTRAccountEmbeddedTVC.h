@@ -7,7 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User+AppServer.h"
+
+@protocol BTRAccountDelegate <NSObject>
+
+@required
+
+@property (nonatomic,strong) User* user;
+
+- (void) signOutDidSelect;
+- (void) trackOrderDidSelect;
+- (void) helpDidSelect;
+- (void) userInformationDidSelect;
+- (void) notificationSettingDidSelect;
+
+@end
+
 
 @interface BTRAccountEmbeddedTVC : UITableViewController
-
+@property (nonatomic, strong) User *user;;
+@property (strong, nonatomic) id <BTRAccountDelegate> delegate;
 @end

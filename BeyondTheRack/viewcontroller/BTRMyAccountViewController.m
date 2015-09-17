@@ -18,6 +18,10 @@
     [super viewDidLoad];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"show");
+}
+
 -(IBAction)closeAccountVC:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
