@@ -17,29 +17,23 @@
 
 
 + (UIColor *)BTRBlack {
-    
     return [UIColor colorWithRed:33.0/255.0 green:33.0/255.0 blue:33.0/255.0 alpha:1.0];
 }
 
 + (UIImage *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize {
-    
     UIGraphicsBeginImageContext( newSize );
     [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     return newImage;
 }
 
 
 + (void)saveImage:(UIImage *)image withFilename:(NSString *)filename {
-    
     NSString *path;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     path = [paths[0] stringByAppendingPathComponent:@"AppPics/"];
-    
     BOOL isDir;
-    
     if(![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir]) {
         if(!isDir) {
             NSError *error;
@@ -47,40 +41,31 @@
             
         }
     }
-    
     path = [path stringByAppendingPathComponent:filename];
     NSData *imageData = UIImagePNGRepresentation(image);
-    
     [imageData writeToFile:path atomically:YES];
 }
 
 + (UIImage *)imageWithFilename:(NSString *)filename {
-    
     NSString *path;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     path = [paths[0] stringByAppendingPathComponent:@"AppPics"];
     path = [path stringByAppendingPathComponent:filename];
-    
     return [UIImage imageWithContentsOfFile:path];
 }
 
 
 
 + (NSAttributedString *)crossedOffPricefromNumber:(NSNumber *)priceNumber {
-    
-    
     NSString *dollaredString = [self priceStringfromNumber:priceNumber];
     UIFont *priceFont = [UIFont fontWithName:@"STHeitiSC-Light" size:15.0];
     NSAttributedString *crossedOffText = [self crossedOffStringfromString:dollaredString withFont:priceFont];
-    
     return crossedOffText;
 }
 
 
 + (NSAttributedString *)crossedOffStringfromString:(NSString *)string withFont:(UIFont *)font{
-    
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    
     NSAttributedString *crossedOffText = [[NSAttributedString alloc] initWithString:string
                                                                          attributes:@{
                                                                                       NSStrikethroughStyleAttributeName:
@@ -94,9 +79,7 @@
 
 
 + (NSAttributedString *)crossedOffStringfromString:(NSString *)string {
-    
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    
     NSAttributedString *crossedOffText = [[NSAttributedString alloc] initWithString:string
                                                                          attributes:@{
                                                                                       NSStrikethroughStyleAttributeName:
@@ -107,26 +90,15 @@
 }
 
 + (NSString *)priceStringfromNumber:(NSNumber *)priceNumber {
-    /*
-    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-    [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
-    NSString *someString = [nf stringFromNumber:priceNumber];
-    NSString *dollaredString = [NSString stringWithFormat:@"$%@", someString];
-  
-    */
-    
     NSNumberFormatter *currencyStyle = [[NSNumberFormatter alloc] init];
     [currencyStyle setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [currencyStyle setNumberStyle:NSNumberFormatterCurrencyStyle];
-    
     NSString *formatted = [currencyStyle stringFromNumber:priceNumber];
-    
     return formatted;
 }
 
 
 + (NSString *)priceStringfromString:(NSString *)priceString {
-    
     NSNumberFormatter *currencyStyle = [[NSNumberFormatter alloc] init];
     [currencyStyle setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [currencyStyle setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -138,7 +110,6 @@
 
 
 + (UITextField *)underlineTextField:(UITextField *)textField {
-    
     CGRect layerFrame = CGRectMake(0, 0, textField.frame.size.width, textField.frame.size.height);
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, NULL, 0, 0);
@@ -157,10 +128,8 @@
 }
 
 + (NSString *)provinceCodeforName:(NSString *)name {
-    
     if ([name length] < 2)
         return @"";
-    
     NSArray *provinceNamesArray =  @[@"Alberta", @"British Columbia", @"Manitoba", @"New Brunswick",
                                      @"New foundland & Labrador", @"Northwest Territories", @"Nova Scotia",
                                      @"Nunavut", @"Ontario", @"Prince Edward Island", @"Quebec", @"Saskatchewan", @"Yukon",
@@ -177,16 +146,12 @@
                                     @"IN", @"IA", @"KS", @"KY", @"LA", @"ME", @"MD", @"MA", @"MI", @"MN", @"MS", @"MO", @"MT",
                                     @"NE", @"NV", @"NH", @"NJ", @"NM", @"NY", @"NC", @"ND", @"OH", @"OK", @"OR", @"PA", @"RI",
                                     @"SC", @"SD", @"TN", @"TX", @"UT", @"VT", @"VA", @"WA", @"WV", @"WI", @"WY" ];
-    
     return [provinceCodesArray objectAtIndex:[provinceNamesArray indexOfObject:name]];
-
 }
 
 + (NSString *)provinceNameforCode:(NSString *)code {
-    
     if ([code length] < 2)
         return @"";
-    
     NSArray *provinceNamesArray =  @[@"Alberta", @"British Columbia", @"Manitoba", @"New Brunswick",
                                      @"New foundland & Labrador", @"Northwest Territories", @"Nova Scotia",
                                      @"Nunavut", @"Ontario", @"Prince Edward Island", @"Quebec", @"Saskatchewan", @"Yukon",
@@ -203,60 +168,43 @@
                                     @"IN", @"IA", @"KS", @"KY", @"LA", @"ME", @"MD", @"MA", @"MI", @"MN", @"MS", @"MO", @"MT",
                                     @"NE", @"NV", @"NH", @"NJ", @"NM", @"NY", @"NC", @"ND", @"OH", @"OK", @"OR", @"PA", @"RI",
                                     @"SC", @"SD", @"TN", @"TX", @"UT", @"VT", @"VA", @"WA", @"WV", @"WI", @"WY" ];
-    
     return [provinceNamesArray objectAtIndex:[provinceCodesArray indexOfObject:code]];
 }
 
-
-
++ (NSDictionary *)inquiryTypes {
+    NSDictionary* inquiryTypes = [[NSDictionary alloc]initWithObjects:@[@"signin",@"order",@"return",@"product",@"question"] forKeys:@[@"I can't sign in to my account",@"I have a question about a recent order",@"I have a question about a return or refund",@"I need some product information",@"I have a different question or topic"]];
+    return inquiryTypes;
+}
 
 + (NSString *)countryCodeforName:(NSString *)name {
-    
     if ([name  isEqualToString:@"USA"])
         return @"US";
-    
     return @"CA";
 }
 
-
 + (NSString *)countryNameforCode:(NSString *)code {
-    
     if ([code isEqualToString:@"US"])
         return @"USA";
-    
     return @"Canada";
 }
 
-
-+ (NSString *)formatDateStringToStringforMonthDayDisplay:(NSString *)someDateString
-{
++ (NSString *)formatDateStringToStringforMonthDayDisplay:(NSString *)someDateString{
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-
     NSDate *myDate = [dateFormatter dateFromString:someDateString];
-
     [dateFormatter setDateFormat:@"MMMM d"];
     NSString  *dateString = [dateFormatter stringFromDate:myDate];
-    
     return dateString;
 }
 
-
-+ (NSString *)formatDateStringToStringforYearDisplay:(NSString *)someDateString
-{
++ (NSString *)formatDateStringToStringforYearDisplay:(NSString *)someDateString {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
     NSDate *myDate = [dateFormatter dateFromString:someDateString];
-    
     [dateFormatter setDateFormat:@"yyyy"];
     NSString  *dateString = [dateFormatter stringFromDate:myDate];
-    
     return dateString;
 }
-
-
-
 
 @end
 

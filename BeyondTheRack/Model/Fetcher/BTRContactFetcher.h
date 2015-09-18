@@ -12,5 +12,6 @@
 @interface BTRContactFetcher : BTRFetcher
 
 + (NSURL *)URLForContact;
++ (NSURL *)URLForSendMessage;
 
 @end

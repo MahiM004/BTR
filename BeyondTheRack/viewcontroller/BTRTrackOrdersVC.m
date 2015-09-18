@@ -37,7 +37,6 @@
     return _itemsDictionary;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

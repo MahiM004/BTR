@@ -32,5 +32,6 @@
 + (NSString *)formatDateStringToStringforMonthDayDisplay:(NSString  *)someDate;
 + (NSString *)formatDateStringToStringforYearDisplay:(NSString *)someDate;
 
++ (NSDictionary *)inquiryTypes;
 
 @end

@@ -12,6 +12,8 @@
 #import "FAQ.h"
 #import "FAQ+AppServer.h"
 #import "BTRConnectionHelper.h"
+#import "BTRContactFetcher.h"
+#import "BTRViewUtility.h"
 
 @interface BTRContactUSViewController ()
 @property (strong, nonatomic) NSArray *inquiryArray;
@@ -119,7 +121,56 @@
 // send messsage
 
 - (IBAction)sendMessage:(id)sender {
+    if (![self isFormCompleted])
+        return;
+    NSString *inquiry = [[BTRViewUtility inquiryTypes]valueForKey:self.typeOfInquiryTF.text];
+    NSDictionary* param = [NSDictionary dictionaryWithObjectsAndKeys:inquiry,@"inquiry_type",
+                           self.firstNameTF.text,@"first_name",
+                           self.lastNameTF.text,@"last_name",
+                           self.orderTF.text,@"order_id",
+                           self.itemNumberTF.text,@"item_id",
+                           self.descriptionTV.text,@"message",
+                           self.emailTF.text,@"email"
+                           , nil];
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRContactFetcher URLForSendMessage]];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [BTRConnectionHelper postDataToURL:url withParameters:param setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        [self hideHUD];
+        if (response && [[response valueForKey:@"success"]boolValue])
+            [[[UIAlertView alloc]initWithTitle:@"Thanks" message:@"You message has been sent" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+        else if (response)
+            [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+    } faild:^(NSError *error) {
+        [self hideHUD];
+    }];
+}
 
+- (BOOL)isFormCompleted {
+    if (self.typeOfInquiryTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Inquiry" message:@"Please select your inquiry type" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+        return NO;
+    }
+    if (self.firstNameTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"First Name" message:@"Please fill your first name" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+        [self.firstNameTF becomeFirstResponder];
+        return NO;
+    }
+    if (self.lastNameTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Last Name" message:@"Please fill your last name" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+        [self.lastNameTF becomeFirstResponder];
+        return NO;
+    }
+    if (self.emailTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Email" message:@"Please fill your email address" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+        [self.emailTF becomeFirstResponder];
+        return NO;
+    }
+    if (self.descriptionTV.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Message" message:@"Please fill Message" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+        [self.descriptionTV becomeFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 - (IBAction)faqTapped:(id)sender {

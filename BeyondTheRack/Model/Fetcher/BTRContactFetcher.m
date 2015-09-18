@@ -18,4 +18,8 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/content/contact?lang=en_CA&render=text", BASEURL]];
 }
 
++ (NSURL *)URLForSendMessage {
+  return [self URLForQuery:[NSString stringWithFormat:@"%@/contact", BASEURL]];
+}
+
 @end
