@@ -152,8 +152,14 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if (searchText.length > 2)
+    if (searchText.length == 0) {
+        [self.suggestionArray removeAllObjects];
+        [self.suggestionTableView setHidden:YES];
+    }
+    if (searchText.length > 2) {
         [self searchFor:searchText];
+    }
+    
     if (searchText > 0)
         [self.searchBar setShowsCancelButton:YES animated:YES];
 }
@@ -427,9 +433,11 @@
 #pragma mark getting suggestions
 
 - (void)searchFor:(NSString *)word {
+    [self.suggestionArray removeAllObjects];
+    [self.suggestionTableView reloadData];
+    [self.suggestionTableView setHidden:YES];
     NSString* url = [NSString stringWithFormat:@"%@",[BTRSuggestionFetcher URLforSugesstionWithQuery:word]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeHTMLOrText success:^(NSDictionary *response) {
-        [self.suggestionArray removeAllObjects];
         [self.suggestionArray addObjectsFromArray:(NSArray *)response];
         if (self.suggestionArray.count > 0) {
             [self.suggestionTableView setHidden:NO];
