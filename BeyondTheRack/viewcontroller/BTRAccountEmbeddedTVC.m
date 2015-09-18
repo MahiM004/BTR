@@ -80,20 +80,6 @@
     }];
 }
 
-#pragma mark - Logout User RESTful
-
-- (void)logutUserServerCallWithSuccess:(void (^)(id  responseObject)) success
-                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
-    NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserLogout]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        FBSDKLoginManager *fbAuth = [[FBSDKLoginManager alloc] init];
-        [fbAuth logOut];
-        success(@"TRUE");
-    } faild:^(NSError *error) {
-        failure(nil, error);
-    }];
-}
-
 #pragma mark - Track Orders RESTful
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -117,21 +103,8 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([[segue identifier] isEqualToString:@"BTRNotificationsSegueIdentifier"]) {
-//        BTRNotificationsVC *vc = [segue destinationViewController];
-//        vc.user = [self user];
-//        
-//    } else if ([[segue identifier] isEqualToString:@"BTRTrackOrdersSegueIdentifier"]) {
-//        BTRTrackOrdersVC *vc = [segue destinationViewController];
-//        vc.headersArray = [self headersArray];
-//        vc.itemsDictionary = [self itemsDictionary];
-//        
-//    } else if ([[segue identifier] isEqualToString:@"BTRContactusSegueIdentifier"]) {
-//        BTRContactUSViewController* vc = [segue destinationViewController];
-//        vc.contactInformaion = self.contactInfo;
-//    }
+
 }
 
 -(void)hideHUD {
