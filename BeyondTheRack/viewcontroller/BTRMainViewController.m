@@ -176,6 +176,8 @@
 
 - (void)fetchOrderHistoryWithSuccess:(void (^)(id  responseObject)) success
                              failure:(void (^)(NSError *error)) failure {
+    if (!self.itemsDictionary)
+        self.itemsDictionary = [NSMutableDictionary dictionary];
     [[self itemsDictionary] removeAllObjects];
     [[self headersArray] removeAllObjects];
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderHistoryFetcher URLforOrderHistory]];
