@@ -7,7 +7,6 @@
 //
 
 #import "BTRCategoryViewController.h"
-#import "BTREventsTVC.h"
 #import "BTRCategoryData.h"
 #import "MarqueeLabel.h"
 #import "Freeship+appServer.h"
