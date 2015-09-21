@@ -9,7 +9,6 @@
 #import "BTRMainViewController.h"
 #import "BTRShoppingBagViewController.h"
 #import "BTRCategoryViewController.h"
-#import "BTREventsTVC.h"
 #import "BTRFacetsHandler.h"
 #import "BTRSearchViewController.h"
 #import "BTRBagFetcher.h"
