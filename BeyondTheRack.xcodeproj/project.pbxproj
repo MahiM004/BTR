@@ -168,6 +168,8 @@
 		A00E4DE61B865B5700C93CD3 /* MPCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DDF1B865B5700C93CD3 /* MPCreditCard.m */; };
 		A00E4DE71B865B5700C93CD3 /* MPLightboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DE11B865B5700C93CD3 /* MPLightboxViewController.m */; };
 		A00E4DE81B865B5700C93CD3 /* MPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A00E4DE31B865B5700C93CD3 /* MPManager.m */; };
+		A00FB1F21BAC998A005166C3 /* BTREventsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A00FB1F11BAC998A005166C3 /* BTREventsVC.m */; };
+		A00FB1F81BACAA3E005166C3 /* BTREventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A00FB1F71BACAA3E005166C3 /* BTREventCell.m */; };
 		A01142681B61777A0099A40A /* BTRFAQTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A01142671B61777A0099A40A /* BTRFAQTableViewCell.m */; };
 		A011426B1B617A830099A40A /* BTRHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A011426A1B617A830099A40A /* BTRHelpViewController.m */; };
 		A011426E1B6189D40099A40A /* FAQ.m in Sources */ = {isa = PBXBuildFile; fileRef = A011426D1B6189D40099A40A /* FAQ.m */; };
@@ -511,6 +513,10 @@
 		A00E4DE11B865B5700C93CD3 /* MPLightboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLightboxViewController.m; sourceTree = "<group>"; };
 		A00E4DE21B865B5700C93CD3 /* MPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPManager.h; sourceTree = "<group>"; };
 		A00E4DE31B865B5700C93CD3 /* MPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPManager.m; sourceTree = "<group>"; };
+		A00FB1F01BAC998A005166C3 /* BTREventsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventsVC.h; sourceTree = "<group>"; };
+		A00FB1F11BAC998A005166C3 /* BTREventsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventsVC.m; sourceTree = "<group>"; };
+		A00FB1F61BACAA3E005166C3 /* BTREventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventCell.h; sourceTree = "<group>"; };
+		A00FB1F71BACAA3E005166C3 /* BTREventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventCell.m; sourceTree = "<group>"; };
 		A01142661B61777A0099A40A /* BTRFAQTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRFAQTableViewCell.h; sourceTree = "<group>"; };
 		A01142671B61777A0099A40A /* BTRFAQTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRFAQTableViewCell.m; sourceTree = "<group>"; };
 		A01142691B617A830099A40A /* BTRHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRHelpViewController.h; sourceTree = "<group>"; };
@@ -868,6 +874,10 @@
 				69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */,
 				69B02CAA1A5DA70700040C86 /* BTREventsTVC.h */,
 				69B02CAB1A5DA70700040C86 /* BTREventsTVC.m */,
+				A00FB1F01BAC998A005166C3 /* BTREventsVC.h */,
+				A00FB1F11BAC998A005166C3 /* BTREventsVC.m */,
+				A00FB1F61BACAA3E005166C3 /* BTREventCell.h */,
+				A00FB1F71BACAA3E005166C3 /* BTREventCell.m */,
 				A01670631B8CF0E700448EF3 /* SizeChart */,
 				692F24D21AA8E0B4003AABE1 /* MyAccount */,
 				692F24D11AA8E093003AABE1 /* Product */,
@@ -1500,6 +1510,7 @@
 				69B02D071A605AED00040C86 /* Item+AppServer.m in Sources */,
 				690A38F31B1DEB7F00D4BA84 /* TNRadioButtonGroup.m in Sources */,
 				69869FA61A63FD6B00F986BC /* BTREventFetcher.m in Sources */,
+				A00FB1F21BAC998A005166C3 /* BTREventsVC.m in Sources */,
 				6901EA4A1ADEC919002534D9 /* BTRBagHandler.m in Sources */,
 				A01E5DFC1B690FBF00B0EC5B /* BTRConfirmationViewController.m in Sources */,
 				69F0BAF81B418628008C0498 /* OrderHistoryItem.m in Sources */,
@@ -1524,6 +1535,7 @@
 				69D440231B3083CA00070FD8 /* BTROrderFetcher.m in Sources */,
 				69B02CAD1A5DA70700040C86 /* BTREventsTVC.m in Sources */,
 				69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */,
+				A00FB1F81BACAA3E005166C3 /* BTREventCell.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */,
 				6900B4DD1AB7747900930D16 /* FAImageView.m in Sources */,
