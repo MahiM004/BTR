@@ -21,6 +21,7 @@
 #import "BTRPaypalCheckoutViewController.h"
 #import "BTRConnectionHelper.h"
 #import "UIImageView+AFNetworking.h"
+#import "BTRLoader.h"
 
 @interface BTRShoppingBagViewController ()
 
@@ -57,7 +58,7 @@
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setCurrencySymbol:@"$"];
-    
+    [BTRLoader showLoaderInView:self.view];
     [self getCartServerCallWithSuccess:^(NSString *totalString) {
         NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
         self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
@@ -243,10 +244,11 @@
         self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
         BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
         [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-        
         success(totalString);
+        [BTRLoader hideLoaderFromView:self.view];
 
     } faild:^(NSError *error) {
+        [BTRLoader hideLoaderFromView:self.view];
         if (failure)
             failure(error);
     }];
