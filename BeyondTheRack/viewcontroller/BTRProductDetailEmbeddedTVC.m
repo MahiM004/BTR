@@ -23,7 +23,7 @@
 #define kSampleImageHeight  200.0
 #define kPinItButtonWidth   72.0
 #define kPinItButtonHeight  32.0
-
+#define kTextMargin 54
 
 @interface BTRProductDetailEmbeddedTVC ()
 
@@ -190,8 +190,8 @@
         
         NSString *labelText = [NSString stringWithFormat:@" - %@.", [descriptionArray objectAtIndex:i]];
         UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
-        int labelHeight = [labelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:descriptionFont];
-        CGRect labelFrame = CGRectMake(0, customHeight, self.longDescriptionView.bounds.size.width, labelHeight);
+        int labelHeight = [labelText heightForWidth:(self.tableView.frame.size.width - kTextMargin) usingFont:descriptionFont];
+        CGRect labelFrame = CGRectMake(0, customHeight, self.tableView.frame.size.width - kTextMargin , labelHeight);
 
         customHeight = customHeight + (labelHeight + 5);
         
@@ -205,7 +205,6 @@
     }
     
     customHeight = customHeight + 15;
-    
     return descriptionView;
 }
 
@@ -238,8 +237,8 @@
         NSString *specialNoteLabelText = generalNote;
         UIFont *specialNoteFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
         
-        int specialNoteLabelHeight = [specialNoteLabelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:specialNoteFont];
-        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.longDescriptionView.bounds.size.width, specialNoteLabelHeight);
+        int specialNoteLabelHeight = [specialNoteLabelText heightForWidth:self.tableView.frame.size.width - kTextMargin  usingFont:specialNoteFont];
+        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.tableView.frame.size.width - kTextMargin , specialNoteLabelHeight);
         
         customHeight = customHeight + specialNoteLabelHeight + 10;
         UILabel *generalNoteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
@@ -263,8 +262,8 @@
         NSString *specialNoteLabelText = [NSString stringWithFormat:@"Special Note: %@", specialNoteString];
         UIFont *specialNoteFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
         
-        int specialNoteLabelHeight = [specialNoteLabelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:specialNoteFont];
-        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.longDescriptionView.bounds.size.width, specialNoteLabelHeight);
+        int specialNoteLabelHeight = [specialNoteLabelText heightForWidth:self.tableView.frame.size.width - kTextMargin usingFont:specialNoteFont];
+        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.tableView.frame.size.width - kTextMargin, specialNoteLabelHeight);
         
         customHeight = customHeight + specialNoteLabelHeight + 10;
         UILabel *specialNoteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
