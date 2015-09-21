@@ -99,13 +99,10 @@
 
 -(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index{
     UIViewController *viewController;
-    
-//    BTREventsTVC *myVC  = [[BTREventsTVC alloc] init];
     BTREventsVC *myVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BTREventsTableViewController"];
     viewController = myVC;
     myVC.categoryName = [[self categoryNames] objectAtIndex:index];
     myVC.urlCategoryName = [[self urlCategoryNames] objectAtIndex:index];
-    
     return [[TTSlidingPage alloc] initWithContentViewController:viewController];
 }
 

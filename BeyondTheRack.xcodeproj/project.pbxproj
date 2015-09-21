@@ -91,7 +91,6 @@
 		69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C951A5DA23100040C86 /* TTScrollViewWrapper.m */; };
 		69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C981A5DA23100040C86 /* TTSlidingPage.m */; };
 		69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */; };
-		69B02CAD1A5DA70700040C86 /* BTREventsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CAB1A5DA70700040C86 /* BTREventsTVC.m */; };
 		69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */; };
 		69B02D011A605AB700040C86 /* User+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D001A605AB700040C86 /* User+AppServer.m */; };
 		69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B02D031A605AD200040C86 /* Event+AppServer.m */; };
@@ -388,8 +387,6 @@
 		69B02C9A1A5DA23100040C86 /* TTSlidingPageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPageTitle.h; sourceTree = "<group>"; };
 		69B02C9B1A5DA23100040C86 /* TTSlidingPageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPageTitle.m; sourceTree = "<group>"; };
 		69B02C9C1A5DA23100040C86 /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
-		69B02CAA1A5DA70700040C86 /* BTREventsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventsTVC.h; sourceTree = "<group>"; };
-		69B02CAB1A5DA70700040C86 /* BTREventsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventsTVC.m; sourceTree = "<group>"; };
 		69B02CB21A5DBAB000040C86 /* BTRCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRCategoryViewController.h; sourceTree = "<group>"; };
 		69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRCategoryViewController.m; sourceTree = "<group>"; };
 		69B02CBF1A60304000040C86 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -872,8 +869,6 @@
 				69867A141A44A701003CE59C /* BTRMainViewController.m */,
 				69B02CB21A5DBAB000040C86 /* BTRCategoryViewController.h */,
 				69B02CB31A5DBAB000040C86 /* BTRCategoryViewController.m */,
-				69B02CAA1A5DA70700040C86 /* BTREventsTVC.h */,
-				69B02CAB1A5DA70700040C86 /* BTREventsTVC.m */,
 				A00FB1F01BAC998A005166C3 /* BTREventsVC.h */,
 				A00FB1F11BAC998A005166C3 /* BTREventsVC.m */,
 				A00FB1F61BACAA3E005166C3 /* BTREventCell.h */,
@@ -1533,7 +1528,6 @@
 				69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */,
 				B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */,
 				69D440231B3083CA00070FD8 /* BTROrderFetcher.m in Sources */,
-				69B02CAD1A5DA70700040C86 /* BTREventsTVC.m in Sources */,
 				69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */,
 				A00FB1F81BACAA3E005166C3 /* BTREventCell.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
