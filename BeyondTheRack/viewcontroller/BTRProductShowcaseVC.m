@@ -18,6 +18,7 @@
 #import "BTRConnectionHelper.h"
 #import "BTRAnimationHandler.h"
 #import "UIImageView+AFNetworking.h"
+#import "BTRLoader.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -75,7 +76,7 @@ typedef enum ScrollDirection {
 
 @property (weak, nonatomic) IBOutlet UIView *pickerParentView;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-@property UIActivityIndicatorView * activityLoader;
+
 @end
 
 @implementation BTRProductShowcaseVC
@@ -144,16 +145,7 @@ typedef enum ScrollDirection {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _activityLoader = [[UIActivityIndicatorView alloc]
-                       initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    CGRect frame = _activityLoader.frame;
-    _activityLoader.color = [BTRViewUtility BTRBlack];
-    frame.origin.x = self.view.frame.size.width / 2 - frame.size.width / 2;
-    frame.origin.y = self.view.frame.size.height / 2 - frame.size.height / 2;
-    _activityLoader.frame = frame;
-    [self.view addSubview:_activityLoader];
-    [_activityLoader startAnimating];
-    [_activityLoader setHidden:NO];
+    [BTRLoader showLoaderInView:self.view];
     [self setSelectedCellIndexRow:NSUIntegerMax];
 
     [self.eventTitleLabel setText:[self eventTitleString]];
@@ -184,11 +176,9 @@ typedef enum ScrollDirection {
         for (int i = 0; i < [self.originalItemArray count]; i++)
             [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
         success([self originalItemArray]);
-        [_activityLoader stopAnimating];
-        [_activityLoader setHidden:YES];
+        [BTRLoader hideLoaderFromView:self.view];
     } faild:^(NSError *error) {
-        [_activityLoader stopAnimating];
-        [_activityLoader setHidden:YES];
+        [BTRLoader hideLoaderFromView:self.view];
     }];
 }
 
