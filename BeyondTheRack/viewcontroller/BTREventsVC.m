@@ -114,7 +114,7 @@ static NSString * const reuseIdentifier = @"Cell";
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView.frame.size.width > 400) {
-        return CGSizeMake(collectionView.frame.size.width / 2 - 1, 250);
+        return CGSizeMake(collectionView.frame.size.width / 2 - 1, 200);
     }
     return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height / 3);
 }
