@@ -13,6 +13,7 @@
 #import "Freeship+appServer.h"
 #import "BTRConnectionHelper.h"
 #import "BTRFreeshipFetcher.h"
+#import "BTREventsVC.h"
 
 #define INITIAL_PAGE_INDEX 1
 
@@ -99,7 +100,8 @@
 -(TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController*)source atIndex:(int)index{
     UIViewController *viewController;
     
-    BTREventsTVC *myVC  = [[BTREventsTVC alloc] init];
+//    BTREventsTVC *myVC  = [[BTREventsTVC alloc] init];
+    BTREventsVC *myVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BTREventsTableViewController"];
     viewController = myVC;
     myVC.categoryName = [[self categoryNames] objectAtIndex:index];
     myVC.urlCategoryName = [[self urlCategoryNames] objectAtIndex:index];
