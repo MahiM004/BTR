@@ -11,6 +11,7 @@
 #import "BTRSettingManager.h"
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
+#import "BTRLoader.h"
 
 #define COUNTRY_PICKER     1
 #define GENDER_PICKER      2
@@ -330,10 +331,10 @@
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]];
     [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(@"TRUE");
-        [self hideHUD];
+        [BTRLoader hideLoaderFromView:self.view];
     } faild:^(NSError *error) {
         failure(nil, error);
-        [self hideHUD];
+        [BTRLoader hideLoaderFromView:self.view];
     }];
 }
 
@@ -348,7 +349,7 @@
                                       @"email": [[self emailTextField] text],
                                       @"password": [[self retypePasswordTextField] text]
                                       });
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [BTRLoader showLoaderInView:self.view];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforCurrentUser]];
                 [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
@@ -377,12 +378,12 @@
             [btrSettings updatePassword:neuPassword];
             [self.neuPasswordTextField setText:@""];
             [self.retypePasswordTextField setText:@""];
-            [self hideHUD];
+            [BTRLoader hideLoaderFromView:self.view];
             [self showAlert:@"Successful" msg:@"Your password was updated successfully."];
             [_retypePasswordTextField resignFirstResponder];
             [_neuPasswordTextField resignFirstResponder];
         } failure:^(NSError *error) {
-            [self hideHUD];
+            [BTRLoader hideLoaderFromView:self.view];
         }];
     } else
         [self showAlert:@"Attention" msg:@"The passwords do not match!"];
@@ -391,7 +392,7 @@
 
 - (IBAction)updateInfoTapped:(UIButton *)sender {
     if ([appDelegate connected] == 1) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [BTRLoader showLoaderInView:self.view];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [self updateUserInfoWithSuccess:^(NSString *successString) {
                 [self showAlert:@"Successful" msg:@"Your info was updated successfully."];
@@ -409,11 +410,7 @@
 - (IBAction)backbuttonTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
--(void)hideHUD {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-}
+
 -(UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege {
     UIAlertView * aa = [[UIAlertView alloc]initWithTitle:title message:messege delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [aa show];

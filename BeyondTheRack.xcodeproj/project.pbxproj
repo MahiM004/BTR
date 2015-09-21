@@ -180,6 +180,7 @@
 		A01670701B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A016706E1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib */; };
 		A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */; };
 		A01E5DFC1B690FBF00B0EC5B /* BTRConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */; };
+		A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A02A6BF31BB08E0400C01F2C /* BTRLoader.m */; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
@@ -534,6 +535,8 @@
 		A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalFetcher.m; sourceTree = "<group>"; };
 		A01E5DFA1B690FBF00B0EC5B /* BTRConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRConfirmationViewController.h; sourceTree = "<group>"; };
 		A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRConfirmationViewController.m; sourceTree = "<group>"; };
+		A02A6BF21BB08E0400C01F2C /* BTRLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoader.h; sourceTree = "<group>"; };
+		A02A6BF31BB08E0400C01F2C /* BTRLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoader.m; sourceTree = "<group>"; };
 		A06A40EE1B837103008DD60B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A06A40F01B8392C2008DD60B /* BTRSuggestionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSuggestionFetcher.h; sourceTree = "<group>"; };
 		A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSuggestionFetcher.m; sourceTree = "<group>"; };
@@ -855,6 +858,8 @@
 				69E84AD91B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m */,
 				A01142661B61777A0099A40A /* BTRFAQTableViewCell.h */,
 				A01142671B61777A0099A40A /* BTRFAQTableViewCell.m */,
+				A02A6BF21BB08E0400C01F2C /* BTRLoader.h */,
+				A02A6BF31BB08E0400C01F2C /* BTRLoader.m */,
 			);
 			name = View;
 			path = view;
@@ -1568,6 +1573,7 @@
 				6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */,
 				6900B4DF1AB7747900930D16 /* NSString+FontAwesome.m in Sources */,
 				A00E4DE71B865B5700C93CD3 /* MPLightboxViewController.m in Sources */,
+				A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */,
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
 				A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */,
 				690A38F01B1DEB7F00D4BA84 /* TNImageRadioButtonData.m in Sources */,

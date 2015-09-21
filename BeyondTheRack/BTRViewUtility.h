@@ -10,6 +10,8 @@
 
 @interface BTRViewUtility : NSObject
 
++ (BOOL)isIPAD;
+
 + (UIColor *)BTRBlack;
 + (UIImage *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;
 + (void)saveImage:(UIImage *)image withFilename:(NSString *)filename;

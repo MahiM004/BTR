@@ -13,6 +13,7 @@
 #import "BTRMainViewController.h"
 #import "BTRCategoryData.h"
 #import "BTRConnectionHelper.h"
+#import "BTRLoader.h"
 
 @interface BTRInitializeViewController ()
 
@@ -24,13 +25,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
-//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [BTRLoader showLoaderInView:self.view];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         // Do something...
         [self fetchCategoriesWithSuccess:^(NSMutableArray *eventCategoriesArray) {
             [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
         } failure:^(NSError *error) {
-            [self hideHUD];
+            [BTRLoader hideLoaderFromView:self.view];
         }];
         
     });
@@ -56,13 +57,10 @@
         failure(error);
     }];
 }
+
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self hideHUD];
+    [BTRLoader hideLoaderFromView:self.view];
 }
--(void)hideHUD {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-}
+
 @end

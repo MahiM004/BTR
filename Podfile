@@ -1,6 +1,6 @@
 platform :ios, '7.0'
 pod 'AFNetworking', '~> 2.5'
 pod 'ObjectiveSugar'
-pod 'MBProgressHUD', '~> 0.9.1'
 pod 'MarqueeLabel', '~> 2.2'
 pod 'Reachability', '~> 3.2'
+pod 'SpinKit', '~> 1.1'

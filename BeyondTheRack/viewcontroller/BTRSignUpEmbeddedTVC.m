@@ -11,6 +11,7 @@
 #import "User+AppServer.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "BTRConnectionHelper.h"
+#import "BTRLoader.h"
 
 #define COUNTRY_PICKER 1
 #define GENDER_PICKER 2
@@ -127,7 +128,7 @@
         
     } else {
         if ([appDelegate connected] == 1) {
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [BTRLoader showLoaderInView:self.view];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [self userRegistrationServerCallWithSuccess:^(NSString *didSignUp, NSString *messageString) {
                     if ([didSignUp  isEqualToString:@"TRUE"]) {
@@ -135,15 +136,15 @@
                     } else {
                         if (messageString.length != 0) {
                             [self showAlert:@"Please try agian" msg:messageString];
-                            [self hideHUD];
+                            [BTRLoader hideLoaderFromView:self.view];
                         } else {
                             [self showAlert:@"Email or Password Incorrect !" msg:@"Sign Up Failed !"];
-                            [self hideHUD];
+                            [BTRLoader hideLoaderFromView:self.view];
                         }
                     }
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [self showAlert:@"Ooops...!" msg:@"Something went Wrong Please try Again !"];
-                    [self hideHUD];
+                    [BTRLoader hideLoaderFromView:self.view];
                 }];
             });
         } else {
@@ -210,7 +211,7 @@
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];
     } else {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [BTRLoader showLoaderInView:self.view];
         if ([FBSDKAccessToken currentAccessToken]) {
             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
@@ -246,7 +247,7 @@
                      }];
                  } else {
                      NSLog(@"graph api error: %@", error);
-                     [self hideHUD];
+                     [BTRLoader hideLoaderFromView:self.view];
                  }
              }];
         }
@@ -366,15 +367,11 @@
     [self.passwordTextField resignFirstResponder];
     [self.hasPromoTF resignFirstResponder];
 }
--(void)hideHUD {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-}
+
 -(UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege {
     UIAlertView * aa = [[UIAlertView alloc]initWithTitle:title message:messege delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [aa show];
-    [self hideHUD];
+    [BTRLoader hideLoaderFromView:self.view];
     return aa;
 }
 - (BOOL)validateEmailWithString:(NSString*)checkString

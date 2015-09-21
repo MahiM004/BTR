@@ -13,6 +13,7 @@
 #import "BTRConnectionHelper.h"
 #import "UIImageView+AFNetworking.h"
 #import "BTREventCell.h"
+#import "BTRLoader.h"
 
 @interface BTREventsVC ()
 @property (strong, nonatomic) NSMutableArray *eventsArray;
@@ -57,7 +58,7 @@ static NSString * const reuseIdentifier = @"Cell";
     cell.durationLabel.adjustsFontSizeToFitWidth = YES;
     [self changeDateForLabel:cell.durationLabel withDate:[[self.eventsArray objectAtIndex:indexPath.row]endDateTime]];
     __weak UIImageView *weakImageView = cell.eventImage;
-    [cell.eventImage setImageWithURLRequest:urlRequest placeholderImage:[UIImage imageNamed:@"neulogo.png"]
+    [cell.eventImage setImageWithURLRequest:urlRequest placeholderImage:nil
                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                   UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
                                   if (!strongImageView) return;
@@ -78,12 +79,14 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)fetchEventsData {
     NSString* url = [NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName]]];
+    [BTRLoader showLoaderInView:self.view];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         NSArray *eventsArray = response[@"events"];
         self.eventsArray = [Event loadEventsfromAppServerArray:eventsArray withCategoryName:[self urlCategoryName] forEventsArray:[self eventsArray]];
         [self.collectionView reloadData];
         [self reloadTimers];
         [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadTimers) userInfo:nil repeats:YES];
+        [BTRLoader hideLoaderFromView:self.view];
     } faild:^(NSError *error) {
         
     }];

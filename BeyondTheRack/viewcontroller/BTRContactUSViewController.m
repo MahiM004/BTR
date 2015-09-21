@@ -14,6 +14,7 @@
 #import "BTRConnectionHelper.h"
 #import "BTRContactFetcher.h"
 #import "BTRViewUtility.h"
+#import "BTRLoader.h"
 
 @interface BTRContactUSViewController ()
 @property (strong, nonatomic) NSArray *inquiryArray;
@@ -44,15 +45,12 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"BackButtonPressed"];
     }
 }
+
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self hideHUD];
+    [BTRLoader hideLoaderFromView:self.view];
 }
--(void)hideHUD {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-}
+
 - (void)fillData {
     // message
     if (self.contactInformaion.lostEmail) {
@@ -133,15 +131,15 @@
                            self.emailTF.text,@"email"
                            , nil];
     NSString* url = [NSString stringWithFormat:@"%@", [BTRContactFetcher URLForSendMessage]];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [BTRLoader showLoaderInView:self.view];
     [BTRConnectionHelper postDataToURL:url withParameters:param setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        [self hideHUD];
+        [BTRLoader hideLoaderFromView:self.view];
         if (response && [[response valueForKey:@"success"]boolValue])
             [[[UIAlertView alloc]initWithTitle:@"Thanks" message:@"You message has been sent" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
         else if (response)
             [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
     } faild:^(NSError *error) {
-        [self hideHUD];
+        [BTRLoader hideLoaderFromView:self.view];
     }];
 }
 
@@ -175,7 +173,7 @@
 
 - (IBAction)faqTapped:(id)sender {
     if (self.faqArray == nil) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [BTRLoader showLoaderInView:self.view];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [self fetchFAQWithSuccess:^(id responseObject) {
             BTRHelpViewController *help = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRHelpViewController"];

@@ -9,6 +9,7 @@
 #import "BTRForgotPasswordVC.h"
 #import "BTRUserFetcher.h"
 #import "BTRConnectionHelper.h"
+#import "BTRLoader.h"
 
 @interface BTRForgotPasswordVC ()
 {
@@ -42,7 +43,7 @@
     if ([appDelegate connected] == 1) {
         
         if ([self.emailField.text length] != 0 && [self validateEmailWithString:_emailField.text]) {
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [BTRLoader showLoaderInView:self.view];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [self resetPasswordforEmail:[[self emailField] text] success:^(NSString *didSucceed) {
                     
@@ -57,20 +58,20 @@
                             [self showAlert:@"Success" msg:@"Reset link is sent to Your given Email"];
                         }
                         [self performSegueWithIdentifier:@"unwindToLoginScene" sender:self];
-                        [self hideHUD];
+                        [BTRLoader hideLoaderFromView:self.view];
                     } else {
                         [self showAlert:@"Failed" msg:messege];
-                        [self hideHUD];
+                        [BTRLoader hideLoaderFromView:self.view];
                     }
                     
                 } failure:^(NSError *error) {
-                    [self hideHUD];
+                    [BTRLoader hideLoaderFromView:self.view];
                 }];
             });
         }
         else {
             [self showAlert:@"Failed" msg:@"It seems to be you did not given valid email address"];
-            [self hideHUD];
+            [BTRLoader hideLoaderFromView:self.view];
         }
     } else {
         [self showAlert:@"Network Error !" msg:@"Please check the internet"];
@@ -88,16 +89,10 @@
         success(@"TRUE");
     } faild:^(NSError *error) {
         failure(error);
-        [self hideHUD];
+        [BTRLoader hideLoaderFromView:self.view];
     }];
 }
 
-
--(void)hideHUD {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-}
 -(UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege {
     UIAlertView * aa = [[UIAlertView alloc]initWithTitle:title message:messege delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [aa show];

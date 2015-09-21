@@ -14,6 +14,7 @@
 #import "Item+AppServer.h"
 #import "BTRConnectionHelper.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "BTRLoader.h"
 
 #define IDIOM    UI_USER_INTERFACE_IDIOM()
 #define IPAD     UIUserInterfaceIdiomPad
@@ -77,7 +78,7 @@
 - (IBAction)signInButtonTapped:(UIButton *)sender {
     if ([appDelegate connected] == 1) {
         if (_emailTextField.text.length != 0 & _passwordTextField.text.length != 0 & [self validateEmailWithString:_emailTextField.text]) {
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [BTRLoader showLoaderInView:self.view];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [self fetchUserWithSuccess:^(NSString *didLogIn) {
                     if ([didLogIn  isEqualToString:@"TRUE"]) {
@@ -88,7 +89,7 @@
                     }
                     
                 } failure:^(NSError *error) {
-                    [self hideHUD];
+                    [BTRLoader hideLoaderFromView:self.view];
                 }];
             });
         }
@@ -113,7 +114,7 @@
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];
     } else {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [BTRLoader showLoaderInView:self.view];
         if ([FBSDKAccessToken currentAccessToken]) {
             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
@@ -152,7 +153,7 @@
                      }];
                  } else {
                      NSLog(@"graph api error: %@", error);
-                     [self hideHUD];
+                     [BTRLoader hideLoaderFromView:self.view];
                  }
              }];
         }
@@ -271,7 +272,7 @@
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self hideHUD];
+    [BTRLoader hideLoaderFromView:self.view];
 }
 - (void)alertUserForLoginError {
     [[[UIAlertView alloc] initWithTitle:@"Please try agian"
@@ -279,7 +280,7 @@
                                delegate:self
                       cancelButtonTitle:nil
                       otherButtonTitles:@"Ok", nil] show];
-    [self hideHUD];
+    [BTRLoader hideLoaderFromView:self.view];
 }
 - (void)dismissKeyboard {
     [self.passwordTextField resignFirstResponder];
@@ -291,11 +292,7 @@
     [aa show];
     return aa;
 }
--(void)hideHUD {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-}
+
 - (BOOL)validateEmailWithString:(NSString*)checkString
 {
     BOOL stricterFilter = NO;
@@ -305,6 +302,7 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:checkString];
 }
+
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
