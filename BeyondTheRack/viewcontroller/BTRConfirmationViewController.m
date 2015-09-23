@@ -5,7 +5,6 @@
 //  Created by Ali Pourhadi on 2015-07-29.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
-
 #import "BTRConfirmationViewController.h"
 #import "BTRAttributeHandler.h"
 #import "Item.h"
@@ -94,6 +93,18 @@
     
 }
 
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue {
+
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    sharedShoppingBag.bagCount = 0;
+}
+
+- (IBAction)continueTapped:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 
 @end
