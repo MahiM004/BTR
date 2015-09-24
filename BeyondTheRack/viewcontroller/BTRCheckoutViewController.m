@@ -33,6 +33,7 @@
 #define CARD_PAYMENT_HEIGHT 310.0
 #define PAYPAL_PAYMENT_HEIGHT 160.0
 #define CARD_PAYMENT_TIP_HEIGHT 65.0
+#define SAMPLE_GIFT_HEIGHT 110
 
 @class CTCheckbox;
 
@@ -332,11 +333,13 @@
 }
 
 - (void)addSampleGifts {
+    if  (!self.selectedGift)
+        self.selectedGift = [[NSMutableSet alloc]init];
+    
     for (UIView *subView in [self.sampleGiftView subviews])
         [subView removeFromSuperview];
     
-    CGFloat desiredSize = 110;
-    self.sampleGiftViewHeight.constant = desiredSize * [self.order.promoItems count];
+    self.sampleGiftViewHeight.constant = SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
     self.viewHeight.constant =  self.viewHeight.constant + self.sampleGiftViewHeight.constant ;
     [self.view layoutIfNeeded];
     
@@ -345,7 +348,7 @@
     
     for (PromoItem* item in self.order.promoItems) {
         UIView *itemView = [[[NSBundle mainBundle]loadNibNamed:@"BTRSampleGiftView" owner:self options:nil]firstObject];
-        itemView.frame = CGRectMake(0, heightSize, self.view.frame.size.width, desiredSize);
+        itemView.frame = CGRectMake(0, heightSize, self.view.frame.size.width, SAMPLE_GIFT_HEIGHT);
         
         UIImageView *imageView = (UIImageView *)[itemView viewWithTag:100];
         CTCheckbox* checkbox = (CTCheckbox *)[itemView viewWithTag:200];
@@ -358,7 +361,7 @@
         
         [self.sampleGiftView addSubview:itemView];
         itemView.backgroundColor = [UIColor clearColor];
-        heightSize += desiredSize;
+        heightSize += SAMPLE_GIFT_HEIGHT;
         i++;
     }
 }
@@ -439,9 +442,10 @@
 }
 
 -(void)sampleGiftSelected:(CTCheckbox *)checkbox {
-
-
-
+    if  (checkbox.checked)
+        [self.selectedGift addObject:[[self.order.promoItems objectAtIndex:checkbox.tag]promoID]];
+    else
+        [self.selectedGift removeObject:[[self.order.promoItems objectAtIndex:checkbox.tag]promoID]];
 }
 
 - (void)disableShippingAddress {
@@ -987,6 +991,7 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[self.giftMessageTF text] forKey:@"recipient_message"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
+    [orderInfo setObject:[self selectedGift] forKey:@"promotions_opted_in"];
     
     [params setObject:orderInfo forKey:@"orderInfo"];
     [params setObject:[self cardInfo] forKey:@"cardInfo"];
