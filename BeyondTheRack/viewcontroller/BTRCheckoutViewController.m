@@ -53,13 +53,16 @@
 @property (strong, nonatomic) NSString *chosenShippingCountryString;
 @property (strong, nonatomic) NSString *chosenBillingCountryString;
 
+@property BOOL isViewVisible;
 @property BOOL isLoading;
 @property float totalSave;
 
 @property paymentType currentPaymentType;
-@property (strong, nonatomic) NSMutableArray* arrayOfGiftCards;
-@property (strong, nonatomic) NSDictionary* paypal;
-@property (strong, nonatomic) MasterPassInfo* masterpass;
+@property (strong, nonatomic) NSMutableArray *arrayOfGiftCards;
+@property (strong, nonatomic) NSDictionary *paypal;
+@property (strong, nonatomic) MasterPassInfo *masterpass;
+
+@property (strong, nonatomic) NSMutableSet *selectedGift;
 
 @end
 
@@ -227,9 +230,15 @@
     // hidding gift info
     [self.giftLabel setHidden:YES];
     [self.giftDollarLabel setHidden:YES];
+    [self setIsViewVisible:NO];
     
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
     self.paymentTypesArray = [sharedPaymentTypes creditCardDisplayNameArray];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self addSampleGifts];
+    [self setIsViewVisible:YES];
 }
 
 - (void)resetData {
@@ -239,10 +248,7 @@
 
 - (void)loadOrderData {
     self.isLoading = YES;
-    
-    // card info
-    // check payment method
-    
+
     // shipping
     [self.recipientNameShippingTF setText:[self.order shippingRecipientName]];
     [self.addressLine1ShippingTF setText:[[self.order shippingAddress]addressLine1]];
@@ -303,9 +309,6 @@
         [self.qstTaxDollarLabel setHidden:NO];
     }
     
-    // Caculating prices
-//    [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",self.subtotalDollarLabel.text.floatValue + self.gstTaxDollarLabel.text.floatValue + self.qstTaxDollarLabel.text.floatValue + self.shippingDollarLabel.text.floatValue]];
-    
     [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order.orderTotalPrice floatValue]]];
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order.saving floatValue]]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
@@ -321,7 +324,43 @@
         [self.vipOptionView setHidden:TRUE];
         [self.pickupView setHidden:![[self.order eligiblePickup] boolValue]];
     }
+    
+    if ([self isViewVisible])
+        [self addSampleGifts];
+    
     self.isLoading = NO;
+}
+
+- (void)addSampleGifts {
+    for (UIView *subView in [self.sampleGiftView subviews])
+        [subView removeFromSuperview];
+    
+    CGFloat desiredSize = 110;
+    self.sampleGiftViewHeight.constant = desiredSize * [self.order.promoItems count];
+    self.viewHeight.constant =  self.viewHeight.constant + self.sampleGiftViewHeight.constant ;
+    [self.view layoutIfNeeded];
+    
+    int i = 0;
+    CGFloat heightSize = 0;
+    
+    for (PromoItem* item in self.order.promoItems) {
+        UIView *itemView = [[[NSBundle mainBundle]loadNibNamed:@"BTRSampleGiftView" owner:self options:nil]firstObject];
+        itemView.frame = CGRectMake(0, heightSize, self.view.frame.size.width, desiredSize);
+        
+        UIImageView *imageView = (UIImageView *)[itemView viewWithTag:100];
+        CTCheckbox* checkbox = (CTCheckbox *)[itemView viewWithTag:200];
+        UILabel* label = (UILabel *)[itemView viewWithTag:300];
+        
+        [imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",item.image]] placeholderImage:nil];
+        [label setText:item.text];
+        [checkbox addTarget:self action:@selector(sampleGiftSelected:) forControlEvents:UIControlEventValueChanged];
+        [checkbox setTag:i];
+        
+        [self.sampleGiftView addSubview:itemView];
+        itemView.backgroundColor = [UIColor clearColor];
+        heightSize += desiredSize;
+        i++;
+    }
 }
 
 - (void)setCheckboxesTargets {
@@ -397,6 +436,12 @@
         [self enableShippingAddress];
     }
     [self validateAddressViaAPIAndInCompletion:nil];
+}
+
+-(void)sampleGiftSelected:(CTCheckbox *)checkbox {
+
+
+
 }
 
 - (void)disableShippingAddress {

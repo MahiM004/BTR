@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="450" height="92"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dEg-Tv-HKX">
+                    <rect key="frame" x="8" y="8" width="75" height="75"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="75" id="97O-Ds-coI"/>
+                        <constraint firstAttribute="width" constant="75" id="Hn8-5o-N0h"/>
+                    </constraints>
+                </imageView>
+                <view tag="200" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ek3-ep-Lg0" customClass="CTCheckbox">
+                    <rect key="frame" x="91" y="26" width="40" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="84k-Tl-rXN"/>
+                        <constraint firstAttribute="height" constant="40" id="qcL-wL-7cU"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" tag="300" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gr-fG-2lM" userLabel="Label">
+                    <rect key="frame" x="139" y="8" width="303" height="76"/>
+                    <string key="text">I agree to receive a free Kellogg's sample in my package.
+</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xN-R3-OKg" userLabel="Line">
+                    <rect key="frame" x="113" y="91" width="225" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="lw0-u9-GNW"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="dEg-Tv-HKX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="2g6-o8-N2u"/>
+                <constraint firstItem="Ek3-ep-Lg0" firstAttribute="leading" secondItem="dEg-Tv-HKX" secondAttribute="trailing" constant="8" id="5cf-v3-npa"/>
+                <constraint firstAttribute="trailing" secondItem="4gr-fG-2lM" secondAttribute="trailing" constant="8" id="7HH-Sh-n8x"/>
+                <constraint firstItem="2xN-R3-OKg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="7Tz-82-6RS"/>
+                <constraint firstItem="dEg-Tv-HKX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="96N-pS-0Mw"/>
+                <constraint firstItem="4gr-fG-2lM" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="PKo-Ne-4jp"/>
+                <constraint firstItem="dEg-Tv-HKX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Tde-0C-Ykr"/>
+                <constraint firstItem="4gr-fG-2lM" firstAttribute="top" secondItem="Ek3-ep-Lg0" secondAttribute="top" id="TlB-eo-BIN"/>
+                <constraint firstItem="4gr-fG-2lM" firstAttribute="leading" secondItem="Ek3-ep-Lg0" secondAttribute="trailing" constant="8" id="URS-qs-PxB"/>
+                <constraint firstItem="4gr-fG-2lM" firstAttribute="centerY" secondItem="Ek3-ep-Lg0" secondAttribute="centerY" id="Up7-Yh-wzo"/>
+                <constraint firstAttribute="bottom" secondItem="2xN-R3-OKg" secondAttribute="bottom" id="VhB-jc-HEW"/>
+                <constraint firstItem="2xN-R3-OKg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ZVp-AY-Qes"/>
+                <constraint firstItem="Ek3-ep-Lg0" firstAttribute="top" secondItem="dEg-Tv-HKX" secondAttribute="top" id="ioZ-fX-UdW"/>
+                <constraint firstAttribute="bottom" secondItem="4gr-fG-2lM" secondAttribute="bottom" constant="8" id="nrq-g5-pbo"/>
+                <constraint firstItem="Ek3-ep-Lg0" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="zZl-6g-69o"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="2g6-o8-N2u"/>
+                    <exclude reference="ioZ-fX-UdW"/>
+                    <exclude reference="TlB-eo-BIN"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="475" y="148"/>
+        </view>
+    </objects>
+</document>
