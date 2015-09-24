@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Address.h"
+#import "PromoItem.h"
 
 @interface Order : NSObject
 
@@ -64,6 +65,7 @@
 @property (nonatomic, retain) NSString * qstTax;
 @property (nonatomic, retain) NSString * totalTax;
 @property (nonatomic, retain) NSArray * items;
+@property (nonatomic, retain) NSArray* promoItems;
 
 
 @end

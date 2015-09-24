@@ -180,7 +180,9 @@
 		A01670701B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A016706E1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib */; };
 		A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */; };
 		A01E5DFC1B690FBF00B0EC5B /* BTRConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */; };
+		A024A2C41BB4424000B5B596 /* BTRSampleGiftView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */; settings = {ASSET_TAGS = (); }; };
 		A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A02A6BF31BB08E0400C01F2C /* BTRLoader.m */; };
+		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; settings = {ASSET_TAGS = (); }; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
@@ -535,8 +537,11 @@
 		A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalFetcher.m; sourceTree = "<group>"; };
 		A01E5DFA1B690FBF00B0EC5B /* BTRConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRConfirmationViewController.h; sourceTree = "<group>"; };
 		A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRConfirmationViewController.m; sourceTree = "<group>"; };
+		A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRSampleGiftView.xib; sourceTree = "<group>"; };
 		A02A6BF21BB08E0400C01F2C /* BTRLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoader.h; sourceTree = "<group>"; };
 		A02A6BF31BB08E0400C01F2C /* BTRLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoader.m; sourceTree = "<group>"; };
+		A043E9211BB335AB00B42BB1 /* PromoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoItem.h; sourceTree = "<group>"; };
+		A043E9221BB335AB00B42BB1 /* PromoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoItem.m; sourceTree = "<group>"; };
 		A06A40EE1B837103008DD60B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A06A40F01B8392C2008DD60B /* BTRSuggestionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSuggestionFetcher.h; sourceTree = "<group>"; };
 		A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSuggestionFetcher.m; sourceTree = "<group>"; };
@@ -842,6 +847,7 @@
 		697E057B1A432FCD000146C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A024A2C21BB441FF00B5B596 /* Xib */,
 				69659F191A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.h */,
 				69659F1A1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m */,
 				696508601AA4D19B00ED28B8 /* BTRProductShowcaseCollectionCell.h */,
@@ -1075,6 +1081,8 @@
 				A00C9C181B960817004A2629 /* Freeship.m */,
 				A0FCDED31BA0C69900CD476B /* Address.h */,
 				A0FCDED41BA0C69900CD476B /* Address.m */,
+				A043E9211BB335AB00B42BB1 /* PromoItem.h */,
+				A043E9221BB335AB00B42BB1 /* PromoItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1245,6 +1253,14 @@
 			name = SizeChart;
 			sourceTree = "<group>";
 		};
+		A024A2C21BB441FF00B5B596 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */,
+			);
+			path = Xib;
+			sourceTree = "<group>";
+		};
 		B3699B1A1AEA9CFD009D6A48 /* FacebookSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1406,6 +1422,7 @@
 				695C755D1B386AFD003F65F8 /* paypalcheckout.png in Resources */,
 				69F0BB2B1B457156008C0498 /* SF-UI-Display-Ultralight.otf in Resources */,
 				69F0BB221B457156008C0498 /* License Agreement for SF UI Font.rtf in Resources */,
+				A024A2C41BB4424000B5B596 /* BTRSampleGiftView.xib in Resources */,
 				690A39211B1DF70B00D4BA84 /* myuncheck@2x.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				B3C16AA11B1363CA009470EC /* backarrowcool_red.png in Resources */,
@@ -1534,6 +1551,7 @@
 				B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */,
 				69D440231B3083CA00070FD8 /* BTROrderFetcher.m in Sources */,
 				69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */,
+				A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */,
 				A00FB1F81BACAA3E005166C3 /* BTREventCell.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */,

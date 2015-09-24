@@ -245,6 +245,34 @@
     
     /**
      
+     Promo Items
+     
+     */
+    
+    NSArray * promoArray = [orderDictionary valueForKey:@"promo_item"];
+    if (promoArray.count > 0) {
+        NSMutableArray* items = [[NSMutableArray alloc]init];
+        for (NSDictionary* promoDictionary in promoArray) {
+            PromoItem* newItem = [[PromoItem alloc]init];
+            if ([promoDictionary valueForKeyPath:@"country_ship_to_eligible"] && [promoDictionary valueForKeyPath:@"country_ship_to_eligible"] != [NSNull null])
+                newItem.eligibleCountry = [promoDictionary valueForKey:@"country_ship_to_eligible"];
+            if ([promoDictionary valueForKeyPath:@"opt_in_text"] && [promoDictionary valueForKeyPath:@"opt_in_text"] != [NSNull null])
+                newItem.text = [promoDictionary valueForKey:@"opt_in_text"];
+            if ([promoDictionary valueForKeyPath:@"image"] && [promoDictionary valueForKeyPath:@"image"] != [NSNull null])
+                newItem.image = [promoDictionary valueForKey:@"image"];
+            if ([promoDictionary valueForKeyPath:@"sku"] && [promoDictionary valueForKeyPath:@"sku"] != [NSNull null])
+                newItem.sku = [promoDictionary valueForKeyPath:@"sku"];
+            if ([promoDictionary valueForKeyPath:@"promo_item_id"] && [promoDictionary valueForKeyPath:@"promo_item_id"] != [NSNull null])
+                newItem.promoItemID = [promoDictionary valueForKeyPath:@"promo_item_id"];
+            if ([promoDictionary valueForKeyPath:@"promo_id"] && [promoDictionary valueForKeyPath:@"promo_id"] != [NSNull null])
+                newItem.promoID = [promoDictionary valueForKeyPath:@"promo_id"];
+            [items addObject:newItem];
+        }
+        order.promoItems = items;
+    }
+
+    /**
+     
      Total Price
      
      */
