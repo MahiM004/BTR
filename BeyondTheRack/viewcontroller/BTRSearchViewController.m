@@ -25,6 +25,7 @@
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
 @interface BTRSearchViewController () <BTRRefineResultsViewController>
+@property (weak, nonatomic) IBOutlet UILabel *noResulteLabel;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
@@ -147,6 +148,8 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.suggestionTableView setHidden:YES];
+    _noResulteLabel.alpha = 0;
+    _noResulteLabel.hidden = YES;
     [searchBar setText:@""];
     [searchBar resignFirstResponder];
 }
@@ -436,15 +439,22 @@
 #pragma mark getting suggestions
 
 - (void)searchFor:(NSString *)word {
-    [self.suggestionArray removeAllObjects];
-    [self.suggestionTableView reloadData];
-    [self.suggestionTableView setHidden:YES];
     NSString* url = [NSString stringWithFormat:@"%@",[BTRSuggestionFetcher URLforSugesstionWithQuery:word]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeHTMLOrText success:^(NSDictionary *response) {
-        [self.suggestionArray addObjectsFromArray:(NSArray *)response];
-        if (self.suggestionArray.count > 0) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeHTMLOrText success:^(NSDictionary * response) {
+        NSArray * receivedData = [[NSArray alloc]initWithArray:(NSArray *)response];
+        if (receivedData.count > 0) {
+            _noResulteLabel.alpha = 0;
+            _noResulteLabel.hidden = YES;
+            [self.suggestionArray removeAllObjects];
             [self.suggestionTableView setHidden:NO];
+            [self.suggestionArray addObjectsFromArray:receivedData];
+            [self.suggestionTableView reloadData];
             [self.suggestionTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            
+        } else {
+            [self.suggestionTableView setHidden:YES];
+            _noResulteLabel.alpha = 1;
+            _noResulteLabel.hidden = NO;
         }
     } faild:^(NSError *error) {
         NSLog(@"%@",error);
