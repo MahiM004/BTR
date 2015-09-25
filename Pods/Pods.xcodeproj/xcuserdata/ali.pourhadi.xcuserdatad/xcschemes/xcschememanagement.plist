@@ -9,6 +9,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>BSErrorMessageView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>DeformationButton.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JTSlideShadowAnimation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MarqueeLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,7 +52,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>060A5B0619FB184EB2B64FD3E86D75C4</key>
+		<key>033F91D15247356540D66424A0E40FE8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>06E32043DC63EF097F94CCBDFE157ECE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,7 +67,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4EA50BAC96621C20C5593B9A1B2B850A</key>
+		<key>8A3EE38A88A2E79FFAACECA6D026B3EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +77,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>97EDEA88A7046ECCB24509A9A516CB8C</key>
+		<key>D1D31BC8B1EC0604C10221137C484131</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E1F03690945267D5355CED6CAC005292</key>
+		<key>D3B4DEC934C366A34EB4E536874E4D9A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F5F193B5F3B721E79677CF0957BB05D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F7254021417DF4D51574FB7FEA8C32AE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
