@@ -10,6 +10,7 @@
 #import "BTRUserFetcher.h"
 #import "BTRConnectionHelper.h"
 #import "BTRLoader.h"
+#import "UITextField+BSErrorMessageView.h"
 
 @interface BTRForgotPasswordVC ()
 {
@@ -27,16 +28,17 @@
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
+    [self.emailField bs_setupErrorMessageViewWithMessage:@"Incorrect email format"];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [_emailField becomeFirstResponder];
 }
+
 - (void)dismissKeyboard {
     [self.emailField resignFirstResponder];
 }
-
 
 - (IBAction)newPasswordTapped:(UIButton *)sender {
     
@@ -71,6 +73,7 @@
         }
         else {
             [self showAlert:@"Failed" msg:@"It seems to be you did not given valid email address"];
+            [self.emailField bs_showError];
             [BTRLoader hideLoaderFromView:self.view];
         }
     } else {
@@ -98,8 +101,8 @@
     [aa show];
     return aa;
 }
-- (BOOL)validateEmailWithString:(NSString*)checkString
-{
+
+- (BOOL)validateEmailWithString:(NSString*)checkString {
     BOOL stricterFilter = NO;
     NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
     NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
@@ -107,7 +110,16 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:checkString];
 }
+
 -(IBAction)backToLogin:(id)sender {
     [self dismissViewControllerAnimated:NO completion:nil];
 }
+
+#pragma mark TextField delegate
+
+- (IBAction)textFieldSelectedOrChanged:(UITextField *)sender {
+    [sender bs_hideError];
+}
+
+
 @end
