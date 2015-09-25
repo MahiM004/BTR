@@ -12,6 +12,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "BTRConnectionHelper.h"
 #import "BTRLoader.h"
+#import "UITextField+BSErrorMessageView.h"
 
 #define COUNTRY_PICKER 1
 #define GENDER_PICKER 2
@@ -41,8 +42,6 @@
 @property (strong, nonatomic) NSString *sessionId;
 
 @end
-
-
 
 
 @implementation BTRSignUpEmbeddedTVC
@@ -89,6 +88,9 @@
     self.pickerView.delegate = self;
     self.pickerView.showsSelectionIndicator = YES;
     
+    [self.passwordTextField bs_setupErrorMessageViewWithMessage:@"Minimum 3 characters"];
+    [self.emailTextField bs_setupErrorMessageViewWithMessage:@"Incorrect email format"];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
 }
@@ -107,25 +109,18 @@
     [self.viewForPicker setHidden:FALSE];
 }
 
-
 //Manual Join SignUP
 - (IBAction)joinButtonTapped:(UIButton *)sender {
     if ([_emailTextField.text length] == 0 || ![self validateEmailWithString:_emailTextField.text]) {
-        
         [self showAlert:@"Failed" msg:@"Please give Valid Email ID"];
-        
+        [self.emailTextField bs_showError];
     } else if (_passwordTextField.text.length < 3){
-        
         [self showAlert:@"Failed" msg:@"Password should be minimum 3 characters"];
-        
+        [self.passwordTextField bs_showError];
     } else if ([[[self genderTextField] text] isEqualToString:@""]) {
-        
         [self showAlert:@"Failed" msg:@"Please Choose the Gender"];
-        
     } else if ([[[self countryTextField] text] isEqualToString:@""]) {
-        
         [self showAlert:@"Failed" msg:@"Please choose the Country"];
-        
     } else {
         if ([appDelegate connected] == 1) {
             [BTRLoader showLoaderInView:self.view];
@@ -187,7 +182,6 @@
                 [User signUpUserWithAppServerInfo:infoDic andUserInfo:userDic forUser:user];
                 success(@"TRUE", nil);
             }
-            
         } else
             success(@"FALSE", nil);
         
@@ -253,9 +247,10 @@
         }
     }
 }
-- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
-}
 
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+    
+}
 
 - (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams
                                               success:(void (^)(id  responseObject)) success
@@ -278,6 +273,7 @@
         success(@"FALSE");
     }];
 }
+
 - (void)attemptRegisterWithFacebookUserParams:(NSDictionary *)fbUserParams
                                       success:(void (^)(id  responseObject, NSString *alertString)) success
                                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
@@ -331,7 +327,6 @@
     }];
 }
 
-
 #pragma mark - PickerView Delegates
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     if ([self pickerType] == COUNTRY_PICKER) {
@@ -345,19 +340,23 @@
         [self.genderTextField setText:[[self genderNameArray] objectAtIndex:row]];
     [self.viewForPicker setHidden:TRUE];
 }
+
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] count];
     return [[self genderNameArray] count];
 }
+
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
+
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if ([self pickerType] == COUNTRY_PICKER)
         return [[self countryNameArray] objectAtIndex:row];
     return [[self genderNameArray] objectAtIndex:row];
 }
+
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     return 300.0;
 }
@@ -374,8 +373,8 @@
     [BTRLoader hideLoaderFromView:self.view];
     return aa;
 }
-- (BOOL)validateEmailWithString:(NSString*)checkString
-{
+
+- (BOOL)validateEmailWithString:(NSString*)checkString {
     BOOL stricterFilter = NO;
     NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
     NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
@@ -383,4 +382,13 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:checkString];
 }
+
+#pragma mark TextField Delegate
+
+- (IBAction)textFieldSelectedOrChanged:(UITextField *)sender {
+    [sender bs_hideError];
+}
+
+
+
 @end
