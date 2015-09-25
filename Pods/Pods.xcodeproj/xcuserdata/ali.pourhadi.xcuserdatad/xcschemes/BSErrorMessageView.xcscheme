@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2CDBBEB6A6A427D835AB1E2A"
+               BlueprintIdentifier = "314EE79D4F348E7AC9CC5526"
                BuildableName = "libBSErrorMessageView.a"
                BlueprintName = "BSErrorMessageView"
                ReferencedContainer = "container:Pods.xcodeproj">

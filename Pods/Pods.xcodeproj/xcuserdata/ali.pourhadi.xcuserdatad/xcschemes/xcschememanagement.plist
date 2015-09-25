@@ -14,11 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>DeformationButton.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>JTSlideShadowAnimation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,12 +47,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>033F91D15247356540D66424A0E40FE8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>06E32043DC63EF097F94CCBDFE157ECE</key>
+		<key>1296F7D2498471ABAD69535F7A670349</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,7 +57,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8A3EE38A88A2E79FFAACECA6D026B3EF</key>
+		<key>213BF843445A15D9FA7013E21215437B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3421DA351EDCB5D361C5A425CBEF3AED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8FF17F5B30A399CB121AB45EE6BDC314</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,22 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D1D31BC8B1EC0604C10221137C484131</key>
+		<key>A642A3C5A22D20F396D1697F89EC540E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D3B4DEC934C366A34EB4E536874E4D9A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F5F193B5F3B721E79677CF0957BB05D7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F7254021417DF4D51574FB7FEA8C32AE</key>
+		<key>D69D45B08CBF18ACCA9FFBB7A3809BD0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

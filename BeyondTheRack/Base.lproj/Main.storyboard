@@ -2104,7 +2104,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="035F2DD7-6A09-4792-99F9-64D738EA3A87" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="A1D437DC-A5A2-474E-A902-2B0328842F00" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -8021,7 +8021,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="035F2DD7-6A09-4792-99F9-64D738EA3A87" width="30" height="30">
+        <image name="A1D437DC-A5A2-474E-A902-2B0328842F00" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND

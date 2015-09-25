@@ -21,7 +21,6 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - BSErrorMessageView (1.1)
-  - DeformationButton (1.1)
   - JTSlideShadowAnimation (1.0.1)
   - MarqueeLabel (2.3.1)
   - ObjectiveSugar (1.1.0)
@@ -31,7 +30,6 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - BSErrorMessageView (from `https://github.com/BenjaminSarkisyan/BSErrorMessageView.git`)
-  - DeformationButton (~> 1.1)
   - JTSlideShadowAnimation (~> 1.0)
   - MarqueeLabel (~> 2.2)
   - ObjectiveSugar
@@ -50,7 +48,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   BSErrorMessageView: 67cc7d172995fbc6df602c2b8923f48121ddf7a9
-  DeformationButton: ea42bae012b20cadbab500cad15ed3053721bed8
   JTSlideShadowAnimation: abe7fb7b0be0690229e6fe6e93e77998e8cfe279
   MarqueeLabel: 1adecfbfad67143aeddb19b2f17ae34c1f60eff6
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c

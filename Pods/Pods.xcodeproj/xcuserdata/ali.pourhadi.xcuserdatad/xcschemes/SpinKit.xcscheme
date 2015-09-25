@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7ACF9F18C3AF178E1BDAFEE3"
+               BlueprintIdentifier = "B91467F0CF8C48988AEDA1C0"
                BuildableName = "libSpinKit.a"
                BlueprintName = "SpinKit"
                ReferencedContainer = "container:Pods.xcodeproj">
