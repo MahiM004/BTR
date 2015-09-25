@@ -99,7 +99,7 @@
             });
         }
         else {
-            if (self.passwordTextField.text.length == 0)
+            if (self.passwordTextField.text.length < 4)
                 [self.passwordTextField bs_showError];
             if (![self validateEmailWithString:_emailTextField.text])
                 [self.emailTextField bs_showError];
