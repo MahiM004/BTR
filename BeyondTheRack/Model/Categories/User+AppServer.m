@@ -51,6 +51,9 @@
     if ([userDictionary valueForKeyPath:@"postal"] && [userDictionary valueForKeyPath:@"postal"] != [NSNull null])
         user.postalCode = [userDictionary valueForKeyPath:@"postal"];
     
+    if ([userDictionary valueForKeyPath:@"email"] && [userDictionary valueForKeyPath:@"email"] != [NSNull null])
+        user.email = [userDictionary valueForKeyPath:@"email"];
+    
     if ([userDictionary valueForKeyPath:@"password_hint"] && [userDictionary valueForKeyPath:@"password_hint"] != [NSNull null])
         user.passwordHint = [userDictionary valueForKeyPath:@"password_hint"];
     
