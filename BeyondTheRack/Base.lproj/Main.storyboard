@@ -2084,7 +2084,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="6F50D590-B6FD-44D5-8E07-3200970BF22F" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="91BD4309-52E5-4950-BE95-A2C06D9C8559" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -2805,6 +2805,7 @@
                     <connections>
                         <outlet property="bagButton" destination="XjB-Ce-Xzf" id="5MN-sH-7YY"/>
                         <outlet property="headerView" destination="UbZ-2Y-GUK" id="nSk-un-04c"/>
+                        <outlet property="logoImageView" destination="YpU-Z5-mVY" id="Dil-6W-3Bb"/>
                         <segue destination="Q7j-YN-qPj" kind="push" identifier="BTRTrackOrdersSegueIdentifier" id="kYK-dG-lzs"/>
                         <segue destination="xJh-xx-cTN" kind="push" identifier="BTRContactusSegueIdentifier" id="7wY-b6-7kG"/>
                         <segue destination="aQg-m1-dTn" kind="push" identifier="BTRAccountInformationSegueIdentifier" id="BmW-Dw-WZG"/>
@@ -8000,7 +8001,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="6F50D590-B6FD-44D5-8E07-3200970BF22F" width="30" height="30">
+        <image name="91BD4309-52E5-4950-BE95-A2C06D9C8559" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

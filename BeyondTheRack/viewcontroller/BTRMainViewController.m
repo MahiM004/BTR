@@ -28,12 +28,16 @@
 #import "BTRAccountInformationVC.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "BTRLoginViewController.h"
+#import "JTSlideShadowAnimation.h"
 #import <math.h>
 
 @interface BTRMainViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
+@property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
+
+@property (strong, nonatomic) JTSlideShadowAnimation *shadowAnimation;
 @property (strong, nonatomic) BTRAccountEmbeddedTVC* accountViewController;
 
 @property (strong, nonatomic) NSMutableDictionary *itemsDictionary;
@@ -57,6 +61,10 @@
     sharedFacetHandler.searchString = @"";
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [self.shadowAnimation start];
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 }
@@ -66,6 +74,8 @@
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
     self.isMenuOpen = NO;
+    self.shadowAnimation = [JTSlideShadowAnimation new];
+    self.shadowAnimation.animatedView = self.logoImageView;
 }
 
 #pragma mark - Get bag count
