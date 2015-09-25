@@ -216,8 +216,23 @@
     
     [self fillPaymentInfoWithCurrentData];
     
-    NSCalendar *gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-    NSInteger currentYear = [gregorian component:NSCalendarUnitYear fromDate:NSDate.date];
+    //Solution 1 for iOS8+
+    
+    //    NSCalendar *gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    //    NSInteger currentYear = [gregorian component:NSCalendarUnitYear fromDate:NSDate.date];
+    
+    //Solution 2 for iOS7+
+    
+    //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    //    [formatter setDateFormat:@"yyyy"];
+    //    NSInteger currentYear = [[formatter stringFromDate:[NSDate date]] integerValue];
+    
+    //Solution 3 for iOS7+
+    
+    NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [gregorian components:NSCalendarUnitYear fromDate:[NSDate date]];
+    NSInteger currentYear = [components year];
+    NSLog(@"gregorian : %ld",(long)currentYear);
     
     for (NSInteger i = currentYear; i < 21 + currentYear; i++)
         [[self expiryYearsArray] addObject:[NSString stringWithFormat:@"%ld", (long)i]];

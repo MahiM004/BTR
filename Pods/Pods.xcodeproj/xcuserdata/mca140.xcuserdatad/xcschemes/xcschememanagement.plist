@@ -44,9 +44,19 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SpinKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>060A5B0619FB184EB2B64FD3E86D75C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1893DE70459B9C5430E1E53597BF9817</key>
 		<dict>
 			<key>primary</key>
@@ -67,6 +77,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4EA50BAC96621C20C5593B9A1B2B850A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5D6C055923076A819C4D76030235FFED</key>
 		<dict>
 			<key>primary</key>
@@ -78,6 +93,16 @@
 			<true/>
 		</dict>
 		<key>7FFAAD0790CB57C759E5950C057944D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>96841733E2EF8BAFE6332A8D177D8A96</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>97EDEA88A7046ECCB24509A9A516CB8C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,6 +128,11 @@
 			<true/>
 		</dict>
 		<key>CD4C71AC814EF6B5D334DE44C79DD9C6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1F03690945267D5355CED6CAC005292</key>
 		<dict>
 			<key>primary</key>
 			<true/>
