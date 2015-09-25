@@ -15,6 +15,7 @@
 #import "BTRConnectionHelper.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "BTRLoader.h"
+#import "UITextField+BSErrorMessageView.h"
 
 #define IDIOM    UI_USER_INTERFACE_IDIOM()
 #define IPAD     UIUserInterfaceIdiomPad
@@ -74,7 +75,11 @@
     self.emailIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-envelope-o"];
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
+    
+    [self.passwordTextField bs_setupErrorMessageViewWithMessage:@"Minimum 3 characters"];
+    [self.emailTextField bs_setupErrorMessageViewWithMessage:@"Incorrect email format"];
 }
+
 - (IBAction)signInButtonTapped:(UIButton *)sender {
     if ([appDelegate connected] == 1) {
         if (_emailTextField.text.length != 0 & _passwordTextField.text.length != 0 & [self validateEmailWithString:_emailTextField.text]) {
@@ -94,6 +99,10 @@
             });
         }
         else {
+            if (self.passwordTextField.text.length == 0)
+                [self.passwordTextField bs_showError];
+            if (![self validateEmailWithString:_emailTextField.text])
+                [self.emailTextField bs_showError];
             [self showAlert:@"Please try again" msg:@"Please check the Email and Password !"];
         }
     }
@@ -162,9 +171,8 @@
 
 
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+    
 }
-
-
 
 #pragma mark - Load User RESTful
 
@@ -274,6 +282,7 @@
     [super viewDidDisappear:animated];
     [BTRLoader hideLoaderFromView:self.view];
 }
+
 - (void)alertUserForLoginError {
     [[[UIAlertView alloc] initWithTitle:@"Please try agian"
                                 message:@"Email or Password Incorrect !"
@@ -282,6 +291,7 @@
                       otherButtonTitles:@"Ok", nil] show];
     [BTRLoader hideLoaderFromView:self.view];
 }
+
 - (void)dismissKeyboard {
     [self.passwordTextField resignFirstResponder];
     [self.emailTextField resignFirstResponder];
@@ -293,8 +303,7 @@
     return aa;
 }
 
-- (BOOL)validateEmailWithString:(NSString*)checkString
-{
+- (BOOL)validateEmailWithString:(NSString*)checkString {
     BOOL stricterFilter = NO;
     NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
     NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
@@ -303,7 +312,20 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
+
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
+
+#pragma mark TextField Delegations
+
+
+- (IBAction)textFieldValueChangedOrSelected:(UITextField *)sender {
+    [sender bs_hideError];
+}
+
+
+
+
+
 @end
