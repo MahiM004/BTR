@@ -18,6 +18,7 @@
 #import "Order+AppServer.h"
 #import "Item.h"
 #import "BTRConnectionHelper.h"
+#import "BTRLoadingButton.h"
 
 #define COUNTRY_PICKER          1
 #define PROVINCE_PICKER         2
@@ -1022,14 +1023,17 @@
     }];
 }
 
-- (IBAction)processOrderTpped:(UIButton *)sender {
+- (IBAction)processOrderTpped:(BTRLoadingButton *)sender {
     if (![self isShippingAddressCompeleted])
         return;
     if (self.currentPaymentType == creditCard && [self isBillingAddressCompeleted] && [self isCardInfoCompeleted]) {
+        [sender showLoading];
         [self validateAddressViaAPIAndInCompletion:^() {
             [self makePaymentWithSuccess:^(id responseObject) {
-                   [self orderConfirmationWithReceipt:responseObject];
+                [self orderConfirmationWithReceipt:responseObject];
+                [sender hideLoading];
                } failure:^(NSError *error) {
+                   [sender hideLoading];
                    NSLog(@"%@",error);
                }];
         }];
@@ -1147,7 +1151,7 @@
 
 #pragma mark giftcard adding
 
-- (IBAction)checkAndValidateGiftCard:(id)sender {
+- (IBAction)checkAndValidateGiftCard:(BTRLoadingButton *)sender {
     if ([self.arrayOfGiftCards containsObject:self.giftCardCodePaymentTF.text]) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"This gift card is already used" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
@@ -1160,8 +1164,10 @@
     
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforGiftCardRedeem]];
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:self.giftCardCodePaymentTF.text,@"code", nil];
+    [sender showLoading];
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
             [self validateAddressViaAPIAndInCompletion:^{
+                [sender hideLoading];
                  if ([[response valueForKey:@"success"]boolValue]) {
                     [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@$ has been added sucessfully",[response valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
                     
@@ -1179,6 +1185,7 @@
                  }
             }];
         } faild:^(NSError *error) {
+            [sender hideLoading];
             NSLog(@"%@",error);
         }
      ];
