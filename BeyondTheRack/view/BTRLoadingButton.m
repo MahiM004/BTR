@@ -12,7 +12,6 @@
 @property (strong,nonatomic) UIActivityIndicatorView *activity;
 @property (strong, nonatomic) NSString *currentText;
 @property CGRect currentBounds;
-@property BOOL isLoading;
 @end
 
 @implementation BTRLoadingButton
@@ -23,6 +22,7 @@
     [self setCurrentData];
     [self disableButton];
     [self deShapeAnimation];
+    [self setIsLoading:YES];
     [self setNeedsDisplay];
 }
 
@@ -80,6 +80,7 @@
 }
 
 - (void)hideLoading {
+    [self setIsLoading:NO];
     [self reShapeAnimation];
     [self reEnable];
 }

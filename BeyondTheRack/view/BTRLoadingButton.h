@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BTRLoadingButton : UIButton
+@property BOOL isLoading;
 
 - (void)showLoading;
 - (void)hideLoading;
