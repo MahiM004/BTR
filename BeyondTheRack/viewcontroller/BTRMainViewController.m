@@ -30,8 +30,11 @@
 #import "BTRLoginViewController.h"
 #import "JTSlideShadowAnimation.h"
 #import <math.h>
+#import <FRDLivelyButton/FRDLivelyButton.h>
 
 @interface BTRMainViewController ()
+
+@property (weak, nonatomic) IBOutlet FRDLivelyButton * sideMenuButton;
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
@@ -59,6 +62,12 @@
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     [sharedFacetHandler resetFacets];
     sharedFacetHandler.searchString = @"";
+    [_sideMenuButton setOptions:@{ kFRDLivelyButtonLineWidth: @(1.5f),
+                          kFRDLivelyButtonHighlightedColor: [BTRViewUtility BTRBlack],
+                          kFRDLivelyButtonColor: [UIColor whiteColor]
+                          }];
+    [_sideMenuButton setStyle:kFRDLivelyButtonStyleHamburger animated:YES];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -102,12 +111,14 @@
     if (self.isMenuOpen) {
         [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
         [self setIsMenuOpen:NO];
+        [_sideMenuButton setStyle:kFRDLivelyButtonStyleHamburger animated:YES];
         return;
     }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.accountViewController = (BTRAccountEmbeddedTVC *)[storyboard instantiateViewControllerWithIdentifier:@"BTRMyAccountController"];
     self.accountViewController.delegate = self;
     self.isMenuOpen = YES;
+    [_sideMenuButton setStyle:kFRDLivelyButtonStyleArrowLeft animated:YES];
     [BTRAnimationHandler showViewController:self.accountViewController atLeftOfViewController:self inDuration:0.5];
 }
 
