@@ -46,7 +46,9 @@
 @property (strong, nonatomic) NSMutableDictionary *itemsDictionary;
 @property (strong, nonatomic) NSMutableArray *headersArray;
 @property (nonatomic, strong) Contact *contactInfo;
+
 @property BOOL isMenuOpen;
+@property (strong, nonatomic) UIView *tapRecognizerView;
 
 @end
 
@@ -112,6 +114,7 @@
         [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
         [self setIsMenuOpen:NO];
         [_sideMenuButton setStyle:kFRDLivelyButtonStyleHamburger animated:YES];
+        [self removeTapRecognizerView];
         return;
     }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -119,6 +122,7 @@
     self.accountViewController.delegate = self;
     self.isMenuOpen = YES;
     [_sideMenuButton setStyle:kFRDLivelyButtonStyleArrowLeft animated:YES];
+    [self AddTapRecognizerView];
     [BTRAnimationHandler showViewController:self.accountViewController atLeftOfViewController:self inDuration:0.5];
 }
 
@@ -285,6 +289,19 @@
 //        BTRAccountInformationVC* info = [segue destinationViewController];
 //        info.us
     }
+}
+
+- (void)AddTapRecognizerView {
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(myAccountButtonTapped:)];
+    _tapRecognizerView = [[UIView alloc]initWithFrame:self.view.frame];
+    _tapRecognizerView.backgroundColor = [UIColor clearColor];
+    [_tapRecognizerView addGestureRecognizer:tap];
+    [self.view addSubview:_tapRecognizerView];
+}
+
+- (void)removeTapRecognizerView {
+    [_tapRecognizerView removeFromSuperview];
+    _tapRecognizerView = nil;
 }
 
 @end
