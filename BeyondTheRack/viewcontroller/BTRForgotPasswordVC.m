@@ -9,8 +9,8 @@
 #import "BTRForgotPasswordVC.h"
 #import "BTRUserFetcher.h"
 #import "BTRConnectionHelper.h"
-#import "BTRLoader.h"
 #import "UITextField+BSErrorMessageView.h"
+#import "BTRloadingButton.h"
 
 @interface BTRForgotPasswordVC ()
 {
@@ -40,15 +40,15 @@
     [self.emailField resignFirstResponder];
 }
 
-- (IBAction)newPasswordTapped:(UIButton *)sender {
+- (IBAction)newPasswordTapped:(BTRLoadingButton *)sender {
     
     if ([appDelegate connected] == 1) {
         
         if ([self.emailField.text length] != 0 && [self validateEmailWithString:_emailField.text]) {
-            [BTRLoader showLoaderInView:self.view];
+            [sender showLoading];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [self resetPasswordforEmail:[[self emailField] text] success:^(NSString *didSucceed) {
-                    
+                    [sender hideLoading];
                     int successUser = [responseDic[@"success"] intValue];
                     NSString * messege = responseDic[@"message"];
                     NSLog(@"%@",responseDic);
@@ -60,21 +60,18 @@
                             [self showAlert:@"Success" msg:@"Reset link is sent to Your given Email"];
                         }
                         [self performSegueWithIdentifier:@"unwindToLoginScene" sender:self];
-                        [BTRLoader hideLoaderFromView:self.view];
                     } else {
                         [self showAlert:@"Failed" msg:messege];
-                        [BTRLoader hideLoaderFromView:self.view];
                     }
                     
                 } failure:^(NSError *error) {
-                    [BTRLoader hideLoaderFromView:self.view];
+                    [sender hideLoading];
                 }];
             });
         }
         else {
             [self showAlert:@"Failed" msg:@"It seems to be you did not given valid email address"];
             [self.emailField bs_showError];
-            [BTRLoader hideLoaderFromView:self.view];
         }
     } else {
         [self showAlert:@"Network Error !" msg:@"Please check the internet"];
@@ -92,7 +89,6 @@
         success(@"TRUE");
     } faild:^(NSError *error) {
         failure(error);
-        [BTRLoader hideLoaderFromView:self.view];
     }];
 }
 

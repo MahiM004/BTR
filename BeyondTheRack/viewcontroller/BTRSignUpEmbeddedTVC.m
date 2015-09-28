@@ -13,6 +13,7 @@
 #import "BTRConnectionHelper.h"
 #import "BTRLoader.h"
 #import "UITextField+BSErrorMessageView.h"
+#import "BTRLoadingButton.h"
 
 #define COUNTRY_PICKER 1
 #define GENDER_PICKER 2
@@ -110,7 +111,7 @@
 }
 
 //Manual Join SignUP
-- (IBAction)joinButtonTapped:(UIButton *)sender {
+- (IBAction)joinButtonTapped:(BTRLoadingButton *)sender {
     if ([_emailTextField.text length] == 0 || ![self validateEmailWithString:_emailTextField.text]) {
         [self showAlert:@"Failed" msg:@"Please give Valid Email ID"];
         [self.emailTextField bs_showError];
@@ -123,23 +124,22 @@
         [self showAlert:@"Failed" msg:@"Please choose the Country"];
     } else {
         if ([appDelegate connected] == 1) {
-            [BTRLoader showLoaderInView:self.view];
+            [sender showLoading];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [self userRegistrationServerCallWithSuccess:^(NSString *didSignUp, NSString *messageString) {
+                    [sender hideLoading];
                     if ([didSignUp  isEqualToString:@"TRUE"]) {
                         [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
                     } else {
                         if (messageString.length != 0) {
                             [self showAlert:@"Please try agian" msg:messageString];
-                            [BTRLoader hideLoaderFromView:self.view];
                         } else {
                             [self showAlert:@"Email or Password Incorrect !" msg:@"Sign Up Failed !"];
-                            [BTRLoader hideLoaderFromView:self.view];
                         }
                     }
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [self showAlert:@"Ooops...!" msg:@"Something went Wrong Please try Again !"];
-                    [BTRLoader hideLoaderFromView:self.view];
+                    [sender hideLoading];
                 }];
             });
         } else {
