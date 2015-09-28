@@ -16,6 +16,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "BTRLoader.h"
 #import "UITextField+BSErrorMessageView.h"
+#import "BTRLoadingButton.h"
 
 #define IDIOM    UI_USER_INTERFACE_IDIOM()
 #define IPAD     UIUserInterfaceIdiomPad
@@ -81,12 +82,13 @@
     [self.emailTextField bs_setupErrorMessageViewWithMessage:@"Incorrect email format"];
 }
 
-- (IBAction)signInButtonTapped:(UIButton *)sender {
+- (IBAction)signInButtonTapped:(BTRLoadingButton *)sender {
     if ([appDelegate connected] == 1) {
         if (_emailTextField.text.length != 0 & _passwordTextField.text.length != 0 & [self validateEmailWithString:_emailTextField.text]) {
-            [BTRLoader showLoaderInView:self.view];
+            [sender showLoading];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [self fetchUserWithSuccess:^(NSString *didLogIn) {
+                    [sender hideLoading];
                     if ([didLogIn  isEqualToString:@"TRUE"]) {
                         [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
                     }
@@ -95,7 +97,7 @@
                     }
                     
                 } failure:^(NSError *error) {
-                    [BTRLoader hideLoaderFromView:self.view];
+                    [sender hideLoading];
                 }];
             });
         }
