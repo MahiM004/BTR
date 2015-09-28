@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FRDLivelyButton.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>JTSlideShadowAnimation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,7 +52,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0B06A6314AB5042D1FD0D852370D3AD5</key>
+		<key>12A9CAAFA2DB8C8B5A4D0323B235A994</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,17 +62,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1B8F05A9A08DA4A0C192B449F4637FEC</key>
+		<key>231BC5F74AFE7CF021F1747DE144817D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>213BF843445A15D9FA7013E21215437B</key>
+		<key>286D25C1916BC90EB7ABE0BA4B3692A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6471190574478090B2123E79FC787E2D</key>
+		<key>2E468E0CAC218EF36C4579EFE2271F50</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6B4F45AF50D0EC0CACA34311A89238DA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D67C076517E2A81FA1AEEA433F967E34</key>
+		<key>B57E5DA699274F25A97CD8AE1E68AB8C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EDA6A0F773FAB1370FD2BBD9D8E76F8D</key>
+		<key>EAB3E1F16E5A6892DF651B5FA3E7C9FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
