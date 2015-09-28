@@ -11,7 +11,7 @@
 #import "BTRSettingManager.h"
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
-#import "BTRLoader.h"
+#import "BTRloadingButton.h"
 
 #define COUNTRY_PICKER     1
 #define GENDER_PICKER      2
@@ -331,10 +331,8 @@
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]];
     [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(@"TRUE");
-        [BTRLoader hideLoaderFromView:self.view];
     } faild:^(NSError *error) {
         failure(nil, error);
-        [BTRLoader hideLoaderFromView:self.view];
     }];
 }
 
@@ -349,7 +347,6 @@
                                       @"email": [[self emailTextField] text],
                                       @"password": [[self retypePasswordTextField] text]
                                       });
-            [BTRLoader showLoaderInView:self.view];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforCurrentUser]];
                 [BTRConnectionHelper putDataFromURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
@@ -368,36 +365,37 @@
 # pragma mark - Handle update buttons
 
 
-- (IBAction)updatePasswordTapped:(UIButton *)sender {
+- (IBAction)updatePasswordTapped:(BTRLoadingButton *)sender {
     if (_retypePasswordTextField.text.length == 0 || _neuPasswordTextField.text.length == 0) {
         [self showAlert:@"" msg:@"Please Fill the Both Fields to Update the Password"];
-        
     }else if ([self.neuPasswordTextField.text isEqualToString:self.retypePasswordTextField.text]) {
+        [sender showLoading];
         [self updatePasswordWithSuccess:^(NSString *neuPassword) {
             BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
             [btrSettings updatePassword:neuPassword];
             [self.neuPasswordTextField setText:@""];
             [self.retypePasswordTextField setText:@""];
-            [BTRLoader hideLoaderFromView:self.view];
             [self showAlert:@"Successful" msg:@"Your password was updated successfully."];
             [_retypePasswordTextField resignFirstResponder];
             [_neuPasswordTextField resignFirstResponder];
+            [sender hideLoading];
         } failure:^(NSError *error) {
-            [BTRLoader hideLoaderFromView:self.view];
+            [sender hideLoading];
         }];
     } else
         [self showAlert:@"Attention" msg:@"The passwords do not match!"];
 }
 
 
-- (IBAction)updateInfoTapped:(UIButton *)sender {
+- (IBAction)updateInfoTapped:(BTRLoadingButton *)sender {
     if ([appDelegate connected] == 1) {
-        [BTRLoader showLoaderInView:self.view];
+        [sender showLoading];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [self updateUserInfoWithSuccess:^(NSString *successString) {
+                [sender hideLoading];
                 [self showAlert:@"Successful" msg:@"Your info was updated successfully."];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                
+                [sender hideLoading];
             }];
         });
     } else {
