@@ -225,8 +225,10 @@
             }
             success(@"TRUE");
         }else
+            [self removeTapRecognizerView];
             [[[UIAlertView alloc]initWithTitle:@"Empty" message:@"You dont have any order to track" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
     } faild:^(NSError *error) {
+        [self removeTapRecognizerView];
         failure(error);
     }];
 }
@@ -241,6 +243,7 @@
         }
     } faild:^(NSError *error) {
         failure(nil, error);
+        [self removeTapRecognizerView];
     }];
 }
 
@@ -255,6 +258,7 @@
             success(self.contactInfo);
         }
     } faild:^(NSError *error) {
+        [self removeTapRecognizerView];
         failure(nil,error);
     }];
 }
@@ -267,6 +271,7 @@
         [fbAuth logOut];
         success(@"TRUE");
     } faild:^(NSError *error) {
+        [self removeTapRecognizerView];
         failure(nil, error);
     }];
 }
@@ -301,6 +306,7 @@
 }
 
 - (void)removeTapRecognizerView {
+    [_sideMenuButton setStyle:kFRDLivelyButtonStyleHamburger animated:YES];
     [_tapRecognizerView removeFromSuperview];
     _tapRecognizerView = nil;
 }
