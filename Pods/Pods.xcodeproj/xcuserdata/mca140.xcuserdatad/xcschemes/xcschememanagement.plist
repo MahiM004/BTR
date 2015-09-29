@@ -8,36 +8,50 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 		<key>BSErrorMessageView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>FRDLivelyButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>JTSlideShadowAnimation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>MarqueeLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>ObjectiveSugar.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>Reachability.xcscheme</key>
 		<dict>
@@ -52,12 +66,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>12A9CAAFA2DB8C8B5A4D0323B235A994</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1893DE70459B9C5430E1E53597BF9817</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>19A4F5316F150FA97D2110F81DD7075E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>231BC5F74AFE7CF021F1747DE144817D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>286D25C1916BC90EB7ABE0BA4B3692A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,6 +111,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6B4F45AF50D0EC0CACA34311A89238DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>96841733E2EF8BAFE6332A8D177D8A96</key>
 		<dict>
 			<key>primary</key>
@@ -92,7 +126,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B57E5DA699274F25A97CD8AE1E68AB8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C0082F1FDF832B3C47579ECBAFB77FE4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EAB3E1F16E5A6892DF651B5FA3E7C9FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
