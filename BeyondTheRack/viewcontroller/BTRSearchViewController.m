@@ -21,6 +21,7 @@
 #import "BTRShoppingBagViewController.h"
 #import "BTRAnimationHandler.h"
 #import "UIImageView+AFNetworking.h"
+#import "BTRLoader.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -31,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 @property (strong, nonatomic) Item *selectedItem;
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
-@property (strong, nonatomic) NSMutableArray *originalItemArray;
+//@property (strong, nonatomic) NSMutableArray *originalItemArray;
 @property (strong, nonatomic) NSMutableArray* suggestionArray;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
@@ -39,6 +40,8 @@
 @property (assign, nonatomic) NSUInteger selectedCellIndexRow;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 
+@property int currentPage;
+@property BOOL isLoadingNextPage;
 
 @property CGFloat maxSearchTableSize;
 
@@ -46,10 +49,10 @@
 
 @implementation BTRSearchViewController
 
-- (NSMutableArray *)originalItemArray {
-    if (!_originalItemArray) _originalItemArray = [[NSMutableArray alloc] init];
-    return _originalItemArray;
-}
+//- (NSMutableArray *)originalItemArray {
+//    if (!_originalItemArray) _originalItemArray = [[NSMutableArray alloc] init];
+//    return _originalItemArray;
+//}
 
 - (NSMutableArray *)itemsArray {
     if (!_itemsArray) _itemsArray = [[NSMutableArray alloc] init];
@@ -116,6 +119,9 @@
     
     self.suggestionArray = [[NSMutableArray alloc]init];
     self.suggestionTableView.hidden = YES;
+    
+    self.currentPage = 0;
+    self.isLoadingNextPage = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -168,6 +174,11 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    [self.itemsArray removeAllObjects];
+    [self.collectionView reloadData];
+    [self setIsLoadingNextPage:YES];
+    
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
     
@@ -176,20 +187,24 @@
         [sharedFacetHandler resetFacets];
         sharedFacetHandler.searchString = [self.searchBar text];
     }
+    [self setCurrentPage:0];
     [self assignFilterIcon];
-    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
+    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] forPage:0
                          success:^(NSMutableArray *responseArray) {
-                             [self.originalItemArray addObjectsFromArray:responseArray];
+                             [self setItemsArray:responseArray];
+                             [self.collectionView becomeFirstResponder];
+                             [self.collectionView reloadData];
+                             for (int i = 0; i < [self.itemsArray count]; i++)
+                                 [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+                             [self setIsLoadingNextPage:NO];
+//                             [self.originalItemArray addObjectsFromArray:responseArray];
                              
                          } failure:^(NSError *error) {
                          
                          }];
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
-    [self.collectionView becomeFirstResponder];
-    [self.collectionView reloadData];
     [self.suggestionTableView setHidden:YES];
-    [self.searchBar setShowsCancelButton:NO animated:YES];
 }
 
 #pragma mark - UICollectionView Datasource
@@ -224,8 +239,6 @@
                                                                  toSizeQuantityArray:[cell sizeQuantityArray]];
     if ([productItem sku])
         cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andBTRSizeMode:sizeMode forIndexPath:indexPath];
-    else
-        self.itemsArray = [self originalItemArray];
     
     BOOL allReserved = [productItem.allReserved boolValue];
     BOOL soldOut = [self isItemSoldOutWithVariant:[cell sizeQuantityArray]];
@@ -317,28 +330,24 @@
 
 #pragma mark - Load Results RESTful
 
-- (void)fetchItemsforSearchQuery:(NSString *)searchQuery
+- (void)fetchItemsforSearchQuery:(NSString *)searchQuery forPage:(int)pageNum
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure {
-    [self.itemsArray removeAllObjects];
-    [self.collectionView reloadData];
     
-    NSString* url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:@"" andPageNumber:0]];
+    [self setIsLoadingNextPage:YES];
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:@"" andPageNumber:pageNum]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
         [sharedFacetsHandler setSearchString:[self.searchBar text]];
         [sharedFacetsHandler setFacetsFromResponseDictionary:response];
         
         NSMutableArray * arrayToPass = [sharedFacetsHandler getItemDataArrayFromResponse:response];
+        NSMutableArray* newItems = [[NSMutableArray alloc]init];
         if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"])
             if ([arrayToPass count] != 0)
-                self.itemsArray = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]];
+                newItems = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:newItems];
         
-        for (int i = 0; i < [self.itemsArray count]; i++)
-            [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
-        
-        [self.collectionView reloadData];
-        success([self itemsArray]);
+        success(newItems);
     } faild:^(NSError *error) {
         failure(error);
     }];
@@ -397,7 +406,7 @@
 
 - (IBAction)unwindFromRefineResultsCleared:(UIStoryboardSegue *)unwindSegue {
     [self.itemsArray removeAllObjects];
-    [self.itemsArray addObjectsFromArray:[self originalItemArray]];
+//    [self.itemsArray addObjectsFromArray:[self originalItemArray]];
     [self.collectionView reloadData];
 }
 
@@ -566,6 +575,48 @@
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:(int)selectedIndex];
     [self.collectionView reloadData];
+}
+
+#pragma mark ScrollView Delegate
+
+-(void)scrollViewDidScroll: (UIScrollView*)scrollView {
+    float scrollViewHeight = scrollView.frame.size.height;
+    float scrollContentSizeHeight = scrollView.contentSize.height;
+    float scrollOffset = scrollView.contentOffset.y;
+    if (scrollOffset + scrollViewHeight > scrollContentSizeHeight - 2 * self.collectionView.frame.size.height) {
+        if (!self.isLoadingNextPage) {
+            [BTRLoader showLoaderInView:self.view];
+            [self callForNextPage];
+        }
+    }
+}
+
+- (void)callForNextPage {
+    self.isLoadingNextPage = YES;
+    self.currentPage++;
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]]) {
+        sharedFacetHandler.searchString = [self.searchBar text];
+    }
+    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] forPage:self.currentPage success:^(NSArray* responseObject) {
+        [self.itemsArray addObjectsFromArray:responseObject];
+        NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
+        for (int i = 0; i < [responseObject count]; i++) {
+            [indexPaths addObject:[NSIndexPath indexPathForItem:[self.itemsArray count] - [responseObject count] + i inSection:0]];
+            [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+        }
+        [self.collectionView insertItemsAtIndexPaths:indexPaths];
+        [BTRLoader hideLoaderFromView:self.view];
+        [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + 50)];
+        self.isLoadingNextPage = NO;
+    } failure:^(NSError *error) {
+        [BTRLoader hideLoaderFromView:self.view];
+        self.isLoadingNextPage = NO;
+    }];
+}
+
+- (void)clean {
+    
 }
 
 @end
