@@ -180,16 +180,16 @@
     [self setIsLoadingNextPage:YES];
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
-    BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
-    
     if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]]) {
-        [sharedFacetData clearAllData];
-        [sharedFacetHandler resetFacets];
         sharedFacetHandler.searchString = [self.searchBar text];
     }
+    
+    NSString *facetString = [sharedFacetHandler getFacetStringForRESTfulRequest];
+    NSString *sortString = [sharedFacetHandler getSortStringForRESTfulRequest];
+    
     [self setCurrentPage:0];
     [self assignFilterIcon];
-    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] forPage:0
+    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] withSortingQuery:sortString andFacetQuery:facetString forPage:0
                          success:^(NSMutableArray *responseArray) {
                              [self setItemsArray:responseArray];
                              [self.collectionView becomeFirstResponder];
@@ -197,8 +197,6 @@
                              for (int i = 0; i < [self.itemsArray count]; i++)
                                  [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
                              [self setIsLoadingNextPage:NO];
-//                             [self.originalItemArray addObjectsFromArray:responseArray];
-                             
                          } failure:^(NSError *error) {
                          
                          }];
@@ -330,17 +328,15 @@
 
 #pragma mark - Load Results RESTful
 
-- (void)fetchItemsforSearchQuery:(NSString *)searchQuery forPage:(int)pageNum
+- (void)fetchItemsforSearchQuery:(NSString *)searchQuery withSortingQuery:(NSString *)sortingQuery andFacetQuery:(NSString *)facetQuery forPage:(int)pageNum
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure {
-    
     [self setIsLoadingNextPage:YES];
-    NSString* url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:@"" andPageNumber:pageNum]];
+    NSString* url = [NSString stringWithFormat:@"%@",[BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortingQuery withFacetString:facetQuery andPageNumber:pageNum]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
         [sharedFacetsHandler setSearchString:[self.searchBar text]];
         [sharedFacetsHandler setFacetsFromResponseDictionary:response];
-        
         NSMutableArray * arrayToPass = [sharedFacetsHandler getItemDataArrayFromResponse:response];
         NSMutableArray* newItems = [[NSMutableArray alloc]init];
         if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"])
@@ -396,11 +392,9 @@
     [self.collectionView reloadData];
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     NSMutableArray * arrayToPass = [sharedFacetHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
-    
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"])
         if ([arrayToPass count] != 0)
             self.itemsArray = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]];
-
     [self.collectionView reloadData];
 }
 
@@ -459,7 +453,6 @@
             [self.suggestionArray addObjectsFromArray:receivedData];
             [self.suggestionTableView reloadData];
             [self.suggestionTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-            
         } else {
             [self.suggestionTableView setHidden:YES];
             _noResulteLabel.alpha = 1;
@@ -533,7 +526,6 @@
             }
             return;
         }
-        
         NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
         NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
         NSDate *serverTime = [NSDate date];
@@ -595,10 +587,9 @@
     self.isLoadingNextPage = YES;
     self.currentPage++;
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
-    if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]]) {
-        sharedFacetHandler.searchString = [self.searchBar text];
-    }
-    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] forPage:self.currentPage success:^(NSArray* responseObject) {
+    NSString *facetString = [sharedFacetHandler getFacetStringForRESTfulRequest];
+    NSString *sortString = [sharedFacetHandler getSortStringForRESTfulRequest];
+    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] withSortingQuery:sortString andFacetQuery:facetString forPage:self.currentPage success:^(NSArray* responseObject) {
         [self.itemsArray addObjectsFromArray:responseObject];
         NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
         for (int i = 0; i < [responseObject count]; i++) {
