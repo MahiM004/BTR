@@ -13,11 +13,17 @@
 #define MEDIUM_IMAGE @"medium"
 #define LARGE_IMAGE @"large"
 
+typedef NSString *const sortMode;
+static sortMode kDISCOUNTASCENDING = @"orderDiscountAsc",kDISCOUNTDESCENDING = @"orderDiscountDesc",
+kPRICEASCENDING = @"orderPriceAsc",kPRICEDESCENDING = @"orderPriceDesc",
+kSKUASCENDING = @"orderSkuAsc" ,kSUGGESTED = @"suggested" ;
+
+#define LIMIT_NUM 50
 
 @interface BTRItemFetcher : BTRFetcher
 
 + (NSURL *)URLforItemWithProductSku:(NSString *)sku;
-+ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku;
++ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode;
 
 + (NSURL *)URLforItemImageForSku:(NSString *)sku;
 + (NSURL *)URLforItemImageForSku:(NSString *)sku withCount:(NSInteger)countNumber andSize:(NSString *)sizeString;

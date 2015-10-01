@@ -14,8 +14,10 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/product/%@", BASEURL, sku]];
 }
 
-+ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@", BASEURL, eventSku]];
++ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode {
+    if (sortingMode != kSUGGESTED)
+        return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&filter=%@&limit=%i", BASEURL, eventSku,pageNum,sortingMode,LIMIT_NUM]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&limit=%i", BASEURL, eventSku,pageNum,LIMIT_NUM]];
 }
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber{

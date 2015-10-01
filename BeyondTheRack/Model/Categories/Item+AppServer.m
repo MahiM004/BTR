@@ -10,94 +10,58 @@
 
 @implementation Item (AppServer)
 
-
-
 + (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
-                    withEventId:(NSString *)eventId
-{
+                    withEventId:(NSString *)eventId {
     Item *item = [[Item alloc] init];
     item.eventId = eventId;
     item = [self extractItemfromJsonDictionary:itemDictionary forItem:item];
-    
     return item;
 }
 
 
-+ (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
-{
-    
++ (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary {
     Item *item = [[Item alloc] init];
     item = [self extractItemfromJsonDictionary:itemDictionary forItem:item];
-    
     return item;
 }
-
 
 + (Item *)itemWithSearchResponseInfo:(NSDictionary *)itemDictionary {
-    
     Item *item = [[Item alloc] init];
     item = [self extractItemfromSearchJsonDictionary:itemDictionary forItem:item];
-    
     return item;
 }
-
-
-
 
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                                     withEventId:(NSString *)eventId
-                                 forItemsArray:(NSMutableArray *)itemsArray
-{
-    
+                                 forItemsArray:(NSMutableArray *)itemsArray {
     for (NSDictionary *item in items) {
-        
         NSObject *someObject = [self itemWithAppServerInfo:item withEventId:eventId];
         if (someObject)
             [itemsArray addObject:someObject];
     }
-
     return itemsArray;
 }
 
-
-
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
-                                  forItemsArray:(NSMutableArray *)itemsArray
-{
-    
+                                  forItemsArray:(NSMutableArray *)itemsArray {
     for (NSDictionary *item in items) {
-        
         NSObject *someObject = [self itemWithAppServerInfo:item];
         if (someObject)
             [itemsArray addObject:someObject];
     }
-    
     return itemsArray;
 }
 
-
-
-+ (NSMutableArray *)loadItemsfromAppSearchServerArray:(NSArray *)items forItemsArray:(NSMutableArray *)itemsArray// of AppServer Item NSDictionary
-{
-    
++ (NSMutableArray *)loadItemsfromAppSearchServerArray:(NSArray *)items forItemsArray:(NSMutableArray *)itemsArray {
     for (NSDictionary *item in items) {
-        
         NSObject *someObject = [self itemWithSearchResponseInfo:item];
-        
         if (someObject)
             [itemsArray addObject:someObject];
-        
     }
-    
     return itemsArray;
 }
 
-
-
-
 + (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
-    
-    
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
     nformatter.numberStyle = NSNumberFormatterDecimalStyle;
     
@@ -173,24 +137,7 @@
 
 }
 
-
-
-
-
 + (Item *)extractItemfromSearchJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
-    
-    /*
-     
-     backend keeps updating the types from number to string and vice versa. keep this code for future reference.
-     
-    NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
-    nformatter.numberStyle = NSNumberFormatterDecimalStyle;
-    
-    
-    if ([itemDictionary valueForKeyPath:@"regular_price"] && [itemDictionary valueForKeyPath:@"regular_price"] != [NSNull null])
-        item.salePrice = [nformatter numberFromString:[itemDictionary valueForKey:@"regular_price"]];
-     */
-    
     
     if ([itemDictionary valueForKeyPath:@"short_description"] && [itemDictionary valueForKeyPath:@"short_description"] != [NSNull null])
         item.shortItemDescription = [itemDictionary valueForKey:@"short_description"];
@@ -214,12 +161,8 @@
     if (![[item employeePrice] isEqualToNumber:[NSNumber numberWithFloat:0]])
         item.salePrice = [item employeePrice];
     
-    
     return item;
 }
-
-
-
 
 @end
 

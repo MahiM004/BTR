@@ -36,6 +36,11 @@ typedef enum ScrollDirection {
 
 @interface BTRProductShowcaseVC ()
 
+// Pagination
+@property int currentPage;
+@property BOOL isLoadingNextPage;
+@property BOOL lastPageDidLoad;
+
 // scrollview
 @property (nonatomic, assign) CGFloat lastContentOffset;
 
@@ -107,6 +112,10 @@ typedef enum ScrollDirection {
     return _sortArray;
 }
 
+- (NSArray *)sortModes {
+    return @[kSUGGESTED,kDISCOUNTASCENDING,kDISCOUNTDESCENDING,kPRICEASCENDING,kPRICEDESCENDING,kSKUASCENDING];
+}
+
 - (NSArray *)sizeArray {
     if (!_sizeArray)  {
         NSMutableArray* allSizes = [[NSMutableArray alloc]init];
@@ -156,26 +165,62 @@ typedef enum ScrollDirection {
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    [self fetchItemsforEventSku:[self eventSku]
-                         success:^(NSDictionary *responseDictionary) {
-                             [self.collectionView reloadData];
-                         } failure:^(NSError *error) {
-                             
-                         }];
-    [self setSortedItemsArray:self.originalItemArray];
+    [self loadFirstPageOfItems];
+//    [self setSortedItemsArray:self.originalItemArray];
+}
+
+- (void)loadFirstPageOfItems {
+    self.currentPage = 1;
+    self.lastPageDidLoad = NO;
+    self.isLoadingNextPage = YES;
+    [self.originalItemArray removeAllObjects];
+    [self.chosenSizesArray removeAllObjects];
+    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]]
+                        success:^(NSMutableArray *responseObject) {
+                            self.isLoadingNextPage = NO;
+                            [self.originalItemArray addObjectsFromArray:responseObject];
+                            for (int i = 0; i < [self.originalItemArray count]; i++)
+                                [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+                            [self.collectionView reloadData];
+                        } failure:^(NSError *error) {
+                            self.isLoadingNextPage = NO;
+                        }];
+}
+
+- (void)callForNextPage {
+    self.isLoadingNextPage = YES;
+    self.currentPage++;
+    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]]
+                        success:^(NSMutableArray *responseObject) {
+                            if (responseObject.count == 0) {
+                                self.lastPageDidLoad = YES;
+                                return;
+                            }
+                            [self.originalItemArray addObjectsFromArray:responseObject];
+                            NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
+                            for (int i = 0; i < [responseObject count]; i++) {
+                                [indexPaths addObject:[NSIndexPath indexPathForItem:[self.originalItemArray count] - [responseObject count] + i inSection:0]];
+                                [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+                            }
+                            [self.collectionView insertItemsAtIndexPaths:indexPaths];
+                            [BTRLoader hideLoaderFromView:self.view];
+                            [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + 50)];
+                            self.isLoadingNextPage = NO;
+                        } failure:^(NSError *error) {
+                            self.isLoadingNextPage = NO;
+                    }];
 }
 
 #pragma mark - Load Event Products RESTful
 
-- (void)fetchItemsforEventSku:(NSString *)eventSku
+- (void)fetchItemsforEventSku:(NSString *)eventSku forPagenum:(int)pageNum andSortMode:(sortMode)selectedSortMode
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure {
-    NSString *url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku]];
+    NSString *url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku inPageNumber:pageNum withSortingMode:selectedSortMode]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        self.originalItemArray = [Item loadItemsfromAppServerArray:(NSArray *)response withEventId:[self eventSku] forItemsArray:[self originalItemArray]];
-        for (int i = 0; i < [self.originalItemArray count]; i++)
-            [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
-        success([self originalItemArray]);
+        NSMutableArray *newItems = [[NSMutableArray alloc]init];
+        newItems = [Item loadItemsfromAppServerArray:(NSArray *)response withEventId:[self eventSku] forItemsArray:newItems];
+        success(newItems);
         [BTRLoader hideLoaderFromView:self.view];
     } faild:^(NSError *error) {
         [BTRLoader hideLoaderFromView:self.view];
@@ -192,7 +237,6 @@ typedef enum ScrollDirection {
                               @"sku": [productItem sku],
                               @"variant": variant
                               });
-    
     [BTRConnectionHelper postDataToURL:[NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]] withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (![[response valueForKey:@"success"]boolValue]) {
             if ([response valueForKey:@"error_message"]) {
@@ -200,11 +244,9 @@ typedef enum ScrollDirection {
             }
             return;
         }
-        
         NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
         NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
         NSDate *serverTime = [NSDate date];
-        
         self.bagItemsArray = [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
                                                   withServerDateTime:serverTime
                                                     forBagItemsArray:[self bagItemsArray]
@@ -234,13 +276,13 @@ typedef enum ScrollDirection {
 }
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    return [self.collectionViewResourceArray count];
+    return [self.originalItemArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
     
-    Item *productItem = [self.collectionViewResourceArray objectAtIndex:indexPath.row];
+    Item *productItem = [self.originalItemArray objectAtIndex:indexPath.row];
     BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:productItem.variantInventory
                                                                         toSizesArray:[cell sizesArray]
                                                                     toSizeCodesArray:[cell sizeCodesArray]
@@ -402,7 +444,6 @@ typedef enum ScrollDirection {
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"]) {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = EVENT_SCENE;
@@ -473,9 +514,10 @@ typedef enum ScrollDirection {
             return;
         [self.filterSizeTextField setText:[self.sizeArray objectAtIndex:row]];
     }
-    [self sortItems];
-    [self filterItems];
-    [self.collectionView reloadData];
+    [self loadFirstPageOfItems];
+//    [self sortItems];
+//    [self filterItems];
+//    [self.collectionView reloadData];
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
@@ -562,6 +604,16 @@ typedef enum ScrollDirection {
         if (scrollView.contentOffset.y < 200)
             self.sortViewHeight.constant = 40;
     [self.view needsUpdateConstraints];
+    
+    float scrollViewHeight = scrollView.frame.size.height;
+    float scrollContentSizeHeight = scrollView.contentSize.height;
+    float scrollOffset = scrollView.contentOffset.y;
+    if (scrollOffset + scrollViewHeight > scrollContentSizeHeight - 2 * self.collectionView.frame.size.height) {
+        if (!self.isLoadingNextPage && !self.lastPageDidLoad) {
+            [BTRLoader showLoaderInView:self.view];
+            [self callForNextPage];
+        }
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
