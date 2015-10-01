@@ -174,7 +174,6 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
     [self.itemsArray removeAllObjects];
     [self.collectionView reloadData];
     [self setIsLoadingNextPage:YES];
@@ -389,12 +388,16 @@
 
 - (IBAction)unwindFromRefineResultsApplied:(UIStoryboardSegue *)unwindSegue {
     [self.itemsArray removeAllObjects];
+    [self.chosenSizesArray removeAllObjects];
     [self.collectionView reloadData];
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     NSMutableArray * arrayToPass = [sharedFacetHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"])
-        if ([arrayToPass count] != 0)
+        if ([arrayToPass count] != 0) {
             self.itemsArray = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]];
+            for (int i =  0; i < self.itemsArray.count ; i++)
+                [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+        }
     [self.collectionView reloadData];
 }
 
