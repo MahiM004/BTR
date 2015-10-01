@@ -42,6 +42,7 @@
 
 @property int currentPage;
 @property BOOL isLoadingNextPage;
+@property BOOL lastPageDidLoad;
 
 @property CGFloat maxSearchTableSize;
 
@@ -122,6 +123,7 @@
     
     self.currentPage = 0;
     self.isLoadingNextPage = NO;
+    self.lastPageDidLoad = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -579,7 +581,7 @@
     float scrollContentSizeHeight = scrollView.contentSize.height;
     float scrollOffset = scrollView.contentOffset.y;
     if (scrollOffset + scrollViewHeight > scrollContentSizeHeight - 2 * self.collectionView.frame.size.height) {
-        if (!self.isLoadingNextPage) {
+        if (!self.isLoadingNextPage && !self.lastPageDidLoad) {
             [BTRLoader showLoaderInView:self.view];
             [self callForNextPage];
         }
@@ -593,6 +595,10 @@
     NSString *facetString = [sharedFacetHandler getFacetStringForRESTfulRequest];
     NSString *sortString = [sharedFacetHandler getSortStringForRESTfulRequest];
     [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] withSortingQuery:sortString andFacetQuery:facetString forPage:self.currentPage success:^(NSArray* responseObject) {
+        if (responseObject.count == 0) {
+            self.lastPageDidLoad = YES;
+            return;
+        }
         [self.itemsArray addObjectsFromArray:responseObject];
         NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
         for (int i = 0; i < [responseObject count]; i++) {
@@ -607,10 +613,6 @@
         [BTRLoader hideLoaderFromView:self.view];
         self.isLoadingNextPage = NO;
     }];
-}
-
-- (void)clean {
-    
 }
 
 @end
