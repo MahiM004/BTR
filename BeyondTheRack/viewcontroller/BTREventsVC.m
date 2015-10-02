@@ -16,7 +16,14 @@
 #import "BTRLoader.h"
 
 @interface BTREventsVC ()
+
 @property (strong, nonatomic) NSMutableArray *eventsArray;
+
+// Pagination
+@property int currentPage;
+@property BOOL isLoadingNextPage;
+@property BOOL lastPageDidLoad;
+
 @end
 
 @implementation BTREventsVC
@@ -31,12 +38,55 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self fetchEventsData];
+    [self loadFirstPageEvents];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark LoadEvents
+
+- (void)loadFirstPageEvents {
+    self.currentPage = 1;
+    self.isLoadingNextPage = YES;
+    self.lastPageDidLoad = NO;
+    [self fetchEventsDataForPage:1 success:^(id responseObject) {
+        NSArray *events = responseObject[@"events"];
+        self.eventsArray = [Event loadEventsfromAppServerArray:events withCategoryName:[self urlCategoryName] forEventsArray:[self eventsArray]];
+        [self.collectionView reloadData];
+        [self reloadTimers];
+        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadTimers) userInfo:nil repeats:YES];
+        self.isLoadingNextPage = NO;
+    } failure:^(NSError *error) {
+        self.isLoadingNextPage = NO;
+        NSLog(@"%@",error.description);
+    }];
+}
+
+- (void)callForNextPage {
+    self.isLoadingNextPage = YES;
+    self.currentPage++;
+    [self fetchEventsDataForPage:self.currentPage success:^(id responseObject) {
+        NSArray *events = responseObject[@"events"];
+        if (events.count == 0) {
+            self.lastPageDidLoad = YES;
+            return;
+        }
+        NSMutableArray* newItems = [[NSMutableArray alloc]init];
+        newItems = [Event loadEventsfromAppServerArray:events withCategoryName:[self urlCategoryName] forEventsArray:newItems];
+        NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
+        [self.eventsArray addObjectsFromArray:newItems];
+        for (int i = 0; i < [newItems count]; i++)
+            [indexPaths addObject:[NSIndexPath indexPathForItem:[self.eventsArray count] - [newItems count] + i  inSection:0]];
+        [self.collectionView insertItemsAtIndexPaths:indexPaths];
+        [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + 50)];
+        self.isLoadingNextPage = NO;
+    } failure:^(NSError *error) {
+        self.isLoadingNextPage = NO;
+
+    }];
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -77,18 +127,15 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark RESTAPI
 
-- (void)fetchEventsData {
-    NSString* url = [NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName]]];
+- (void)fetchEventsDataForPage:(int)pageNum success:(void (^)(id  responseObject)) success
+                       failure:(void (^)(NSError *error)) failure{
+    NSString* url = [NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName] forPage:pageNum]];
     [BTRLoader showLoaderInView:self.view];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        NSArray *eventsArray = response[@"events"];
-        self.eventsArray = [Event loadEventsfromAppServerArray:eventsArray withCategoryName:[self urlCategoryName] forEventsArray:[self eventsArray]];
-        [self.collectionView reloadData];
-        [self reloadTimers];
-        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadTimers) userInfo:nil repeats:YES];
+        success(response);
         [BTRLoader hideLoaderFromView:self.view];
     } faild:^(NSError *error) {
-        
+        [BTRLoader hideLoaderFromView:self.view];
     }];
 }
 
@@ -110,6 +157,7 @@ static NSString * const reuseIdentifier = @"Cell";
         label.textColor = [UIColor redColor];
     } else {
         label.text = [NSString stringWithFormat:@" Event Ends In %li days %02ld:%02ld:%02ld",(long)components.day,(long)components.hour,(long)components.minute,(long)components.second];
+        label.textColor = [UIColor whiteColor];
     }
 }
 
@@ -133,5 +181,19 @@ static NSString * const reuseIdentifier = @"Cell";
     viewController.eventTitleString = [event eventName];
     [self.navigationController pushViewController:viewController animated:YES];
 }
+
+#pragma mark scrollView delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    float scrollViewHeight = scrollView.frame.size.height;
+    float scrollContentSizeHeight = scrollView.contentSize.height;
+    float scrollOffset = scrollView.contentOffset.y;
+    if (scrollOffset + scrollViewHeight > scrollContentSizeHeight - 1 * self.collectionView.frame.size.height) {
+    if (!self.isLoadingNextPage && !self.lastPageDidLoad) {
+        [self callForNextPage];
+    }
+}
+}
+
 
 @end
