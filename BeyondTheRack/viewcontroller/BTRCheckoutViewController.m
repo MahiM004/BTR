@@ -64,7 +64,7 @@
 @property (strong, nonatomic) NSDictionary *paypal;
 @property (strong, nonatomic) MasterPassInfo *masterpass;
 
-@property (strong, nonatomic) NSMutableSet *selectedGift;
+@property (strong, nonatomic) NSMutableArray *selectedGift;
 
 @end
 
@@ -350,7 +350,7 @@
 
 - (void)addSampleGifts {
     if  (!self.selectedGift)
-        self.selectedGift = [[NSMutableSet alloc]init];
+        self.selectedGift = [[NSMutableArray alloc]init];
     
     for (UIView *subView in [self.sampleGiftView subviews])
         [subView removeFromSuperview];
@@ -987,7 +987,6 @@
     return [[self countryNameArray] objectAtIndex:row];
 }
 
-
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     return 300.0;
 }
@@ -1122,6 +1121,7 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
+    [orderInfo setObject:[self selectedGift] forKey:@"promotions_opted_in"];
     [params setObject:orderInfo forKey:@"orderInfo"];
 
     
