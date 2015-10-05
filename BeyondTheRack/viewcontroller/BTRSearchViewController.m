@@ -385,6 +385,8 @@
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = SEARCH_SCENE;
         productDetailVC.productItem = [self selectedItem];
+        productDetailVC.variantInventoryDictionary = self.selectedItem.variantInventory;
+        productDetailVC.attributesDictionary = self.selectedItem.attributeDictionary;
     }
 }
 
