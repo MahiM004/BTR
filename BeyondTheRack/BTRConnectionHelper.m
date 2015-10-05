@@ -22,7 +22,7 @@
     if (needSession)
         [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
-    [manager.requestSerializer setValue:@"BTR_IOS_APP" forHTTPHeaderField:@"User-Agent"];
+    [manager.requestSerializer setValue:@"BTR_IOS_App" forHTTPHeaderField:@"User-Agent"];
     [manager POST:url
        parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
            NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
