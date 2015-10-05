@@ -18,8 +18,6 @@ static sortMode kDISCOUNTASCENDING = @"orderDiscountAsc",kDISCOUNTDESCENDING = @
 kPRICEASCENDING = @"orderPriceAsc",kPRICEDESCENDING = @"orderPriceDesc",
 kSKUASCENDING = @"orderSkuAsc" ,kSUGGESTED = @"suggested" ;
 
-#define LIMIT_NUM 50
-
 @interface BTRItemFetcher : BTRFetcher
 
 + (NSURL *)URLforItemWithProductSku:(NSString *)sku;

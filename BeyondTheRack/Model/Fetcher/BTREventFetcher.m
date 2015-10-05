@@ -11,7 +11,7 @@
 @implementation BTREventFetcher
 
 + (NSURL *)URLforRecentEventsForURLCategoryName:(NSString *)urlCategoryName forPage:(int)pagenum{
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@?page=%i&limit=%i", BASEURL, urlCategoryName,pagenum,LIMIT_NUM]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@?page=%i&limit=%i", BASEURL, urlCategoryName,pagenum,MAX_EVENTS_PER_PAGE]];
 }
 
 + (NSURL *)URLforAllRecentEvents {

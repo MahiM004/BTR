@@ -33,7 +33,8 @@
 #import <Reachability.h>
 #import "BTRAppDelegate.h"
 
-
+#define MAX_EVENTS_PER_PAGE 35
+#define MAX_ITEMS_PER_PAGE 50
 
 #endif
 

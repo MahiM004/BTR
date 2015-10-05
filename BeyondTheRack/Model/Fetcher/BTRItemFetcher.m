@@ -16,8 +16,8 @@
 
 + (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode {
     if (sortingMode != kSUGGESTED)
-        return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&filter=%@&limit=%i", BASEURL, eventSku,pageNum,sortingMode,LIMIT_NUM]];
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&limit=%i", BASEURL, eventSku,pageNum,LIMIT_NUM]];
+        return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&filter=%@&limit=%i", BASEURL, eventSku,pageNum,sortingMode,MAX_ITEMS_PER_PAGE]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&limit=%i", BASEURL, eventSku,pageNum,MAX_ITEMS_PER_PAGE]];
 }
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber{
