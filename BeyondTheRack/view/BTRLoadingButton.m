@@ -68,7 +68,7 @@
     shape.toValue= @0;
     shape.removedOnCompletion = FALSE;
     shape.fillMode = kCAFillModeForwards;;
-    [self.layer addAnimation:shape forKey:@"shape"];
+    [self.layer addAnimation:shape forKey:@"de-shape"];
     
     CABasicAnimation *sizing = [CABasicAnimation animationWithKeyPath:@"bounds"];
     sizing.beginTime = CACurrentMediaTime() + 0.3;
@@ -76,7 +76,7 @@
     sizing.toValue= [NSValue valueWithCGRect:self.currentBounds];
     sizing.removedOnCompletion = FALSE;
     sizing.fillMode = kCAFillModeForwards;;
-    [self.layer addAnimation:sizing forKey:@"sizing"];
+    [self.layer addAnimation:sizing forKey:@"de-sizing"];
 }
 
 - (void)hideLoading {
