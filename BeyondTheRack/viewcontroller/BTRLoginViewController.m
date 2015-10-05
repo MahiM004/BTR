@@ -202,7 +202,7 @@
             success(@"FALSE");
         }
     } faild:^(NSError *error) {
-        NSLog(@"eooorrooorrr --- %@", error);
+        failure(error);
         [self alertUserForLoginError];
     }];
 }
