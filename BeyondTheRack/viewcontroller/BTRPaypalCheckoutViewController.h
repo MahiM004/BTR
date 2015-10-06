@@ -11,13 +11,7 @@
 
 @interface BTRPaypalCheckoutViewController : UIViewController <UIWebViewDelegate>
 
-// new paypal account
-@property BOOL isNewAccount;
-
-// paypal URL
-@property (nonatomic,strong) NSDictionary *paypal;
-
-//WebView
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+// response from server
+@property (nonatomic,strong) NSDictionary *paypalInfo;
 
 @end

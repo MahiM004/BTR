@@ -279,8 +279,7 @@
         BTRCheckoutViewController *checkoutVC = [segue destinationViewController];
         checkoutVC.order = [self order];
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
-        BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
-        paypalVC.paypal = self.paypal;
+
     }
 }
 

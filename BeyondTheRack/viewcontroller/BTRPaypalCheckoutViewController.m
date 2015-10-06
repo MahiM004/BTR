@@ -17,6 +17,7 @@
 @property Order *order;
 @property BOOL didLogined;
 @property (nonatomic, retain) NSString *transactionID;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end
 
@@ -26,11 +27,12 @@
     [super viewDidLoad];
     [self.webView setDelegate:self];
     [self setDidLogined:NO];
-
-    if ([[self.paypal valueForKey:@"mode"]isEqualToString:@"token"]) {
-        [self loadPaypalURLWithURL:[self.paypal valueForKey:@"paypalUrl"]];
+    
+    NSDictionary *paypal = [self.paypalInfo valueForKey:@"paypalInfo"];
+    if ([[paypal valueForKey:@"mode"]isEqualToString:@"token"]) {
+        [self loadPaypalURLWithURL:[paypal valueForKey:@"paypalUrl"]];
     } else {
-        [self getInfoForPaypal];
+        [self processPayPalWithInfo:self.paypalInfo];
     }
     // Do any additional setup after loading the view.
 }
@@ -60,7 +62,7 @@
         }
         if ([urlString rangeOfString:[[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcess]] lowercaseString]].location != NSNotFound) {
             [self.webView setHidden:YES];
-            [self getInfoForPaypal];
+            [self getOrderInfoOfCallBackURL:[request.URL absoluteString]];
             return false;
         }
     }
@@ -68,24 +70,26 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    if (self.didLogined)
-        [self getInfoForPaypal];
+    if (self.didLogined) {
+//        NSMutableDictionary *newInfo = [NSMutableDictionary dictionaryWithDictionary:self.paypalInfo];
+//        [newInfo setObject:[NSDictionary dictionaryWithObject:@"billingAgreement" forKey:@"mode"] forKey:@"paypalInfo"];
+//        [self processPayPalWithInfo:newInfo];
+    }
 }
 
-- (void)getInfoForPaypal {
-    NSString* url = [NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalInfo]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        if (self.isNewAccount) {
-            NSMutableDictionary* newInfo = [NSMutableDictionary dictionaryWithDictionary:response];
-            [newInfo removeObjectForKey:@"paypalInfo"];
-            NSDictionary *paypalInfo = [[NSDictionary alloc]initWithObjectsAndKeys:@"paypalLogin",@"mode", nil];
-            [newInfo setObject:paypalInfo forKey:@"paypalInfo"];
-            response = [newInfo mutableCopy];
-            self.isNewAccount = NO;
+- (void)getOrderInfoOfCallBackURL:(NSString *)callBackURL {
+    [BTRConnectionHelper getDataFromURL:callBackURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue]) {
+            [self callBackProcessWithTransactionID:[[response valueForKey:@"payment"]valueForKey:@"transactionId"]];
+            self.order =[[Order alloc]init];
+            self.order = [Order orderWithAppServerInfo:response];
+            [self setTransactionID:[[response valueForKey:@"payment"]valueForKey:@"transactionId"]];
+            [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
         }
-        [self processPayPalWithInfo:response];
+        else
+            [self dismissViewControllerAnimated:YES completion:nil];
     } faild:^(NSError *error) {
-        
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
 
@@ -97,11 +101,10 @@
             self.order = [Order orderWithAppServerInfo:response];
             [self setTransactionID:[[response valueForKey:@"payment"]valueForKey:@"transactionId"]];
             [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
-        }
-        else
-            [self loadPaypalURLWithURL:[[response valueForKey:@"paypalInfo"]valueForKey:@"paypalUrl"]];
+        }else
+           [self dismissViewControllerAnimated:YES completion:nil];
     } faild:^(NSError *error) {
-        
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
 

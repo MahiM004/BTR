@@ -61,7 +61,7 @@
 
 @property paymentType currentPaymentType;
 @property (strong, nonatomic) NSMutableArray *arrayOfGiftCards;
-@property (strong, nonatomic) NSDictionary *paypal;
+@property (strong, nonatomic) NSDictionary *paypalReponse;
 @property (strong, nonatomic) MasterPassInfo *masterpass;
 
 @property (strong, nonatomic) NSMutableArray *selectedGift;
@@ -139,7 +139,11 @@
 
 - (NSDictionary *)cardInfo {
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
-    NSString *paymentTypeToPass = [sharedPaymentTypes paymentTypeforCardDisplayName:[[self paymentMethodTF] text]];
+    NSString *paymentTypeToPass;
+    if (self.currentPaymentType == masterPass || self.currentPaymentType == paypal)
+        paymentTypeToPass = @"";
+    else
+        paymentTypeToPass = [sharedPaymentTypes paymentTypeforCardDisplayName:[[self paymentMethodTF] text]];
     
     NSInteger expMonthInt = [[[[self expiryMonthPaymentTF] text] componentsSeparatedByString:@" -"][0] integerValue];
     NSString *expMonth = [NSString stringWithFormat:@"%ld", (long)expMonthInt];
@@ -657,6 +661,22 @@
     [self.paypalEmailTF setAlpha:1.0f];
 }
 
+- (NSDictionary *)orderInfo {
+    NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
+    
+    [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
+    [orderInfo setObject:[self billingInfo] forKey:@"billing"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
+    [orderInfo setObject:[self.giftMessageTF text] forKey:@"recipient_message"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
+    [orderInfo setObject:[self selectedGift] forKey:@"promotions_opted_in"];
+    
+    return orderInfo;
+}
+
+
 - (void)fillPaymentInfoWithCurrentData {
     if ([self.order.paymentType isEqualToString:@"paypal"]) {
         [self.paymentMethodTF setText:@"Paypal"];
@@ -991,36 +1011,8 @@
     return 300.0;
 }
 
-#pragma mark - Credit Card RESTful Payment
 
-- (void)makePaymentWithSuccess:(void (^)(id  responseObject)) success
-                           failure:(void (^)(NSError *error)) failure {
-    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
-    
-    [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
-    [orderInfo setObject:[self billingInfo] forKey:@"billing"];
-    [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
-    [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
-    [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
-    [orderInfo setObject:[self.giftMessageTF text] forKey:@"recipient_message"];
-    [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
-    [orderInfo setObject:[self selectedGift] forKey:@"promotions_opted_in"];
-    
-    [params setObject:orderInfo forKey:@"orderInfo"];
-    [params setObject:[self cardInfo] forKey:@"cardInfo"];
-    [params setObject:@"creditcard" forKey:@"paymentMethod"];
-    
-    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        [self setOrder:[Order orderWithAppServerInfo:response]];
-        success(response);
-    } faild:^(NSError *error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
-}
+#pragma mark Actions
 
 - (IBAction)processOrderTpped:(BTRLoadingButton *)sender {
     if (![self isShippingAddressCompeleted])
@@ -1031,10 +1023,10 @@
             [self makePaymentWithSuccess:^(id responseObject) {
                 [self orderConfirmationWithReceipt:responseObject];
                 [sender hideLoading];
-               } failure:^(NSError *error) {
-                   [sender hideLoading];
-                   NSLog(@"%@",error);
-               }];
+            } failure:^(NSError *error) {
+                [sender hideLoading];
+                NSLog(@"%@",error);
+            }];
         }];
     } else if (self.currentPaymentType == paypal) {
         [self validateAddressViaAPIAndInCompletion:^() {
@@ -1047,7 +1039,90 @@
     }
 }
 
+#pragma mark - Credit Card RESTful Payment
+
+- (void)makePaymentWithSuccess:(void (^)(id  responseObject)) success
+                           failure:(void (^)(NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutProcess]];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[self orderInfo] forKey:@"orderInfo"];
+    [params setObject:[self cardInfo] forKey:@"cardInfo"];
+    [params setObject:@"creditcard" forKey:@"paymentMethod"];
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        [self setOrder:[Order orderWithAppServerInfo:response]];
+        success(response);
+    } faild:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+#pragma mark Paypal RESTful Payment
+
+- (void)getPaypalInfo {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforPaypalProcess]];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[self orderInfo] forKey:@"orderInfo"];
+    [params setObject:[self cardInfo] forKey:@"cardInfo"];
+    NSDictionary* paypalMode;
+    
+    if (self.paypalEmailTF.text.length == 0 || self.sendmeToPaypalCheckbox.checked)
+        paypalMode = [NSDictionary dictionaryWithObject:@"paypalLogin" forKey:@"mode"];
+    else
+        paypalMode = [NSDictionary dictionaryWithObject:@"billingAgreement" forKey:@"mode"];
+    
+    [params setObject:paypalMode forKey:@"paypalInfo"];
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        [self setPaypalReponse:response];
+        [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
+    } faild:^(NSError *error) {
+        
+    }];
+}
+
+#pragma mark MasterPass RESTful Payment
+
+- (void)getMasterPassInfo {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        if (response) {
+            MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:response];
+            self.masterpass= master;
+            [self performSegueWithIdentifier:@"BTRMasterPassCheckoutSegueIdentifier" sender:self];
+        }
+    } faild:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark Validation
+
+- (void)validateAddressViaAPIAndInCompletion:(void(^)())completionBlock; {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
+    
+    [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
+    [orderInfo setObject:[self billingInfo] forKey:@"billing"];
+    if (self.currentPaymentType == creditCard)
+        [orderInfo setObject:[self cardInfo] forKey:@"cardInfo"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
+    [orderInfo setObject:[self selectedGift] forKey:@"promotions_opted_in"];
+    [params setObject:orderInfo forKey:@"orderInfo"];
+    
+    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]];
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        self.order = [Order extractOrderfromJSONDictionary:response forOrder:self.order];
+        [self loadOrderData];
+        if (completionBlock)
+            completionBlock(nil);
+    } faild:^(NSError *error) {
+        
+    }];
+}
 
 - (IBAction)zipCodeHasBeenEntererd:(id)sender {
     [self validateAddressViaAPIAndInCompletion:nil];
@@ -1107,33 +1182,6 @@
         return NO;
     }
     return YES;
-}
-
-- (void)validateAddressViaAPIAndInCompletion:(void(^)())completionBlock; {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
-    
-    [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
-    [orderInfo setObject:[self billingInfo] forKey:@"billing"];
-    if (self.currentPaymentType == creditCard)
-        [orderInfo setObject:[self cardInfo] forKey:@"cardInfo"];
-    [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
-    [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
-    [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
-    [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
-    [orderInfo setObject:[self selectedGift] forKey:@"promotions_opted_in"];
-    [params setObject:orderInfo forKey:@"orderInfo"];
-
-    
-    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]];
-   [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-       self.order = [Order extractOrderfromJSONDictionary:response forOrder:self.order];
-       [self loadOrderData];
-       if (completionBlock)
-           completionBlock(nil);
-   } faild:^(NSError *error) {
-       
-   }];
 }
 
 - (void)orderConfirmationWithReceipt:(NSDictionary *)receipt {
@@ -1199,40 +1247,11 @@
         confirm.order = self.order;
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
         BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
-        paypalVC.paypal = self.paypal;
-        if (self.changePaymentMethodCheckbox.checked || self.sendmeToPaypalCheckbox.checked)
-            paypalVC.isNewAccount = YES;
+        paypalVC.paypalInfo = self.paypalReponse;
     } else if ([[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueIdentifier"]) {
         BTRMasterPassViewController* mpVC = [segue destinationViewController];
         mpVC.info = self.masterpass;
     }
-}
-
-#pragma mark Paypal
-
-- (void)getPaypalInfo {
-    NSString* url = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        if (response) {
-            [self setPaypal:response];
-            [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
-        }
-    } faild:^(NSError *error) {
-        
-    }];
-}
-
-- (void)getMasterPassInfo {
-    NSString* url = [NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        if (response) {
-            MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:response];
-            self.masterpass= master;
-            [self performSegueWithIdentifier:@"BTRMasterPassCheckoutSegueIdentifier" sender:self];
-        }
-    } faild:^(NSError *error) {
-        
-    }];
 }
 
 @end
