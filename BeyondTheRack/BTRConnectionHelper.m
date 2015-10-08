@@ -47,7 +47,7 @@
     if (needSession)
         [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
-    [manager.requestSerializer setValue:@"BTR_IOS_APP" forHTTPHeaderField:@"User-Agent"];
+    [manager.requestSerializer setValue:@"BTR_IOS_App" forHTTPHeaderField:@"User-Agent"];
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
@@ -71,7 +71,7 @@
     if (needSession)
         [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
-    [manager.requestSerializer setValue:@"BTR_IOS_APP" forHTTPHeaderField:@"User-Agent"];
+    [manager.requestSerializer setValue:@"BTR_IOS_App" forHTTPHeaderField:@"User-Agent"];
     [manager PUT:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
