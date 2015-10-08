@@ -427,7 +427,7 @@ typedef enum ScrollDirection {
 #pragma mark - Navigation
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
-    Item *productItem = [self.collectionViewResourceArray objectAtIndex:indexPath.row];
+    Item *productItem = [self.originalItemArray objectAtIndex:indexPath.row];
     [self setSelectedIndexPath:indexPath];
     [self setSelectedBrandString:[productItem brand]];
     [self setSelectedAttributes:productItem.attributeDictionary];
@@ -447,7 +447,7 @@ typedef enum ScrollDirection {
     if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"]) {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = EVENT_SCENE;
-        productDetailVC.productItem = [self.collectionViewResourceArray objectAtIndex:[self.selectedIndexPath row]];
+        productDetailVC.productItem = [self.originalItemArray objectAtIndex:[self.selectedIndexPath row]];
         productDetailVC.eventId = [self eventSku];
         productDetailVC.variantInventoryDictionary = self.selectedVariantInventories;
         productDetailVC.attributesDictionary = self.selectedAttributes;
