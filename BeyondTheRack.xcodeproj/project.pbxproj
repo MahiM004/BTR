@@ -184,6 +184,8 @@
 		A024A2C41BB4424000B5B596 /* BTRSampleGiftView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */; settings = {ASSET_TAGS = (); }; };
 		A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A02A6BF31BB08E0400C01F2C /* BTRLoader.m */; };
 		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; settings = {ASSET_TAGS = (); }; };
+		A06214C61BC71215006443F7 /* ConfirmationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C51BC71215006443F7 /* ConfirmationInfo.m */; settings = {ASSET_TAGS = (); }; };
+		A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */; settings = {ASSET_TAGS = (); }; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
@@ -546,6 +548,10 @@
 		A02A6BF31BB08E0400C01F2C /* BTRLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoader.m; sourceTree = "<group>"; };
 		A043E9211BB335AB00B42BB1 /* PromoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoItem.h; sourceTree = "<group>"; };
 		A043E9221BB335AB00B42BB1 /* PromoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoItem.m; sourceTree = "<group>"; };
+		A06214C41BC71215006443F7 /* ConfirmationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationInfo.h; sourceTree = "<group>"; };
+		A06214C51BC71215006443F7 /* ConfirmationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationInfo.m; sourceTree = "<group>"; };
+		A06214C71BC71245006443F7 /* ConfirmationInfo+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ConfirmationInfo+AppServer.h"; sourceTree = "<group>"; };
+		A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConfirmationInfo+AppServer.m"; sourceTree = "<group>"; };
 		A06A40EE1B837103008DD60B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A06A40F01B8392C2008DD60B /* BTRSuggestionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSuggestionFetcher.h; sourceTree = "<group>"; };
 		A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSuggestionFetcher.m; sourceTree = "<group>"; };
@@ -1085,6 +1091,8 @@
 				6901E9F21ACC3BA3002534D9 /* Item.m */,
 				69D4403F1B31EA1400070FD8 /* Order.h */,
 				69D440401B31EA1400070FD8 /* Order.m */,
+				A06214C41BC71215006443F7 /* ConfirmationInfo.h */,
+				A06214C51BC71215006443F7 /* ConfirmationInfo.m */,
 				69AB98631A77E68F00EDB1E6 /* Event.h */,
 				69AB98641A77E68F00EDB1E6 /* Event.m */,
 				69F0BAF61B418628008C0498 /* OrderHistoryItem.h */,
@@ -1132,6 +1140,8 @@
 				A00E4DD81B86444700C93CD3 /* MasterPassInfo+Appserver.m */,
 				A00C9C1A1B9609E4004A2629 /* Freeship+AppServer.h */,
 				A00C9C1B1B9609E4004A2629 /* Freeship+AppServer.m */,
+				A06214C71BC71245006443F7 /* ConfirmationInfo+AppServer.h */,
+				A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1581,6 +1591,7 @@
 				1449C8921BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m in Sources */,
 				A01142741B618D8A0099A40A /* FAQ+AppServer.m in Sources */,
 				697E05811A434121000146C6 /* BTRViewUtility.m in Sources */,
+				A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */,
 				69E84ADA1B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m in Sources */,
 				69D4404D1B331A5B00070FD8 /* EventCategory.m in Sources */,
 				A00E4DD91B86444700C93CD3 /* MasterPassInfo+Appserver.m in Sources */,
@@ -1594,6 +1605,7 @@
 				69F0BAFB1B41868B008C0498 /* OrderHistoryBag.m in Sources */,
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
 				69D440561B331AEA00070FD8 /* EventCategory+AppServer.m in Sources */,
+				A06214C61BC71215006443F7 /* ConfirmationInfo.m in Sources */,
 				A00A7FEC1B8E102200568BB6 /* BTRChartFetcher.m in Sources */,
 				6900B4E11AB7747900930D16 /* UIFont+FontAwesome.m in Sources */,
 				6901E9D51AC09CE3002534D9 /* BTRBagFetcher.m in Sources */,
