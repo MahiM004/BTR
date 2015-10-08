@@ -19,6 +19,7 @@
 #import "Item.h"
 #import "BTRConnectionHelper.h"
 #import "BTRLoadingButton.h"
+#import "HTMLAttributedString.h"
 
 #define COUNTRY_PICKER          1
 #define PROVINCE_PICKER         2
@@ -372,10 +373,12 @@
         
         UIImageView *imageView = (UIImageView *)[itemView viewWithTag:100];
         CTCheckbox* checkbox = (CTCheckbox *)[itemView viewWithTag:200];
-        UILabel* label = (UILabel *)[itemView viewWithTag:300];
+        UILabel * label = (UILabel *)[itemView viewWithTag:300];
+        
+        HTMLAttributedString *string  = [[HTMLAttributedString alloc] initWithHtml:item.text andBodyFont:[UIFont systemFontOfSize:12.0]];
+        [label setAttributedText:string.attributedString];
         
         [imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",item.image]] placeholderImage:nil];
-        [label setText:item.text];
         [checkbox addTarget:self action:@selector(sampleGiftSelected:) forControlEvents:UIControlEventValueChanged];
         [checkbox setTag:i];
         
