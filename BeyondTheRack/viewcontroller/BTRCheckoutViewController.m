@@ -1033,7 +1033,7 @@
         }];
     } else if (self.currentPaymentType == paypal) {
         [self validateAddressViaAPIAndInCompletion:^() {
-            [self getPaypalInfo];
+            [self sendPayPalInfo];
         }];
     } else if (self.currentPaymentType == masterPass){
         [self validateAddressViaAPIAndInCompletion:^() {
@@ -1063,8 +1063,7 @@
 
 #pragma mark Paypal RESTful Payment
 
-- (void)getPaypalInfo {
-    NSString* url = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforPaypalProcess]];
+- (void)sendPayPalInfo {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[self orderInfo] forKey:@"orderInfo"];
     [params setObject:[self cardInfo] forKey:@"cardInfo"];
@@ -1076,12 +1075,9 @@
         paypalMode = [NSDictionary dictionaryWithObject:@"billingAgreement" forKey:@"mode"];
     
     [params setObject:paypalMode forKey:@"paypalInfo"];
-    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        [self setPaypalReponse:response];
-        [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
-    } faild:^(NSError *error) {
-        
-    }];
+    [self setPaypalReponse:params];
+    [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
+
 }
 
 #pragma mark MasterPass RESTful Payment
