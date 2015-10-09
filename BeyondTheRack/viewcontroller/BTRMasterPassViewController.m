@@ -9,11 +9,14 @@
 #import "BTRMasterPassViewController.h"
 #import "BTRMasterPassFetcher.h"
 #import "BTRConfirmationViewController.h"
+#import "BTROrderFetcher.h"
 #import "BTRConnectionHelper.h"
 #import "Order+AppServer.h"
+#import "ConfirmationInfo+AppServer.h"
 
 @interface BTRMasterPassViewController ()
 @property (nonatomic,strong) Order *order;
+@property ConfirmationInfo *confirmationInfo;
 @end
 
 @implementation BTRMasterPassViewController
@@ -55,11 +58,8 @@
 - (void)processMasterPassWithInfo:(NSDictionary *)info {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRMasterPassFetcher URLforMasterPassProcess]];
     [BTRConnectionHelper postDataToURL:url withParameters:info setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue]) {
-            self.order =[[Order alloc]init];
-            self.order = [Order orderWithAppServerInfo:response];
-            [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
-        }
+        if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue])
+            [self getConfirmationInfoWithOrderID:[[response valueForKey:@"order"]valueForKey:@"order_id"]];
     } faild:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -68,8 +68,21 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"]) {
         BTRConfirmationViewController* vc = [segue destinationViewController];
-        vc.order = self.order;
+        vc.info = self.confirmationInfo;
     }
+}
+
+#pragma mark confirmation
+
+- (void)getConfirmationInfoWithOrderID:(NSString *)orderID {
+    NSString* url = [NSString stringWithFormat:@"%@",[BTROrderFetcher URLforOrderNumber:orderID]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        self.confirmationInfo = [[ConfirmationInfo alloc]init];
+        self.confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:response forConformationInfo:self.confirmationInfo];
+        [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
+    } faild:^(NSError *error) {
+        
+    }];
 }
 
 @end
