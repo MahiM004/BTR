@@ -10,6 +10,7 @@
 
 @interface Address : NSObject
 
+@property (nonatomic,strong) NSString * name;
 @property (nonatomic,strong) NSString * addressLine1;
 @property (nonatomic,strong) NSString * addressLine2;
 @property (nonatomic,strong) NSString * city;
