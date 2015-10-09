@@ -11,4 +11,6 @@
 
 @interface ConfirmationInfo (AppServer)
 
++ (ConfirmationInfo *)extractConfirmationInfoFromConfirmationInfo:(NSDictionary *)info forConformationInfo:(ConfirmationInfo *)conformation;
+
 @end
