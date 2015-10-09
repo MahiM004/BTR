@@ -46,7 +46,7 @@
     if ([info valueForKeyPath:@"order_subtotal"] && [info valueForKeyPath:@"order_subtotal"] != [NSNull null])
         confirmation.orderSubtotal = [info valueForKey:@"order_subtotal"];
     if ([info valueForKeyPath:@"bag_total"] && [info valueForKeyPath:@"bag_total"] != [NSNull null])
-        confirmation.orderID = [info valueForKey:@"bag_total"];
+        confirmation.bagTotal = [info valueForKey:@"bag_total"];
     if ([info valueForKeyPath:@"label_tax1"] && [info valueForKeyPath:@"label_tax1"] != [NSNull null])
         confirmation.labelTax1 = [info valueForKey:@"label_tax1"];
     if ([info valueForKeyPath:@"label_tax2"] && [info valueForKeyPath:@"label_tax2"] != [NSNull null])
