@@ -20,6 +20,7 @@
 #import "BTRConnectionHelper.h"
 #import "BTRLoadingButton.h"
 #import "HTMLAttributedString.h"
+#import "ConfirmationInfo+AppServer.h"
 
 #define COUNTRY_PICKER          1
 #define PROVINCE_PICKER         2
@@ -66,6 +67,8 @@
 @property (strong, nonatomic) MasterPassInfo *masterpass;
 
 @property (strong, nonatomic) NSMutableArray *selectedGift;
+
+@property (strong, nonatomic) ConfirmationInfo *confirmationInfo;
 
 @end
 
@@ -222,19 +225,6 @@
     
     [self fillPaymentInfoWithCurrentData];
     
-    //Solution 1 for iOS8+
-    
-    //    NSCalendar *gregorian = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-    //    NSInteger currentYear = [gregorian component:NSCalendarUnitYear fromDate:NSDate.date];
-    
-    //Solution 2 for iOS7+
-    
-    //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    //    [formatter setDateFormat:@"yyyy"];
-    //    NSInteger currentYear = [[formatter stringFromDate:[NSDate date]] integerValue];
-    
-    //Solution 3 for iOS7+
-    
     NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [gregorian components:NSCalendarUnitYear fromDate:[NSDate date]];
     NSInteger currentYear = [components year];
@@ -334,7 +324,6 @@
     [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order.orderTotalPrice floatValue]]];
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order.saving floatValue]]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
-    
     
     // pickup
     if ([[self.order vipPickupEligible] boolValue]) {
@@ -1052,7 +1041,6 @@
     [params setObject:[self cardInfo] forKey:@"cardInfo"];
     [params setObject:@"creditcard" forKey:@"paymentMethod"];
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        [self setOrder:[Order orderWithAppServerInfo:response]];
         success(response);
     } faild:^(NSError *error) {
         if (failure) {
@@ -1184,16 +1172,10 @@
 }
 
 - (void)orderConfirmationWithReceipt:(NSDictionary *)receipt {
-    if (self.order.isAccepted) {
-        [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
-    } else if ([[[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"] containsString:@"3002"] || [[[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"] containsString:@"3001"]) {
-        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-        [self.cardNumberPaymentTF becomeFirstResponder];
-        [self.scrollView scrollRectToVisible:self.cardNumberPaymentTF.frame animated:YES];
-    } else if ([[[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"] containsString:@"3006"]) {
-        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"You submitted an expired credit card number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-    }
-    
+    if ([[[receipt valueForKey:@"payment"]valueForKey:@"success"]boolValue]) {
+        [self getConfirmationInfoWithOrderID:[[receipt valueForKey:@"order"]valueForKey:@"order_id"]];
+    } else if ([[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"])
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:[[receipt valueForKey:@"orderInfo"]valueForKey:@"errors"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
 }
 
 #pragma mark giftcard adding
@@ -1243,7 +1225,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"]) {
         BTRConfirmationViewController* confirm = [segue destinationViewController];
-        confirm.order = self.order;
+        confirm.info = self.confirmationInfo;
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
         BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
         paypalVC.paypalInfo = self.paypalReponse;
@@ -1251,6 +1233,19 @@
         BTRMasterPassViewController* mpVC = [segue destinationViewController];
         mpVC.info = self.masterpass;
     }
+}
+
+#pragma mark confirmation
+
+- (void)getConfirmationInfoWithOrderID:(NSString *)orderID {
+    NSString* url = [NSString stringWithFormat:@"%@",[BTROrderFetcher URLforOrderNumber:orderID]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        self.confirmationInfo = [[ConfirmationInfo alloc]init];
+        self.confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:response forConformationInfo:self.confirmationInfo];
+        [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
+    } faild:^(NSError *error) {
+        
+    }];
 }
 
 @end
