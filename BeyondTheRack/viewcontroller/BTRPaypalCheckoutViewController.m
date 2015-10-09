@@ -9,16 +9,17 @@
 #import "BTRPaypalCheckoutViewController.h"
 #import "Order+AppServer.h"
 #import "BTRPaypalFetcher.h"
+#import "BTROrderFetcher.h"
 #import "BTRConfirmationViewController.h"
 #import "BTRConnectionHelper.h"
+#import "ConfirmationInfo+AppServer.h"
 
 @interface BTRPaypalCheckoutViewController ()
 
 @property Order *order;
 @property BOOL didLogined;
-@property (nonatomic, retain) NSString *transactionID;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-
+@property (strong,nonatomic) ConfirmationInfo *confirmationInfo;
 @end
 
 @implementation BTRPaypalCheckoutViewController
@@ -27,14 +28,7 @@
     [super viewDidLoad];
     [self.webView setDelegate:self];
     [self setDidLogined:NO];
-    
-    NSDictionary *paypal = [self.paypalInfo valueForKey:@"paypalInfo"];
-    if ([[paypal valueForKey:@"mode"]isEqualToString:@"token"]) {
-        [self loadPaypalURLWithURL:[paypal valueForKey:@"paypalUrl"]];
-    } else {
-        [self processPayPalWithInfo:self.paypalInfo];
-    }
-    // Do any additional setup after loading the view.
+    [self processPayPalWithInfo:self.paypalInfo];
 }
 
 - (void)loadPaypalURLWithURL:(NSString *)url {
@@ -43,14 +37,12 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *urlString = [[request.URL absoluteString] lowercaseString];
-    NSLog(@"%@",urlString);
     if (urlString.length > 0) {
         if ([request.URL.port intValue] == 80) {
             urlString = [urlString stringByReplacingOccurrencesOfString:@":80" withString:@""];
         }
         
         if ([urlString rangeOfString:@"_flow"].location != NSNotFound) {
-            // adding steps
         }
         
         if ([urlString rangeOfString:[[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforCancelPaypal]] lowercaseString]].location != NSNotFound)
@@ -61,31 +53,18 @@
             [self.webView setHidden:YES];
         }
         if ([urlString rangeOfString:[[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcess]] lowercaseString]].location != NSNotFound) {
-            [self.webView setHidden:YES];
-            [self getOrderInfoOfCallBackURL:[request.URL absoluteString]];
-            return false;
+            [self.webView setHidden:NO];
+            [self getOrderInfoOfCallBackURLRequest:request.URL.absoluteString];
+            return NO;
         }
     }
     return TRUE;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    if (self.didLogined) {
-//        NSMutableDictionary *newInfo = [NSMutableDictionary dictionaryWithDictionary:self.paypalInfo];
-//        [newInfo setObject:[NSDictionary dictionaryWithObject:@"billingAgreement" forKey:@"mode"] forKey:@"paypalInfo"];
-//        [self processPayPalWithInfo:newInfo];
-    }
-}
-
-- (void)getOrderInfoOfCallBackURL:(NSString *)callBackURL {
-    [BTRConnectionHelper getDataFromURL:callBackURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue]) {
-            [self callBackProcessWithTransactionID:[[response valueForKey:@"payment"]valueForKey:@"transactionId"]];
-            self.order =[[Order alloc]init];
-            self.order = [Order orderWithAppServerInfo:response];
-            [self setTransactionID:[[response valueForKey:@"payment"]valueForKey:@"transactionId"]];
-            [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
-        }
+- (void)getOrderInfoOfCallBackURLRequest:(NSString *)url {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue])
+           [self getConfirmationInfoWithOrderID:[[response valueForKey:@"order"]valueForKey:@"order_id"]];
         else
             [self dismissViewControllerAnimated:YES completion:nil];
     } faild:^(NSError *error) {
@@ -97,12 +76,9 @@
     NSString* url = [NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcess]];
     [BTRConnectionHelper postDataToURL:url withParameters:info setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue]) {
-            self.order =[[Order alloc]init];
-            self.order = [Order orderWithAppServerInfo:response];
-            [self setTransactionID:[[response valueForKey:@"payment"]valueForKey:@"transactionId"]];
-            [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
-        }else
-           [self dismissViewControllerAnimated:YES completion:nil];
+            [self getConfirmationInfoWithOrderID:[[response valueForKey:@"order"]valueForKey:@"order_id"]];
+        }else if ([[response valueForKey:@"paypalInfo"]valueForKey:@"paypalUrl"])
+            [self loadPaypalURLWithURL:[[response valueForKey:@"paypalInfo"]valueForKey:@"paypalUrl"]];
     } faild:^(NSError *error) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -117,11 +93,21 @@
     }];
 }
 
+- (void)getConfirmationInfoWithOrderID:(NSString *)orderID {
+    NSString* url = [NSString stringWithFormat:@"%@",[BTROrderFetcher URLforOrderNumber:orderID]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        self.confirmationInfo = [[ConfirmationInfo alloc]init];
+        self.confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:response forConformationInfo:self.confirmationInfo];
+        [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
+    } faild:^(NSError *error) {
+        
+    }];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"]) {
         BTRConfirmationViewController* confirm = [segue destinationViewController];
-        confirm.order = self.order;
-        confirm.transactionID = self.transactionID;
+        confirm.info = self.confirmationInfo;
     }
 }
 
