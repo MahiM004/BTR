@@ -79,10 +79,6 @@
     return CGSizeMake(self.view.frame.size.width/2 - 100, self.view.frame.size.height/2-10);
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [self.collectionView performBatchUpdates:nil completion:nil];
-}
 #pragma mark -  Handle JSON with Arbitrary Keys (attributes)
 
 - (void) extractAttributesFromAttributesDictionary:(NSDictionary *)attributeDictionary {
@@ -103,12 +99,14 @@
             embeddedVC.productItem = _productItem;
             embeddedVC.variantInventoryDictionary = _variantInventoryDictionary;
             embeddedVC.attributesDictionary = _attributesDictionary;
+            embeddedVC.rightMargin = _rightMargin;
             NSLog(@"search item selection to PDP not tested DUE to CONSTRUCTION OF BACKEND API!");
         } else {
             embeddedVC.productItem = [self productItem];
             embeddedVC.eventId = [self eventId];
             embeddedVC.attributesDictionary = [self attributesDictionary];
             embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
+            embeddedVC.rightMargin = _rightMargin;
         }
     } else if ([[segue identifier] isEqualToString:@"ZoomOnProductImageiPadSegueIdentifier"]) {
         BTRZoomImageViewController *zoomVC = [segue destinationViewController];

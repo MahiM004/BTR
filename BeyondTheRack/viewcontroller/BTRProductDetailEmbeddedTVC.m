@@ -190,8 +190,8 @@
         
         NSString *labelText = [NSString stringWithFormat:@" - %@.", [descriptionArray objectAtIndex:i]];
         UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
-        int labelHeight = [labelText heightForWidth:(self.tableView.frame.size.width - kTextMargin) usingFont:descriptionFont];
-        CGRect labelFrame = CGRectMake(0, customHeight, self.tableView.frame.size.width - kTextMargin , labelHeight);
+        int labelHeight = [labelText heightForWidth:(self.tableView.frame.size.width - kTextMargin-_rightMargin) usingFont:descriptionFont];
+        CGRect labelFrame = CGRectMake(0, customHeight, self.tableView.frame.size.width - kTextMargin - _rightMargin , labelHeight);
 
         customHeight = customHeight + (labelHeight + 5);
         
@@ -205,6 +205,7 @@
     }
     
     customHeight = customHeight + 15;
+    _rightMargin = 0;
     return descriptionView;
 }
 

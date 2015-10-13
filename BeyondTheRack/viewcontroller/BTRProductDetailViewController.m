@@ -32,6 +32,7 @@
 
 //iPad added property
 @property UIViewController  *currentDetailViewController;
+@property CGFloat rightMargin;
 @end
 
 @implementation BTRProductDetailViewController
@@ -196,7 +197,6 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    //ProductDetailiPadEmbeddedSegueIdentifier
     if ([[segue identifier] isEqualToString:@"ProductDetailEmbeddedSegueIdentifier"]) {
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
         embeddedVC.delegate = self;
@@ -249,9 +249,8 @@
 -(void)adjustViewsForOrientation:(UIInterfaceOrientation)orientation {
     if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
         [self presentWithIdentifier:@"portraitView"];
-    }else if (orientation == UIInterfaceOrientationLandscapeRight) {
-        [self presentWithIdentifier:@"landScapeView"];
-    }else if (orientation == UIInterfaceOrientationLandscapeLeft) {
+    }else if (orientation == UIInterfaceOrientationLandscapeRight || orientation == UIInterfaceOrientationLandscapeLeft) {
+        _rightMargin = 250;
         [self presentWithIdentifier:@"landScapeView"];
     }
 }
@@ -261,12 +260,14 @@
         embeddedVC.productItem = [self itemSelectedfromSearchResult];
         embeddedVC.variantInventoryDictionary = [self variantInventoryDictionaryforItemfromSearch];
         embeddedVC.attributesDictionary = [self attributesDictionaryforItemfromSearch];
+        embeddedVC.rightMargin = _rightMargin;
         NSLog(@"search item selection to PDP not tested DUE to CONSTRUCTION OF BACKEND API!");
     } else {
         embeddedVC.productItem = [self productItem];
         embeddedVC.eventId = [self eventId];
         embeddedVC.attributesDictionary = [self attributesDictionary];
         embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
+        embeddedVC.rightMargin = _rightMargin;
     }
     [self presentDetailController:embeddedVC];
 }

@@ -9,10 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Item+AppServer.h"
 #import "BTRProductDetailEmbeddedTVC.h"
-@protocol  BTRProductDetailOrientationViewController
+@protocol  BTRProductDetailOrientationViewController;
 
-
-@end
 @interface BTRProductDetailOrientationViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,BTRProductDetailEmbeddedTVC>
 
 @property (nonatomic , weak) id<BTRProductDetailOrientationViewController>delegate;
@@ -22,5 +20,14 @@
 @property (strong, nonatomic) NSDictionary *attributesDictionary;
 @property (strong, nonatomic) NSString *eventId;
 @property (strong, nonatomic) NSMutableArray *imageArray;
+@property CGFloat rightMargin;
+@end
+
+@protocol BTRProductDetailOrientationViewController <NSObject>
+
+@optional
+
+- (void)variantCodeforAddtoBag:(NSString *)variant;
+- (void)quantityForAddToBag:(NSString *)qty;
 
 @end
