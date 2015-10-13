@@ -94,7 +94,7 @@
         NSMutableArray* items = [[NSMutableArray alloc]init];
         for (NSDictionary *itemDic in [info valueForKeyPath:@"items"]) {
             Item* newItem = [[Item alloc]init];
-            [Item extractItemfromJsonDictionary:itemDic forItem:newItem];
+            [Item extractItemfromConfirmationDictionary:itemDic forItem:newItem];
             [items addObject:newItem];
         }
         confirmation.items = [items mutableCopy];
