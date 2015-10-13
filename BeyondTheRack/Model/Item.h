@@ -42,6 +42,8 @@
 @property (nonatomic, retain) NSNumber * retailPrice;
 @property (nonatomic, retain) NSNumber * employeePrice;
 @property (nonatomic, retain) NSNumber * salePrice;
+@property (nonatomic, retain) NSString * variant;
+
 @property float discount;
 
 @end

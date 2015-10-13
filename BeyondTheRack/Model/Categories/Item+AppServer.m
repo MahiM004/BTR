@@ -164,6 +164,22 @@
     return item;
 }
 
++ (Item *)extractItemfromConfirmationDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
+    
+    if ([itemDictionary valueForKeyPath:@"short_desc"] && [itemDictionary valueForKeyPath:@"short_desc"] != [NSNull null])
+        item.shortItemDescription = [itemDictionary valueForKey:@"short_desc"];
+    if ([itemDictionary valueForKeyPath:@"price"] && [itemDictionary valueForKeyPath:@"price"] != [NSNull null])
+        item.salePrice = [itemDictionary valueForKey:@"price"];
+    if ([itemDictionary valueForKeyPath:@"brand"] && [itemDictionary valueForKeyPath:@"brand"] != [NSNull null])
+        item.brand = [itemDictionary valueForKey:@"brand"];
+    if ([itemDictionary valueForKeyPath:@"sku"] && [itemDictionary valueForKeyPath:@"sku"] != [NSNull null])
+        item.sku = [itemDictionary valueForKey:@"sku"];
+    if ([itemDictionary valueForKeyPath:@"variant"] && [itemDictionary valueForKeyPath:@"variant"] != [NSNull null])
+        item.variant = [itemDictionary valueForKey:@"variant"];
+    
+    return item;
+}
+
 @end
 
 
