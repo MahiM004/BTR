@@ -8,7 +8,7 @@
 
 #import "CTCheckbox.h"
 
-static const float CTCheckboxDefaultSideLength = 20.0;
+static const float CTCheckboxDefaultSideLength = 25.0;
 
 @interface CTCheckbox ()
 @property (nonatomic, strong) NSMutableDictionary *colorDictionary;
