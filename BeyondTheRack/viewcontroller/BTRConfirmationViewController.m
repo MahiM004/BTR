@@ -28,12 +28,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *bagTotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shippingPriceLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *gstTextLabel;
-@property (weak, nonatomic) IBOutlet UILabel *qstTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *taxLabel1;
+@property (weak, nonatomic) IBOutlet UILabel *taxLabel2;
 
-@property (weak, nonatomic) IBOutlet UILabel *gstLabel;
-@property (weak, nonatomic) IBOutlet UILabel *qstLabel;
-@property (weak, nonatomic) IBOutlet UILabel *orderTotal;
+@property (weak, nonatomic) IBOutlet UILabel *taxValue1;
+@property (weak, nonatomic) IBOutlet UILabel *taxValue2;
+
+@property (weak, nonatomic) IBOutlet UILabel *totalOrder;
+@property (weak, nonatomic) IBOutlet UILabel *totalOrderValue;
+
 
 // Heights
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
@@ -59,28 +62,23 @@
 
 - (void)loadData {
     //changing thanks label
-    NSString *thanksString = [NSString stringWithFormat:@"%@,THANK YOU FOR YOUR ORDER NO. %@",self.info.billingName,self.info.orderID];
-//    NSRange range = [thanksString rangeOfString:self.info.billingName];
-//    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:thanksString];
-//    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
-//    self.thanksLabel.attributedText = attributedString;
-    self.thanksLabel.text = thanksString;
+    NSString *thanksString = [NSString stringWithFormat:@"%@,THANK YOU FOR YOUR ORDER NO. %@",self.info.shippingAddress.name,self.info.orderID];
+    NSRange range = [thanksString rangeOfString:self.info.shippingAddress.name];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:thanksString];
+    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+    self.thanksLabel.attributedText = attributedString;
     
-//    if (self.transactionID) {
-//        // adding transactionID
-//        NSString *string = [NSString stringWithFormat:@"we've billed your order to the transaction number : %@ with following address :",self.transactionID];
-//        NSRange range = [string rangeOfString:self.transactionID];
-//        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:string];
-//        [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
-//        self.billingLabel.attributedText = attributedString;
-//        
-//    } else {
-//        // adding last 4 digits of card
-//        NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithAttributedString:self.billingLabel.attributedText];
-//        [[text mutableString] replaceOccurrencesOfString:@"1111" withString:[self.order.cardNumber substringWithRange:NSMakeRange(self.order.cardNumber.length - 4, 4)] options:NSCaseInsensitiveSearch range:NSMakeRange(0, text.string.length)];
-//        self.billingLabel.attributedText = text;
-//    }
-    
+    NSMutableAttributedString *billingString;
+    if ([self.info.paymentMethod isEqualToString:@"credit"]) {
+        billingString = [[NSMutableAttributedString alloc]initWithAttributedString:self.billingLabel.attributedText];
+        [[billingString mutableString] replaceOccurrencesOfString:@"1111" withString:self.info.billingCardLastdigits options:NSCaseInsensitiveSearch range:NSMakeRange(0, billingString.string.length)];
+    } else if ([self.info.paymentMethod isEqualToString:@"paypal"]) {
+        NSString *text = [NSString stringWithFormat:@"We've billed your order to your PayPal account – %@, the transaction id is %@ with the following shipping address:",self.info.billingAddress.name,self.info.confirmationNumber];
+        NSRange range = [text rangeOfString:self.info.billingAddress.name];
+        billingString = [[NSMutableAttributedString alloc]initWithString:text];
+        [billingString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+    }
+    self.billingLabel.attributedText = billingString;
     //address
     NSString* shippingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n",self.info.shippingAddress.addressLine1,self.info.shippingAddress.addressLine2,self.info.shippingAddress.city,self.info.shippingAddress.country];
     self.shippingAddress.text = shippingAddressString;
@@ -96,8 +94,8 @@
         Item* item = [self.info.items objectAtIndex:i];
         UILabel *newLabel = [[UILabel alloc]initWithFrame:CGRectMake(begingingpoint.x, begingingpoint.y + (i * space), size.width, space)];
         newLabel.numberOfLines = -1;
-        newLabel.font = [UIFont systemFontOfSize:11];
-        newLabel.text = [NSString stringWithFormat:@"%@\n%@\n%@",item.shortItemDescription,[BTRAttributeHandler attributeDictionaryToString:item.attributeDictionary],item.brand];
+        newLabel.font = [UIFont systemFontOfSize:13];
+        newLabel.text = [NSString stringWithFormat:@"%@\nBrand : %@\nSize: %@\nPrice:%@\nItem code : %@",item.shortItemDescription,item.brand,item.variant,item.salePrice,item.sku];
         [self.orderView addSubview:newLabel];
     }
     self.itemsHeight.constant = self.info.items.count * 140;
@@ -105,20 +103,26 @@
         self.viewHeight.constant = self.viewHeight.constant + (self.info.items.count - 1) * 140;
     
     // Prices
-    self.bagTotalLabel.text = [NSString stringWithFormat:@"%@",self.info.bagTotal];
-    self.orderTotal.text = [NSString stringWithFormat:@"%@",self.info.totalOrderValue];
+    self.bagTotalLabel.text = [NSString stringWithFormat:@"%.2f",[self.info.bagTotal floatValue]];
+    self.totalOrder.text = [NSString stringWithFormat:@"TOTAL %@ :",self.info.orderCurrency];
+    self.totalOrderValue.text = [NSString stringWithFormat:@"%.2f",[self.info.totalOrderValue floatValue]];
     self.shippingPriceLabel.text = [NSString stringWithFormat:@"%@",self.info.totalShipping];
     
-    if (self.info.labelTax1 == nil) {
-        self.qstLabel.hidden = YES;
-        self.qstTextLabel.hidden = YES;
-    } else
-        self.qstLabel.text = self.info.labelTax1; //[NSString stringWithFormat:@"%.2f",self.order.qstTax.floatValue];
-    if (self.info.labelTax2 == nil) {
-        self.gstLabel.hidden = YES;
-        self.gstTextLabel.hidden = YES;
-    } else
-        self.gstLabel.text = self.info.labelTax2; //[NSString stringWithFormat:@"%.2f",self.order.gstTax.floatValue];
+    if (self.info.totalTax1 == nil) {
+        self.taxLabel1.hidden = YES;
+        self.taxValue1.hidden = YES;
+    } else {
+        self.taxValue1.text = [NSString stringWithFormat:@"%.2f",[self.info.totalTax1 floatValue]];
+        self.taxLabel1.text = self.info.labelTax1;
+    }
+    if (self.info.totalTax2 == nil) {
+        self.taxLabel2.hidden = YES;
+        self.taxValue2.hidden = YES;
+    } else {
+        self.taxValue2.text = [NSString stringWithFormat:@"%.2f",[self.info.totalTax1 floatValue]];
+        self.taxLabel2.text = self.info.labelTax2;
+    }
+    
 }
 
 - (IBAction)viewTapped:(id)sender {
