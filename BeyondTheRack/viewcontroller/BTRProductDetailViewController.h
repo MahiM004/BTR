@@ -10,13 +10,15 @@
 #import <UIKit/UIKit.h>
 #import "Item+AppServer.h"
 #import "BTRProductDetailEmbeddedTVC.h"
-
+#import "BTRProductDetailOrientationViewController.h"
 
 #define EVENT_SCENE @"EventScene"
 #define SEARCH_SCENE @"SearchScene"
 
-@interface BTRProductDetailViewController : UIViewController <BTRProductDetailEmbeddedTVC>
-
+@interface BTRProductDetailViewController : UIViewController <BTRProductDetailEmbeddedTVC,BTRProductDetailOrientationViewController,BTRSelectSizeVC>
+{
+    BTRProductDetailOrientationViewController *productDetailVC;
+}
 @property (strong, nonatomic) NSString *originVCString;
 @property (strong, nonatomic) NSString *productSKUfromSearchResult;
 @property (strong, nonatomic) Item *productItem;
@@ -26,4 +28,6 @@
 @property BOOL disableAddToCart;
 
 
+//Added
+@property (weak, nonatomic) IBOutlet UIView *detailView;
 @end

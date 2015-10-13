@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1449C8921BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5EF64B82268F5B93BD9E3D57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00303CA259B636FFAA0B08E0 /* libPods.a */; };
 		6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4C71AB7598000930D16 /* BTRLogo.png */; };
 		6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */; };
@@ -229,6 +230,8 @@
 
 /* Begin PBXFileReference section */
 		00303CA259B636FFAA0B08E0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1449C8901BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailOrientationViewController.h; sourceTree = "<group>"; };
+		1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailOrientationViewController.m; sourceTree = "<group>"; };
 		6900B4C71AB7598000930D16 /* BTRLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BTRLogo.png; sourceTree = "<group>"; };
 		6900B4C91AB75A9E00930D16 /* BTRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoginViewController.h; sourceTree = "<group>"; };
 		6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoginViewController.m; sourceTree = "<group>"; };
@@ -627,6 +630,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1449C8931BCCE06200EC1DA4 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				1449C8901BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.h */,
+				1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */,
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
 		6900B4CC1AB75AA800930D16 /* Login Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -773,6 +785,7 @@
 				6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */,
 				696508631AA4F26600ED28B8 /* BTRProductDetailViewController.h */,
 				696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */,
+				1449C8931BCCE06200EC1DA4 /* iPad */,
 				692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */,
 				692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */,
 				692F24E21AAF7BC5003AABE1 /* BTRZoomImageViewController.h */,
@@ -1565,6 +1578,7 @@
 				692F24E11AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m in Sources */,
 				A00E4DE61B865B5700C93CD3 /* MPCreditCard.m in Sources */,
 				69BC6D421A8E4F2C00376D9C /* BTRFacetsHandler.m in Sources */,
+				1449C8921BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m in Sources */,
 				A01142741B618D8A0099A40A /* FAQ+AppServer.m in Sources */,
 				697E05811A434121000146C6 /* BTRViewUtility.m in Sources */,
 				69E84ADA1B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m in Sources */,
@@ -1769,7 +1783,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeyondTheRack/BeyondTheRack-Prefix.pch";
 				INFOPLIST_FILE = BeyondTheRack/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1799,7 +1813,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeyondTheRack/BeyondTheRack-Prefix.pch";
 				INFOPLIST_FILE = BeyondTheRack/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

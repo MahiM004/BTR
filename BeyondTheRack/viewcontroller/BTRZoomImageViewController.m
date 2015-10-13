@@ -39,6 +39,9 @@
                           placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     return cell;
 }
+- (IBAction)closeAction:(id)sender {
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
 
 @end
 
