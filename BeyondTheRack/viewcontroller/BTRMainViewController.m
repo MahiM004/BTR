@@ -49,7 +49,7 @@
 
 @property BOOL isMenuOpen;
 @property (strong, nonatomic) UIView *tapRecognizerView;
-
+@property NSString * type;
 @end
 
 @implementation BTRMainViewController
@@ -161,9 +161,11 @@
 - (void)userInformationDidSelect {
     [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
     [self setIsMenuOpen:NO];
-    [self performSegueWithIdentifier:@"BTRAccountInformationSegueIdentifier" sender:self];
+    [self performSegueWithIdentifier:_type sender:self];
 }
-
+-(void)deviceType:(NSString*)type {
+    _type = type;
+}
 - (void)trackOrderDidSelect {
     [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
     [self setIsMenuOpen:NO];

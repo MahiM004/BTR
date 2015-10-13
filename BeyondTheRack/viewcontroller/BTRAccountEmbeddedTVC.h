@@ -14,7 +14,7 @@
 @required
 
 @property (nonatomic,strong) User* user;
-
+-(void)deviceType:(NSString*)type;
 - (void) signOutDidSelect;
 - (void) trackOrderDidSelect;
 - (void) helpDidSelect;

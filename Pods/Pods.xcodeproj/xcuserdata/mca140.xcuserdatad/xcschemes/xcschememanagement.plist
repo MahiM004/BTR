@@ -16,28 +16,33 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>FRDLivelyButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>6</integer>
+		</dict>
+		<key>HTMLAttributedString.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>JTSlideShadowAnimation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>7</integer>
 		</dict>
 		<key>MarqueeLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>8</integer>
 		</dict>
 		<key>ObjectiveSugar.xcscheme</key>
 		<dict>
@@ -66,7 +71,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0E091D887E5280D4D1693F492D8F34E4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>12A9CAAFA2DB8C8B5A4D0323B235A994</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>13BD5A4D774D71C8EE550339C5CD8D99</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -91,7 +106,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>29003D97214CDA5DE364568EB81D8DDB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2E468E0CAC218EF36C4579EFE2271F50</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3C7F661B1BAF1B65EF7EDCB631D93C26</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -116,6 +141,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>73B180F73DD2F9376A0C8FE16C8E632D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>77EFB5FE991FBF14E61E0173C9E0DC1B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>96841733E2EF8BAFE6332A8D177D8A96</key>
 		<dict>
 			<key>primary</key>
@@ -136,7 +171,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C52FCF6ABAA4D4E6DCC7843BC34474C1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>EAB3E1F16E5A6892DF651B5FA3E7C9FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F1D7B5C718D73EE6EAEEF12874C8CBCD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
