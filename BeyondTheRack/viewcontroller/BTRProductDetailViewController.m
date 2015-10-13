@@ -30,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *addTobagButton;
 @property (weak, nonatomic) IBOutlet UIView *addToBagView;
 
+//iPad added property
+@property UIViewController  *currentDetailViewController;
 @end
 
 @implementation BTRProductDetailViewController
@@ -41,6 +43,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if ([BTRViewUtility isIPAD] == YES) {
+        [self adjustViewsForOrientation:self.interfaceOrientation];
+    }
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
 }
@@ -59,7 +64,9 @@
     
     [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
-    
+    if ([BTRViewUtility isIPAD] == YES) {
+        [self presentWithIdentifier:@"portraitView"];
+    }
     if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
         [self fetchItemforProductSku:[[self productItem] sku]
                             success:^(Item *responseObject) {
@@ -189,6 +196,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    //ProductDetailiPadEmbeddedSegueIdentifier
     if ([[segue identifier] isEqualToString:@"ProductDetailEmbeddedSegueIdentifier"]) {
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
         embeddedVC.delegate = self;
@@ -214,6 +222,53 @@
 
 - (void)quantityForAddToBag:(NSString *)qty {
     self.quantity = qty;
+}
+//iPad added methods
+- (void)presentDetailController:(UIViewController*)detailVC{
+    if(self.currentDetailViewController){
+        [self removeCurrentDetailViewController];
+    }
+    [self addChildViewController:detailVC];
+    detailVC.view.frame = [self frameForDetailController];
+    [self.detailView addSubview:detailVC.view];
+    self.currentDetailViewController = detailVC;
+    [detailVC didMoveToParentViewController:self];
+}
+- (void)removeCurrentDetailViewController{
+    [self.currentDetailViewController willMoveToParentViewController:nil];
+    [self.currentDetailViewController.view removeFromSuperview];
+    [self.currentDetailViewController removeFromParentViewController];
+}
+- (CGRect)frameForDetailController{
+    CGRect detailFrame = self.detailView.bounds;
+    return detailFrame;
+}
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self adjustViewsForOrientation:toInterfaceOrientation];
+}
+-(void)adjustViewsForOrientation:(UIInterfaceOrientation)orientation {
+    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
+        [self presentWithIdentifier:@"portraitView"];
+    }else if (orientation == UIInterfaceOrientationLandscapeRight) {
+        [self presentWithIdentifier:@"landScapeView"];
+    }else if (orientation == UIInterfaceOrientationLandscapeLeft) {
+        [self presentWithIdentifier:@"landScapeView"];
+    }
+}
+-(void)presentWithIdentifier:(NSString *)identifierStoryBoard {
+    BTRProductDetailOrientationViewController *embeddedVC = [self.storyboard instantiateViewControllerWithIdentifier:identifierStoryBoard];
+    if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
+        embeddedVC.productItem = [self itemSelectedfromSearchResult];
+        embeddedVC.variantInventoryDictionary = [self variantInventoryDictionaryforItemfromSearch];
+        embeddedVC.attributesDictionary = [self attributesDictionaryforItemfromSearch];
+        NSLog(@"search item selection to PDP not tested DUE to CONSTRUCTION OF BACKEND API!");
+    } else {
+        embeddedVC.productItem = [self productItem];
+        embeddedVC.eventId = [self eventId];
+        embeddedVC.attributesDictionary = [self attributesDictionary];
+        embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
+    }
+    [self presentDetailController:embeddedVC];
 }
 
 @end

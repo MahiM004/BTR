@@ -432,7 +432,11 @@ typedef enum ScrollDirection {
     [self setSelectedBrandString:[productItem brand]];
     [self setSelectedAttributes:productItem.attributeDictionary];
     [self setSelectedVariantInventories:productItem.variantInventory];
-    [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
+    if ([BTRViewUtility isIPAD] == YES ) {
+        [self performSegueWithIdentifier:@"ProductDetailiPadSegueIdentifier" sender:self];
+    } else {
+        [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
+    }
 }
 
 - (IBAction)bagButtonTapped:(UIButton *)sender {
@@ -444,7 +448,7 @@ typedef enum ScrollDirection {
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"]) {
+    if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"] || [[segue identifier]isEqualToString:@"ProductDetailiPadSegueIdentifier"]) {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = EVENT_SCENE;
         productDetailVC.productItem = [self.originalItemArray objectAtIndex:[self.selectedIndexPath row]];

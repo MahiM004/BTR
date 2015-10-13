@@ -312,7 +312,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:
-            return 312;
+            if ([BTRViewUtility isIPAD] == YES ) {
+                return 0;
+            }else
+                return 312;
             break;
         case 1:
             return 240;
@@ -381,8 +384,7 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([[segue identifier] isEqualToString:@"ZoomOnProductImageSegueIdentifier"]) {
+    if ([[segue identifier] isEqualToString:@"ZoomOnProductImageSegueIdentifier"] || [[segue identifier] isEqualToString:@"ZoomOnProductImageiPadSegueIdentifier"]) {
         BTRZoomImageViewController *zoomVC = [segue destinationViewController];
         zoomVC.productSkuString = [self productSku];
         zoomVC.zoomImageCount = [self productImageCount];
@@ -398,15 +400,6 @@
     
     [self presentViewController:vc animated:YES completion:nil];
 }
-
-- (IBAction)unwindFromImageZoomToProductDetail:(UIStoryboardSegue *)unwindSegue {
-    
-}
-
-- (IBAction)unwindFromSelectSizeToProductDetail:(UIStoryboardSegue *)unwindSegue {
-    
-}
-
 #pragma mark - BTRSelectSizeVC Delegate
 
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
