@@ -403,9 +403,11 @@
 #pragma mark - BTRSelectSizeVC Delegate
 
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
-    self.selectedSizeIndex = selectedIndex;
-    self.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
     
+    self.selectedSizeIndex = selectedIndex;
+    
+    self.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
+    NSLog(@"%@",[[self sizesArray] objectAtIndex:selectedIndex]);
     if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
         [self.delegate variantCodeforAddtoBag:[[self sizeCodesArray] objectAtIndex:[self selectedSizeIndex]]];
     }

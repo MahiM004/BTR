@@ -14,7 +14,6 @@
 
 @end
 @interface BTRProductDetailOrientationViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,BTRProductDetailEmbeddedTVC>
-@property (weak, nonatomic) IBOutlet UITableView *detailTableView;
 
 @property (nonatomic , weak) id<BTRProductDetailOrientationViewController>delegate;
 @property (strong, nonatomic) NSString *originVCString;

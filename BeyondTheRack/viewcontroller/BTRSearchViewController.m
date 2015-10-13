@@ -355,7 +355,11 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     Item *productItem = [self.itemsArray objectAtIndex:indexPath.row];
     [self setSelectedItem:productItem];
-    [self performSegueWithIdentifier:@"ProductDetailSegueFromSearchIdentifier" sender:self];
+    if ([BTRViewUtility isIPAD] == YES ) {
+        [self performSegueWithIdentifier:@"ProductDetailiPadSegueFromSearchIdentifier" sender:self];
+    } else {
+        [self performSegueWithIdentifier:@"ProductDetailSegueFromSearchIdentifier" sender:self];
+    }
 }
 
 - (IBAction)tappedShoppingBag:(UIButton *)sender {
@@ -370,6 +374,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     if ([[segue identifier] isEqualToString:@"BTRSearchFilterSegue"]) {
         CGSize screenSize = [UIScreen mainScreen].bounds.size;
         UIGraphicsBeginImageContextWithOptions(screenSize, NO, [UIScreen mainScreen].scale);
@@ -381,7 +386,7 @@
         refineVC.backgroundImage = screenShotImage;
         refineVC.delegate = self;
     }
-    if ([[segue identifier] isEqualToString:@"ProductDetailSegueFromSearchIdentifier"]) {
+    if ([[segue identifier] isEqualToString:@"ProductDetailSegueFromSearchIdentifier"]|| [[segue identifier]isEqualToString:@"ProductDetailiPadSegueFromSearchIdentifier"]) {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = SEARCH_SCENE;
         productDetailVC.productItem = [self selectedItem];

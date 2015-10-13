@@ -43,10 +43,8 @@
 }
 - (void)updateViewWithDeatiledItem:(Item *)productItem {
     self.productImageCount = [[productItem imageCount] integerValue];
-    NSLog(@"count %ld",(long)self.productImageCount);
     if (productItem) {
         [self setProductSku:[productItem sku]];
-        NSLog(@"sku %@",[productItem sku]);
     }
 }
 
@@ -54,7 +52,6 @@
     [super viewDidLoad];
     [self extractAttributesFromAttributesDictionary:[self attributesDictionary]];
     [self updateViewWithDeatiledItem:[self productItem]];
-    NSLog(@"item id %@",[_productItem itemId]);
 }
 
 #pragma mark - UICollectionView Datasource

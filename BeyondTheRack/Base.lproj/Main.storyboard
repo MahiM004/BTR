@@ -2286,7 +2286,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="A96873DD-2FB2-4889-8520-50D0802BF643" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="61EBE341-9061-4EED-9CC1-C253D02932AA" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -4193,11 +4193,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wqI-ST-pT3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bJb-Id-aJZ">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FOg-MU-US7">
-                                <rect key="frame" x="0.0" y="28" width="568" height="54"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FOg-MU-US7">
+                                <rect key="frame" x="0.0" y="28" width="320" height="54"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZC-0G-zFU">
                                         <rect key="frame" x="8" y="8" width="98" height="46"/>
@@ -4224,8 +4224,8 @@
                                     <constraint firstItem="jZC-0G-zFU" firstAttribute="leading" secondItem="FOg-MU-US7" secondAttribute="leadingMargin" id="kU2-YL-5CE"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zkE-Gq-l22">
-                                <rect key="frame" x="0.0" y="82" width="568" height="212"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zkE-Gq-l22">
+                                <rect key="frame" x="0.0" y="82" width="320" height="460"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="wYo-iG-Vfm">
@@ -4236,7 +4236,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ZoomImageCollectionCellIdentifier" id="nF6-qU-tkW" customClass="BTRZoomImageCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="-124" width="320" height="459"/>
+                                        <rect key="frame" x="0.0" y="1" width="320" height="459"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="459"/>
@@ -9932,7 +9932,7 @@ UHJvZHVjdERldGFpbGkQUGFkRW1iZWRkZWRTZWd1ZUlkZW50aWZpZXI
         </scene>
     </scenes>
     <resources>
-        <image name="A96873DD-2FB2-4889-8520-50D0802BF643" width="30" height="30">
+        <image name="61EBE341-9061-4EED-9CC1-C253D02932AA" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -10005,11 +10005,11 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="twittericonalpha.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Hl3-o6-ufa"/>
-        <segue reference="IRS-1J-yjg"/>
-        <segue reference="bIC-SN-W1I"/>
-        <segue reference="YGd-XA-7oE"/>
         <segue reference="cgg-l4-kOG"/>
-        <segue reference="skF-Uu-jl9"/>
+        <segue reference="Hl3-o6-ufa"/>
+        <segue reference="rQK-cN-5Fr"/>
+        <segue reference="YGd-XA-7oE"/>
+        <segue reference="OYt-ZC-byn"/>
+        <segue reference="IRS-1J-yjg"/>
     </inferredMetricsTieBreakers>
 </document>

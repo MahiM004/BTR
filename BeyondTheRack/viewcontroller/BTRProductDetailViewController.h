@@ -15,7 +15,7 @@
 #define EVENT_SCENE @"EventScene"
 #define SEARCH_SCENE @"SearchScene"
 
-@interface BTRProductDetailViewController : UIViewController <BTRProductDetailEmbeddedTVC,BTRProductDetailOrientationViewController>
+@interface BTRProductDetailViewController : UIViewController <BTRProductDetailEmbeddedTVC,BTRProductDetailOrientationViewController,BTRSelectSizeVC>
 {
     BTRProductDetailOrientationViewController *productDetailVC;
 }
