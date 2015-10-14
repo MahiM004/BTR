@@ -48,7 +48,7 @@
         [self adjustViewsForOrientation:self.interfaceOrientation];
     }
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
+    self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];;
 }
  
 - (void)viewDidLoad {
