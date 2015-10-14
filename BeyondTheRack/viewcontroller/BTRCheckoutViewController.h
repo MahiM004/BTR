@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "Order+AppServer.h"
-
+#import "BTRMasterPassViewController.h"
 #import "CTCheckbox.h"
 
 typedef enum {
@@ -19,7 +19,7 @@ typedef enum {
 } paymentType;
 
 
-@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate>
+@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate,MasterPassInfoDelegate>
 
 @property (strong, nonatomic) Order *order;
 

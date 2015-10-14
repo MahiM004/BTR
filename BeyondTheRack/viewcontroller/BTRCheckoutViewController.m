@@ -10,7 +10,6 @@
 #import "BTRPaymentTypesHandler.h"
 #import "BTRConfirmationViewController.h"
 #import "BTRPaypalCheckoutViewController.h"
-#import "BTRMasterPassViewController.h"
 #import "BTROrderFetcher.h"
 #import "BTRPaypalFetcher.h"
 #import "MasterPassInfo+Appserver.h"
@@ -63,12 +62,15 @@
 
 @property paymentType currentPaymentType;
 @property (strong, nonatomic) NSMutableArray *arrayOfGiftCards;
+
 @property (strong, nonatomic) NSDictionary *paypalReponse;
+
 @property (strong, nonatomic) MasterPassInfo *masterpass;
+@property (strong, nonatomic) NSDictionary *masterCallBackInfo;
 
 @property (strong, nonatomic) NSMutableArray *selectedGift;
-
 @property (strong, nonatomic) ConfirmationInfo *confirmationInfo;
+
 
 @end
 
@@ -144,7 +146,7 @@
 - (NSDictionary *)cardInfo {
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
     NSString *paymentTypeToPass;
-    if (self.currentPaymentType == masterPass || self.currentPaymentType == paypal)
+    if (self.currentPaymentType == paypal)
         paymentTypeToPass = @"";
     else
         paymentTypeToPass = [sharedPaymentTypes paymentTypeforCardDisplayName:[[self paymentMethodTF] text]];
@@ -198,14 +200,11 @@
 }
 
 - (IBAction)masterPassCheckoutTapped:(id)sender {
-    if (!self.changePaymentMethodCheckbox.checked && self.currentPaymentType != masterPass) {
-        [self.changePaymentMethodCheckbox setChecked:YES];
-        [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
-    }
-    [self.paymentMethodTF setText:@"MasterPass"];
-    [self setCurrentPaymentType:masterPass];
-    [self changeDetailPaymentFor:masterPass];
-    [[[UIAlertView alloc]initWithTitle:@"MasterPass" message:@"MasterPass has been selected as payment method, please fill form" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+//    if (!self.changePaymentMethodCheckbox.checked && self.currentPaymentType != masterPass) {
+//        [self.changePaymentMethodCheckbox setChecked:YES];
+//        [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
+//    }
+    [self getMasterPassInfo];
 }
 
 #pragma mark - UI
@@ -420,7 +419,7 @@
         [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:self.order.pickupAddress.province]];
         [self.cityShippingTF setText:self.order.pickupAddress.city];
         [self.recipientNameShippingTF setText:self.order.pickupTitle];
-        [self.phoneShippingTF setText:@"613-735-0112"];
+        [self.phoneShippingTF setText:self.order.pickupAddress.phoneNumber];
         
         [self disableShippingAddress];
         
@@ -443,7 +442,7 @@
         [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:self.order.pickupAddress.province]];
         [self.cityShippingTF setText:self.order.pickupAddress.city];
         [self.recipientNameShippingTF setText:self.order.pickupTitle];
-        [self.phoneShippingTF setText:@"613-735-0112"];
+        [self.phoneShippingTF setText:self.order.pickupAddress.phoneNumber];
         [self disableShippingAddress];
 
     } else if (![checkbox checked]) {
@@ -752,15 +751,17 @@
                 self.paypalDetailsView.alpha = 1;
             }];
         }];
-    } else if (type == masterPass) {
-        [self.paymentMethodImageView setImage:[UIImage imageNamed:@"masterpass"]];
-        [self hideCardPaymentTip];
-        [self showBillingAddress];
-        self.paymentDetailsView.hidden = YES;
-        self.paypalEmailTF.hidden = YES;
-        self.creditCardDetailHeight.constant = 0;
     }
     
+//    } else if (type == masterPass) {
+//        [self.paymentMethodImageView setImage:[UIImage imageNamed:@"masterpass"]];
+//        [self hideCardPaymentTip];
+//        [self showBillingAddress];
+//        self.paymentDetailsView.hidden = YES;
+//        self.paypalEmailTF.hidden = YES;
+//        self.creditCardDetailHeight.constant = 0;
+//    }
+//    
     [UIView animateWithDuration:1
                      animations:^{
                          [self.view layoutIfNeeded];
@@ -815,19 +816,11 @@
     [self dismissKeyboard];
 }
 
-- (IBAction)vipOptionViewTapped:(UIControl *)sender {
-    [self dismissKeyboard];
-}
-
 - (IBAction)shippingDetailsViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
 
 - (IBAction)billingAddressViewTapped:(UIControl *)sender {
-    [self dismissKeyboard];
-}
-
-- (IBAction)sameAsShippingAddressViewTapped:(UIControl *)sender {
     [self dismissKeyboard];
 }
 
@@ -855,9 +848,6 @@
     [self dismissKeyboard];
 }
 
-- (IBAction)pleaseFillOutShippingFormViewTapped:(UIControl *)sender {
-    [self dismissKeyboard];
-}
 
 #pragma mark - PickerView Delegates
 
@@ -938,13 +928,10 @@
     
     if ([self pickerType] == PAYMENT_TYPE_PICKER) {
         [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
-        if ([self.paymentMethodTF.text isEqualToString:@"Paypal"]) {
+        if ([self.paymentMethodTF.text isEqualToString:@"Paypal"])
             [self setCurrentPaymentType:paypal];
-        }else if ([self.paymentMethodTF.text isEqualToString:@"MasterPass"]) {
-            [self setCurrentPaymentType:masterPass];
-        }else{
+        else
             [self setCurrentPaymentType:creditCard];
-        }
         [self changeDetailPaymentFor:self.currentPaymentType];
     }
     
@@ -1007,7 +994,7 @@
 #pragma mark Actions
 
 - (IBAction)processOrderTpped:(BTRLoadingButton *)sender {
-    if (![self isShippingAddressCompeleted])
+    if (![self isShippingAddressCompeleted] && self.currentPaymentType == creditCard)
         return;
     if (self.currentPaymentType == creditCard && [self isBillingAddressCompeleted] && [self isCardInfoCompeleted]) {
         [sender showLoading];
@@ -1025,9 +1012,7 @@
             [self sendPayPalInfo];
         }];
     } else if (self.currentPaymentType == masterPass){
-        [self validateAddressViaAPIAndInCompletion:^() {
-            [self getMasterPassInfo];
-        }];
+        [self performSegueWithIdentifier:@"BTRMasterPassCheckoutSegueIdentifier" sender:self];
     }
 }
 
@@ -1083,9 +1068,30 @@
     }];
 }
 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"]) {
+        BTRConfirmationViewController* confirm = [segue destinationViewController];
+        confirm.info = self.confirmationInfo;
+    } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
+        BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
+        paypalVC.paypalInfo = self.paypalReponse;
+    } else if ([[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueIdentifier"]) {
+        BTRMasterPassViewController* mpVC = [segue destinationViewController];
+        mpVC.info = self.masterpass;
+        mpVC.processInfo = self.masterCallBackInfo;
+        mpVC.delegate = self;
+    }
+}
+
 #pragma mark Validation
 
 - (void)validateAddressViaAPIAndInCompletion:(void(^)())completionBlock; {
+    
+    if (self.currentPaymentType == masterPass)
+        return;
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     
@@ -1109,6 +1115,14 @@
     } faild:^(NSError *error) {
         
     }];
+}
+
+- (IBAction)billingAddressChangeds:(id)sender {
+    if (self.currentPaymentType == masterPass) {
+        [self setCurrentPaymentType:creditCard];
+        [self.cardVerificationPaymentTF setHidden:NO];
+        [self changeDetailPaymentFor:creditCard];
+    }
 }
 
 - (IBAction)zipCodeHasBeenEntererd:(id)sender {
@@ -1220,21 +1234,6 @@
      ];
 }
 
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"]) {
-        BTRConfirmationViewController* confirm = [segue destinationViewController];
-        confirm.info = self.confirmationInfo;
-    } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
-        BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
-        paypalVC.paypalInfo = self.paypalReponse;
-    } else if ([[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueIdentifier"]) {
-        BTRMasterPassViewController* mpVC = [segue destinationViewController];
-        mpVC.info = self.masterpass;
-    }
-}
-
 #pragma mark confirmation
 
 - (void)getConfirmationInfoWithOrderID:(NSString *)orderID {
@@ -1246,6 +1245,19 @@
     } faild:^(NSError *error) {
         
     }];
+}
+
+#pragma masterpass delegate;
+
+- (void)masterPassInfoDidReceived:(NSDictionary *)info {
+    NSLog(@"%@",info);
+    self.masterCallBackInfo = info;
+    self.order = [Order extractOrderfromJSONDictionary:info forOrder:self.order];
+    [self loadOrderData];
+    [self fillPaymentInfoWithCurrentData];
+    [self changeDetailPaymentFor:creditCard];
+    [self setCurrentPaymentType:masterPass];
+    [self.cardVerificationPaymentTF setHidden:YES];
 }
 
 @end
