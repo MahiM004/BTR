@@ -10,8 +10,16 @@
 #import "MasterPassInfo.h"
 #import "MPManager.h"
 
+
+@protocol MasterPassInfoDelegate <NSObject>
+- (void)masterPassInfoDidReceived:(NSDictionary *)info;
+@end
+
+
 @interface BTRMasterPassViewController : UIViewController <MPManagerDelegate>
 
 @property (nonatomic, retain) MasterPassInfo* info;
+@property (nonatomic, retain) NSDictionary *processInfo;
+@property (nonatomic, retain) id <MasterPassInfoDelegate> delegate;
 
 @end
