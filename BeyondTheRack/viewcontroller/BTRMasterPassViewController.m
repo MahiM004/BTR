@@ -25,8 +25,12 @@
     [super viewDidLoad];
 
     //initilizing
-    [[MPManager sharedInstance]setDelegate:self];
-    [[MPManager sharedInstance]pairAndCheckoutInViewController:self WithInfo:self.info];
+    if (self.processInfo) {
+        [self processMasterPassWithInfo:self.processInfo];
+    } else {
+        [[MPManager sharedInstance]setDelegate:self];
+        [[MPManager sharedInstance]pairAndCheckoutInViewController:self WithInfo:self.info];
+    }
     // Do any additional setup after loading the view.
 }
 
@@ -49,7 +53,10 @@
 - (void)getInfoForMasterPassAndAddMasterPassInfo:(NSString *)checkoutInfo {
     NSString* url = [NSString stringWithFormat:@"%@%@",[BTRMasterPassFetcher URLforMasterPassInfo],checkoutInfo];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        [self processMasterPassWithInfo:response];
+        [self dismissViewControllerAnimated:YES completion:^{
+            if ([self.delegate respondsToSelector:@selector(masterPassInfoDidReceived:)])
+                [self.delegate masterPassInfoDidReceived:response];
+        }];
     } faild:^(NSError *error) {
         
     }];
