@@ -312,9 +312,6 @@
         }
         if ([[sharedPaymentTypes paymentTypesArray] containsObject:@"paypal"])
             [[sharedPaymentTypes creditCardDisplayNameArray] addObject:@"Paypal"];
-
-        if ([[sharedPaymentTypes paymentTypesArray] containsObject:@"masterpass"])
-            [[sharedPaymentTypes creditCardDisplayNameArray] addObject:@"MasterPass"];
         
         [self performSegueWithIdentifier:@"BTRCheckoutSegueIdentifier" sender:self];
         
