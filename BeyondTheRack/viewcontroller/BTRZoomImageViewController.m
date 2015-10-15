@@ -43,6 +43,11 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height);
+}
 @end
 
 
