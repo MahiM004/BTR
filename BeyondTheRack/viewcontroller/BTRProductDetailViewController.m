@@ -248,6 +248,7 @@
 }
 -(void)adjustViewsForOrientation:(UIInterfaceOrientation)orientation {
     if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
+        _rightMargin = 0;
         [self presentWithIdentifier:@"portraitView"];
     }else if (orientation == UIInterfaceOrientationLandscapeRight || orientation == UIInterfaceOrientationLandscapeLeft) {
         _rightMargin = 250;
