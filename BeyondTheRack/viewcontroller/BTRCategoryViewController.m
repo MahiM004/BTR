@@ -157,6 +157,9 @@
     [self.bannerView setText:bannerString];
 }
 
+- (void) viewWillLayoutSubviews {
+    [_bannerView setCenter:CGPointMake(self.view.center.x, _bannerView.center.y)];
+}
 
 @end
 
