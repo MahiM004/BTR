@@ -270,8 +270,9 @@ typedef enum ScrollDirection {
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView.frame.size.width < 400)
         return CGSizeMake(collectionView.frame.size.width / 2 - 1, (collectionView.frame.size.height * 4) / 5);
-    else
+    else if (collectionView.frame.size.width < 1000)
        return CGSizeMake(collectionView.frame.size.width / 4 - 4, 500);
+    return CGSizeMake(collectionView.frame.size.width / 5 - 5, 500);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
@@ -632,6 +633,10 @@ typedef enum ScrollDirection {
     
     self.lastContentOffset = scrollView.contentOffset.x;
     return scrollDirection;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self.collectionView performBatchUpdates:nil completion:nil];
 }
 
 @end
