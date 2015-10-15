@@ -36,6 +36,7 @@
 #define PAYPAL_PAYMENT_HEIGHT 160.0
 #define CARD_PAYMENT_TIP_HEIGHT 65.0
 #define SAMPLE_GIFT_HEIGHT 110
+#define DEFAUL_VIEW_HEIGHT 3300
 
 @class CTCheckbox;
 
@@ -71,6 +72,7 @@
 @property (strong, nonatomic) NSMutableArray *selectedGift;
 @property (strong, nonatomic) ConfirmationInfo *confirmationInfo;
 
+@property (nonatomic) CGFloat finalViewSize;
 
 @end
 
@@ -200,10 +202,6 @@
 }
 
 - (IBAction)masterPassCheckoutTapped:(id)sender {
-//    if (!self.changePaymentMethodCheckbox.checked && self.currentPaymentType != masterPass) {
-//        [self.changePaymentMethodCheckbox setChecked:YES];
-//        [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
-//    }
     [self getMasterPassInfo];
 }
 
@@ -218,6 +216,7 @@
     [self setCurrentPaymentType:creditCard];
     [self.paymentMethodTF setText:@"Visa Credit"];
     [self.changePaymentMethodCheckbox setChecked:NO];
+    [self.changePaymentMethodView setHidden:YES];
     
     [self resetData];
     [self loadOrderData];
@@ -325,15 +324,22 @@
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
     
     // pickup
+    BOOL hasPickup = NO;
     if ([[self.order vipPickupEligible] boolValue]) {
-        [self.pleaseFillOutTheShippingFormView setHidden:TRUE];
-        [self.vipOptionView setHidden:FALSE];
-        
+        self.pleaseFillOutTheShippingFormView.hidden = YES;
+        self.vipOptionView.hidden = NO;
     } else if (![[self.order vipPickupEligible] boolValue]) {
-        [self.pleaseFillOutTheShippingFormView setHidden:FALSE];
-        [self.vipOptionView setHidden:TRUE];
-        [self.pickupView setHidden:![[self.order eligiblePickup] boolValue]];
+        self.pleaseFillOutTheShippingFormView.hidden = NO;
+        self.vipOptionView.hidden = YES;
+        if ([[self.order eligiblePickup] boolValue]) {
+            self.pickupView.hidden = NO;
+            hasPickup = YES;
+        } else
+            self.pickupView.hidden = YES;
     }
+    
+    if (!hasPickup)
+        self.pickupViewHeight.constant = 0;
     
     if ([self isViewVisible])
         [self addSampleGifts];
@@ -348,8 +354,10 @@
     for (UIView *subView in [self.sampleGiftView subviews])
         [subView removeFromSuperview];
     
+    self.viewHeight.constant = DEFAUL_VIEW_HEIGHT;
     self.sampleGiftViewHeight.constant = SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
     self.viewHeight.constant =  self.viewHeight.constant + self.sampleGiftViewHeight.constant ;
+    [self setFinalViewSize:self.viewHeight.constant];
     [self.view layoutIfNeeded];
     
     int i = 0;
@@ -369,7 +377,8 @@
         [imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",item.image]] placeholderImage:nil];
         [checkbox addTarget:self action:@selector(sampleGiftSelected:) forControlEvents:UIControlEventValueChanged];
         [checkbox setTag:i];
-        
+        [checkbox setChecked:YES];
+
         [self.sampleGiftView addSubview:itemView];
         itemView.backgroundColor = [UIColor clearColor];
         heightSize += SAMPLE_GIFT_HEIGHT;
@@ -688,7 +697,7 @@
             [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
         [self setCurrentPaymentType:creditCard];
     }
-    if ([self.order.lockCCFields boolValue] || self.currentPaymentType == paypal) {
+    if ([self.order.lockCCFields boolValue] || (self.currentPaymentType == paypal && self.paypalEmailTF.text.length > 0)) {
         [self.changePaymentMethodView setHidden:NO];
         [self.sendmeToPaypalCheckbox setHidden:NO];
         [self.sendmeToPaypalLabel setHidden:NO];
@@ -696,9 +705,10 @@
         if (self.currentPaymentType == creditCard)
             [self.cardVerificationPaymentTF setText:@"xxx"];
     }
-    else
+    else {
         [self.changePaymentMethodView setHidden:YES];
-    
+        [self.changePaymentMethodHeight setConstant:0];
+    }
     [self changeDetailPaymentFor:self.currentPaymentType];
 }
 
@@ -718,6 +728,7 @@
         [self showBillingAddress];
         [self showCardPaymentTip];
         self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
+        self.viewHeight.constant = self.finalViewSize;
         [UIView animateWithDuration:1.0 animations:^{
             self.paypalDetailsView.alpha = 0;
         } completion:^(BOOL finished) {
@@ -731,7 +742,6 @@
         [self.paymentMethodImageView setImage:[UIImage imageNamed:@"paypal_yellow"]];
         [self hideBillingAddress];
         [self hideCardPaymentTip];
-        [self.changePaymentMethodView setHidden:NO];
         [self.sendmeToPaypalCheckbox setHidden:NO];
         if (self.paypalEmailTF.text.length > 0) {
             self.paypalEmailTF.hidden = NO;
@@ -742,6 +752,7 @@
             self.paypalEmailTF.hidden = YES;
             self.creditCardDetailHeight.constant = 0;
         }
+        self.viewHeight.constant = self.viewHeight.constant - CARD_PAYMENT_HEIGHT;
         [UIView animateWithDuration:1.0 animations:^{
             self.paymentDetailsView.alpha = 0;
         }completion:^(BOOL finished) {
@@ -752,16 +763,6 @@
             }];
         }];
     }
-    
-//    } else if (type == masterPass) {
-//        [self.paymentMethodImageView setImage:[UIImage imageNamed:@"masterpass"]];
-//        [self hideCardPaymentTip];
-//        [self showBillingAddress];
-//        self.paymentDetailsView.hidden = YES;
-//        self.paypalEmailTF.hidden = YES;
-//        self.creditCardDetailHeight.constant = 0;
-//    }
-//    
     [UIView animateWithDuration:1
                      animations:^{
                          [self.view layoutIfNeeded];
@@ -1121,6 +1122,7 @@
     if (self.currentPaymentType == masterPass) {
         [self setCurrentPaymentType:creditCard];
         [self.cardVerificationPaymentTF setHidden:NO];
+        [self.cardVerificationPaymentLB setHidden:NO];
         [self changeDetailPaymentFor:creditCard];
     }
 }
@@ -1250,7 +1252,6 @@
 #pragma masterpass delegate;
 
 - (void)masterPassInfoDidReceived:(NSDictionary *)info {
-    NSLog(@"%@",info);
     self.masterCallBackInfo = info;
     self.order = [Order extractOrderfromJSONDictionary:info forOrder:self.order];
     [self loadOrderData];
@@ -1258,6 +1259,10 @@
     [self changeDetailPaymentFor:creditCard];
     [self setCurrentPaymentType:masterPass];
     [self.cardVerificationPaymentTF setHidden:YES];
+    [self.cardVerificationPaymentLB setHidden:YES];
+    [self.creditCardDetailHeight setConstant:self.creditCardDetailHeight.constant - 60];
+    [self.viewHeight setConstant:self.finalViewSize - 60];
+    [self.view layoutIfNeeded];
 }
 
 @end

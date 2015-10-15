@@ -67,7 +67,8 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cardPaymentTipHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sampleGiftViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickupViewHeight;
-@property (weak, nonatomic) IBOutlet UIControl *fillFormLabelViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fillFormLabelViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *changePaymentMethodHeight;
 
 /**
  
@@ -141,6 +142,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITextField *nameOnCardPaymentTF;
 @property (weak, nonatomic) IBOutlet UITextField *cardNumberPaymentTF;
 @property (weak, nonatomic) IBOutlet UITextField *cardVerificationPaymentTF;
+@property (weak, nonatomic) IBOutlet UILabel *cardVerificationPaymentLB;
 @property (weak, nonatomic) IBOutlet CTCheckbox *remeberCardInfoCheckbox;
 @property (weak, nonatomic) IBOutlet UITextField *giftCardCodePaymentTF;
 @property (weak, nonatomic) IBOutlet CTCheckbox *changePaymentMethodCheckbox;
