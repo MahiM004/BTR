@@ -175,7 +175,7 @@ typedef enum ScrollDirection {
     self.isLoadingNextPage = YES;
     [self.originalItemArray removeAllObjects];
     [self.chosenSizesArray removeAllObjects];
-    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]]
+    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]] andFilterSize:self.filterSizeTextField.text
                         success:^(NSMutableArray *responseObject) {
                             self.isLoadingNextPage = NO;
                             [self.originalItemArray addObjectsFromArray:responseObject];
@@ -190,8 +190,7 @@ typedef enum ScrollDirection {
 - (void)callForNextPage {
     self.isLoadingNextPage = YES;
     self.currentPage++;
-    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]]
-                        success:^(NSMutableArray *responseObject) {
+    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]] andFilterSize:self.filterSizeTextField.text success:^(NSMutableArray *responseObject) {
                             if (responseObject.count == 0) {
                                 self.lastPageDidLoad = YES;
                                 return;
@@ -213,10 +212,10 @@ typedef enum ScrollDirection {
 
 #pragma mark - Load Event Products RESTful
 
-- (void)fetchItemsforEventSku:(NSString *)eventSku forPagenum:(int)pageNum andSortMode:(sortMode)selectedSortMode
+- (void)fetchItemsforEventSku:(NSString *)eventSku forPagenum:(int)pageNum andSortMode:(sortMode)selectedSortMode andFilterSize:(NSString *)filterSize
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure {
-    NSString *url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku inPageNumber:pageNum withSortingMode:selectedSortMode]];
+    NSString *url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku inPageNumber:pageNum withSortingMode:selectedSortMode andSizeFilter:filterSize]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         NSMutableArray *newItems = [[NSMutableArray alloc]init];
         newItems = [Item loadItemsfromAppServerArray:(NSArray *)response withEventId:[self eventSku] forItemsArray:newItems];

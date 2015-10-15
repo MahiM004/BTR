@@ -18,10 +18,12 @@ static sortMode kDISCOUNTASCENDING = @"orderDiscountAsc",kDISCOUNTDESCENDING = @
 kPRICEASCENDING = @"orderPriceAsc",kPRICEDESCENDING = @"orderPriceDesc",
 kSKUASCENDING = @"orderSkuAsc" ,kSUGGESTED = @"suggested" ;
 
+static NSString *defaultSize = @"Size";
+
 @interface BTRItemFetcher : BTRFetcher
 
 + (NSURL *)URLforItemWithProductSku:(NSString *)sku;
-+ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode;
++ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode andSizeFilter:(NSString *)size;
 
 + (NSURL *)URLforItemImageForSku:(NSString *)sku;
 + (NSURL *)URLforItemImageForSku:(NSString *)sku withCount:(NSInteger)countNumber andSize:(NSString *)sizeString;

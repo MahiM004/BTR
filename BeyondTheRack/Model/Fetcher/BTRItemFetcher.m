@@ -14,10 +14,15 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/product/%@", BASEURL, sku]];
 }
 
-+ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode {
-    if (sortingMode != kSUGGESTED)
-        return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&filter=%@&limit=%i", BASEURL, eventSku,pageNum,sortingMode,MAX_ITEMS_PER_PAGE]];
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&limit=%i", BASEURL, eventSku,pageNum,MAX_ITEMS_PER_PAGE]];
++ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode andSizeFilter:(NSString *)size {
+    if (sortingMode != kSUGGESTED) {
+        if ([size isEqualToString:defaultSize])
+            return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&filter=%@&limit=%i", BASEURL, eventSku,pageNum,sortingMode,MAX_ITEMS_PER_PAGE]];
+        return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&filter=%@&limit=%i&size=%@", BASEURL, eventSku,pageNum,sortingMode,MAX_ITEMS_PER_PAGE,size]];
+    } else if ([size isEqualToString:defaultSize])
+        return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&limit=%i", BASEURL, eventSku,pageNum,MAX_ITEMS_PER_PAGE]];
+    else
+     return [self URLForQuery:[NSString stringWithFormat:@"%@/eventskus/%@?page=%i&limit=%i&size=%@", BASEURL, eventSku,pageNum,MAX_ITEMS_PER_PAGE,size]];
 }
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber{
