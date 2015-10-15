@@ -41,9 +41,9 @@ static NSString * const reuseIdentifier = @"Cell";
     [self loadFirstPageEvents];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.collectionView performBatchUpdates:nil completion:nil];
 }
 
 #pragma mark LoadEvents
@@ -164,13 +164,23 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView.frame.size.width > 400) {
-        return CGSizeMake(collectionView.frame.size.width / 2 - 1, 200);
-    }
-    return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height / 3);
+    if ([BTRViewUtility isIPAD]) {
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            return CGSizeMake(screenBounds.size.width / 2 - 4.6,250);
+        } else
+            return CGSizeMake(screenBounds.size.width / 2 - 4.6, 200);
+    }else
+        return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height / 3);
 }
-
-
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self.collectionView performBatchUpdates:nil completion:nil];
+}
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                               duration:(NSTimeInterval)duration{
+    [self.collectionView.collectionViewLayout invalidateLayout];
+}
 #pragma mark <UICollectionViewDelegate>
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

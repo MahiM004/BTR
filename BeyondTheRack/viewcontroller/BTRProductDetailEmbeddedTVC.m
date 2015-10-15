@@ -205,7 +205,6 @@
     }
     
     customHeight = customHeight + 15;
-    _rightMargin = 0;
     return descriptionView;
 }
 
@@ -313,7 +312,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:
-            if ([BTRViewUtility isIPAD] == YES ) {
+            if ([BTRViewUtility isIPAD] == YES && _rightMargin == 250) {
                 return 0;
             }else
                 return 312;
