@@ -404,7 +404,6 @@
 
 - (IBAction)unwindFromRefineResultsCleared:(UIStoryboardSegue *)unwindSegue {
     [self.itemsArray removeAllObjects];
-//    [self.itemsArray addObjectsFromArray:[self originalItemArray]];
     [self.collectionView reloadData];
 }
 
@@ -518,7 +517,6 @@
                                         failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
     NSDictionary *params = (@{
-                              @"event_id": [productItem eventId],
                               @"sku": [productItem sku],
                               @"variant": variant
                               });
