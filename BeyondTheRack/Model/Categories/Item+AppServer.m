@@ -46,15 +46,6 @@
     return itemsArray;
 }
 
-+ (NSMutableArray *)loadItemsfromAppSearchServerArray:(NSArray *)items forItemsArray:(NSMutableArray *)itemsArray {
-    for (NSDictionary *item in items) {
-        NSObject *someObject = [self itemWithSearchResponseInfo:item];
-        if (someObject)
-            [itemsArray addObject:someObject];
-    }
-    return itemsArray;
-}
-
 + (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
     nformatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -132,33 +123,6 @@
     
     return item;
 
-}
-
-+ (Item *)extractItemfromSearchJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
-    
-    if ([itemDictionary valueForKeyPath:@"short_description"] && [itemDictionary valueForKeyPath:@"short_description"] != [NSNull null])
-        item.shortItemDescription = [itemDictionary valueForKey:@"short_description"];
-    
-    if ([itemDictionary valueForKeyPath:@"sku"] && [itemDictionary valueForKeyPath:@"sku"] != [NSNull null])
-        item.sku = [itemDictionary valueForKey:@"sku"];
-    
-    if ([itemDictionary valueForKeyPath:@"brand"] && [itemDictionary valueForKeyPath:@"brand"] != [NSNull null])
-        item.brand = [itemDictionary valueForKey:@"brand"];
-  
-    if ([itemDictionary valueForKeyPath:@"retail_price"] && [itemDictionary valueForKeyPath:@"retail_price"] != [NSNull null])
-        item.retailPrice = [itemDictionary valueForKey:@"retail_price"];
-    
-    if ([itemDictionary valueForKeyPath:@"regular_price"] && [itemDictionary valueForKeyPath:@"regular_price"] != [NSNull null])
-        item.salePrice = [itemDictionary valueForKey:@"regular_price"];
-    
-    if ([itemDictionary valueForKeyPath:@"employee_price"] && [itemDictionary valueForKeyPath:@"employee_price"] != [NSNull null])
-        item.employeePrice = [itemDictionary valueForKey:@"employee_price"];
-    
-    /* handling employee pricing at the JSON reading level */
-    if (![[item employeePrice] isEqualToNumber:[NSNumber numberWithFloat:0]])
-        item.salePrice = [item employeePrice];
-    
-    return item;
 }
 
 + (Item *)extractItemfromConfirmationDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
