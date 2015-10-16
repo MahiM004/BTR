@@ -39,8 +39,6 @@
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                                   forItemsArray:(NSMutableArray *)itemsArray;
 
-+ (Item *)itemWithSearchResponseInfo:(NSDictionary *)itemDictionary;
-
 @end
 
 
