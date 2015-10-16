@@ -25,12 +25,6 @@
     return item;
 }
 
-+ (Item *)itemWithSearchResponseInfo:(NSDictionary *)itemDictionary {
-    Item *item = [[Item alloc] init];
-    item = [self extractItemfromSearchJsonDictionary:itemDictionary forItem:item];
-    return item;
-}
-
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                                     withEventId:(NSString *)eventId
                                  forItemsArray:(NSMutableArray *)itemsArray {
@@ -73,6 +67,9 @@
     
     if ([itemDictionary valueForKeyPath:@"short_desc"] && [itemDictionary valueForKeyPath:@"short_desc"] != [NSNull null])
         item.shortItemDescription = [itemDictionary valueForKey:@"short_desc"];
+    
+    if ([itemDictionary valueForKeyPath:@"short_description"] && [itemDictionary valueForKeyPath:@"short_description"] != [NSNull null])
+        item.shortItemDescription = [itemDictionary valueForKey:@"short_description"];
     
     if ([itemDictionary valueForKeyPath:@"long_desc"] && [itemDictionary valueForKeyPath:@"long_desc"] != [NSNull null])
         item.longItemDescription = [itemDictionary valueForKey:@"long_desc"];

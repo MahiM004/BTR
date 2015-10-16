@@ -32,6 +32,7 @@
 
 //iPad added property
 @property UIViewController  *currentDetailViewController;
+@property BTRProductDetailEmbeddedTVC *embededVC;
 @property CGFloat rightMargin;
 @end
 
@@ -56,8 +57,6 @@
     if (self.variant == nil)
         self.variant = SIZE_NOT_SELECTED_STRING;
     
-    NSLog(@"update add_to_bag for search: no event_id is provided");
-    
     if ([[[self productItem] brand] length] > 1)
         [self.eventTitleLabel setText:[[self productItem] brand]];
     else
@@ -71,7 +70,10 @@
     if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
         [self fetchItemforProductSku:[[self productItem] sku]
                             success:^(Item *responseObject) {
-                                [self setItemSelectedfromSearchResult:responseObject];
+                                [self.embededVC setProductItem:responseObject];
+                                [self.embededVC setAttributesDictionary:self.attributesDictionaryforItemfromSearch];
+                                [self.embededVC setVariantInventoryDictionary:self.variantInventoryDictionaryforItemfromSearch];
+                                [self.embededVC viewDidLoad];
                             } failure:^(NSError *error) {
                                 
                             }];
@@ -201,10 +203,7 @@
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
         embeddedVC.delegate = self;
         if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
-            embeddedVC.productItem = [self itemSelectedfromSearchResult];
-            embeddedVC.variantInventoryDictionary = [self variantInventoryDictionaryforItemfromSearch];
-            embeddedVC.attributesDictionary = [self attributesDictionaryforItemfromSearch];
-            NSLog(@"search item selection to PDP not tested DUE to CONSTRUCTION OF BACKEND API!");
+            self.embededVC = embeddedVC;
         } else {
             embeddedVC.productItem = [self productItem];
             embeddedVC.eventId = [self eventId];
@@ -256,13 +255,9 @@
     }
 }
 -(void)presentWithIdentifier:(NSString *)identifierStoryBoard {
-    BTRProductDetailOrientationViewController *embeddedVC = [self.storyboard instantiateViewControllerWithIdentifier:identifierStoryBoard];
+    BTRProductDetailEmbeddedTVC *embeddedVC = [self.storyboard instantiateViewControllerWithIdentifier:identifierStoryBoard];
     if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
-        embeddedVC.productItem = [self itemSelectedfromSearchResult];
-        embeddedVC.variantInventoryDictionary = [self variantInventoryDictionaryforItemfromSearch];
-        embeddedVC.attributesDictionary = [self attributesDictionaryforItemfromSearch];
-        embeddedVC.rightMargin = _rightMargin;
-        NSLog(@"search item selection to PDP not tested DUE to CONSTRUCTION OF BACKEND API!");
+        [self setEmbededVC:embeddedVC];
     } else {
         embeddedVC.productItem = [self productItem];
         embeddedVC.eventId = [self eventId];

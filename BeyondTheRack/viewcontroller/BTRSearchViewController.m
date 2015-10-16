@@ -32,7 +32,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 @property (strong, nonatomic) Item *selectedItem;
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
-//@property (strong, nonatomic) NSMutableArray *originalItemArray;
 @property (strong, nonatomic) NSMutableArray* suggestionArray;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
@@ -49,11 +48,6 @@
 @end
 
 @implementation BTRSearchViewController
-
-//- (NSMutableArray *)originalItemArray {
-//    if (!_originalItemArray) _originalItemArray = [[NSMutableArray alloc] init];
-//    return _originalItemArray;
-//}
 
 - (NSMutableArray *)itemsArray {
     if (!_itemsArray) _itemsArray = [[NSMutableArray alloc] init];
@@ -342,7 +336,7 @@
         NSMutableArray* newItems = [[NSMutableArray alloc]init];
         if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"])
             if ([arrayToPass count] != 0)
-                newItems = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:newItems];
+                newItems = [Item loadItemsfromAppServerArray:arrayToPass forItemsArray:newItems];
         
         success(newItems);
     } faild:^(NSError *error) {
@@ -386,12 +380,10 @@
         refineVC.backgroundImage = screenShotImage;
         refineVC.delegate = self;
     }
-    if ([[segue identifier] isEqualToString:@"ProductDetailSegueFromSearchIdentifier"]|| [[segue identifier]isEqualToString:@"ProductDetailiPadSegueFromSearchIdentifier"]) {
+    if ([[segue identifier] isEqualToString:@"ProductDetailSegueFromSearchIdentifier"] || [[segue identifier]isEqualToString:@"ProductDetailiPadSegueFromSearchIdentifier"]) {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = SEARCH_SCENE;
         productDetailVC.productItem = [self selectedItem];
-        productDetailVC.variantInventoryDictionary = self.selectedItem.variantInventory;
-        productDetailVC.attributesDictionary = self.selectedItem.attributeDictionary;
     }
 }
 
@@ -403,7 +395,7 @@
     NSMutableArray * arrayToPass = [sharedFacetHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"])
         if ([arrayToPass count] != 0) {
-            self.itemsArray = [Item loadItemsfromAppSearchServerArray:arrayToPass forItemsArray:[self itemsArray]];
+            self.itemsArray = [Item loadItemsfromAppServerArray:arrayToPass forItemsArray:[self itemsArray]];
             for (int i =  0; i < self.itemsArray.count ; i++)
                 [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
         }
