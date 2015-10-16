@@ -328,6 +328,7 @@
     if ([[self.order vipPickupEligible] boolValue]) {
         self.pleaseFillOutTheShippingFormView.hidden = YES;
         self.vipOptionView.hidden = NO;
+        hasPickup = YES;
     } else if (![[self.order vipPickupEligible] boolValue]) {
         self.pleaseFillOutTheShippingFormView.hidden = NO;
         self.vipOptionView.hidden = YES;
