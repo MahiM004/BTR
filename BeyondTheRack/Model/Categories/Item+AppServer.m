@@ -95,6 +95,9 @@
     if ([itemDictionary valueForKeyPath:@"ship_time"] && [itemDictionary valueForKeyPath:@"ship_time"] != [NSNull null])
         item.shipTime = [itemDictionary valueForKey:@"ship_time"];
     
+    if ([itemDictionary valueForKeyPath:@"employee_price"] && [itemDictionary valueForKeyPath:@"employee_price"] != [NSNull null])
+        item.employeePrice = [itemDictionary valueForKey:@"employee_price"];
+    
     /* handling employee pricing at the JSON reading level */
     
     if (![[item employeePrice] isEqualToNumber:[NSNumber numberWithFloat:0]])
