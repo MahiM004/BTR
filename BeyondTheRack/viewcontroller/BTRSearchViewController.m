@@ -66,7 +66,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [UIView animateWithDuration:0.02 animations:^{
+        [self.collectionView performBatchUpdates:nil completion:nil];
+    }];
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
     
@@ -205,10 +207,22 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView.frame.size.width < 400)
+    if ([BTRViewUtility isIPAD]) {
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            return CGSizeMake(screenBounds.size.width / 4 - 1,400);
+        } else
+            return CGSizeMake(screenBounds.size.width / 3 - 1, 500);
+    } else
         return CGSizeMake(collectionView.frame.size.width / 2 - 1, (collectionView.frame.size.height * 4) / 5);
-    else
-        return CGSizeMake(collectionView.frame.size.width / 4 - 4, 500);
+}
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self.collectionView performBatchUpdates:nil completion:nil];
+}
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                               duration:(NSTimeInterval)duration{
+    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
