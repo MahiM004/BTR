@@ -43,6 +43,7 @@
 @property (nonatomic, retain) NSNumber * employeePrice;
 @property (nonatomic, retain) NSNumber * salePrice;
 @property (nonatomic, retain) NSString * variant;
+@property (nonatomic) BOOL isMockItem;
 
 @property float discount;
 

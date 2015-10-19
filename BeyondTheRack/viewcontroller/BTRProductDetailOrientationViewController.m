@@ -92,6 +92,7 @@
         }
     }];
 }
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"ProductDetailiPadEmbeddedSegueIdentifier"]) {
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];

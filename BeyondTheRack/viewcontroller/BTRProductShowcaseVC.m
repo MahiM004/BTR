@@ -298,8 +298,8 @@ typedef enum ScrollDirection {
                                                                         toSizesArray:[cell sizesArray]
                                                                     toSizeCodesArray:[cell sizeCodesArray]
                                                                  toSizeQuantityArray:[cell sizeQuantityArray]];
-    cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andBTRSizeMode:sizeMode forIndexPath:indexPath];
     
+    cell = [self configureViewForShowcaseCollectionCell:cell withItem:productItem andBTRSizeMode:sizeMode forIndexPath:indexPath];
     BOOL allReserved = [productItem.allReserved boolValue];
     BOOL soldOut = [self isItemSoldOutWithVariant:[cell sizeQuantityArray]];
     
@@ -427,6 +427,13 @@ typedef enum ScrollDirection {
         }
     }
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    
+    if (productItem.isMockItem) {
+        [self hideInfoInCell:cell];
+        return cell;
+    } else
+        [self showInfoInCell:cell];
+    
     [cell.productImageView setContentMode:UIViewContentModeScaleAspectFit];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
@@ -435,10 +442,30 @@ typedef enum ScrollDirection {
     return cell;
 }
 
+- (void)hideInfoInCell:(BTRProductShowcaseCollectionCell *)cell {
+    cell.addToBagButton.hidden = YES;
+    cell.selectSizeButton.hidden = YES;
+    cell.btrPriceLabel.hidden = YES;
+    cell.originalPrice.hidden = YES;
+    cell.brandLabel.hidden = YES;
+    cell.productTitleLabel.hidden = YES;
+}
+
+- (void)showInfoInCell:(BTRProductShowcaseCollectionCell *)cell {
+    cell.addToBagButton.hidden = NO;
+    cell.selectSizeButton.hidden = NO;
+    cell.btrPriceLabel.hidden = NO;
+    cell.originalPrice.hidden = NO;
+    cell.brandLabel.hidden = NO;
+    cell.productTitleLabel.hidden = NO;
+}
+
 #pragma mark - Navigation
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     Item *productItem = [self.originalItemArray objectAtIndex:indexPath.row];
+    if (productItem.isMockItem)
+        return;
     [self setSelectedIndexPath:indexPath];
     [self setSelectedBrandString:[productItem brand]];
     [self setSelectedAttributes:productItem.attributeDictionary];
