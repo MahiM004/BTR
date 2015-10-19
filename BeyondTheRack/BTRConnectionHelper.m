@@ -23,6 +23,7 @@
         [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
     [manager.requestSerializer setValue:@"BTR_IOS_App" forHTTPHeaderField:@"User-Agent"];
+    [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [manager POST:url
        parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
            NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
@@ -48,6 +49,7 @@
         [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
     [manager.requestSerializer setValue:@"BTR_IOS_App" forHTTPHeaderField:@"User-Agent"];
+    [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
@@ -72,6 +74,7 @@
         [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
     [manager.requestSerializer setValue:@"BTR_IOS_App" forHTTPHeaderField:@"User-Agent"];
+    [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [manager PUT:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
