@@ -43,7 +43,9 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.collectionView performBatchUpdates:nil completion:nil];
+    [UIView animateWithDuration:0.02 animations:^{
+        [self.collectionView performBatchUpdates:nil completion:nil];
+    }];
 }
 
 #pragma mark LoadEvents

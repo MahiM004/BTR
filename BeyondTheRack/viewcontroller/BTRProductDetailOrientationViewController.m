@@ -50,6 +50,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self extractAttributesFromAttributesDictionary:[self attributesDictionary]];
     [self updateViewWithDeatiledItem:[self productItem]];
 }

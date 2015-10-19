@@ -14,8 +14,12 @@
 
 
 @implementation BTRZoomImageViewController
-
-
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [UIView animateWithDuration:0.02 animations:^{
+        [self.collectionView performBatchUpdates:nil completion:nil];
+    }];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -37,7 +41,7 @@
                                                                        withCount:1+indexPath.row
                                                                          andSize:@"large"]
                           placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
-    return cell;
+     return cell;
 }
 - (IBAction)closeAction:(id)sender {
     [self dismissViewControllerAnimated:NO completion:nil];
@@ -46,7 +50,22 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height);
+    if ([BTRViewUtility isIPAD]) {
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            return CGSizeMake(screenBounds.size.width - 300,screenBounds.size.height - 100);
+        } else
+            return CGSizeMake(screenBounds.size.width - 10, screenBounds.size.height - 100);
+    } else
+        return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height);
+}
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self.collectionView performBatchUpdates:nil completion:nil];
+}
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                               duration:(NSTimeInterval)duration{
+    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 @end
 
