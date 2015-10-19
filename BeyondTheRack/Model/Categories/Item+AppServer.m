@@ -89,8 +89,11 @@
     if ([itemDictionary valueForKeyPath:@"regular_price"] && [itemDictionary valueForKeyPath:@"regular_price"] != [NSNull null])
         item.salePrice = [itemDictionary valueForKey:@"regular_price"];
     
-    if ([itemDictionary valueForKeyPath:@"employee_price"] && [itemDictionary valueForKeyPath:@"employee_price"] != [NSNull null])
-        item.employeePrice = [itemDictionary valueForKey:@"employee_price"];
+    if ([itemDictionary valueForKeyPath:@"regular_price"] && [itemDictionary valueForKeyPath:@"regular_price"] != [NSNull null])
+        item.salePrice = [itemDictionary valueForKey:@"regular_price"];
+    
+    if ([itemDictionary valueForKeyPath:@"ship_time"] && [itemDictionary valueForKeyPath:@"ship_time"] != [NSNull null])
+        item.shipTime = [itemDictionary valueForKey:@"ship_time"];
     
     /* handling employee pricing at the JSON reading level */
     

@@ -32,7 +32,7 @@
 @property (nonatomic, retain) NSDate * saleEndDate;
 @property (nonatomic, retain) NSDate * saleStartDate;
 @property (nonatomic, retain) NSString * saveUpTo;
-@property (nonatomic, retain) NSDate * shipTime;
+@property (nonatomic, retain) NSString * shipTime;
 @property (nonatomic, retain) NSString * shortItemDescription;
 @property (nonatomic, retain) NSString * sku;
 @property (nonatomic, retain) NSString * specialNote;
