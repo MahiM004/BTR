@@ -52,6 +52,11 @@
 @property (nonatomic) NSUInteger selectedSizeIndex;
 @property (nonatomic, strong) PKYStepper *stepper;
 
+@property (strong, nonatomic) Item *productItem;
+@property (strong, nonatomic) NSDictionary *variantInventoryDictionary;
+@property (strong, nonatomic) NSDictionary *attributesDictionary;
+@property (strong, nonatomic) NSString *eventId;
+
 @end
 
 
@@ -96,11 +101,7 @@
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    
-    // Initialize a Pinterest instance with our client_id
-    _pinterest = [[Pinterest alloc] initWithClientId:@"1445223" urlSchemeSuffix:@"prod"];
     
     self.dropdownLabelIcon.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.dropdownLabelIcon.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-caret-down"];
@@ -108,6 +109,14 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
+    _pinterest = [[Pinterest alloc] initWithClientId:@"1445223" urlSchemeSuffix:@"prod"];
+    // Initialize a Pinterest instance with our client_id
+}
+
+- (void)fillWithItem:(Item *)productItem {
+    _productItem = productItem;
+    _attributesDictionary = productItem.attributeDictionary;
+    _variantInventoryDictionary = productItem.variantInventory;
     [self extractAttributesFromAttributesDictionary:[self attributesDictionary]];
     [self updateViewWithDeatiledItem:[self productItem]];
 }
@@ -127,8 +136,10 @@
         UIView *descriptionView = [[UIView alloc] init];
         descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
         descriptionView = [self getAttribueViewForView:descriptionView];
-        descriptionView = [self getGeneralNoteView:descriptionView withSpecialNote:[productItem generalNote]];
-        descriptionView = [self getSpecialNoteView:descriptionView withSpecialNote:[productItem specialNote]];
+        descriptionView = [self getNoteView:descriptionView withNote:[productItem generalNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
+        descriptionView = [self getNoteView:descriptionView withNote:[productItem specialNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor redColor]];
+        descriptionView = [self getNoteView:descriptionView withNote:@"Applicable sales tax will be added." withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
+        descriptionView = [self getNoteView:descriptionView withNote:[productItem shipTime] withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:13] andColor:[UIColor blackColor]];
         [self.longDescriptionView addSubview:descriptionView];
         
         self.stepper = [[PKYStepper alloc] initWithFrame:CGRectMake(0, 0, 90, 20)];
@@ -230,53 +241,27 @@
     return attributeView;
 }
 
-- (UIView *)getGeneralNoteView:(UIView *)generalNoteView withSpecialNote:(NSString *)generalNote {
-    if ([generalNote length] > 2) {
-        customHeight += 20;
+- (UIView *)getNoteView:(UIView *)noteView withNote:(NSString *)note withFont:(UIFont *)font andColor:(UIColor *)color {
+    if ([note length] > 2) {
+        customHeight += 8;
         
-        NSString *specialNoteLabelText = generalNote;
-        UIFont *specialNoteFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+        NSString *noteLabelText = note;
+        int generalNoteLabelHeight = [noteLabelText heightForWidth:self.tableView.frame.size.width - kTextMargin  usingFont:font];
+        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.tableView.frame.size.width - kTextMargin , generalNoteLabelHeight);
         
-        int specialNoteLabelHeight = [specialNoteLabelText heightForWidth:self.tableView.frame.size.width - kTextMargin  usingFont:specialNoteFont];
-        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.tableView.frame.size.width - kTextMargin , specialNoteLabelHeight);
-        
-        customHeight = customHeight + specialNoteLabelHeight + 10;
-        UILabel *generalNoteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
-        [generalNoteLabel setFont:specialNoteFont];
-        [generalNoteLabel setText:specialNoteLabelText];
-        [generalNoteLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
-        [generalNoteLabel sizeToFit];
-        [generalNoteLabel setTextColor:[UIColor redColor]];
-        [generalNoteLabel setTextAlignment:NSTextAlignmentLeft];
-        [generalNoteView addSubview:generalNoteLabel];
+        customHeight = customHeight + generalNoteLabelHeight + 10;
+        UILabel *noteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
+        [noteLabel setFont:font];
+        [noteLabel setTextColor:color];
+        [noteLabel setText:noteLabelText];
+        [noteLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
+        [noteLabel sizeToFit];
+        [noteLabel setTextAlignment:NSTextAlignmentLeft];
+        [noteView addSubview:noteLabel];
     }
     
     self.descriptionCellHeight = customHeight + 80;
-    return generalNoteView;
-}
-
-- (UIView *)getSpecialNoteView:(UIView *)specialNoteView withSpecialNote:(NSString *)specialNoteString {
-    if ([specialNoteString length] > 2) {
-        customHeight += 20;
-
-        NSString *specialNoteLabelText = [NSString stringWithFormat:@"Special Note: %@", specialNoteString];
-        UIFont *specialNoteFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
-        
-        int specialNoteLabelHeight = [specialNoteLabelText heightForWidth:self.tableView.frame.size.width - kTextMargin usingFont:specialNoteFont];
-        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.tableView.frame.size.width - kTextMargin, specialNoteLabelHeight);
-        
-        customHeight = customHeight + specialNoteLabelHeight + 10;
-        UILabel *specialNoteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
-        [specialNoteLabel setFont:specialNoteFont];
-        [specialNoteLabel setText:specialNoteLabelText];
-        [specialNoteLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
-        [specialNoteLabel sizeToFit];
-        [specialNoteLabel setTextAlignment:NSTextAlignmentLeft];
-        [specialNoteView addSubview:specialNoteLabel];
-    }
-    
-    self.descriptionCellHeight = customHeight + 80;
-    return specialNoteView;
+    return noteView;
 }
 
 #pragma mark - UICollectionView Datasource

@@ -13,6 +13,7 @@
 #import "BagItem+AppServer.h"
 #import "BTRItemFetcher.h"
 #import "BTRConnectionHelper.h"
+#import "BTRLoader.h"
 
 #define SIZE_NOT_SELECTED_STRING @"-1"
 
@@ -67,17 +68,17 @@
     if ([BTRViewUtility isIPAD] == YES) {
         [self presentWithIdentifier:@"portraitView"];
     }
-    if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
-        [self fetchItemforProductSku:[[self productItem] sku]
-                            success:^(Item *responseObject) {
-                                [self.embededVC setProductItem:responseObject];
-                                [self.embededVC setAttributesDictionary:self.attributesDictionaryforItemfromSearch];
-                                [self.embededVC setVariantInventoryDictionary:self.variantInventoryDictionaryforItemfromSearch];
-                                [self.embededVC viewDidLoad];
-                            } failure:^(NSError *error) {
-                                
-                            }];
-    }
+    
+    [BTRLoader showLoaderInView:self.view];
+    [self fetchItemforProductSku:[[self productItem] sku]
+                        success:^(Item *responseObject) {
+                            [self.embededVC fillWithItem:responseObject];
+                            [self.embededVC.view setNeedsDisplay];
+                            [BTRLoader hideLoaderFromView:self.view];
+                            [self.embededVC viewDidLoad];
+                        } failure:^(NSError *error) {
+                            
+                        }];
     if (self.disableAddToCart) {
         self.addTobagButton.enabled = NO;
         self.addToBagView.backgroundColor = [UIColor grayColor];
@@ -202,14 +203,7 @@
     if ([[segue identifier] isEqualToString:@"ProductDetailEmbeddedSegueIdentifier"]) {
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
         embeddedVC.delegate = self;
-        if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
-            self.embededVC = embeddedVC;
-        } else {
-            embeddedVC.productItem = [self productItem];
-            embeddedVC.eventId = [self eventId];
-            embeddedVC.attributesDictionary = [self attributesDictionary];
-            embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
-        }
+        self.embededVC = embeddedVC;
     }
 }
 
@@ -256,15 +250,7 @@
 }
 -(void)presentWithIdentifier:(NSString *)identifierStoryBoard {
     BTRProductDetailEmbeddedTVC *embeddedVC = [self.storyboard instantiateViewControllerWithIdentifier:identifierStoryBoard];
-    if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
-        [self setEmbededVC:embeddedVC];
-    } else {
-        embeddedVC.productItem = [self productItem];
-        embeddedVC.eventId = [self eventId];
-        embeddedVC.attributesDictionary = [self attributesDictionary];
-        embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
-        embeddedVC.rightMargin = _rightMargin;
-    }
+    [self setEmbededVC:embeddedVC];
     [self presentDetailController:embeddedVC];
 }
 

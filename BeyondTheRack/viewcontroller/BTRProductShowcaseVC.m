@@ -169,7 +169,6 @@ typedef enum ScrollDirection {
     self.collectionView.dataSource = self;
     
     [self loadFirstPageOfItems];
-//    [self setSortedItemsArray:self.originalItemArray];
 }
 
 - (void)loadFirstPageOfItems {
@@ -531,9 +530,6 @@ typedef enum ScrollDirection {
         [self.filterSizeTextField setText:[self.sizeArray objectAtIndex:row]];
     }
     [self loadFirstPageOfItems];
-//    [self sortItems];
-//    [self filterItems];
-//    [self.collectionView reloadData];
 }
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{

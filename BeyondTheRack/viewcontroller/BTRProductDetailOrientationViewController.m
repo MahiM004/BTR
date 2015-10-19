@@ -96,19 +96,7 @@
     if ([[segue identifier] isEqualToString:@"ProductDetailiPadEmbeddedSegueIdentifier"]) {
         BTRProductDetailEmbeddedTVC *embeddedVC = [segue destinationViewController];
         embeddedVC.delegate = self;
-        if ([[self originVCString] isEqualToString:SEARCH_SCENE]) {
-            embeddedVC.productItem = _productItem;
-            embeddedVC.variantInventoryDictionary = _variantInventoryDictionary;
-            embeddedVC.attributesDictionary = _attributesDictionary;
-            embeddedVC.rightMargin = _rightMargin;
-            NSLog(@"search item selection to PDP not tested DUE to CONSTRUCTION OF BACKEND API!");
-        } else {
-            embeddedVC.productItem = [self productItem];
-            embeddedVC.eventId = [self eventId];
-            embeddedVC.attributesDictionary = [self attributesDictionary];
-            embeddedVC.variantInventoryDictionary = [self variantInventoryDictionary];
-            embeddedVC.rightMargin = _rightMargin;
-        }
+        embeddedVC.rightMargin = _rightMargin;
     } else if ([[segue identifier] isEqualToString:@"ZoomOnProductImageiPadSegueIdentifier"]) {
         BTRZoomImageViewController *zoomVC = [segue destinationViewController];
         zoomVC.productSkuString = [self productSku];

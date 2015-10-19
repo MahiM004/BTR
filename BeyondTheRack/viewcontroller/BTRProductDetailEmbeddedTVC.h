@@ -12,22 +12,6 @@
 #import "BTRSizeHandler.h"
 
 @protocol BTRProductDetailEmbeddedTVC;
-
-@interface BTRProductDetailEmbeddedTVC : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate, BTRSelectSizeVC>
-
-@property (nonatomic, weak) id<BTRProductDetailEmbeddedTVC> delegate;
-@property (strong, nonatomic) Item *productItem;
-@property (strong, nonatomic) NSDictionary *variantInventoryDictionary;
-@property (strong, nonatomic) NSDictionary *attributesDictionary;
-@property (strong, nonatomic) NSString *eventId;
-@property (strong, nonatomic) NSMutableArray *imageArray;
-@property CGFloat rightMargin;
-
-@end
-
-
-
-
 @protocol BTRProductDetailEmbeddedTVC <NSObject>
 
 @optional
@@ -36,6 +20,16 @@
 - (void)quantityForAddToBag:(NSString *)qty;
 
 @end
+
+@interface BTRProductDetailEmbeddedTVC : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate, BTRSelectSizeVC>
+
+@property (nonatomic, weak) id<BTRProductDetailEmbeddedTVC> delegate;
+@property CGFloat rightMargin;
+
+- (void)fillWithItem:(Item *)productItem;
+
+@end
+
 
 
 
