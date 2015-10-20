@@ -607,6 +607,7 @@
     NSString *sortString = [sharedFacetHandler getSortStringForRESTfulRequest];
     [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] withSortingQuery:sortString andFacetQuery:facetString forPage:self.currentPage success:^(NSArray* responseObject) {
         if (responseObject.count == 0) {
+            [BTRLoader hideLoaderFromView:self.view];
             self.lastPageDidLoad = YES;
             return;
         }
