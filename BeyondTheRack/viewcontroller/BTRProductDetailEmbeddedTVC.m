@@ -167,6 +167,7 @@
         [self.crossedOffPriceLabel setText:@""];
     }
     [self.collectionView reloadData];
+    [self.tableView reloadData];
 }
 
 - (void)updateSizeSelectionViewforSizeMode:(BTRSizeMode)sizeMode {
@@ -267,6 +268,8 @@
 #pragma mark - UICollectionView Datasource
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    if ([self productImageCount] == 0)
+        return 1;
     return [self productImageCount];
 }
 
@@ -372,7 +375,10 @@
     if ([[segue identifier] isEqualToString:@"ZoomOnProductImageSegueIdentifier"] || [[segue identifier] isEqualToString:@"ZoomOnProductImageiPadSegueIdentifier"]) {
         BTRZoomImageViewController *zoomVC = [segue destinationViewController];
         zoomVC.productSkuString = [self productSku];
-        zoomVC.zoomImageCount = [self productImageCount];
+        if ([self productImageCount] == 0)
+            zoomVC.zoomImageCount = 1;
+        else
+            zoomVC.zoomImageCount = [self productImageCount];
     }
 }
 
@@ -382,20 +388,15 @@
     vc.sizesArray = [self sizesArray];
     vc.sizeQuantityArray = [self sizeQuantityArray];
     vc.delegate = self;
-    
     [self presentViewController:vc animated:YES completion:nil];
 }
 #pragma mark - BTRSelectSizeVC Delegate
 
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
-    
     self.selectedSizeIndex = selectedIndex;
-    
     self.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
-    NSLog(@"%@",[[self sizesArray] objectAtIndex:selectedIndex]);
-    if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
+    if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)])
         [self.delegate variantCodeforAddtoBag:[[self sizeCodesArray] objectAtIndex:[self selectedSizeIndex]]];
-    }
 }
 
 #pragma mark - Quantity Delegate

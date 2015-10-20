@@ -26,8 +26,6 @@
 @property (strong, nonatomic) NSString *quantity;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 @property (strong, nonatomic) Item *itemSelectedfromSearchResult;
-@property (strong, nonatomic) NSDictionary *variantInventoryDictionaryforItemfromSearch;
-@property (strong, nonatomic) NSDictionary *attributesDictionaryforItemfromSearch;
 @property (weak, nonatomic) IBOutlet UIButton *addTobagButton;
 @property (weak, nonatomic) IBOutlet UIView *addToBagView;
 
@@ -65,20 +63,18 @@
     
     [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
-    if ([BTRViewUtility isIPAD] == YES) {
-        [self presentWithIdentifier:@"portraitView"];
+    if ([BTRViewUtility isIPAD] == NO) {
+        [BTRLoader showLoaderInView:self.view];
+        [self fetchItemforProductSku:[[self productItem] sku]
+                             success:^(Item *responseObject) {
+                                 [self.embededVC fillWithItem:responseObject];
+                                 [self.embededVC.view setNeedsDisplay];
+                                 [BTRLoader hideLoaderFromView:self.view];
+                                 [self.embededVC viewDidLoad];
+                             }
+                             failure:^(NSError *error) {
+                             }];
     }
-    
-    [BTRLoader showLoaderInView:self.view];
-    [self fetchItemforProductSku:[[self productItem] sku]
-                        success:^(Item *responseObject) {
-                            [self.embededVC fillWithItem:responseObject];
-                            [self.embededVC.view setNeedsDisplay];
-                            [BTRLoader hideLoaderFromView:self.view];
-                            [self.embededVC viewDidLoad];
-                        } failure:^(NSError *error) {
-                            
-                        }];
     if (self.disableAddToCart) {
         self.addTobagButton.enabled = NO;
         self.addToBagView.backgroundColor = [UIColor grayColor];
@@ -174,8 +170,6 @@
                       failure:(void (^)(NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        [self setAttributesDictionaryforItemfromSearch:response[@"attributes"]];
-        [self setVariantInventoryDictionaryforItemfromSearch:response[@"variant_inventory"]];
         Item *productItem = [Item itemWithAppServerInfo:response withEventId:[self eventId]];
         success(productItem);
     } faild:^(NSError *error) {
@@ -249,9 +243,9 @@
     }
 }
 -(void)presentWithIdentifier:(NSString *)identifierStoryBoard {
-    BTRProductDetailEmbeddedTVC *embeddedVC = [self.storyboard instantiateViewControllerWithIdentifier:identifierStoryBoard];
-    [self setEmbededVC:embeddedVC];
-    [self presentDetailController:embeddedVC];
+    BTRProductDetailOrientationViewController *iPadVC = [self.storyboard instantiateViewControllerWithIdentifier:identifierStoryBoard];
+    [iPadVC setProductItem:self.productItem];
+    [self presentDetailController:iPadVC];
 }
 
 @end
