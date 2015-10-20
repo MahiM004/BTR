@@ -98,14 +98,20 @@
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         self.confirmationInfo = [[ConfirmationInfo alloc]init];
         self.confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:response forConformationInfo:self.confirmationInfo];
-        [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
+        NSString * identifierSB;
+        if ([BTRViewUtility isIPAD]) {
+            identifierSB = @"BTRConfirmationSegueiPadIdentifier";
+        } else {
+            identifierSB = @"BTRConfirmationSegueIdentifier";
+        }
+        [self performSegueWithIdentifier:identifierSB sender:self];
     } faild:^(NSError *error) {
         
     }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"]) {
+    if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"] || [segue.identifier isEqualToString:@"BTRConfirmationSegueiPadIdentifier"] ) {
         BTRConfirmationViewController* confirm = [segue destinationViewController];
         confirm.info = self.confirmationInfo;
     }

@@ -1032,7 +1032,13 @@
             [self sendPayPalInfo];
         }];
     } else if (self.currentPaymentType == masterPass){
-        [self performSegueWithIdentifier:@"BTRMasterPassCheckoutSegueIdentifier" sender:self];
+        NSString * identifierSB;
+        if ([BTRViewUtility isIPAD]) {
+            identifierSB = @"BTRMasterPassCheckoutSegueiPadIdentifier";
+        } else {
+            identifierSB = @"BTRMasterPassCheckoutSegueIdentifier";
+        }
+        [self performSegueWithIdentifier:identifierSB sender:self];
     }
 }
 
@@ -1069,7 +1075,13 @@
     
     [params setObject:paypalMode forKey:@"paypalInfo"];
     [self setPaypalReponse:params];
-    [self performSegueWithIdentifier:@"BTRPaypalCheckoutSegueIdentifier" sender:self];
+    NSString * identifierSB;
+    if ([BTRViewUtility isIPAD]) {
+        identifierSB  = @"BTRPaypalCheckoutSegueiPadIdentifier";
+    } else {
+        identifierSB = @"BTRPaypalCheckoutSegueIdentifier";
+    }
+    [self performSegueWithIdentifier:identifierSB sender:self];
 
 }
 
@@ -1081,7 +1093,13 @@
         if (response) {
             MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:response];
             self.masterpass= master;
-            [self performSegueWithIdentifier:@"BTRMasterPassCheckoutSegueIdentifier" sender:self];
+            NSString * identifierSB;
+            if ([BTRViewUtility isIPAD]) {
+                identifierSB = @"BTRMasterPassCheckoutSegueiPadIdentifier";
+            } else {
+                identifierSB = @"BTRMasterPassCheckoutSegueIdentifier";
+            }
+            [self performSegueWithIdentifier:identifierSB sender:self];
         }
     } faild:^(NSError *error) {
         
@@ -1091,13 +1109,13 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"]) {
+    if ([segue.identifier isEqualToString:@"BTRConfirmationSegueIdentifier"] || [segue.identifier isEqualToString:@"BTRConfirmationSegueiPadIdentifier"]) {
         BTRConfirmationViewController* confirm = [segue destinationViewController];
         confirm.info = self.confirmationInfo;
-    } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
+    } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"] || [[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueiPadIdentifier"]) {
         BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
         paypalVC.paypalInfo = self.paypalReponse;
-    } else if ([[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueIdentifier"]) {
+    } else if ([[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueIdentifier"] || [[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueiPadIdentifier"]) {
         BTRMasterPassViewController* mpVC = [segue destinationViewController];
         mpVC.info = self.masterpass;
         mpVC.processInfo = self.masterCallBackInfo;
@@ -1262,7 +1280,13 @@
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         self.confirmationInfo = [[ConfirmationInfo alloc]init];
         self.confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:response forConformationInfo:self.confirmationInfo];
-        [self performSegueWithIdentifier:@"BTRConfirmationSegueIdentifier" sender:self];
+        NSString * identifierSB;
+        if ([BTRViewUtility isIPAD]) {
+            identifierSB = @"BTRConfirmationSegueiPadIdentifier";
+        } else {
+            identifierSB = @"BTRConfirmationSegueIdentifier";
+        }
+        [self performSegueWithIdentifier:identifierSB sender:self];
     } faild:^(NSError *error) {
         
     }];
