@@ -226,9 +226,10 @@
                 self.headersArray = tempHeaderArray;
             }
             success(@"TRUE");
-        }else
+        }else {
             [self removeTapRecognizerView];
             [[[UIAlertView alloc]initWithTitle:@"Empty" message:@"You dont have any order to track" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        }
     } faild:^(NSError *error) {
         [self removeTapRecognizerView];
         failure(error);
