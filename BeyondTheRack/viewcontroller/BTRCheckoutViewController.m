@@ -226,7 +226,6 @@
     NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [gregorian components:NSCalendarUnitYear fromDate:[NSDate date]];
     NSInteger currentYear = [components year];
-    NSLog(@"gregorian : %ld",(long)currentYear);
     
     for (NSInteger i = currentYear; i < 21 + currentYear; i++)
         [[self expiryYearsArray] addObject:[NSString stringWithFormat:@"%ld", (long)i]];
@@ -354,19 +353,30 @@
     
     for (UIView *subView in [self.sampleGiftView subviews])
         [subView removeFromSuperview];
+    if ([BTRViewUtility isIPAD]) {
+        self.viewHeight.constant = 1850;
+    } else {
+        self.viewHeight.constant = DEFAUL_VIEW_HEIGHT;
+    }
     
-    self.viewHeight.constant = DEFAUL_VIEW_HEIGHT;
     self.sampleGiftViewHeight.constant = SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
     self.viewHeight.constant =  self.viewHeight.constant + self.sampleGiftViewHeight.constant ;
+    self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant ;
     [self setFinalViewSize:self.viewHeight.constant];
     [self.view layoutIfNeeded];
     
     int i = 0;
     CGFloat heightSize = 0;
+    CGFloat widthSize = 0;
+    if ([BTRViewUtility isIPAD]) {
+        widthSize = self.view.frame.size.width/2 - 50;
+    } else {
+        widthSize = self.view.frame.size.width;
+    }
     
     for (PromoItem* item in self.order.promoItems) {
         UIView *itemView = [[[NSBundle mainBundle]loadNibNamed:@"BTRSampleGiftView" owner:self options:nil]firstObject];
-        itemView.frame = CGRectMake(0, heightSize, self.view.frame.size.width, SAMPLE_GIFT_HEIGHT);
+        itemView.frame = CGRectMake(0, heightSize, widthSize, SAMPLE_GIFT_HEIGHT);
         
         UIImageView *imageView = (UIImageView *)[itemView viewWithTag:100];
         CTCheckbox* checkbox = (CTCheckbox *)[itemView viewWithTag:200];
@@ -743,7 +753,13 @@
         [self.paymentMethodImageView setImage:[UIImage imageNamed:@"paypal_yellow"]];
         [self hideBillingAddress];
         [self hideCardPaymentTip];
-        [self.sendmeToPaypalCheckbox setHidden:NO];
+        
+        // i dont know why is this
+        if ([BTRViewUtility isIPAD]) {
+            [self.sendmeToPaypalCheckbox setHidden:YES];
+        } else {
+            [self.sendmeToPaypalCheckbox setHidden:NO];
+        }
         if (self.paypalEmailTF.text.length > 0) {
             self.paypalEmailTF.hidden = NO;
             self.creditCardDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;

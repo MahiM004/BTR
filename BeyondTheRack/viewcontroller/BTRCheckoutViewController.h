@@ -58,6 +58,7 @@ typedef enum {
  Heights of Views
  
  */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *haveAGiftViewHeight;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *creditCardDetailHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *paypalDetailHeight;
