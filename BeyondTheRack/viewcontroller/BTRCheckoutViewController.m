@@ -769,7 +769,9 @@
             self.paypalEmailTF.hidden = YES;
             self.creditCardDetailHeight.constant = 0;
         }
-        self.viewHeight.constant = self.viewHeight.constant - CARD_PAYMENT_HEIGHT;
+        if (![BTRViewUtility isIPAD]) {
+            self.viewHeight.constant = self.viewHeight.constant - CARD_PAYMENT_HEIGHT;
+        }
         [UIView animateWithDuration:1.0 animations:^{
             self.paymentDetailsView.alpha = 0;
         }completion:^(BOOL finished) {
