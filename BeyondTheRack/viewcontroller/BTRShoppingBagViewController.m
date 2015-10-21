@@ -275,10 +275,10 @@
         editVC.bagCountString = [NSString stringWithFormat:@"%lu", (long)[self getCountofBagItems]];
         editVC.bagItemsArray = [self bagItemsArray];
         editVC.itemsArray = [self itemsArray];
-    } else if ([[segue identifier] isEqualToString:@"BTRCheckoutSegueIdentifier"]) {
+    } else if ([[segue identifier] isEqualToString:@"BTRCheckoutSegueIdentifier"] || [[segue identifier] isEqualToString:@"BTRCheckoutSegueiPadIdentifier"]) {
         BTRCheckoutViewController *checkoutVC = [segue destinationViewController];
         checkoutVC.order = [self order];
-    } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"]) {
+    } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"] || [[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueiPadIdentifier"]) {
 
     }
 }
@@ -312,9 +312,14 @@
         }
         if ([[sharedPaymentTypes paymentTypesArray] containsObject:@"paypal"])
             [[sharedPaymentTypes creditCardDisplayNameArray] addObject:@"Paypal"];
-        
-        [self performSegueWithIdentifier:@"BTRCheckoutSegueIdentifier" sender:self];
-        
+        NSString * identifierSB;
+        if ([BTRViewUtility isIPAD]) {
+            identifierSB = @"BTRCheckoutSegueiPadIdentifier";
+        } else {
+            identifierSB = @"BTRCheckoutSegueIdentifier";
+        }
+        [self performSegueWithIdentifier:identifierSB sender:self];
+    
     } failure:^(NSError *error) {
         
     }];
