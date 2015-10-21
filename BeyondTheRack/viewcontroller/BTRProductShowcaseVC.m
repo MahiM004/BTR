@@ -293,7 +293,8 @@ typedef enum ScrollDirection {
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     Item *productItem = [self.originalItemArray objectAtIndex:indexPath.row];
-    BTRProductShowcaseCollectionCell *cell;
+    BTRProductShowcaseCollectionCell *cell = nil;
+    
     if (productItem.isMockItem)
         cell = [cv dequeueReusableCellWithReuseIdentifier:@"MockProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
     else
