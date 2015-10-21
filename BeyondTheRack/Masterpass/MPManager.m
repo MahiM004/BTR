@@ -7,7 +7,6 @@
 //
 
 #import "MPManager.h"
-#import "NSDictionary+ObjectiveSugar.h"
 
 @interface MPManager () <MPLightboxViewControllerDelegate>
 
