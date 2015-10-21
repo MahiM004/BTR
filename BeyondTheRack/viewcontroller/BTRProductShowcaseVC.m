@@ -291,9 +291,14 @@ typedef enum ScrollDirection {
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    BTRProductShowcaseCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
     
     Item *productItem = [self.originalItemArray objectAtIndex:indexPath.row];
+    BTRProductShowcaseCollectionCell *cell;
+    if (productItem.isMockItem)
+        cell = [cv dequeueReusableCellWithReuseIdentifier:@"MockProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
+    else
+        cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProductShowcaseCollectionCellIdentifier" forIndexPath:indexPath];
+    
     BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:productItem.variantInventory
                                                                         toSizesArray:[cell sizesArray]
                                                                     toSizeCodesArray:[cell sizeCodesArray]
@@ -428,36 +433,12 @@ typedef enum ScrollDirection {
     }
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     
-    if (productItem.isMockItem) {
-        [self hideInfoInCell:cell];
-        return cell;
-    } else
-        [self showInfoInCell:cell];
-    
     [cell.productImageView setContentMode:UIViewContentModeScaleAspectFit];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
     [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
     [cell.originalPrice setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
     return cell;
-}
-
-- (void)hideInfoInCell:(BTRProductShowcaseCollectionCell *)cell {
-    cell.addToBagButton.hidden = YES;
-    cell.selectSizeButton.hidden = YES;
-    cell.btrPriceLabel.hidden = YES;
-    cell.originalPrice.hidden = YES;
-    cell.brandLabel.hidden = YES;
-    cell.productTitleLabel.hidden = YES;
-}
-
-- (void)showInfoInCell:(BTRProductShowcaseCollectionCell *)cell {
-    cell.addToBagButton.hidden = NO;
-    cell.selectSizeButton.hidden = NO;
-    cell.btrPriceLabel.hidden = NO;
-    cell.originalPrice.hidden = NO;
-    cell.brandLabel.hidden = NO;
-    cell.productTitleLabel.hidden = NO;
 }
 
 #pragma mark - Navigation
