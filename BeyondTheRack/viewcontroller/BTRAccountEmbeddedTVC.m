@@ -93,6 +93,11 @@
             [self.delegate userInformationDidSelect];
             break;
         case 1:
+            if ([BTRViewUtility isIPAD] == YES ) {
+                [self.delegate deviceType:@"BTRNotificationsSegueiPadIdentifier"];
+            } else {
+                [self.delegate deviceType:@"BTRNotificationsSegueIdentifier"];
+            }
             [self.delegate notificationSettingDidSelect];
             break;
         case 2:

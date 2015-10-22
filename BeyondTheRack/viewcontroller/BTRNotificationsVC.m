@@ -11,6 +11,8 @@
 #import "BTRConnectionHelper.h"
 
 @interface BTRNotificationsVC ()
+@property IBOutlet UIView * view1 ;
+@property IBOutlet UIView * view3 ;
 
 @property (nonatomic, assign) BOOL pushNotifications;
 @property (nonatomic, assign) BOOL womenreminders;
@@ -27,7 +29,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _view1.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _view1.layer.borderWidth = 0.8;
+    _radioView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _radioView.layer.borderWidth = 0.8;
+    _view3.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _view3.layer.borderWidth = 0.8;
     [self setupPreferencesListAttributesforList:[[self user] preferencesList]];
     [self createVerticalList];
 }
@@ -35,38 +42,37 @@
 - (void)setupPreferencesListAttributesforList:(NSString *)preferencesList {
     if (![self user])
         return;
-    
-    if ([preferencesList containsString:@"MobilePush"])
+    if ([preferencesList rangeOfString:@"MobilePush"].location != NSNotFound)
         [[self pushNotificationSwitch] setOn:YES];
     
-    if ([preferencesList containsString:@"womenreminders"])
+    if ([preferencesList rangeOfString:@"womenreminders"].location != NSNotFound)
         [[self womenSwitch] setOn:YES];
     
-    if ([preferencesList containsString:@"mensreminders"])
+    if ([preferencesList rangeOfString:@"mensreminders"].location != NSNotFound)
         [[self menSwitch] setOn:YES];
           
-    if ([preferencesList containsString:@"childreminders"])
+    if ([preferencesList rangeOfString:@"childreminders"].location != NSNotFound)
         [[self childrenSwitch] setOn:YES];
     
-    if ([preferencesList containsString:@"homereminders"])
+    if ([preferencesList rangeOfString:@"homereminders"].location != NSNotFound)
         [[self homeSwitch] setOn:YES];
     
-    if ([preferencesList containsString:@"dailyreminders"]) {
-        
-        if (![preferencesList containsString:@"oncedailyreminders"]) {
+    if ([preferencesList rangeOfString:@"dailyreminders"].location != NSNotFound) {
+        // Please check the condition is correct or not
+        if (![preferencesList rangeOfString:@"oncedailyreminders"].location != NSNotFound) {
             [self setChosenEmailFrequencyString:@"dailyreminders"];
             [self setEmailFrequency:btrAllEmails];
             
-        } else if ([preferencesList containsString:@"oncedailyreminders"]) {
+        } else if ([preferencesList rangeOfString:@"oncedailyreminders"].location != NSNotFound) {
             [self setChosenEmailFrequencyString:@"oncedailyreminders"];
             [self setEmailFrequency:btrDailyEmails];
         }
         
-    } else if ([preferencesList containsString:@"threetimesweeklyreminders"]) {
+    } else if ([preferencesList rangeOfString:@"threetimesweeklyreminders"].location != NSNotFound) {
         [self setChosenEmailFrequencyString:@"threetimesweeklyreminders"];
         [self setEmailFrequency:btrThreeTimesAWeekEmails];
     
-    } else if ([preferencesList containsString:@"weeklyreminders"]) {
+    } else if ([preferencesList rangeOfString:@"weeklyreminders"].location != NSNotFound) {
         [self setChosenEmailFrequencyString:@"weeklyreminders"];
         [self setEmailFrequency:btrWeeklyEmails];
     } else {
@@ -114,8 +120,11 @@
     self.emailNotificationGroup = [[TNRadioButtonGroup alloc] initWithRadioButtonData:@[allEmailsData, onceDayData, threeTimesData, weeklyData, noneData] layout:TNRadioButtonGroupLayoutVertical];
     self.emailNotificationGroup.identifier = @"email group";
     [self.emailNotificationGroup create];
-    self.emailNotificationGroup.position = CGPointMake(10, 60);
-    
+    if ([BTRViewUtility isIPAD]) {
+        self.emailNotificationGroup.position = CGPointMake(10, 70);
+    } else {
+        self.emailNotificationGroup.position = CGPointMake(10, 60);
+    }
     [self.radioView addSubview:self.emailNotificationGroup];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(emailGroupUpdated:) name:SELECTED_RADIO_BUTTON_CHANGED object:self.emailNotificationGroup];

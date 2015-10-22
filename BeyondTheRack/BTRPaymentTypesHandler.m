@@ -63,7 +63,7 @@ static BTRPaymentTypesHandler *_sharedInstance;
     int i = -1;
     for (NSString *cardDisplayNameItem in [self creditCardDisplayNameArray]) {
         i++;
-        if ([cardDisplayNameItem containsString:displayName])
+        if ([cardDisplayNameItem rangeOfString:displayName].location != NSNotFound)
             break;
     }
     return [self.creditCardTypeArray objectAtIndex:i];
@@ -74,7 +74,7 @@ static BTRPaymentTypesHandler *_sharedInstance;
     for (NSString *cardTypeItem in [self creditCardTypeArray]) {
         i++;
         
-        if ([cardTypeItem containsString:cardType])
+        if ([cardTypeItem rangeOfString:cardType].location != NSNotFound)
             break;
     }
     return [self.creditCardDisplayNameArray objectAtIndex:i];
@@ -86,8 +86,7 @@ static BTRPaymentTypesHandler *_sharedInstance;
     int i = -1;
     for (NSString *cardDisplayString in [self creditCardDisplayNameArray]) {
         i++;
-
-        if ([cardDisplayString containsString:displayName])
+        if ([cardDisplayString rangeOfString:displayName].location != NSNotFound)
             break;
         
     }

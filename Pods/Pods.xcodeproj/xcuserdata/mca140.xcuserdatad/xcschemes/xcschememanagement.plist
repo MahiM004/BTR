@@ -16,24 +16,29 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>4</integer>
 		</dict>
 		<key>FRDLivelyButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>5</integer>
 		</dict>
 		<key>HTMLAttributedString.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>6</integer>
 		</dict>
 		<key>JTSlideShadowAnimation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>LMDropdownView.xcscheme</key>
+		<dict>
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
@@ -42,7 +47,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>9</integer>
 		</dict>
 		<key>ObjectiveSugar.xcscheme</key>
 		<dict>
@@ -62,11 +67,15 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>10</integer>
 		</dict>
 		<key>SpinKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>11</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -96,6 +105,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1A3155A1CE86FD415A2FA193545BAB2E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>231BC5F74AFE7CF021F1747DE144817D</key>
 		<dict>
 			<key>primary</key>
@@ -121,6 +135,21 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>44EF34957B6F4CA00D79B050CE0FEEE6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>464151B6851514A628EC7B8099C3C4BD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>48D5DC2F43A08CC87980DC278B5B1B06</key>
 		<dict>
 			<key>primary</key>
@@ -136,6 +165,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>66126B91C4EAA371518118A6BCEB33A8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6B4F45AF50D0EC0CACA34311A89238DA</key>
 		<dict>
 			<key>primary</key>
@@ -146,12 +180,37 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>740381082E237CABD792925DBD0807D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>77D41D5BADBB518F0EC8B176838F5A57</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>77EFB5FE991FBF14E61E0173C9E0DC1B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>7DF19876C94C75A96BE606519ADD4D14</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8E4BB2723503E9941499EA55BA6B1BDC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>96841733E2EF8BAFE6332A8D177D8A96</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A2967DD2A2361A7BB65A984D7FF9F8CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

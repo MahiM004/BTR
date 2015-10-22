@@ -328,17 +328,18 @@ static BTRFacetsHandler *_sharedInstance;
 }
 
 - (NSString *)getPriceSelectionFromLabelString:(NSString *)labelString {
-    if ([labelString containsString:@"$0 to $200"])
+    // Check all conditions
+    if ([labelString rangeOfString:@"$0 to $200"].location != NSNotFound)
         return @"[0 TO 200]";
-    else if ([labelString containsString:@"$200 to $400"])
+    else if ([labelString rangeOfString:@"$200 to $400"].location != NSNotFound)
         return @"[200 TO 400]";
-    else if ([labelString containsString:@"$400 to $600"])
+    else if ([labelString rangeOfString:@"$400 to $600"].location != NSNotFound)
         return @"[400 TO 600]";
-    else if ([labelString containsString:@"$600 to $800"])
+    else if ([labelString rangeOfString:@"$600 to $800"].location != NSNotFound)
         return @"[600 TO 800]";
-    else if ([labelString containsString:@"$800 to $1000"])
+    else if ([labelString rangeOfString:@"$800 to $1000"].location != NSNotFound)
         return @"[800 TO 1000]";
-    else if ([labelString containsString:@"$1000 to *"])
+    else if ([labelString rangeOfString:@"$1000 to *"].location != NSNotFound)
         return @"[1000 TO *]";
     return nil;
 }

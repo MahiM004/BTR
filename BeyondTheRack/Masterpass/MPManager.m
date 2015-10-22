@@ -85,8 +85,7 @@ NSInteger const MPErrorCodeBadRequest = 400;
 
 - (void)lightBox:(MPLightboxViewController *)pairingViewController didCompleteCheckoutWithError:(NSError *)error Info:(NSString *)info {
     [pairingViewController dismissViewControllerAnimated:YES completion:^{
-        
-        if ([info containsString:@"cancel"]) {
+        if ([info rangeOfString:@"cancel"].location != NSNotFound) {
             if ([self.delegate respondsToSelector:@selector(checkoutDidCancel)])
                 [self.delegate checkoutDidCancel];
             return;
