@@ -180,7 +180,7 @@
 - (void)notificationSettingDidSelect {
     [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
     [self setIsMenuOpen:NO];
-    [self performSegueWithIdentifier:@"BTRNotificationsSegueIdentifier" sender:nil];
+    [self performSegueWithIdentifier:_type sender:nil];
 }
 
 - (void)helpDidSelect {
@@ -281,7 +281,7 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"BTRNotificationsSegueIdentifier"]) {
+    if ([[segue identifier] isEqualToString:@"BTRNotificationsSegueIdentifier"] || [[segue identifier] isEqualToString:@"BTRNotificationsSegueiPadIdentifier"]) {
         BTRNotificationsVC *vc = [segue destinationViewController];
         vc.user = [self user];
 

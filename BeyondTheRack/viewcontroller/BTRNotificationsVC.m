@@ -11,6 +11,8 @@
 #import "BTRConnectionHelper.h"
 
 @interface BTRNotificationsVC ()
+@property IBOutlet UIView * view1 ;
+@property IBOutlet UIView * view3 ;
 
 @property (nonatomic, assign) BOOL pushNotifications;
 @property (nonatomic, assign) BOOL womenreminders;
@@ -27,7 +29,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _view1.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _view1.layer.borderWidth = 0.8;
+    _radioView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _radioView.layer.borderWidth = 0.8;
+    _view3.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _view3.layer.borderWidth = 0.8;
     [self setupPreferencesListAttributesforList:[[self user] preferencesList]];
     [self createVerticalList];
 }
@@ -114,8 +121,11 @@
     self.emailNotificationGroup = [[TNRadioButtonGroup alloc] initWithRadioButtonData:@[allEmailsData, onceDayData, threeTimesData, weeklyData, noneData] layout:TNRadioButtonGroupLayoutVertical];
     self.emailNotificationGroup.identifier = @"email group";
     [self.emailNotificationGroup create];
-    self.emailNotificationGroup.position = CGPointMake(10, 60);
-    
+    if ([BTRViewUtility isIPAD]) {
+        self.emailNotificationGroup.position = CGPointMake(10, 70);
+    } else {
+        self.emailNotificationGroup.position = CGPointMake(10, 60);
+    }
     [self.radioView addSubview:self.emailNotificationGroup];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(emailGroupUpdated:) name:SELECTED_RADIO_BUTTON_CHANGED object:self.emailNotificationGroup];
