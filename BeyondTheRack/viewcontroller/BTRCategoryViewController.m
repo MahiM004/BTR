@@ -124,7 +124,10 @@
     self.freeshipInfo = [[Freeship alloc]init];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         self.freeshipInfo = [Freeship extractFreeshipInfofromJSONDictionary:response forFreeship:self.freeshipInfo];
-        if ([self.freeshipInfo.banner containsString:@"##counter##"]) {
+        
+        //// containsString available only after iOS 8.0
+        //Please see all conditions i have changed all over the project if the conditions are right or wrong
+        if ([self.freeshipInfo.banner rangeOfString:@"##counter##"].location != NSNotFound) {
             self.dueDate = [NSDate dateWithTimeIntervalSince1970:[self.freeshipInfo.endTimestamp integerValue]];
             [self changeTimerString:nil];
             [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(changeTimerString:) userInfo:nil repeats:YES];

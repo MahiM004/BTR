@@ -42,38 +42,37 @@
 - (void)setupPreferencesListAttributesforList:(NSString *)preferencesList {
     if (![self user])
         return;
-    
-    if ([preferencesList containsString:@"MobilePush"])
+    if ([preferencesList rangeOfString:@"MobilePush"].location != NSNotFound)
         [[self pushNotificationSwitch] setOn:YES];
     
-    if ([preferencesList containsString:@"womenreminders"])
+    if ([preferencesList rangeOfString:@"womenreminders"].location != NSNotFound)
         [[self womenSwitch] setOn:YES];
     
-    if ([preferencesList containsString:@"mensreminders"])
+    if ([preferencesList rangeOfString:@"mensreminders"].location != NSNotFound)
         [[self menSwitch] setOn:YES];
           
-    if ([preferencesList containsString:@"childreminders"])
+    if ([preferencesList rangeOfString:@"childreminders"].location != NSNotFound)
         [[self childrenSwitch] setOn:YES];
     
-    if ([preferencesList containsString:@"homereminders"])
+    if ([preferencesList rangeOfString:@"homereminders"].location != NSNotFound)
         [[self homeSwitch] setOn:YES];
     
-    if ([preferencesList containsString:@"dailyreminders"]) {
-        
-        if (![preferencesList containsString:@"oncedailyreminders"]) {
+    if ([preferencesList rangeOfString:@"dailyreminders"].location != NSNotFound) {
+        // Please check the condition is correct or not
+        if (![preferencesList rangeOfString:@"oncedailyreminders"].location != NSNotFound) {
             [self setChosenEmailFrequencyString:@"dailyreminders"];
             [self setEmailFrequency:btrAllEmails];
             
-        } else if ([preferencesList containsString:@"oncedailyreminders"]) {
+        } else if ([preferencesList rangeOfString:@"oncedailyreminders"].location != NSNotFound) {
             [self setChosenEmailFrequencyString:@"oncedailyreminders"];
             [self setEmailFrequency:btrDailyEmails];
         }
         
-    } else if ([preferencesList containsString:@"threetimesweeklyreminders"]) {
+    } else if ([preferencesList rangeOfString:@"threetimesweeklyreminders"].location != NSNotFound) {
         [self setChosenEmailFrequencyString:@"threetimesweeklyreminders"];
         [self setEmailFrequency:btrThreeTimesAWeekEmails];
     
-    } else if ([preferencesList containsString:@"weeklyreminders"]) {
+    } else if ([preferencesList rangeOfString:@"weeklyreminders"].location != NSNotFound) {
         [self setChosenEmailFrequencyString:@"weeklyreminders"];
         [self setEmailFrequency:btrWeeklyEmails];
     } else {

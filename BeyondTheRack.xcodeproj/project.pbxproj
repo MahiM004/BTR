@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1449C8921BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */; settings = {ASSET_TAGS = (); }; };
+		1449C8921BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */; };
 		5EF64B82268F5B93BD9E3D57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00303CA259B636FFAA0B08E0 /* libPods.a */; };
 		6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4C71AB7598000930D16 /* BTRLogo.png */; };
 		6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */; };
@@ -181,15 +181,15 @@
 		A01670701B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A016706E1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib */; };
 		A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */; };
 		A01E5DFC1B690FBF00B0EC5B /* BTRConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */; };
-		A024A2C41BB4424000B5B596 /* BTRSampleGiftView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */; settings = {ASSET_TAGS = (); }; };
+		A024A2C41BB4424000B5B596 /* BTRSampleGiftView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */; };
 		A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A02A6BF31BB08E0400C01F2C /* BTRLoader.m */; };
-		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; settings = {ASSET_TAGS = (); }; };
-		A06214C61BC71215006443F7 /* ConfirmationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C51BC71215006443F7 /* ConfirmationInfo.m */; settings = {ASSET_TAGS = (); }; };
-		A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */; settings = {ASSET_TAGS = (); }; };
+		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; };
+		A06214C61BC71215006443F7 /* ConfirmationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C51BC71215006443F7 /* ConfirmationInfo.m */; };
+		A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
-		A0A402A91BB9AEA200902D75 /* BTRLoadingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */; settings = {ASSET_TAGS = (); }; };
+		A0A402A91BB9AEA200902D75 /* BTRLoadingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */; };
 		A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */; };
 		A0CE31431B8665BA007D7682 /* BTRMasterPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */; };
 		A0D037481B90A82300EA9E48 /* BTRAttributeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D037471B90A82300EA9E48 /* BTRAttributeHandler.m */; };
@@ -1749,7 +1749,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1785,7 +1785,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
