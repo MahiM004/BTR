@@ -188,6 +188,8 @@
 		A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
+		A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		A07EC4061BDA7D6300938B1A /* BTRMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
 		A0A402A91BB9AEA200902D75 /* BTRLoadingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */; };
 		A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */; };
@@ -555,6 +557,9 @@
 		A06A40EE1B837103008DD60B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A06A40F01B8392C2008DD60B /* BTRSuggestionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSuggestionFetcher.h; sourceTree = "<group>"; };
 		A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSuggestionFetcher.m; sourceTree = "<group>"; };
+		A07EC4001BDA7D1300938B1A /* BTRMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMenuTableViewCell.h; sourceTree = "<group>"; };
+		A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMenuTableViewCell.m; sourceTree = "<group>"; };
+		A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRMenuTableViewCell.xib; sourceTree = "<group>"; };
 		A097F08B1B948F56002CBB71 /* BTRConnectionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRConnectionHelper.h; sourceTree = "<group>"; };
 		A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRConnectionHelper.m; sourceTree = "<group>"; };
 		A0A402A71BB9AEA200902D75 /* BTRLoadingButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoadingButton.h; sourceTree = "<group>"; };
@@ -890,6 +895,8 @@
 				A02A6BF31BB08E0400C01F2C /* BTRLoader.m */,
 				A0A402A71BB9AEA200902D75 /* BTRLoadingButton.h */,
 				A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */,
+				A07EC4001BDA7D1300938B1A /* BTRMenuTableViewCell.h */,
+				A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */,
 			);
 			name = View;
 			path = view;
@@ -1285,6 +1292,7 @@
 			isa = PBXGroup;
 			children = (
 				A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */,
+				A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */,
 			);
 			path = Xib;
 			sourceTree = "<group>";
@@ -1476,6 +1484,7 @@
 				69F0BB301B457156008C0498 /* SF-UI-Text-Italic.otf in Resources */,
 				690A391D1B1DF57100D4BA84 /* myunchecked@2x.png in Resources */,
 				69867A0B1A446FCA003CE59C /* backarrowcool.png in Resources */,
+				A07EC4061BDA7D6300938B1A /* BTRMenuTableViewCell.xib in Resources */,
 				690A39111B1DEE0000D4BA84 /* unchecked@2x.png in Resources */,
 				A00C9C1E1B962705004A2629 /* btrbagreserved_new.png in Resources */,
 				69867A071A438A8C003CE59C /* bagicon.png in Resources */,
@@ -1596,6 +1605,7 @@
 				69D440231B3083CA00070FD8 /* BTROrderFetcher.m in Sources */,
 				69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */,
 				A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */,
+				A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */,
 				A00FB1F81BACAA3E005166C3 /* BTREventCell.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */,

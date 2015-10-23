@@ -19,11 +19,13 @@
 #import "BTRAnimationHandler.h"
 #import "UIImageView+AFNetworking.h"
 #import "BTRLoader.h"
+#import "BTRMenuTableViewCell.h"
+#import "LMDropdownView.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
-#define SIZE_PICKER     1
-#define SORT_PICKER      2
+#define SIZE_MENU     1
+#define SORT_MENU     2
 
 typedef enum ScrollDirection {
     ScrollDirectionNone,
@@ -55,6 +57,8 @@ typedef enum ScrollDirection {
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
+@property (weak, nonatomic) IBOutlet UILabel *filterByLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sortByLabel;
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
 @property (copy, nonatomic) NSDictionary *selectedVariantInventories; // an Array of variantInventory Dictionaries
 @property (copy, nonatomic) NSDictionary *selectedAttributes; // an Array of variantInventory Dictionaries
@@ -76,11 +80,11 @@ typedef enum ScrollDirection {
 @property (weak, nonatomic) IBOutlet UITextField *filterSizeTextField;
 @property (weak, nonatomic) IBOutlet UITextField *sortTextField;
 
-// picker
-@property (nonatomic) NSUInteger pickerType;
-
-@property (weak, nonatomic) IBOutlet UIView *pickerParentView;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+// Menu
+@property UITableView *menuTableView;
+@property LMDropdownView *menu;
+@property (nonatomic) NSUInteger menuType;
+@property (weak, nonatomic) IBOutlet UIView *tableViewContainer;
 
 @end
 
@@ -163,12 +167,14 @@ typedef enum ScrollDirection {
     [self.eventTitleLabel setText:[self eventTitleString]];
     
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
+    self.sortAndFilterView.backgroundColor = [BTRViewUtility BTRBlack];
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
     [self loadFirstPageOfItems];
+    [self setupMenu];
 }
 
 - (void)loadFirstPageOfItems {
@@ -488,119 +494,66 @@ typedef enum ScrollDirection {
 
 #pragma mark - Filter & Suggestion
 
-- (IBAction)pickerParentTapped:(id)sender {
-    [self.pickerParentView setHidden:YES];
-}
-
-- (IBAction)sizeSelectionTapped:(id)sender {
-    [self loadPickerViewforType:SIZE_PICKER];
+- (IBAction)sizeSelectionTapped:(UIButton *)sender {
+    if (self.menu.isOpen)
+        [self.menu hide];
+    else
+        [self loadMenuForype:SIZE_MENU];
 }
 
 - (IBAction)sortSelectionTapped:(id)sender {
-    [self loadPickerViewforType:SORT_PICKER];
+    if (self.menu.isOpen)
+        [self.menu hide];
+    else
+        [self loadMenuForype:SORT_MENU];
 }
 
-#pragma mark PickerView
-
-- (void)loadPickerViewforType:(NSUInteger)type {
-    [self setPickerType:type];
-    [self.pickerView reloadAllComponents];
-    [self.pickerParentView setHidden:FALSE];
-    [self.pickerView becomeFirstResponder];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    return 300.0;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (self.pickerType == SIZE_PICKER)
-        return [self.sizeArray count];
-    if (self.pickerType == SORT_PICKER)
-        return [self.sortArray count];
-    return 0;
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    [self.pickerParentView setHidden:TRUE];
-    if ([self pickerType] == SORT_PICKER) {
-        if ([self.sortTextField.text isEqualToString:[self.sortArray objectAtIndex:row]])
-            return; // we dont need reload collectionView
-        [self.sortTextField setText:[self.sortArray objectAtIndex:row]];
-    }
-    
-    if ([self pickerType] == SIZE_PICKER) {
-        if ([self.filterSizeTextField.text isEqualToString:[self.sizeArray objectAtIndex:row]])
-            return;
-        [self.filterSizeTextField setText:[self.sizeArray objectAtIndex:row]];
-    }
-    [self loadFirstPageOfItems];
-}
-
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    UILabel* tView = (UILabel*)view;
-    if (!tView){
-        tView = [[UILabel alloc] init];
-        tView.adjustsFontSizeToFitWidth = YES;
-        tView.textAlignment = NSTextAlignmentCenter;
-    }
-    if (self.pickerType == SORT_PICKER)
-        [tView setText:[self.sortArray objectAtIndex:row]];
-    if (self.pickerType == SIZE_PICKER)
-        [tView setText:[self.sizeArray objectAtIndex:row]];
-    return tView;
-}
-
-- (void)sortItems {
-    NSSortDescriptor *sortDescriptor;
-    switch ([self.sortArray indexOfObject:self.sortTextField.text]) {
-        case 0:
-            self.sortedItemsArray = self.originalItemArray;
-            return;
-        case 1:
-            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"discount" ascending:YES];
-            break;
-        case 2:
-            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"discount" ascending:NO];
-            break;
-        case 3:
-            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"salePrice" ascending:YES];
-            break;
-        case 4:
-            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"salePrice" ascending:NO];
-            break;
-        case 5:
-            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sku" ascending:YES];
-            break;
-        default:
-            break;
-    }
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    self.sortedItemsArray = [self.originalItemArray sortedArrayUsingDescriptors:sortDescriptors];
-}
-
-- (void)filterItems {
-    NSInteger selectedIndex = [self.sizeArray indexOfObject:self.filterSizeTextField.text];
-    if (selectedIndex == 0)
-        return;
-    NSMutableArray* tempArray = [self.sortedItemsArray mutableCopy];
-    for (Item* item in self.sortedItemsArray) {
-        if ([item.variantInventory isKindOfClass:[NSDictionary class]]){
-            BOOL found = NO;
-            for (NSString *key in [item.variantInventory keyEnumerator])
-                if ([key hasPrefix:[NSString stringWithFormat:@"%@#",[self.sizeArray objectAtIndex:selectedIndex]]])
-                    found = YES;
-            if (!found)
-                [tempArray removeObject:item];
-        }
-        
-    }
-    self.sortedItemsArray = tempArray;
-}
+//- (void)sortItems {
+//    NSSortDescriptor *sortDescriptor;
+//    switch ([self.sortArray indexOfObject:self.sortTextField.text]) {
+//        case 0:
+//            self.sortedItemsArray = self.originalItemArray;
+//            return;
+//        case 1:
+//            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"discount" ascending:YES];
+//            break;
+//        case 2:
+//            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"discount" ascending:NO];
+//            break;
+//        case 3:
+//            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"salePrice" ascending:YES];
+//            break;
+//        case 4:
+//            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"salePrice" ascending:NO];
+//            break;
+//        case 5:
+//            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sku" ascending:YES];
+//            break;
+//        default:
+//            break;
+//    }
+//    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+//    self.sortedItemsArray = [self.originalItemArray sortedArrayUsingDescriptors:sortDescriptors];
+//}
+//
+//- (void)filterItems {
+//    NSInteger selectedIndex = [self.sizeArray indexOfObject:self.filterSizeTextField.text];
+//    if (selectedIndex == 0)
+//        return;
+//    NSMutableArray* tempArray = [self.sortedItemsArray mutableCopy];
+//    for (Item* item in self.sortedItemsArray) {
+//        if ([item.variantInventory isKindOfClass:[NSDictionary class]]){
+//            BOOL found = NO;
+//            for (NSString *key in [item.variantInventory keyEnumerator])
+//                if ([key hasPrefix:[NSString stringWithFormat:@"%@#",[self.sizeArray objectAtIndex:selectedIndex]]])
+//                    found = YES;
+//            if (!found)
+//                [tempArray removeObject:item];
+//        }
+//        
+//    }
+//    self.sortedItemsArray = tempArray;
+//}
 
 #pragma mark - BTRSelectSizeVC Delegate
 
@@ -618,6 +571,9 @@ typedef enum ScrollDirection {
 #pragma mark Scrollview Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.menu.isOpen)
+        return;
+    
     if  ([self scrollDirectionOfScrollView:scrollView] == ScrollDirectionDown) {
         if (scrollView.contentOffset.y > 240)
             self.sortViewHeight.constant = 0;
@@ -652,6 +608,63 @@ typedef enum ScrollDirection {
     return scrollDirection;
 }
 
+#pragma mark MENU
+
+- (void)setupMenu {
+    self.menuTableView = [[UITableView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.size.height / 4, 160, 200) style:UITableViewStylePlain];
+    self.menuTableView.delegate = self;
+    self.menuTableView.dataSource = self;
+    [self.menuTableView registerNib:[UINib nibWithNibName:@"BTRMenuTableViewCell" bundle:nil] forCellReuseIdentifier:kMenuCellReuseIdentifier];
+    self.menu = [LMDropdownView dropdownView];
+}
+
+- (void)loadMenuForype:(NSUInteger)type {
+    [self setMenuType:type];
+    [self.menuTableView reloadData];
+    if (type == SIZE_MENU) {
+        [self.menuTableView setFrame:CGRectMake(self.filterByLabel.bounds.origin.x, self.filterByLabel.bounds.origin.y , self.filterByLabel.bounds.size.width + self.filterSizeTextField.bounds.size.width, 280)];
+        [self.menu showInView:self.tableViewContainer withContentView:self.menuTableView atOrigin:self.filterByLabel.frame.origin];
+    }
+    if (type == SORT_MENU) {
+        [self.menuTableView setFrame:CGRectMake(self.sortByLabel.bounds.origin.x, self.sortByLabel.bounds.origin.y , self.sortByLabel.bounds.size.width + self.sortTextField.bounds.size.width , 280)];
+        [self.menu showInView:self.tableViewContainer withContentView:self.menuTableView atOrigin:self.sortByLabel.frame.origin];
+    }
+}
+
+#pragma mark TABLEVIEW
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (self.menuType == SIZE_MENU)
+        return [self.sizeArray count];
+    if (self.menuType == SORT_MENU)
+        return [self.sortArray count];
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BTRMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMenuCellReuseIdentifier];
+    if (self.menuType == SORT_MENU)
+        [cell.titleLabel setText:[self.sortArray objectAtIndex:indexPath.row]];
+    if (self.menuType == SIZE_MENU)
+        [cell.titleLabel setText:[self.sizeArray objectAtIndex:indexPath.row]];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.menu hide];
+    if ([self menuType] == SORT_MENU) {
+        if ([self.sortTextField.text isEqualToString:[self.sortArray objectAtIndex:indexPath.row]])
+            return;
+        [self.sortTextField setText:[self.sortArray objectAtIndex:indexPath.row]];
+    }
+
+    if ([self menuType] == SIZE_MENU) {
+        if ([self.filterSizeTextField.text isEqualToString:[self.sizeArray objectAtIndex:indexPath.row]])
+            return;
+        [self.filterSizeTextField setText:[self.sizeArray objectAtIndex:indexPath.row]];
+    }
+    [self loadFirstPageOfItems];
+}
 
 @end
 
