@@ -13,7 +13,7 @@
 #import "BTRSizeChartViewController.h"
 #import "NSString+HeightCalc.h"
 #import <Social/Social.h>
-#import <Pinterest/Pinterest.h>
+#import "PinterestSDK.h"
 #import "PKYStepper.h"
 #import "UIImageView+AFNetworking.h"
 
@@ -61,7 +61,7 @@
 
 
 @implementation BTRProductDetailEmbeddedTVC {
-    Pinterest*  _pinterest;
+    PDKClient *_pinterest;
 }
 
 @synthesize customHeight;
@@ -109,7 +109,8 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    _pinterest = [[Pinterest alloc] initWithClientId:@"1445223" urlSchemeSuffix:@"prod"];
+   [PDKClient configureSharedInstanceWithAppId:@"1445223"];
+   // _pinterest = [[PDKClient alloc] initWithClientId:@"1445223" urlSchemeSuffix:@"prod"];
     // Initialize a Pinterest instance with our client_id
 }
 
@@ -364,9 +365,30 @@
 }
 
 - (IBAction)shareOnPinterestTapped:(UIButton *)sender {
-    [_pinterest createPinWithImageURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]
-                            sourceURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]
-                          description:SOCIAL_MEDIA_INIT_STRING];
+    NSSet *fields = [NSSet setWithArray:@[@"id",
+                                          @"username",
+                                          @"first_name",
+                                          @"last_name",
+                                          @"bio",
+                                          @"created_at",
+                                          @"counts",
+                                          @"image"]];
+    [[PDKClient sharedInstance]getAuthenticatedUserBoardsWithFields:fields success:^(PDKResponseObject *responseObject) {
+        
+    } andFailure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+//    [[PDKClient sharedInstance]createPinWithImageURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]] link:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]] onBoard:@"BeyondTheRack" description:SOCIAL_MEDIA_INIT_STRING withSuccess:^(PDKResponseObject *responseObject) {
+//        
+//    } andFailure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
+    
+//    
+//    
+//    [_pinterest createPinWithImageURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]
+//                            sourceURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]
+//                          description:SOCIAL_MEDIA_INIT_STRING];
 }
 
 #pragma mark - Navigation

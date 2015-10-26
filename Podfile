@@ -8,3 +8,7 @@ pod 'BSErrorMessageView', :git => 'https://github.com/BenjaminSarkisyan/BSErrorM
 pod 'FRDLivelyButton', '~> 1.1.3'
 pod 'HTMLAttributedString', '~> 0.0.1'
 pod 'LMDropdownView', '~> 1.0.2'
+pod 'FBSDKCoreKit', '~> 4.7'
+pod 'FBSDKLoginKit', '~> 4.7'
+pod 'FBSDKShareKit', '~> 4.7'
+pod 'PinterestSDK', :git => 'https://github.com/pinterest/ios-pdk.git'

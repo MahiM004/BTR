@@ -14,6 +14,26 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKCoreKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKLoginKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKShareKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FRDLivelyButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -39,12 +59,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PinterestSDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Reachability.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SSKeychain.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -62,12 +92,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
+		<key>2034EF7884DC06171D9E494082B81A50</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>44EF34957B6F4CA00D79B050CE0FEEE6</key>
+		<key>2194D03F7810A754D068D55C4962A90F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +112,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>66126B91C4EAA371518118A6BCEB33A8</key>
+		<key>4E286D373D75563CE26E479A68203892</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>740381082E237CABD792925DBD0807D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>779F5A1A38F7EC157E4A235D52EAAD0B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +137,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>81D7FE2A0FD9258247B1232874B837DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8E4BB2723503E9941499EA55BA6B1BDC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A2967DD2A2361A7BB65A984D7FF9F8CB</key>
+		<key>A48601FEE4437A924848DB48369BA809</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BB0849DA7D3A15764B5A27265849EA8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C78CAB9013653EB1A250B2DFD3BC7666</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D2979EECA9143441A893AD6BF9806929</key>
 		<dict>
 			<key>primary</key>
 			<true/>

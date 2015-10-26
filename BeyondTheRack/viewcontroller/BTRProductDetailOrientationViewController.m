@@ -15,7 +15,7 @@
 #import "BTRSizeChartViewController.h"
 #import "NSString+HeightCalc.h"
 #import <Social/Social.h>
-#import <Pinterest/Pinterest.h>
+#import "PDKClient.h"
 #import "PKYStepper.h"
 #import "BTRloader.h"
 #import "UIImageView+AFNetworking.h"

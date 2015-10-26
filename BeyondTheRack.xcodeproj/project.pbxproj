@@ -204,18 +204,10 @@
 		A0FD342A1BA76C2E00B6B2C3 /* neulogo.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FD34291BA76C2E00B6B2C3 /* neulogo.png */; };
 		A0FD342C1BA76F2200B6B2C3 /* placeHolderImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FD342B1BA76F2200B6B2C3 /* placeHolderImage.png */; };
 		B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */; };
-		B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */; };
-		B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */; };
-		B3699B231AEA9CFD009D6A48 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1D1AEA9CFD009D6A48 /* FBSDKCoreKit.framework */; };
-		B3699B241AEA9CFD009D6A48 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1E1AEA9CFD009D6A48 /* FBSDKLoginKit.framework */; };
-		B3699B251AEA9CFD009D6A48 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B1F1AEA9CFD009D6A48 /* FBSDKMessengerShareKit.framework */; };
-		B3699B261AEA9CFD009D6A48 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B201AEA9CFD009D6A48 /* FBSDKShareKit.framework */; };
 		B3699B281AEAA0E1009D6A48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3699B271AEAA0E1009D6A48 /* Foundation.framework */; };
 		B3C16A911B01371C009470EC /* BTRSizeSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16A901B01371C009470EC /* BTRSizeSelector.m */; };
 		B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16A961B038C5D009470EC /* BTRSizeHandler.m */; };
 		B3C16A991B0E3686009470EC /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C16A981B0E3686009470EC /* Social.framework */; };
-		B3C16A9E1B0F6A4A009470EC /* Pinterest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C16A9B1B0F6A4A009470EC /* Pinterest.framework */; };
-		B3C16A9F1B0F6A4A009470EC /* PinterestSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B3C16A9D1B0F6A4A009470EC /* PinterestSDKResources.bundle */; };
 		B3C16AA11B1363CA009470EC /* backarrowcool_red.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C16AA01B1363CA009470EC /* backarrowcool_red.png */; };
 		B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C16AA31B137079009470EC /* BTRForgotPasswordVC.m */; };
 		B3CC53221B1604580024EA08 /* BTRAccountInformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CC53211B1604580024EA08 /* BTRAccountInformationVC.m */; };
@@ -586,20 +578,12 @@
 		A0FD342B1BA76F2200B6B2C3 /* placeHolderImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeHolderImage.png; sourceTree = "<group>"; };
 		B321351B1AEFE0E900285B12 /* BTRSessionSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSessionSettings.h; sourceTree = "<group>"; };
 		B321351C1AEFE0E900285B12 /* BTRSessionSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSessionSettings.m; sourceTree = "<group>"; };
-		B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
-		B3699B1D1AEA9CFD009D6A48 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		B3699B1E1AEA9CFD009D6A48 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		B3699B1F1AEA9CFD009D6A48 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
-		B3699B201AEA9CFD009D6A48 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		B3699B271AEAA0E1009D6A48 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B3C16A8F1B01371C009470EC /* BTRSizeSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSizeSelector.h; sourceTree = "<group>"; };
 		B3C16A901B01371C009470EC /* BTRSizeSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSizeSelector.m; sourceTree = "<group>"; };
 		B3C16A951B038C5D009470EC /* BTRSizeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSizeHandler.h; sourceTree = "<group>"; };
 		B3C16A961B038C5D009470EC /* BTRSizeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSizeHandler.m; sourceTree = "<group>"; };
 		B3C16A981B0E3686009470EC /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		B3C16A9B1B0F6A4A009470EC /* Pinterest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pinterest.framework; sourceTree = "<group>"; };
-		B3C16A9D1B0F6A4A009470EC /* PinterestSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PinterestSDKResources.bundle; sourceTree = "<group>"; };
 		B3C16AA01B1363CA009470EC /* backarrowcool_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backarrowcool_red.png; sourceTree = "<group>"; };
 		B3C16AA21B137079009470EC /* BTRForgotPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRForgotPasswordVC.h; sourceTree = "<group>"; };
 		B3C16AA31B137079009470EC /* BTRForgotPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRForgotPasswordVC.m; sourceTree = "<group>"; };
@@ -620,13 +604,6 @@
 				692709281B208C6C000A93ED /* libetpushsdk-3.4.2.a in Frameworks */,
 				B3C16A991B0E3686009470EC /* Social.framework in Frameworks */,
 				B3699B281AEAA0E1009D6A48 /* Foundation.framework in Frameworks */,
-				B3699B221AEA9CFD009D6A48 /* FBAudienceNetwork.framework in Frameworks */,
-				B3699B231AEA9CFD009D6A48 /* FBSDKCoreKit.framework in Frameworks */,
-				B3699B241AEA9CFD009D6A48 /* FBSDKLoginKit.framework in Frameworks */,
-				B3699B261AEA9CFD009D6A48 /* FBSDKShareKit.framework in Frameworks */,
-				B3699B251AEA9CFD009D6A48 /* FBSDKMessengerShareKit.framework in Frameworks */,
-				B3699B211AEA9CFD009D6A48 /* Bolts.framework in Frameworks */,
-				B3C16A9E1B0F6A4A009470EC /* Pinterest.framework in Frameworks */,
 				5EF64B82268F5B93BD9E3D57 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1018,10 +995,8 @@
 				A06A40EE1B837103008DD60B /* CoreLocation.framework */,
 				692709291B208EF0000A93ED /* libsqlite3.dylib */,
 				B3C16A981B0E3686009470EC /* Social.framework */,
-				B3699B1A1AEA9CFD009D6A48 /* FacebookSDK */,
 				B3699B271AEAA0E1009D6A48 /* Foundation.framework */,
 				69B02CBF1A60304000040C86 /* CoreData.framework */,
-				B3C16A9A1B0F6A4A009470EC /* Pinterest.embeddedframework */,
 				00303CA259B636FFAA0B08E0 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -1297,36 +1272,6 @@
 			path = Xib;
 			sourceTree = "<group>";
 		};
-		B3699B1A1AEA9CFD009D6A48 /* FacebookSDK */ = {
-			isa = PBXGroup;
-			children = (
-				B3699B1B1AEA9CFD009D6A48 /* Bolts.framework */,
-				B3699B1C1AEA9CFD009D6A48 /* FBAudienceNetwork.framework */,
-				B3699B1D1AEA9CFD009D6A48 /* FBSDKCoreKit.framework */,
-				B3699B1E1AEA9CFD009D6A48 /* FBSDKLoginKit.framework */,
-				B3699B1F1AEA9CFD009D6A48 /* FBSDKMessengerShareKit.framework */,
-				B3699B201AEA9CFD009D6A48 /* FBSDKShareKit.framework */,
-			);
-			path = FacebookSDK;
-			sourceTree = "<group>";
-		};
-		B3C16A9A1B0F6A4A009470EC /* Pinterest.embeddedframework */ = {
-			isa = PBXGroup;
-			children = (
-				B3C16A9B1B0F6A4A009470EC /* Pinterest.framework */,
-				B3C16A9C1B0F6A4A009470EC /* Resources */,
-			);
-			path = Pinterest.embeddedframework;
-			sourceTree = "<group>";
-		};
-		B3C16A9C1B0F6A4A009470EC /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				B3C16A9D1B0F6A4A009470EC /* PinterestSDKResources.bundle */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		D838BEB35D456F9330E1096F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1489,7 +1434,6 @@
 				A00C9C1E1B962705004A2629 /* btrbagreserved_new.png in Resources */,
 				69867A071A438A8C003CE59C /* bagicon.png in Resources */,
 				690A39201B1DF70B00D4BA84 /* myuncheck.png in Resources */,
-				B3C16A9F1B0F6A4A009470EC /* PinterestSDKResources.bundle in Resources */,
 				690A39181B1DF56600D4BA84 /* mychecked.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1815,9 +1759,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/FacebookSDK",
-					"$(PROJECT_DIR)/Pinterest.embeddedframework",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeyondTheRack/BeyondTheRack-Prefix.pch";
@@ -1846,9 +1789,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/FacebookSDK",
-					"$(PROJECT_DIR)/Pinterest.embeddedframework",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BeyondTheRack/BeyondTheRack-Prefix.pch";
