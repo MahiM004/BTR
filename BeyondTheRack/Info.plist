@@ -31,6 +31,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>pdk[1445223]</string>
 				<string>fb109903372385015</string>
 			</array>
 		</dict>
@@ -43,12 +44,23 @@
 	<string>Beyond The Rack</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>pinterestsdk.v1</string>
 		<string>fbauth2</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>pinit</key>
+			<dict>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubDomains</key>
+				<true/>
+			</dict>
+		</dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
