@@ -31,6 +31,7 @@
 // Heights
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageLabelHeight;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageLabelWidth;
 
 // TEXT FIELDS
 
@@ -56,4 +57,5 @@
 
 @property (nonatomic, strong) Contact *contactInformaion;
 
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @end

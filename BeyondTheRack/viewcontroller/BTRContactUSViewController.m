@@ -35,10 +35,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self fillData];
-    self.view.backgroundColor = [BTRViewUtility BTRBlack];
+    self.view.backgroundColor = _headerView.backgroundColor= [BTRViewUtility BTRBlack];
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    //One Width Will Change the all widths because of Equal Width constraint is added
+    if ([BTRViewUtility isIPAD]) {
+        _messageLabelWidth.constant = self.view.frame.size.width - 300;
+    } else {
+        _messageLabelWidth.constant = self.view.frame.size.width - 20;
+    }
     BOOL close = [[NSUserDefaults standardUserDefaults]boolForKey:@"BackButtonPressed"];
     if (close == YES) {
         [self.navigationController popViewControllerAnimated:YES];

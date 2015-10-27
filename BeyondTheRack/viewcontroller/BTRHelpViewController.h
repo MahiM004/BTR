@@ -10,6 +10,7 @@
 #import "FAQ.h"
 
 @interface BTRHelpViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 
 @property (weak, nonatomic) IBOutlet UITableView *helpTable;
 
