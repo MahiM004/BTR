@@ -188,8 +188,8 @@
 		A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
-		A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		A07EC4061BDA7D6300938B1A /* BTRMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */; };
+		A07EC4061BDA7D6300938B1A /* BTRMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
 		A0A402A91BB9AEA200902D75 /* BTRLoadingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */; };
 		A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */; };

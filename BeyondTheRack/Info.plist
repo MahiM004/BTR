@@ -41,6 +41,10 @@
 	<string>109903372385015</string>
 	<key>FacebookDisplayName</key>
 	<string>Beyond The Rack</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbauth2</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
