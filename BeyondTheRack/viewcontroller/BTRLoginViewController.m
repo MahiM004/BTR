@@ -128,7 +128,7 @@
     } else {
         [BTRLoader showLoaderInView:self.view];
         if ([FBSDKAccessToken currentAccessToken]) {
-            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": @"id, gender, first_name, last_name, email"}]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
                  if (!error) {
                      NSString *email = [responseObject valueForKeyPath:@"email"];
