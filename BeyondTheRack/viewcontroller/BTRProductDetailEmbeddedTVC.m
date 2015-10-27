@@ -365,26 +365,26 @@
 }
 
 - (IBAction)shareOnPinterestTapped:(UIButton *)sender {
-    NSSet *fields = [NSSet setWithArray:@[@"id",
-                                          @"username",
-                                          @"first_name",
-                                          @"last_name",
-                                          @"bio",
-                                          @"created_at",
-                                          @"counts",
-                                          @"image"]];
-    [[PDKClient sharedInstance]getAuthenticatedUserBoardsWithFields:fields success:^(PDKResponseObject *responseObject) {
-        
-    } andFailure:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
+    [[PDKClient sharedInstance] authenticateWithPermissions:@[PDKClientReadPublicPermissions,
+                                                              PDKClientWritePublicPermissions,
+                                                              PDKClientReadPrivatePermissions,
+                                                              PDKClientWritePrivatePermissions,
+                                                              PDKClientReadRelationshipsPermissions,
+                                                              PDKClientWriteRelationshipsPermissions]
+                                                withSuccess:^(PDKResponseObject *responseObject)
+     {
+         NSLog(@"%@",responseObject);
+     } andFailure:^(NSError *error) {
+         NSLog(@"%@",error);
+     }];
+
 //    [[PDKClient sharedInstance]createPinWithImageURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]] link:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]] onBoard:@"BeyondTheRack" description:SOCIAL_MEDIA_INIT_STRING withSuccess:^(PDKResponseObject *responseObject) {
 //        
 //    } andFailure:^(NSError *error) {
 //        NSLog(@"%@",error);
 //    }];
-    
 //    
+//
 //    
 //    [_pinterest createPinWithImageURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]
 //                            sourceURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]
