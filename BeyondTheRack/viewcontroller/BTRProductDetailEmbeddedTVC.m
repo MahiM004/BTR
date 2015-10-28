@@ -203,8 +203,8 @@
         
         NSString *labelText = [NSString stringWithFormat:@" - %@.", [descriptionArray objectAtIndex:i]];
         UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
-        int labelHeight = [labelText heightForWidth:(self.tableView.frame.size.width - kTextMargin-_rightMargin) usingFont:descriptionFont];
-        CGRect labelFrame = CGRectMake(0, customHeight, self.tableView.frame.size.width - kTextMargin - _rightMargin , labelHeight);
+        int labelHeight = [labelText heightForWidth:self.longDescriptionView.bounds.size.width usingFont:descriptionFont];
+        CGRect labelFrame = CGRectMake(0, customHeight, self.longDescriptionView.bounds.size.width , labelHeight);
 
         customHeight = customHeight + (labelHeight + 5);
         
@@ -248,8 +248,8 @@
         customHeight += 8;
         
         NSString *noteLabelText = note;
-        int generalNoteLabelHeight = [noteLabelText heightForWidth:self.tableView.frame.size.width - kTextMargin  usingFont:font];
-        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.tableView.frame.size.width - kTextMargin , generalNoteLabelHeight);
+        int generalNoteLabelHeight = [noteLabelText heightForWidth:self.longDescriptionView.bounds.size.width  usingFont:font];
+        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.longDescriptionView.bounds.size.width , generalNoteLabelHeight);
         
         customHeight = customHeight + generalNoteLabelHeight + 10;
         UILabel *noteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
