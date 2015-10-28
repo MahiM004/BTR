@@ -29,9 +29,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *addTobagButton;
 @property (weak, nonatomic) IBOutlet UIView *addToBagView;
 
+
 //iPad added property
 @property UIViewController  *currentDetailViewController;
 @property BTRProductDetailEmbeddedTVC *embededVC;
+@property BTRProductDetailOrientationViewController *iPadVC;
 @property CGFloat rightMargin;
 @end
 
@@ -221,18 +223,22 @@
     self.currentDetailViewController = detailVC;
     [detailVC didMoveToParentViewController:self];
 }
+
 - (void)removeCurrentDetailViewController{
     [self.currentDetailViewController willMoveToParentViewController:nil];
     [self.currentDetailViewController.view removeFromSuperview];
     [self.currentDetailViewController removeFromParentViewController];
 }
+
 - (CGRect)frameForDetailController{
     CGRect detailFrame = self.detailView.bounds;
     return detailFrame;
 }
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [self adjustViewsForOrientation:toInterfaceOrientation];
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self adjustViewsForOrientation:self.interfaceOrientation];
 }
+
 -(void)adjustViewsForOrientation:(UIInterfaceOrientation)orientation {
     if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
         _rightMargin = 0;
@@ -242,10 +248,20 @@
         [self presentWithIdentifier:@"landScapeView"];
     }
 }
+
 -(void)presentWithIdentifier:(NSString *)identifierStoryBoard {
-    BTRProductDetailOrientationViewController *iPadVC = [self.storyboard instantiateViewControllerWithIdentifier:identifierStoryBoard];
-    [iPadVC setProductItem:self.productItem];
-    [self presentDetailController:iPadVC];
+    Item *currentItem = self.iPadVC.productItem;
+    BOOL isLoaded = self.iPadVC.isLoadedBefore;
+    self.iPadVC = [self.storyboard instantiateViewControllerWithIdentifier:identifierStoryBoard];
+    if (isLoaded) {
+        self.iPadVC.isLoadedBefore = YES;
+        self.iPadVC.productItem = currentItem;
+    } else {
+        self.iPadVC.isLoadedBefore = NO;
+        self.iPadVC.productItem = self.productItem;
+    }
+    self.iPadVC.rightMargin = _rightMargin;
+    [self presentDetailController:self.iPadVC];
 }
 
 @end

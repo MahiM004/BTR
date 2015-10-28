@@ -21,6 +21,8 @@
 @property (strong, nonatomic) NSString *eventId;
 @property (strong, nonatomic) NSMutableArray *imageArray;
 @property CGFloat rightMargin;
+@property BOOL isLoadedBefore;
+
 @end
 
 @protocol BTRProductDetailOrientationViewController <NSObject>

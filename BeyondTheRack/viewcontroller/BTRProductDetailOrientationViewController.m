@@ -54,22 +54,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self fetchItemforProductSku:[[self productItem] sku]
-                         success:^(Item *responseObject) {
-                             if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))
-                                 [self.embededVC setRightMargin:250];
-                             else
-                                 [self.embededVC setRightMargin:0];
-                             [self updateViewWithDeatiledItem:[self productItem]];
-                             [self.embededVC fillWithItem:responseObject];
-                             [self extractAttributesFromAttributesDictionary:[self.productItem attributeDictionary]];
-                             [self setVariantInventoryDictionary:[self.productItem variantInventory]];
-                             [BTRLoader hideLoaderFromView:self.view];
-                         }
-                         failure:^(NSError *error) {
-    }];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    if (self.isLoadedBefore) {
+        [self makeEmbededVCWithItem:self.productItem];
+        return;
+    }
+    [self fetchItemforProductSku:[[self productItem] sku]
+                         success:^(Item *responseObject) {
+                             [self setProductItem:responseObject];
+                             [self makeEmbededVCWithItem:responseObject];
+                             [self setIsLoadedBefore:YES];
+                         }
+                         failure:^(NSError *error) {
+                         }];
+}
+
+- (void)makeEmbededVCWithItem:(Item *)item {
+    [self.embededVC setRightMargin:self.rightMargin];
+    [self extractAttributesFromAttributesDictionary:[self.productItem attributeDictionary]];
+    [self setVariantInventoryDictionary:[self.productItem variantInventory]];
+    [self updateViewWithDeatiledItem:[self productItem]];
+    [self.embededVC fillWithItem:item];
+    [BTRLoader hideLoaderFromView:self.view];
+}
 
 #pragma mark - UICollectionView Datasource
 
