@@ -14,6 +14,8 @@
 #import "Item+AppServer.h"
 #import "Order+AppServer.h"
 #import "BTRBagFetcher.h"
+#import "MasterPassInfo+Appserver.h"
+#import "BTRMasterPassFetcher.h"
 #import "BTROrderFetcher.h"
 #import "BTRItemFetcher.h"
 #import "BTRPaymentTypesHandler.h"
@@ -33,6 +35,8 @@
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 @property (strong, nonatomic) NSDictionary *paypal;
+@property (strong, nonatomic) MasterPassInfo* masterpass;
+@property (strong, nonatomic) NSDictionary* masterPassCallBackInfo;
 
 @end
 
@@ -259,9 +263,7 @@
                               failure:(void (^)(NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        NSDictionary *paymentsDictionary = response[@"paymentMethods"];
-        [self setOrder:[Order orderWithAppServerInfo:response]];
-        success(paymentsDictionary);
+        success(response);
     } faild:^(NSError *error) {
         
     }];
@@ -278,6 +280,7 @@
     } else if ([[segue identifier] isEqualToString:@"BTRCheckoutSegueIdentifier"] || [[segue identifier] isEqualToString:@"BTRCheckoutSegueiPadIdentifier"]) {
         BTRCheckoutViewController *checkoutVC = [segue destinationViewController];
         checkoutVC.order = [self order];
+        checkoutVC.masterCallBackInfo = self.masterPassCallBackInfo;
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"] || [[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueiPadIdentifier"]) {
 
     }
@@ -293,37 +296,40 @@
         return;
     }
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSDictionary *paymentsDictionary) {
-        
-        BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
-        [sharedPaymentTypes clearData];
-        NSArray *allKeysArray = paymentsDictionary.allKeys;
-        
-        for (NSString *key in allKeysArray)
-            [[sharedPaymentTypes paymentTypesArray] addObject:key];
-        
-        NSDictionary *creditCardsDic = paymentsDictionary[@"creditcard"][@"type"];
-        NSArray *allCreditCardKeysArray = creditCardsDic.allKeys;
-        
-        for (NSString *key in allCreditCardKeysArray) {
-            [[sharedPaymentTypes creditCardTypeArray] addObject:key];
-            NSString *tempString = [creditCardsDic valueForKey:key];
-            [[sharedPaymentTypes creditCardDisplayNameArray] addObject:tempString];
-        }
-        if ([[sharedPaymentTypes paymentTypesArray] containsObject:@"paypal"])
-            [[sharedPaymentTypes creditCardDisplayNameArray] addObject:@"Paypal"];
-        NSString * identifierSB;
-        if ([BTRViewUtility isIPAD]) {
-            identifierSB = @"BTRCheckoutSegueiPadIdentifier";
-        } else {
-            identifierSB = @"BTRCheckoutSegueIdentifier";
-        }
-        [self performSegueWithIdentifier:identifierSB sender:self];
-    
+    [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSDictionary *response) {
+        [self gotoCheckoutPageWithPaymentInfo:response];
     } failure:^(NSError *error) {
         
     }];
     
+}
+
+- (void)gotoCheckoutPageWithPaymentInfo:(NSDictionary *)checkoutInfo {
+    NSDictionary *paymentsDictionary = checkoutInfo[@"paymentMethods"];
+    [self setOrder:[Order orderWithAppServerInfo:checkoutInfo]];
+    BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
+    [sharedPaymentTypes clearData];
+    NSArray *allKeysArray = paymentsDictionary.allKeys;
+    
+    for (NSString *key in allKeysArray)
+        [[sharedPaymentTypes paymentTypesArray] addObject:key];
+    NSDictionary *creditCardsDic = paymentsDictionary[@"creditcard"][@"type"];
+    NSArray *allCreditCardKeysArray = creditCardsDic.allKeys;
+    
+    for (NSString *key in allCreditCardKeysArray) {
+        [[sharedPaymentTypes creditCardTypeArray] addObject:key];
+        NSString *tempString = [creditCardsDic valueForKey:key];
+        [[sharedPaymentTypes creditCardDisplayNameArray] addObject:tempString];
+    }
+    if ([[sharedPaymentTypes paymentTypesArray] containsObject:@"paypal"])
+        [[sharedPaymentTypes creditCardDisplayNameArray] addObject:@"Paypal"];
+    NSString * identifierSB;
+    if ([BTRViewUtility isIPAD]) {
+        identifierSB = @"BTRCheckoutSegueiPadIdentifier";
+    } else {
+        identifierSB = @"BTRCheckoutSegueIdentifier";
+    }
+    [self performSegueWithIdentifier:identifierSB sender:self];
 }
 
 - (BOOL)haveTimedOutItem {
@@ -336,6 +342,38 @@
     }
     return timeOuted;
 }
+
+#pragma mark firstCheckout
+
+- (IBAction)paypalCheckout:(UIButton *)sender {
+    
+}
+
+- (IBAction)masterPassCheckout:(id)sender {
+    [self getMasterPassInfo];
+}
+
+- (void)getMasterPassInfo {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        if (response) {
+            MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:response];
+            BTRMasterPassViewController *masterpassVC  = [self.storyboard instantiateViewControllerWithIdentifier:@"MasterPassViewController"];
+            [masterpassVC setInfo:master];
+            [masterpassVC setDelegate:self];
+            [self presentViewController:masterpassVC animated:YES completion:nil];
+        }
+    } faild:^(NSError *error) {
+        
+    }];
+}
+
+- (void)masterPassInfoDidReceived:(NSDictionary *)info {
+    [self setMasterPassCallBackInfo:info];
+    [self gotoCheckoutPageWithPaymentInfo:info];
+}
+
+#pragma mark Closing
 
 - (IBAction)tappedClose:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];

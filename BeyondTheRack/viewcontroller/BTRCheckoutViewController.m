@@ -67,7 +67,6 @@
 @property (strong, nonatomic) NSDictionary *paypalReponse;
 
 @property (strong, nonatomic) MasterPassInfo *masterpass;
-@property (strong, nonatomic) NSDictionary *masterCallBackInfo;
 
 @property (strong, nonatomic) NSMutableArray *selectedGift;
 @property (strong, nonatomic) ConfirmationInfo *confirmationInfo;
@@ -209,19 +208,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
-    // setting default value
-    [self setChosenShippingCountryString:@"Canada"];
-    [self setChosenBillingCountryString:@"Canada"];
-    [self setCurrentPaymentType:creditCard];
-    [self.paymentMethodTF setText:@"Visa Credit"];
-    [self.changePaymentMethodCheckbox setChecked:NO];
-    [self.changePaymentMethodView setHidden:YES];
-    
     [self resetData];
-    [self loadOrderData];
-    
-    [self fillPaymentInfoWithCurrentData];
+    [self setCheckboxesTargets];
     
     NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [gregorian components:NSCalendarUnitYear fromDate:[NSDate date]];
@@ -233,8 +221,20 @@
     self.pickerView.delegate = self;
     [self.pickerParentView setHidden:TRUE];
     
-    // setting checkboxes
-    [self setCheckboxesTargets];
+    if (self.masterCallBackInfo) {
+        [self masterPassInfoDidReceived:self.masterCallBackInfo];
+        return;
+    }
+    // setting default value
+    [self setChosenShippingCountryString:@"Canada"];
+    [self setChosenBillingCountryString:@"Canada"];
+    [self setCurrentPaymentType:creditCard];
+    [self.paymentMethodTF setText:@"Visa Credit"];
+    [self.changePaymentMethodCheckbox setChecked:NO];
+    [self.changePaymentMethodView setHidden:YES];
+    
+    [self loadOrderData];
+    [self fillPaymentInfoWithCurrentData];
     
     // hidding gift info
     [self.giftLabel setHidden:YES];

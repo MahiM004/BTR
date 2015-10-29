@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BTRMasterPassViewController.h"
 
-@interface BTRShoppingBagViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface BTRShoppingBagViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,MasterPassInfoDelegate>
 
 
 @end
