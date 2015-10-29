@@ -23,15 +23,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
+    
     if (self.processInfo)
         [self processMasterPassWithInfo:self.processInfo];
     else {
         [[MPManager sharedInstance]setDelegate:self];
         [[MPManager sharedInstance]pairAndCheckoutInViewController:self WithInfo:self.info];
     }
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
 }
 
 - (void)preCheckoutDidCompleteWithData:(NSDictionary *)data error:(NSError *)error {
