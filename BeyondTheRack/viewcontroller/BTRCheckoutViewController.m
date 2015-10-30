@@ -64,8 +64,6 @@
 @property paymentType currentPaymentType;
 @property (strong, nonatomic) NSMutableArray *arrayOfGiftCards;
 
-@property (strong, nonatomic) NSDictionary *paypalReponse;
-
 @property (strong, nonatomic) MasterPassInfo *masterpass;
 
 @property (strong, nonatomic) NSMutableArray *selectedGift;
@@ -1063,18 +1061,25 @@
 #pragma mark Paypal RESTful Payment
 
 - (void)sendPayPalInfo {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:[self orderInfo] forKey:@"orderInfo"];
-    [params setObject:[self cardInfo] forKey:@"cardInfo"];
-    NSDictionary* paypalMode;
-    
-    if (self.paypalEmailTF.text.length == 0 || self.sendmeToPaypalCheckbox.checked)
-        paypalMode = [NSDictionary dictionaryWithObject:@"paypalLogin" forKey:@"mode"];
-    else
-        paypalMode = [NSDictionary dictionaryWithObject:@"billingAgreement" forKey:@"mode"];
-    
-    [params setObject:paypalMode forKey:@"paypalInfo"];
-    [self setPaypalReponse:params];
+    NSMutableDictionary *params;
+    if (self.paypalCallBackInfo) {
+        params = [[NSMutableDictionary alloc]initWithDictionary:self.paypalCallBackInfo copyItems:YES];
+        [params setObject:[self orderInfo] forKey:@"orderInfo"];
+    }
+    else {
+        params = [[NSMutableDictionary alloc]init];
+        [params setObject:[self orderInfo] forKey:@"orderInfo"];
+        [params setObject:[self cardInfo] forKey:@"cardInfo"];
+        NSDictionary* paypalMode;
+        
+        if (self.paypalEmailTF.text.length == 0 || self.sendmeToPaypalCheckbox.checked)
+            paypalMode = [NSDictionary dictionaryWithObject:@"paypalLogin" forKey:@"mode"];
+        else
+            paypalMode = [NSDictionary dictionaryWithObject:@"billingAgreement" forKey:@"mode"];
+        
+        [params setObject:paypalMode forKey:@"paypalInfo"];
+    }
+    [self setPaypalCallBackInfo:params];
     NSString * identifierSB;
     if ([BTRViewUtility isIPAD]) {
         identifierSB  = @"BTRPaypalCheckoutSegueiPadIdentifier";
@@ -1082,7 +1087,6 @@
         identifierSB = @"BTRPaypalCheckoutSegueIdentifier";
     }
     [self performSegueWithIdentifier:identifierSB sender:self];
-
 }
 
 #pragma mark MasterPass RESTful Payment
@@ -1114,7 +1118,7 @@
         confirm.info = self.confirmationInfo;
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"] || [[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueiPadIdentifier"]) {
         BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
-        paypalVC.paypalInfo = self.paypalReponse;
+        paypalVC.paypalInfo = self.paypalCallBackInfo;
     } else if ([[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueIdentifier"] || [[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueiPadIdentifier"]) {
         BTRMasterPassViewController* mpVC = [segue destinationViewController];
         mpVC.info = self.masterpass;

@@ -20,7 +20,6 @@
 #import "BTRItemFetcher.h"
 #import "BTRPaymentTypesHandler.h"
 #import "BTRPaypalFetcher.h"
-#import "BTRPaypalCheckoutViewController.h"
 #import "BTRConnectionHelper.h"
 #import "UIImageView+AFNetworking.h"
 #import "BTRLoader.h"
@@ -37,6 +36,7 @@
 @property (strong, nonatomic) NSDictionary *paypal;
 @property (strong, nonatomic) MasterPassInfo* masterpass;
 @property (strong, nonatomic) NSDictionary* masterPassCallBackInfo;
+@property (strong, nonatomic) NSDictionary* paypalCallBackInfo;
 
 @end
 
@@ -281,6 +281,7 @@
         BTRCheckoutViewController *checkoutVC = [segue destinationViewController];
         checkoutVC.order = [self order];
         checkoutVC.masterCallBackInfo = self.masterPassCallBackInfo;
+        checkoutVC.paypalCallBackInfo = self.paypalCallBackInfo;
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"] || [[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueiPadIdentifier"]) {
 
     }
@@ -346,11 +347,33 @@
 #pragma mark firstCheckout
 
 - (IBAction)paypalCheckout:(UIButton *)sender {
-    
+    [self getPaypalInfo];
 }
 
 - (IBAction)masterPassCheckout:(id)sender {
     [self getMasterPassInfo];
+}
+
+- (void)getPaypalInfo {
+    NSString *startURL = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]];
+    NSString *infoURL = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforPaypalInfo]];
+    [BTRConnectionHelper getDataFromURL:startURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        if ([[response valueForKey:@"mode"]isEqualToString:@"billingAgreement"] || [[response valueForKey:@"mode"]isEqualToString:@"sessionToken"]) {
+            [BTRConnectionHelper getDataFromURL:infoURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+                [self setPaypalCallBackInfo:response];
+                [self gotoCheckoutPageWithPaymentInfo:response];
+            } faild:^(NSError *error) {
+                
+            }];
+        } else {
+            BTRPaypalCheckoutViewController *paypalVC  = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRPaypalCheckoutViewController"];
+            [paypalVC setPayPalURL:[response valueForKey:@"paypalUrl"]];
+            [paypalVC setDelegate:self];
+            [self presentViewController:paypalVC animated:YES completion:nil];
+        }
+    } faild:^(NSError *error) {
+        
+    }];
 }
 
 - (void)getMasterPassInfo {
@@ -372,6 +395,12 @@
     [self setMasterPassCallBackInfo:info];
     [self gotoCheckoutPageWithPaymentInfo:info];
 }
+
+- (void)payPalInfoDidReceived:(NSDictionary *)info {
+    [self setPaypalCallBackInfo:info];
+    [self gotoCheckoutPageWithPaymentInfo:info];
+}
+
 
 #pragma mark Closing
 

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BTRMasterPassViewController.h"
+#import "BTRPaypalCheckoutViewController.h"
 
-@interface BTRShoppingBagViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,MasterPassInfoDelegate>
+@interface BTRShoppingBagViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,MasterPassInfoDelegate,PayPalInfoDelegate>
 
 
 @end

@@ -23,6 +23,8 @@ typedef enum {
 
 @property (strong, nonatomic) Order *order;
 @property (strong, nonatomic) NSDictionary *masterCallBackInfo;
+@property (strong, nonatomic) NSDictionary *paypalCallBackInfo;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *chatWithRepButton;
 @property (weak, nonatomic) IBOutlet UIButton *visaCheckoutButton;

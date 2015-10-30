@@ -20,6 +20,7 @@
 @property BOOL didLogined;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong,nonatomic) ConfirmationInfo *confirmationInfo;
+
 @end
 
 @implementation BTRPaypalCheckoutViewController
@@ -28,7 +29,10 @@
     [super viewDidLoad];
     [self.webView setDelegate:self];
     [self setDidLogined:NO];
-    [self processPayPalWithInfo:self.paypalInfo];
+    if (self.delegate)
+        [self loadPaypalURLWithURL:self.payPalURL];
+    else
+        [self processPayPalWithInfo:self.paypalInfo];
 }
 
 - (void)loadPaypalURLWithURL:(NSString *)url {
@@ -50,7 +54,9 @@
 
         if ([urlString rangeOfString:[[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPayment]] lowercaseString]].location != NSNotFound) {
             [self setDidLogined:YES];
+            [self getOrderInfoOfCallBackURLRequest:request.URL.absoluteString];
             [self.webView setHidden:YES];
+            return NO;
         }
         if ([urlString rangeOfString:[[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcess]] lowercaseString]].location != NSNotFound) {
             [self.webView setHidden:NO];
@@ -63,6 +69,12 @@
 
 - (void)getOrderInfoOfCallBackURLRequest:(NSString *)url {
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        if (self.delegate) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self.delegate payPalInfoDidReceived:response];
+            }];
+            return;
+        }
         if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue])
            [self getConfirmationInfoWithOrderID:[[response valueForKey:@"order"]valueForKey:@"order_id"]];
         else
