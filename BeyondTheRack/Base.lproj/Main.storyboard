@@ -2328,7 +2328,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="291A5C2F-7E36-4039-90AE-F2115BDCA60C" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="10906D27-4B54-4740-BFB5-8D4F6FC60A4F" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -4809,7 +4809,7 @@
         <!--Paypal Checkout View Controller-->
         <scene sceneID="hyl-SQ-ef7">
             <objects>
-                <viewController storyboardIdentifier="BTRPaypalCheckoutViewController" id="T0P-XN-jWh" customClass="BTRPaypalCheckoutViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PaypalCheckoutViewController" id="T0P-XN-jWh" customClass="BTRPaypalCheckoutViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gj8-sC-NeN"/>
                         <viewControllerLayoutGuide type="bottom" id="Xhg-OX-3na"/>
@@ -5247,22 +5247,22 @@
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1O-gH-Zh0" userLabel="Master Pass Button">
-                                                                <rect key="frame" x="151" y="0.0" width="153" height="47"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1O-gH-Zh0" userLabel="MasterPass">
+                                                                <rect key="frame" x="151" y="4" width="153" height="40"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="153" id="5yM-3y-owI"/>
-                                                                    <constraint firstAttribute="height" constant="47" id="Equ-88-V7P"/>
+                                                                    <constraint firstAttribute="height" constant="40" id="Equ-88-V7P"/>
                                                                 </constraints>
-                                                                <state key="normal" image="paypal_yellow.png">
+                                                                <state key="normal" backgroundImage="masterpass.png">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="paypalCheckoutTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="Nho-Hw-LeH"/>
+                                                                    <action selector="masterPassCheckoutTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="ODU-IB-ifg"/>
                                                                 </connections>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6S-j5-1Bl" userLabel="Visa Checkout Button">
-                                                                <rect key="frame" x="8" y="51" width="135" height="47"/>
+                                                                <rect key="frame" x="8" y="48" width="135" height="47"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="135" id="MfO-jo-LCH"/>
@@ -5272,8 +5272,8 @@
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vu1-7h-Jvf" userLabel="Master Pass Button">
-                                                                <rect key="frame" x="154" y="55" width="146" height="37"/>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vu1-7h-Jvf" userLabel="Paypal">
+                                                                <rect key="frame" x="154" y="52" width="146" height="37"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="146" id="ujW-6c-2qu"/>
@@ -5282,9 +5282,6 @@
                                                                 <state key="normal" image="masterpass.png">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
-                                                                <connections>
-                                                                    <action selector="masterPassCheckoutTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="zc5-qh-aIq"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <animations/>
@@ -8533,7 +8530,7 @@ If so, please provide the order number,
         <!--Master Pass View Controller-->
         <scene sceneID="PHz-Dq-ss8">
             <objects>
-                <viewController storyboardIdentifier="BTRMasterPassViewController" id="lVS-mn-qtg" customClass="BTRMasterPassViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MasterPassViewController" id="lVS-mn-qtg" customClass="BTRMasterPassViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dGx-Jl-gaz"/>
                         <viewControllerLayoutGuide type="bottom" id="J4l-pk-uzc"/>
@@ -12520,7 +12517,7 @@ UHJvZHVjdERldGFpbGkQUGFkRW1iZWRkZWRTZWd1ZUlkZW50aWZpZXI
         </scene>
     </scenes>
     <resources>
-        <image name="291A5C2F-7E36-4039-90AE-F2115BDCA60C" width="30" height="30">
+        <image name="10906D27-4B54-4740-BFB5-8D4F6FC60A4F" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -12594,7 +12591,7 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="twittericonalpha.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Hl3-o6-ufa"/>
+        <segue reference="kaV-ql-rAu"/>
         <segue reference="ue6-nF-fny"/>
         <segue reference="HxW-sB-vXc"/>
         <segue reference="cgg-l4-kOG"/>

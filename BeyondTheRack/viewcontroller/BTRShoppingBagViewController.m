@@ -366,7 +366,7 @@
                 
             }];
         } else {
-            BTRPaypalCheckoutViewController *paypalVC  = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRPaypalCheckoutViewController"];
+            BTRPaypalCheckoutViewController *paypalVC  = [self.storyboard instantiateViewControllerWithIdentifier:@"PaypalCheckoutViewController"];
             [paypalVC setPayPalURL:[response valueForKey:@"paypalUrl"]];
             [paypalVC setDelegate:self];
             [self presentViewController:paypalVC animated:YES completion:nil];
