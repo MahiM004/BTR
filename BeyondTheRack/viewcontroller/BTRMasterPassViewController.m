@@ -17,24 +17,26 @@
 @interface BTRMasterPassViewController ()
 @property (nonatomic,strong) Order *order;
 @property ConfirmationInfo *confirmationInfo;
+@property BOOL shouldLoad;
 @end
 
 @implementation BTRMasterPassViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if (self.processInfo)
-        [self processMasterPassWithInfo:self.processInfo];
-    else {
-        [[MPManager sharedInstance]setDelegate:self];
-        [[MPManager sharedInstance]pairAndCheckoutInViewController:self WithInfo:self.info];
-    }
-
+    [self setShouldLoad:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    
+    if (self.shouldLoad) {
+        if (self.processInfo)
+            [self processMasterPassWithInfo:self.processInfo];
+        else {
+            [[MPManager sharedInstance]setDelegate:self];
+            [[MPManager sharedInstance]pairAndCheckoutInViewController:self WithInfo:self.info];
+        }
+        [self setShouldLoad:NO];
+    }
 }
 
 - (void)preCheckoutDidCompleteWithData:(NSDictionary *)data error:(NSError *)error {
