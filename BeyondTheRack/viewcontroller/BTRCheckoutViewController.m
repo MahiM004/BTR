@@ -223,6 +223,7 @@
         [self masterPassInfoDidReceived:self.masterCallBackInfo];
         return;
     }
+    
     // setting default value
     [self setChosenShippingCountryString:@"Canada"];
     [self setChosenBillingCountryString:@"Canada"];
@@ -738,52 +739,29 @@
         [self showCardPaymentTip];
         self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
         self.viewHeight.constant = self.finalViewSize;
-        [UIView animateWithDuration:1.0 animations:^{
-            self.paypalDetailsView.alpha = 0;
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:1.0 animations:^{
-                self.paymentDetailsView.alpha = 1;
-            }];
-            self.paymentDetailsView.hidden = NO;
-            self.paypalDetailsView.hidden = YES;
-        }];
+        self.paymentDetailsView.hidden = NO;
+        self.paypalDetailsView.hidden = YES;
     }else if (type == paypal) {
         [self.paymentMethodImageView setImage:[UIImage imageNamed:@"paypal_yellow"]];
         [self hideBillingAddress];
         [self hideCardPaymentTip];
         
-        // i dont know why is this
-        if ([BTRViewUtility isIPAD]) {
-            [self.sendmeToPaypalCheckbox setHidden:YES];
-        } else {
-            [self.sendmeToPaypalCheckbox setHidden:NO];
-        }
         if (self.paypalEmailTF.text.length > 0) {
             self.paypalEmailTF.hidden = NO;
             self.creditCardDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
             self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
         }
         else {
-            self.paypalEmailTF.hidden = YES;
+            self.paymentDetailsView.hidden = YES;
+            self.paypalDetailsView.hidden = NO;
             self.creditCardDetailHeight.constant = 0;
         }
+        self.viewHeight.constant = self.viewHeight.constant - self.billingAddressHeight.constant;
         if (![BTRViewUtility isIPAD]) {
             self.viewHeight.constant = self.viewHeight.constant - CARD_PAYMENT_HEIGHT;
         }
-        [UIView animateWithDuration:1.0 animations:^{
-            self.paymentDetailsView.alpha = 0;
-        }completion:^(BOOL finished) {
-            self.paymentDetailsView.hidden = YES;
-            self.paypalDetailsView.hidden = NO;
-            [UIView animateWithDuration:1.0 animations:^{
-                self.paypalDetailsView.alpha = 1;
-            }];
-        }];
     }
-    [UIView animateWithDuration:1
-                     animations:^{
-                         [self.view layoutIfNeeded];
-                     }];
+    [self.view layoutIfNeeded];
 }
 
 - (void)hideCardPaymentTip {
@@ -1301,6 +1279,10 @@
 - (void)masterPassInfoDidReceived:(NSDictionary *)info {
     self.masterCallBackInfo = info;
     self.order = [Order extractOrderfromJSONDictionary:info forOrder:self.order];
+    [self fixViewForMasterPass];
+}
+
+- (void)fixViewForMasterPass {
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
     [self changeDetailPaymentFor:creditCard];
@@ -1311,6 +1293,19 @@
     [self.viewHeight setConstant:self.finalViewSize - 60];
     [self.view layoutIfNeeded];
 }
+
+- (void)payPalInfoDidReceived:(NSDictionary *)info {
+    self.order = [Order extractOrderfromJSONDictionary:info forOrder:self.order];
+    [self fixViewForPaypal];
+}
+
+- (void)fixViewForPaypal {
+    [self loadOrderData];
+    [self fillPaymentInfoWithCurrentData];
+    [self changeDetailPaymentFor:paypal];
+    [self.view layoutIfNeeded];
+}
+
 
 @end
 

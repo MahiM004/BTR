@@ -41,6 +41,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIControl *childViewforScrollView;
 
+@property (weak, nonatomic) IBOutlet UIControl *fastPaymentView;
 @property (weak, nonatomic) IBOutlet UIControl *vipOptionView;
 @property (weak, nonatomic) IBOutlet UIControl *shippingDetailsView;
 @property (weak, nonatomic) IBOutlet UIControl *billingAddressView;
@@ -62,7 +63,7 @@ typedef enum {
  
  */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *haveAGiftViewHeight;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *fastPaymentHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *creditCardDetailHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *paypalDetailHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *giftViewHeight;
@@ -73,6 +74,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickupViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fillFormLabelViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *changePaymentMethodHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *shippingViewHeight;
 
 /**
  
