@@ -36,12 +36,22 @@
 #define PAYPAL_PAYMENT_HEIGHT 160.0
 #define CARD_PAYMENT_TIP_HEIGHT 65.0
 #define SAMPLE_GIFT_HEIGHT 110
-#define DEFAUL_VIEW_HEIGHT 3300
+#define FASTPAYMENT_HEIGHT 110
+#define PICKUP_HEIGHT 45.0
+#define FILL_SHIPPING_HEIGHT 50;
+#define GIFT_MAX_HEIGHT 175.0
+
+#define DEFAULT_VIEW_HEIGHT_IPHONE 3300
+#define DEFAULT_VIEW_HEIGHT_IPAD 1800
 
 @class CTCheckbox;
 
 
 @interface BTRCheckoutViewController ()
+
+@property BOOL isLoading;
+@property BOOL isVisible;
+@property float totalSave;
 
 @property (assign, nonatomic) NSUInteger pickerType;
 @property (assign, nonatomic) NSUInteger billingOrShipping;
@@ -57,10 +67,6 @@
 @property (strong, nonatomic) NSString *chosenShippingCountryString;
 @property (strong, nonatomic) NSString *chosenBillingCountryString;
 
-@property BOOL isViewVisible;
-@property BOOL isLoading;
-@property float totalSave;
-
 @property paymentType currentPaymentType;
 @property (strong, nonatomic) NSMutableArray *arrayOfGiftCards;
 
@@ -68,8 +74,6 @@
 
 @property (strong, nonatomic) NSMutableArray *selectedGift;
 @property (strong, nonatomic) ConfirmationInfo *confirmationInfo;
-
-@property (nonatomic) CGFloat finalViewSize;
 
 @end
 
@@ -219,8 +223,23 @@
     self.pickerView.delegate = self;
     [self.pickerParentView setHidden:TRUE];
     
+    // hidding gift info
+    [self.giftLabel setHidden:YES];
+    [self.giftDollarLabel setHidden:YES];
+    
+    //filling paypments methods
+    BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
+    self.paymentTypesArray = [sharedPaymentTypes creditCardDisplayNameArray];
+    
+    // MasterPass first checkout
     if (self.masterCallBackInfo) {
         [self masterPassInfoDidReceived:self.masterCallBackInfo];
+        return;
+    }
+    
+    // paypal first checkout
+    if (self.paypalCallBackInfo) {
+        [self payPalInfoDidReceived:self.paypalCallBackInfo];
         return;
     }
     
@@ -234,19 +253,11 @@
     
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
-    
-    // hidding gift info
-    [self.giftLabel setHidden:YES];
-    [self.giftDollarLabel setHidden:YES];
-    [self setIsViewVisible:NO];
-    
-    BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
-    self.paymentTypesArray = [sharedPaymentTypes creditCardDisplayNameArray];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [self addSampleGifts];
-    [self setIsViewVisible:YES];
+    [self setIsVisible:YES];
 }
 
 - (void)resetData {
@@ -325,10 +336,12 @@
     BOOL hasPickup = NO;
     if ([[self.order vipPickupEligible] boolValue]) {
         self.pleaseFillOutTheShippingFormView.hidden = YES;
+        self.fillFormLabelViewHeight.constant = 0;
         self.vipOptionView.hidden = NO;
         hasPickup = YES;
     } else if (![[self.order vipPickupEligible] boolValue]) {
         self.pleaseFillOutTheShippingFormView.hidden = NO;
+        self.fillFormLabelViewHeight.constant = FILL_SHIPPING_HEIGHT;
         self.vipOptionView.hidden = YES;
         if ([[self.order eligiblePickup] boolValue]) {
             self.pickupView.hidden = NO;
@@ -336,11 +349,10 @@
         } else
             self.pickupView.hidden = YES;
     }
-    
     if (!hasPickup)
         self.pickupViewHeight.constant = 0;
     
-    if ([self isViewVisible])
+    if (self.isVisible)
         [self addSampleGifts];
     
     self.isLoading = NO;
@@ -352,17 +364,9 @@
     
     for (UIView *subView in [self.sampleGiftView subviews])
         [subView removeFromSuperview];
-    if ([BTRViewUtility isIPAD]) {
-        self.viewHeight.constant = 1850;
-    } else {
-        self.viewHeight.constant = DEFAUL_VIEW_HEIGHT;
-    }
     
     self.sampleGiftViewHeight.constant = SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
-    self.viewHeight.constant =  self.viewHeight.constant + self.sampleGiftViewHeight.constant ;
     self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant ;
-    [self setFinalViewSize:self.viewHeight.constant];
-    [self.view layoutIfNeeded];
     
     int i = 0;
     CGFloat heightSize = 0;
@@ -394,6 +398,7 @@
         heightSize += SAMPLE_GIFT_HEIGHT;
         i++;
     }
+    [self resetSize];
 }
 
 - (void)setCheckboxesTargets {
@@ -416,8 +421,8 @@
     if ([checkbox checked]) {
         [self enablePaymentInfo];
         [self clearPaymentInfo];
-        [self changeDetailPaymentFor:creditCard];
         [self setCurrentPaymentType:creditCard];
+        [self changeDetailPaymentFor:creditCard];
         [self.paymentMethodTF setText:@"Visa Credit"];
     } else {
         [self fillPaymentInfoWithCurrentData];
@@ -531,11 +536,9 @@
     
     if (checkbox.checked) {
         self.giftViewHeight.constant = 250;
-        self.viewHeight.constant = self.viewHeight.constant + 175;
     }else {
         self.giftCardInfoView.hidden = YES;
         self.giftViewHeight.constant = 75;
-        self.viewHeight.constant = self.viewHeight.constant - 175;
     }
     [UIView animateWithDuration:2
                      animations:^{
@@ -544,6 +547,7 @@
                          if ([checkbox checked]) {
                              self.giftCardInfoView.hidden = NO;
                          }
+                         [self resetSize];
                      }];
 }
 
@@ -574,7 +578,6 @@
 }
 
 - (void)disableBillingAddress {
-    [self.billingAddressView setUserInteractionEnabled:FALSE];
     
     [self.addressLine1BillingTF setEnabled:FALSE];
     [self.addressLine2BillingTF setEnabled:FALSE];
@@ -594,7 +597,7 @@
 }
 
 - (void)enableBillingAddress {
-    [self.billingAddressView setUserInteractionEnabled:TRUE];
+//    [self.billingAddressView setUserInteractionEnabled:TRUE];
     
     [self.addressLine1BillingTF setEnabled:TRUE];
     [self.addressLine2BillingTF setEnabled:TRUE];
@@ -642,6 +645,8 @@
     [self.expiryMonthPaymentTF setEnabled:NO];
     [self.paypalEmailTF setEnabled:NO];
     [self.paymentMethodButton setEnabled:NO];
+    [self.billingCountryButton setEnabled:NO];
+    [self.billingStateButton setEnabled:NO];
     
     [self.paymentMethodTF setAlpha:0.6f];
     [self.cardNumberPaymentTF setAlpha:0.6f];
@@ -661,6 +666,8 @@
     [self.expiryMonthPaymentTF setEnabled:YES];
     [self.paymentMethodButton setEnabled:YES];
     [self.paypalEmailTF setEnabled:YES];
+    [self.billingCountryButton setEnabled:YES];
+    [self.billingStateButton setEnabled:YES];
     
     [self.paymentMethodTF setAlpha:1.0f];
     [self.cardNumberPaymentTF setAlpha:1.0f];
@@ -738,16 +745,21 @@
         [self showBillingAddress];
         [self showCardPaymentTip];
         self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
-        self.viewHeight.constant = self.finalViewSize;
+        self.fastPaymentHeight.constant = FASTPAYMENT_HEIGHT;
         self.paymentDetailsView.hidden = NO;
         self.paypalDetailsView.hidden = YES;
+        self.fastPaymentView.hidden = NO;
     }else if (type == paypal) {
+        [self.paymentDetailsView setHidden:YES];
         [self.paymentMethodImageView setImage:[UIImage imageNamed:@"paypal_yellow"]];
+        self.fastPaymentHeight.constant = 0;
         [self hideBillingAddress];
         [self hideCardPaymentTip];
-        
+        [self.fastPaymentView setHidden:YES];
+
         if (self.paypalEmailTF.text.length > 0) {
             self.paypalEmailTF.hidden = NO;
+            self.paypalDetailsView.hidden = NO;
             self.creditCardDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
             self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
         }
@@ -756,12 +768,8 @@
             self.paypalDetailsView.hidden = NO;
             self.creditCardDetailHeight.constant = 0;
         }
-        self.viewHeight.constant = self.viewHeight.constant - self.billingAddressHeight.constant;
-        if (![BTRViewUtility isIPAD]) {
-            self.viewHeight.constant = self.viewHeight.constant - CARD_PAYMENT_HEIGHT;
-        }
     }
-    [self.view layoutIfNeeded];
+    [self resetSize];
 }
 
 - (void)hideCardPaymentTip {
@@ -1290,8 +1298,7 @@
     [self.cardVerificationPaymentTF setHidden:YES];
     [self.cardVerificationPaymentLB setHidden:YES];
     [self.creditCardDetailHeight setConstant:self.creditCardDetailHeight.constant - 60];
-    [self.viewHeight setConstant:self.finalViewSize - 60];
-    [self.view layoutIfNeeded];
+    [self resetSize];
 }
 
 - (void)payPalInfoDidReceived:(NSDictionary *)info {
@@ -1303,9 +1310,42 @@
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
     [self changeDetailPaymentFor:paypal];
-    [self.view layoutIfNeeded];
+    [self resetSize];
 }
 
+- (void)resetSize {
+    CGFloat size;
+    if ([BTRViewUtility isIPAD])
+        size = DEFAULT_VIEW_HEIGHT_IPAD;
+    else
+        size = DEFAULT_VIEW_HEIGHT_IPHONE;
+    
+    if (self.currentPaymentType == paypal && self.paypalEmailTF.text > 0) {
+        size = size - (CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT);
+        size = size - BILLING_ADDRESS_HEIGHT;
+        size = size - FASTPAYMENT_HEIGHT;
+    }
+    else if (self.currentPaymentType == paypal) {
+        size = size - (CARD_PAYMENT_HEIGHT) ;
+        size = size - BILLING_ADDRESS_HEIGHT;
+        size = size - FASTPAYMENT_HEIGHT;
+    }
+    else if (self.currentPaymentType == masterPass) {
+        
+    }
+    if (self.orderIsGiftCheckbox.checked) {
+        size = size + GIFT_MAX_HEIGHT;
+    }
+    if (self.pickupViewHeight == 0) {
+        size = size - PICKUP_HEIGHT;
+    }
+    if (self.pleaseFillOutTheShippingFormView.hidden) {
+        size = size - FILL_SHIPPING_HEIGHT;
+    }
+    size = size + self.sampleGiftViewHeight.constant;
+    self.viewHeight.constant = size;
+    [self.view layoutIfNeeded];
+}
 
 @end
 

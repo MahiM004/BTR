@@ -62,6 +62,7 @@ typedef enum {
  Heights of Views
  
  */
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *haveAGiftViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fastPaymentHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *creditCardDetailHeight;
@@ -123,7 +124,8 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITextField *provinceBillingTF;
 @property (weak, nonatomic) IBOutlet UITextField *cityBillingTF;
 @property (weak, nonatomic) IBOutlet UITextField *phoneBillingTF;
-
+@property (weak, nonatomic) IBOutlet UIButton *billingCountryButton;
+@property (weak, nonatomic) IBOutlet UIButton *billingStateButton;
 
 @property (weak, nonatomic) IBOutlet UIView *giftCardInfoView;
 @property (weak, nonatomic) IBOutlet CTCheckbox *orderIsGiftCheckbox;
