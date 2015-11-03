@@ -173,7 +173,7 @@ static NSString * const reuseIdentifier = @"Cell";
         } else
             return CGSizeMake(screenBounds.size.width / 2 - 4.6, 200);
     }else
-        return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height / 3);
+        return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.width / 2);
 }
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
