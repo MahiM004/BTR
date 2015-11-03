@@ -2328,7 +2328,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="D205FB04-3939-467B-9A43-2476DA5F0932" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="E06ABEBA-38B4-42EC-8057-FEA206F3170C" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -4398,7 +4398,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="316" height="122"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pMa-Nu-8lP">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pMa-Nu-8lP">
                                             <rect key="frame" x="0.0" y="0.0" width="316" height="122"/>
                                             <animations/>
                                         </imageView>
@@ -12624,7 +12624,7 @@ UHJvZHVjdERldGFpbGkQUGFkRW1iZWRkZWRTZWd1ZUlkZW50aWZpZXI
     </scenes>
     <resources>
         <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="D205FB04-3939-467B-9A43-2476DA5F0932" width="30" height="30">
+        <image name="E06ABEBA-38B4-42EC-8057-FEA206F3170C" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
