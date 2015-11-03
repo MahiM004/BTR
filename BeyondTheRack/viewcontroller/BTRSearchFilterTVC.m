@@ -200,6 +200,7 @@
 
 
 - (UITableViewCell *)configureSortCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+    cell.backgroundColor =[UIColor clearColor];
     if (selectedSortIndex != indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.textLabel.textColor = [UIColor lightGrayColor];
@@ -214,7 +215,7 @@
 
 - (UITableViewCell *)configureFilterModalCell:(BTRFilterWithModalTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
-    
+    cell.backgroundColor = [UIColor clearColor];
     if (indexPath.section == BRAND_FILTER) {
         cell = [self configureCellForCell:cell
                         withSectionString:BRAND_TITLE
