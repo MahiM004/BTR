@@ -142,27 +142,20 @@
     [PDKClient configureSharedInstanceWithAppId:@"1445223"];
 }
 -(void)fillWithItem:(Item*)item {
-     [self extractAttributesFromAttributesDictionary:_getAttribDic];
+    [self extractAttributesFromAttributesDictionary:_getAttribDic];
     [self updateViewWithDeatiledItem:_getItem];
 }
 - (void)updateViewWithDeatiledItem:(Item *)productItem {
     self.productImageCount = [[productItem imageCount] integerValue];
     if (productItem) {
-         [self setProductSku:[productItem sku]];
+        self.getItem = productItem;
+        [self setProductSku:[productItem sku]];
+        [detailCell.detailView addSubview:[self descriptionView]];
+        
         [nameCell.brandLabel setText:[productItem brand]];
         [nameCell.shortDescriptionLabel setText:[productItem shortItemDescription]];
         [nameCell.salePriceLabel setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
         [nameCell.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
-        
-        
-        UIView * descriptionView = [[UIView alloc]init];
-        descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
-        descriptionView = [self getAttribueViewForView:descriptionView];
-        descriptionView = [self getNoteView:descriptionView withNote:[productItem generalNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
-        descriptionView = [self getNoteView:descriptionView withNote:[productItem specialNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor redColor]];
-        descriptionView = [self getNoteView:descriptionView withNote:@"Applicable sales tax will be added." withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
-        descriptionView = [self getNoteView:descriptionView withNote:[productItem shipTime] withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:13] andColor:[UIColor blackColor]];
-        [detailCell.detailView addSubview:descriptionView];
         
         CGRect stepperFrame = CGRectMake(0, 0, 90, 20);
 
@@ -344,6 +337,7 @@
         if (detailCell == nil) {
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductDetailCellDetail" owner:self options:nil];
             detailCell = [nib objectAtIndex:0];
+            [detailCell.detailView addSubview:[self descriptionView]];
         }
         return detailCell;
     } else if ([cellIdenti isEqual:@"shareCell"]) {
@@ -619,6 +613,17 @@
     //    [_pinterest createPinWithImageURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]]
     //                            sourceURL:[BTRItemFetcher URLtoShareforEventId:[self eventId] withProductSku:[self productSku]]
     //                          description:SOCIAL_MEDIA_INIT_STRING];
+}
+
+- (UIView *)descriptionView {
+    UIView * descriptionView = [[UIView alloc]init];
+    descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[self.getItem longItemDescription]];
+    descriptionView = [self getAttribueViewForView:descriptionView];
+    descriptionView = [self getNoteView:descriptionView withNote:[self.getItem generalNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
+    descriptionView = [self getNoteView:descriptionView withNote:[self.getItem specialNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor redColor]];
+    descriptionView = [self getNoteView:descriptionView withNote:@"Applicable sales tax will be added." withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
+    descriptionView = [self getNoteView:descriptionView withNote:[self.getItem shipTime] withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:13] andColor:[UIColor blackColor]];
+    return descriptionView;
 }
 
 @end
