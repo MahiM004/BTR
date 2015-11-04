@@ -7,7 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1408D1B21BEA1A5700125FE8 /* BTRProductDetailCellDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1408D1B01BEA1A5700125FE8 /* BTRProductDetailCellDetail.m */; };
+		1408D1B31BEA1A5700125FE8 /* BTRProductDetailCellDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1B11BEA1A5700125FE8 /* BTRProductDetailCellDetail.xib */; };
+		1408D1B71BEA1D0400125FE8 /* BTRProductDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1408D1B51BEA1D0400125FE8 /* BTRProductDetailImageCell.m */; };
+		1408D1B81BEA1D0400125FE8 /* BTRProductDetailImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1B61BEA1D0400125FE8 /* BTRProductDetailImageCell.xib */; };
+		1408D1BD1BEA2A2E00125FE8 /* BTRProductDetailNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1408D1BB1BEA2A2E00125FE8 /* BTRProductDetailNameCell.m */; };
+		1408D1BE1BEA2A2E00125FE8 /* BTRProductDetailNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1BC1BEA2A2E00125FE8 /* BTRProductDetailNameCell.xib */; };
+		1408D1C21BEA38B700125FE8 /* BTRProductShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1408D1C01BEA38B700125FE8 /* BTRProductShareCell.m */; };
+		1408D1C31BEA38B700125FE8 /* BTRProductShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1C11BEA38B700125FE8 /* BTRProductShareCell.xib */; };
 		1449C8921BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */; };
+		14F378A51BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */; };
 		5EF64B82268F5B93BD9E3D57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00303CA259B636FFAA0B08E0 /* libPods.a */; };
 		6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4C71AB7598000930D16 /* BTRLogo.png */; };
 		6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */; };
@@ -226,8 +235,22 @@
 
 /* Begin PBXFileReference section */
 		00303CA259B636FFAA0B08E0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1408D1AF1BEA1A5700125FE8 /* BTRProductDetailCellDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailCellDetail.h; sourceTree = "<group>"; };
+		1408D1B01BEA1A5700125FE8 /* BTRProductDetailCellDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailCellDetail.m; sourceTree = "<group>"; };
+		1408D1B11BEA1A5700125FE8 /* BTRProductDetailCellDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductDetailCellDetail.xib; sourceTree = "<group>"; };
+		1408D1B41BEA1D0400125FE8 /* BTRProductDetailImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailImageCell.h; sourceTree = "<group>"; };
+		1408D1B51BEA1D0400125FE8 /* BTRProductDetailImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailImageCell.m; sourceTree = "<group>"; };
+		1408D1B61BEA1D0400125FE8 /* BTRProductDetailImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductDetailImageCell.xib; sourceTree = "<group>"; };
+		1408D1BA1BEA2A2E00125FE8 /* BTRProductDetailNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailNameCell.h; sourceTree = "<group>"; };
+		1408D1BB1BEA2A2E00125FE8 /* BTRProductDetailNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailNameCell.m; sourceTree = "<group>"; };
+		1408D1BC1BEA2A2E00125FE8 /* BTRProductDetailNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductDetailNameCell.xib; sourceTree = "<group>"; };
+		1408D1BF1BEA38B700125FE8 /* BTRProductShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShareCell.h; sourceTree = "<group>"; };
+		1408D1C01BEA38B700125FE8 /* BTRProductShareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductShareCell.m; sourceTree = "<group>"; };
+		1408D1C11BEA38B700125FE8 /* BTRProductShareCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductShareCell.xib; sourceTree = "<group>"; };
 		1449C8901BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailOrientationViewController.h; sourceTree = "<group>"; };
 		1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailOrientationViewController.m; sourceTree = "<group>"; };
+		14F378A31BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTRProductDetailEmbededVC.h; path = BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.h; sourceTree = "<group>"; };
+		14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTRProductDetailEmbededVC.m; path = BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m; sourceTree = "<group>"; };
 		6900B4C71AB7598000930D16 /* BTRLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BTRLogo.png; sourceTree = "<group>"; };
 		6900B4C91AB75A9E00930D16 /* BTRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoginViewController.h; sourceTree = "<group>"; };
 		6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoginViewController.m; sourceTree = "<group>"; };
@@ -618,6 +641,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1408D1B91BEA1FB300125FE8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1408D1B41BEA1D0400125FE8 /* BTRProductDetailImageCell.h */,
+				1408D1B51BEA1D0400125FE8 /* BTRProductDetailImageCell.m */,
+				1408D1B61BEA1D0400125FE8 /* BTRProductDetailImageCell.xib */,
+				1408D1AF1BEA1A5700125FE8 /* BTRProductDetailCellDetail.h */,
+				1408D1B01BEA1A5700125FE8 /* BTRProductDetailCellDetail.m */,
+				1408D1B11BEA1A5700125FE8 /* BTRProductDetailCellDetail.xib */,
+				1408D1BA1BEA2A2E00125FE8 /* BTRProductDetailNameCell.h */,
+				1408D1BB1BEA2A2E00125FE8 /* BTRProductDetailNameCell.m */,
+				1408D1BC1BEA2A2E00125FE8 /* BTRProductDetailNameCell.xib */,
+				1408D1BF1BEA38B700125FE8 /* BTRProductShareCell.h */,
+				1408D1C01BEA38B700125FE8 /* BTRProductShareCell.m */,
+				1408D1C11BEA38B700125FE8 /* BTRProductShareCell.xib */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		1449C8931BCCE06200EC1DA4 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
@@ -773,6 +815,9 @@
 				6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */,
 				696508631AA4F26600ED28B8 /* BTRProductDetailViewController.h */,
 				696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */,
+				14F378A31BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.h */,
+				14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */,
+				1408D1B91BEA1FB300125FE8 /* Cells */,
 				1449C8931BCCE06200EC1DA4 /* iPad */,
 				692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */,
 				692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */,
@@ -1388,6 +1433,7 @@
 				69F0BB321B457156008C0498 /* SF-UI-Text-LightItalic.otf in Resources */,
 				690A390C1B1DEE0000D4BA84 /* checked.png in Resources */,
 				A0FD342A1BA76C2E00B6B2C3 /* neulogo.png in Resources */,
+				1408D1B31BEA1A5700125FE8 /* BTRProductDetailCellDetail.xib in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
 				69D4400B1B2A0D7900070FD8 /* masterpass@2x.png in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
@@ -1401,6 +1447,7 @@
 				A01670681B8CF11400448EF3 /* BTRSizeChartViewController.xib in Resources */,
 				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,
 				69F0BB291B457156008C0498 /* SF-UI-Display-Semibold.otf in Resources */,
+				1408D1B81BEA1D0400125FE8 /* BTRProductDetailImageCell.xib in Resources */,
 				695C755D1B386AFD003F65F8 /* paypalcheckout.png in Resources */,
 				69F0BB2B1B457156008C0498 /* SF-UI-Display-Ultralight.otf in Resources */,
 				69F0BB221B457156008C0498 /* License Agreement for SF UI Font.rtf in Resources */,
@@ -1411,7 +1458,9 @@
 				69F0BB361B457156008C0498 /* SF-UI-Text-Semibold.otf in Resources */,
 				69AB985F1A76AB2200EDB1E6 /* pinteresticonalpha.png in Resources */,
 				69D4400D1B2A0D7900070FD8 /* VisaCheckout@2x.png in Resources */,
+				1408D1BE1BEA2A2E00125FE8 /* BTRProductDetailNameCell.xib in Resources */,
 				69F0BB331B457156008C0498 /* SF-UI-Text-Medium.otf in Resources */,
+				1408D1C31BEA38B700125FE8 /* BTRProductShareCell.xib in Resources */,
 				69F0BB281B457156008C0498 /* SF-UI-Display-Regular.otf in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				695C75601B38957A003F65F8 /* masterpass_t.png in Resources */,
@@ -1530,6 +1579,7 @@
 				69F0BAF81B418628008C0498 /* OrderHistoryItem.m in Sources */,
 				6901E9E11AC9901D002534D9 /* BTRSelectSizeVC.m in Sources */,
 				69D440591B33478500070FD8 /* BTRInitializeViewController.m in Sources */,
+				1408D1B21BEA1A5700125FE8 /* BTRProductDetailCellDetail.m in Sources */,
 				69AB98481A71877E00EDB1E6 /* BTRItemFetcher.m in Sources */,
 				A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */,
 				A016706F1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.m in Sources */,
@@ -1547,12 +1597,14 @@
 				69385FBE1A7AD2B70074FE33 /* BTRRefineResultsViewController.m in Sources */,
 				B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */,
 				69D440231B3083CA00070FD8 /* BTROrderFetcher.m in Sources */,
+				14F378A51BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m in Sources */,
 				69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */,
 				A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */,
 				A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */,
 				A00FB1F81BACAA3E005166C3 /* BTREventCell.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */,
+				1408D1C21BEA38B700125FE8 /* BTRProductShareCell.m in Sources */,
 				6900B4DD1AB7747900930D16 /* FAImageView.m in Sources */,
 				69D440141B2B138000070FD8 /* BTRCheckoutViewController.m in Sources */,
 				692F24E11AAF7B50003AABE1 /* BTRZoomImageCollectionViewCell.m in Sources */,
@@ -1560,6 +1612,7 @@
 				69BC6D421A8E4F2C00376D9C /* BTRFacetsHandler.m in Sources */,
 				1449C8921BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m in Sources */,
 				A01142741B618D8A0099A40A /* FAQ+AppServer.m in Sources */,
+				1408D1B71BEA1D0400125FE8 /* BTRProductDetailImageCell.m in Sources */,
 				697E05811A434121000146C6 /* BTRViewUtility.m in Sources */,
 				A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */,
 				69E84ADA1B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m in Sources */,
@@ -1587,6 +1640,7 @@
 				69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */,
 				690A38D51B1DE67F00D4BA84 /* BTRNotificationsVC.m in Sources */,
 				695C754B1B3841D1003F65F8 /* CTCheckbox.m in Sources */,
+				1408D1BD1BEA2A2E00125FE8 /* BTRProductDetailNameCell.m in Sources */,
 				A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */,
 				69B02D0D1A605B2A00040C86 /* Order+AppServer.m in Sources */,
 				A00C9C1C1B9609E4004A2629 /* Freeship+AppServer.m in Sources */,
