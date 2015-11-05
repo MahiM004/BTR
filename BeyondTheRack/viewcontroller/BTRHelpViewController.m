@@ -56,7 +56,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     BTRFAQTableViewCell* cell = (BTRFAQTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"BTRFAQTableViewCellIdentifier"];
     FAQ* faq = [self.faqArray objectAtIndex:indexPath.section];
     QA* qa = [faq.questionsAndAnswers objectAtIndex:indexPath.row];
@@ -72,7 +71,7 @@
         cell.questionAndAnswerLabel.text = resultString;
         cell.questionAndAnswerLabel.font = [UIFont systemFontOfSize:12.0f];
     } else {
-        cell.questionAndAnswerLabel.text = qa.question;
+        cell.questionAndAnswerLabel.text = [NSString stringWithFormat:@"• %@",qa.question];
         cell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
     }
     return cell;
@@ -102,7 +101,7 @@
 
     if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
         self.expandedIndexPath = nil;
-        cell.questionAndAnswerLabel.text = qa.question;
+        cell.questionAndAnswerLabel.text = [NSString stringWithFormat:@"• %@",qa.question];
         cell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
 
     } else {
@@ -111,13 +110,13 @@
             oldCell.questionAndAnswerLabel.text = qa.question;
             oldCell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
         }
-        cell.questionAndAnswerLabel.text = qa.question;
+        cell.questionAndAnswerLabel.text = [NSString stringWithFormat:@"• %@",qa.question];
         cell.questionAndAnswerLabel.font = [UIFont boldSystemFontOfSize:13.0f];
         
         self.expandedIndexPath = indexPath;
         self.heightOfSelectedCell = [self findHeightForText:resultString havingWidth:self.helpTable.frame.size.width andFont:[UIFont systemFontOfSize:13.0f]];
         cell.questionAndAnswerLabel.font = [UIFont systemFontOfSize:12.0f];
-        cell.questionAndAnswerLabel.text = qa.question;
+        cell.questionAndAnswerLabel.text = [NSString stringWithFormat:@"• %@",qa.question];
         [self crossFadeCurrentTextInView:cell.questionAndAnswerLabel withNewText:resultString duration:0.7];
     }
     [self.helpTable endUpdates];
