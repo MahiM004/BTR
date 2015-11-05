@@ -84,7 +84,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
-        case 0:
+        case 1:
             if ([BTRViewUtility isIPAD] == YES ) {
                 [self.delegate deviceType:@"BTRAccountInformationSegueIdentifieriPad"];
             } else {
@@ -92,7 +92,7 @@
             }
             [self.delegate userInformationDidSelect];
             break;
-        case 1:
+        case 2:
             if ([BTRViewUtility isIPAD] == YES ) {
                 [self.delegate deviceType:@"BTRNotificationsSegueiPadIdentifier"];
             } else {
@@ -100,7 +100,7 @@
             }
             [self.delegate notificationSettingDidSelect];
             break;
-        case 2:
+        case 0:
             [self.delegate trackOrderDidSelect];
             break;
         case 3:
