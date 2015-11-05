@@ -46,15 +46,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([BTRViewUtility isIPAD] == YES) {
-        [self adjustViewsForOrientation:self.interfaceOrientation];
-    }
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];;
+    self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];
 }
  
 - (void)viewDidLoad {
     [super viewDidLoad];
+//        if ([BTRViewUtility isIPAD] == YES) {
+//            [self adjustViewsForOrientation:self.interfaceOrientation];
+//        }
+
     if (self.variant == nil)
         self.variant = SIZE_NOT_SELECTED_STRING;
     
@@ -65,7 +66,7 @@
     
     [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
-    if ([BTRViewUtility isIPAD] == NO) {
+//    if ([BTRViewUtility isIPAD] == NO) {
         [BTRLoader showLoaderInView:self.view];
         [self fetchItemforProductSku:[[self productItem] sku]
                              success:^(Item *responseObject) {
@@ -76,7 +77,7 @@
                              }
                              failure:^(NSError *error) {
                              }];
-    }
+//    }
     if (self.disableAddToCart) {
         self.addTobagButton.enabled = NO;
         self.addToBagView.backgroundColor = [UIColor grayColor];
@@ -116,6 +117,7 @@
                               @"sku": [[self productItem] sku],
                               @"variant":[self variant],
                               });
+    NSLog(@"%@",params);
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (![[response valueForKey:@"success"]boolValue]) {
             if ([response valueForKey:@"error_message"]) {
@@ -207,11 +209,15 @@
 
 - (void)variantCodeforAddtoBag:(NSString *)variant {
     self.variant = variant;
+    NSLog(@"%@",variant);
 }
 
 - (void)quantityForAddToBag:(NSString *)qty {
     self.quantity = qty;
+    NSLog(@"%@",qty);
 }
+
+/*
 //iPad added methods
 - (void)presentDetailController:(UIViewController*)detailVC{
     if(self.currentDetailViewController){
@@ -256,14 +262,17 @@
     if (isLoaded) {
         self.iPadVC.isLoadedBefore = YES;
         self.iPadVC.productItem = currentItem;
+        self.iPadVC.rightMargin = _rightMargin;
+        [self presentDetailController:self.iPadVC];
     } else {
         self.iPadVC.isLoadedBefore = NO;
         self.iPadVC.productItem = self.productItem;
+        self.iPadVC.rightMargin = _rightMargin;
+        [self presentDetailController:self.iPadVC];
     }
-    self.iPadVC.rightMargin = _rightMargin;
-    [self presentDetailController:self.iPadVC];
+    
 }
-
+*/
 @end
 
 

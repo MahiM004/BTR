@@ -7,6 +7,7 @@
 //
 
 #import "BTRProductShowcaseVC.h"
+#import "BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.h"
 #import "BTRProductShowcaseCollectionCell.h"
 #import "BTRProductDetailViewController.h"
 #import "BTRSearchViewController.h"
@@ -458,11 +459,12 @@ typedef enum ScrollDirection {
     [self setSelectedBrandString:[productItem brand]];
     [self setSelectedAttributes:productItem.attributeDictionary];
     [self setSelectedVariantInventories:productItem.variantInventory];
-    if ([BTRViewUtility isIPAD] == YES ) {
-        [self performSegueWithIdentifier:@"ProductDetailiPadSegueIdentifier" sender:self];
-    } else {
-        [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
-    }
+//    if ([BTRViewUtility isIPAD] == YES ) {
+//        [self performSegueWithIdentifier:@"ProductDetailiPadSegueIdentifier" sender:self];
+//    } else {
+//        [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
+    [self performSegueWithIdentifier:@"productEmbededSegue" sender:self];
+//    }
 }
 
 - (IBAction)bagButtonTapped:(UIButton *)sender {
@@ -474,7 +476,8 @@ typedef enum ScrollDirection {
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"] || [[segue identifier]isEqualToString:@"ProductDetailiPadSegueIdentifier"]) {
+    if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"])// || [[segue identifier]isEqualToString:@"ProductDetailiPadSegueIdentifier"])
+    {
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = EVENT_SCENE;
         productDetailVC.productItem = [self.originalItemArray objectAtIndex:[self.selectedIndexPath row]];
@@ -485,6 +488,17 @@ typedef enum ScrollDirection {
         BTRProductShowcaseCollectionCell* cell = (BTRProductShowcaseCollectionCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPath];
         if ([productDetailVC.productItem.allReserved boolValue] || [self isItemSoldOutWithVariant:[cell sizeQuantityArray]])
             productDetailVC.disableAddToCart = YES;
+    } else if ([[segue identifier]isEqualToString:@"productEmbededSegue"]) {
+        BTRProductDetailEmbededVC * productEmbededVC = [segue destinationViewController];
+        productEmbededVC.getOriginalVCString = EVENT_SCENE;
+        productEmbededVC.getItem = [self.originalItemArray objectAtIndex:[self.selectedIndexPath row]];
+        productEmbededVC.getEventID = [self eventSku];
+        productEmbededVC.getVariantInventoryDic = self.selectedVariantInventories;
+        productEmbededVC.getAttribDic = self.selectedAttributes;
+        
+        BTRProductShowcaseCollectionCell* cell = (BTRProductShowcaseCollectionCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPath];
+        if ([productEmbededVC.getItem.allReserved boolValue] || [self isItemSoldOutWithVariant:[cell sizeQuantityArray]])
+            productEmbededVC.disableAddToCart = YES;
     }
 }
 
@@ -507,7 +521,7 @@ typedef enum ScrollDirection {
     else
         [self loadMenuForype:SORT_MENU];
 }
-
+/*
 //- (void)sortItems {
 //    NSSortDescriptor *sortDescriptor;
 //    switch ([self.sortArray indexOfObject:self.sortTextField.text]) {
@@ -554,7 +568,7 @@ typedef enum ScrollDirection {
 //    }
 //    self.sortedItemsArray = tempArray;
 //}
-
+*/
 #pragma mark - BTRSelectSizeVC Delegate
 
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {

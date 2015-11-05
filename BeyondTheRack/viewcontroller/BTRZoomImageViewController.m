@@ -44,7 +44,7 @@
      return cell;
 }
 - (IBAction)closeAction:(id)sender {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -53,9 +53,9 @@
     if ([BTRViewUtility isIPAD]) {
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-            return CGSizeMake(screenBounds.size.width - 300,screenBounds.size.height - 100);
+            return CGSizeMake(screenBounds.size.width - 300,screenBounds.size.height - 110);
         } else
-            return CGSizeMake(screenBounds.size.width - 10, screenBounds.size.height - 100);
+            return CGSizeMake(screenBounds.size.width - 10, screenBounds.size.height - 110);
     } else
         return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height);
 }
