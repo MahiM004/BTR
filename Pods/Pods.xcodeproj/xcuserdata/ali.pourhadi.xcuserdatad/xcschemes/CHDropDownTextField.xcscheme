@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'FE315B8718BA879B87198EBF'
-               BlueprintName = 'Pods'
+               BlueprintIdentifier = 'BF0DED13E7AE5D96FFB51336'
+               BlueprintName = 'CHDropDownTextField'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods.a'>
+               BuildableName = 'libCHDropDownTextField.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

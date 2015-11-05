@@ -27,6 +27,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.4.0)
   - BSErrorMessageView (1.1)
+  - CHDropDownTextField (1.0.0)
   - FBSDKCoreKit (4.7.0):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc (= 4.7.0)
@@ -55,6 +56,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - BSErrorMessageView (from `https://github.com/BenjaminSarkisyan/BSErrorMessageView.git`)
+  - CHDropDownTextField (~> 1.0)
   - FBSDKCoreKit (~> 4.7)
   - FBSDKLoginKit (~> 4.7)
   - FBSDKShareKit (~> 4.7)
@@ -85,6 +87,7 @@ SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
   BSErrorMessageView: 67cc7d172995fbc6df602c2b8923f48121ddf7a9
+  CHDropDownTextField: d8a2843acbdd75b5b8d26b27dca9e07c2b1ae5e1
   FBSDKCoreKit: eb580bfc2040ad44f4c0b4f4d0befb1d35bce59c
   FBSDKLoginKit: 028c5a205990441123764609fe795e65027c447f
   FBSDKShareKit: 1f927bb05e4d36a99d5d5bf2f4b1ff294ce3e15c

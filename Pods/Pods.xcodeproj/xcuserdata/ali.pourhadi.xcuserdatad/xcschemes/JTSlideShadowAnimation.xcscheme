@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '1C504B515A9C71B6D262E7E9'
+               BlueprintIdentifier = 'BA7C5BBE41A42B1FC814B438'
                BlueprintName = 'JTSlideShadowAnimation'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libJTSlideShadowAnimation.a'>

@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CHDropDownTextField.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,17 +92,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>062A0F1DAEF14328DD2EDCA089F7C4B2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>137A1ADA6E180CB76E9BA778D5A15D4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1A3155A1CE86FD415A2FA193545BAB2E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2034EF7884DC06171D9E494082B81A50</key>
+		<key>2194D03F7810A754D068D55C4962A90F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2194D03F7810A754D068D55C4962A90F</key>
+		<key>22BBAF561BEC68F2DB4F065B95725CAE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,17 +167,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BB0849DA7D3A15764B5A27265849EA8C</key>
+		<key>B9EC96FD303132591CB5E36B453C6300</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>C78CAB9013653EB1A250B2DFD3BC7666</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D2979EECA9143441A893AD6BF9806929</key>
 		<dict>
 			<key>primary</key>
 			<true/>
