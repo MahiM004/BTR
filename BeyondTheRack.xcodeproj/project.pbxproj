@@ -199,6 +199,8 @@
 		A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
+		A06D87FA1BEC0AAB005168ED /* BTRDropDownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D87F81BEC0AAB005168ED /* BTRDropDownMenuCell.m */; settings = {ASSET_TAGS = (); }; };
+		A06D87FB1BEC0AAB005168ED /* BTRDropDownMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A06D87F91BEC0AAB005168ED /* BTRDropDownMenuCell.xib */; settings = {ASSET_TAGS = (); }; };
 		A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */; };
 		A07EC4061BDA7D6300938B1A /* BTRMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
@@ -577,6 +579,9 @@
 		A06A40EE1B837103008DD60B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A06A40F01B8392C2008DD60B /* BTRSuggestionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSuggestionFetcher.h; sourceTree = "<group>"; };
 		A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSuggestionFetcher.m; sourceTree = "<group>"; };
+		A06D87F71BEC0AAB005168ED /* BTRDropDownMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRDropDownMenuCell.h; sourceTree = "<group>"; };
+		A06D87F81BEC0AAB005168ED /* BTRDropDownMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRDropDownMenuCell.m; sourceTree = "<group>"; };
+		A06D87F91BEC0AAB005168ED /* BTRDropDownMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRDropDownMenuCell.xib; sourceTree = "<group>"; };
 		A07EC4001BDA7D1300938B1A /* BTRMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMenuTableViewCell.h; sourceTree = "<group>"; };
 		A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMenuTableViewCell.m; sourceTree = "<group>"; };
 		A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRMenuTableViewCell.xib; sourceTree = "<group>"; };
@@ -927,6 +932,9 @@
 				A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */,
 				A07EC4001BDA7D1300938B1A /* BTRMenuTableViewCell.h */,
 				A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */,
+				A06D87F71BEC0AAB005168ED /* BTRDropDownMenuCell.h */,
+				A06D87F81BEC0AAB005168ED /* BTRDropDownMenuCell.m */,
+				A06D87F91BEC0AAB005168ED /* BTRDropDownMenuCell.xib */,
 			);
 			name = View;
 			path = view;
@@ -1460,6 +1468,7 @@
 				695C755D1B386AFD003F65F8 /* paypalcheckout.png in Resources */,
 				69F0BB2B1B457156008C0498 /* SF-UI-Display-Ultralight.otf in Resources */,
 				69F0BB221B457156008C0498 /* License Agreement for SF UI Font.rtf in Resources */,
+				A06D87FB1BEC0AAB005168ED /* BTRDropDownMenuCell.xib in Resources */,
 				A024A2C41BB4424000B5B596 /* BTRSampleGiftView.xib in Resources */,
 				690A39211B1DF70B00D4BA84 /* myuncheck@2x.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
@@ -1600,6 +1609,7 @@
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				692F24E41AAF7BC5003AABE1 /* BTRZoomImageViewController.m in Sources */,
 				A00E4DD31B8632ED00C93CD3 /* BTRMasterPassFetcher.m in Sources */,
+				A06D87FA1BEC0AAB005168ED /* BTRDropDownMenuCell.m in Sources */,
 				69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */,
 				A0CE31431B8665BA007D7682 /* BTRMasterPassViewController.m in Sources */,
 				69B02D041A605AD200040C86 /* Event+AppServer.m in Sources */,
