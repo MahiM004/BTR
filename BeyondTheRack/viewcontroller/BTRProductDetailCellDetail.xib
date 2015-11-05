@@ -8,11 +8,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="detailCell" rowHeight="127" id="KGk-i7-Jjw" customClass="BTRProductDetailCellDetail">
-            <rect key="frame" x="0.0" y="0.0" width="317" height="127"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="detailCell" rowHeight="200" id="KGk-i7-Jjw" customClass="BTRProductDetailCellDetail">
+            <rect key="frame" x="0.0" y="0.0" width="317" height="200"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="317" height="126"/>
+                <rect key="frame" x="0.0" y="0.0" width="317" height="199"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzD-Im-YlQ">
@@ -27,16 +27,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="es9-eK-sae">
-                        <rect key="frame" x="19" y="37" width="279" height="81"/>
+                        <rect key="frame" x="19" y="37" width="279" height="259"/>
                         <animations/>
-                        <color key="backgroundColor" red="0.72601010099999996" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
                 <animations/>
                 <constraints>
                     <constraint firstItem="es9-eK-sae" firstAttribute="leading" secondItem="GzD-Im-YlQ" secondAttribute="trailing" constant="-91" id="EVT-nk-TOY"/>
                     <constraint firstItem="GzD-Im-YlQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="IS8-BS-io6"/>
-                    <constraint firstItem="es9-eK-sae" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="dhf-mr-YfB"/>
+                    <constraint firstItem="es9-eK-sae" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" constant="105" id="dhf-mr-YfB"/>
                     <constraint firstItem="GzD-Im-YlQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="iMZ-14-6yw"/>
                     <constraint firstItem="es9-eK-sae" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-11" id="q2e-1b-rEm"/>
                     <constraint firstItem="es9-eK-sae" firstAttribute="top" secondItem="GzD-Im-YlQ" secondAttribute="bottom" constant="8" id="rbb-LW-Cqn"/>
@@ -46,7 +46,7 @@
             <connections>
                 <outlet property="detailView" destination="es9-eK-sae" id="zXc-KL-z8Q"/>
             </connections>
-            <point key="canvasLocation" x="209.5" y="429.5"/>
+            <point key="canvasLocation" x="209.5" y="466"/>
         </tableViewCell>
     </objects>
 </document>

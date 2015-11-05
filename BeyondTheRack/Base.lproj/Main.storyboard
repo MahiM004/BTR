@@ -2328,7 +2328,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="6D19297C-EEA2-4188-8A78-C2FA01B73A13" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="B3E5C9C6-576A-4514-A344-E88B90E7B6F0" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -2657,6 +2657,7 @@
                         <outlet property="suggestionTableView" destination="0j0-ZH-JgU" id="TVD-mQ-g2w"/>
                         <segue destination="HKO-dJ-Mil" kind="push" identifier="ProductDetailSegueFromSearchIdentifier" id="rQK-cN-5Fr"/>
                         <segue destination="xj5-ap-CzZ" kind="push" identifier="ProductDetailiPadSegueFromSearchIdentifier" id="4Wu-Ag-JT4"/>
+                        <segue destination="tnc-rN-ei2" kind="push" identifier="productEmbededSegueSearch" id="Lkd-wM-onW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bTt-0D-Rj2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3689,7 +3690,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XwV-pQ-6xb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="DVa-au-CuN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-9011" y="-2161"/>
+            <point key="canvasLocation" x="-9155" y="-2025"/>
         </scene>
         <!--Product Detail EmbeddedTVC-->
         <scene sceneID="OeH-x2-7fy">
@@ -4263,7 +4264,7 @@
         <!--Zoom Image View Controller-->
         <scene sceneID="nLl-d3-tPN">
             <objects>
-                <viewController id="lzl-ki-XYu" customClass="BTRZoomImageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ZoomImageVC" id="lzl-ki-XYu" customClass="BTRZoomImageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o3g-tG-yj9"/>
                         <viewControllerLayoutGuide type="bottom" id="wqI-ST-pT3"/>
@@ -9903,7 +9904,7 @@ If so, please provide the order number,
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m2O-Bu-xuz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xkD-U1-2hw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-9369" y="-2161"/>
+            <point key="canvasLocation" x="-9617" y="-2053"/>
         </scene>
         <!--Product Detail Orientation View Controller-->
         <scene sceneID="E8G-qZ-gpC">
@@ -10163,7 +10164,7 @@ UHJvZHVjdERldGFpbGkQUGFkRW1iZWRkZWRTZWd1ZUlkZW50aWZpZXI
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jj-WP-Wj0" userLabel="bagButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jj-WP-Wj0" userLabel="bagButton">
                                         <rect key="frame" x="272" y="25" width="40" height="40"/>
                                         <animations/>
                                         <constraints>
@@ -10186,6 +10187,7 @@ UHJvZHVjdERldGFpbGkQUGFkRW1iZWRkZWRTZWd1ZUlkZW50aWZpZXI
                                 <constraints>
                                     <constraint firstItem="2qk-HR-Xyf" firstAttribute="top" secondItem="qbq-mY-ejM" secondAttribute="top" constant="25" id="5F8-26-00t"/>
                                     <constraint firstItem="2qk-HR-Xyf" firstAttribute="centerY" secondItem="mHv-iB-JY9" secondAttribute="centerY" id="75I-dv-m12"/>
+                                    <constraint firstItem="4jj-WP-Wj0" firstAttribute="top" secondItem="2qk-HR-Xyf" secondAttribute="top" id="8gv-tE-bRL"/>
                                     <constraint firstAttribute="height" constant="70" id="HDT-QB-FIJ"/>
                                     <constraint firstItem="2qk-HR-Xyf" firstAttribute="leading" secondItem="qbq-mY-ejM" secondAttribute="leading" id="cpu-iu-FO7"/>
                                     <constraint firstAttribute="trailing" secondItem="4jj-WP-Wj0" secondAttribute="trailing" constant="8" id="k87-Et-56Z"/>
@@ -10219,7 +10221,7 @@ UHJvZHVjdERldGFpbGkQUGFkRW1iZWRkZWRTZWd1ZUlkZW50aWZpZXI
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wBf-mQ-fPH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Df5-rT-b19" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-8847" y="-1426"/>
+            <point key="canvasLocation" x="-8895" y="-2146"/>
         </scene>
         <!--Checkout View Controller-->
         <scene sceneID="l4d-83-tn0">
@@ -12771,7 +12773,7 @@ UHJvZHVjdERldGFpbGkQUGFkRW1iZWRkZWRTZWd1ZUlkZW50aWZpZXI
         </scene>
     </scenes>
     <resources>
-        <image name="6D19297C-EEA2-4188-8A78-C2FA01B73A13" width="30" height="30">
+        <image name="B3E5C9C6-576A-4514-A344-E88B90E7B6F0" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -12844,13 +12846,14 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="twittericonalpha.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cgg-l4-kOG"/>
-        <segue reference="bIC-SN-W1I"/>
-        <segue reference="IRS-1J-yjg"/>
+        <segue reference="Lkd-wM-onW"/>
+        <segue reference="rQK-cN-5Fr"/>
+        <segue reference="4Wu-Ag-JT4"/>
         <segue reference="YGd-XA-7oE"/>
         <segue reference="OYt-ZC-byn"/>
+        <segue reference="cgg-l4-kOG"/>
+        <segue reference="ue6-nF-fny"/>
         <segue reference="HxW-sB-vXc"/>
         <segue reference="Hl3-o6-ufa"/>
-        <segue reference="ue6-nF-fny"/>
     </inferredMetricsTieBreakers>
 </document>

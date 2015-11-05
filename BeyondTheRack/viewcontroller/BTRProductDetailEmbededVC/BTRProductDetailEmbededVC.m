@@ -10,7 +10,10 @@
 #import "BTRProductDetailCellDetail.h"
 #import "BTRProductDetailImageCell.h"
 #import "BTRProductDetailNameCell.h"
+#import "BTRProductCollecCell.h"
 #import "BTRProductShareCell.h"
+#import "BTRProductImageCollectionCell.h"
+#import "UIImageView+AFNetworking.h"
 #import "BTRShoppingBagViewController.h"
 #import "BTRProductShowcaseVC.h"
 #import "BTRBagFetcher.h"
@@ -24,11 +27,14 @@
 #import "BTRSizeHandler.h"
 #import <Social/Social.h>
 #import "PinterestSDK.h"
+#import "BTRZoomImageViewController.h"
+
+
 
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
 
-@interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 {
     UIView * view1;
     UIView * view2;
@@ -37,6 +43,8 @@
     BTRProductDetailImageCell * imageCell;
     BTRProductDetailNameCell * nameCell;
     BTRProductShareCell * shareCell;
+    UIView * descriptionView;
+    UICollectionView *_collectionView;
 }
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
@@ -97,6 +105,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (self.variant == nil)
+        self.variant = SIZE_NOT_SELECTED_STRING;
     if (!_rowsArray) {
         _rowsArray = [[NSMutableArray alloc]initWithObjects:@"imageCell",@"nameCell",@"detailCell",@"shareCell", nil];
     }
@@ -108,15 +118,15 @@
     else
         [self.eventTitleLabel setText:@"Product Detail"];
     
-    [BTRLoader showLoaderInView:self.view];
+//    [BTRLoader showLoaderInView:view2];
     [self fetchItemforProductSku:[[self getItem] sku]
                          success:^(Item *responseObject) {
                              [self fillWithItem:responseObject];
-                             [BTRLoader hideLoaderFromView:self.view];
+//                             [BTRLoader hideLoaderFromView:view2];
                          }
                          failure:^(NSError *error) {
                          }];
-
+    
     
     
     CGRect frame = self.view.frame;
@@ -124,7 +134,7 @@
     CGFloat viewHeight = frame.size.height;
     view1 = [[UIView alloc]initWithFrame:CGRectMake(10, 70, viewWidth - 20, viewHeight/2 - 70)];
     view1.backgroundColor = [UIColor whiteColor];
-
+    
     view2 = [[UIView alloc]initWithFrame:CGRectMake(10, viewHeight/2 + 10, viewWidth - 20, viewHeight/2 - 20)];
     view2.backgroundColor = [UIColor greenColor];
     
@@ -141,31 +151,51 @@
     }
     [PDKClient configureSharedInstanceWithAppId:@"1445223"];
 }
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [UIView animateWithDuration:0.02 animations:^{
+        [_collectionView performBatchUpdates:nil completion:nil];
+    }];
+    [self willAnimateRotationToInterfaceOrientation:self.interfaceOrientation duration:0.01];
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];
+}
+
+
 -(void)fillWithItem:(Item*)item {
     [self extractAttributesFromAttributesDictionary:_getAttribDic];
     [self updateViewWithDeatiledItem:_getItem];
 }
+#pragma UpdateView Size and View
 - (void)updateViewWithDeatiledItem:(Item *)productItem {
     self.productImageCount = [[productItem imageCount] integerValue];
     if (productItem) {
-        self.getItem = productItem;
         [self setProductSku:[productItem sku]];
-        [detailCell.detailView addSubview:[self descriptionView]];
-        
         [nameCell.brandLabel setText:[productItem brand]];
         [nameCell.shortDescriptionLabel setText:[productItem shortItemDescription]];
         [nameCell.salePriceLabel setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
         [nameCell.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
         
+        
+        descriptionView = [[UIView alloc]init];
+        descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
+        descriptionView = [self getAttribueViewForView:descriptionView];
+        descriptionView = [self getNoteView:descriptionView withNote:[productItem generalNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
+        descriptionView = [self getNoteView:descriptionView withNote:[productItem specialNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor redColor]];
+        descriptionView = [self getNoteView:descriptionView withNote:@"Applicable sales tax will be added." withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
+        descriptionView = [self getNoteView:descriptionView withNote:[productItem shipTime] withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:13] andColor:[UIColor blackColor]];
+        [detailCell.detailView addSubview:descriptionView];
+        
         CGRect stepperFrame = CGRectMake(0, 0, 90, 20);
-
+        
         self.stepper = [[PKYStepper alloc] initWithFrame:stepperFrame];
         self.stepper.value = 1;
+        
         self.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
             if (stepper.value < 1)
                 return;
             stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
-//            [selfPointer quantityChangedWithValue:stepper.countLabel.text];
+            _quantity = stepper.countLabel.text;
         };
         
         [self.stepper setup];
@@ -176,8 +206,6 @@
                                                                         toSizeCodesArray:[self sizeCodesArray]
                                                                      toSizeQuantityArray:[self sizeQuantityArray]];
         [self updateSizeSelectionViewforSizeMode:sizeMode];
-        [self quantityChangedWithValue:@"1"];
-        
     } else {
         [nameCell.brandLabel setText:@""];
         [nameCell.shortDescriptionLabel setText:@""];
@@ -185,7 +213,8 @@
         [nameCell.crossedOffPriceLabel setText:@""];
     }
     [detailTV reloadData];
-
+    [_collectionView reloadData];
+    
 }
 - (void)updateSizeSelectionViewforSizeMode:(BTRSizeMode)sizeMode {
     if (sizeMode == BTRSizeModeSingleSizeShow || sizeMode == BTRSizeModeSingleSizeNoShow) {
@@ -195,22 +224,13 @@
         [nameCell.sizeLabel setText:@"One Size"];
         [nameCell.sizeLabel setTextColor:[UIColor blackColor]];
         [nameCell.dropdownLabelIcon setHidden:YES];
-//        if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)]) {
-//            [self.delegate variantCodeforAddtoBag:@"Z"];
-//        }
+        self.variant = @"Z";
     }
 }
-#pragma mark - Quantity Delegate
 
-- (void)quantityChangedWithValue:(NSString *)value {
-//    if ([self.delegate respondsToSelector:@selector(quantityForAddToBag:)]) {
-//        [self.delegate quantityForAddToBag:self.stepper.countLabel.text];
-//    }
-    NSLog(@"%@",value);
-}
+
 #pragma mark - Construct Description Views
-
-- (UIView *)getDescriptionViewForView:(UIView *)descriptionView withDescriptionString:(NSString *)longDescriptionString {
+- (UIView *)getDescriptionViewForView:(UIView *)descriptionView1 withDescriptionString:(NSString *)longDescriptionString {
     customHeight = 0;
     
     NSString *descriptionString = longDescriptionString;
@@ -225,8 +245,8 @@
         
         NSString *labelText = [NSString stringWithFormat:@" - %@.", [descriptionArray objectAtIndex:i]];
         UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
-        int labelHeight = [labelText heightForWidth:detailCell.detailView.bounds.size.width usingFont:descriptionFont];
-        CGRect labelFrame = CGRectMake(0, customHeight, detailCell.detailView.bounds.size.width , labelHeight);
+        int labelHeight = [labelText heightForWidth:self.view.frame.size.width - 40 usingFont:descriptionFont];
+        CGRect labelFrame = CGRectMake(0, customHeight, self.view.frame.size.width - 40 , labelHeight);
         
         customHeight = customHeight + (labelHeight + 5);
         
@@ -236,11 +256,11 @@
         [myLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
         [myLabel sizeToFit];
         [myLabel setTextAlignment:NSTextAlignmentLeft];
-        [descriptionView addSubview:myLabel];
+        [descriptionView1 addSubview:myLabel];
     }
     
     customHeight = customHeight + 15;
-    return descriptionView;
+    return descriptionView1;
 }
 - (UIView *)getAttribueViewForView:(UIView *)attributeView {
     for (int i = 0; i < [self.attributeKeys count]; i++) {
@@ -248,8 +268,8 @@
         NSString *attributeText = [NSString stringWithFormat:@"    %@ : %@", [self.attributeKeys objectAtIndex:i], [self.attributeValues objectAtIndex:i]];
         UIFont *attributeFont =  [UIFont fontWithName:@"HelveticaNeue" size:12];
         
-        int attributeHeight = [attributeText heightForWidth:detailCell.detailView.bounds.size.width usingFont:attributeFont];
-        CGRect attributeFrame = CGRectMake(0, customHeight, detailCell.detailView.bounds.size.width, attributeHeight);
+        int attributeHeight = [attributeText heightForWidth:self.view.frame.size.width - 40 usingFont:attributeFont];
+        CGRect attributeFrame = CGRectMake(0, customHeight, self.view.frame.size.width - 40, attributeHeight);
         
         customHeight = customHeight + (attributeHeight + 5);
         
@@ -260,7 +280,6 @@
         [attributeLabel sizeToFit];
         [attributeLabel setTextAlignment:NSTextAlignmentLeft];
         [attributeView addSubview:attributeLabel];
-        NSLog(@"%@",attributeLabel.text);
     }
     return attributeView;
 }
@@ -269,8 +288,8 @@
         customHeight += 8;
         
         NSString *noteLabelText = note;
-        int generalNoteLabelHeight = [noteLabelText heightForWidth:detailCell.detailView.bounds.size.width  usingFont:font];
-        CGRect specialNoteFrame = CGRectMake(0, customHeight, detailCell.detailView.bounds.size.width , generalNoteLabelHeight);
+        int generalNoteLabelHeight = [noteLabelText heightForWidth:self.view.frame.size.width - 40  usingFont:font];
+        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.view.frame.size.width - 40 , generalNoteLabelHeight);
         
         customHeight = customHeight + generalNoteLabelHeight + 10;
         UILabel *noteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
@@ -301,29 +320,39 @@
         }
     }];
 }
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self willAnimateRotationToInterfaceOrientation:self.interfaceOrientation duration:0.01];
-    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];
-}
 
 
-
+#pragma TableView Delegates
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _rowsArray.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdenti = [_rowsArray objectAtIndex:indexPath.row];
-
+    
     if ([cellIdenti isEqual:@"imageCell"]) {
         imageCell = (BTRProductDetailImageCell*)[tableView dequeueReusableCellWithIdentifier:cellIdenti];
         if (imageCell == nil) {
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductDetailImageCell" owner:self options:nil];
             imageCell = [nib objectAtIndex:0];
+            imageCell.contentView.backgroundColor = [UIColor grayColor];
+            if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+                CGFloat viewWidth = self.view.frame.size.width;
+                CGFloat collectHeight;
+                if ([BTRViewUtility isIPAD]) {
+                    collectHeight = 400;
+                } else {
+                    if (self.view.frame.size.height < 500) {
+                        collectHeight = 200;
+                    } else {
+                        collectHeight = 312;
+                    }
+                }
+                [imageCell.contentView addSubview:[self collectionView:CGRectMake(0, 0, viewWidth, collectHeight)]];
+            }
         }
         return imageCell;
-    } else if ([cellIdenti isEqual:@"nameCell"]) {
+    }
+    else if ([cellIdenti isEqual:@"nameCell"]) {
         nameCell = (BTRProductDetailNameCell*)[tableView dequeueReusableCellWithIdentifier:cellIdenti];
         if (!nameCell) {
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductDetailNameCell" owner:self options:nil];
@@ -332,15 +361,19 @@
             [nameCell.selectSizeButton addTarget:self action:@selector(selectSizeButtonAction) forControlEvents:UIControlEventTouchUpInside];
         }
         return nameCell;
-    } else if ([cellIdenti isEqual:@"detailCell"]) {
+    }
+    else if ([cellIdenti isEqual:@"detailCell"]) {
         detailCell = (BTRProductDetailCellDetail*)[tableView dequeueReusableCellWithIdentifier:cellIdenti];
         if (detailCell == nil) {
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductDetailCellDetail" owner:self options:nil];
             detailCell = [nib objectAtIndex:0];
-            [detailCell.detailView addSubview:[self descriptionView]];
+            if (![BTRViewUtility isIPAD]) {
+                [detailCell.detailView addSubview:descriptionView];
+            }
         }
         return detailCell;
-    } else if ([cellIdenti isEqual:@"shareCell"]) {
+    }
+    else if ([cellIdenti isEqual:@"shareCell"]) {
         shareCell = (BTRProductShareCell*)[tableView dequeueReusableCellWithIdentifier:cellIdenti];
         if (shareCell == nil) {
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductShareCell" owner:self options:nil];
@@ -350,7 +383,8 @@
             [shareCell.pinitAction addTarget:self action:@selector(shareOnPinterestTapped:) forControlEvents:UIControlEventTouchUpInside];
         }
         return shareCell;
-    } else {
+    }
+    else {
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         if (!cell) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
@@ -372,7 +406,10 @@
                     return 0;
                 }
             }else
-                return 312;
+                if (self.view.frame.size.height < 500) {
+                    return 200;
+                }else
+                    return 312;
             break;
         case 1:
             return 260;
@@ -399,14 +436,13 @@
     if ([[self getOriginalVCString] isEqualToString:EVENT_SCENE])
         [self performSegueWithIdentifier:@"unwindFromProductDetailToShowcase" sender:self];
 }
-
 - (IBAction)bagButtonTapped:(UIButton *)sender {
     UIStoryboard *storyboard = self.storyboard;
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-
+#pragma mark - RESTful Calls Add to bag methods
 - (IBAction)addToBagTapped:(UIButton *)sender {
     
     if ([[self variant] isEqualToString:SIZE_NOT_SELECTED_STRING]) {
@@ -429,20 +465,15 @@
         }];
     }
 }
-
-
-#pragma mark - RESTful Calls
-
 - (void)cartIncrementServerCallWithSuccess:(void (^)(id  responseObject)) success
                                    failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
     NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]];
     NSDictionary *params = (@{
-                              @"event_id": [[self getItem] eventId],
+                              @"event_id": _getEventID,
                               @"sku": [[self getItem] sku],
                               @"variant":[self variant],
                               });
-    NSLog(@"%@",params);
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (![[response valueForKey:@"success"]boolValue]) {
             if ([response valueForKey:@"error_message"]) {
@@ -505,25 +536,59 @@
         failure(error);
     }];
 }
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
+#pragma View Orientation Changes
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
+        view1.hidden = YES;
         // Portrait frames
         CGFloat viewWidth = screenBounds.size.width;
         CGFloat viewHeight = screenBounds.size.height;
-        [view1 setFrame:CGRectMake(0, 0, 0, 0)];
-        [view2 setFrame:CGRectMake(10, 75, viewWidth - 20, viewHeight - 150)];
-        [detailTV setFrame:CGRectMake(0, 0, viewWidth - 20, viewHeight - 150)];
+        [view1 setFrame:CGRectMake(0, 75, 0, 0)];
+        [view2 setFrame:CGRectMake(0, 75, viewWidth , viewHeight - 145)];
+        [detailTV setFrame:CGRectMake(0, 0, viewWidth, viewHeight - 145)];
+        
+        
+        CGFloat collectHeight;
+        if ([BTRViewUtility isIPAD]) {
+            collectHeight = 400;
+        } else {
+            if (self.view.frame.size.height < 500) {
+                collectHeight = 200;
+            } else {
+                collectHeight = 312;
+            }
+        }
+        
+        //When ever we change the Orientation we remove and readd the CollectionView
+        NSArray *viewsToRemove = [imageCell.contentView subviews];
+        for (UIView *v in viewsToRemove) {
+            [v removeFromSuperview];
+        }
+        [imageCell.contentView addSubview:[self collectionView:CGRectMake(0, 0, viewWidth, collectHeight)]];
+        
     } else {
         // Landscape frames
-        CGFloat viewWidth = screenBounds.size.width;
-        CGFloat viewHeight = screenBounds.size.height;
-        [view1 setFrame:CGRectMake(10, 75, viewWidth / 2 - 20, viewHeight - 150)];
-        [view2 setFrame:CGRectMake(viewWidth/2 + 10, 75, viewWidth / 2 - 20, viewHeight - 150)];
-        [detailTV setFrame:CGRectMake(0, 0, viewWidth / 2 - 20, viewHeight - 150)];
+        if ([BTRViewUtility isIPAD]) {
+            view1.hidden = NO;
+            CGFloat viewWidth = screenBounds.size.width;
+            CGFloat viewHeight = screenBounds.size.height;
+            [view1 setFrame:CGRectMake(0, 75, viewWidth / 2, viewHeight - 145)];
+            [view2 setFrame:CGRectMake(viewWidth/2, 75, viewWidth / 2, viewHeight - 145)];
+            [detailTV setFrame:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145)];
+            [self collectionView:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145)];
+            
+            //When ever we change the Orientation we remove and readd the CollectionView
+            NSArray *viewsToRemove = [view1 subviews];
+            for (UIView *v in viewsToRemove) {
+                [v removeFromSuperview];
+            }
+            [view1 addSubview:[self collectionView:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145)]];
+        }
     }
 }
+
+
 -(void)selectSizeChartAction {
     BTRSizeChartViewController* sizechart = [[BTRSizeChartViewController alloc]initWithNibName:@"BTRSizeChartViewController" bundle:nil];
     [sizechart setCategory:apparel];
@@ -537,16 +602,19 @@
     vc.delegate = self;
     [self presentViewController:vc animated:YES completion:nil];
 }
-#pragma mark - BTRSelectSizeVC Delegate
 
+
+
+#pragma mark - BTRSelectSizeVC Delegate
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     self.selectedSizeIndex = selectedIndex;
     nameCell.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
-//    if ([self.delegate respondsToSelector:@selector(variantCodeforAddtoBag:)])
-//        [self.delegate variantCodeforAddtoBag:[[self sizeCodesArray] objectAtIndex:[self selectedSizeIndex]]];
+    self.variant = [[self sizesArray] objectAtIndex:selectedIndex];
 }
-#pragma mark - Social Media Sharing
 
+
+
+#pragma mark - Social Media Sharing
 - (void)shareOnFacebookTapped:(UIButton *)sender {
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
@@ -566,7 +634,6 @@
         [alert show];
     }
 }
-
 - (void)twitter:(UIButton *)sender {
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
         SLComposeViewController *tweetSheet = [SLComposeViewController
@@ -587,7 +654,6 @@
         [alert show];
     }
 }
-
 - (void)shareOnPinterestTapped:(UIButton *)sender {
     [[PDKClient sharedInstance] authenticateWithPermissions:@[PDKClientReadPublicPermissions,
                                                               PDKClientWritePublicPermissions,
@@ -615,15 +681,70 @@
     //                          description:SOCIAL_MEDIA_INIT_STRING];
 }
 
-- (UIView *)descriptionView {
-    UIView * descriptionView = [[UIView alloc]init];
-    descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[self.getItem longItemDescription]];
-    descriptionView = [self getAttribueViewForView:descriptionView];
-    descriptionView = [self getNoteView:descriptionView withNote:[self.getItem generalNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
-    descriptionView = [self getNoteView:descriptionView withNote:[self.getItem specialNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor redColor]];
-    descriptionView = [self getNoteView:descriptionView withNote:@"Applicable sales tax will be added." withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
-    descriptionView = [self getNoteView:descriptionView withNote:[self.getItem shipTime] withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:13] andColor:[UIColor blackColor]];
-    return descriptionView;
+
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    if ([self productImageCount] == 0)
+        return 1;
+    return [self productImageCount];
+}
+
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *identifier = @"cellImage";
+    UINib *nib = [UINib nibWithNibName:@"BTRProductCollecCell" bundle: nil];
+    [_collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
+    BTRProductCollecCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellImage" forIndexPath:indexPath];
+    [cell.productImage setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
+                                                                   withCount:1+indexPath.row
+                                                                     andSize:@"large"]
+                      placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([BTRViewUtility isIPAD]) {
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            return CGSizeMake(screenBounds.size.width / 2 - 40,screenBounds.size.height - 165);
+        } else
+            return CGSizeMake(280 , 390);
+    } else {
+        if (self.view.frame.size.height < 500) {
+            return CGSizeMake(150, 190);
+        }else
+            return CGSizeMake(350, 300);
+    }
+}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    BTRZoomImageViewController *zoomVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ZoomImageVC"];
+    zoomVC.productSkuString = [self productSku];
+    if ([self productImageCount] == 0)
+        zoomVC.zoomImageCount = 1;
+    else
+        zoomVC.zoomImageCount = [self productImageCount];
+    zoomVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:zoomVC animated:YES completion:nil];
+}
+-(UICollectionView *)collectionView:(CGRect)frame {
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    _collectionView=[[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
+    [_collectionView setDataSource:self];
+    [_collectionView setDelegate:self];
+    [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    [_collectionView setBackgroundColor:[UIColor whiteColor]];
+    return _collectionView;
+}
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [_collectionView performBatchUpdates:nil completion:nil];
+}
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                               duration:(NSTimeInterval)duration{
+    [_collectionView.collectionViewLayout invalidateLayout];
 }
 
 @end

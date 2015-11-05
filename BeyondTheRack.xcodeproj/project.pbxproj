@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1408D1B21BEA1A5700125FE8 /* BTRProductDetailCellDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1408D1B01BEA1A5700125FE8 /* BTRProductDetailCellDetail.m */; };
-		1408D1B31BEA1A5700125FE8 /* BTRProductDetailCellDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1B11BEA1A5700125FE8 /* BTRProductDetailCellDetail.xib */; };
 		1408D1B71BEA1D0400125FE8 /* BTRProductDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1408D1B51BEA1D0400125FE8 /* BTRProductDetailImageCell.m */; };
 		1408D1B81BEA1D0400125FE8 /* BTRProductDetailImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1B61BEA1D0400125FE8 /* BTRProductDetailImageCell.xib */; };
 		1408D1BD1BEA2A2E00125FE8 /* BTRProductDetailNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1408D1BB1BEA2A2E00125FE8 /* BTRProductDetailNameCell.m */; };
@@ -16,6 +15,9 @@
 		1408D1C21BEA38B700125FE8 /* BTRProductShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1408D1C01BEA38B700125FE8 /* BTRProductShareCell.m */; };
 		1408D1C31BEA38B700125FE8 /* BTRProductShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1C11BEA38B700125FE8 /* BTRProductShareCell.xib */; };
 		1449C8921BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */; };
+		14A6EDE21BEB8C87007944FA /* BTRProductCollecCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */; };
+		14A6EDE31BEB8C87007944FA /* BTRProductCollecCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A6EDE11BEB8C87007944FA /* BTRProductCollecCell.xib */; };
+		14A6EDE51BEB8E1F007944FA /* BTRProductDetailCellDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A6EDE41BEB8E1F007944FA /* BTRProductDetailCellDetail.xib */; };
 		14F378A51BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */; };
 		5EF64B82268F5B93BD9E3D57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00303CA259B636FFAA0B08E0 /* libPods.a */; };
 		6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4C71AB7598000930D16 /* BTRLogo.png */; };
@@ -237,7 +239,6 @@
 		00303CA259B636FFAA0B08E0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1408D1AF1BEA1A5700125FE8 /* BTRProductDetailCellDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailCellDetail.h; sourceTree = "<group>"; };
 		1408D1B01BEA1A5700125FE8 /* BTRProductDetailCellDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailCellDetail.m; sourceTree = "<group>"; };
-		1408D1B11BEA1A5700125FE8 /* BTRProductDetailCellDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductDetailCellDetail.xib; sourceTree = "<group>"; };
 		1408D1B41BEA1D0400125FE8 /* BTRProductDetailImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailImageCell.h; sourceTree = "<group>"; };
 		1408D1B51BEA1D0400125FE8 /* BTRProductDetailImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailImageCell.m; sourceTree = "<group>"; };
 		1408D1B61BEA1D0400125FE8 /* BTRProductDetailImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductDetailImageCell.xib; sourceTree = "<group>"; };
@@ -249,6 +250,10 @@
 		1408D1C11BEA38B700125FE8 /* BTRProductShareCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductShareCell.xib; sourceTree = "<group>"; };
 		1449C8901BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailOrientationViewController.h; sourceTree = "<group>"; };
 		1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailOrientationViewController.m; sourceTree = "<group>"; };
+		14A6EDDF1BEB8C87007944FA /* BTRProductCollecCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductCollecCell.h; sourceTree = "<group>"; };
+		14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductCollecCell.m; sourceTree = "<group>"; };
+		14A6EDE11BEB8C87007944FA /* BTRProductCollecCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductCollecCell.xib; sourceTree = "<group>"; };
+		14A6EDE41BEB8E1F007944FA /* BTRProductDetailCellDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductDetailCellDetail.xib; sourceTree = "<group>"; };
 		14F378A31BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTRProductDetailEmbededVC.h; path = BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.h; sourceTree = "<group>"; };
 		14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTRProductDetailEmbededVC.m; path = BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m; sourceTree = "<group>"; };
 		6900B4C71AB7598000930D16 /* BTRLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BTRLogo.png; sourceTree = "<group>"; };
@@ -644,12 +649,15 @@
 		1408D1B91BEA1FB300125FE8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				14A6EDDF1BEB8C87007944FA /* BTRProductCollecCell.h */,
+				14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */,
+				14A6EDE11BEB8C87007944FA /* BTRProductCollecCell.xib */,
 				1408D1B41BEA1D0400125FE8 /* BTRProductDetailImageCell.h */,
 				1408D1B51BEA1D0400125FE8 /* BTRProductDetailImageCell.m */,
 				1408D1B61BEA1D0400125FE8 /* BTRProductDetailImageCell.xib */,
 				1408D1AF1BEA1A5700125FE8 /* BTRProductDetailCellDetail.h */,
 				1408D1B01BEA1A5700125FE8 /* BTRProductDetailCellDetail.m */,
-				1408D1B11BEA1A5700125FE8 /* BTRProductDetailCellDetail.xib */,
+				14A6EDE41BEB8E1F007944FA /* BTRProductDetailCellDetail.xib */,
 				1408D1BA1BEA2A2E00125FE8 /* BTRProductDetailNameCell.h */,
 				1408D1BB1BEA2A2E00125FE8 /* BTRProductDetailNameCell.m */,
 				1408D1BC1BEA2A2E00125FE8 /* BTRProductDetailNameCell.xib */,
@@ -1421,19 +1429,20 @@
 				A00393E61B7B8B4000A3F79F /* delivery.jpg in Resources */,
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
 				69F0BB251B457156008C0498 /* SF-UI-Display-Heavy.otf in Resources */,
+				14A6EDE31BEB8C87007944FA /* BTRProductCollecCell.xib in Resources */,
 				69F0BB2C1B457156008C0498 /* SF-UI-Text-Bold.otf in Resources */,
 				69F0BB341B457156008C0498 /* SF-UI-Text-MediumItalic.otf in Resources */,
 				69F0BB2D1B457156008C0498 /* SF-UI-Text-BoldItalic.otf in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
 				A00E4DE41B865B5700C93CD3 /* mp_lightbox_base.html in Resources */,
 				690A391C1B1DF57100D4BA84 /* myunchecked.png in Resources */,
+				14A6EDE51BEB8E1F007944FA /* BTRProductDetailCellDetail.xib in Resources */,
 				69F0BB311B457156008C0498 /* SF-UI-Text-Light.otf in Resources */,
 				690A390D1B1DEE0000D4BA84 /* checked@2x.png in Resources */,
 				A01670701B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib in Resources */,
 				69F0BB321B457156008C0498 /* SF-UI-Text-LightItalic.otf in Resources */,
 				690A390C1B1DEE0000D4BA84 /* checked.png in Resources */,
 				A0FD342A1BA76C2E00B6B2C3 /* neulogo.png in Resources */,
-				1408D1B31BEA1A5700125FE8 /* BTRProductDetailCellDetail.xib in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
 				69D4400B1B2A0D7900070FD8 /* masterpass@2x.png in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
@@ -1617,6 +1626,7 @@
 				A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */,
 				69E84ADA1B4AC22A00C25D75 /* BTRTrackOrdersItemCell.m in Sources */,
 				69D4404D1B331A5B00070FD8 /* EventCategory.m in Sources */,
+				14A6EDE21BEB8C87007944FA /* BTRProductCollecCell.m in Sources */,
 				A00E4DD91B86444700C93CD3 /* MasterPassInfo+Appserver.m in Sources */,
 				A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */,
 				69D4405C1B34508600070FD8 /* BTRCategoryData.m in Sources */,

@@ -22,7 +22,7 @@
 #import "BTRAnimationHandler.h"
 #import "UIImageView+AFNetworking.h"
 #import "BTRLoader.h"
-
+#import "BTRProductDetailEmbededVC.h"
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
 @interface BTRSearchViewController () <BTRRefineResultsViewController>
@@ -363,11 +363,13 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     Item *productItem = [self.itemsArray objectAtIndex:indexPath.row];
     [self setSelectedItem:productItem];
-    if ([BTRViewUtility isIPAD] == YES ) {
-        [self performSegueWithIdentifier:@"ProductDetailiPadSegueFromSearchIdentifier" sender:self];
-    } else {
-        [self performSegueWithIdentifier:@"ProductDetailSegueFromSearchIdentifier" sender:self];
-    }
+//    if ([BTRViewUtility isIPAD] == YES ) {
+//        [self performSegueWithIdentifier:@"ProductDetailiPadSegueFromSearchIdentifier" sender:self];
+//    } else {
+//        [self performSegueWithIdentifier:@"ProductDetailSegueFromSearchIdentifier" sender:self];
+//    }
+    //productEmbededSegueSearch
+     [self performSegueWithIdentifier:@"productEmbededSegueSearch" sender:self];
 }
 
 - (IBAction)tappedShoppingBag:(UIButton *)sender {
@@ -398,6 +400,11 @@
         BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
         productDetailVC.originVCString = SEARCH_SCENE;
         productDetailVC.productItem = [self selectedItem];
+    }
+    if ([[segue identifier] isEqualToString:@"productEmbededSegueSearch"]) {
+        BTRProductDetailEmbededVC * productEmbededVC = [segue destinationViewController];
+        productEmbededVC.getOriginalVCString = SEARCH_SCENE;
+        productEmbededVC.getItem = [self selectedItem];
     }
 }
 
