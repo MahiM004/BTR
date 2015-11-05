@@ -40,6 +40,7 @@
 #define PICKUP_HEIGHT 45.0
 #define FILL_SHIPPING_HEIGHT 50;
 #define GIFT_MAX_HEIGHT 175.0
+#define GIFT_CARD_HEIGHT 165
 
 #define DEFAULT_VIEW_HEIGHT_IPHONE 3300
 #define DEFAULT_VIEW_HEIGHT_IPAD 1800
@@ -277,6 +278,13 @@
     [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:[[self.order shippingAddress]province]]];
     [self.cityShippingTF setText:[[self.order shippingAddress]city]];
     [self.phoneShippingTF setText:[[self.order shippingAddress]phoneNumber]];
+    if ([self.order.shippingAddress.country isEqualToString:@"US"]) {
+        self.shippingProvinceLB.text = @"STATE";
+        self.shippingPostalCodeLB.text = @"ZIP CODE";
+    } else {
+        self.shippingProvinceLB.text = @"PROVINCE";
+        self.shippingPostalCodeLB.text = @"POSTAL CODE";
+    }
     
     // billing
     [self.addressLine1BillingTF setText:[[self.order billingAddress]addressLine1]];
@@ -286,6 +294,13 @@
     [self.provinceBillingTF setText:[BTRViewUtility provinceNameforCode:[[self.order billingAddress]province]]];
     [self.cityBillingTF setText:[[self.order billingAddress]city]];
     [self.phoneBillingTF setText:[[self.order billingAddress]phoneNumber]];
+    if ([self.order.billingAddress.country isEqualToString:@"US"]) {
+        self.billingProvinceLB.text = @"STATE";
+        self.billingPostalCodeLB.text = @"ZIP CODE";
+    } else {
+        self.billingProvinceLB.text = @"PROVINCE";
+        self.billingPostalCodeLB.text = @"POSTAL CODE";
+    }
     
     // checkboxes
     [self.vipOptionCheckbox setChecked:[[self.order vipPickup] boolValue]];
@@ -337,6 +352,7 @@
     if ([[self.order vipPickupEligible] boolValue]) {
         self.pleaseFillOutTheShippingFormView.hidden = YES;
         self.fillFormLabelViewHeight.constant = 0;
+        self.giftCardViewHeight.constant = 0;
         self.vipOptionView.hidden = NO;
         hasPickup = YES;
     } else if (![[self.order vipPickupEligible] boolValue]) {
@@ -444,7 +460,6 @@
         [self.cityShippingTF setText:self.order.pickupAddress.city];
         [self.recipientNameShippingTF setText:self.order.pickupTitle];
         [self.phoneShippingTF setText:self.order.pickupAddress.phoneNumber];
-        
         [self disableShippingAddress];
         
     } else if (![checkbox checked]) {
@@ -578,14 +593,12 @@
 }
 
 - (void)disableBillingAddress {
-    
     [self.addressLine1BillingTF setEnabled:FALSE];
     [self.addressLine2BillingTF setEnabled:FALSE];
     [self.countryBillingTF setEnabled:FALSE];
     [self.postalCodeBillingTF setEnabled:FALSE];
     [self.provinceBillingTF setEnabled:FALSE];
     [self.cityBillingTF setEnabled:FALSE];
-    [self.phoneBillingTF setEnabled:FALSE];
     
     [self.addressLine1BillingTF setAlpha:0.6f];
     [self.addressLine2BillingTF setAlpha:0.6f];
@@ -593,19 +606,15 @@
     [self.postalCodeBillingTF setAlpha:0.6f];
     [self.provinceBillingTF setAlpha:0.6f];
     [self.cityBillingTF setAlpha:0.6f];
-    [self.phoneBillingTF setAlpha:0.6f];
 }
 
 - (void)enableBillingAddress {
-//    [self.billingAddressView setUserInteractionEnabled:TRUE];
-    
     [self.addressLine1BillingTF setEnabled:TRUE];
     [self.addressLine2BillingTF setEnabled:TRUE];
     [self.countryBillingTF setEnabled:TRUE];
     [self.postalCodeBillingTF setEnabled:TRUE];
     [self.provinceBillingTF setEnabled:TRUE];
     [self.cityBillingTF setEnabled:TRUE];
-    [self.phoneBillingTF setEnabled:TRUE];
     
     [self.addressLine1BillingTF setAlpha:1.0f];
     [self.addressLine2BillingTF setAlpha:1.0f];
@@ -613,7 +622,6 @@
     [self.postalCodeBillingTF setAlpha:1.0f];
     [self.provinceBillingTF setAlpha:1.0f];
     [self.cityBillingTF setAlpha:1.0f];
-    [self.phoneBillingTF setAlpha:1.0f];
 }
 
 - (void)clearBillingAddress {
@@ -1341,6 +1349,9 @@
     }
     if (self.pleaseFillOutTheShippingFormView.hidden) {
         size = size - FILL_SHIPPING_HEIGHT;
+    }
+    if (self.giftCardViewHeight.constant == 0) {
+        size = size - GIFT_CARD_HEIGHT;
     }
     size = size + self.sampleGiftViewHeight.constant;
     self.viewHeight.constant = size;

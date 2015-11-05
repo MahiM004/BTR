@@ -2330,7 +2330,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="E023B9E5-98A8-43BD-8BF9-8CE9A30095E0" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="BAE6A37E-EF98-4639-AE6D-EB843FD05263" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -5312,7 +5312,7 @@
                                                             <constraint firstItem="uYq-Ky-4Bi" firstAttribute="centerY" secondItem="e1O-gH-Zh0" secondAttribute="centerY" constant="0.5" id="yCl-nV-9ag"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="And complete the process below:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHR-P7-6XP">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or by completing the process below:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHR-P7-6XP">
                                                         <rect key="frame" x="13" y="138" width="256" height="20"/>
                                                         <animations/>
                                                         <constraints>
@@ -5586,7 +5586,7 @@
                                                                     <outlet property="delegate" destination="0sZ-8O-Aj3" id="sIF-AV-CPn"/>
                                                                 </connections>
                                                             </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZIP CODE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlY-KI-lIg">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POSTAL CODE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlY-KI-lIg">
                                                                 <rect key="frame" x="8" y="326" width="285" height="29"/>
                                                                 <animations/>
                                                                 <constraints>
@@ -5610,7 +5610,7 @@
                                                                     <outlet property="delegate" destination="0sZ-8O-Aj3" id="eNu-xv-QhK"/>
                                                                 </connections>
                                                             </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROVINCE / STATE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lF-aS-DI4">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROVINCE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lF-aS-DI4">
                                                                 <rect key="frame" x="8" y="401" width="285" height="29"/>
                                                                 <animations/>
                                                                 <constraints>
@@ -5914,7 +5914,7 @@
                                                                     <outlet property="delegate" destination="0sZ-8O-Aj3" id="5qv-t1-2GL"/>
                                                                 </connections>
                                                             </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROVINCE / STATE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjQ-4o-IIg">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROVINCE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjQ-4o-IIg">
                                                                 <rect key="frame" x="8" y="431" width="285" height="29"/>
                                                                 <animations/>
                                                                 <constraints>
@@ -7230,6 +7230,8 @@
                         <outlet property="billingAddressHeight" destination="pWf-FO-Xxa" id="5EI-lZ-Hkw"/>
                         <outlet property="billingAddressView" destination="8nE-kf-cID" id="yKC-3t-cOj"/>
                         <outlet property="billingCountryButton" destination="LLX-jh-2qZ" id="afp-Tn-Wia"/>
+                        <outlet property="billingPostalCodeLB" destination="WXN-dy-tXw" id="aH4-Z8-1yw"/>
+                        <outlet property="billingProvinceLB" destination="hjQ-4o-IIg" id="gqR-A7-I3i"/>
                         <outlet property="billingStateButton" destination="7VD-1K-lrl" id="3lv-hk-3hb"/>
                         <outlet property="cardNumberPaymentTF" destination="LsO-pP-D0H" id="fA5-qY-0Xh"/>
                         <outlet property="cardPaymentTipHeight" destination="XSL-rH-XQi" id="mga-24-e66"/>
@@ -7252,6 +7254,7 @@
                         <outlet property="fillFormLabelViewHeight" destination="Fte-V3-TCs" id="nrr-BA-EbM"/>
                         <outlet property="giftCardCodePaymentTF" destination="Y6S-Ql-qDM" id="h5a-0k-5Wz"/>
                         <outlet property="giftCardInfoView" destination="whn-t0-a6y" id="n92-EG-UFY"/>
+                        <outlet property="giftCardViewHeight" destination="i1w-hc-4pN" id="9rQ-1v-kfp"/>
                         <outlet property="giftDollarLabel" destination="xV5-6U-fGD" id="I6C-sa-7DH"/>
                         <outlet property="giftLabel" destination="DmZ-B4-E60" id="vrd-fO-yIc"/>
                         <outlet property="giftMessageTF" destination="UYR-Wh-vEo" id="1Z3-Bf-sm8"/>
@@ -7300,6 +7303,8 @@
                         <outlet property="shippingCountryButton" destination="oLG-Fz-B0w" id="lDZ-2F-LkQ"/>
                         <outlet property="shippingDetailsView" destination="lM0-He-9qJ" id="jXJ-OL-M93"/>
                         <outlet property="shippingDollarLabel" destination="A9W-9f-Msk" id="gJf-1P-muT"/>
+                        <outlet property="shippingPostalCodeLB" destination="hlY-KI-lIg" id="Zy9-gZ-mGU"/>
+                        <outlet property="shippingProvinceLB" destination="1lF-aS-DI4" id="X4G-kn-uQT"/>
                         <outlet property="shippingStateButton" destination="GxN-HV-n7l" id="txl-3q-c3y"/>
                         <outlet property="shippingViewHeight" destination="Gy9-nD-r26" id="5E0-Cw-q8o"/>
                         <outlet property="subtotalDollarLabel" destination="GwV-2m-Dxp" id="zl9-6C-iUG"/>
@@ -12800,8 +12805,7 @@ UHJvZHVjdERldGFpbGkQUGFkRW1iZWRkZWRTZWd1ZUlkZW50aWZpZXI
         </scene>
     </scenes>
     <resources>
-        <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="E023B9E5-98A8-43BD-8BF9-8CE9A30095E0" width="30" height="30">
+        <image name="BAE6A37E-EF98-4639-AE6D-EB843FD05263" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -12859,6 +12863,7 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
+        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="account" width="128" height="128"/>
         <image name="backarrowcool.png" width="420" height="490"/>
@@ -12879,14 +12884,14 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="twittericonalpha.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Lkd-wM-onW"/>
+        <segue reference="Hl3-o6-ufa"/>
+        <segue reference="ue6-nF-fny"/>
+        <segue reference="HxW-sB-vXc"/>
         <segue reference="rQK-cN-5Fr"/>
+        <segue reference="Lkd-wM-onW"/>
         <segue reference="4Wu-Ag-JT4"/>
         <segue reference="YGd-XA-7oE"/>
         <segue reference="OYt-ZC-byn"/>
         <segue reference="cgg-l4-kOG"/>
-        <segue reference="ue6-nF-fny"/>
-        <segue reference="HxW-sB-vXc"/>
-        <segue reference="Hl3-o6-ufa"/>
     </inferredMetricsTieBreakers>
 </document>

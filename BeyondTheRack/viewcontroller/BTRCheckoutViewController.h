@@ -76,6 +76,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fillFormLabelViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *changePaymentMethodHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *shippingViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *giftCardViewHeight;
 
 /**
  
@@ -106,6 +107,9 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITextField *phoneShippingTF;
 @property (weak, nonatomic) IBOutlet UIButton *shippingCountryButton;
 @property (weak, nonatomic) IBOutlet UIButton *shippingStateButton;
+@property (weak, nonatomic) IBOutlet UILabel *shippingPostalCodeLB;
+@property (weak, nonatomic) IBOutlet UILabel *shippingProvinceLB;
+
 
 /**
  
@@ -126,6 +130,8 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UITextField *phoneBillingTF;
 @property (weak, nonatomic) IBOutlet UIButton *billingCountryButton;
 @property (weak, nonatomic) IBOutlet UIButton *billingStateButton;
+@property (weak, nonatomic) IBOutlet UILabel *billingProvinceLB;
+@property (weak, nonatomic) IBOutlet UILabel *billingPostalCodeLB;
 
 @property (weak, nonatomic) IBOutlet UIView *giftCardInfoView;
 @property (weak, nonatomic) IBOutlet CTCheckbox *orderIsGiftCheckbox;
