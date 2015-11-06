@@ -17,8 +17,6 @@
 
 #define COUNTRY_PICKER 1
 #define GENDER_PICKER 2
-#define IDIOM    UI_USER_INTERFACE_IDIOM()
-#define IPAD     UIUserInterfaceIdiomPad
 
 @interface BTRSignUpEmbeddedTVC ()
 {
@@ -68,7 +66,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     appDelegate = [[UIApplication sharedApplication]delegate];
-    self.fbButton.readPermissions = @[@"public_profile", @"email"];
+    // Add a custom login button to your app
+    UIButton *myLoginButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    myLoginButton.frame=CGRectMake(0, 0, 288, 50);
+    myLoginButton.backgroundColor = [UIColor clearColor];
+    myLoginButton.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:16];
+    [myLoginButton setTitle: @"Join with Facebook" forState: UIControlStateNormal];
+    [myLoginButton addTarget:self action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView * fImage = [[UIImageView alloc]initWithFrame:CGRectMake(15, 12.5, 25, 25)];
+    fImage.image = [UIImage imageNamed:@"facebook"];
+    [self.fbButton addSubview:fImage];
+    [self.fbButton addSubview:myLoginButton];
+    self.fbButton.backgroundColor = [UIColor colorWithRed:59.0f/255.0f green:89.0f/255.0f blue:152.0f/255.0f alpha:1.0f];
+    self.fbButton.layer.cornerRadius  = 3;
+    
     
     self.emailTextField = [BTRViewUtility underlineTextField:[self emailTextField]];
     self.emailIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
@@ -95,7 +106,63 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
 }
-
+// Once the button is clicked, show the login dialog
+-(void)loginButtonClicked
+{
+    
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login
+     logInWithReadPermissions: @[@"public_profile", @"email"]
+     fromViewController:self
+     handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+         if (error) {
+             NSLog(@"Process error");
+         } else if (result.isCancelled) {
+             NSLog(@"Cancelled");
+         } else {
+             [BTRLoader showLoaderInView:self.view];
+             if ([FBSDKAccessToken currentAccessToken]) {
+                 [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": @"id, gender, first_name, last_name, email"}]
+                  startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
+                      if (!error) {
+                          NSString *email = [responseObject valueForKeyPath:@"email"];
+                          NSString *firstName = [responseObject valueForKeyPath:@"first_name"];
+                          NSString *lastName = [responseObject valueForKeyPath:@"last_name"];
+                          NSString *gender=[responseObject valueForKeyPath:@"gender"];
+                          NSString *fbUserId = [responseObject valueForKeyPath:@"id"];
+                          NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
+                          NSString *inviteCode = nil;
+                          if ( [BTRViewUtility isIPAD] ) {
+                              inviteCode = @"IOSTABLETAPP2";
+                          } else {
+                              inviteCode = @"IOSMOBILEAPP2";
+                          }
+                          NSDictionary *fbParams = (@{
+                                                      @"id": fbUserId,
+                                                      @"access_token": fbAccessToken,
+                                                      @"email": email,
+                                                      @"first_name": firstName,
+                                                      @"last_name": lastName,
+                                                      @"gender": gender,
+                                                      @"invite": inviteCode
+                                                      });
+                          [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
+                              if ([didLogIn isEqualToString:@"TRUE"])
+                                  [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
+                              else
+                                  [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
+                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                              [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
+                          }];
+                      } else {
+                          NSLog(@"graph api error: %@", error);
+                          [BTRLoader hideLoaderFromView:self.view];
+                      }
+                  }];
+             }
+         }
+     }];
+}
 - (IBAction)genderButtonTapped:(UIButton *)sender {
     [self setPickerType:GENDER_PICKER];
     [self.pickerView reloadAllComponents];
@@ -151,7 +218,7 @@
 - (void)userRegistrationServerCallWithSuccess:(void (^)(id  responseObject, NSString *messageString)) success
                                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     if (_hasPromoTF.text.length == 0) {
-        if ( IDIOM == IPAD ) {
+        if ( [BTRViewUtility isIPAD] ) {
             _hasPromoTF.text = @"IOSTABLETAPP2";
         } else {
             _hasPromoTF.text = @"IOSMOBILEAPP2";
@@ -189,67 +256,6 @@
         [self showAlert:@"Please try agian" msg:@"Sign Up Failed !"];
         failure(nil, error);
     }];
-}
-
-//FaceBook SignUP
-#pragma mark - FBSDKLoginButtonDelegate
-
-- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
-    if (error) {
-        NSLog(@"Unexpected login error: %@", error);
-        NSString *alertMessage = error.userInfo[FBSDKErrorLocalizedDescriptionKey] ?: @"There was a problem logging in. Please try again later.";
-        NSString *alertTitle = error.userInfo[FBSDKErrorLocalizedTitleKey] ?: @"Oops";
-        [[[UIAlertView alloc] initWithTitle:alertTitle
-                                    message:alertMessage
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil] show];
-    } else {
-        [BTRLoader showLoaderInView:self.view];
-        if ([FBSDKAccessToken currentAccessToken]) {
-            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": @"id, gender, first_name, last_name, email"}]
-             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
-                 if (!error) {
-                     NSString *email = [responseObject valueForKeyPath:@"email"];
-                     NSString *firstName = [responseObject valueForKeyPath:@"first_name"];
-                     NSString *lastName = [responseObject valueForKeyPath:@"last_name"];
-                     NSString *gender=[responseObject valueForKeyPath:@"gender"];
-                     NSString *fbUserId = [responseObject valueForKeyPath:@"id"];
-                     NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
-                     NSString *inviteCode = nil;
-                     if ( IDIOM == IPAD ) {
-                         inviteCode = @"IOSTABLETAPP2";
-                     } else {
-                         inviteCode = @"IOSMOBILEAPP2";
-                     }
-                     NSDictionary *fbParams = (@{
-                                                 @"id": fbUserId,
-                                                 @"access_token": fbAccessToken,
-                                                 @"email": email,
-                                                 @"first_name": firstName,
-                                                 @"last_name": lastName,
-                                                 @"gender": gender,
-                                                 @"invite": inviteCode
-                                                 });
-                     [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
-                         if ([didLogIn isEqualToString:@"TRUE"])
-                             [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
-                        else
-                            [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
-                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                         [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
-                     }];
-                 } else {
-                     NSLog(@"graph api error: %@", error);
-                     [BTRLoader hideLoaderFromView:self.view];
-                 }
-             }];
-        }
-    }
-}
-
-- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
-    
 }
 
 - (void)fetchFacebookUserSessionforFacebookUserParams:(NSDictionary *)fbUserParams

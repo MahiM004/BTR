@@ -15,6 +15,7 @@
 		1408D1C21BEA38B700125FE8 /* BTRProductShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1408D1C01BEA38B700125FE8 /* BTRProductShareCell.m */; };
 		1408D1C31BEA38B700125FE8 /* BTRProductShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1C11BEA38B700125FE8 /* BTRProductShareCell.xib */; };
 		1449C8921BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */; };
+		145D3CC51BECA7DB00627DD5 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 145D3CC41BECA7DB00627DD5 /* facebook.png */; };
 		14A6EDE21BEB8C87007944FA /* BTRProductCollecCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */; };
 		14A6EDE31BEB8C87007944FA /* BTRProductCollecCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A6EDE11BEB8C87007944FA /* BTRProductCollecCell.xib */; };
 		14A6EDE51BEB8E1F007944FA /* BTRProductDetailCellDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A6EDE41BEB8E1F007944FA /* BTRProductDetailCellDetail.xib */; };
@@ -199,8 +200,8 @@
 		A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
-		A06D87FA1BEC0AAB005168ED /* BTRDropDownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D87F81BEC0AAB005168ED /* BTRDropDownMenuCell.m */; settings = {ASSET_TAGS = (); }; };
-		A06D87FB1BEC0AAB005168ED /* BTRDropDownMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A06D87F91BEC0AAB005168ED /* BTRDropDownMenuCell.xib */; settings = {ASSET_TAGS = (); }; };
+		A06D87FA1BEC0AAB005168ED /* BTRDropDownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D87F81BEC0AAB005168ED /* BTRDropDownMenuCell.m */; };
+		A06D87FB1BEC0AAB005168ED /* BTRDropDownMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A06D87F91BEC0AAB005168ED /* BTRDropDownMenuCell.xib */; };
 		A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */; };
 		A07EC4061BDA7D6300938B1A /* BTRMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
@@ -252,6 +253,7 @@
 		1408D1C11BEA38B700125FE8 /* BTRProductShareCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductShareCell.xib; sourceTree = "<group>"; };
 		1449C8901BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductDetailOrientationViewController.h; sourceTree = "<group>"; };
 		1449C8911BCCE05900EC1DA4 /* BTRProductDetailOrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductDetailOrientationViewController.m; sourceTree = "<group>"; };
+		145D3CC41BECA7DB00627DD5 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		14A6EDDF1BEB8C87007944FA /* BTRProductCollecCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductCollecCell.h; sourceTree = "<group>"; };
 		14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductCollecCell.m; sourceTree = "<group>"; };
 		14A6EDE11BEB8C87007944FA /* BTRProductCollecCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductCollecCell.xib; sourceTree = "<group>"; };
@@ -682,6 +684,18 @@
 			name = iPad;
 			sourceTree = "<group>";
 		};
+		145D3CC11BEC89D600627DD5 /* Classes We are not Using */ = {
+			isa = PBXGroup;
+			children = (
+				1449C8931BCCE06200EC1DA4 /* iPad */,
+				696508631AA4F26600ED28B8 /* BTRProductDetailViewController.h */,
+				696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */,
+				692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */,
+				692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */,
+			);
+			name = "Classes We are not Using";
+			sourceTree = "<group>";
+		};
 		6900B4CC1AB75AA800930D16 /* Login Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -691,6 +705,7 @@
 				6900B4EA1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m */,
 				B3C16AA21B137079009470EC /* BTRForgotPasswordVC.h */,
 				B3C16AA31B137079009470EC /* BTRForgotPasswordVC.m */,
+				145D3CC41BECA7DB00627DD5 /* facebook.png */,
 			);
 			name = "Login Scenes";
 			sourceTree = "<group>";
@@ -826,14 +841,10 @@
 			children = (
 				6965085D1AA4B47C00ED28B8 /* BTRProductShowcaseVC.h */,
 				6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */,
-				696508631AA4F26600ED28B8 /* BTRProductDetailViewController.h */,
-				696508641AA4F26600ED28B8 /* BTRProductDetailViewController.m */,
 				14F378A31BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.h */,
 				14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */,
 				1408D1B91BEA1FB300125FE8 /* Cells */,
-				1449C8931BCCE06200EC1DA4 /* iPad */,
-				692F24CE1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.h */,
-				692F24CF1AA8E077003AABE1 /* BTRProductDetailEmbeddedTVC.m */,
+				145D3CC11BEC89D600627DD5 /* Classes We are not Using */,
 				692F24E21AAF7BC5003AABE1 /* BTRZoomImageViewController.h */,
 				692F24E31AAF7BC5003AABE1 /* BTRZoomImageViewController.m */,
 				6901E9DF1AC9901D002534D9 /* BTRSelectSizeVC.h */,
@@ -1429,6 +1440,7 @@
 				69BC6D441A94DACB00376D9C /* filtericonYellow.png in Resources */,
 				6900B4DE1AB7747900930D16 /* FontAwesome+iOS.podspec in Resources */,
 				690A39241B1DF71500D4BA84 /* mycheck.png in Resources */,
+				145D3CC51BECA7DB00627DD5 /* facebook.png in Resources */,
 				69F0BB2F1B457156008C0498 /* SF-UI-Text-HeavyItalic.otf in Resources */,
 				690A39191B1DF56600D4BA84 /* mychecked@2x.png in Resources */,
 				69D4400A1B2A0D7900070FD8 /* masterpass.png in Resources */,
