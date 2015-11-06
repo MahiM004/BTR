@@ -25,6 +25,6 @@
 
 
 @interface BTRAccountEmbeddedTVC : UITableViewController
-@property (nonatomic, strong) User *user;;
+@property (nonatomic, strong) User *user;
 @property (strong, nonatomic) id <BTRAccountDelegate> delegate;
 @end

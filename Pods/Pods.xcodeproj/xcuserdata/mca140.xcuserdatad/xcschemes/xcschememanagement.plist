@@ -23,6 +23,11 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>CHDropDownTextField.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -93,7 +98,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>5</integer>
 		</dict>
 		<key>SSKeychain.xcscheme</key>
 		<dict>
@@ -105,17 +110,27 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>062A0F1DAEF14328DD2EDCA089F7C4B2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>0E091D887E5280D4D1693F492D8F34E4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>12A9CAAFA2DB8C8B5A4D0323B235A994</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>137A1ADA6E180CB76E9BA778D5A15D4D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -146,6 +161,11 @@
 			<true/>
 		</dict>
 		<key>2194D03F7810A754D068D55C4962A90F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>22BBAF561BEC68F2DB4F065B95725CAE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -281,6 +301,11 @@
 			<true/>
 		</dict>
 		<key>B57E5DA699274F25A97CD8AE1E68AB8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B9EC96FD303132591CB5E36B453C6300</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -45,6 +45,8 @@
 
 @property CGFloat maxSearchTableSize;
 
+@property (copy, nonatomic) NSDictionary *selectedVariantInventories; // an Array of variantInventory Dictionaries
+@property (copy, nonatomic) NSDictionary *selectedAttributes; // an Array of variantInventory Dictionaries
 @end
 
 @implementation BTRSearchViewController
@@ -363,6 +365,10 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     Item *productItem = [self.itemsArray objectAtIndex:indexPath.row];
     [self setSelectedItem:productItem];
+    [self setSelectedAttributes:productItem.attributeDictionary];
+    [self setSelectedVariantInventories:productItem.variantInventory];
+    NSLog(@"%@",productItem.eventId);
+
 //    if ([BTRViewUtility isIPAD] == YES ) {
 //        [self performSegueWithIdentifier:@"ProductDetailiPadSegueFromSearchIdentifier" sender:self];
 //    } else {
@@ -405,6 +411,8 @@
         BTRProductDetailEmbededVC * productEmbededVC = [segue destinationViewController];
         productEmbededVC.getOriginalVCString = SEARCH_SCENE;
         productEmbededVC.getItem = [self selectedItem];
+        productEmbededVC.getAttribDic = self.selectedAttributes;
+        productEmbededVC.getVariantInventoryDic = self.selectedVariantInventories;
     }
 }
 
