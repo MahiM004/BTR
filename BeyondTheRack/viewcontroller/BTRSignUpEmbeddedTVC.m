@@ -14,18 +14,14 @@
 #import "BTRLoader.h"
 #import "UITextField+BSErrorMessageView.h"
 #import "BTRLoadingButton.h"
+#import "TNRadioButtonGroup.h"
 
-#define COUNTRY_PICKER 1
-#define GENDER_PICKER 2
-
-@interface BTRSignUpEmbeddedTVC ()
-{
+@interface BTRSignUpEmbeddedTVC () {
     BTRAppDelegate * appDelegate;
 }
+
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
-@property (weak, nonatomic) IBOutlet UITextField *genderTextField;
-@property (weak, nonatomic) IBOutlet UITextField *countryTextField;
 @property (weak, nonatomic) IBOutlet UITextField *hasPromoTF;
 
 @property (weak, nonatomic) IBOutlet UILabel *emailIconLabel;
@@ -33,29 +29,19 @@
 @property (weak, nonatomic) IBOutlet UILabel *genderIconLabel;
 @property (weak, nonatomic) IBOutlet UILabel *countryIconLabel;
 @property (strong, nonatomic) NSString *chosenCountryCodeString;
-@property (strong, nonatomic) NSArray *genderNameArray;
-@property (strong, nonatomic) NSArray *countryNameArray;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-@property (weak, nonatomic) IBOutlet UIView *viewForPicker;
-@property (nonatomic) NSUInteger pickerType;
 @property (strong, nonatomic) NSString *sessionId;
+
+@property (weak, nonatomic) IBOutlet UIView *genderSelectionView;
+@property (strong, nonatomic) TNRadioButtonGroup* genderGroup;
+@property (weak, nonatomic) IBOutlet UIView *countrySelectionView;
+@property (strong, nonatomic) NSString* selectedCountry;
+@property (strong, nonatomic) TNRadioButtonGroup* countryGroup;
 
 @end
 
 
 @implementation BTRSignUpEmbeddedTVC
 
-
-- (NSArray *)genderNameArray {
-    _genderNameArray = @[@"Female", @"Male"];
-    return _genderNameArray;
-}
-
-- (NSArray *)countryNameArray {
-    
-    _countryNameArray = @[@"Canada", @"USA"];
-    return _countryNameArray;
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
@@ -89,17 +75,15 @@
     self.passwordIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.passwordIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-unlock-alt"];
     
-    self.genderTextField = [BTRViewUtility underlineTextField:[self genderTextField]];
     self.genderIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
-    self.genderIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-female"];
+    self.genderIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-male"];
+    [self makeGenderView];
     
-    self.countryTextField = [BTRViewUtility underlineTextField:[self countryTextField]];
     self.countryIconLabel.font = [UIFont fontWithName:kFontAwesomeFamilyName size:18];
     self.countryIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-globe"];
-     self.hasPromoTF = [BTRViewUtility underlineTextField:[self hasPromoTF]];
-    self.pickerView.delegate = self;
-    self.pickerView.showsSelectionIndicator = YES;
+    [self makeCountryView];
     
+     self.hasPromoTF = [BTRViewUtility underlineTextField:[self hasPromoTF]];
     [self.passwordTextField bs_setupErrorMessageViewWithMessage:@"Minimum 3 characters"];
     [self.emailTextField bs_setupErrorMessageViewWithMessage:@"Incorrect email format"];
     
@@ -163,19 +147,6 @@
          }
      }];
 }
-- (IBAction)genderButtonTapped:(UIButton *)sender {
-    [self setPickerType:GENDER_PICKER];
-    [self.pickerView reloadAllComponents];
-    [self dismissKeyboard];
-    [self.viewForPicker setHidden:FALSE];
-}
-
-- (IBAction)countryButtonTapped:(UIButton *)sender {
-    [self setPickerType:COUNTRY_PICKER];
-    [self.pickerView reloadAllComponents];
-    [self dismissKeyboard];
-    [self.viewForPicker setHidden:FALSE];
-}
 
 //Manual Join SignUP
 - (IBAction)joinButtonTapped:(BTRLoadingButton *)sender {
@@ -185,11 +156,7 @@
     } else if (_passwordTextField.text.length < 3){
         [self showAlert:@"Failed" msg:@"Password should be minimum 3 characters"];
         [self.passwordTextField bs_showError];
-    } else if ([[[self genderTextField] text] isEqualToString:@""]) {
-        [self showAlert:@"Failed" msg:@"Please Choose the Gender"];
-    } else if ([[[self countryTextField] text] isEqualToString:@""]) {
-        [self showAlert:@"Failed" msg:@"Please choose the Country"];
-    } else {
+    }else {
         if ([appDelegate connected] == 1) {
             [sender showLoading];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -228,8 +195,8 @@
     NSDictionary *params = (@{
                               @"email": [[self emailTextField] text],
                               @"password": [[self passwordTextField] text],
-                              @"gender": [[self genderTextField] text],
-                              @"country": [self chosenCountryCodeString],
+                              @"gender": self.genderGroup.selectedRadioButton.data.identifier,
+                              @"country": self.countryGroup.selectedRadioButton.data.identifier,
                               @"invite": [[self hasPromoTF]text]
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
@@ -333,40 +300,6 @@
     }];
 }
 
-#pragma mark - PickerView Delegates
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    if ([self pickerType] == COUNTRY_PICKER) {
-        [self.countryTextField setText:[[self countryNameArray] objectAtIndex:row]];
-        if ([self.countryTextField.text isEqualToString:@"Canada"])
-            self.chosenCountryCodeString = @"CA";
-        else if ([self.countryTextField.text isEqualToString:@"USA"])
-            self.chosenCountryCodeString = @"US";
-    }
-    if ([self pickerType] == GENDER_PICKER)
-        [self.genderTextField setText:[[self genderNameArray] objectAtIndex:row]];
-    [self.viewForPicker setHidden:TRUE];
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if ([self pickerType] == COUNTRY_PICKER)
-        return [[self countryNameArray] count];
-    return [[self genderNameArray] count];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if ([self pickerType] == COUNTRY_PICKER)
-        return [[self countryNameArray] objectAtIndex:row];
-    return [[self genderNameArray] objectAtIndex:row];
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    return 300.0;
-}
-
 - (void)dismissKeyboard {
     [self.emailTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
@@ -395,6 +328,68 @@
     [sender bs_hideError];
 }
 
+- (void)makeGenderView {
+    TNCircularRadioButtonData *maleData = [TNCircularRadioButtonData new];
+    maleData.labelText = @"Male";
+    maleData.identifier = @"Male";
+    maleData.selected = YES;
+    maleData.borderColor = [UIColor blackColor];
+    maleData.circleColor = [UIColor redColor];
+    maleData.borderRadius = 12;
+    maleData.circleRadius = 5;
+    
+    TNCircularRadioButtonData *femaleData = [TNCircularRadioButtonData new];
+    femaleData.labelText = @"Female";
+    femaleData.identifier = @"Female";
+    femaleData.selected = NO;
+    femaleData.borderColor = [UIColor blackColor];
+    femaleData.circleColor = [UIColor redColor];
+    femaleData.borderRadius = 12;
+    femaleData.circleRadius = 5;
+    
+    self.genderGroup = [[TNRadioButtonGroup alloc] initWithRadioButtonData:@[maleData,femaleData] layout:TNRadioButtonGroupLayoutHorizontal];
+    self.genderGroup.identifier = @"My group";
+    [self.genderGroup create];
+    self.genderGroup.position = CGPointMake(0, 18);
+    [self.genderSelectionView addSubview:self.genderGroup];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(genderChanged) name:SELECTED_RADIO_BUTTON_CHANGED object:self.genderGroup];
+}
 
+- (void)makeCountryView {
+    TNCircularRadioButtonData *usData = [TNCircularRadioButtonData new];
+    usData.labelText = @"USA";
+    usData.identifier = @"us";
+    usData.selected = NO;
+    usData.borderColor = [UIColor blackColor];
+    usData.circleColor = [UIColor redColor];
+    usData.borderRadius = 12;
+    usData.circleRadius = 5;
+    
+    TNCircularRadioButtonData *canadaData = [TNCircularRadioButtonData new];
+    canadaData.labelText = @"Canada";
+    canadaData.identifier = @"CA";
+    canadaData.selected = YES;
+    canadaData.borderColor = [UIColor blackColor];
+    canadaData.circleColor = [UIColor redColor];
+    canadaData.borderRadius = 12;
+    canadaData.circleRadius = 5;
+    
+    self.countryGroup = [[TNRadioButtonGroup alloc] initWithRadioButtonData:@[usData,canadaData] layout:TNRadioButtonGroupLayoutHorizontal];
+    self.countryGroup.identifier = @"My group";
+    [self.countryGroup create];
+    self.countryGroup.position = CGPointMake(0, 17);
+    [self.countrySelectionView addSubview:self.countryGroup];
+}
+
+- (void)genderChanged {
+    if ([self.genderGroup.selectedRadioButton.data.identifier isEqualToString:@"male"])
+        self.genderIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-male"];
+    else
+        self.genderIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-female"];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SELECTED_RADIO_BUTTON_CHANGED object:self.genderGroup];
+}
 
 @end
