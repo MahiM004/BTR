@@ -469,8 +469,9 @@
                                    failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
     NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]];
+    NSLog(@"%@ , %@ , %@",[[self getItem] eventId],[[self getItem]sku],[self variant]);
     NSDictionary *params = (@{
-                              @"event_id": _getEventID,
+                              @"event_id": [[self getItem]eventId],
                               @"sku": [[self getItem] sku],
                               @"variant":[self variant],
                               });
