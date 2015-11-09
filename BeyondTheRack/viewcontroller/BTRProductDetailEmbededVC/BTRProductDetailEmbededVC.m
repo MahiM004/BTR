@@ -706,21 +706,18 @@
     return cell;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
     if ([BTRViewUtility isIPAD]) {
-        CGRect screenBounds = [[UIScreen mainScreen] bounds];
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             return CGSizeMake(screenBounds.size.width / 2 - 40,screenBounds.size.height - 165);
         } else
             return CGSizeMake(280 , 390);
     } else {
-        if (self.view.frame.size.height < 500) {
-            return CGSizeMake(150, 190);
-        }else
-            return CGSizeMake(350, 300);
+        return CGSizeMake((collectionView.bounds.size.width * 2) / 3, collectionView.bounds.size.height);
     }
 }
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     BTRZoomImageViewController *zoomVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ZoomImageVC"];
     zoomVC.productSkuString = [self productSku];
@@ -731,6 +728,7 @@
     zoomVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
     [self presentViewController:zoomVC animated:YES completion:nil];
 }
+
 -(UICollectionView *)collectionView:(CGRect)frame {
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
     _collectionView=[[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
@@ -740,9 +738,11 @@
     [_collectionView setBackgroundColor:[UIColor whiteColor]];
     return _collectionView;
 }
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [_collectionView performBatchUpdates:nil completion:nil];
 }
+
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                duration:(NSTimeInterval)duration{
     [_collectionView.collectionViewLayout invalidateLayout];
