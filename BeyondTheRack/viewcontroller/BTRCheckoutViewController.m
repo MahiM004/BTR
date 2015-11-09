@@ -353,6 +353,7 @@
         self.pleaseFillOutTheShippingFormView.hidden = YES;
         self.fillFormLabelViewHeight.constant = 0;
         self.giftCardViewHeight.constant = 0;
+        self.haveGiftCardView.hidden = YES;
         self.vipOptionView.hidden = NO;
         hasPickup = YES;
     } else if (![[self.order vipPickupEligible] boolValue]) {
@@ -382,7 +383,7 @@
         [subView removeFromSuperview];
     
     self.sampleGiftViewHeight.constant = SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
-    self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant ;
+//    self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant ;
     
     int i = 0;
     CGFloat heightSize = 0;
