@@ -164,7 +164,7 @@
 
 -(void)fillWithItem:(Item*)item {
     [self extractAttributesFromAttributesDictionary:_getAttribDic];
-    [self updateViewWithDeatiledItem:_getItem];
+    [self updateViewWithDeatiledItem:item];
 }
 #pragma UpdateView Size and View
 - (void)updateViewWithDeatiledItem:(Item *)productItem {
@@ -239,8 +239,10 @@
     if ([descriptionString length] == 0 || [descriptionString isEqual:[NSNull null]]) {
         descriptionString = @"no descriptions available for this item.";
     }
+    NSArray *result = [descriptionString componentsSeparatedByString:@"|"];
+    NSLog(@"%@",result);
     [descriptionArray addObjectsFromArray:[descriptionString componentsSeparatedByString:@"|"]];
-    [descriptionArray removeLastObject];
+//    [descriptionArray removeLastObject];
     for (int i = 0; i < [descriptionArray count]; i++) {
         
         NSString *labelText = [NSString stringWithFormat:@" - %@.", [descriptionArray objectAtIndex:i]];
@@ -260,9 +262,25 @@
     }
     
     customHeight = customHeight + 15;
+    
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, customHeight, self.view.frame.size.width, 0.5)];
+    [lineView setBackgroundColor:[UIColor lightGrayColor]];
+    [descriptionView1 addSubview:lineView];
+    customHeight += 15;
+    
     return descriptionView1;
 }
 - (UIView *)getAttribueViewForView:(UIView *)attributeView {
+    
+    UILabel *additinalInformation = [[UILabel alloc] initWithFrame:CGRectMake(-8, customHeight, self.view.frame.size.width, 10)];
+    [additinalInformation setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [additinalInformation setText:@"Additional Information : "];
+    [additinalInformation setNumberOfLines:0];
+    [additinalInformation sizeToFit];
+    [additinalInformation setTextAlignment:NSTextAlignmentLeft];
+    [attributeView addSubview:additinalInformation];
+    customHeight +=30;
+    
     for (int i = 0; i < [self.attributeKeys count]; i++) {
         
         NSString *attributeText = [NSString stringWithFormat:@"    %@ : %@", [self.attributeKeys objectAtIndex:i], [self.attributeValues objectAtIndex:i]];
@@ -281,6 +299,13 @@
         [attributeLabel setTextAlignment:NSTextAlignmentLeft];
         [attributeView addSubview:attributeLabel];
     }
+    
+    customHeight += 10;
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, customHeight, self.view.frame.size.width, 0.5)];
+    [lineView setBackgroundColor:[UIColor lightGrayColor]];
+    [attributeView addSubview:lineView];
+    customHeight += 10;
+    
     return attributeView;
 }
 - (UIView *)getNoteView:(UIView *)noteView withNote:(NSString *)note withFont:(UIFont *)font andColor:(UIColor *)color {
