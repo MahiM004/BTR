@@ -494,12 +494,18 @@
                                    failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
     NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]];
-    NSLog(@"%@ , %@ , %@",[[self getItem] eventId],[[self getItem]sku],[self variant]);
-    NSDictionary *params = (@{
-                              @"event_id": [[self getItem]eventId],
-                              @"sku": [[self getItem] sku],
-                              @"variant":[self variant],
-                              });
+    NSDictionary *params;
+    if ([[self getItem]eventId]) {
+        params = (@{
+                    @"event_id": [[self getItem]eventId],
+                    @"sku": [[self getItem] sku],
+                    @"variant":[self variant],
+                    });
+    } else
+        params = (@{
+                    @"sku": [[self getItem] sku],
+                    @"variant":[self variant],
+                    });
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (![[response valueForKey:@"success"]boolValue]) {
             if ([response valueForKey:@"error_message"]) {
