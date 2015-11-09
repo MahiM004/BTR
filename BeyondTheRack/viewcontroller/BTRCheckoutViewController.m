@@ -314,6 +314,8 @@
     [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
     [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
     
+    if ([self.order.vipPickup boolValue])
+        [self disableShippingAddress];
     // prices
     if (self.totalSave == 0)
         for (Item* item  in self.order.items)
@@ -512,7 +514,6 @@
     [self.zipCodeShippingTF setEnabled:FALSE];
     [self.provinceShippingTF setEnabled:FALSE];
     [self.cityShippingTF setEnabled:FALSE];
-    [self.phoneShippingTF setEnabled:FALSE];
     
     [self.addressLine1ShippingTF setAlpha:0.6f];
     [self.addressLine2ShippingTF setAlpha:0.6f];
@@ -520,7 +521,6 @@
     [self.zipCodeShippingTF setAlpha:0.6f];
     [self.provinceShippingTF setAlpha:0.6f];
     [self.cityShippingTF setAlpha:0.6f];
-    [self.phoneShippingTF setAlpha:0.6f];
 }
 
 - (void)enableShippingAddress {
