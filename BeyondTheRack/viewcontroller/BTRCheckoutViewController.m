@@ -319,13 +319,13 @@
         for (Item* item  in self.order.items)
             self.totalSave = self.totalSave + (item.retailPrice.floatValue - item.salePrice.floatValue);
     
-    [self.bagTotalDollarLabel setText:[self.order bagTotalPrice]];
-    [self.subtotalDollarLabel setText:[self.order subTotalPrice]];
-    [self.shippingDollarLabel setText:[self.order shippingPrice]];
+    [self.bagTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order bagTotalPrice].floatValue]];
+    [self.subtotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order subTotalPrice].floatValue]];
+    [self.shippingDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order shippingPrice].floatValue]];
     
     // calculating taxes
-    [self.gstTaxDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order gstTax].floatValue]];
-    [self.qstTaxDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order qstTax].floatValue]];
+    [self.gstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order gstTax].floatValue]];
+    [self.qstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order qstTax].floatValue]];
     if (self.order.gstTax == nil) {
         [self.gstTaxLebl setHidden:YES];
         [self.gstTaxDollarLabel setHidden:YES];
@@ -343,8 +343,8 @@
         [self.qstTaxDollarLabel setHidden:NO];
     }
     
-    [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order.orderTotalPrice floatValue]]];
-    [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"%.2f",[self.order.saving floatValue]]];
+    [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.orderTotalPrice floatValue]]];
+    [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.saving floatValue]]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
     
     // pickup
