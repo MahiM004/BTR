@@ -35,12 +35,14 @@
 #define CARD_PAYMENT_HEIGHT 310.0
 #define PAYPAL_PAYMENT_HEIGHT 160.0
 #define CARD_PAYMENT_TIP_HEIGHT 65.0
-#define SAMPLE_GIFT_HEIGHT 110
-#define FASTPAYMENT_HEIGHT 110
+#define SAMPLE_GIFT_HEIGHT 120.0
+#define FASTPAYMENT_HEIGHT 110.0
 #define PICKUP_HEIGHT 45.0
-#define FILL_SHIPPING_HEIGHT 50;
+#define SAME_AS_SHIPPING_HEIGHT 45.0
+#define FILL_SHIPPING_HEIGHT 50.0
 #define GIFT_MAX_HEIGHT 175.0
-#define GIFT_CARD_HEIGHT 165
+#define GIFT_CARD_HEIGHT 165.0
+#define REMEBER_CARD_INFO_HEIGHT 75.0
 
 #define DEFAULT_VIEW_HEIGHT_IPHONE 3300
 #define DEFAULT_VIEW_HEIGHT_IPAD 1800
@@ -385,7 +387,6 @@
         [subView removeFromSuperview];
     
     self.sampleGiftViewHeight.constant = SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
-//    self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant ;
     
     int i = 0;
     CGFloat heightSize = 0;
@@ -436,18 +437,39 @@
 -(void)checkboxChangePaymentMethodDidChange:(CTCheckbox *)checkbox {
     if (self.isLoading)
         return;
+    UIAlertController * alert =  [UIAlertController
+                                  alertControllerWithTitle:@"Attention"
+                                  message:@"By changing payment method, your payment information will be cleared from the system"
+                                  preferredStyle:UIAlertControllerStyleAlert];
     
-    if ([checkbox checked]) {
-        [self enablePaymentInfo];
-        [self clearPaymentInfo];
-        [self setCurrentPaymentType:creditCard];
-        [self changeDetailPaymentFor:creditCard];
-        [self.paymentMethodTF setText:@"Visa Credit"];
-    } else {
-        [self fillPaymentInfoWithCurrentData];
-        [self.cardVerificationPaymentTF setText:@"xxx"];
-        [self disablePaymentInfo];
-    }
+    UIAlertAction* yesButton = [UIAlertAction
+                                actionWithTitle:@"Yes, Continue"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action) {
+                                    [self.order setLockCCFields:@"0"];
+                                    [self enablePaymentInfo];
+                                    [self clearPaymentInfo];
+                                    [self setCurrentPaymentType:creditCard];
+                                    [self changeDetailPaymentFor:creditCard];
+                                    [self.paymentMethodTF setText:@"Visa Credit"];
+                                    [alert dismissViewControllerAnimated:YES completion:nil];
+                                    
+                                }];
+    
+    UIAlertAction* noButton = [UIAlertAction
+                               actionWithTitle:@"No, Cancel"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   [self setIsLoading:YES];
+                                   [checkbox setChecked:NO];
+                                   [self setIsLoading:NO];
+                                   [alert dismissViewControllerAnimated:YES completion:nil];
+                                   
+                               }];
+    
+    [alert addAction:yesButton];
+    [alert addAction:noButton];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)checkboxVipOptionDidChange:(CTCheckbox *)checkbox {
@@ -503,6 +525,7 @@
 
 - (void)disableShippingAddress {
     [self.sameAsShippingAddressView setHidden:TRUE];
+    [self.sameAsShippingHeight setConstant:0];
     [self.sameAddressCheckbox setChecked:FALSE];
     
     [self.shippingCountryButton setEnabled:FALSE];
@@ -525,6 +548,7 @@
 
 - (void)enableShippingAddress {
     [self.sameAsShippingAddressView setHidden:FALSE];
+    [self.sameAsShippingHeight setConstant:SAME_AS_SHIPPING_HEIGHT];
     
     [self.shippingCountryButton setEnabled:TRUE];
     [self.shippingStateButton setEnabled:TRUE];
@@ -702,13 +726,13 @@
     return orderInfo;
 }
 
-
 - (void)fillPaymentInfoWithCurrentData {
     if ([self.order.paymentType isEqualToString:@"paypal"]) {
         [self.paymentMethodTF setText:@"Paypal"];
         [self setCurrentPaymentType:paypal];
-        if  (self.order.billingName.length > 0)
+        if  (self.order.billingName.length > 0) {
             self.paypalEmailTF.text = self.order.billingName;
+        }
     }
     else {
         if  (self.order.billingName.length > 0)
@@ -722,18 +746,6 @@
         if (self.order.cardType.length > 0 && self.order.cardType.length > 0 )
             [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
         [self setCurrentPaymentType:creditCard];
-    }
-    if ([self.order.lockCCFields boolValue] || (self.currentPaymentType == paypal && self.paypalEmailTF.text.length > 0)) {
-        [self.changePaymentMethodView setHidden:NO];
-        [self.sendmeToPaypalCheckbox setHidden:NO];
-        [self.sendmeToPaypalLabel setHidden:NO];
-        [self disablePaymentInfo];
-        if (self.currentPaymentType == creditCard)
-            [self.cardVerificationPaymentTF setText:@"xxx"];
-    }
-    else {
-        [self.changePaymentMethodView setHidden:YES];
-        [self.changePaymentMethodHeight setConstant:0];
     }
     [self changeDetailPaymentFor:self.currentPaymentType];
 }
@@ -758,26 +770,47 @@
         self.paymentDetailsView.hidden = NO;
         self.paypalDetailsView.hidden = YES;
         self.fastPaymentView.hidden = NO;
-    }else if (type == paypal) {
-        [self.paymentDetailsView setHidden:YES];
+        self.rememberCardInfoView.hidden = NO;
+        if ([self.order.lockCCFields boolValue]) {
+            self.rememberCardInfoView.hidden = YES;
+            self.changePaymentMethodView.hidden = NO;
+            self.cardVerificationPaymentTF.text = @"xxx";
+            [self disablePaymentInfo];
+        } else {
+            self.changePaymentMethodView.hidden = NO;
+        }
+        
+    } else if (type == paypal) {
         [self.paymentMethodImageView setImage:[UIImage imageNamed:@"paypal_yellow"]];
+        self.rememberCardInfoView.hidden = YES;
         self.fastPaymentHeight.constant = 0;
+        self.fastPaymentView.hidden = YES;
         [self hideBillingAddress];
         [self hideCardPaymentTip];
-        [self.fastPaymentView setHidden:YES];
-
         if (self.paypalEmailTF.text.length > 0) {
             self.paypalEmailTF.hidden = NO;
             self.paypalDetailsView.hidden = NO;
-            self.creditCardDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
+            self.sendmeToPaypalCheckbox.hidden = NO;
+            self.sendmeToPaypalLabel.hidden = NO;
+            self.changePaymentMethodView.hidden = NO;
+            self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT;;
             self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
+            [self disablePaymentInfo];
         }
         else {
-            self.paymentDetailsView.hidden = YES;
-            self.paypalDetailsView.hidden = NO;
+            self.paypalDetailHeight.constant = 0;
             self.creditCardDetailHeight.constant = 0;
+            self.changePaymentMethodView.hidden = YES;
+            self.paymentDetailsView.hidden = YES;
+            self.paypalDetailsView.hidden = YES;
         }
     }
+
+    if (self.rememberCardInfoView.hidden && self.changePaymentMethodView.hidden)
+        self.rememberCardInfoHeight.constant = 0;
+    else
+        self.rememberCardInfoHeight.constant = REMEBER_CARD_INFO_HEIGHT;
+    
     [self resetSize];
 }
 
@@ -795,7 +828,6 @@
     if (self.billingAddressHeight.constant == BILLING_ADDRESS_HEIGHT) {
         self.billingAddressView.hidden = YES;
         self.billingAddressHeight.constant  =  0;
-        self.viewHeight.constant = self.viewHeight.constant - BILLING_ADDRESS_HEIGHT;
         [self.view layoutIfNeeded];
     }
 }
@@ -803,7 +835,6 @@
 - (void)showBillingAddress {
     if (self.billingAddressHeight.constant == 0) {
         self.billingAddressView.hidden = NO;
-        self.viewHeight.constant = self.viewHeight.constant + BILLING_ADDRESS_HEIGHT;
         self.billingAddressHeight.constant  =  BILLING_ADDRESS_HEIGHT;
         [self.view layoutIfNeeded];
     }
@@ -1329,7 +1360,7 @@
     else
         size = DEFAULT_VIEW_HEIGHT_IPHONE;
     
-    if (self.currentPaymentType == paypal && self.paypalEmailTF.text > 0) {
+    if (self.currentPaymentType == paypal && self.paypalEmailTF.text.length > 0) {
         size = size - (CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT);
         size = size - BILLING_ADDRESS_HEIGHT;
         size = size - FASTPAYMENT_HEIGHT;
@@ -1342,18 +1373,22 @@
     else if (self.currentPaymentType == masterPass) {
         
     }
-    if (self.orderIsGiftCheckbox.checked) {
+    
+    if (self.orderIsGiftCheckbox.checked)
         size = size + GIFT_MAX_HEIGHT;
-    }
-    if (self.pickupViewHeight == 0) {
+    
+    if (self.pickupViewHeight == 0)
         size = size - PICKUP_HEIGHT;
-    }
-    if (self.pleaseFillOutTheShippingFormView.hidden) {
+    
+    if (self.pleaseFillOutTheShippingFormView.hidden)
         size = size - FILL_SHIPPING_HEIGHT;
-    }
-    if (self.giftCardViewHeight.constant == 0) {
+    
+    if (self.giftCardViewHeight.constant == 0)
         size = size - GIFT_CARD_HEIGHT;
-    }
+    
+    if (self.rememberCardInfoHeight.constant == 0)
+        size = size - REMEBER_CARD_INFO_HEIGHT;
+    
     size = size + self.sampleGiftViewHeight.constant;
     self.viewHeight.constant = size;
     [self.view layoutIfNeeded];

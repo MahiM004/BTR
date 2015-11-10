@@ -19,7 +19,7 @@ typedef enum {
 } paymentType;
 
 
-@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate,MasterPassInfoDelegate>
+@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate,MasterPassInfoDelegate,UIAlertViewDelegate>
 
 @property (strong, nonatomic) Order *order;
 @property (strong, nonatomic) NSDictionary *masterCallBackInfo;
@@ -74,9 +74,11 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sampleGiftViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickupViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fillFormLabelViewHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *changePaymentMethodHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *shippingViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *giftCardViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rememberCardInfoHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sameAsShippingHeight;
+
 
 /**
  
