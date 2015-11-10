@@ -20,6 +20,8 @@
 #import "BTRLoadingButton.h"
 #import "HTMLAttributedString.h"
 #import "ConfirmationInfo+AppServer.h"
+#import "Freeship+appServer.h"
+#import "BTRFreeshipFetcher.h"
 
 #define COUNTRY_PICKER          1
 #define PROVINCE_PICKER         2
@@ -52,6 +54,8 @@
 
 @interface BTRCheckoutViewController ()
 
+@property (strong, nonatomic) Freeship* freeshipInfo;
+
 @property BOOL isLoading;
 @property BOOL isVisible;
 @property float totalSave;
@@ -79,7 +83,6 @@
 @property (strong, nonatomic) ConfirmationInfo *confirmationInfo;
 
 @end
-
 
 @implementation BTRCheckoutViewController
 
@@ -215,6 +218,7 @@
     [super viewDidLoad];
     [self resetData];
     [self setCheckboxesTargets];
+    [self getImage];
     
     NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [gregorian components:NSCalendarUnitYear fromDate:[NSDate date]];
@@ -1301,6 +1305,19 @@
             NSLog(@"%@",error);
         }
      ];
+}
+
+#pragma mark checkout image
+- (void)getImage {
+    NSString* url = [NSString stringWithFormat:@"%@",[BTRFreeshipFetcher URLforFreeship]];
+    self.freeshipInfo = [[Freeship alloc]init];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        self.freeshipInfo = [Freeship extractFreeshipInfofromJSONDictionary:response forFreeship:self.freeshipInfo];
+        self.bannerImageView.hidden = NO;
+        [self.bannerImageView setImageWithURL:[BTRFreeshipFetcher URLforImage:self.freeshipInfo.checkoutImage withBaseURL:self.freeshipInfo.imagesDomain] placeholderImage:nil];
+    } faild:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark confirmation

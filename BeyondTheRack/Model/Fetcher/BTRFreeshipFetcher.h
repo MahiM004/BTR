@@ -11,5 +11,6 @@
 @interface BTRFreeshipFetcher : BTRFetcher
 
 + (NSURL *)URLforFreeship;
++ (NSURL *)URLforImage:(NSString *)imageURL withBaseURL:(NSString *)baseURL;
 
 @end

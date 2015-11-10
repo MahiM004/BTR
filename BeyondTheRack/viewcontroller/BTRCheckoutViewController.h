@@ -56,6 +56,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIControl *pleaseFillOutTheShippingFormView;
 @property (weak, nonatomic) IBOutlet UIControl *changePaymentMethodView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *bannerImageView;
 
 /**
  

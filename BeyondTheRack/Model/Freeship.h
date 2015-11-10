@@ -18,5 +18,6 @@
 @property (nonatomic, retain) NSString * bagbackgroundImage;
 @property (nonatomic, retain) NSNumber * endTimestamp;
 @property (nonatomic, retain) NSString * headerImage;
+@property (nonatomic, retain) NSString * imagesDomain;
 
 @end

@@ -24,6 +24,12 @@
     if ([dictionary valueForKeyPath:@"banner"] && [dictionary valueForKeyPath:@"banner"] != [NSNull null])
         freeship.banner = [dictionary valueForKey:@"banner"];
     
+    if ([dictionary valueForKeyPath:@"checkoutImage"] && [dictionary valueForKeyPath:@"checkoutImage"] != [NSNull null])
+        freeship.checkoutImage = [dictionary valueForKey:@"checkoutImage"];
+    
+    if ([dictionary valueForKeyPath:@"imagesDomain"] && [dictionary valueForKeyPath:@"imagesDomain"] != [NSNull null])
+        freeship.imagesDomain= [dictionary valueForKey:@"imagesDomain"];
+    
     return freeship;
 }
 
