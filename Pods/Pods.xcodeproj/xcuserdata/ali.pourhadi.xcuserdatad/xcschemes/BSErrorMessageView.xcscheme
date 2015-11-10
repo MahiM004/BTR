@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'E7B20E9927C09E6853639C9F'
+               BlueprintIdentifier = '6722233ED9971F55E1327C82'
                BlueprintName = 'BSErrorMessageView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libBSErrorMessageView.a'>
