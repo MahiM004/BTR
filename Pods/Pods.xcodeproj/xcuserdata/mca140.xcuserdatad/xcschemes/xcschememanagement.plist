@@ -50,6 +50,11 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>Flurry-iOS-SDK.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>HTMLAttributedString.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -175,6 +180,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2819C571B46A114B64B4035BEA86A370</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>286D25C1916BC90EB7ABE0BA4B3692A5</key>
 		<dict>
 			<key>primary</key>
@@ -275,6 +285,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>831F2E154F4323C60BEBEE4FA31079C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8E4BB2723503E9941499EA55BA6B1BDC</key>
 		<dict>
 			<key>primary</key>
@@ -296,6 +311,11 @@
 			<true/>
 		</dict>
 		<key>A5D5EDBB9336EE078552259FF034D3ED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AEAC09450C7648AF5735348DB2C55DAA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -326,6 +346,11 @@
 			<true/>
 		</dict>
 		<key>C78CAB9013653EB1A250B2DFD3BC7666</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D079C0B8D193CBDF60F39822F384E43F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

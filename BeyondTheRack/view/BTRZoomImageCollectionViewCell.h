@@ -13,5 +13,5 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *zoomImageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-
+@property (strong, nonatomic) UITapGestureRecognizer *tapGestureZoomImage;
 @end
