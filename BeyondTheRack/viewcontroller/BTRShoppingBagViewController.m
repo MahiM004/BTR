@@ -34,9 +34,11 @@
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
 @property (strong, nonatomic) NSDictionary *paypal;
-@property (strong, nonatomic) MasterPassInfo* masterpass;
-@property (strong, nonatomic) NSDictionary* masterPassCallBackInfo;
-@property (strong, nonatomic) NSDictionary* paypalCallBackInfo;
+@property (strong, nonatomic) MasterPassInfo *masterpass;
+@property (strong, nonatomic) NSDictionary *masterPassCallBackInfo;
+@property (strong, nonatomic) NSDictionary *paypalCallBackInfo;
+@property (strong, nonatomic) UILabel *emptyLabel;
+
 
 @end
 
@@ -55,24 +57,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    
-    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagTitle.text = [NSString stringWithFormat:@"Bag (%@)", [sharedShoppingBag totalBagCountString]];
-    
-    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-    [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [nf setCurrencySymbol:@"$"];
-    [BTRLoader showLoaderInView:self.view];
-    [self getCartServerCallWithSuccess:^(NSString *totalString) {
-        NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
-        self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
-        self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
-
-        [[self tableView] reloadData];
-        
-    } failure:^(NSError *error) {
-        
-    }];
+    [self loadBagInfo];
 }
 
 - (void)viewDidLoad {
@@ -130,6 +115,20 @@
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
     [nf setCurrencySymbol:@"$"];
     
+    
+    cell.stepper.tag = indexPath.row;
+    cell.stepper.value = bagItem.quantity.floatValue;
+    cell.stepper.countLabel.text = bagItem.quantity;
+    cell.stepper.incrementCallback =  ^(PKYStepper *stepper, float count) {
+        [self addOneQuantityForItem:bagItem];
+    };
+    cell.stepper.decrementCallback = ^(PKYStepper *stepper, float count) {
+        if ([stepper.countLabel.text isEqualToString:@"1"]) {
+            [self removeBagItem:bagItem];
+        } else {
+            [self removeOneQuantityForItem:bagItem];
+        }
+    };
     [cell setDidTapRereserveItemButtonBlock:^(id sender) {
         [self rereserveItemServerCallforSku:sku andVariant:variant andEventId:eventId success:^(NSString *responseString) {
             NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:responseString];
@@ -139,6 +138,11 @@
             
         }];
     }];
+    
+    [cell setDidTapRemoveItemButtonBlock:^(UIView *sender) {
+        [self removeBagItem:bagItem];
+    }];
+    
     return cell;
 }
 
@@ -154,7 +158,6 @@
     cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[bagItem pricing]];
     cell.itemLabel.text = [item shortItemDescription];
     cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [bagItem  variant]];
-    cell.qtyLabel.text = [bagItem quantity];
     cell.dueDateTime = [bagItem dueDateTime];
     
     NSInteger ti = ((NSInteger)[cell.dueDateTime timeIntervalSinceNow]);
@@ -172,7 +175,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 190;
+    return 220;
 }
 
 #pragma mark - Bag RESTful Calls
@@ -221,9 +224,39 @@
 - (void)getCartServerCallWithSuccess:(void (^)(id  responseObject)) success
                               failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
-    
     NSString* url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        success(response);
+        [BTRLoader hideLoaderFromView:self.view];
+
+    } faild:^(NSError *error) {
+        [BTRLoader hideLoaderFromView:self.view];
+        if (failure)
+            failure(error);
+    }];
+}
+
+- (void)getCheckoutInfoforSessionId:(NSString *)sessionId
+                              success:(void (^)(id  responseObject)) success
+                              failure:(void (^)(NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        success(response);
+    } faild:^(NSError *error) {
+        
+    }];
+}
+
+- (void)loadBagInfo {
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    self.bagTitle.text = [NSString stringWithFormat:@"Bag (%@)", [sharedShoppingBag totalBagCountString]];
+    
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+    [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [nf setCurrencySymbol:@"$"];
+    [BTRLoader showLoaderInView:self.view];
+    [self getCartServerCallWithSuccess:^(NSDictionary *response) {
+        
         NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
         NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
         NSDate *serverTime = [NSDate date];
@@ -248,22 +281,134 @@
         self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
         BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
         [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-        success(totalString);
-        [BTRLoader hideLoaderFromView:self.view];
-
-    } faild:^(NSError *error) {
-        [BTRLoader hideLoaderFromView:self.view];
-        if (failure)
-            failure(error);
+        
+        NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
+        self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
+        self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
+        
+        [[self tableView] reloadData];
+        
+    } failure:^(NSError *error) {
+        
     }];
 }
 
-- (void)getCheckoutInfoforSessionId:(NSString *)sessionId
-                              success:(void (^)(id  responseObject)) success
-                              failure:(void (^)(NSError *error)) failure {
-    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        success(response);
+- (void)addOneQuantityForItem:(BagItem *)bagItem {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]];
+    NSDictionary *params = (@{
+                              @"event_id": [bagItem eventId],
+                              @"sku": [bagItem sku],
+                              @"variant": [bagItem variant],
+                              });
+    [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        bagItem.quantity = [NSString stringWithFormat:@"%i",bagItem.quantity.intValue + 1];
+        [self.tableView reloadData];
+    }faild:^(NSError *error) {
+        
+    }];
+}
+
+- (void)removeOneQuantityForItem:(BagItem *)bagItem {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforRemovefromBag]];
+    NSDictionary *params = (@{
+                              @"event_id": [bagItem eventId],
+                              @"sku": [bagItem sku],
+                              @"variant": [bagItem variant],
+                              });
+    [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        bagItem.quantity = [NSString stringWithFormat:@"%i",bagItem.quantity.intValue - 1];
+        [self.tableView reloadData];
+    }faild:^(NSError *error) {
+        
+    }];
+}
+
+- (void)removeBagItem:(BagItem *)bagItem {
+    UIAlertController * alert =  [UIAlertController
+                                  alertControllerWithTitle:@"Remove item?"
+                                  message:[NSString stringWithFormat:@"Are you sure you want to remove item \"%@\" from your bag?",[self getItemforSku:bagItem.sku].shortItemDescription]
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* yesButton = [UIAlertAction
+                                actionWithTitle:@"Yes, remove it"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action) {
+                                    [bagItem setQuantity:@"0"];
+                                    [alert dismissViewControllerAnimated:YES completion:nil];
+                                    [self updateShoppingBag];
+                                }];
+    UIAlertAction* noButton = [UIAlertAction
+                               actionWithTitle:@"No, keep it"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   [alert dismissViewControllerAnimated:YES completion:nil];
+                                   
+                               }];
+    [alert addAction:yesButton];
+    [alert addAction:noButton];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
+- (void)updateShoppingBag {
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+    [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [nf setCurrencySymbol:@"$"];
+    
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
+    NSMutableArray *params =[[NSMutableArray alloc] init];
+    for (BagItem *bagItem in [self bagItemsArray]) {
+        time_t unixTime = (time_t) [[bagItem createDateTime] timeIntervalSince1970];
+        NSString *cart_time = [NSString stringWithFormat:@"%@", @(unixTime)];
+        
+        NSDictionary *bagItemDictionary = (@{
+                                             @"event_id": [bagItem eventId],
+                                             @"sku": [bagItem sku],
+                                             @"variant": [bagItem variant],
+                                             @"cart_time": cart_time,
+                                             @"quantity": [bagItem quantity]
+                                             });
+        
+        [params addObject:bagItemDictionary];
+    }
+    
+    [[self bagItemsArray] removeAllObjects];
+    [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        
+        NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
+        NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
+        NSDate *serverTime = [NSDate date];
+        
+        [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                             withServerDateTime:serverTime
+                               forBagItemsArray:[self bagItemsArray]
+                                      isExpired:@"false"];
+        
+        [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                             withServerDateTime:serverTime
+                               forBagItemsArray:[self bagItemsArray]
+                                      isExpired:@"true"];
+        
+        BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+        [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+        
+        [[self bagTitle] setText:[NSString stringWithFormat:@"(%lu)", (unsigned long)[self getCountofBagItems]]];
+        NSNumber *total = response[@"total"];
+        NSString *totalString = [NSString stringWithFormat:@"%@",total];
+        NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
+        self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
+        self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
+
+        
+        NSArray* responseResult = [[response valueForKey:@"response"]valueForKey:@"response"];
+        for (int i = 0 ; i < [responseResult count]; i++) {
+            if ([[responseResult objectAtIndex:i] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary * result = [responseResult objectAtIndex:i];
+                if (![[result valueForKey:@"success"]boolValue]) {
+                    [[[UIAlertView alloc]initWithTitle:@"Error" message:[result valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                }
+            }
+        }
+        
     } faild:^(NSError *error) {
         
     }];
@@ -400,7 +545,6 @@
     [self setPaypalCallBackInfo:info];
     [self gotoCheckoutPageWithPaymentInfo:info];
 }
-
 
 #pragma mark Closing
 

@@ -50,8 +50,7 @@
 
 + (BagItem *)extractBagItemfromJSONDictionary:(NSDictionary *)bagItemDictionary
                                withServerTime:(NSDate *)serverTime
-                                   forBagItem:(BagItem *)bagItem
-{
+                                   forBagItem:(BagItem *)bagItem {
     
     bagItem.serverDateTime = serverTime;
     

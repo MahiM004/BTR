@@ -11,34 +11,34 @@
 
 @interface BTRBagTableViewCell ()
 
-@property (copy, nonatomic) void (^didTapRereserveItemButtonBlock)(id sender);
+@property (copy, nonatomic) void (^didTapRereserveItemButtonBlock)(UIView *sender);
+@property (copy, nonatomic) void (^didTapRemoveItemButtonBlock)(UIView *sender);
 
 @end
 
-
 @implementation BTRBagTableViewCell
 
-
 - (void)awakeFromNib {
-    self.stepper = [[PKYStepper alloc] initWithFrame:CGRectMake(0, 0, 90, 20)];
-    self.stepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
-        stepper.countLabel.text = [NSString stringWithFormat:@"%@", @(count)];
-    };
+    self.stepper = [[PKYStepper alloc] initWithFrame:CGRectMake(10, 0, 120, self.stepperView.bounds.size.height)];
     [self.stepper setup];
     [self.stepperView addSubview:self.stepper];
     [self.rereserveItemButton addTarget:self action:@selector(didTapRereserveItemButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.removeButton addTarget:self action:@selector(didTapRemoveItemButtonBlock:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
 
-- (void)didTapRereserveItemButton:(id)sender {
+- (void)didTapRereserveItemButton:(UIView *)sender {
     if (self.didTapRereserveItemButtonBlock)
         self.didTapRereserveItemButtonBlock(sender);
 }
 
-
+- (void)didTapRemoveItemButtonBlock:(UIView *)sender {
+    if (self.didTapRemoveItemButtonBlock)
+        self.didTapRemoveItemButtonBlock(sender);
+}
 
 
 @end

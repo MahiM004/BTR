@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
 @property (weak, nonatomic) IBOutlet UIView *stepperView;
 @property (weak, nonatomic) IBOutlet UILabel *remainingTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *qtyLabel;
 @property (nonatomic, strong) NSDate *dueDateTime;
 @property (nonatomic, strong) PKYStepper *stepper;
 @property (weak, nonatomic) IBOutlet UIButton *rereserveItemButton;
@@ -34,7 +33,7 @@
  *
  */
 
-- (void)setDidTapRereserveItemButtonBlock:(void (^)(id sender))didTapRereserveItemButtonBlock;
-
+- (void)setDidTapRereserveItemButtonBlock:(void (^)(UIView *sender))didTapRereserveItemButtonBlock;
+- (void)setDidTapRemoveItemButtonBlock:(void (^)(UIView *sender))didTapRemoveItemButtonBlock;
 
 @end
