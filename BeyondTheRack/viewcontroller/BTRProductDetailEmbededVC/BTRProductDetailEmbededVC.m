@@ -239,8 +239,6 @@
     if ([descriptionString length] == 0 || [descriptionString isEqual:[NSNull null]]) {
         descriptionString = @"no descriptions available for this item.";
     }
-    NSArray *result = [descriptionString componentsSeparatedByString:@"|"];
-    NSLog(@"%@",result);
     [descriptionArray addObjectsFromArray:[descriptionString componentsSeparatedByString:@"|"]];
 //    [descriptionArray removeLastObject];
     for (int i = 0; i < [descriptionArray count]; i++) {
