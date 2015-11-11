@@ -198,6 +198,7 @@
 		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; };
 		A06214C61BC71215006443F7 /* ConfirmationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C51BC71215006443F7 /* ConfirmationInfo.m */; };
 		A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */; };
+		A0628DA51BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.m in Sources */ = {isa = PBXBuildFile; fileRef = A0628DA41BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.m */; settings = {ASSET_TAGS = (); }; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
 		A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */; };
@@ -576,6 +577,8 @@
 		A06214C51BC71215006443F7 /* ConfirmationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationInfo.m; sourceTree = "<group>"; };
 		A06214C71BC71245006443F7 /* ConfirmationInfo+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ConfirmationInfo+AppServer.h"; sourceTree = "<group>"; };
 		A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ConfirmationInfo+AppServer.m"; sourceTree = "<group>"; };
+		A0628DA31BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworkingFadeIn.h"; sourceTree = "<group>"; };
+		A0628DA41BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworkingFadeIn.m"; sourceTree = "<group>"; };
 		A06A40EE1B837103008DD60B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A06A40F01B8392C2008DD60B /* BTRSuggestionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSuggestionFetcher.h; sourceTree = "<group>"; };
 		A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSuggestionFetcher.m; sourceTree = "<group>"; };
@@ -1197,6 +1200,8 @@
 			children = (
 				69D5663D1A7A8F2300FAEDE2 /* UIImage+ImageEffects.h */,
 				69D5663E1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m */,
+				A0628DA31BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.h */,
+				A0628DA41BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.m */,
 			);
 			path = UIImageEffects;
 			sourceTree = "<group>";
@@ -1673,6 +1678,7 @@
 				69B02CA11A5DA23100040C86 /* TTScrollSlidingPagesController.m in Sources */,
 				A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */,
 				690A38F01B1DEB7F00D4BA84 /* TNImageRadioButtonData.m in Sources */,
+				A0628DA51BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.m in Sources */,
 				6901EA1D1ADD51D5002534D9 /* BTREditShoppingBagVC.m in Sources */,
 				A0E277FC1B9F32F4006E7D33 /* BTRSettingManager.m in Sources */,
 				6901E9F31ACC3BA3002534D9 /* Item.m in Sources */,

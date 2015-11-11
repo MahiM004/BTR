@@ -18,7 +18,7 @@
 #import "BTRBagFetcher.h"
 #import "BTRConnectionHelper.h"
 #import "BTRAnimationHandler.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+AFNetworkingFadeIn.h"
 #import "BTRLoader.h"
 #import "BTRMenuTableViewCell.h"
 #import "LMDropdownView.h"
@@ -439,8 +439,7 @@ typedef enum ScrollDirection {
             cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
         }
     }
-    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
-    
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]]  placeholderImage:[UIImage imageNamed:@"placeHolderImage"] fadeInWithDuration:0.5];
     [cell.productImageView setContentMode:UIViewContentModeScaleAspectFit];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
@@ -458,13 +457,7 @@ typedef enum ScrollDirection {
     [self setSelectedIndexPath:indexPath];
     [self setSelectedBrandString:[productItem brand]];
     [self setSelectedAttributes:productItem.attributeDictionary];
-    [self setSelectedVariantInventories:productItem.variantInventory];
-//    if ([BTRViewUtility isIPAD] == YES ) {
-//        [self performSegueWithIdentifier:@"ProductDetailiPadSegueIdentifier" sender:self];
-//    } else {
-//        [self performSegueWithIdentifier:@"ProductDetailSegueIdentifier" sender:self];
     [self performSegueWithIdentifier:@"productEmbededSegue" sender:self];
-//    }
 }
 
 - (IBAction)bagButtonTapped:(UIButton *)sender {
