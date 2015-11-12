@@ -93,6 +93,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BTRBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShoppingBagCellIdentifier" forIndexPath:indexPath];
+    __weak typeof(cell) weakcell = cell;
     if (cell == nil)
         cell = [[BTRBagTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ShoppingBagCellIdentifier"];
     
@@ -104,7 +105,6 @@
         [cell.itemImageView setContentMode:UIViewContentModeScaleAspectFit];
         Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
         bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];
-        
         cell = [self configureCell:cell forBagItem:bagItem andItem:item];
     }
     NSString *sku = [bagItem sku];
@@ -120,13 +120,23 @@
     cell.stepper.value = bagItem.quantity.floatValue;
     cell.stepper.countLabel.text = bagItem.quantity;
     cell.stepper.incrementCallback =  ^(PKYStepper *stepper, float count) {
-        [self addOneQuantityForItem:bagItem];
+        stepper.value = stepper.value - 1;
+        [UIImageView beginAnimations:@"reload" context:NULL];
+        [UIImageView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:weakcell.itemImageView cache:NO];
+        [UIImageView setAnimationDuration:0.5];
+        [UIImageView commitAnimations];
+        [self performSelector:@selector(addOneQuantityForItem:) withObject:bagItem afterDelay:0.5];
     };
     cell.stepper.decrementCallback = ^(PKYStepper *stepper, float count) {
-        if ([stepper.countLabel.text isEqualToString:@"1"]) {
+        stepper.value = stepper.value + 1;
+        if ([weakcell.stepper.countLabel.text isEqualToString:@"1"]) {
             [self removeBagItem:bagItem];
         } else {
-            [self removeOneQuantityForItem:bagItem];
+            [UIImageView beginAnimations:@"reload" context:NULL];
+            [UIImageView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:weakcell.itemImageView cache:NO];
+            [UIImageView setAnimationDuration:0.5];
+            [UIImageView commitAnimations];
+            [self performSelector:@selector(removeOneQuantityForItem:) withObject:bagItem afterDelay:0.5];
         }
     };
     [cell setDidTapRereserveItemButtonBlock:^(id sender) {
@@ -248,46 +258,9 @@
 }
 
 - (void)loadBagInfo {
-    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagTitle.text = [NSString stringWithFormat:@"Bag (%@)", [sharedShoppingBag totalBagCountString]];
-    
-    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-    [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [nf setCurrencySymbol:@"$"];
     [BTRLoader showLoaderInView:self.view];
     [self getCartServerCallWithSuccess:^(NSDictionary *response) {
-        
-        NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
-        NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
-        NSDate *serverTime = [NSDate date];
-        
-        if ([response valueForKeyPath:@"time"] && [response valueForKeyPath:@"time"] != [NSNull null])
-            serverTime = [NSDate dateWithTimeIntervalSince1970:[[response valueForKeyPath:@"time"] integerValue]];
-        
-        NSNumber *total = response[@"total"];
-        NSString *totalString = [NSString stringWithFormat:@"%@",total];
-        
-        [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
-                             withServerDateTime:serverTime
-                               forBagItemsArray:[self bagItemsArray]
-                                      isExpired:@"false"];
-        
-        [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
-                             withServerDateTime:serverTime
-                               forBagItemsArray:[self bagItemsArray]
-                                      isExpired:@"true"];
-        
-        NSArray *productJsonArray = response[@"products"];
-        self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
-        BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-        [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-        
-        NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
-        self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
-        self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
-        
-        [[self tableView] reloadData];
-        
+        [self reloadInfoWithResponse:response];
     } failure:^(NSError *error) {
         
     }];
@@ -301,8 +274,7 @@
                               @"variant": [bagItem variant],
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        bagItem.quantity = [NSString stringWithFormat:@"%i",bagItem.quantity.intValue + 1];
-        [self.tableView reloadData];
+        [self performSelector:@selector(reloadInfoWithResponse:) withObject:response afterDelay:0.5];
     }faild:^(NSError *error) {
         
     }];
@@ -316,8 +288,7 @@
                               @"variant": [bagItem variant],
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        bagItem.quantity = [NSString stringWithFormat:@"%i",bagItem.quantity.intValue - 1];
-        [self.tableView reloadData];
+        [self performSelector:@selector(reloadInfoWithResponse:) withObject:response afterDelay:0.5];
     }faild:^(NSError *error) {
         
     }];
@@ -373,42 +344,7 @@
     
     [[self bagItemsArray] removeAllObjects];
     [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        
-        NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
-        NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
-        NSDate *serverTime = [NSDate date];
-        
-        [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
-                             withServerDateTime:serverTime
-                               forBagItemsArray:[self bagItemsArray]
-                                      isExpired:@"false"];
-        
-        [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
-                             withServerDateTime:serverTime
-                               forBagItemsArray:[self bagItemsArray]
-                                      isExpired:@"true"];
-        
-        BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-        [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
-        
-        [[self bagTitle] setText:[NSString stringWithFormat:@"(%lu)", (unsigned long)[self getCountofBagItems]]];
-        NSNumber *total = response[@"total"];
-        NSString *totalString = [NSString stringWithFormat:@"%@",total];
-        NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
-        self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
-        self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
-
-        
-        NSArray* responseResult = [[response valueForKey:@"response"]valueForKey:@"response"];
-        for (int i = 0 ; i < [responseResult count]; i++) {
-            if ([[responseResult objectAtIndex:i] isKindOfClass:[NSDictionary class]]) {
-                NSDictionary * result = [responseResult objectAtIndex:i];
-                if (![[result valueForKey:@"success"]boolValue]) {
-                    [[[UIAlertView alloc]initWithTitle:@"Error" message:[result valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-                }
-            }
-        }
-        
+        [self reloadInfoWithResponse:response];
     } faild:^(NSError *error) {
         
     }];
@@ -534,6 +470,44 @@
     } faild:^(NSError *error) {
         
     }];
+}
+
+- (void)reloadInfoWithResponse:(NSDictionary *)response {
+    [[self bagItemsArray] removeAllObjects];
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+    [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [nf setCurrencySymbol:@"$"];
+    
+    NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
+    NSArray *bagJsonExpiredArray = response[@"bag"][@"expired"];
+    NSDate *serverTime = [NSDate date];
+    
+    if ([response valueForKeyPath:@"time"] && [response valueForKeyPath:@"time"] != [NSNull null])
+        serverTime = [NSDate dateWithTimeIntervalSince1970:[[response valueForKeyPath:@"time"] integerValue]];
+    
+    NSNumber *total = response[@"total"];
+    NSString *totalString = [NSString stringWithFormat:@"%@",total];
+    
+    [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
+                         withServerDateTime:serverTime
+                           forBagItemsArray:[self bagItemsArray]
+                                  isExpired:@"false"];
+    
+    [BagItem loadBagItemsfromAppServerArray:bagJsonExpiredArray
+                         withServerDateTime:serverTime
+                           forBagItemsArray:[self bagItemsArray]
+                                  isExpired:@"true"];
+    
+    NSArray *productJsonArray = response[@"products"];
+    self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
+    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+    [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
+    
+    NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
+    self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
+    self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
+    
+    [[self tableView] reloadData];
 }
 
 - (void)masterPassInfoDidReceived:(NSDictionary *)info {
