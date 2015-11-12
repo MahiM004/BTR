@@ -457,6 +457,7 @@ typedef enum ScrollDirection {
     [self setSelectedIndexPath:indexPath];
     [self setSelectedBrandString:[productItem brand]];
     [self setSelectedAttributes:productItem.attributeDictionary];
+    [self setSelectedVariantInventories:productItem.variantInventory];
     [self performSegueWithIdentifier:@"productEmbededSegue" sender:self];
 }
 
