@@ -289,6 +289,8 @@
         order.allTotalPrice = [NSString stringWithFormat:@"%.2f",[[totalPriceDictionary valueForKeyPath:@"all_total"]floatValue]];
     if ([totalPriceDictionary valueForKeyPath:@"ship_total"] && [totalPriceDictionary valueForKeyPath:@"ship_total"] != [NSNull null])
         order.shippingPrice = [NSString stringWithFormat:@"%.2f",[[totalPriceDictionary valueForKeyPath:@"ship_total"]floatValue]];
+    if ([totalPriceDictionary valueForKeyPath:@"currency"] && [totalPriceDictionary valueForKeyPath:@"currency"] != [NSNull null])
+        order.currency = [totalPriceDictionary valueForKeyPath:@"currency"];
     
     NSDictionary* payment = [orderDictionary valueForKey:@"payment"];
     if (payment) {

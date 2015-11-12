@@ -130,25 +130,25 @@
 
 - (NSDictionary *)shippingInfo {
     NSDictionary *info = (@{@"name": [[self recipientNameShippingTF] text],
-                                    @"address1": [[self addressLine1ShippingTF] text],
-                                    @"address2": [[self addressLine2ShippingTF] text],
-                                    @"country": [BTRViewUtility countryCodeforName:[[self countryShippingTF] text]],
-                                    @"postal": [[self zipCodeShippingTF] text],
-                                    @"state": [BTRViewUtility provinceCodeforName:[[self provinceShippingTF] text]],
-                                    @"city": [[self cityShippingTF] text],
-                                    @"phone": [[self phoneShippingTF] text] });
+                            @"address1": [[self addressLine1ShippingTF] text],
+                            @"address2": [[self addressLine2ShippingTF] text],
+                            @"country": [BTRViewUtility countryCodeforName:[[self countryShippingTF] text]],
+                            @"postal": [[self zipCodeShippingTF] text],
+                            @"state": [BTRViewUtility provinceCodeforName:[[self provinceShippingTF] text]],
+                            @"city": [[self cityShippingTF] text],
+                            @"phone": [[self phoneShippingTF] text] });
     return info;
 }
 
 - (NSDictionary *)billingInfo {
     NSDictionary *info = (@{ @"name": [[self nameOnCardPaymentTF] text],
-                                    @"address1": [[self addressLine1BillingTF] text],
-                                    @"address2": [[self addressLine2BillingTF] text],
-                                    @"country": [BTRViewUtility countryCodeforName:[[self countryBillingTF] text]],
-                                    @"postal": [[self postalCodeBillingTF] text],
-                                    @"state": [BTRViewUtility provinceCodeforName:[[self provinceBillingTF] text]],
-                                    @"city": [[self cityBillingTF] text],
-                                    @"phone": [[self phoneBillingTF] text] });
+                             @"address1": [[self addressLine1BillingTF] text],
+                             @"address2": [[self addressLine2BillingTF] text],
+                             @"country": [BTRViewUtility countryCodeforName:[[self countryBillingTF] text]],
+                             @"postal": [[self postalCodeBillingTF] text],
+                             @"state": [BTRViewUtility provinceCodeforName:[[self provinceBillingTF] text]],
+                             @"city": [[self cityBillingTF] text],
+                             @"phone": [[self phoneBillingTF] text] });
     return info;
 }
 
@@ -330,7 +330,7 @@
     [self.bagTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order bagTotalPrice].floatValue]];
     [self.subtotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order subTotalPrice].floatValue]];
     [self.shippingDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order shippingPrice].floatValue]];
-    
+
     // calculating taxes
     [self.gstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order gstTax].floatValue]];
     [self.qstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order qstTax].floatValue]];
@@ -353,6 +353,7 @@
     
     [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.orderTotalPrice floatValue]]];
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.saving floatValue]]];
+    [self.totalDueLabel setText:[NSString stringWithFormat:@"TOTAL DUE (%@)",self.order.currency.uppercaseString]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
     
     // pickup
@@ -766,7 +767,10 @@
 
 - (void)changeDetailPaymentFor:(paymentType)type {
     if (type == creditCard) {
-        [self.paymentMethodImageView setImage:[UIImage imageNamed:@"cardImages"]];
+        if ([self.order.billingAddress.country isEqualToString:@"US"])
+            [self.paymentMethodImageView setImage:[UIImage imageNamed:@"cardImages_us"]];
+        else
+            [self.paymentMethodImageView setImage:[UIImage imageNamed:@"cardImages"]];
         [self showBillingAddress];
         [self showCardPaymentTip];
         self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;

@@ -2308,7 +2308,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="0E9DF646-66CB-43BA-803F-4E368135BF38" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="009663A7-13E5-4F31-9A9E-D1330EAA94B9" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -6725,21 +6725,21 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mzu-6q-fRO" userLabel="Total Due View">
-                                                                <rect key="frame" x="46" y="318" width="250" height="56"/>
+                                                                <rect key="frame" x="16" y="318" width="280" height="56"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL DUE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPn-yf-Mjg">
-                                                                        <rect key="frame" x="30" y="13" width="100" height="30"/>
+                                                                        <rect key="frame" x="10" y="13" width="150" height="30"/>
                                                                         <animations/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="30" id="GQF-xF-fFm"/>
-                                                                            <constraint firstAttribute="width" constant="100" id="phC-fw-fEV"/>
+                                                                            <constraint firstAttribute="width" constant="150" id="phC-fw-fEV"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWR-f5-dPb" userLabel="Total Due Price Label">
-                                                                        <rect key="frame" x="130" y="13" width="120" height="30"/>
+                                                                        <rect key="frame" x="160" y="13" width="120" height="30"/>
                                                                         <animations/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="30" id="Ent-dL-2fR"/>
@@ -6758,7 +6758,7 @@
                                                                     <constraint firstAttribute="trailing" secondItem="XWR-f5-dPb" secondAttribute="trailing" id="Qft-Ue-AFr"/>
                                                                     <constraint firstAttribute="height" constant="56" id="YxS-N1-b0U"/>
                                                                     <constraint firstAttribute="centerY" secondItem="XWR-f5-dPb" secondAttribute="centerY" id="aud-es-20A"/>
-                                                                    <constraint firstAttribute="width" constant="250" id="qbL-6Y-3CM"/>
+                                                                    <constraint firstAttribute="width" constant="280" id="qbL-6Y-3CM"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BAG TOTAL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xT-sR-CdN">
@@ -7321,6 +7321,7 @@
                         <outlet property="subtotalDollarLabel" destination="GwV-2m-Dxp" id="zl9-6C-iUG"/>
                         <outlet property="thisIsGiftView" destination="caJ-L9-xIy" id="vRN-Sh-P1D"/>
                         <outlet property="totalDueDollarLabel" destination="XWR-f5-dPb" id="5eQ-2M-wVy"/>
+                        <outlet property="totalDueLabel" destination="HPn-yf-Mjg" id="7wu-2N-751"/>
                         <outlet property="viewHeight" destination="3qM-RN-o4Z" id="c6o-hn-grg"/>
                         <outlet property="vipOptionCheckbox" destination="9Cb-mb-Lcm" id="QkX-Ap-Iba"/>
                         <outlet property="vipOptionView" destination="S7k-4C-rbH" id="nRh-jO-pco"/>
@@ -12815,7 +12816,7 @@ UHJvZHVjdERldGFpbGkQUGFkRW1iZWRkZWRTZWd1ZUlkZW50aWZpZXI
         </scene>
     </scenes>
     <resources>
-        <image name="0E9DF646-66CB-43BA-803F-4E368135BF38" width="30" height="30">
+        <image name="009663A7-13E5-4F31-9A9E-D1330EAA94B9" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv

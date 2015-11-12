@@ -183,6 +183,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UILabel *giftLabel;
 @property (weak, nonatomic) IBOutlet UILabel *giftDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalDueDollarLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalDueLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *sampleGiftView;
 

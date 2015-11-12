@@ -58,6 +58,7 @@
 @property (nonatomic, retain) NSString * bagTotalPrice;
 @property (nonatomic, retain) NSString * subTotalPrice;
 @property (nonatomic, retain) NSString * allTotalPrice;
+@property (nonatomic, retain) NSString * currency;
 @property (nonatomic, retain) NSString * saving;
 @property (nonatomic, retain) NSString * orderTotalPrice;
 @property (nonatomic, retain) NSString * shippingPrice;
