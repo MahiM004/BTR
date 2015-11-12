@@ -38,7 +38,7 @@
 @property (strong, nonatomic) NSDictionary *masterPassCallBackInfo;
 @property (strong, nonatomic) NSDictionary *paypalCallBackInfo;
 @property (strong, nonatomic) UILabel *emptyLabel;
-
+@property (strong, nonatomic) BagItem *removeItem;
 
 @end
 
@@ -274,7 +274,8 @@
                               @"variant": [bagItem variant],
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        [self performSelector:@selector(reloadInfoWithResponse:) withObject:response afterDelay:0.5];
+        [self reloadInfoWithResponse:response];
+//        [self performSelector:@selector(reloadInfoWithResponse:) withObject:response afterDelay:0.5];
     }faild:^(NSError *error) {
         
     }];
@@ -295,29 +296,15 @@
 }
 
 - (void)removeBagItem:(BagItem *)bagItem {
-    UIAlertController * alert =  [UIAlertController
-                                  alertControllerWithTitle:@"Remove item?"
-                                  message:[NSString stringWithFormat:@"Are you sure you want to remove item \"%@\" from your bag?",[self getItemforSku:bagItem.sku].shortItemDescription]
-                                  preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* yesButton = [UIAlertAction
-                                actionWithTitle:@"Yes, remove it"
-                                style:UIAlertActionStyleDefault
-                                handler:^(UIAlertAction * action) {
-                                    [bagItem setQuantity:@"0"];
-                                    [alert dismissViewControllerAnimated:YES completion:nil];
-                                    [self updateShoppingBag];
-                                }];
-    UIAlertAction* noButton = [UIAlertAction
-                               actionWithTitle:@"No, keep it"
-                               style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction * action) {
-                                   [alert dismissViewControllerAnimated:YES completion:nil];
-                                   
-                               }];
-    [alert addAction:yesButton];
-    [alert addAction:noButton];
-    [self presentViewController:alert animated:YES completion:nil];
-    
+    [self setRemoveItem:bagItem];
+    [[[UIAlertView alloc] initWithTitle:@"Remove item?" message:[NSString stringWithFormat:@"Are you sure you want to remove item \"%@\" from your bag?",[self getItemforSku:bagItem.sku].shortItemDescription] delegate:self cancelButtonTitle:@"No, keep it" otherButtonTitles:@"Yes, remove it", nil]show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [self.removeItem setQuantity:@"0"];
+        [self updateShoppingBag];
+    }
 }
 
 - (void)updateShoppingBag {
@@ -473,6 +460,12 @@
 }
 
 - (void)reloadInfoWithResponse:(NSDictionary *)response {
+    NSString *errorMessage = [response valueForKey:@"error_message"];
+    if (errorMessage.length > 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        return;
+    }
+    [self.emptyLabel removeFromSuperview];
     [[self bagItemsArray] removeAllObjects];
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -506,8 +499,23 @@
     NSDecimalNumber* number = [NSDecimalNumber decimalNumberWithString:totalString];
     self.subtotalLabel.text = [NSString stringWithFormat:@"Subtotal: %@", [nf stringFromNumber:number]];
     self.bagTitle.text = [NSString stringWithFormat:@"Bag (%lu)", (unsigned long)[self getCountofBagItems]];
-    
     [[self tableView] reloadData];
+    
+    if ([self.bagItemsArray count] == 0) {
+        
+        self.emptyLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.tableView.frame.origin.x + 16, self.tableView.frame.origin.y + 16, self.tableView.frame.size.width - 32, 300)];
+        self.emptyLabel.numberOfLines = 0;
+        self.emptyLabel.textColor = [UIColor blackColor];
+        self.emptyLabel.backgroundColor = [UIColor clearColor];
+        self.emptyLabel.textAlignment = NSTextAlignmentJustified;
+        self.emptyLabel.text = [response valueForKey:@"message"];
+        self.emptyLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+        
+        [self.emptyLabel sizeToFit];
+        [self.view addSubview:self.emptyLabel];
+        [self.view bringSubviewToFront:self.emptyLabel];
+    }
+    
 }
 
 - (void)masterPassInfoDidReceived:(NSDictionary *)info {

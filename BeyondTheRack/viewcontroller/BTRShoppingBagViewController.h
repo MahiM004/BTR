@@ -10,7 +10,7 @@
 #import "BTRMasterPassViewController.h"
 #import "BTRPaypalCheckoutViewController.h"
 
-@interface BTRShoppingBagViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,MasterPassInfoDelegate,PayPalInfoDelegate>
+@interface BTRShoppingBagViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,MasterPassInfoDelegate,PayPalInfoDelegate,UIAlertViewDelegate>
 
 
 @end
