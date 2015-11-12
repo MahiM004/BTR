@@ -22,6 +22,7 @@
 #import "BTRLoader.h"
 #import "BTRMenuTableViewCell.h"
 #import "LMDropdownView.h"
+#import "MarqueeLabel.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -56,7 +57,7 @@ typedef enum ScrollDirection {
 @property (strong, nonatomic) NSString *selectedBrandString; // used to segue to PDP
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
+@property (weak, nonatomic) IBOutlet MarqueeLabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 @property (weak, nonatomic) IBOutlet UILabel *filterByLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sortByLabel;
