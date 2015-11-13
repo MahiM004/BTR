@@ -9,7 +9,6 @@
 #import "BTRSearchViewController.h"
 #import "BTRProductShowcaseCollectionCell.h"
 #import "BTRRefineResultsViewController.h"
-#import "BTRProductDetailViewController.h"
 #import "Item+AppServer.h"
 #import "BTRItemFetcher.h"
 #import "BTRFacetsHandler.h"
@@ -401,13 +400,7 @@
         BTRRefineResultsViewController *refineVC = [segue destinationViewController];
         refineVC.backgroundImage = screenShotImage;
         refineVC.delegate = self;
-    }
-    if ([[segue identifier] isEqualToString:@"ProductDetailSegueFromSearchIdentifier"] || [[segue identifier]isEqualToString:@"ProductDetailiPadSegueFromSearchIdentifier"]) {
-        BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
-        productDetailVC.originVCString = SEARCH_SCENE;
-        productDetailVC.productItem = [self selectedItem];
-    }
-    if ([[segue identifier] isEqualToString:@"productEmbededSegueSearch"]) {
+    }else if ([[segue identifier] isEqualToString:@"productEmbededSegueSearch"]) {
         BTRProductDetailEmbededVC * productEmbededVC = [segue destinationViewController];
         productEmbededVC.getOriginalVCString = SEARCH_SCENE;
         productEmbededVC.getItem = [self selectedItem];
