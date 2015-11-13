@@ -28,8 +28,7 @@
 #import <Social/Social.h>
 #import "PinterestSDK.h"
 #import "BTRZoomImageViewController.h"
-
-
+#import "UIImageView+AFNetworkingFadeIn.h"
 
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
@@ -730,8 +729,7 @@
     BTRProductCollecCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellImage" forIndexPath:indexPath];
     [cell.productImage setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
                                                                    withCount:1+indexPath.row
-                                                                     andSize:@"large"]
-                      placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+                                                                     andSize:@"large"] placeholderImage:[UIImage imageNamed:@"placeHolderImage"] fadeInWithDuration:0.5];
     return cell;
 }
 
