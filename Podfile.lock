@@ -26,6 +26,21 @@ PODS:
   - Bolts/AppLinks (1.4.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.4.0)
+  - Braintree (4.0.0):
+    - Braintree/Card (= 4.0.0)
+    - Braintree/Core (= 4.0.0)
+    - Braintree/PayPal (= 4.0.0)
+    - Braintree/UI (= 4.0.0)
+  - Braintree/Apple-Pay (4.0.0):
+    - Braintree/Core
+  - Braintree/Card (4.0.0):
+    - Braintree/Core
+  - Braintree/Core (4.0.0)
+  - Braintree/PayPal (4.0.0):
+    - Braintree/Core
+  - Braintree/UI (4.0.0):
+    - Braintree/Card
+    - Braintree/Core
   - BSErrorMessageView (1.1)
   - FBSDKCoreKit (4.7.0):
     - Bolts (~> 1.1)
@@ -55,6 +70,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
+  - Braintree
+  - Braintree/Apple-Pay
   - BSErrorMessageView (from `https://github.com/BenjaminSarkisyan/BSErrorMessageView.git`)
   - FBSDKCoreKit (~> 4.7)
   - FBSDKLoginKit (~> 4.7)
@@ -86,6 +103,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
+  Braintree: 660cca560c01a7464626ee1e18c971d6491a3889
   BSErrorMessageView: 67cc7d172995fbc6df602c2b8923f48121ddf7a9
   FBSDKCoreKit: eb580bfc2040ad44f4c0b4f4d0befb1d35bce59c
   FBSDKLoginKit: 028c5a205990441123764609fe795e65027c447f
