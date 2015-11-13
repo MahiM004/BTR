@@ -9,7 +9,6 @@
 #import "BTRProductShowcaseVC.h"
 #import "BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.h"
 #import "BTRProductShowcaseCollectionCell.h"
-#import "BTRProductDetailViewController.h"
 #import "BTRSearchViewController.h"
 #import "BTRShoppingBagViewController.h"
 #import "Item+AppServer.h"
@@ -471,19 +470,7 @@ typedef enum ScrollDirection {
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"ProductDetailSegueIdentifier"])// || [[segue identifier]isEqualToString:@"ProductDetailiPadSegueIdentifier"])
-    {
-        BTRProductDetailViewController *productDetailVC = [segue destinationViewController];
-        productDetailVC.originVCString = EVENT_SCENE;
-        productDetailVC.productItem = [self.originalItemArray objectAtIndex:[self.selectedIndexPath row]];
-        productDetailVC.eventId = [self eventSku];
-        productDetailVC.variantInventoryDictionary = self.selectedVariantInventories;
-        productDetailVC.attributesDictionary = self.selectedAttributes;
-        
-        BTRProductShowcaseCollectionCell* cell = (BTRProductShowcaseCollectionCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPath];
-        if ([productDetailVC.productItem.allReserved boolValue] || [self isItemSoldOutWithVariant:[cell sizeQuantityArray]])
-            productDetailVC.disableAddToCart = YES;
-    } else if ([[segue identifier]isEqualToString:@"productEmbededSegue"]) {
+    if ([[segue identifier]isEqualToString:@"productEmbededSegue"]) {
         BTRProductDetailEmbededVC * productEmbededVC = [segue destinationViewController];
         productEmbededVC.getOriginalVCString = EVENT_SCENE;
         productEmbededVC.getItem = [self.originalItemArray objectAtIndex:[self.selectedIndexPath row]];
