@@ -118,7 +118,7 @@
     self.suggestionArray = [[NSMutableArray alloc]init];
     self.suggestionTableView.hidden = YES;
     
-    self.currentPage = 0;
+    self.currentPage = 1;
     self.isLoadingNextPage = NO;
     self.lastPageDidLoad = NO;
 }
@@ -185,9 +185,9 @@
     NSString *facetString = [sharedFacetHandler getFacetStringForRESTfulRequest];
     NSString *sortString = [sharedFacetHandler getSortStringForRESTfulRequest];
     
-    [self setCurrentPage:0];
+    [self setCurrentPage:1];
     [self assignFilterIcon];
-    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] withSortingQuery:sortString andFacetQuery:facetString forPage:0
+    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] withSortingQuery:sortString andFacetQuery:facetString forPage:self.currentPage
                          success:^(NSMutableArray *responseArray) {
                              [self setItemsArray:responseArray];
                              [self.collectionView becomeFirstResponder];

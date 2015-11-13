@@ -9,7 +9,7 @@
 #ifndef BeyondTheRack_BeyondTheRack_Prefix_pch
 #define BeyondTheRack_BeyondTheRack_Prefix_pch
 
-#define BASEURL @"http://www.mobile.btrdev.com/siteapi"
+#define BASEURL @"http://www.beyondtherack.com/siteapi"
 #define WEBBASEURL @"http://www.mobile.btrdev.com"
 #define STATICURL @"http://static.beyondtherack.com"
 #define LIVEURL @"http://www.beyondtherack.com"
