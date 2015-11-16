@@ -2308,7 +2308,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="2106E7E2-7EEA-4762-A3B4-B9E2D177CB8D" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="1E9D9737-2E94-48A9-B6D3-D76B039C706E" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -4301,7 +4301,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7l9-de-34O" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="yej-Iv-z7j" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-5538" y="-1749"/>
+            <point key="canvasLocation" x="-5694" y="-468"/>
         </scene>
         <!--Edit Shopping BagVC-->
         <scene sceneID="jGK-zv-Mhc">
@@ -4581,7 +4581,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8zv-xt-AdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ZYe-oG-2yB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-6683" y="-564"/>
+            <point key="canvasLocation" x="-7663" y="-468"/>
         </scene>
         <!--Checkout View Controller-->
         <scene sceneID="ohB-Tf-V6s">
@@ -6742,7 +6742,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3k-r8-R5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5Wd-id-3W3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-5928" y="-1643"/>
+            <point key="canvasLocation" x="-6485" y="948"/>
         </scene>
         <!--Category View Controller-->
         <scene sceneID="NBA-r1-ol6">
@@ -7393,7 +7393,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rim-75-YTG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="uJu-fY-bIm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-5044" y="-907"/>
+            <point key="canvasLocation" x="-5100" y="205"/>
         </scene>
         <!--ContactUS View Controller-->
         <scene sceneID="4kF-zU-lHg">
@@ -8131,7 +8131,7 @@ If so, please provide the order number,
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oo4-dt-LHw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="KOy-1A-V9S" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-5538" y="-2446"/>
+            <point key="canvasLocation" x="-5694" y="205"/>
         </scene>
         <!--Account EmbeddedTVC-->
         <scene sceneID="Eu9-r2-Iju">
@@ -9356,7 +9356,7 @@ If so, please provide the order number,
                         <viewControllerLayoutGuide type="bottom" id="Boz-ur-e1g"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ONm-hE-a9m">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="1900"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="2000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uSo-uY-fVD" userLabel="HeaderView">
@@ -9400,98 +9400,36 @@ If so, please provide the order number,
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UHe-TM-Kaa">
-                                <rect key="frame" x="0.0" y="72" width="600" height="1828"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="1928"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQO-i3-dbv" userLabel="Picker Parent View">
+                                        <rect key="frame" x="0.0" y="714" width="600" height="500"/>
+                                        <subviews>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euT-kx-F24">
+                                                <rect key="frame" x="140" y="116" width="320" height="268"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="268" id="UG8-02-Q48"/>
+                                                    <constraint firstAttribute="width" constant="320" id="VTf-DN-F8c"/>
+                                                </constraints>
+                                            </pickerView>
+                                        </subviews>
+                                        <animations/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="euT-kx-F24" firstAttribute="centerX" secondItem="nQO-i3-dbv" secondAttribute="centerX" id="55o-Qj-fMS"/>
+                                            <constraint firstItem="euT-kx-F24" firstAttribute="centerY" secondItem="nQO-i3-dbv" secondAttribute="centerY" id="LBT-8t-TuM"/>
+                                            <constraint firstAttribute="height" constant="500" id="lWA-t2-ebx"/>
+                                        </constraints>
+                                    </view>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0qz-VS-pnx">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1828"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1928"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECx-B1-isb" customClass="UIControl">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="1828"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="1920"/>
                                                 <subviews>
-                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RIJ-Au-AGY" userLabel="VIP Option View" customClass="UIControl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="45"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="YNQ-37-UME">
-                                                                <rect key="frame" x="58" y="0.0" width="232" height="45"/>
-                                                                <animations/>
-                                                                <attributedString key="attributedText">
-                                                                    <fragment content="VIP Option">
-                                                                        <attributes>
-                                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" size="13" name="AvenirNext-DemiBold"/>
-                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                                        </attributes>
-                                                                    </fragment>
-                                                                    <fragment content=": ">
-                                                                        <attributes>
-                                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" size="13" name=".HelveticaNeueDeskInterface-Regular"/>
-                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                                        </attributes>
-                                                                    </fragment>
-                                                                    <fragment content="Pick up from BTR Montreal office (no shipping fees)">
-                                                                        <attributes>
-                                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" size="14" name="AvenirNext-Regular"/>
-                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                                        </attributes>
-                                                                    </fragment>
-                                                                </attributedString>
-                                                                <nil key="highlightedColor"/>
-                                                                <size key="shadowOffset" width="0.0" height="0.0"/>
-                                                            </label>
-                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wjn-ar-Qmj" customClass="CTCheckbox">
-                                                                <rect key="frame" x="8" y="0.0" width="50" height="45"/>
-                                                                <animations/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            </view>
-                                                        </subviews>
-                                                        <animations/>
-                                                        <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </view>
-                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ff8-42-3g4" userLabel="Pickup Option View" customClass="UIControl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="45"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="nzW-v3-ZKF">
-                                                                <rect key="frame" x="58" y="0.0" width="232" height="45"/>
-                                                                <animations/>
-                                                                <attributedString key="attributedText">
-                                                                    <fragment content="Pickup Option">
-                                                                        <attributes>
-                                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" size="13" name="AvenirNext-DemiBold"/>
-                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                                        </attributes>
-                                                                    </fragment>
-                                                                    <fragment content=": ">
-                                                                        <attributes>
-                                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" size="13" name=".HelveticaNeueDeskInterface-Regular"/>
-                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                                        </attributes>
-                                                                    </fragment>
-                                                                    <fragment content="Pick up from BTR Montreal office (no shipping fees)">
-                                                                        <attributes>
-                                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <font key="NSFont" size="14" name="AvenirNext-Regular"/>
-                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                                        </attributes>
-                                                                    </fragment>
-                                                                </attributedString>
-                                                                <nil key="highlightedColor"/>
-                                                                <size key="shadowOffset" width="0.0" height="0.0"/>
-                                                            </label>
-                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ygx-d7-fWI" customClass="CTCheckbox">
-                                                                <rect key="frame" x="8" y="0.0" width="50" height="45"/>
-                                                                <animations/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            </view>
-                                                        </subviews>
-                                                        <animations/>
-                                                        <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYC-65-IL2" userLabel="FastPayments">
-                                                        <rect key="frame" x="8" y="8" width="584" height="80"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYC-65-IL2" userLabel="FastPayments" customClass="UIControl">
+                                                        <rect key="frame" x="8" y="8" width="584" height="56"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checkout with:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIT-fc-9MY">
                                                                 <rect key="frame" x="14" y="16" width="135" height="20"/>
@@ -9504,32 +9442,14 @@ If so, please provide the order number,
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tjc-8Q-qk2" userLabel="Master Pass Button">
-                                                                <rect key="frame" x="397" y="38" width="153" height="47"/>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tjc-8Q-qk2" userLabel="Master Pass Button">
+                                                                <rect key="frame" x="144" y="34" width="153" height="47"/>
                                                                 <animations/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="47" id="Kwu-of-YMT"/>
-                                                                    <constraint firstAttribute="width" constant="153" id="Q7E-MY-SPB"/>
-                                                                </constraints>
                                                                 <state key="normal" image="paypal_yellow.png">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <connections>
                                                                     <action selector="paypalCheckoutTapped:" destination="KI2-4Z-PmZ" eventType="touchUpInside" id="NqS-CB-IQS"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AlV-3V-PIL" userLabel="Master Pass Button">
-                                                                <rect key="frame" x="220" y="43" width="145" height="38"/>
-                                                                <animations/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="38" id="QMj-Xq-BnR"/>
-                                                                    <constraint firstAttribute="width" constant="145" id="Ufh-RP-lXl"/>
-                                                                </constraints>
-                                                                <state key="normal" image="masterpass.png">
-                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                                </state>
-                                                                <connections>
-                                                                    <action selector="masterPassCheckoutTapped:" destination="KI2-4Z-PmZ" eventType="touchUpInside" id="fo0-rR-Gkh"/>
                                                                 </connections>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHu-34-pDc" userLabel="Visa Checkout Button">
@@ -9543,24 +9463,36 @@ If so, please provide the order number,
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                             </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AlV-3V-PIL" userLabel="Master Pass Button">
+                                                                <rect key="frame" x="431" y="7" width="145" height="38"/>
+                                                                <animations/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="38" id="5M0-4Y-mqV"/>
+                                                                    <constraint firstAttribute="width" constant="145" id="ZvI-Zr-ylR"/>
+                                                                </constraints>
+                                                                <state key="normal" image="masterpass.png">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="masterPassCheckoutTapped:" destination="KI2-4Z-PmZ" eventType="touchUpInside" id="fo0-rR-Gkh"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <animations/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="80" id="0zr-3M-FPi"/>
-                                                            <constraint firstAttribute="bottom" secondItem="Tjc-8Q-qk2" secondAttribute="bottom" constant="-5" id="6AH-0O-naY"/>
+                                                            <constraint firstAttribute="height" constant="56" id="0zr-3M-FPi"/>
+                                                            <constraint firstItem="AlV-3V-PIL" firstAttribute="top" secondItem="dYC-65-IL2" secondAttribute="top" constant="7" id="EJq-pD-RoO"/>
                                                             <constraint firstItem="bHu-34-pDc" firstAttribute="leading" secondItem="dYC-65-IL2" secondAttribute="leading" constant="14" id="MnD-k1-RXw"/>
-                                                            <constraint firstItem="AlV-3V-PIL" firstAttribute="centerX" secondItem="dYC-65-IL2" secondAttribute="centerX" id="WqZ-cf-6YC"/>
+                                                            <constraint firstAttribute="trailing" secondItem="AlV-3V-PIL" secondAttribute="trailing" constant="8" id="Xmq-Un-DVs"/>
                                                             <constraint firstItem="bHu-34-pDc" firstAttribute="top" secondItem="wIT-fc-9MY" secondAttribute="bottom" constant="2" id="fgz-Kr-PFn"/>
-                                                            <constraint firstItem="Tjc-8Q-qk2" firstAttribute="leading" secondItem="AlV-3V-PIL" secondAttribute="trailing" constant="32" id="kMr-28-7Vu"/>
                                                             <constraint firstItem="wIT-fc-9MY" firstAttribute="leading" secondItem="dYC-65-IL2" secondAttribute="leading" constant="14" id="l4k-E1-x0q"/>
-                                                            <constraint firstAttribute="bottom" secondItem="AlV-3V-PIL" secondAttribute="bottom" constant="-1" id="qBT-XX-stN"/>
-                                                            <constraint firstAttribute="bottom" secondItem="bHu-34-pDc" secondAttribute="bottom" constant="-5" id="tQz-ll-wOO"/>
+                                                            <constraint firstAttribute="bottom" secondItem="bHu-34-pDc" secondAttribute="bottom" constant="-29" id="tQz-ll-wOO"/>
                                                             <constraint firstItem="wIT-fc-9MY" firstAttribute="top" secondItem="dYC-65-IL2" secondAttribute="top" constant="16" id="zEY-V7-lW9"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="And complete the process below:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndI-BT-3qW">
-                                                        <rect key="frame" x="13" y="96" width="573" height="20"/>
+                                                        <rect key="frame" x="13" y="72" width="573" height="20"/>
                                                         <animations/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="mrm-Te-Ieb"/>
@@ -9570,7 +9502,7 @@ If so, please provide the order number,
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sm4-Kc-RUy" userLabel="Line View">
-                                                        <rect key="frame" x="0.0" y="125" width="600" height="1"/>
+                                                        <rect key="frame" x="0.0" y="101" width="600" height="1"/>
                                                         <animations/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -9578,7 +9510,7 @@ If so, please provide the order number,
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kRD-9y-vQJ" userLabel="Shipping Details View" customClass="UIControl">
-                                                        <rect key="frame" x="0.0" y="134" width="300" height="783"/>
+                                                        <rect key="frame" x="0.0" y="110" width="300" height="810"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shipping Details" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGO-b1-D0y">
                                                                 <rect key="frame" x="10" y="10" width="280" height="25"/>
@@ -9600,8 +9532,117 @@ If so, please provide the order number,
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RIJ-Au-AGY" userLabel="VIP Option View" customClass="UIControl">
+                                                                <rect key="frame" x="2" y="71" width="290" height="45"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="YNQ-37-UME">
+                                                                        <rect key="frame" x="58" y="0.0" width="232" height="45"/>
+                                                                        <animations/>
+                                                                        <attributedString key="attributedText">
+                                                                            <fragment content="VIP Option">
+                                                                                <attributes>
+                                                                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <font key="NSFont" size="13" name="AvenirNext-DemiBold"/>
+                                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                                </attributes>
+                                                                            </fragment>
+                                                                            <fragment content=": ">
+                                                                                <attributes>
+                                                                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <font key="NSFont" size="13" name=".HelveticaNeueDeskInterface-Regular"/>
+                                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                                </attributes>
+                                                                            </fragment>
+                                                                            <fragment content="Pick up from BTR Montreal office (no shipping fees)">
+                                                                                <attributes>
+                                                                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <font key="NSFont" size="14" name="AvenirNext-Regular"/>
+                                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                                </attributes>
+                                                                            </fragment>
+                                                                        </attributedString>
+                                                                        <nil key="highlightedColor"/>
+                                                                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wjn-ar-Qmj" customClass="CTCheckbox">
+                                                                        <rect key="frame" x="8" y="0.0" width="50" height="45"/>
+                                                                        <animations/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="45" id="NcC-2H-ziB"/>
+                                                                            <constraint firstAttribute="width" constant="50" id="qCs-Sq-M6V"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                </subviews>
+                                                                <animations/>
+                                                                <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="Wjn-ar-Qmj" firstAttribute="leading" secondItem="RIJ-Au-AGY" secondAttribute="leading" constant="8" id="7ob-FW-X5g"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="YNQ-37-UME" secondAttribute="bottom" id="8BP-9N-qLb"/>
+                                                                    <constraint firstAttribute="height" constant="45" id="J8H-uR-d8C"/>
+                                                                    <constraint firstItem="YNQ-37-UME" firstAttribute="top" secondItem="RIJ-Au-AGY" secondAttribute="top" id="U1k-zC-Qzq"/>
+                                                                    <constraint firstItem="YNQ-37-UME" firstAttribute="leading" secondItem="Wjn-ar-Qmj" secondAttribute="trailing" id="cBj-OU-ngx"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="YNQ-37-UME" secondAttribute="trailing" id="cOj-rQ-cd1"/>
+                                                                    <constraint firstItem="Wjn-ar-Qmj" firstAttribute="top" secondItem="RIJ-Au-AGY" secondAttribute="top" id="gvL-3W-oVt"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="Wjn-ar-Qmj" secondAttribute="bottom" id="tRK-lg-6k8"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ff8-42-3g4" userLabel="Pickup Option View" customClass="UIControl">
+                                                                <rect key="frame" x="2" y="71" width="290" height="45"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="nzW-v3-ZKF">
+                                                                        <rect key="frame" x="58" y="0.0" width="232" height="45"/>
+                                                                        <animations/>
+                                                                        <attributedString key="attributedText">
+                                                                            <fragment content="Pickup Option">
+                                                                                <attributes>
+                                                                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <font key="NSFont" size="13" name="AvenirNext-DemiBold"/>
+                                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                                </attributes>
+                                                                            </fragment>
+                                                                            <fragment content=": ">
+                                                                                <attributes>
+                                                                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <font key="NSFont" size="13" name=".HelveticaNeueDeskInterface-Regular"/>
+                                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                                </attributes>
+                                                                            </fragment>
+                                                                            <fragment content="Pick up from BTR Montreal office (no shipping fees)">
+                                                                                <attributes>
+                                                                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <font key="NSFont" size="14" name="AvenirNext-Regular"/>
+                                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                                </attributes>
+                                                                            </fragment>
+                                                                        </attributedString>
+                                                                        <nil key="highlightedColor"/>
+                                                                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                                    </label>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ygx-d7-fWI" customClass="CTCheckbox">
+                                                                        <rect key="frame" x="8" y="0.0" width="50" height="45"/>
+                                                                        <animations/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="45" id="T8e-f4-Hl0"/>
+                                                                            <constraint firstAttribute="width" constant="50" id="y5l-yz-vHa"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                </subviews>
+                                                                <animations/>
+                                                                <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="Ygx-d7-fWI" firstAttribute="leading" secondItem="ff8-42-3g4" secondAttribute="leading" constant="8" id="1ao-lV-KsY"/>
+                                                                    <constraint firstItem="Ygx-d7-fWI" firstAttribute="top" secondItem="ff8-42-3g4" secondAttribute="top" id="UMC-YG-Fv0"/>
+                                                                    <constraint firstItem="nzW-v3-ZKF" firstAttribute="leading" secondItem="Ygx-d7-fWI" secondAttribute="trailing" id="ZBa-Oh-J28"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="Ygx-d7-fWI" secondAttribute="bottom" id="dbR-3I-WdR"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="nzW-v3-ZKF" secondAttribute="trailing" id="jhL-ro-hNm"/>
+                                                                    <constraint firstItem="nzW-v3-ZKF" firstAttribute="top" secondItem="ff8-42-3g4" secondAttribute="top" id="shZ-Qc-HKI"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="nzW-v3-ZKF" secondAttribute="bottom" id="xLf-Da-3aK"/>
+                                                                </constraints>
+                                                            </view>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WmX-5B-bnY" userLabel="Please Fill Out the Shipping Form View" customClass="UIControl">
-                                                                <rect key="frame" x="10" y="75" width="280" height="50"/>
+                                                                <rect key="frame" x="10" y="124" width="280" height="50"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="hTe-KZ-gME">
                                                                         <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
@@ -9630,7 +9671,7 @@ If so, please provide the order number,
                                                                 </constraints>
                                                             </view>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AHI-RM-RAJ" userLabel="Recipient Text Field">
-                                                                <rect key="frame" x="10" y="168" width="280" height="30"/>
+                                                                <rect key="frame" x="10" y="217" width="280" height="30"/>
                                                                 <animations/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -9643,7 +9684,7 @@ If so, please provide the order number,
                                                                 </connections>
                                                             </textField>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5lI-lf-nS3" userLabel="Address 1 Text Field">
-                                                                <rect key="frame" x="10" y="243" width="280" height="30"/>
+                                                                <rect key="frame" x="10" y="292" width="280" height="30"/>
                                                                 <animations/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -9657,7 +9698,7 @@ If so, please provide the order number,
                                                                 </connections>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGU-BA-K1I">
-                                                                <rect key="frame" x="10" y="206" width="280" height="29"/>
+                                                                <rect key="frame" x="10" y="255" width="280" height="29"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="29" id="7wD-sM-SU5"/>
@@ -9667,7 +9708,7 @@ If so, please provide the order number,
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="05b-aH-4QJ" userLabel="Address 2 Text Field">
-                                                                <rect key="frame" x="10" y="281" width="280" height="30"/>
+                                                                <rect key="frame" x="10" y="330" width="280" height="30"/>
                                                                 <animations/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -9681,7 +9722,7 @@ If so, please provide the order number,
                                                                 </connections>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COUNTRY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKZ-gv-uCj">
-                                                                <rect key="frame" x="10" y="319" width="280" height="29"/>
+                                                                <rect key="frame" x="10" y="368" width="280" height="29"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="29" id="xc3-xz-Va0"/>
@@ -9691,7 +9732,7 @@ If so, please provide the order number,
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="Hlg-8w-94u">
-                                                                <rect key="frame" x="10" y="394" width="280" height="47"/>
+                                                                <rect key="frame" x="10" y="443" width="280" height="47"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="47" id="pEg-IJ-Mgj"/>
@@ -9708,7 +9749,7 @@ If so, please provide the order number,
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KeA-xK-p1X" userLabel="Zip Code Text Field">
-                                                                <rect key="frame" x="10" y="486" width="280" height="30"/>
+                                                                <rect key="frame" x="10" y="535" width="280" height="30"/>
                                                                 <animations/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -9722,7 +9763,7 @@ If so, please provide the order number,
                                                                 </connections>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZIP CODE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W9P-Gu-z2N">
-                                                                <rect key="frame" x="10" y="449" width="280" height="29"/>
+                                                                <rect key="frame" x="10" y="498" width="280" height="29"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="29" id="cUj-eQ-4ql"/>
@@ -9732,7 +9773,7 @@ If so, please provide the order number,
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xBj-be-1pg" userLabel="State Text Field">
-                                                                <rect key="frame" x="10" y="561" width="280" height="30"/>
+                                                                <rect key="frame" x="10" y="610" width="280" height="30"/>
                                                                 <animations/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -9746,7 +9787,7 @@ If so, please provide the order number,
                                                                 </connections>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROVINCE / STATE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ZQ-Sx-QhB">
-                                                                <rect key="frame" x="10" y="524" width="280" height="29"/>
+                                                                <rect key="frame" x="10" y="573" width="280" height="29"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="29" id="aEd-rH-XR9"/>
@@ -9756,7 +9797,7 @@ If so, please provide the order number,
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Jn-f3-j1A">
-                                                                <rect key="frame" x="10" y="636" width="280" height="30"/>
+                                                                <rect key="frame" x="10" y="685" width="280" height="30"/>
                                                                 <animations/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -9770,7 +9811,7 @@ If so, please provide the order number,
                                                                 </connections>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CITY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWu-J6-SBS">
-                                                                <rect key="frame" x="10" y="599" width="280" height="29"/>
+                                                                <rect key="frame" x="10" y="648" width="280" height="29"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="29" id="Om6-ML-El2"/>
@@ -9780,7 +9821,7 @@ If so, please provide the order number,
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OQm-2C-9Wf">
-                                                                <rect key="frame" x="10" y="711" width="280" height="30"/>
+                                                                <rect key="frame" x="10" y="760" width="280" height="30"/>
                                                                 <animations/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -9793,7 +9834,7 @@ If so, please provide the order number,
                                                                 </connections>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHONE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNh-2d-Z99">
-                                                                <rect key="frame" x="10" y="674" width="280" height="29"/>
+                                                                <rect key="frame" x="10" y="723" width="280" height="29"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="29" id="ND1-31-QVY"/>
@@ -9803,7 +9844,7 @@ If so, please provide the order number,
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECIPIENT NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8z-G4-3XT">
-                                                                <rect key="frame" x="10" y="131" width="280" height="29"/>
+                                                                <rect key="frame" x="10" y="180" width="280" height="29"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="29" id="AnH-oZ-jJX"/>
@@ -9813,7 +9854,7 @@ If so, please provide the order number,
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CGd-I3-RXy" userLabel="Country Text Field">
-                                                                <rect key="frame" x="10" y="356" width="280" height="30"/>
+                                                                <rect key="frame" x="10" y="405" width="280" height="30"/>
                                                                 <animations/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -9827,7 +9868,7 @@ If so, please provide the order number,
                                                                 </connections>
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aL-dE-F5f" userLabel="Shipping State Button">
-                                                                <rect key="frame" x="10" y="561" width="280" height="30"/>
+                                                                <rect key="frame" x="10" y="610" width="280" height="30"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="Xft-eW-A1r"/>
@@ -9840,7 +9881,7 @@ If so, please provide the order number,
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4K9-B9-Q8m" userLabel="Shipping Country Button">
-                                                                <rect key="frame" x="10" y="356" width="280" height="30"/>
+                                                                <rect key="frame" x="10" y="405" width="280" height="30"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="VO4-bP-hEr"/>
@@ -9858,6 +9899,7 @@ If so, please provide the order number,
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="WDp-qg-D2p" secondAttribute="trailing" constant="10" id="0hn-a5-CVO"/>
                                                             <constraint firstAttribute="trailing" secondItem="AHI-RM-RAJ" secondAttribute="trailing" constant="10" id="1Pf-mh-GlM"/>
+                                                            <constraint firstItem="RIJ-Au-AGY" firstAttribute="height" secondItem="ff8-42-3g4" secondAttribute="height" id="2Dh-dD-eUZ"/>
                                                             <constraint firstItem="Hlg-8w-94u" firstAttribute="top" secondItem="4K9-B9-Q8m" secondAttribute="bottom" constant="8" id="2OO-0f-7fR"/>
                                                             <constraint firstItem="KeA-xK-p1X" firstAttribute="top" secondItem="W9P-Gu-z2N" secondAttribute="bottom" constant="8" id="3Pw-gB-aOB"/>
                                                             <constraint firstItem="PGU-BA-K1I" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="3TU-yM-ZFp"/>
@@ -9866,17 +9908,19 @@ If so, please provide the order number,
                                                             <constraint firstItem="nWu-J6-SBS" firstAttribute="top" secondItem="5aL-dE-F5f" secondAttribute="bottom" constant="8" id="5Q7-uO-DjW"/>
                                                             <constraint firstItem="zNh-2d-Z99" firstAttribute="top" secondItem="0Jn-f3-j1A" secondAttribute="bottom" constant="8" id="6ab-dP-X7G"/>
                                                             <constraint firstAttribute="trailing" secondItem="0Jn-f3-j1A" secondAttribute="trailing" constant="10" id="7KP-AL-wIC"/>
+                                                            <constraint firstItem="ff8-42-3g4" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="2" id="7rP-Op-FUb"/>
+                                                            <constraint firstItem="RIJ-Au-AGY" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="2" id="AMS-np-yl1"/>
                                                             <constraint firstItem="nWu-J6-SBS" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="Aus-iZ-TgB"/>
                                                             <constraint firstAttribute="trailing" secondItem="W9P-Gu-z2N" secondAttribute="trailing" constant="10" id="BAH-mt-23T"/>
                                                             <constraint firstItem="Hlg-8w-94u" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="BF6-72-eLg"/>
                                                             <constraint firstAttribute="trailing" secondItem="PGU-BA-K1I" secondAttribute="trailing" constant="10" id="BGU-ep-JuC"/>
-                                                            <constraint firstItem="WmX-5B-bnY" firstAttribute="top" secondItem="WDp-qg-D2p" secondAttribute="bottom" constant="12" id="Dmx-Ur-6lP"/>
+                                                            <constraint firstItem="RIJ-Au-AGY" firstAttribute="top" secondItem="WDp-qg-D2p" secondAttribute="bottom" constant="8" id="DnF-kl-77N"/>
                                                             <constraint firstAttribute="trailing" secondItem="4K9-B9-Q8m" secondAttribute="trailing" constant="10" id="GHW-7Q-Jeg"/>
                                                             <constraint firstAttribute="trailing" secondItem="nWu-J6-SBS" secondAttribute="trailing" constant="10" id="GKX-QX-Jga"/>
                                                             <constraint firstAttribute="trailing" secondItem="K8z-G4-3XT" secondAttribute="trailing" constant="10" id="KvO-9U-DyA"/>
                                                             <constraint firstItem="5aL-dE-F5f" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="Kzy-i2-nJ8"/>
                                                             <constraint firstItem="AHI-RM-RAJ" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="Lbl-H9-9Sn"/>
-                                                            <constraint firstAttribute="height" constant="783" id="Noo-8K-9Ld"/>
+                                                            <constraint firstAttribute="height" constant="810" id="Noo-8K-9Ld"/>
                                                             <constraint firstItem="5ZQ-Sx-QhB" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="O5R-Qa-BdB"/>
                                                             <constraint firstAttribute="trailing" secondItem="5ZQ-Sx-QhB" secondAttribute="trailing" constant="10" id="OZY-9p-bNn"/>
                                                             <constraint firstAttribute="trailing" secondItem="CGd-I3-RXy" secondAttribute="trailing" constant="10" id="Oef-yg-h8J"/>
@@ -9885,6 +9929,7 @@ If so, please provide the order number,
                                                             <constraint firstItem="5lI-lf-nS3" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="PZG-HE-wMh"/>
                                                             <constraint firstAttribute="trailing" secondItem="5aL-dE-F5f" secondAttribute="trailing" constant="10" id="TJG-wt-skH"/>
                                                             <constraint firstItem="xBj-be-1pg" firstAttribute="top" secondItem="5ZQ-Sx-QhB" secondAttribute="bottom" constant="8" id="Tp0-Ih-KUp"/>
+                                                            <constraint firstItem="WmX-5B-bnY" firstAttribute="top" secondItem="ff8-42-3g4" secondAttribute="bottom" constant="8" id="VDH-12-ccJ"/>
                                                             <constraint firstItem="CGd-I3-RXy" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="VQW-Np-6QK"/>
                                                             <constraint firstAttribute="trailing" secondItem="OQm-2C-9Wf" secondAttribute="trailing" constant="10" id="XWs-E1-dQA"/>
                                                             <constraint firstItem="AHI-RM-RAJ" firstAttribute="top" secondItem="K8z-G4-3XT" secondAttribute="bottom" constant="8" id="Yau-AE-0ws"/>
@@ -9906,12 +9951,14 @@ If so, please provide the order number,
                                                             <constraint firstItem="5ZQ-Sx-QhB" firstAttribute="top" secondItem="KeA-xK-p1X" secondAttribute="bottom" constant="8" id="l1h-XI-qMK"/>
                                                             <constraint firstItem="WDp-qg-D2p" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="l7e-ge-DEO"/>
                                                             <constraint firstItem="lKZ-gv-uCj" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="lsm-i4-AUw"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ff8-42-3g4" secondAttribute="trailing" constant="8" id="mAF-d1-cgS"/>
                                                             <constraint firstItem="W9P-Gu-z2N" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="pdH-y1-Yoi"/>
                                                             <constraint firstItem="0Jn-f3-j1A" firstAttribute="top" secondItem="nWu-J6-SBS" secondAttribute="bottom" constant="8" id="plr-r8-ARq"/>
                                                             <constraint firstItem="K8z-G4-3XT" firstAttribute="top" secondItem="hTe-KZ-gME" secondAttribute="bottom" constant="6" id="q4N-ri-NU3"/>
                                                             <constraint firstAttribute="trailing" secondItem="5lI-lf-nS3" secondAttribute="trailing" constant="10" id="qiw-qd-yLT"/>
                                                             <constraint firstAttribute="trailing" secondItem="Hlg-8w-94u" secondAttribute="trailing" constant="10" id="qoc-Nw-1to"/>
                                                             <constraint firstItem="4K9-B9-Q8m" firstAttribute="top" secondItem="lKZ-gv-uCj" secondAttribute="bottom" constant="8" id="tLQ-m9-iYV"/>
+                                                            <constraint firstItem="ff8-42-3g4" firstAttribute="top" secondItem="WDp-qg-D2p" secondAttribute="bottom" constant="8" id="tOS-Uf-NVR"/>
                                                             <constraint firstItem="WmX-5B-bnY" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="uPm-8l-L91"/>
                                                             <constraint firstAttribute="trailing" secondItem="05b-aH-4QJ" secondAttribute="trailing" constant="10" id="uga-Uj-Hiv"/>
                                                             <constraint firstItem="WDp-qg-D2p" firstAttribute="top" secondItem="XGO-b1-D0y" secondAttribute="bottom" constant="7" id="umi-55-69q"/>
@@ -9919,6 +9966,7 @@ If so, please provide the order number,
                                                             <constraint firstItem="4K9-B9-Q8m" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="xY6-DN-Mro"/>
                                                             <constraint firstItem="PGU-BA-K1I" firstAttribute="top" secondItem="AHI-RM-RAJ" secondAttribute="bottom" constant="8" id="y24-8g-GBN"/>
                                                             <constraint firstItem="xBj-be-1pg" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="leading" constant="10" id="z8n-jC-wGN"/>
+                                                            <constraint firstAttribute="trailing" secondItem="RIJ-Au-AGY" secondAttribute="trailing" constant="8" id="zPO-9G-Xii"/>
                                                             <constraint firstItem="lKZ-gv-uCj" firstAttribute="top" secondItem="05b-aH-4QJ" secondAttribute="bottom" constant="8" id="zgq-1M-f4b"/>
                                                         </constraints>
                                                         <connections>
@@ -9926,7 +9974,7 @@ If so, please provide the order number,
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UWe-G1-yI1" userLabel="Billing Address View" customClass="UIControl">
-                                                        <rect key="frame" x="300" y="134" width="300" height="700"/>
+                                                        <rect key="frame" x="300" y="110" width="300" height="700"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PkI-lL-oMj" userLabel="Same as Shipping Address View" customClass="UIControl">
                                                                 <rect key="frame" x="10" y="111" width="280" height="45"/>
@@ -10232,7 +10280,7 @@ If so, please provide the order number,
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkA-rZ-GGM" userLabel="Line View">
-                                                        <rect key="frame" x="0.0" y="931" width="600" height="1"/>
+                                                        <rect key="frame" x="0.0" y="956" width="600" height="1"/>
                                                         <animations/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -10240,7 +10288,7 @@ If so, please provide the order number,
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="20y-j5-gcK" userLabel="Is This Gift View" customClass="UIControl">
-                                                        <rect key="frame" x="300" y="842" width="300" height="75"/>
+                                                        <rect key="frame" x="300" y="818" width="300" height="75"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mOE-yE-8OB" customClass="CTCheckbox">
                                                                 <rect key="frame" x="52" y="8" width="52" height="39"/>
@@ -10361,7 +10409,7 @@ If so, please provide the order number,
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c1v-r5-YmA">
-                                                        <rect key="frame" x="0.0" y="950" width="300" height="679"/>
+                                                        <rect key="frame" x="0.0" y="968" width="300" height="679"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Details" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufQ-2g-bK0">
                                                                 <rect key="frame" x="10" y="8" width="280" height="25"/>
@@ -10791,7 +10839,7 @@ If so, please provide the order number,
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xd2-SI-co8">
-                                                        <rect key="frame" x="300" y="950" width="300" height="679"/>
+                                                        <rect key="frame" x="300" y="968" width="300" height="679"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6EA-XN-hsh" userLabel="Line View">
                                                                 <rect key="frame" x="10" y="10" width="280" height="1"/>
@@ -11113,10 +11161,10 @@ If so, please provide the order number,
                                                                         <rect key="frame" x="10" y="309" width="260" height="56"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL DUE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuA-IO-t05">
-                                                                                <rect key="frame" x="8" y="13" width="100" height="30"/>
+                                                                                <rect key="frame" x="8" y="13" width="124" height="30"/>
                                                                                 <animations/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="width" constant="100" id="3dE-uc-s4r"/>
+                                                                                    <constraint firstAttribute="width" constant="124" id="3dE-uc-s4r"/>
                                                                                     <constraint firstAttribute="height" constant="30" id="ER3-gx-NT9"/>
                                                                                 </constraints>
                                                                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
@@ -11138,7 +11186,7 @@ If so, please provide the order number,
                                                                         <animations/>
                                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <constraints>
-                                                                            <constraint firstItem="KYf-8a-8Ia" firstAttribute="leading" secondItem="fuA-IO-t05" secondAttribute="trailing" constant="32" id="5wB-wi-VGq"/>
+                                                                            <constraint firstItem="KYf-8a-8Ia" firstAttribute="leading" secondItem="fuA-IO-t05" secondAttribute="trailing" constant="8" id="5wB-wi-VGq"/>
                                                                             <constraint firstAttribute="height" constant="56" id="EeD-s6-wRC"/>
                                                                             <constraint firstAttribute="trailing" secondItem="KYf-8a-8Ia" secondAttribute="trailing" id="WRe-hv-hDP"/>
                                                                             <constraint firstItem="fuA-IO-t05" firstAttribute="leading" secondItem="8K6-Rw-TgU" secondAttribute="leading" constant="8" id="jje-4b-2LG"/>
@@ -11274,7 +11322,7 @@ If so, please provide the order number,
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50t-yh-3br" userLabel="Line View">
-                                                        <rect key="frame" x="0.0" y="1657" width="600" height="1"/>
+                                                        <rect key="frame" x="0.0" y="1675" width="600" height="1"/>
                                                         <animations/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -11282,7 +11330,7 @@ If so, please provide the order number,
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Return policy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKp-7n-1IL">
-                                                        <rect key="frame" x="188" y="1679" width="225" height="35"/>
+                                                        <rect key="frame" x="188" y="1697" width="225" height="35"/>
                                                         <animations/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="lbb-gm-l7T"/>
@@ -11293,7 +11341,7 @@ If so, please provide the order number,
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We know it's sometimes necessary to return or exchange an item, and we want to make it easy." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="dv3-B9-gGP">
-                                                        <rect key="frame" x="14" y="1711" width="573" height="44"/>
+                                                        <rect key="frame" x="14" y="1729" width="573" height="44"/>
                                                         <animations/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="44" id="HlI-el-e9j"/>
@@ -11302,6 +11350,14 @@ If so, please provide the order number,
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ghg-Xg-hLS">
+                                                        <rect key="frame" x="199" y="1781" width="200" height="100"/>
+                                                        <animations/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="100" id="MMS-Wj-8Gn"/>
+                                                            <constraint firstAttribute="width" constant="200" id="NFd-xG-t5M"/>
+                                                        </constraints>
+                                                    </imageView>
                                                 </subviews>
                                                 <animations/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -11310,22 +11366,19 @@ If so, please provide the order number,
                                                     <constraint firstItem="IKp-7n-1IL" firstAttribute="top" secondItem="50t-yh-3br" secondAttribute="bottom" constant="21" id="138-82-6HB"/>
                                                     <constraint firstItem="ndI-BT-3qW" firstAttribute="leading" secondItem="ECx-B1-isb" secondAttribute="leading" constant="13" id="1xg-ox-ze6"/>
                                                     <constraint firstItem="kRD-9y-vQJ" firstAttribute="top" secondItem="Sm4-Kc-RUy" secondAttribute="bottom" constant="8" id="2qV-kF-JmI"/>
-                                                    <constraint firstItem="Xd2-SI-co8" firstAttribute="top" secondItem="gkA-rZ-GGM" secondAttribute="bottom" constant="18" id="5YR-bA-iCv"/>
-                                                    <constraint firstItem="kRD-9y-vQJ" firstAttribute="leading" secondItem="RIJ-Au-AGY" secondAttribute="leading" id="730-BZ-9M5"/>
+                                                    <constraint firstItem="Xd2-SI-co8" firstAttribute="top" secondItem="gkA-rZ-GGM" secondAttribute="bottom" constant="11" id="5YR-bA-iCv"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Ghg-Xg-hLS" secondAttribute="bottom" constant="39" id="7E6-1g-nuv"/>
                                                     <constraint firstItem="20y-j5-gcK" firstAttribute="width" secondItem="UWe-G1-yI1" secondAttribute="width" id="8ZN-mI-WZG"/>
-                                                    <constraint firstItem="RIJ-Au-AGY" firstAttribute="top" secondItem="ECx-B1-isb" secondAttribute="top" id="8iV-Tl-yMV"/>
-                                                    <constraint firstItem="gkA-rZ-GGM" firstAttribute="top" secondItem="20y-j5-gcK" secondAttribute="bottom" constant="14" id="Cm3-J7-ZO6"/>
+                                                    <constraint firstItem="gkA-rZ-GGM" firstAttribute="top" secondItem="20y-j5-gcK" secondAttribute="bottom" constant="63" id="Cm3-J7-ZO6"/>
                                                     <constraint firstItem="UWe-G1-yI1" firstAttribute="width" secondItem="kRD-9y-vQJ" secondAttribute="width" id="DJr-7s-vJp"/>
-                                                    <constraint firstItem="RIJ-Au-AGY" firstAttribute="bottom" secondItem="ff8-42-3g4" secondAttribute="bottom" id="DUg-bv-21c"/>
                                                     <constraint firstAttribute="trailing" secondItem="ndI-BT-3qW" secondAttribute="trailing" constant="14" id="EKc-Mp-OgX"/>
                                                     <constraint firstAttribute="trailing" secondItem="UWe-G1-yI1" secondAttribute="trailing" id="JUv-jG-C6C"/>
                                                     <constraint firstItem="dv3-B9-gGP" firstAttribute="leading" secondItem="ECx-B1-isb" secondAttribute="leading" constant="14" id="NmU-Fp-Czf"/>
                                                     <constraint firstItem="dYC-65-IL2" firstAttribute="leading" secondItem="ECx-B1-isb" secondAttribute="leading" constant="8" id="Nn1-dm-HHR"/>
                                                     <constraint firstItem="Xd2-SI-co8" firstAttribute="leading" secondItem="c1v-r5-YmA" secondAttribute="trailing" id="P8g-3C-YqO"/>
                                                     <constraint firstItem="kRD-9y-vQJ" firstAttribute="leading" secondItem="ECx-B1-isb" secondAttribute="leading" id="PQB-Er-K1N"/>
-                                                    <constraint firstAttribute="height" constant="1828" id="Pc3-u2-uB8"/>
+                                                    <constraint firstAttribute="height" constant="1920" id="Pc3-u2-uB8"/>
                                                     <constraint firstItem="Sm4-Kc-RUy" firstAttribute="top" secondItem="ndI-BT-3qW" secondAttribute="bottom" constant="9" id="Rfy-w4-xmR"/>
-                                                    <constraint firstItem="kRD-9y-vQJ" firstAttribute="leading" secondItem="ff8-42-3g4" secondAttribute="leading" id="TbX-cR-INo"/>
                                                     <constraint firstItem="gkA-rZ-GGM" firstAttribute="leading" secondItem="ECx-B1-isb" secondAttribute="leading" id="aDR-gr-xZP"/>
                                                     <constraint firstAttribute="trailing" secondItem="Sm4-Kc-RUy" secondAttribute="trailing" id="aDd-iB-AC3"/>
                                                     <constraint firstAttribute="trailing" secondItem="dYC-65-IL2" secondAttribute="trailing" constant="8" id="cEi-G0-mcb"/>
@@ -11334,18 +11387,16 @@ If so, please provide the order number,
                                                     <constraint firstItem="Xd2-SI-co8" firstAttribute="width" secondItem="c1v-r5-YmA" secondAttribute="width" id="dvO-yw-wKJ"/>
                                                     <constraint firstItem="dv3-B9-gGP" firstAttribute="top" secondItem="50t-yh-3br" secondAttribute="bottom" constant="53" id="e7h-D4-G9f"/>
                                                     <constraint firstItem="50t-yh-3br" firstAttribute="leading" secondItem="ECx-B1-isb" secondAttribute="leading" id="f1T-HG-cBq"/>
-                                                    <constraint firstItem="RIJ-Au-AGY" firstAttribute="trailing" secondItem="ff8-42-3g4" secondAttribute="trailing" id="g19-Uk-DW4"/>
-                                                    <constraint firstItem="ndI-BT-3qW" firstAttribute="top" secondItem="RIJ-Au-AGY" secondAttribute="bottom" constant="51" id="hqv-U0-ugS"/>
-                                                    <constraint firstAttribute="trailing" secondItem="RIJ-Au-AGY" secondAttribute="trailing" constant="310" id="jDw-cs-Mad"/>
                                                     <constraint firstItem="dYC-65-IL2" firstAttribute="top" secondItem="ECx-B1-isb" secondAttribute="top" constant="8" id="juY-Da-ON5"/>
                                                     <constraint firstItem="ndI-BT-3qW" firstAttribute="top" secondItem="dYC-65-IL2" secondAttribute="bottom" constant="8" id="lgH-Mg-33a"/>
                                                     <constraint firstAttribute="trailing" secondItem="Xd2-SI-co8" secondAttribute="trailing" id="lqV-HC-VnR"/>
                                                     <constraint firstItem="Sm4-Kc-RUy" firstAttribute="leading" secondItem="ECx-B1-isb" secondAttribute="leading" id="mAh-0T-6fO"/>
-                                                    <constraint firstItem="RIJ-Au-AGY" firstAttribute="top" secondItem="ff8-42-3g4" secondAttribute="top" id="o8A-Yw-gTI"/>
                                                     <constraint firstAttribute="trailing" secondItem="20y-j5-gcK" secondAttribute="trailing" id="p30-lK-V3t"/>
-                                                    <constraint firstItem="c1v-r5-YmA" firstAttribute="top" secondItem="gkA-rZ-GGM" secondAttribute="bottom" constant="18" id="sQ5-LW-NY0"/>
+                                                    <constraint firstItem="c1v-r5-YmA" firstAttribute="top" secondItem="gkA-rZ-GGM" secondAttribute="bottom" constant="11" id="sQ5-LW-NY0"/>
+                                                    <constraint firstItem="Ghg-Xg-hLS" firstAttribute="centerX" secondItem="ECx-B1-isb" secondAttribute="centerX" constant="-1" id="uGy-uR-dk0"/>
                                                     <constraint firstItem="UWe-G1-yI1" firstAttribute="top" secondItem="Sm4-Kc-RUy" secondAttribute="bottom" constant="8" id="wP7-bb-Zg4"/>
                                                     <constraint firstItem="UWe-G1-yI1" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="trailing" id="xF6-bR-7pp"/>
+                                                    <constraint firstItem="Ghg-Xg-hLS" firstAttribute="top" secondItem="dv3-B9-gGP" secondAttribute="bottom" constant="8" id="xIR-DG-paQ"/>
                                                     <constraint firstAttribute="trailing" secondItem="50t-yh-3br" secondAttribute="trailing" id="y1S-3h-QnV"/>
                                                     <constraint firstItem="20y-j5-gcK" firstAttribute="top" secondItem="UWe-G1-yI1" secondAttribute="bottom" constant="8" id="ypS-hS-6CI"/>
                                                     <constraint firstAttribute="trailing" secondItem="gkA-rZ-GGM" secondAttribute="trailing" id="z0W-AD-qzg"/>
@@ -11359,32 +11410,12 @@ If so, please provide the order number,
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="ECx-B1-isb" secondAttribute="trailing" id="0oW-8U-bpL"/>
-                                            <constraint firstAttribute="bottom" secondItem="ECx-B1-isb" secondAttribute="bottom" id="4CC-eD-jLT"/>
+                                            <constraint firstAttribute="bottom" secondItem="ECx-B1-isb" secondAttribute="bottom" constant="8" id="4CC-eD-jLT"/>
                                             <constraint firstAttribute="centerX" secondItem="ECx-B1-isb" secondAttribute="centerX" id="HcQ-wR-Pl5"/>
                                             <constraint firstItem="ECx-B1-isb" firstAttribute="leading" secondItem="0qz-VS-pnx" secondAttribute="leading" id="oeB-YL-iwX"/>
                                             <constraint firstItem="ECx-B1-isb" firstAttribute="top" secondItem="0qz-VS-pnx" secondAttribute="top" id="u6a-Bc-Xxz"/>
                                         </constraints>
                                     </scrollView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQO-i3-dbv" userLabel="Picker Parent View">
-                                        <rect key="frame" x="0.0" y="664" width="600" height="500"/>
-                                        <subviews>
-                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euT-kx-F24">
-                                                <rect key="frame" x="140" y="116" width="320" height="268"/>
-                                                <animations/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="268" id="UG8-02-Q48"/>
-                                                    <constraint firstAttribute="width" constant="320" id="VTf-DN-F8c"/>
-                                                </constraints>
-                                            </pickerView>
-                                        </subviews>
-                                        <animations/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstItem="euT-kx-F24" firstAttribute="centerX" secondItem="nQO-i3-dbv" secondAttribute="centerX" id="55o-Qj-fMS"/>
-                                            <constraint firstItem="euT-kx-F24" firstAttribute="centerY" secondItem="nQO-i3-dbv" secondAttribute="centerY" id="LBT-8t-TuM"/>
-                                            <constraint firstAttribute="height" constant="500" id="lWA-t2-ebx"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -11414,14 +11445,19 @@ If so, please provide the order number,
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="1900"/>
+                    <size key="freeformSize" width="600" height="2000"/>
                     <connections>
                         <outlet property="addressLine1BillingTF" destination="nzm-y6-dAu" id="K6R-Gy-fag"/>
                         <outlet property="addressLine1ShippingTF" destination="5lI-lf-nS3" id="z51-Pe-nc4"/>
                         <outlet property="addressLine2BillingTF" destination="VVm-Og-neM" id="TaO-eg-TbM"/>
                         <outlet property="addressLine2ShippingTF" destination="05b-aH-4QJ" id="05y-ko-0vP"/>
                         <outlet property="bagTotalDollarLabel" destination="ifj-lW-WLY" id="3ba-V3-bMw"/>
+                        <outlet property="bannerImageView" destination="Ghg-Xg-hLS" id="D5q-jt-ukH"/>
                         <outlet property="billingAddressView" destination="UWe-G1-yI1" id="ReV-ox-QgP"/>
+                        <outlet property="billingCountryButton" destination="PCy-0l-OKa" id="wBS-3X-85d"/>
+                        <outlet property="billingPostalCodeLB" destination="aqh-yV-0sM" id="AB8-3n-JWZ"/>
+                        <outlet property="billingProvinceLB" destination="iBX-OD-tUY" id="3P5-f0-aZI"/>
+                        <outlet property="billingStateButton" destination="9yC-kk-IQU" id="Ty9-X5-GoP"/>
                         <outlet property="cardNumberPaymentTF" destination="96u-OO-xjq" id="zPQ-tZ-Llm"/>
                         <outlet property="cardPaymentTipHeight" destination="1OP-EE-ebW" id="D66-iX-PDE"/>
                         <outlet property="cardPaymentTipLabel" destination="mL3-Yp-k0y" id="lg8-5A-JQE"/>
@@ -11437,9 +11473,12 @@ If so, please provide the order number,
                         <outlet property="creditCardDetailHeight" destination="eNX-if-5Db" id="cZz-Y9-aBr"/>
                         <outlet property="expiryMonthPaymentTF" destination="ZOZ-R4-QVJ" id="Q4m-fr-MJb"/>
                         <outlet property="expiryYearPaymentTF" destination="UKy-py-UFr" id="W3m-61-i9U"/>
+                        <outlet property="fastPaymentHeight" destination="0zr-3M-FPi" id="JbX-vg-X9P"/>
+                        <outlet property="fastPaymentView" destination="dYC-65-IL2" id="Bmi-yM-IS9"/>
                         <outlet property="fillFormLabelViewHeight" destination="34z-IW-sVu" id="gkk-jn-DYi"/>
                         <outlet property="giftCardCodePaymentTF" destination="ACS-Eh-GLm" id="Jfw-A6-6LP"/>
                         <outlet property="giftCardInfoView" destination="QKB-Gg-h48" id="hWp-0W-SI8"/>
+                        <outlet property="giftCardViewHeight" destination="nms-Nr-vn8" id="7J0-Ws-YGL"/>
                         <outlet property="giftDollarLabel" destination="bzO-iJ-8m6" id="z0W-br-Lp8"/>
                         <outlet property="giftLabel" destination="ZrH-hi-5n2" id="pCR-Ic-k1m"/>
                         <outlet property="giftMessageTF" destination="VhW-Qn-Ju7" id="Sbb-uV-Wze"/>
@@ -11467,6 +11506,7 @@ If so, please provide the order number,
                         <outlet property="pickerView" destination="euT-kx-F24" id="tHh-iw-mia"/>
                         <outlet property="pickupOptionCheckbox" destination="Ygx-d7-fWI" id="SYI-Cz-mnc"/>
                         <outlet property="pickupView" destination="ff8-42-3g4" id="Rk2-Wk-92c"/>
+                        <outlet property="pickupViewHeight" destination="J8H-uR-d8C" id="FAY-02-Pit"/>
                         <outlet property="pleaseFillOutTheShippingFormView" destination="WmX-5B-bnY" id="gSm-oq-gQb"/>
                         <outlet property="postalCodeBillingTF" destination="JuN-ef-UMI" id="S55-7i-8ia"/>
                         <outlet property="processOrderView" destination="yn9-1h-TYJ" id="VsG-Id-hfz"/>
@@ -11477,9 +11517,11 @@ If so, please provide the order number,
                         <outlet property="receiptView" destination="ObR-kq-SBt" id="UmX-Hp-bgc"/>
                         <outlet property="recipientNameShippingTF" destination="AHI-RM-RAJ" id="lie-GJ-A2C"/>
                         <outlet property="remeberCardInfoCheckbox" destination="roc-k7-hb1" id="doi-jF-Oqi"/>
+                        <outlet property="rememberCardInfoHeight" destination="bco-Ik-8KO" id="uvH-lc-GWT"/>
                         <outlet property="rememberCardInfoView" destination="Ucj-dz-8ec" id="3Nz-bZ-5NG"/>
                         <outlet property="sameAddressCheckbox" destination="hyA-fb-UdQ" id="A88-83-Z8j"/>
                         <outlet property="sameAsShippingAddressView" destination="PkI-lL-oMj" id="bqK-mi-Adr"/>
+                        <outlet property="sameAsShippingHeight" destination="GZM-Wn-gIz" id="027-0x-Gni"/>
                         <outlet property="sampleGiftView" destination="Nxo-HL-dzQ" id="4YZ-cY-ltc"/>
                         <outlet property="sampleGiftViewHeight" destination="Xq3-qO-1HA" id="fGp-A0-8if"/>
                         <outlet property="scrollView" destination="0qz-VS-pnx" id="d5Y-wg-CUE"/>
@@ -11488,10 +11530,14 @@ If so, please provide the order number,
                         <outlet property="shippingCountryButton" destination="4K9-B9-Q8m" id="w2s-wq-oIS"/>
                         <outlet property="shippingDetailsView" destination="kRD-9y-vQJ" id="rXj-zX-iZY"/>
                         <outlet property="shippingDollarLabel" destination="EyZ-ID-6e1" id="gBM-5a-E0Y"/>
+                        <outlet property="shippingPostalCodeLB" destination="W9P-Gu-z2N" id="VDd-es-UI9"/>
+                        <outlet property="shippingProvinceLB" destination="5ZQ-Sx-QhB" id="WUl-hU-zq2"/>
                         <outlet property="shippingStateButton" destination="5aL-dE-F5f" id="6Ll-DG-qds"/>
+                        <outlet property="shippingViewHeight" destination="Noo-8K-9Ld" id="uVL-rb-KCj"/>
                         <outlet property="subtotalDollarLabel" destination="fZ4-TO-r4B" id="VYK-nR-V5A"/>
                         <outlet property="thisIsGiftView" destination="20y-j5-gcK" id="6ex-58-9Eq"/>
                         <outlet property="totalDueDollarLabel" destination="KYf-8a-8Ia" id="pbF-CT-TcF"/>
+                        <outlet property="totalDueLabel" destination="fuA-IO-t05" id="WYP-DV-whx"/>
                         <outlet property="viewHeight" destination="Pc3-u2-uB8" id="dZ3-hV-pTF"/>
                         <outlet property="vipOptionCheckbox" destination="Wjn-ar-Qmj" id="SqT-cM-M2Y"/>
                         <outlet property="vipOptionView" destination="RIJ-Au-AGY" id="Tgo-lx-ILn"/>
@@ -11506,7 +11552,7 @@ If so, please provide the order number,
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kEl-8x-Tq0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="sDo-bH-Ugs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-5425" y="8"/>
+            <point key="canvasLocation" x="-6936" y="1467"/>
         </scene>
         <!--NotificationsVC-->
         <scene sceneID="Q9W-74-nJL">
@@ -11896,61 +11942,62 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="2106E7E2-7EEA-4762-A3B4-B9E2D177CB8D" width="30" height="30">
+        <image name="1E9D9737-2E94-48A9-B6D3-D76B039C706E" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
-ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
-bG9ygA4SAMAAAIACgAzSEgkTFVpOUy5vYmplY3RzoRSAA4AL0hIJFxqiGBmABIAFgAoQANUdHh8gCSEb
-IiMkVk5TU2l6ZV8QD05TQml0c1BlclNhbXBsZV8QEE5TQ29sb3JTcGFjZU5hbWVZTlNQREZEYXRhgAaA
-B4AIgAlYezMwLCAzMH1fEBlOU0NhbGlicmF0ZWRSR0JDb2xvclNwYWNlTxEJoSVQREYtMS4zCiXE5fLl
-66fzoNDExgo0IDAgb2JqCjw8IC9MZW5ndGggNSAwIFIgL0ZpbHRlciAvRmxhdGVEZWNvZGUgPj4Kc3Ry
-ZWFtCngBK1QIVChU0HcuNlRILlYwAMPiZAUjUwVDU4VcEG1koGdiYWphgsQASwKlkhUs9UwNTQzNjIAK
-uZCUghUkK5gi5OEKwVIgrXBzgfqQFIJt5kpWyFBI01IIBAAz3x/FCmVuZHN0cmVhbQplbmRvYmoKNSAw
-IG9iago5NQplbmRvYmoKMiAwIG9iago8PCAvVHlwZSAvUGFnZSAvUGFyZW50IDMgMCBSIC9SZXNvdXJj
-ZXMgNiAwIFIgL0NvbnRlbnRzIDQgMCBSID4+CmVuZG9iago2IDAgb2JqCjw8IC9Qcm9jU2V0IFsgL1BE
-RiBdIC9Db2xvclNwYWNlIDw8IC9DczEgNyAwIFIgPj4gPj4KZW5kb2JqCjggMCBvYmoKPDwgL0xlbmd0
-aCA5IDAgUiAvTiAzIC9BbHRlcm5hdGUgL0RldmljZVJHQiAvRmlsdGVyIC9GbGF0ZURlY29kZSA+Pgpz
-dHJlYW0KeAGFVd9v21QUPolvUqQWPyBYR4eKxa9VU1u5GxqtxgZJk6XtShal6dgqJOQ6N4mpGwfb6baq
-T3uBNwb8AUDZAw9IPCENBmJ72fbAtElThyqqSUh76MQPISbtBVXhu3ZiJ1PEXPX6yznfOec7517bRD1f
-abWaGVWIlquunc8klZOnFpSeTYrSs9RLA9Sr6U4tkcvNEi7BFffO6+EdigjL7ZHu/k72I796i9zRiSJP
-wG4VHX0Z+AxRzNRrtksUvwf7+Gm3BtzzHPDTNgQCqwKXfZwSeNHHJz1OIT8JjtAq6xWtCLwGPLzYZi+3
-YV8DGMiT4VVuG7oiZpGzrZJhcs/hL49xtzH/Dy6bdfTsXYNY+5yluWO4D4neK/ZUvok/17X0HPBLsF+v
-uUlhfwX4j/rSfAJ4H1H0qZJ9dN7nR19frRTeBt4Fe9FwpwtN+2p1MXscGLHR9SXrmMgjONd1ZxKzpBeA
-71b4tNhj6JGoyFNp4GHgwUp9qplfmnFW5oTdy7NamcwCI49kv6fN5IAHgD+0rbyoBc3SOjczohbyS1dr
-bq6pQdqumllRC/0ymTtej8gpbbuVwpQfyw66dqEZyxZKxtHpJn+tZnpnEdrYBbueF9qQn93S7HQGGHnY
-P7w6L+YGHNtd1FJitqPAR+hERCNOFi1i1alKO6RQnjKUxL1GNjwlMsiEhcPLYTEiT9ISbN15OY/jx4SM
-she9LaJRpTvHr3C/ybFYP1PZAfwfYrPsMBtnE6SwN9ib7AhLwTrBDgUKcm06FSrTfSj187xPdVQWOk5Q
-8vxAfSiIUc7Z7xr6zY/+hpqwSyv0I0/QMTRb7RMgBxNodTfSPqdraz/sDjzKBrv4zu2+a2t0/HHzjd2L
-bcc2sG7GtsL42K+xLfxtUgI7YHqKlqHK8HbCCXgjHT1cAdMlDetv4FnQ2lLasaOl6vmB0CMmwT/IPszS
-ueHQqv6i/qluqF+oF9TfO2qEGTumJH0qfSv9KH0nfS/9TIp0Wboi/SRdlb6RLgU5u++9nyXYe69fYRPd
-il1o1WufNSdTTsp75BfllPy8/LI8G7AUuV8ek6fkvfDsCfbNDP0dvRh0CrNqTbV7LfEEGDQPJQadBtfG
-VMWEq3QWWdufk6ZSNsjG2PQjp3ZcnOWWing6noonSInvi0/Ex+IzAreevPhe+CawpgP1/pMTMDo64G0s
-TCXIM+KdOnFWRfQKdJvQzV1+Bt8OokmrdtY2yhVX2a+qrykJfMq4Ml3VR4cVzTQVz+UoNne4vcKLoyS+
-gyKO6EHe+75Fdt0Mbe5bRIf/wjvrVmhbqBN97RD1vxrahvBOfOYzoosH9bq94uejSOQGkVM6sN/7HelL
-4t10t9F4gPdVzydEOx83Gv+uNxo7XyL/FtFl8z9ZAHF4CmVuZHN0cmVhbQplbmRvYmoKOSAwIG9iagox
-MDQ3CmVuZG9iago3IDAgb2JqClsgL0lDQ0Jhc2VkIDggMCBSIF0KZW5kb2JqCjMgMCBvYmoKPDwgL1R5
-cGUgL1BhZ2VzIC9NZWRpYUJveCBbMCAwIDMwIDMwXSAvQ291bnQgMSAvS2lkcyBbIDIgMCBSIF0gPj4K
-ZW5kb2JqCjEwIDAgb2JqCjw8IC9UeXBlIC9DYXRhbG9nIC9QYWdlcyAzIDAgUiA+PgplbmRvYmoKMTEg
-MCBvYmoKKE5ldyBJbWFnZSkKZW5kb2JqCjEyIDAgb2JqCihNYWMgT1MgWCAxMC4xMCBRdWFydHogUERG
-Q29udGV4dCkKZW5kb2JqCjEzIDAgb2JqCihBbGV4IFJhZnRpcykKZW5kb2JqCjE0IDAgb2JqCihPcGFj
-aXR5KQplbmRvYmoKMTUgMCBvYmoKKEQ6MjAxNDA3MzEyMzI4NTFaMDAnMDAnKQplbmRvYmoKMSAwIG9i
-ago8PCAvVGl0bGUgMTEgMCBSIC9BdXRob3IgMTMgMCBSIC9Qcm9kdWNlciAxMiAwIFIgL0NyZWF0b3Ig
-MTQgMCBSIC9DcmVhdGlvbkRhdGUKMTUgMCBSIC9Nb2REYXRlIDE1IDAgUiA+PgplbmRvYmoKeHJlZgow
-IDE2CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMTg2OCAwMDAwMCBuIAowMDAwMDAwMjA5IDAwMDAw
-IG4gCjAwMDAwMDE1NjAgMDAwMDAgbiAKMDAwMDAwMDAyMiAwMDAwMCBuIAowMDAwMDAwMTkxIDAwMDAw
-IG4gCjAwMDAwMDAyODkgMDAwMDAgbiAKMDAwMDAwMTUyNSAwMDAwMCBuIAowMDAwMDAwMzU3IDAwMDAw
-IG4gCjAwMDAwMDE1MDUgMDAwMDAgbiAKMDAwMDAwMTY0MSAwMDAwMCBuIAowMDAwMDAxNjkxIDAwMDAw
-IG4gCjAwMDAwMDE3MTkgMDAwMDAgbiAKMDAwMDAwMTc3MCAwMDAwMCBuIAowMDAwMDAxODAwIDAwMDAw
-IG4gCjAwMDAwMDE4MjYgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSAxNiAvUm9vdCAxMCAwIFIgL0lu
-Zm8gMSAwIFIgL0lEIFsgPGM3MTkyMGM1OTFiMDJlZTI5N2FlODNmY2IxNDZkNTUxPgo8YzcxOTIwYzU5
-MWIwMmVlMjk3YWU4M2ZjYjE0NmQ1NTE+IF0gPj4Kc3RhcnR4cmVmCjE5ODgKJSVFT0YK0ikqKyxaJGNs
-YXNzbmFtZVgkY2xhc3Nlc11OU1BERkltYWdlUmVwoy0uL11OU1BERkltYWdlUmVwWk5TSW1hZ2VSZXBY
-TlNPYmplY3TSKSoxMldOU0FycmF5ojEv0ikqNDVeTlNNdXRhYmxlQXJyYXmjNDEv0zc4CTk6O1dOU1do
-aXRlXE5TQ29sb3JTcGFjZUQwIDAAEAOADdIpKj0+V05TQ29sb3KiPS/SKSpAQVdOU0ltYWdlokAvXxAP
-TlNLZXllZEFyY2hpdmVy0URFVHJvb3SAAQAIABEAGgAjAC0AMgA3AEkATwBYAF8AbABzAHsAfQCCAIQA
-hgCLAJYAmACaAJwAoQCkAKYAqACqAKwAtwC+ANAA4wDtAO8A8QDzAPUA/gEaCr8KxArPCtgK5grqCvgL
-AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
-RgAAAAAAAAAAAAAAAAAAC5U
+YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
+ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
+b2xvcoAPEgDAAACAAoAN0hIJExVaTlMub2JqZWN0c6EUgAOADNISCRcaohgZgASABYALEADVHR4fIAkh
+GyIjJFZOU1NpemVfEA9OU0JpdHNQZXJTYW1wbGVfEBBOU0NvbG9yU3BhY2VOYW1lWU5TUERGRGF0YYAG
+gAeACIAKWHszMCwgMzB9XxAZTlNDYWxpYnJhdGVkUkdCQ29sb3JTcGFjZdIoCSkqV05TLmRhdGFPEQmh
+JVBERi0xLjMKJcTl8uXrp/Og0MTGCjQgMCBvYmoKPDwgL0xlbmd0aCA1IDAgUiAvRmlsdGVyIC9GbGF0
+ZURlY29kZSA+PgpzdHJlYW0KeAErVAhUKFTQdy42VEguVjAAw+JkBSNTBUNThVwQbWSgZ2JhamGCxABL
+AqWSFSz1TA1NDM2MgAq5kJSCFSQrmCLk4QrBUiCtcHOB+pAUgm3mSlbIUEjTUggEADPfH8UKZW5kc3Ry
+ZWFtCmVuZG9iago1IDAgb2JqCjk1CmVuZG9iagoyIDAgb2JqCjw8IC9UeXBlIC9QYWdlIC9QYXJlbnQg
+MyAwIFIgL1Jlc291cmNlcyA2IDAgUiAvQ29udGVudHMgNCAwIFIgPj4KZW5kb2JqCjYgMCBvYmoKPDwg
+L1Byb2NTZXQgWyAvUERGIF0gL0NvbG9yU3BhY2UgPDwgL0NzMSA3IDAgUiA+PiA+PgplbmRvYmoKOCAw
+IG9iago8PCAvTGVuZ3RoIDkgMCBSIC9OIDMgL0FsdGVybmF0ZSAvRGV2aWNlUkdCIC9GaWx0ZXIgL0Zs
+YXRlRGVjb2RlID4+CnN0cmVhbQp4AYVV32/bVBQ+iW9SpBY/IFhHh4rFr1VTW7kbGq3GBkmTpe1KFqXp
+2Cok5Do3iakbB9vptqpPe4E3BvwBQNkDD0g8IQ0GYnvZ9sC0SVOHKqpJSHvoxA8hJu0FVeG7dmInU8Rc
+9frLOd855zvnXttEPV9ptZoZVYiWq66dzySVk6cWlJ5NitKz1EsD1KvpTi2Ry80SLsEV987r4R2KCMvt
+ke7+TvYjv3qL3NGJIk/AbhUdfRn4DFHM1Gu2SxS/B/v4abcG3PMc8NM2BAKrApd9nBJ40ccnPU4hPwmO
+0CrrFa0IvAY8vNhmL7dhXwMYyJPhVW4buiJmkbOtkmFyz+Evj3G3Mf8PLpt19Oxdg1j7nKW5Y7gPid4r
+9lS+iT/XtfQc8EuwX6+5SWF/BfiP+tJ8AngfUfSpkn103udHX1+tFN4G3gV70XCnC037anUxexwYsdH1
+JeuYyCM413VnErOkF4DvVvi02GPokajIU2ngYeDBSn2qmV+acVbmhN3Ls1qZzAIjj2S/p83kgAeAP7St
+vKgFzdI6NzOiFvJLV2turqlB2q6aWVEL/TKZO16PyCltu5XClB/LDrp2oRnLFkrG0ekmf61memcR2tgF
+u54X2pCf3dLsdAYYedg/vDov5gYc213UUmK2o8BH6EREI04WLWLVqUo7pFCeMpTEvUY2PCUyyISFw8th
+MSJP0hJs3Xk5j+PHhIyyF70tolGlO8evcL/JsVg/U9kB/B9is+wwG2cTpLA32JvsCEvBOsEOBQpybToV
+KtN9KPXzvE91VBY6TlDy/EB9KIhRztnvGvrNj/6GmrBLK/QjT9AxNFvtEyAHE2h1N9I+p2trP+wOPMoG
+u/jO7b5ra3T8cfON3Yttxzawbsa2wvjYr7Et/G1SAjtgeoqWocrwdsIJeCMdPVwB0yUN62/gWdDaUtqx
+o6Xq+YHQIybBP8g+zNK54dCq/qL+qW6oX6gX1N87aoQZO6YkfSp9K/0ofSd9L/1MinRZuiL9JF2VvpEu
+BTm7772fJdh7r19hE92KXWjVa581J1NOynvkF+WU/Lz8sjwbsBS5Xx6Tp+S98OwJ9s0M/R29GHQKs2pN
+tXst8QQYNA8lBp0G18ZUxYSrdBZZ25+TplI2yMbY9COndlyc5ZaKeDqeiidIie+LT8TH4jMCt568+F74
+JrCmA/X+kxMwOjrgbSxMJcgz4p06cVZF9Ap0m9DNXX4G3w6iSat21jbKFVfZr6qvKQl8yrgyXdVHhxXN
+NBXP5Sg2d7i9woujJL6DIo7oQd77vkV23Qxt7ltEh//CO+tWaFuoE33tEPW/GtqG8E585jOiiwf1ur3i
+56NI5AaRUzqw3/sd6Uvi3XS30XiA91XPJ0Q7Hzca/643GjtfIv8W0WXzP1kAcXgKZW5kc3RyZWFtCmVu
+ZG9iago5IDAgb2JqCjEwNDcKZW5kb2JqCjcgMCBvYmoKWyAvSUNDQmFzZWQgOCAwIFIgXQplbmRvYmoK
+MyAwIG9iago8PCAvVHlwZSAvUGFnZXMgL01lZGlhQm94IFswIDAgMzAgMzBdIC9Db3VudCAxIC9LaWRz
+IFsgMiAwIFIgXSA+PgplbmRvYmoKMTAgMCBvYmoKPDwgL1R5cGUgL0NhdGFsb2cgL1BhZ2VzIDMgMCBS
+ID4+CmVuZG9iagoxMSAwIG9iagooTmV3IEltYWdlKQplbmRvYmoKMTIgMCBvYmoKKE1hYyBPUyBYIDEw
+LjEwIFF1YXJ0eiBQREZDb250ZXh0KQplbmRvYmoKMTMgMCBvYmoKKEFsZXggUmFmdGlzKQplbmRvYmoK
+MTQgMCBvYmoKKE9wYWNpdHkpCmVuZG9iagoxNSAwIG9iagooRDoyMDE0MDczMTIzMjg1MVowMCcwMCcp
+CmVuZG9iagoxIDAgb2JqCjw8IC9UaXRsZSAxMSAwIFIgL0F1dGhvciAxMyAwIFIgL1Byb2R1Y2VyIDEy
+IDAgUiAvQ3JlYXRvciAxNCAwIFIgL0NyZWF0aW9uRGF0ZQoxNSAwIFIgL01vZERhdGUgMTUgMCBSID4+
+CmVuZG9iagp4cmVmCjAgMTYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAxODY4IDAwMDAwIG4gCjAw
+MDAwMDAyMDkgMDAwMDAgbiAKMDAwMDAwMTU2MCAwMDAwMCBuIAowMDAwMDAwMDIyIDAwMDAwIG4gCjAw
+MDAwMDAxOTEgMDAwMDAgbiAKMDAwMDAwMDI4OSAwMDAwMCBuIAowMDAwMDAxNTI1IDAwMDAwIG4gCjAw
+MDAwMDAzNTcgMDAwMDAgbiAKMDAwMDAwMTUwNSAwMDAwMCBuIAowMDAwMDAxNjQxIDAwMDAwIG4gCjAw
+MDAwMDE2OTEgMDAwMDAgbiAKMDAwMDAwMTcxOSAwMDAwMCBuIAowMDAwMDAxNzcwIDAwMDAwIG4gCjAw
+MDAwMDE4MDAgMDAwMDAgbiAKMDAwMDAwMTgyNiAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDE2IC9S
+b290IDEwIDAgUiAvSW5mbyAxIDAgUiAvSUQgWyA8YzcxOTIwYzU5MWIwMmVlMjk3YWU4M2ZjYjE0NmQ1
+NTE+CjxjNzE5MjBjNTkxYjAyZWUyOTdhZTgzZmNiMTQ2ZDU1MT4gXSA+PgpzdGFydHhyZWYKMTk4OAol
+JUVPRgqACdIsLS4vWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMuMDFWTlNEYXRhWE5T
+T2JqZWN00iwtMzRdTlNQREZJbWFnZVJlcKM1NjFdTlNQREZJbWFnZVJlcFpOU0ltYWdlUmVw0iwtODlX
+TlNBcnJheaI4MdIsLTs8Xk5TTXV0YWJsZUFycmF5ozs4MdM+PwlAQUJXTlNXaGl0ZVxOU0NvbG9yU3Bh
+Y2VEMCAwABADgA7SLC1ERVdOU0NvbG9yokQx0iwtR0hXTlNJbWFnZaJHMV8QD05TS2V5ZWRBcmNoaXZl
+ctFLTFRyb290gAEACAARABoAIwAtADIANwBKAFAAWQBgAG0AdAB8AH4AgwCFAIcAjACXAJkAmwCdAKIA
+pQCnAKkAqwCtALgAvwDRAOQA7gDwAPIA9AD2AP8BGwEgASgKzQrPCtQK3wroCvYK+gsBCwoLDwsdCyEL
+Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
+TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
         <image name="BTRLogo.png" width="925" height="125"/>
@@ -11971,10 +12018,10 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="trackorders" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HxW-sB-vXc"/>
-        <segue reference="Hl3-o6-ufa"/>
-        <segue reference="ue6-nF-fny"/>
-        <segue reference="cgg-l4-kOG"/>
         <segue reference="VWb-YF-urN"/>
+        <segue reference="wA3-jM-FeK"/>
+        <segue reference="4mB-Cf-BtX"/>
+        <segue reference="4NP-4y-F7L"/>
+        <segue reference="cgg-l4-kOG"/>
     </inferredMetricsTieBreakers>
 </document>

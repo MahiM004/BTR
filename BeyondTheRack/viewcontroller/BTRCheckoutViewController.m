@@ -47,7 +47,7 @@
 #define REMEBER_CARD_INFO_HEIGHT 75.0
 
 #define DEFAULT_VIEW_HEIGHT_IPHONE 3300
-#define DEFAULT_VIEW_HEIGHT_IPAD 1800
+#define DEFAULT_VIEW_HEIGHT_IPAD 1920
 
 @class CTCheckbox;
 
@@ -397,6 +397,8 @@
     CGFloat heightSize = 0;
     CGFloat widthSize = 0;
     if ([BTRViewUtility isIPAD]) {
+        self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant;
+        self.viewHeight.constant = self.viewHeight.constant + SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
         widthSize = self.view.frame.size.width/2 - 50;
     } else {
         widthSize = self.view.frame.size.width;
@@ -801,7 +803,7 @@
             self.sendmeToPaypalCheckbox.hidden = NO;
             self.sendmeToPaypalLabel.hidden = NO;
             self.changePaymentMethodView.hidden = NO;
-            self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT;;
+            self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT;
             self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
             [self disablePaymentInfo];
         }
