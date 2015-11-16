@@ -392,4 +392,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SELECTED_RADIO_BUTTON_CHANGED object:self.genderGroup];
 }
 
+- (IBAction)textFieldDidBeginEditing:(UITextField *)sender {
+    [sender setValue:[UIColor clearColor] forKeyPath:@"_placeholderLabel.textColor"];
+}
+
+- (IBAction)textFieldDidEndEditing:(UITextField *)sender {
+    [sender setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+}
+
 @end

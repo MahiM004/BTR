@@ -327,6 +327,13 @@
     [sender bs_hideError];
 }
 
+- (IBAction)textFieldDidBeginEditing:(UITextField *)sender {
+    [sender setValue:[UIColor clearColor] forKeyPath:@"_placeholderLabel.textColor"];
+}
+
+- (IBAction)textFieldDidEndEditing:(UITextField *)sender {
+    [sender setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+}
 
 
 

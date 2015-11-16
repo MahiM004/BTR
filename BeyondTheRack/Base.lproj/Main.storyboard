@@ -1568,13 +1568,15 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AU9-Oe-GEr">
                                                 <rect key="frame" x="63" y="2" width="229" height="36"/>
                                                 <animations/>
-                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="v91-a9-dXf"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet"/>
                                                 <connections>
+                                                    <action selector="textFieldDidBeginEditing:" destination="EaV-53-RXH" eventType="editingDidBegin" id="nsQ-Yd-QBc"/>
+                                                    <action selector="textFieldDidEndEditing:" destination="EaV-53-RXH" eventType="editingDidEnd" id="se0-3p-3Ia"/>
                                                     <action selector="textFieldValueChangedOrSelected:" destination="EaV-53-RXH" eventType="editingChanged" id="bOb-Q3-GYz"/>
                                                     <action selector="textFieldValueChangedOrSelected:" destination="EaV-53-RXH" eventType="touchDown" id="gzn-G4-Q5H"/>
                                                 </connections>
@@ -1597,13 +1599,15 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ggP-64-4YR">
                                                 <rect key="frame" x="63" y="2" width="229" height="36"/>
                                                 <animations/>
-                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="GPR-9C-wPp"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" secureTextEntry="YES"/>
                                                 <connections>
+                                                    <action selector="textFieldDidBeginEditing:" destination="EaV-53-RXH" eventType="editingDidBegin" id="Ys2-n1-UpA"/>
+                                                    <action selector="textFieldDidEndEditing:" destination="EaV-53-RXH" eventType="editingDidEnd" id="6JJ-S8-PHH"/>
                                                     <action selector="textFieldValueChangedOrSelected:" destination="EaV-53-RXH" eventType="editingChanged" id="68Y-RF-92J"/>
                                                     <action selector="textFieldValueChangedOrSelected:" destination="EaV-53-RXH" eventType="touchDown" id="far-If-WgS"/>
                                                 </connections>
@@ -2074,10 +2078,12 @@
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="    Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mVw-BG-6Ut">
                                                             <rect key="frame" x="52" y="44" width="249" height="36"/>
                                                             <animations/>
-                                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                                             <connections>
+                                                                <action selector="textFieldDidBeginEditing:" destination="ggQ-Fq-uBL" eventType="editingDidBegin" id="1yd-uj-txu"/>
+                                                                <action selector="textFieldDidEndEditing:" destination="ggQ-Fq-uBL" eventType="editingDidEnd" id="IaL-dD-DEq"/>
                                                                 <action selector="textFieldSelectedOrChanged:" destination="ggQ-Fq-uBL" eventType="editingChanged" id="mW4-O2-aar"/>
                                                                 <action selector="textFieldSelectedOrChanged:" destination="ggQ-Fq-uBL" eventType="touchDown" id="zVi-9S-F26"/>
                                                             </connections>
@@ -2085,10 +2091,12 @@
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="    email@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bvp-qG-w2h">
                                                             <rect key="frame" x="50" y="0.0" width="249" height="36"/>
                                                             <animations/>
-                                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                                             <connections>
+                                                                <action selector="textFieldDidBeginEditing:" destination="ggQ-Fq-uBL" eventType="editingDidBegin" id="QKG-Wx-ElN"/>
+                                                                <action selector="textFieldDidEndEditing:" destination="ggQ-Fq-uBL" eventType="editingDidEnd" id="7XD-vE-CYP"/>
                                                                 <action selector="textFieldSelectedOrChanged:" destination="ggQ-Fq-uBL" eventType="touchDown" id="EWL-Bh-5NP"/>
                                                                 <action selector="textFieldSelectedOrChanged:" destination="ggQ-Fq-uBL" eventType="editingChanged" id="fWh-e3-YvI"/>
                                                             </connections>
@@ -2308,7 +2316,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="25B2A105-1C40-42DB-9013-7B3C4C9A69B0" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="D0817A40-B653-4B4A-9155-3ADD7BDD4D9F" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -2384,7 +2392,7 @@
                                             <constraint firstAttribute="width" constant="50" id="JVt-5T-Ulc"/>
                                             <constraint firstAttribute="height" constant="40" id="tkK-vA-BQN"/>
                                         </constraints>
-                                        <inset key="contentEdgeInsets" minX="15" minY="10" maxX="10" maxY="10"/>
+                                        <inset key="contentEdgeInsets" minX="15" minY="10" maxX="15" maxY="10"/>
                                         <state key="normal" image="backarrowcool.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -3130,7 +3138,7 @@
                                             <constraint firstAttribute="height" constant="40" id="jM2-XB-gyS"/>
                                             <constraint firstAttribute="width" constant="50" id="oFc-V3-GlA"/>
                                         </constraints>
-                                        <inset key="contentEdgeInsets" minX="15" minY="10" maxX="10" maxY="10"/>
+                                        <inset key="contentEdgeInsets" minX="15" minY="10" maxX="15" maxY="10"/>
                                         <state key="normal" image="backarrowcool.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -9298,7 +9306,7 @@ If so, please provide the order number,
                                             <constraint firstAttribute="height" constant="40" id="BHv-Fu-qUc"/>
                                             <constraint firstAttribute="width" constant="50" id="dwY-PE-dBl"/>
                                         </constraints>
-                                        <inset key="contentEdgeInsets" minX="15" minY="10" maxX="10" maxY="10"/>
+                                        <inset key="contentEdgeInsets" minX="15" minY="10" maxX="15" maxY="10"/>
                                         <state key="normal" image="backarrowcool.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -11969,7 +11977,8 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="25B2A105-1C40-42DB-9013-7B3C4C9A69B0" width="30" height="30">
+        <image name="BTRLogo.png" width="925" height="125"/>
+        <image name="D0817A40-B653-4B4A-9155-3ADD7BDD4D9F" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -12027,7 +12036,6 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
-        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="account" width="128" height="128"/>
         <image name="backarrowcool.png" width="420" height="490"/>
@@ -12045,10 +12053,10 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="trackorders" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VWb-YF-urN"/>
         <segue reference="wA3-jM-FeK"/>
-        <segue reference="4mB-Cf-BtX"/>
         <segue reference="4NP-4y-F7L"/>
+        <segue reference="4mB-Cf-BtX"/>
         <segue reference="cgg-l4-kOG"/>
+        <segue reference="VWb-YF-urN"/>
     </inferredMetricsTieBreakers>
 </document>
