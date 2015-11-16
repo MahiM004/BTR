@@ -196,16 +196,16 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark scrollView delegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    float scrollViewHeight = scrollView.frame.size.height;
-    float scrollContentSizeHeight = scrollView.contentSize.height;
-    float scrollOffset = scrollView.contentOffset.y;
-    if (scrollOffset + scrollViewHeight > scrollContentSizeHeight - 1 * self.collectionView.frame.size.height) {
-    if (!self.isLoadingNextPage && !self.lastPageDidLoad) {
-        [self callForNextPage];
-    }
-}
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//        float scrollViewHeight = scrollView.frame.size.height;
+//        float scrollContentSizeHeight = scrollView.contentSize.height;
+//        float scrollOffset = scrollView.contentOffset.y;
+//        if (scrollOffset + scrollViewHeight > scrollContentSizeHeight - 1 * self.collectionView.frame.size.height) {
+//        if (!self.isLoadingNextPage && !self.lastPageDidLoad) {
+//            [self callForNextPage];
+//        }
+//    }
+//}
 
 
 @end
