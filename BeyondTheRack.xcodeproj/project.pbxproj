@@ -210,6 +210,7 @@
 		A0D1B4601B7E4FED00848FA7 /* BTRContactFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45F1B7E4FED00848FA7 /* BTRContactFetcher.m */; };
 		A0D1B4631B7E510D00848FA7 /* Contact+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B4621B7E510D00848FA7 /* Contact+AppServer.m */; };
 		A0E277FC1B9F32F4006E7D33 /* BTRSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E277FB1B9F32F4006E7D33 /* BTRSettingManager.m */; };
+		A0F1E9B61BFA912D0034A55A /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A0F1E9B51BFA912D0034A55A /* camera.png */; };
 		A0FCDED51BA0C69900CD476B /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FCDED41BA0C69900CD476B /* Address.m */; };
 		A0FD34281BA75CFB00B6B2C3 /* cardImages.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FD34271BA75CFB00B6B2C3 /* cardImages.png */; };
 		A0FD342A1BA76C2E00B6B2C3 /* neulogo.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FD34291BA76C2E00B6B2C3 /* neulogo.png */; };
@@ -597,6 +598,7 @@
 		A0E277FA1B9F32F4006E7D33 /* BTRSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSettingManager.h; sourceTree = "<group>"; };
 		A0E277FB1B9F32F4006E7D33 /* BTRSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSettingManager.m; sourceTree = "<group>"; };
 		A0E277FD1B9F3BA5006E7D33 /* SettingsKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsKeys.h; sourceTree = "<group>"; };
+		A0F1E9B51BFA912D0034A55A /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		A0FCDED31BA0C69900CD476B /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
 		A0FCDED41BA0C69900CD476B /* Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Address.m; sourceTree = "<group>"; };
 		A0FD34271BA75CFB00B6B2C3 /* cardImages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardImages.png; sourceTree = "<group>"; };
@@ -945,6 +947,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A0F1E9B51BFA912D0034A55A /* camera.png */,
 				A06782401BF523790058F1BF /* cardImages_us.png */,
 				A0FD342B1BA76F2200B6B2C3 /* placeHolderImage.png */,
 				A0FD34291BA76C2E00B6B2C3 /* neulogo.png */,
@@ -1465,6 +1468,7 @@
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				695C75601B38957A003F65F8 /* masterpass_t.png in Resources */,
 				69F0BB231B457156008C0498 /* SF-UI-Display-Black.otf in Resources */,
+				A0F1E9B61BFA912D0034A55A /* camera.png in Resources */,
 				69AB985D1A76AB2200EDB1E6 /* twittericonalpha.png in Resources */,
 				695C755B1B386677003F65F8 /* paypal_yellow.png in Resources */,
 				69F0BB241B457156008C0498 /* SF-UI-Display-Bold.otf in Resources */,
