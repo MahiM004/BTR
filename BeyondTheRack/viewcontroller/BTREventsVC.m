@@ -58,8 +58,8 @@ static NSString * const reuseIdentifier = @"Cell";
         NSArray *events = responseObject[@"events"];
         self.eventsArray = [Event loadEventsfromAppServerArray:events withCategoryName:[self urlCategoryName] forEventsArray:[self eventsArray]];
         [self.collectionView reloadData];
-        [self reloadTimers];
-        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadTimers) userInfo:nil repeats:YES];
+//        [self reloadTimers];
+//        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadTimers) userInfo:nil repeats:YES];
         self.isLoadingNextPage = NO;
     } failure:^(NSError *error) {
         self.isLoadingNextPage = NO;
@@ -108,7 +108,7 @@ static NSString * const reuseIdentifier = @"Cell";
     Event *event = [[self eventsArray] objectAtIndex:[indexPath row]];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]];
     cell.durationLabel.adjustsFontSizeToFitWidth = YES;
-    [self changeDateForLabel:cell.durationLabel withDate:[[self.eventsArray objectAtIndex:indexPath.row]endDateTime]];
+//    [self changeDateForLabel:cell.durationLabel withDate:[[self.eventsArray objectAtIndex:indexPath.row]endDateTime]];
     __weak UIImageView *weakImageView = cell.eventImage;
     [cell.eventImage setImageWithURLRequest:urlRequest placeholderImage:nil
                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -191,6 +191,7 @@ static NSString * const reuseIdentifier = @"Cell";
     BTRProductShowcaseVC *viewController = (BTRProductShowcaseVC *)[storyboard instantiateViewControllerWithIdentifier:@"BTRProductShowcaseVC"];
     viewController.eventSku = [event eventId];
     viewController.eventTitleString = [event eventName];
+    viewController.eventEndDate = [event endDateTime];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

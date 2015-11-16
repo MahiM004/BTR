@@ -14,5 +14,6 @@
 
 @property (strong, nonatomic) NSString *eventSku;
 @property (strong, nonatomic) NSString *eventTitleString;
+@property (strong, nonatomic) NSDate *eventEndDate;
 
 @end

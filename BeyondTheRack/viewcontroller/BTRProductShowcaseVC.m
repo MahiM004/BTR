@@ -39,6 +39,9 @@ typedef enum ScrollDirection {
 
 @interface BTRProductShowcaseVC ()
 
+// Properties
+@property (strong,nonatomic) NSTimer *timer;
+
 // Pagination
 @property int currentPage;
 @property BOOL isLoadingNextPage;
@@ -50,13 +53,18 @@ typedef enum ScrollDirection {
 // Heights
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sortViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *timerViewHeight;
 
 // UI Views
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath; // used to segue to PDP
 @property (strong, nonatomic) NSString *selectedBrandString; // used to segue to PDP
+
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIView *timerView;
+
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet MarqueeLabel *eventTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *eventEndTimeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 @property (weak, nonatomic) IBOutlet UILabel *filterByLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sortByLabel;
@@ -166,9 +174,8 @@ typedef enum ScrollDirection {
     [self setSelectedCellIndexRow:NSUIntegerMax];
 
     [self.eventTitleLabel setText:[self eventTitleString]];
-    
-    self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
-    self.sortAndFilterView.backgroundColor = [BTRViewUtility BTRBlack];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeDate) userInfo:nil repeats:YES];
+    self.headerView.backgroundColor = self.sortAndFilterView.backgroundColor = self.timerView.backgroundColor = [BTRViewUtility BTRBlack];
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     
     self.collectionView.delegate = self;
@@ -571,11 +578,15 @@ typedef enum ScrollDirection {
         return;
     
     if  ([self scrollDirectionOfScrollView:scrollView] == ScrollDirectionDown) {
-        if (scrollView.contentOffset.y > 240)
+        if (scrollView.contentOffset.y > 240) {
             self.sortViewHeight.constant = 0;
+            self.timerViewHeight.constant = 0;
+        }
     } else
-        if (scrollView.contentOffset.y < 200)
+        if (scrollView.contentOffset.y < 200) {
+            self.timerViewHeight.constant = 20;
             self.sortViewHeight.constant = 40;
+        }
     [self.view needsUpdateConstraints];
     
     float scrollViewHeight = scrollView.frame.size.height;
@@ -660,6 +671,24 @@ typedef enum ScrollDirection {
         [self.filterSizeTextField setText:[self.sizeArray objectAtIndex:indexPath.row]];
     }
     [self loadFirstPageOfItems];
+}
+
+#pragma mark change date
+
+- (void)changeDate{
+    NSCalendar *sysCalendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [sysCalendar components: (NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear )
+                                                  fromDate:[NSDate date]
+                                                    toDate:self.eventEndDate
+                                                   options:0];
+    if (components.hour < 0 || components.minute < 0 || components.second < 0) {
+        self.eventEndTimeLabel.text = [NSString stringWithFormat:@"Expired"];
+        self.eventEndTimeLabel.textColor = [UIColor redColor];
+        [self.timer invalidate];
+    } else {
+        self.eventEndTimeLabel.text = [NSString stringWithFormat:@"Event Ends In %li days %02ld:%02ld:%02ld",(long)components.day,(long)components.hour,(long)components.minute,(long)components.second];
+        self.eventEndTimeLabel.textColor = [UIColor whiteColor];
+    }
 }
 
 @end
