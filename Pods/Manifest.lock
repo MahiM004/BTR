@@ -42,6 +42,7 @@ PODS:
     - Braintree/Card
     - Braintree/Core
   - BSErrorMessageView (1.1)
+  - CardIO (5.2.2)
   - FBSDKCoreKit (4.7.0):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc (= 4.7.0)
@@ -73,6 +74,7 @@ DEPENDENCIES:
   - Braintree
   - Braintree/Apple-Pay
   - BSErrorMessageView (from `https://github.com/BenjaminSarkisyan/BSErrorMessageView.git`)
+  - CardIO
   - FBSDKCoreKit (~> 4.7)
   - FBSDKLoginKit (~> 4.7)
   - FBSDKShareKit (~> 4.7)
@@ -105,6 +107,7 @@ SPEC CHECKSUMS:
   Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
   Braintree: 660cca560c01a7464626ee1e18c971d6491a3889
   BSErrorMessageView: 67cc7d172995fbc6df602c2b8923f48121ddf7a9
+  CardIO: 2460db0f4936f3441b08d51e3904b436d77ec8fc
   FBSDKCoreKit: eb580bfc2040ad44f4c0b4f4d0befb1d35bce59c
   FBSDKLoginKit: 028c5a205990441123764609fe795e65027c447f
   FBSDKShareKit: 1f927bb05e4d36a99d5d5bf2f4b1ff294ce3e15c
