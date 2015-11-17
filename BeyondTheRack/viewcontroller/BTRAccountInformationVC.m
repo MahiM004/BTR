@@ -30,10 +30,10 @@
 
 @property (strong, nonatomic) NSArray *genderArray;
 @property (strong, nonatomic) NSArray *countryNameArray;
-@property (strong, nonatomic) NSArray *incomeBracketArray;
-@property (strong, nonatomic) NSArray *childrenArray;
-@property (strong, nonatomic) NSArray *maritalStatusArray;
-@property (strong, nonatomic) NSArray *formalEducationArray;
+@property (strong, nonatomic) NSDictionary *incomeBracketDictionary;
+@property (strong, nonatomic) NSDictionary *childrenDictionary;
+@property (strong, nonatomic) NSDictionary *maritalStatusDictionary;
+@property (strong, nonatomic) NSDictionary *formalEducationDictionary;
 
 @property (strong, nonatomic) NSArray *provincesArray;
 @property (strong, nonatomic) NSArray *statesArray;
@@ -42,6 +42,15 @@
 
 @end
 
+
+@implementation NSDictionary (keyforvalue)
+
+- (NSString *)keyForValue:(NSString *)value {
+    NSArray *temp = [self allKeysForObject:value];
+    return [temp lastObject];
+}
+
+@end
 
 
 
@@ -57,26 +66,26 @@
     return _countryNameArray;
 }
 
-- (NSArray *)incomeBracketArray {
-    _incomeBracketArray = @[@"Up to $60,000", @"$60,000 to $100,000", @"$100,000 to $150,000", @"Over $150,000"];
-    return _incomeBracketArray;
+- (NSDictionary *)incomeBracketDictionary {
+    _incomeBracketDictionary = @{@"":@"",@"Up to $60,000": @"<60000", @"$60,000 to $100,000":@"60000-100000", @"$100,000 to $150,000":@"100000-150000", @"Over $150,000":@">150000"};
+    return _incomeBracketDictionary;
 }
 
-- (NSArray *)childrenArray {
-    _childrenArray = @[@"Young children", @"Teenage children", @"Adult children"];
-    return _childrenArray;
-}
-
-
-- (NSArray *)maritalStatusArray {
-    _maritalStatusArray = @[@"Single", @"Unmarried", @"Married", @"Divorced", @"Widowed"];
-    return _maritalStatusArray;
+- (NSDictionary *)childrenDictionary {
+    _childrenDictionary = @{@"":@"",@"Young children":@"young", @"Teenage children":@"teens", @"Adult children":@"adult"};
+    return _childrenDictionary;
 }
 
 
-- (NSArray *)formalEducationArray {
-    _formalEducationArray = @[@"Primary school", @"Secondary school", @"College", @"University", @"Graduate studies"];
-    return _formalEducationArray;
+- (NSDictionary *)maritalStatusDictionary {
+    _maritalStatusDictionary = @{@"":@"",@"Single":@"single", @"Unmarried":@"unmarried", @"Married":@"married", @"Divorced":@"divorced", @"Widowed":@"widowed"};
+    return _maritalStatusDictionary;
+}
+
+
+- (NSDictionary *)formalEducationDictionary{
+    _formalEducationDictionary = @{@"":@"",@"Primary school":@"primary", @"Secondary school":@"secondary", @"College":@"college", @"University":@"university", @"Graduate studies":@"graduate"};
+    return _formalEducationDictionary;
 }
 
 
@@ -125,10 +134,10 @@
         [self.firstNameTextField setText:[user name]];
         [self.lastNameTextField setText:[user lastName]];
         [self.genderTextField setText:[user gender]];
-        [self.maritalStatusTextField setText:[user maritalStatus]];
-        [self.childrenTextField setText:[user children]];
-        [self.formalEducationTextField setText:[user education]];
-        [self.incomeBracketTextField setText:[user income]];
+        [self.maritalStatusTextField setText:[self.maritalStatusDictionary keyForValue:[user maritalStatus]]];
+        [self.childrenTextField setText:[self.childrenDictionary keyForValue:[user children]]];
+        [self.formalEducationTextField setText:[self.formalEducationDictionary keyForValue:[user education]]];
+        [self.incomeBracketTextField setText:[self.incomeBracketDictionary keyForValue:[user income]]];
         [self.occupationTextField setText:[user occupation]];
         [self.shoppingClubsTextField setText:[user favoriteShopping]];
         [self.mobilePhoneTextField setText:[user mobile]];
@@ -211,16 +220,16 @@
         [self.genderTextField setText:[[self genderArray] objectAtIndex:row]];
 
     if ([self pickerType] == MARITAL_PICKER)
-        [self.maritalStatusTextField setText:[[self maritalStatusArray] objectAtIndex:row]];
+        [self.maritalStatusTextField setText:[[[self maritalStatusDictionary]allKeys] objectAtIndex:row]];
 
     if ([self pickerType] == EDUCATION_PICKER)
-        [self.formalEducationTextField setText:[[self formalEducationArray] objectAtIndex:row]];
+        [self.formalEducationTextField setText:[[[self formalEducationDictionary]allKeys] objectAtIndex:row]];
 
     if ([self pickerType] == CHILDREN_PICKER)
-        [self.childrenTextField setText:[[self childrenArray] objectAtIndex:row]];
+        [self.childrenTextField setText:[[[self childrenDictionary]allKeys] objectAtIndex:row]];
 
     if ([self pickerType] == INCOME_PICKER)
-        [self.incomeBracketTextField setText:[[self incomeBracketArray] objectAtIndex:row]];
+        [self.incomeBracketTextField setText:[[[self incomeBracketDictionary]allKeys] objectAtIndex:row]];
  
     if ([self pickerType] == PROVINCE_PICKER)
         [self.provinceTextField setText:[[self provincesArray] objectAtIndex:row]];
@@ -236,16 +245,16 @@
         return [[self countryNameArray] count];
 
     if ([self pickerType] == INCOME_PICKER)
-        return [[self incomeBracketArray] count];
+        return [[self incomeBracketDictionary] count];
     
     if ([self pickerType] == MARITAL_PICKER)
-        return [[self maritalStatusArray] count];
+        return [[[self maritalStatusDictionary]allKeys] count];
     
     if ([self pickerType] == CHILDREN_PICKER)
-        return [[self childrenArray] count];
+        return [[[self childrenDictionary]allKeys] count];
     
     if ([self pickerType] == EDUCATION_PICKER)
-        return [[self formalEducationArray] count];
+        return [[[self formalEducationDictionary]allKeys] count];
 
     if ([self pickerType] == PROVINCE_PICKER)
         return [[self provincesArray] count];
@@ -265,16 +274,16 @@
         return [[self countryNameArray] objectAtIndex:row];
 
     if ([self pickerType] == MARITAL_PICKER)
-        return [[self maritalStatusArray] objectAtIndex:row];
+        return [[[self maritalStatusDictionary]allKeys] objectAtIndex:row];
     
     if ([self pickerType] == EDUCATION_PICKER)
-        return [[self formalEducationArray] objectAtIndex:row];
+        return [[[self formalEducationDictionary]allKeys] objectAtIndex:row];
     
     if ([self pickerType] == CHILDREN_PICKER)
-        return [[self childrenArray] objectAtIndex:row];
+        return [[[self childrenDictionary]allKeys] objectAtIndex:row];
     
     if ([self pickerType] == INCOME_PICKER)
-        return [[self incomeBracketArray] objectAtIndex:row];
+        return [[[self incomeBracketDictionary]allKeys] objectAtIndex:row];
 
     if ([self pickerType] == PROVINCE_PICKER)
         return [[self provincesArray] objectAtIndex:row];
@@ -319,11 +328,11 @@
                               @"name": [[self firstNameTextField] text],
                               @"last_name": [[self lastNameTextField] text],
                               @"alternate_email": [[self alternateEmailTextField] text],
-                              @"education": [[self formalEducationTextField] text],
-                              @"children": [[self childrenTextField] text],
+                              @"education": [[self formalEducationDictionary]valueForKey:[[self formalEducationTextField] text]]?[[self formalEducationDictionary]valueForKey:[[self formalEducationTextField] text]]:@"",
+                              @"children": [[self childrenDictionary]valueForKey:[[self childrenTextField] text]]?[[self childrenDictionary]valueForKey:[[self childrenTextField] text]]:@"",
                               @"favorite_shopping": [[self shoppingClubsTextField] text],
-                              @"income": [[self incomeBracketTextField] text],
-                              @"marital_status": [[self maritalStatusTextField] text],
+                              @"income": [[self incomeBracketDictionary]valueForKey:[[self incomeBracketTextField] text]]?[[self incomeBracketDictionary]valueForKey:[[self incomeBracketTextField] text]]:@"",
+                              @"marital_status": [[self maritalStatusDictionary]valueForKey:[[self maritalStatusTextField] text]]?[[self maritalStatusDictionary]valueForKey:[[self maritalStatusTextField] text]]:@"",
                               @"occupation": [[self occupationTextField] text],
                               @"region": provinceToPost,
                               @"postal": [[self postalCodeTextField] text]
@@ -414,6 +423,7 @@
     [aa show];
     return aa;
 }
+
 @end
 
 
