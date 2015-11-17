@@ -36,6 +36,7 @@
 #define BILLING_ADDRESS_HEIGHT 685.0
 #define CARD_PAYMENT_HEIGHT 310.0
 #define PAYPAL_PAYMENT_HEIGHT 160.0
+#define PAYPAL_PAYMENT_HEIGHT_IPAD 150.0
 #define CARD_PAYMENT_TIP_HEIGHT 65.0
 #define SAMPLE_GIFT_HEIGHT 120.0
 #define FASTPAYMENT_HEIGHT 110.0
@@ -263,6 +264,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self addSampleGifts];
     [self setIsVisible:YES];
 }
@@ -555,8 +557,12 @@
 
 - (void)enableShippingAddress {
     [self.sameAsShippingAddressView setHidden:FALSE];
-    [self.sameAsShippingHeight setConstant:SAME_AS_SHIPPING_HEIGHT];
-    
+    if (![BTRViewUtility isIPAD]) {
+        [self.sameAsShippingHeight setConstant:SAME_AS_SHIPPING_HEIGHT];
+    } else {
+        [self.sameAsShippingHeight setConstant:self.sameAsShippingHeight.constant];
+    }
+        
     [self.shippingCountryButton setEnabled:TRUE];
     [self.shippingStateButton setEnabled:TRUE];
     
@@ -775,8 +781,15 @@
             [self.paymentMethodImageView setImage:[UIImage imageNamed:@"cardImages"]];
         [self showBillingAddress];
         [self showCardPaymentTip];
-        self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
-        self.fastPaymentHeight.constant = FASTPAYMENT_HEIGHT;
+        if (![BTRViewUtility isIPAD]) {
+            self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
+            self.fastPaymentHeight.constant = FASTPAYMENT_HEIGHT;
+        } else {
+            self.billingAddressView.userInteractionEnabled = YES;
+            self.billingAddressView.alpha = 1.0;
+            self.fastPaymentHeight.constant = 56;
+            self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
+        }
         self.paymentDetailsView.hidden = NO;
         self.paypalDetailsView.hidden = YES;
         self.fastPaymentView.hidden = NO;
@@ -797,14 +810,23 @@
         self.fastPaymentView.hidden = YES;
         [self hideBillingAddress];
         [self hideCardPaymentTip];
+        if ([BTRViewUtility isIPAD ]) {
+             self.billingAddressView.userInteractionEnabled = NO;
+            self.billingAddressView.alpha = 0.5;
+        }
         if (self.paypalEmailTF.text.length > 0) {
             self.paypalEmailTF.hidden = NO;
             self.paypalDetailsView.hidden = NO;
             self.sendmeToPaypalCheckbox.hidden = NO;
             self.sendmeToPaypalLabel.hidden = NO;
             self.changePaymentMethodView.hidden = NO;
-            self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT;
+            if (![BTRViewUtility isIPAD]) {
+                self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT;
             self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
+            } else {
+                self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT_IPAD;
+                self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT_IPAD;
+            }
             [self disablePaymentInfo];
         }
         else {
@@ -1384,14 +1406,18 @@
         size = DEFAULT_VIEW_HEIGHT_IPHONE;
     
     if (self.currentPaymentType == paypal && self.paypalEmailTF.text.length > 0) {
-        size = size - (CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT);
-        size = size - BILLING_ADDRESS_HEIGHT;
-        size = size - FASTPAYMENT_HEIGHT;
+        if(![BTRViewUtility isIPAD]) {
+            size = size - (CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT);
+            size = size - BILLING_ADDRESS_HEIGHT;
+            size = size - FASTPAYMENT_HEIGHT;
+        }
     }
     else if (self.currentPaymentType == paypal) {
-        size = size - (CARD_PAYMENT_HEIGHT) ;
-        size = size - BILLING_ADDRESS_HEIGHT;
-        size = size - FASTPAYMENT_HEIGHT;
+        if(![BTRViewUtility isIPAD]) {
+            size = size - (CARD_PAYMENT_HEIGHT) ;
+            size = size - BILLING_ADDRESS_HEIGHT;
+            size = size - FASTPAYMENT_HEIGHT;
+        }
     }
     else if (self.currentPaymentType == masterPass) {
         
