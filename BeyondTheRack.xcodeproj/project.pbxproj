@@ -191,6 +191,7 @@
 		A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */; };
 		A01E5DFC1B690FBF00B0EC5B /* BTRConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */; };
 		A024A2C41BB4424000B5B596 /* BTRSampleGiftView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */; };
+		A029D77F1BFBA9A500BFC7F7 /* profileBack.png in Resources */ = {isa = PBXBuildFile; fileRef = A029D77E1BFBA9A500BFC7F7 /* profileBack.png */; };
 		A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A02A6BF31BB08E0400C01F2C /* BTRLoader.m */; };
 		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; };
 		A06214C61BC71215006443F7 /* ConfirmationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C51BC71215006443F7 /* ConfirmationInfo.m */; };
@@ -562,6 +563,7 @@
 		A01E5DFA1B690FBF00B0EC5B /* BTRConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRConfirmationViewController.h; sourceTree = "<group>"; };
 		A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRConfirmationViewController.m; sourceTree = "<group>"; };
 		A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRSampleGiftView.xib; sourceTree = "<group>"; };
+		A029D77E1BFBA9A500BFC7F7 /* profileBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileBack.png; sourceTree = "<group>"; };
 		A02A6BF21BB08E0400C01F2C /* BTRLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoader.h; sourceTree = "<group>"; };
 		A02A6BF31BB08E0400C01F2C /* BTRLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoader.m; sourceTree = "<group>"; };
 		A043E9211BB335AB00B42BB1 /* PromoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoItem.h; sourceTree = "<group>"; };
@@ -947,6 +949,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A029D77E1BFBA9A500BFC7F7 /* profileBack.png */,
 				A0F1E9B51BFA912D0034A55A /* camera.png */,
 				A06782401BF523790058F1BF /* cardImages_us.png */,
 				A0FD342B1BA76F2200B6B2C3 /* placeHolderImage.png */,
@@ -1428,6 +1431,7 @@
 				69F0BB341B457156008C0498 /* SF-UI-Text-MediumItalic.otf in Resources */,
 				69F0BB2D1B457156008C0498 /* SF-UI-Text-BoldItalic.otf in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
+				A029D77F1BFBA9A500BFC7F7 /* profileBack.png in Resources */,
 				A00E4DE41B865B5700C93CD3 /* mp_lightbox_base.html in Resources */,
 				690A391C1B1DF57100D4BA84 /* myunchecked.png in Resources */,
 				14A6EDE51BEB8E1F007944FA /* BTRProductDetailCellDetail.xib in Resources */,
