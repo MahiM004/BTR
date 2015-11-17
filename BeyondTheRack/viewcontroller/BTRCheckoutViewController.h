@@ -11,6 +11,7 @@
 #import "Order+AppServer.h"
 #import "BTRMasterPassViewController.h"
 #import "CTCheckbox.h"
+#import "CardIO.h"
 
 typedef enum {
     creditCard,
@@ -19,7 +20,7 @@ typedef enum {
 } paymentType;
 
 
-@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate,MasterPassInfoDelegate,UIAlertViewDelegate>
+@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate,MasterPassInfoDelegate,UIAlertViewDelegate,CardIOPaymentViewControllerDelegate>
 
 @property (strong, nonatomic) Order *order;
 @property (strong, nonatomic) NSDictionary *masterCallBackInfo;
@@ -163,7 +164,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet CTCheckbox *remeberCardInfoCheckbox;
 @property (weak, nonatomic) IBOutlet UITextField *giftCardCodePaymentTF;
 @property (weak, nonatomic) IBOutlet CTCheckbox *changePaymentMethodCheckbox;
-
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 
 /**
  

@@ -217,6 +217,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [CardIOUtilities preload];
     [self resetData];
     [self setCheckboxesTargets];
     [self getImage];
@@ -790,11 +791,13 @@
             self.fastPaymentHeight.constant = 56;
             self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
         }
+        self.cameraButton.hidden = NO;
         self.paymentDetailsView.hidden = NO;
         self.paypalDetailsView.hidden = YES;
         self.fastPaymentView.hidden = NO;
         self.rememberCardInfoView.hidden = NO;
         if ([self.order.lockCCFields boolValue]) {
+            self.cameraButton.hidden = YES;
             self.rememberCardInfoView.hidden = YES;
             self.changePaymentMethodView.hidden = NO;
             self.cardVerificationPaymentTF.text = @"xxx";
@@ -1441,6 +1444,30 @@
     size = size + self.sampleGiftViewHeight.constant;
     self.viewHeight.constant = size;
     [self.view layoutIfNeeded];
+}
+
+#pragma mark camera
+
+- (IBAction)cameraButtonTapped:(id)sender {
+    CardIOPaymentViewController *scanViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self];
+    scanViewController.hideCardIOLogo = YES;
+    scanViewController.disableManualEntryButtons = YES;
+    scanViewController.collectCVV = YES;
+    scanViewController.collectExpiry = YES;
+    scanViewController.guideColor = [UIColor grayColor];
+    [self presentViewController:scanViewController animated:YES completion:nil];
+}
+
+- (void)userDidCancelPaymentViewController:(CardIOPaymentViewController *)scanViewController {
+    [scanViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)userDidProvideCreditCardInfo:(CardIOCreditCardInfo *)info inPaymentViewController:(CardIOPaymentViewController *)scanViewController {
+    self.expiryMonthPaymentTF.text = [self.expiryMonthsArray objectAtIndex:info.expiryMonth - 1];
+    self.expiryYearPaymentTF.text = [NSString stringWithFormat:@"%lu",(unsigned long)info.expiryYear];
+    self.cardNumberPaymentTF.text = info.cardNumber;
+    self.cardVerificationPaymentTF.text = info.cvv;
+    [scanViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
