@@ -203,6 +203,8 @@
 		A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */; };
 		A07EC4061BDA7D6300938B1A /* BTRMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
+		A09F488B1BFCC93F00A45B0B /* ApplePayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A09F488A1BFCC93F00A45B0B /* ApplePayManager.m */; };
+		A09F488E1BFCE27000A45B0B /* BTRApplePayFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A09F488D1BFCE27000A45B0B /* BTRApplePayFetcher.m */; };
 		A0A402A91BB9AEA200902D75 /* BTRLoadingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */; };
 		A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */; };
 		A0CE31431B8665BA007D7682 /* BTRMasterPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */; };
@@ -583,6 +585,10 @@
 		A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRMenuTableViewCell.xib; sourceTree = "<group>"; };
 		A097F08B1B948F56002CBB71 /* BTRConnectionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRConnectionHelper.h; sourceTree = "<group>"; };
 		A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRConnectionHelper.m; sourceTree = "<group>"; };
+		A09F48891BFCC93F00A45B0B /* ApplePayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplePayManager.h; sourceTree = "<group>"; };
+		A09F488A1BFCC93F00A45B0B /* ApplePayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplePayManager.m; sourceTree = "<group>"; };
+		A09F488C1BFCE27000A45B0B /* BTRApplePayFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRApplePayFetcher.h; sourceTree = "<group>"; };
+		A09F488D1BFCE27000A45B0B /* BTRApplePayFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRApplePayFetcher.m; sourceTree = "<group>"; };
 		A0A402A71BB9AEA200902D75 /* BTRLoadingButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoadingButton.h; sourceTree = "<group>"; };
 		A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoadingButton.m; sourceTree = "<group>"; };
 		A0ABECCF1B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPaypalCheckoutViewController.h; sourceTree = "<group>"; };
@@ -1003,6 +1009,8 @@
 			children = (
 				69869FA11A63FCA500F986BC /* BTRFetcher.h */,
 				69869FA21A63FCA500F986BC /* BTRFetcher.m */,
+				A09F488C1BFCE27000A45B0B /* BTRApplePayFetcher.h */,
+				A09F488D1BFCE27000A45B0B /* BTRApplePayFetcher.m */,
 				69869FA41A63FD6B00F986BC /* BTREventFetcher.h */,
 				69869FA51A63FD6B00F986BC /* BTREventFetcher.m */,
 				69AB98461A71877E00EDB1E6 /* BTRItemFetcher.h */,
@@ -1105,6 +1113,7 @@
 		69B02CC41A60319600040C86 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A09F48881BFCC90E00A45B0B /* Checkout */,
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
 				A00E4DD41B8642FC00C93CD3 /* MasterPassInfo.h */,
@@ -1318,6 +1327,15 @@
 				A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */,
 			);
 			path = Xib;
+			sourceTree = "<group>";
+		};
+		A09F48881BFCC90E00A45B0B /* Checkout */ = {
+			isa = PBXGroup;
+			children = (
+				A09F48891BFCC93F00A45B0B /* ApplePayManager.h */,
+				A09F488A1BFCC93F00A45B0B /* ApplePayManager.m */,
+			);
+			name = Checkout;
 			sourceTree = "<group>";
 		};
 		D838BEB35D456F9330E1096F /* Pods */ = {
@@ -1672,6 +1690,7 @@
 				B3CC532E1B17798D0024EA08 /* User.m in Sources */,
 				A00C9C161B960051004A2629 /* BTRFreeshipFetcher.m in Sources */,
 				69F0BB041B41871C008C0498 /* OrderHistoryBag+AppServer.m in Sources */,
+				A09F488B1BFCC93F00A45B0B /* ApplePayManager.m in Sources */,
 				6901EA171ADC2628002534D9 /* BagItem.m in Sources */,
 				B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */,
 				A0D1B45D1B7E495100848FA7 /* Contact.m in Sources */,
@@ -1688,6 +1707,7 @@
 				69D440501B331A7F00070FD8 /* BTRCategoryFetcher.m in Sources */,
 				692F24DB1AAF31C0003AABE1 /* BTRProductImageCollectionCell.m in Sources */,
 				69B55F0D1A4B1AFC009A5524 /* BTRShoppingBagViewController.m in Sources */,
+				A09F488E1BFCE27000A45B0B /* BTRApplePayFetcher.m in Sources */,
 				A00BD8741B97370D00B4693E /* BTRAnimationHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

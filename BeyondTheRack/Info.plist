@@ -27,6 +27,14 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.beyondtherack.app</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>com.beyondtherack.app</string>
+		</dict>
+		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
