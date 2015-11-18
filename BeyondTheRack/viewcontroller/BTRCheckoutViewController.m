@@ -587,22 +587,33 @@
 - (void)checkboxIsGiftChange:(CTCheckbox *)checkbox {
     if (self.isLoading)
         return;
-    
-    if (checkbox.checked) {
-        self.giftViewHeight.constant = 250;
-    }else {
-        self.giftCardInfoView.hidden = YES;
-        self.giftViewHeight.constant = 75;
+    if ([BTRViewUtility isIPAD]) {
+        if (checkbox.checked) {
+            self.giftViewHeight.constant = 250;
+            self.giftCardInfoView.hidden = NO;
+            self.viewHeight.constant = self.viewHeight.constant + 175;
+        } else {
+            self.giftViewHeight.constant = 75;
+            self.giftCardInfoView.hidden = YES;
+            self.viewHeight.constant = self.viewHeight.constant - 175;
+        }
+    } else {
+        if (checkbox.checked) {
+            self.giftViewHeight.constant = 250;
+        }else {
+            self.giftCardInfoView.hidden = YES;
+            self.giftViewHeight.constant = 75;
+        }
+        [UIView animateWithDuration:2
+                         animations:^{
+                             [self.view layoutIfNeeded];
+                         } completion:^(BOOL finished) {
+                             if ([checkbox checked]) {
+                                 self.giftCardInfoView.hidden = NO;
+                             }
+                             [self resetSize];
+                         }];
     }
-    [UIView animateWithDuration:2
-                     animations:^{
-                         [self.view layoutIfNeeded];
-                     } completion:^(BOOL finished) {
-                         if ([checkbox checked]) {
-                             self.giftCardInfoView.hidden = NO;
-                         }
-                         [self resetSize];
-                     }];
 }
 
 - (void)checkboxSameAddressDidChange:(CTCheckbox *)checkbox {
