@@ -9,10 +9,9 @@
 @import PassKit;
 
 #import <Foundation/Foundation.h>
-#import "BraintreeApplePay.h"
-#import "BTDropinViewController.h"
+#import "BraintreeCore.h"
 
-@interface ApplePayManager : NSObject <BTDropInViewControllerDelegate>
+@interface ApplePayManager : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
 + (id)sharedManager;
 
