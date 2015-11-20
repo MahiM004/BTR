@@ -447,41 +447,66 @@
 -(void)checkboxChangePaymentMethodDidChange:(CTCheckbox *)checkbox {
     if (self.isLoading)
         return;
-    UIAlertController * alert =  [UIAlertController
-                                  alertControllerWithTitle:@"Attention"
-                                  message:@"By changing payment method, your payment information will be cleared from the system"
-                                  preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* yesButton = [UIAlertAction
-                                actionWithTitle:@"Yes, Continue"
-                                style:UIAlertActionStyleDefault
-                                handler:^(UIAlertAction * action) {
-                                    [self.order setLockCCFields:@"0"];
-                                    [self enablePaymentInfo];
-                                    [self clearPaymentInfo];
-                                    [self setCurrentPaymentType:creditCard];
-                                    [self changeDetailPaymentFor:creditCard];
-                                    [self.paymentMethodTF setText:@"Visa Credit"];
-                                    [alert dismissViewControllerAnimated:YES completion:nil];
-                                    
-                                }];
-    
-    UIAlertAction* noButton = [UIAlertAction
-                               actionWithTitle:@"No, Cancel"
-                               style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction * action) {
-                                   [self setIsLoading:YES];
-                                   [checkbox setChecked:NO];
-                                   [self setIsLoading:NO];
-                                   [alert dismissViewControllerAnimated:YES completion:nil];
-                                   
-                               }];
-    
-    [alert addAction:yesButton];
-    [alert addAction:noButton];
-    [self presentViewController:alert animated:YES completion:nil];
+    if ([[[UIDevice currentDevice]systemVersion]floatValue] < 8 ) {
+        if (checkbox.checked) {
+            UIAlertView * alert2 = [[UIAlertView alloc]initWithTitle:@"Attention" message:@"By changing payment method, your payment information will be cleared from the system" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes, Continue",@"No, Cancel", nil];
+            alert2.tag = 504;
+            [alert2 show];
+        }
+    } else {
+        UIAlertController * alert =  [UIAlertController
+                                      alertControllerWithTitle:@"Attention"
+                                      message:@"By changing payment method, your payment information will be cleared from the system"
+                                      preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* yesButton = [UIAlertAction
+                                    actionWithTitle:@"Yes, Continue"
+                                    style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction * action) {
+                                        [self.order setLockCCFields:@"0"];
+                                        [self enablePaymentInfo];
+                                        [self clearPaymentInfo];
+                                        [self setCurrentPaymentType:creditCard];
+                                        [self changeDetailPaymentFor:creditCard];
+                                        [self.paymentMethodTF setText:@"Visa Credit"];
+                                        [alert dismissViewControllerAnimated:YES completion:nil];
+                                        
+                                    }];
+        
+        UIAlertAction* noButton = [UIAlertAction
+                                   actionWithTitle:@"No, Cancel"
+                                   style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction * action) {
+                                       [self setIsLoading:YES];
+                                       [checkbox setChecked:NO];
+                                       [self setIsLoading:NO];
+                                       [alert dismissViewControllerAnimated:YES completion:nil];
+                                       
+                                   }];
+        
+        [alert addAction:yesButton];
+        [alert addAction:noButton];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 504) {
+        if (buttonIndex == 0) {
+            [self.order setLockCCFields:@"0"];
+            [self enablePaymentInfo];
+            [self clearPaymentInfo];
+            [self setCurrentPaymentType:creditCard];
+            [self changeDetailPaymentFor:creditCard];
+            [self.paymentMethodTF setText:@"Visa Credit"];
+        } else if (buttonIndex == 1) {
+            [self setIsLoading:YES];
+            [_changePaymentMethodCheckbox setChecked:NO];
+            [self setIsLoading:NO];
+        }
+    }
+}
 - (void)checkboxVipOptionDidChange:(CTCheckbox *)checkbox {
     if (self.isLoading)
         return;
