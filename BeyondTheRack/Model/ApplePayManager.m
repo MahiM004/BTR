@@ -15,6 +15,9 @@
 @property (nonatomic, strong) PKPaymentRequest *paymentRequest;
 @property (nonatomic, strong) UIViewController *controller;
 @property (nonatomic, strong) NSString *token;
+@property (nonatomic, strong) NSString *amount;
+@property (nonatomic, strong) NSString *countryCode;
+@property (nonatomic, strong) NSString *currencyCode;
 @end
 
 @implementation ApplePayManager
@@ -23,17 +26,15 @@
 - (PKPaymentRequest *)paymentRequest {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
     paymentRequest.merchantIdentifier = @"merchant.com.beyondtherack.sandbox";
-    paymentRequest.requiredShippingAddressFields = PKAddressFieldAll;
-//    paymentRequest.requiredBillingAddressFields = PKAddressFieldAll;
+    paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
+    paymentRequest.requiredBillingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
     paymentRequest.merchantCapabilities = PKMerchantCapability3DS;
-    paymentRequest.countryCode = @"CA"; // e.g. US
-    paymentRequest.currencyCode = @"CAD"; // e.g. USD
+    paymentRequest.countryCode = self.countryCode; // e.g. US
+    paymentRequest.currencyCode = self.currencyCode; // e.g. USD
     paymentRequest.paymentSummaryItems =
     @[
-//      [PKPaymentSummaryItem summaryItemWithLabel:@"<#ITEM_NAME#>" amount:[NSDecimalNumber decimalNumberWithString:@"<#PRICE#>"]],
-//      // Add add'l payment summary items...
-      [PKPaymentSummaryItem summaryItemWithLabel:@"BEYONDTHERACK" amount:[NSDecimalNumber decimalNumberWithString:@"10.0"]]
+      [PKPaymentSummaryItem summaryItemWithLabel:@"BEYONDTHERACK" amount:[NSDecimalNumber decimalNumberWithString:self.amount]]
       ];
     return paymentRequest;
 }
@@ -64,7 +65,7 @@
     }];
 }
 
-- (void)initWithClientWithToken:(NSString *)token {
+- (void)initWithClientWithToken:(NSString *)token andInfromation:(NSDictionary *)information{
     self.braintreeClient = [[BTAPIClient alloc]initWithAuthorization:token];
 }
 

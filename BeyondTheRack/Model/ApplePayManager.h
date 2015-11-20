@@ -17,7 +17,7 @@
 
 - (void)requestForTokenWithSuccess:(void (^)(id  responseObject)) success
                            failure:(void (^)(NSError *error)) failure;
-- (void)initWithClientWithToken:(NSString *)token;
+- (void)initWithClientWithToken:(NSString *)token andInfromation:(NSDictionary *)information;
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController;
 
 @end
