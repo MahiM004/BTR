@@ -17,7 +17,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
-
+#import <Google/Analytics.h>
 
 @interface BTRAppDelegate ()
 
@@ -122,6 +122,19 @@
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
+    //Google analytics
+    NSError *configureError;
+    [[GGLContext sharedInstance] configureWithError:&configureError];
+    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+    [[GAI sharedInstance] setTrackUncaughtExceptions:YES];
+
+#if TARGET_IPHONE_SIMULATOR
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:@"App-Open-In-Simulator" value:@"1"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+#elif TARGET_OS_IPHONE
+    
+#endif
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }

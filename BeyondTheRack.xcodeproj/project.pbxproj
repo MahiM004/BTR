@@ -194,6 +194,7 @@
 		A029D77F1BFBA9A500BFC7F7 /* profileBack.png in Resources */ = {isa = PBXBuildFile; fileRef = A029D77E1BFBA9A500BFC7F7 /* profileBack.png */; };
 		A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A02A6BF31BB08E0400C01F2C /* BTRLoader.m */; };
 		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; };
+		A044DC921BFF760100100B1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A044DC911BFF760100100B1F /* GoogleService-Info.plist */; };
 		A06214C61BC71215006443F7 /* ConfirmationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C51BC71215006443F7 /* ConfirmationInfo.m */; };
 		A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */; };
 		A0628DA51BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.m in Sources */ = {isa = PBXBuildFile; fileRef = A0628DA41BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.m */; };
@@ -570,6 +571,7 @@
 		A02A6BF31BB08E0400C01F2C /* BTRLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoader.m; sourceTree = "<group>"; };
 		A043E9211BB335AB00B42BB1 /* PromoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoItem.h; sourceTree = "<group>"; };
 		A043E9221BB335AB00B42BB1 /* PromoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoItem.m; sourceTree = "<group>"; };
+		A044DC911BFF760100100B1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A06214C41BC71215006443F7 /* ConfirmationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationInfo.h; sourceTree = "<group>"; };
 		A06214C51BC71215006443F7 /* ConfirmationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationInfo.m; sourceTree = "<group>"; };
 		A06214C71BC71245006443F7 /* ConfirmationInfo+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ConfirmationInfo+AppServer.h"; sourceTree = "<group>"; };
@@ -1264,6 +1266,7 @@
 		69FF40661A3F8939000BD092 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A044DC911BFF760100100B1F /* GoogleService-Info.plist */,
 				69F0BB0B1B457156008C0498 /* SF-UI */,
 				6900B4E21AB8703300930D16 /* FontAwesome.ttf */,
 				69807AE21A420BB00001A154 /* images */,
@@ -1488,6 +1491,7 @@
 				1408D1C31BEA38B700125FE8 /* BTRProductShareCell.xib in Resources */,
 				69F0BB281B457156008C0498 /* SF-UI-Display-Regular.otf in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
+				A044DC921BFF760100100B1F /* GoogleService-Info.plist in Resources */,
 				695C75601B38957A003F65F8 /* masterpass_t.png in Resources */,
 				69F0BB231B457156008C0498 /* SF-UI-Display-Black.otf in Resources */,
 				A0F1E9B61BFA912D0034A55A /* camera.png in Resources */,
