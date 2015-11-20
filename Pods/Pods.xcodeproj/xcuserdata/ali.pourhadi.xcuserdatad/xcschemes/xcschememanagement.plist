@@ -19,16 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Braintree-Braintree-Drop-In-Localization.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Braintree-Braintree-UI-Localization.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Braintree.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -112,11 +102,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>28BEA1DBDE89EEB2F1A7C72817D3543B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>37ED71CD05B7F3221022E666FAAB3355</key>
 		<dict>
 			<key>primary</key>
@@ -182,17 +167,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B6C7C7BE20A52DD7763C20BA5BD6686F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>C78CAB9013653EB1A250B2DFD3BC7666</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E7A4DCAE95221A9BA4CB0D05C7EF3B4B</key>
+		<key>EB5FF639E52AE23B5F8AA431D3006162</key>
 		<dict>
 			<key>primary</key>
 			<true/>

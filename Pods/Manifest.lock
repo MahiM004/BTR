@@ -26,19 +26,9 @@ PODS:
   - Bolts/AppLinks (1.4.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.4.0)
-  - Braintree (4.0.1):
-    - Braintree/Card (= 4.0.1)
-    - Braintree/Core (= 4.0.1)
-    - Braintree/PayPal (= 4.0.1)
-    - Braintree/UI (= 4.0.1)
-  - Braintree/Card (4.0.1):
+  - Braintree/Apple-Pay (4.0.0):
     - Braintree/Core
-  - Braintree/Core (4.0.1)
-  - Braintree/PayPal (4.0.1):
-    - Braintree/Core
-  - Braintree/UI (4.0.1):
-    - Braintree/Card
-    - Braintree/Core
+  - Braintree/Core (4.0.0)
   - BSErrorMessageView (1.1)
   - CardIO (5.2.2)
   - FBSDKCoreKit (4.7.0):
@@ -84,7 +74,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
-  - Braintree
+  - Braintree/Apple-Pay (from `https://github.com/braintree/braintree_ios.git`, branch
+    `4.0-beta`)
   - BSErrorMessageView (from `https://github.com/BenjaminSarkisyan/BSErrorMessageView.git`)
   - CardIO
   - FBSDKCoreKit (~> 4.7)
@@ -101,12 +92,18 @@ DEPENDENCIES:
   - SpinKit (~> 1.1)
 
 EXTERNAL SOURCES:
+  Braintree:
+    :branch: 4.0-beta
+    :git: https://github.com/braintree/braintree_ios.git
   BSErrorMessageView:
     :git: https://github.com/BenjaminSarkisyan/BSErrorMessageView.git
   PinterestSDK:
     :git: https://github.com/pinterest/ios-pdk.git
 
 CHECKOUT OPTIONS:
+  Braintree:
+    :commit: 10e740539bcdee4ab4de8bc43e6de7db8cfd0711
+    :git: https://github.com/braintree/braintree_ios.git
   BSErrorMessageView:
     :commit: 078d84bc97895e11b7983f0b195e9ad42611b65c
     :git: https://github.com/BenjaminSarkisyan/BSErrorMessageView.git
@@ -117,7 +114,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
-  Braintree: fa4982b359cc831e7d7e8e5587b6fef343648d79
+  Braintree: 660cca560c01a7464626ee1e18c971d6491a3889
   BSErrorMessageView: 67cc7d172995fbc6df602c2b8923f48121ddf7a9
   CardIO: 2460db0f4936f3441b08d51e3904b436d77ec8fc
   FBSDKCoreKit: eb580bfc2040ad44f4c0b4f4d0befb1d35bce59c

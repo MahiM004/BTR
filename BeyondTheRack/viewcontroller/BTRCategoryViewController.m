@@ -13,6 +13,7 @@
 #import "BTRConnectionHelper.h"
 #import "BTRFreeshipFetcher.h"
 #import "BTREventsVC.h"
+#import "ApplePayManager.h"
 
 #define INITIAL_PAGE_INDEX 1
 
@@ -88,6 +89,15 @@
     self.slider.view.frame = CGRectMake(0, _bannerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.bannerView.frame.size.height);
     [self.view addSubview:self.slider.view];
     [self addChildViewController:self.slider];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [[ApplePayManager sharedManager]requestForTokenWithSuccess:^(id responseObject) {
+        [[ApplePayManager sharedManager]initWithClientWithToken:[responseObject valueForKey:@"token"]];
+        [[ApplePayManager sharedManager]showPaymentViewFromViewController:self];
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark TTSlidingPagesDataSource methods

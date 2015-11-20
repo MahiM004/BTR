@@ -9,7 +9,7 @@
 @import PassKit;
 
 #import <Foundation/Foundation.h>
-#import "BraintreeCore.h"
+#import "BraintreeApplePay.h"
 
 @interface ApplePayManager : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
