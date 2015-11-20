@@ -91,15 +91,6 @@
     [self addChildViewController:self.slider];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [[ApplePayManager sharedManager]requestForTokenWithSuccess:^(id responseObject) {
-        [[ApplePayManager sharedManager]initWithClientWithToken:[responseObject valueForKey:@"token"]];
-        [[ApplePayManager sharedManager]showPaymentViewFromViewController:self];
-    } failure:^(NSError *error) {
-        
-    }];
-}
-
 #pragma mark TTSlidingPagesDataSource methods
 
 - (int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source{
