@@ -54,11 +54,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Flurry-iOS-SDK.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>HTMLAttributedString.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -117,12 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2864793253BDFFDE0DACE642E966B5D4</key>
+		<key>28BEA1DBDE89EEB2F1A7C72817D3543B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>28BEA1DBDE89EEB2F1A7C72817D3543B</key>
+		<key>37ED71CD05B7F3221022E666FAAB3355</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,12 +137,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>51A0D027EED783209A3DE1A291D04B6D</key>
+		<key>740381082E237CABD792925DBD0807D1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>740381082E237CABD792925DBD0807D1</key>
+		<key>74DF036CC72739553EE0BF75BF39B030</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,12 +167,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E4BB2723503E9941499EA55BA6B1BDC</key>
+		<key>820E2C73496346DD653835597C9F85C9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A0AB1F5228349E63CB9D207ED2C15B93</key>
+		<key>8E4BB2723503E9941499EA55BA6B1BDC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -193,11 +188,6 @@
 			<true/>
 		</dict>
 		<key>C78CAB9013653EB1A250B2DFD3BC7666</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D079C0B8D193CBDF60F39822F384E43F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
