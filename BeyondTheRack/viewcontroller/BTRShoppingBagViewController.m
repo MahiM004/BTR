@@ -23,6 +23,7 @@
 #import "BTRConnectionHelper.h"
 #import "UIImageView+AFNetworking.h"
 #import "BTRLoader.h"
+#import "ApplePayManager.h"
 
 @interface BTRShoppingBagViewController ()
 
@@ -39,6 +40,7 @@
 @property (strong, nonatomic) NSDictionary *paypalCallBackInfo;
 @property (strong, nonatomic) UILabel *emptyLabel;
 @property (strong, nonatomic) BagItem *removeItem;
+@property (strong, nonatomic) NSMutableDictionary* info;
 
 @end
 
@@ -65,6 +67,7 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.info = [[NSMutableDictionary alloc]init];
     
     NSTimer *timer = [NSTimer timerWithTimeInterval:1.0
                                              target:self
@@ -414,6 +417,14 @@
 
 #pragma mark firstCheckout
 
+- (IBAction)applePay:(UIButton *)sender {
+    [[ApplePayManager sharedManager]requestForTokenWithSuccess:^(id responseObject) {
+        [[ApplePayManager sharedManager]initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:self.info];
+        [[ApplePayManager sharedManager]showPaymentViewFromViewController:self];
+    } failure:^(NSError *error) {
+    }];
+}
+
 - (IBAction)paypalCheckout:(UIButton *)sender {
     [self getPaypalInfo];
 }
@@ -480,6 +491,10 @@
     
     NSNumber *total = response[@"total"];
     NSString *totalString = [NSString stringWithFormat:@"%@",total];
+    
+    [self.info setObject:totalString forKey:@"total"];
+    [self.info setObject:[(NSString *)[response valueForKey:@"country"] uppercaseString] forKey:@"country"];
+    [self.info setObject:[NSString stringWithFormat:@"%@D",[self.info valueForKey:@"country"]] forKey:@"currency"];
     
     [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
                          withServerDateTime:serverTime

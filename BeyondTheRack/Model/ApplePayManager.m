@@ -15,26 +15,23 @@
 @property (nonatomic, strong) PKPaymentRequest *paymentRequest;
 @property (nonatomic, strong) UIViewController *controller;
 @property (nonatomic, strong) NSString *token;
-@property (nonatomic, strong) NSString *amount;
-@property (nonatomic, strong) NSString *countryCode;
-@property (nonatomic, strong) NSString *currencyCode;
+@property (nonatomic, strong) NSDictionary *info;
 @end
 
 @implementation ApplePayManager
 
-
 - (PKPaymentRequest *)paymentRequest {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
     paymentRequest.merchantIdentifier = @"merchant.com.beyondtherack.sandbox";
-    paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
-    paymentRequest.requiredBillingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
+    paymentRequest.requiredShippingAddressFields = PKAddressFieldAll;
+//    paymentRequest.requiredBillingAddressFields = PKAddressFieldPostalAddress;
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
     paymentRequest.merchantCapabilities = PKMerchantCapability3DS;
-    paymentRequest.countryCode = self.countryCode; // e.g. US
-    paymentRequest.currencyCode = self.currencyCode; // e.g. USD
+    paymentRequest.countryCode = [self.info valueForKey:@"country"]; // e.g. US
+    paymentRequest.currencyCode = [self.info valueForKey:@"currency"]; // e.g. USD
     paymentRequest.paymentSummaryItems =
     @[
-      [PKPaymentSummaryItem summaryItemWithLabel:@"BEYONDTHERACK" amount:[NSDecimalNumber decimalNumberWithString:self.amount]]
+      [PKPaymentSummaryItem summaryItemWithLabel:@"BEYONDTHERACK" amount:[NSDecimalNumber decimalNumberWithString:[self.info valueForKey:@"total"]]]
       ];
     return paymentRequest;
 }
@@ -65,12 +62,12 @@
     }];
 }
 
-- (void)initWithClientWithToken:(NSString *)token andInfromation:(NSDictionary *)information{
+- (void)initWithClientWithToken:(NSString *)token andOrderInfromation:(NSDictionary *)information{
     self.braintreeClient = [[BTAPIClient alloc]initWithAuthorization:token];
+    self.info = information;
 }
 
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController {
-
     PKPaymentRequest *paymentRequest = [self paymentRequest];
     PKPaymentAuthorizationViewController *vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
     
