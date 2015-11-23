@@ -11,9 +11,17 @@
 #import <Foundation/Foundation.h>
 #import "BraintreeApplePay.h"
 
+
+@protocol ApplePayDelegate <NSObject>
+
+- (void)applePayReceiptInfoDidReceivedSuccessful:(NSDictionary *)receiptInfo;
+- (void)applePayInfoFailedWithError:(NSError *)error;
+
+@end
+
 @interface ApplePayManager : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
-+ (id)sharedManager;
+@property (nonatomic,strong) id <ApplePayDelegate> delegate;
 
 - (void)requestForTokenWithSuccess:(void (^)(id  responseObject)) success
                            failure:(void (^)(NSError *error)) failure;

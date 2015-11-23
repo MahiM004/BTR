@@ -17,9 +17,7 @@
 @property (nonatomic, retain) NSString * confirmationNumber;
 @property (nonatomic, retain) NSString * billingCardType;
 @property (nonatomic, retain) NSString * billingCardLastdigits;
-@property (nonatomic, retain) NSString * billingName;
 @property (nonatomic, retain) Address * billingAddress;
-@property (nonatomic, retain) NSString * shippingName;
 @property (nonatomic, retain) Address * shippingAddress;
 @property (nonatomic, retain) NSString * orderCurrency;
 @property (nonatomic, retain) NSNumber * totalOrderValue;

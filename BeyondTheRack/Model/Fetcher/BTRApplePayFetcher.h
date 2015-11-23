@@ -10,6 +10,7 @@
 
 @interface BTRApplePayFetcher : BTRFetcher
 
-+ (NSURL *)URLforRequestToken;
++ (NSURL *)URLForRequestToken;
++ (NSURL *)URLForCheckout;
 
 @end

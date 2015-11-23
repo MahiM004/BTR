@@ -10,8 +10,12 @@
 
 @implementation BTRApplePayFetcher
 
-+ (NSURL *)URLforRequestToken {
++ (NSURL *)URLForRequestToken {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/checkout/applepay", BASEURL]];
+}
+
++ (NSURL *)URLForCheckout {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/checkout/process/applepay", BASEURL]];
 }
 
 @end

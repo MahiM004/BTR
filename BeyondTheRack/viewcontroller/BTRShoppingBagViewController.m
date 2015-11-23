@@ -22,8 +22,9 @@
 #import "BTRPaypalFetcher.h"
 #import "BTRConnectionHelper.h"
 #import "UIImageView+AFNetworking.h"
+#import "ConfirmationInfo+AppServer.h"
+#import "BTRConfirmationViewController.h"
 #import "BTRLoader.h"
-#import "ApplePayManager.h"
 
 @interface BTRShoppingBagViewController ()
 
@@ -41,6 +42,7 @@
 @property (strong, nonatomic) UILabel *emptyLabel;
 @property (strong, nonatomic) BagItem *removeItem;
 @property (strong, nonatomic) NSMutableDictionary* info;
+@property (strong, nonatomic) ApplePayManager* applePayManager;
 
 @end
 
@@ -418,9 +420,11 @@
 #pragma mark firstCheckout
 
 - (IBAction)applePay:(UIButton *)sender {
-    [[ApplePayManager sharedManager]requestForTokenWithSuccess:^(id responseObject) {
-        [[ApplePayManager sharedManager]initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:self.info];
-        [[ApplePayManager sharedManager]showPaymentViewFromViewController:self];
+    self.applePayManager = [[ApplePayManager alloc]init];
+    self.applePayManager.delegate = self;
+    [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
+        [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:self.info];
+        [self.applePayManager showPaymentViewFromViewController:self];
     } failure:^(NSError *error) {
     }];
 }
@@ -541,6 +545,18 @@
 - (void)payPalInfoDidReceived:(NSDictionary *)info {
     [self setPaypalCallBackInfo:info];
     [self gotoCheckoutPageWithPaymentInfo:info];
+}
+
+- (void)applePayReceiptInfoDidReceivedSuccessful:(NSDictionary *)receiptInfo {
+    ConfirmationInfo *confirmationInfo = [[ConfirmationInfo alloc]init];
+    confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:receiptInfo forConformationInfo:confirmationInfo];
+    BTRConfirmationViewController *confirmationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ConfirmationViewController"];
+    confirmationVC.info = confirmationInfo;
+    [self presentViewController:confirmationVC animated:YES completion:nil];
+}
+
+- (void)applePayInfoFailedWithError:(NSError *)error {
+    
 }
 
 #pragma mark Closing

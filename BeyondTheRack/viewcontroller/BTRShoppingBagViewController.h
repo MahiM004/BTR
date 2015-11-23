@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BTRMasterPassViewController.h"
 #import "BTRPaypalCheckoutViewController.h"
+#import "ApplePayManager.h"
 
-@interface BTRShoppingBagViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,MasterPassInfoDelegate,PayPalInfoDelegate,UIAlertViewDelegate>
+@interface BTRShoppingBagViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,MasterPassInfoDelegate,PayPalInfoDelegate,UIAlertViewDelegate,ApplePayDelegate>
 
 
 @end
