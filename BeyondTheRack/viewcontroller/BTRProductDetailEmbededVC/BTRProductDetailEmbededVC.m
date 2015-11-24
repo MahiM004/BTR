@@ -35,6 +35,7 @@
 
 @interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 {
+    BOOL selectedAddWithOutSize;
     UIView * view1;
     UIView * view2;
     UITableView * detailTV;
@@ -110,23 +111,12 @@
         _rowsArray = [[NSMutableArray alloc]initWithObjects:@"imageCell",@"nameCell",@"detailCell",@"shareCell", nil];
     }
     _selectedSizeIndex = -1;
-    [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
     if ([[[self getItem] brand] length] > 1)
         [self.eventTitleLabel setText:[[self getItem] brand]];
     else
         [self.eventTitleLabel setText:@"Product Detail"];
-    
-//    [BTRLoader showLoaderInView:view2];
-    [self fetchItemforProductSku:[[self getItem] sku]
-                         success:^(Item *responseObject) {
-                             [self fillWithItem:responseObject];
-//                             [BTRLoader hideLoaderFromView:view2];
-                         }
-                         failure:^(NSError *error) {
-                         }];
-    
-    
     
     CGRect frame = self.view.frame;
     CGFloat viewWidth = frame.size.width;
@@ -143,7 +133,20 @@
     [view2 addSubview:detailTV];
     [self.view addSubview:view1];
     [self.view addSubview:view2];
-    
+    view1.hidden = YES;
+    view2.hidden = YES;
+    detailTV.hidden = YES;
+    [BTRLoader showLoaderInView:self.view];
+    [self fetchItemforProductSku:[[self getItem] sku]
+                         success:^(Item *responseObject) {
+                             [self fillWithItem:responseObject];
+                             [BTRLoader hideLoaderFromView:self.view];
+                             view1.hidden = NO;
+                             view2.hidden = NO;
+                             detailTV.hidden = NO;
+                         }
+                         failure:^(NSError *error) {
+                         }];
     if (self.disableAddToCart) {
         self.addTobagButton.enabled = NO;
         self.addToBagView.backgroundColor = [UIColor grayColor];
@@ -468,14 +471,11 @@
 - (IBAction)addToBagTapped:(UIButton *)sender {
     
     if ([[self variant] isEqualToString:SIZE_NOT_SELECTED_STRING]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Size"
-                                                        message:@"Please select a size!"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+        selectedAddWithOutSize = YES;
+        [self selectSizeButtonAction];
         
     } else {
+        selectedAddWithOutSize = NO;
         [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
             if ([successString isEqualToString:@"TRUE"]) {
                 UIStoryboard *storyboard = self.storyboard;
@@ -626,6 +626,8 @@
 -(void)selectSizeButtonAction {
     UIStoryboard *storyboard = self.storyboard;
     BTRSelectSizeVC * vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
+    vc.modalPresentationStyle = UIModalPresentationFormSheet;
+    vc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     vc.sizesArray = [self sizesArray];
     vc.sizeQuantityArray = [self sizeQuantityArray];
     vc.delegate = self;
@@ -639,6 +641,18 @@
     self.selectedSizeIndex = selectedIndex;
     nameCell.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
     self.variant = [[self sizesArray] objectAtIndex:selectedIndex];
+    if (selectedAddWithOutSize == YES) {
+        [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
+            if ([successString isEqualToString:@"TRUE"]) {
+                UIStoryboard *storyboard = self.storyboard;
+                BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+                [self presentViewController:vc animated:YES completion:nil];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+        selectedAddWithOutSize = NO;
+    }
 }
 
 
