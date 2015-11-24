@@ -202,6 +202,7 @@
 		A06782411BF523790058F1BF /* cardImages_us.png in Resources */ = {isa = PBXBuildFile; fileRef = A06782401BF523790058F1BF /* cardImages_us.png */; };
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
+		A06C6A531C05003B001D25ED /* apple_white_pay_2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A06C6A521C05003B001D25ED /* apple_white_pay_2x.png */; };
 		A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */; };
 		A07EC4061BDA7D6300938B1A /* BTRMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
@@ -584,6 +585,7 @@
 		A06A40EE1B837103008DD60B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A06A40F01B8392C2008DD60B /* BTRSuggestionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSuggestionFetcher.h; sourceTree = "<group>"; };
 		A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSuggestionFetcher.m; sourceTree = "<group>"; };
+		A06C6A521C05003B001D25ED /* apple_white_pay_2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple_white_pay_2x.png; sourceTree = "<group>"; };
 		A07EC4001BDA7D1300938B1A /* BTRMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMenuTableViewCell.h; sourceTree = "<group>"; };
 		A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMenuTableViewCell.m; sourceTree = "<group>"; };
 		A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRMenuTableViewCell.xib; sourceTree = "<group>"; };
@@ -989,6 +991,7 @@
 				69867A061A438A8C003CE59C /* bagicon.png */,
 				69867A041A43894B003CE59C /* neumyaccount.png */,
 				698679FC1A4351A4003CE59C /* neulogocentered.png */,
+				A06C6A521C05003B001D25ED /* apple_white_pay_2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -1484,6 +1487,7 @@
 				69F0BB221B457156008C0498 /* License Agreement for SF UI Font.rtf in Resources */,
 				A024A2C41BB4424000B5B596 /* BTRSampleGiftView.xib in Resources */,
 				690A39211B1DF70B00D4BA84 /* myuncheck@2x.png in Resources */,
+				A06C6A531C05003B001D25ED /* apple_white_pay_2x.png in Resources */,
 				69FF40771A3F8939000BD092 /* Images.xcassets in Resources */,
 				B3C16AA11B1363CA009470EC /* backarrowcool_red.png in Resources */,
 				69F0BB361B457156008C0498 /* SF-UI-Text-Semibold.otf in Resources */,

@@ -79,6 +79,7 @@
 @property (strong, nonatomic) NSMutableArray *arrayOfGiftCards;
 
 @property (strong, nonatomic) MasterPassInfo *masterpass;
+@property (strong, nonatomic) ApplePayManager *applePayManager;
 
 @property (strong, nonatomic) NSMutableArray *selectedGift;
 @property (strong, nonatomic) ConfirmationInfo *confirmationInfo;
@@ -1137,6 +1138,26 @@
     }
 }
 
+- (IBAction)applePayCheckoutTapped:(id)sender {
+    self.applePayManager = [[ApplePayManager alloc]init];
+    self.applePayManager.delegate = self;
+    NSDictionary *info = [[NSDictionary alloc]initWithObjectsAndKeys:
+                          self.order.orderTotalPrice,@"total",
+                          self.order.billingAddress.country,@"country",
+                          [self.order.currency uppercaseString],@"currency",
+                          [NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]],@"is_gift",
+                          self.giftMessageTF.text,@"recipient_message",
+                          [NSNumber numberWithBool:[self.vipOptionCheckbox checked]],@"vip_pickup",
+                          [NSNumber numberWithBool:[self.pickupOptionCheckbox checked]],@"is_pickup",
+                          [NSArray array],@"vanity_codes"
+                          , nil];
+    [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
+        [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:info];
+        [self.applePayManager showPaymentViewFromViewController:self];
+    } failure:^(NSError *error) {
+    }];
+}
+
 #pragma mark - Credit Card RESTful Payment
 
 - (void)makePaymentWithSuccess:(void (^)(id  responseObject)) success
@@ -1205,6 +1226,24 @@
     } faild:^(NSError *error) {
         
     }];
+}
+
+#pragma mark - ApplePay Delegate
+
+- (void)applePayReceiptInfoDidReceivedSuccessful:(NSDictionary *)receiptInfo {
+    self.confirmationInfo = [[ConfirmationInfo alloc]init];
+    self.confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:receiptInfo forConformationInfo:self.confirmationInfo];
+    NSString * identifierSB;
+    if ([BTRViewUtility isIPAD]) {
+        identifierSB = @"BTRConfirmationSegueiPadIdentifier";
+    } else {
+        identifierSB = @"BTRConfirmationSegueIdentifier";
+    }
+    [self performSegueWithIdentifier:identifierSB sender:self];
+}
+
+- (void)applePayInfoFailedWithError:(NSError *)error {
+    
 }
 
 #pragma mark - Navigation

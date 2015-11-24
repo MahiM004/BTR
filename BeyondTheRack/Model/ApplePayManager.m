@@ -80,10 +80,6 @@
                                               NSError *error) {
                                      if (tokenizedApplePayPayment) {
                                          [self setNonce:tokenizedApplePayPayment.nonce];
-                                         [self processApplePayWithSuccess:^(id responseObject) {
-                                         } failure:^(NSError *error) {
-                                             [self.delegate applePayInfoFailedWithError:error];
-                                         }];
                                          completion(PKPaymentAuthorizationStatusSuccess);
                                      } else {
                                          completion(PKPaymentAuthorizationStatusFailure);
@@ -93,7 +89,14 @@
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
-    [controller dismissViewControllerAnimated:YES completion:nil];
+    [controller dismissViewControllerAnimated:YES completion:^{
+        if (self.nonce) {
+            [self processApplePayWithSuccess:^(id responseObject) {
+            } failure:^(NSError *error) {
+                [self.delegate applePayInfoFailedWithError:error];
+            }];
+        }
+    }];
 }
 
 - (void)processApplePayWithSuccess:(void (^)(id  responseObject)) success
@@ -117,6 +120,11 @@
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc]init];
     [orderInfo setObject:[self addressFromRecord:self.paymentInfo.shippingAddress] forKey:@"shipping"];
     [orderInfo setObject:[self addressFromRecord:self.paymentInfo.billingAddress] forKey:@"billing"];
+    
+    if ([self.info valueForKey:@"is_pickup"])
+        [orderInfo setObject:[self.info valueForKey:@"is_pickup"] forKey:@"is_pickup"];
+    else
+        [orderInfo setObject:@"" forKey:@"is_pickup"];
     
     if ([self.info valueForKey:@"vip_pickup"])
         [orderInfo setObject:[self.info valueForKey:@"vip_pickup"] forKey:@"vip_pickup"];
