@@ -50,8 +50,12 @@
     cell.textLabel.text = [[self sizesArray] objectAtIndex:[indexPath row]];
     if ([[self sizesArray] count] > 0) {
         cell.detailTextLabel.text = [self getQuantityStringforQuantity:[[self.sizeQuantityArray objectAtIndex:indexPath.row] integerValue]];
-        if ([[[cell detailTextLabel] text]  isEqualToString:@"SOLD OUT"])
+        if ([[[cell detailTextLabel] text]  isEqualToString:@"SOLD OUT"]) {
+            cell.detailTextLabel.hidden = NO;
             cell.userInteractionEnabled = FALSE;
+        } else {
+            cell.detailTextLabel.hidden = YES;
+        }
         
         if ([[self.sizeQuantityArray objectAtIndex:indexPath.row] integerValue] == 0)
             cell.detailTextLabel.textColor = [UIColor redColor];
