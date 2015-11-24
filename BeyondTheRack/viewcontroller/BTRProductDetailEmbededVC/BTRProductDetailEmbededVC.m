@@ -35,6 +35,7 @@
 
 @interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 {
+    BOOL selectedAddWithOutSize;
     UIView * view1;
     UIView * view2;
     UITableView * detailTV;
@@ -468,14 +469,11 @@
 - (IBAction)addToBagTapped:(UIButton *)sender {
     
     if ([[self variant] isEqualToString:SIZE_NOT_SELECTED_STRING]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Size"
-                                                        message:@"Please select a size!"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+        selectedAddWithOutSize = YES;
+        [self selectSizeButtonAction];
         
     } else {
+        selectedAddWithOutSize = NO;
         [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
             if ([successString isEqualToString:@"TRUE"]) {
                 UIStoryboard *storyboard = self.storyboard;
@@ -641,6 +639,18 @@
     self.selectedSizeIndex = selectedIndex;
     nameCell.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
     self.variant = [[self sizesArray] objectAtIndex:selectedIndex];
+    if (selectedAddWithOutSize == YES) {
+        [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
+            if ([successString isEqualToString:@"TRUE"]) {
+                UIStoryboard *storyboard = self.storyboard;
+                BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+                [self presentViewController:vc animated:YES completion:nil];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+        selectedAddWithOutSize = NO;
+    }
 }
 
 
