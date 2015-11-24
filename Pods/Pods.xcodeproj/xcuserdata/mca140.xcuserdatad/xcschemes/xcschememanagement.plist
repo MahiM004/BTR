@@ -36,7 +36,7 @@
 		<key>Braintree.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>CHDropDownTextField.xcscheme</key>
 		<dict>
@@ -118,7 +118,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>4</integer>
 		</dict>
 		<key>SSKeychain.xcscheme</key>
 		<dict>
@@ -130,7 +130,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -220,6 +220,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>37ED71CD05B7F3221022E666FAAB3355</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3C7F661B1BAF1B65EF7EDCB631D93C26</key>
 		<dict>
 			<key>primary</key>
@@ -285,6 +290,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>74DF036CC72739553EE0BF75BF39B030</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>779F5A1A38F7EC157E4A235D52EAAD0B</key>
 		<dict>
 			<key>primary</key>
@@ -311,6 +321,11 @@
 			<true/>
 		</dict>
 		<key>81D7FE2A0FD9258247B1232874B837DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>820E2C73496346DD653835597C9F85C9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -401,6 +416,11 @@
 			<true/>
 		</dict>
 		<key>EAB3E1F16E5A6892DF651B5FA3E7C9FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EB5FF639E52AE23B5F8AA431D3006162</key>
 		<dict>
 			<key>primary</key>
 			<true/>

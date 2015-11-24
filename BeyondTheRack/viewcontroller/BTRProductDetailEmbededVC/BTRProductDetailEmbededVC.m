@@ -626,6 +626,8 @@
 -(void)selectSizeButtonAction {
     UIStoryboard *storyboard = self.storyboard;
     BTRSelectSizeVC * vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
+    vc.modalPresentationStyle = UIModalPresentationFormSheet;
+    vc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     vc.sizesArray = [self sizesArray];
     vc.sizeQuantityArray = [self sizeQuantityArray];
     vc.delegate = self;
