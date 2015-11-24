@@ -25,6 +25,15 @@
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
 @interface BTRSearchViewController () <BTRRefineResultsViewController>
+{
+    /// this are for the user if he/she select the add to bag with out selecting any size
+    BTRProductShowcaseCollectionCell * selectedCell;
+    Item * selectedProductItem;
+    NSArray * selectSizeArr;
+    UICollectionView * selectedCV;
+    NSIndexPath * selectIndex;
+    BOOL sizeTappedWithOutAdd;
+}
 @property (weak, nonatomic) IBOutlet UILabel *noResulteLabel;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -266,21 +275,12 @@
     
     NSMutableArray *tempSizesArray = [cell sizesArray];
     NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
-    
+    __weak typeof(cell) weakCell = cell;
     [cell setDidTapSelectSizeButtonBlock:^(id sender) {
-        UIStoryboard *storyboard = self.storyboard;
-        BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
-        viewController.modalPresentationStyle = UIModalPresentationFormSheet;
-        viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        viewController.sizesArray = tempSizesArray;
-        viewController.sizeQuantityArray = tempQuantityArray;
-        viewController.delegate = self;
-        
-        self.selectedCellIndexRow = indexPath.row;
-        [self presentViewController:viewController animated:YES completion:nil];
+        [self configureForCellOpenSelectSize:weakCell AddToBagSizeArray:tempSizesArray QuantityArr:tempQuantityArray index:indexPath withItem:productItem];
     }];
     
-    __weak typeof(cell) weakCell = cell;
+    
     __block NSString *sizeLabelText = [cell.selectSizeButton.titleLabel text];
     __block NSString *selectedSizeString = @"";
     if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] )
@@ -291,41 +291,72 @@
     [cell setDidTapAddtoBagButtonBlock:^(id sender) {
         
         if ([sizeLabelText isEqualToString:SIZE_NOT_SELECTED_STRING]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Size" message:@"Please select a size!" delegate:self cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
+            selectedCell = weakCell;
+            selectedCV = cv;
+            sizeTappedWithOutAdd = YES;
+            [self configureForCellOpenSelectSize:weakCell AddToBagSizeArray:tempSizesArray QuantityArr:tempQuantityArray index:indexPath withItem:productItem];
         } else {
-            // animation
-            UICollectionViewLayoutAttributes *attr = [cv layoutAttributesForItemAtIndexPath:indexPath];
-            CGPoint correctedOffset = CGPointMake(cell.frame.origin.x - cv.contentOffset.x,cell.frame.origin.y - cv.contentOffset.y);
-            CGPoint cellOrigin = [attr frame].origin;
-            cellOrigin = CGPointMake(cellOrigin.x + attr.frame.size.width / 2, cellOrigin.y + attr.frame.size.height / 2);
-            CGRect frame = CGRectMake(0.0,0.0,weakCell.frame.size.width,weakCell.frame.size.height);
-            frame.origin = [weakCell convertPoint:correctedOffset toView:self.view];
-            CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , weakCell.productImageView.frame.size.width, weakCell.productImageView.frame.size.height);
-            
-            UIImageView *startView = [[UIImageView alloc] initWithImage:weakCell.productImageView.image];
-            [startView setFrame:rect];
-            startView.layer.cornerRadius=5;
-            startView.layer.borderColor=[[UIColor blackColor]CGColor];
-            startView.layer.borderWidth=1;
-            [self.view addSubview:startView];
-            
-            CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
-            [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
-            // end of animation
-            [self cartIncrementServerCallToAddProductItem:productItem withVariant:selectedSizeString  success:^(NSString *successString) {
-                if ([successString isEqualToString:@"TRUE"])
-                    [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
-            } failure:^(NSError *error) {
-                NSLog(@"%@",error);
-            }];
+            sizeTappedWithOutAdd = NO;
+            [self configureCellAddtoTap:weakCell collec:cv item:productItem selectedSize:selectedSizeString inde:indexPath];
         }
     }];
     
     return cell;
 }
-
+-(BTRProductShowcaseCollectionCell*)configureCellAddtoTap:(BTRProductShowcaseCollectionCell*)weakCell
+                                                   collec:(UICollectionView*)cv
+                                                     item:(Item*)ite
+                                             selectedSize:(NSString*)sele
+                                                     inde:(NSIndexPath*)indexPath {
+    UICollectionViewLayoutAttributes *attr = [cv layoutAttributesForItemAtIndexPath:indexPath];
+    CGPoint correctedOffset = CGPointMake(weakCell.frame.origin.x - cv.contentOffset.x,weakCell.frame.origin.y - cv.contentOffset.y);
+    
+    CGPoint cellOrigin = [attr frame].origin;
+    cellOrigin = CGPointMake(cellOrigin.x + attr.frame.size.width / 2, cellOrigin.y + attr.frame.size.height / 2);
+    
+    CGRect frame = CGRectMake(0.0,0.0,weakCell.frame.size.width,weakCell.frame.size.height);
+    
+    frame.origin = [weakCell convertPoint:correctedOffset toView:self.view];
+    CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , weakCell.productImageView.frame.size.width, weakCell.productImageView.frame.size.height);
+    UIImageView *startView = [[UIImageView alloc] initWithImage:weakCell.productImageView.image];
+    [startView setFrame:rect];
+    startView.layer.cornerRadius=5;
+    startView.layer.borderColor=[[UIColor blackColor]CGColor];
+    startView.layer.borderWidth=1;
+    [self.view addSubview:startView];
+    
+    CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
+    [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
+    // calling add to bag
+    NSLog(@"Product we are sending %@ , %@",ite,sele);
+    [self cartIncrementServerCallToAddProductItem:ite withVariant:sele  success:^(NSString *successString) {
+        if ([successString isEqualToString:@"TRUE"])
+            [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
+    } failure:^(NSError *error) {
+        
+    }];
+    return weakCell;
+}
+- (BTRProductShowcaseCollectionCell *)configureForCellOpenSelectSize:(BTRProductShowcaseCollectionCell*)cell
+                                                   AddToBagSizeArray:(NSMutableArray*)sizeArr
+                                                         QuantityArr:(NSMutableArray*)quantityArr
+                                                               index:(NSIndexPath*)indexPath
+                                                            withItem:(Item*)item {
+    selectedProductItem = item;
+    selectIndex = indexPath;
+    
+    UIStoryboard *storyboard = self.storyboard;
+    BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
+    viewController.modalPresentationStyle = UIModalPresentationFormSheet;
+    viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    viewController.sizesArray = sizeArr;
+    viewController.sizeQuantityArray = quantityArr;
+    viewController.delegate = self;
+    selectSizeArr = [NSArray arrayWithArray:sizeArr];
+    self.selectedCellIndexRow = indexPath.row;
+    [self presentViewController:viewController animated:YES completion:nil];
+    return cell;
+}
 - (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell withItem:(Item *)productItem {
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
@@ -366,15 +397,8 @@
     [self setSelectedItem:productItem];
     [self setSelectedAttributes:productItem.attributeDictionary];
     [self setSelectedVariantInventories:productItem.variantInventory];
-    NSLog(@"%@",productItem.eventId);
-
-//    if ([BTRViewUtility isIPAD] == YES ) {
-//        [self performSegueWithIdentifier:@"ProductDetailiPadSegueFromSearchIdentifier" sender:self];
-//    } else {
-//        [self performSegueWithIdentifier:@"ProductDetailSegueFromSearchIdentifier" sender:self];
-//    }
-    //productEmbededSegueSearch
-     [self performSegueWithIdentifier:@"productEmbededSegueSearch" sender:self];
+    
+    [self performSegueWithIdentifier:@"productEmbededSegueSearch" sender:self];
 }
 
 - (IBAction)tappedShoppingBag:(UIButton *)sender {
@@ -591,6 +615,11 @@
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:(int)selectedIndex];
     [self.collectionView reloadData];
+    if (sizeTappedWithOutAdd == YES) {
+        NSString * sizeSelected = [NSString stringWithFormat:@"%@",selectSizeArr[selectedIndex]];
+        [self configureCellAddtoTap:selectedCell collec:selectedCV item:selectedProductItem selectedSize:sizeSelected inde:selectIndex];
+        sizeTappedWithOutAdd = NO;
+    }
 }
 
 #pragma mark ScrollView Delegate
