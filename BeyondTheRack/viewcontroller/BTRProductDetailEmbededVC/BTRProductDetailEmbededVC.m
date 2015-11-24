@@ -111,23 +111,12 @@
         _rowsArray = [[NSMutableArray alloc]initWithObjects:@"imageCell",@"nameCell",@"detailCell",@"shareCell", nil];
     }
     _selectedSizeIndex = -1;
-    [self.view setBackgroundColor:[BTRViewUtility BTRBlack]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
     if ([[[self getItem] brand] length] > 1)
         [self.eventTitleLabel setText:[[self getItem] brand]];
     else
         [self.eventTitleLabel setText:@"Product Detail"];
-    
-//    [BTRLoader showLoaderInView:view2];
-    [self fetchItemforProductSku:[[self getItem] sku]
-                         success:^(Item *responseObject) {
-                             [self fillWithItem:responseObject];
-//                             [BTRLoader hideLoaderFromView:view2];
-                         }
-                         failure:^(NSError *error) {
-                         }];
-    
-    
     
     CGRect frame = self.view.frame;
     CGFloat viewWidth = frame.size.width;
@@ -144,7 +133,20 @@
     [view2 addSubview:detailTV];
     [self.view addSubview:view1];
     [self.view addSubview:view2];
-    
+    view1.hidden = YES;
+    view2.hidden = YES;
+    detailTV.hidden = YES;
+    [BTRLoader showLoaderInView:self.view];
+    [self fetchItemforProductSku:[[self getItem] sku]
+                         success:^(Item *responseObject) {
+                             [self fillWithItem:responseObject];
+                             [BTRLoader hideLoaderFromView:self.view];
+                             view1.hidden = NO;
+                             view2.hidden = NO;
+                             detailTV.hidden = NO;
+                         }
+                         failure:^(NSError *error) {
+                         }];
     if (self.disableAddToCart) {
         self.addTobagButton.enabled = NO;
         self.addToBagView.backgroundColor = [UIColor grayColor];
