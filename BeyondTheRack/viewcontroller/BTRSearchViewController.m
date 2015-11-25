@@ -204,6 +204,9 @@
                              for (int i = 0; i < [self.itemsArray count]; i++)
                                  [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
                              [self setIsLoadingNextPage:NO];
+                             if ([self.itemsArray count] < MAX_ITEMS_PER_PAGE) {
+                                 [self setLastPageDidLoad:YES];
+                             }
                          } failure:^(NSError *error) {
                          
                          }];
@@ -647,6 +650,9 @@
             [BTRLoader hideLoaderFromView:self.view];
             self.lastPageDidLoad = YES;
             return;
+        }
+        if (responseObject.count < MAX_ITEMS_PER_PAGE) {
+            [self setLastPageDidLoad:YES];
         }
         [self.itemsArray addObjectsFromArray:responseObject];
         NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
