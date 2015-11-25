@@ -79,6 +79,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SDVersion.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SSKeychain.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -102,11 +107,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>37ED71CD05B7F3221022E666FAAB3355</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
 		<dict>
 			<key>primary</key>
@@ -122,12 +122,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>740381082E237CABD792925DBD0807D1</key>
+		<key>519C6EF36C42AEA178B091F0C72D385D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>74DF036CC72739553EE0BF75BF39B030</key>
+		<key>66BAD3BE5527824EED32727F3ED9718D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>740381082E237CABD792925DBD0807D1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,17 +157,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>820E2C73496346DD653835597C9F85C9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8E4BB2723503E9941499EA55BA6B1BDC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>A48601FEE4437A924848DB48369BA809</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A501A220B135A747BF3E7640ACAA08BA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B742F1618B12D3EA0DFBD1B5E61FD595</key>
 		<dict>
 			<key>primary</key>
 			<true/>
