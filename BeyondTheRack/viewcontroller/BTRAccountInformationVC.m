@@ -148,7 +148,7 @@
         [self.address2TextField setText:[user addressLine2]];
         [self.cityTextField setText:[user city]];
         
-        NSString *provinceToShow = [BTRViewUtility provinceNameforCode:[user province]];
+        NSString *provinceToShow = [BTRViewUtility provinceNameforCode:[[user province]uppercaseString]];
         
         [self.provinceTextField setText:provinceToShow];
         
