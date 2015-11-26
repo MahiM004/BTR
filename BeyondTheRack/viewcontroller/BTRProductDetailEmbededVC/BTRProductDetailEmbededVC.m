@@ -230,8 +230,10 @@
         [nameCell.sizeLabel setText:@"One Size"];
         [nameCell.sizeLabel setTextColor:[UIColor blackColor]];
         [nameCell.dropdownLabelIcon setHidden:YES];
+        [nameCell.sizeChartView setHidden:YES];
         self.variant = @"Z";
-    }
+    } else
+        [nameCell.sizeChartView setHidden:NO];
 }
 
 

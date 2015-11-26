@@ -20,5 +20,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *qtyNum;
 @property (weak, nonatomic) IBOutlet UIView *stepperView;
 @property (weak, nonatomic) IBOutlet UIButton *selectChart;
-
+@property (weak, nonatomic) IBOutlet UIView *sizeChartView;
 @end
