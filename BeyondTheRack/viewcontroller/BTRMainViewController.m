@@ -88,6 +88,7 @@
     self.isMenuOpen = NO;
     self.shadowAnimation = [JTSlideShadowAnimation new];
     self.shadowAnimation.animatedView = self.logoImageView;
+    self.shadowAnimation.repeatCount = 1;
 }
 
 #pragma mark - Get bag count

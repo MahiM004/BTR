@@ -118,6 +118,11 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>SDVersion.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
 		<key>SSKeychain.xcscheme</key>
@@ -260,6 +265,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>519C6EF36C42AEA178B091F0C72D385D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>51A0D027EED783209A3DE1A291D04B6D</key>
 		<dict>
 			<key>primary</key>
@@ -271,6 +281,11 @@
 			<true/>
 		</dict>
 		<key>66126B91C4EAA371518118A6BCEB33A8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>66BAD3BE5527824EED32727F3ED9718D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -360,6 +375,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A501A220B135A747BF3E7640ACAA08BA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A5D5EDBB9336EE078552259FF034D3ED</key>
 		<dict>
 			<key>primary</key>
@@ -371,6 +391,11 @@
 			<true/>
 		</dict>
 		<key>B57E5DA699274F25A97CD8AE1E68AB8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B742F1618B12D3EA0DFBD1B5E61FD595</key>
 		<dict>
 			<key>primary</key>
 			<true/>

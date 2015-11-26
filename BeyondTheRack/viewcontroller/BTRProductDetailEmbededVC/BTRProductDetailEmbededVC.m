@@ -116,7 +116,7 @@
     if ([[[self getItem] brand] length] > 1)
         [self.eventTitleLabel setText:[[self getItem] brand]];
     else
-        [self.eventTitleLabel setText:@"Product Detail"];
+        [self.eventTitleLabel setText:@""];
     
     CGRect frame = self.view.frame;
     CGFloat viewWidth = frame.size.width;
