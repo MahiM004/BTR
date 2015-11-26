@@ -87,7 +87,6 @@
     }
     
     if ([bagItemDictionary valueForKeyPath:@"cart_time"] && [bagItemDictionary valueForKeyPath:@"cart_time"] != [NSNull null]) {
-                
         bagItem.createDateTime = [NSDate dateWithTimeIntervalSince1970:[[bagItemDictionary valueForKeyPath:@"cart_time"] integerValue]];
         NSDate *nowDate = [NSDate date];
         NSTimeInterval interval = [nowDate timeIntervalSinceDate:serverTime];

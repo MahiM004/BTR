@@ -239,8 +239,8 @@
 - (void)getCartServerCallWithSuccess:(void (^)(id  responseObject)) success
                               failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
-    NSString* url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBag]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforRereserveBag]];
+    [BTRConnectionHelper postDataToURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(response);
         [BTRLoader hideLoaderFromView:self.view];
 
