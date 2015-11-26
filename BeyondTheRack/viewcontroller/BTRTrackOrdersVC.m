@@ -53,7 +53,6 @@
     return 250;
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSNumber *orderId = [self.sortedKeys objectAtIndex:section];
     NSArray *tempArray = [[self itemsDictionary] objectForKey:orderId];
@@ -80,22 +79,18 @@
     return cell;
 }
 
-
 - (BTRTrackOrdersItemCell *)configureCell:(BTRTrackOrdersItemCell *)cell forOrderItem:(OrderHistoryItem *)orderItem {
     [[cell descriptionLabel] setText:[orderItem shortDescription]];
     [[cell sizeLabel] setText:[orderItem variant]];
-    [[cell priceLabel] setText:[orderItem price]];
+    [[cell priceLabel] setText:[NSString stringWithFormat:@"$%@",[orderItem price]]];
     [[cell skuLabel] setText:[orderItem skuNumber]];
     [[cell statusLabel] setText:[orderItem status]];
     return cell;
 }
 
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 150.0;
 }
-
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
@@ -112,7 +107,6 @@
     [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:0.60]];
     return view;
 }
-
 
 - (UIView *)configureFirstRowHeaderforView:(UIView *)view withTableView:(UITableView *)tableView forOrderBag:(OrderHistoryBag *)orderBag {
     CGFloat mainWdith = tableView.frame.size.width/4;
