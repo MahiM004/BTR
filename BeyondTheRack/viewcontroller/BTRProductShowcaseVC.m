@@ -465,11 +465,13 @@ typedef enum ScrollDirection {
         [[cell.selectSizeButton titleLabel] setText:@"One Size"];
         [cell.selectSizeButton setAlpha:0.4];
         [cell.selectSizeButton setEnabled:false];
+        [cell.selectSizeButton setHidden:YES];
     } else {
         if ( [[[self chosenSizesArray] objectAtIndex:indexPath.row] isEqualToNumber:[NSNumber numberWithInt:-1]] ) {
             cell.selectSizeButton.titleLabel.text = @"Select Size";
             [cell.selectSizeButton setAlpha:1.0];
             [cell.selectSizeButton setEnabled:true];
+            [cell.selectSizeButton setHidden:NO];
         } else {
             cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
         }
