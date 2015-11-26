@@ -178,6 +178,10 @@
         [nameCell.salePriceLabel setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
         [nameCell.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
         
+        if ([productItem.allReserved boolValue] || self.disableAddToCart) {
+            self.addTobagButton.enabled = NO;
+            self.addTobagButton.backgroundColor = [UIColor grayColor];
+        }
         
         descriptionView = [[UIView alloc]init];
         descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
@@ -514,6 +518,27 @@
         }
         [self updateBagWithDictionary:response];
         success(@"TRUE");
+//        if (self.quantity.intValue > 1) {
+//            NSDictionary *itemInfo = (@{@"event_id": [[self getItem] eventId],
+//                                        @"sku": [[self getItem] sku],
+//                                        @"variant":[self variant],
+//                                        @"quantity":[self quantity]
+//                                        });
+//            NSDictionary *updateParam = (@{@"key1" : itemInfo});
+//            NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
+//            [BTRConnectionHelper postDataToURL:url withParameters:updateParam setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+//                [self updateBagWithDictionary:response];
+//                success(@"TRUE");
+//            } faild:^(NSError *error) {
+//                failure(error);
+//            }];
+//            
+//        } else {
+//            
+//            [self updateBagWithDictionary:response];
+//            success(@"TRUE");
+//        }
+        
     } faild:^(NSError *error) {
         failure(error);
     }];

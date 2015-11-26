@@ -514,7 +514,7 @@ typedef enum ScrollDirection {
         productEmbededVC.getAttribDic = self.selectedAttributes;
         
         BTRProductShowcaseCollectionCell* cell = (BTRProductShowcaseCollectionCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPath];
-        if ([productEmbededVC.getItem.allReserved boolValue] || [self isItemSoldOutWithVariant:[cell sizeQuantityArray]])
+        if ([self isItemSoldOutWithVariant:[cell sizeQuantityArray]])
             productEmbededVC.disableAddToCart = YES;
     }
 }

@@ -22,4 +22,5 @@
 @property NSDictionary * getAttribDic;
 @property NSString * getEventID;
 @property BOOL disableAddToCart;
+
 @end
