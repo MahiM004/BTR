@@ -469,7 +469,6 @@
 
 #pragma mark - RESTful Calls Add to bag methods
 - (IBAction)addToBagTapped:(UIButton *)sender {
-    
     if ([[self variant] isEqualToString:SIZE_NOT_SELECTED_STRING]) {
         selectedAddWithOutSize = YES;
         [self selectSizeButtonAction];
@@ -490,47 +489,31 @@
 - (void)cartIncrementServerCallWithSuccess:(void (^)(id  responseObject)) success
                                    failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
-    NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]];
+    NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
     NSDictionary *params;
     if ([[self getItem]eventId]) {
         params = (@{
                     @"event_id": [[self getItem]eventId],
                     @"sku": [[self getItem] sku],
                     @"variant":[self variant],
+                    @"quantity":[self quantity]
                     });
     } else
         params = (@{
                     @"sku": [[self getItem] sku],
                     @"variant":[self variant],
+                    @"quantity":[self quantity]
                     });
-    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        if (![[response valueForKey:@"success"]boolValue]) {
-            if ([response valueForKey:@"error_message"]) {
-                [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+    NSDictionary *updateParam = (@{@"key1" : params});
+    [BTRConnectionHelper postDataToURL:url withParameters:updateParam setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        NSDictionary *actionResponse = [[[response valueForKey:@"response"]valueForKey:@"key1"]valueForKey:@"response"];
+        if (![[actionResponse valueForKey:@"success"]boolValue]) {
+            if ([actionResponse valueForKey:@"error_message"]) {
+                [[[UIAlertView alloc]initWithTitle:@"Error" message:[actionResponse valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
             }
-            return;
         }
-        if (self.quantity.intValue > 1) {
-            NSDictionary *itemInfo = (@{@"event_id": [[self getItem] eventId],
-                                        @"sku": [[self getItem] sku],
-                                        @"variant":[self variant],
-                                        @"quantity":[self quantity]
-                                        });
-            NSDictionary *updateParam = (@{@"key1" : itemInfo});
-            NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
-            [BTRConnectionHelper postDataToURL:url withParameters:updateParam setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-                [self updateBagWithDictionary:response];
-                success(@"TRUE");
-            } faild:^(NSError *error) {
-                failure(error);
-            }];
-            
-        } else {
-            
-            [self updateBagWithDictionary:response];
-            success(@"TRUE");
-        }
-        
+        [self updateBagWithDictionary:response];
+        success(@"TRUE");
     } faild:^(NSError *error) {
         failure(error);
     }];
@@ -735,8 +718,7 @@
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = @"cellImage";
     UINib *nib = [UINib nibWithNibName:@"BTRProductCollecCell" bundle: nil];
     [_collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
