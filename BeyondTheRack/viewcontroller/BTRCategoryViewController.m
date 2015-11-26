@@ -15,7 +15,7 @@
 #import "BTREventsVC.h"
 #import "ApplePayManager.h"
 
-#define INITIAL_PAGE_INDEX 1
+#define INITIAL_PAGE_INDEX 0
 
 @interface BTRCategoryViewController ()
 
