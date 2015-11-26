@@ -95,7 +95,7 @@
         UILabel *newLabel = [[UILabel alloc]initWithFrame:CGRectMake(begingingpoint.x, begingingpoint.y + (i * space), size.width, space)];
         newLabel.numberOfLines = -1;
         newLabel.font = [UIFont systemFontOfSize:13];
-        newLabel.text = [NSString stringWithFormat:@"%@\nBrand : %@\nSize: %@\nPrice:%@\nItem code : %@",item.shortItemDescription,item.brand,item.variant,item.salePrice,item.sku];
+        newLabel.text = [NSString stringWithFormat:@"%@\nBrand : %@\nSize: %@\nPrice:$%@\nItem code : %@",item.shortItemDescription,item.brand,item.variant,item.salePrice,item.sku];
         [self.orderView addSubview:newLabel];
     }
     self.itemsHeight.constant = self.info.items.count * 140;
