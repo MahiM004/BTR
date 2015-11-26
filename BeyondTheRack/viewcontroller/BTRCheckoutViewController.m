@@ -1484,11 +1484,11 @@
         size = DEFAULT_VIEW_HEIGHT_IPHONE;
     
     if (self.currentPaymentType == paypal && self.paypalEmailTF.text.length > 0) {
-        if(![BTRViewUtility isIPAD]) {
+//        if(![BTRViewUtility isIPAD]) {
             size = size - (CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT);
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
-        }
+//        }
     }
     else if (self.currentPaymentType == paypal) {
         if(![BTRViewUtility isIPAD]) {
