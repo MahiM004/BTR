@@ -27,5 +27,6 @@
                            failure:(void (^)(NSError *error)) failure;
 - (void)initWithClientWithToken:(NSString *)token andOrderInfromation:(NSDictionary *)information;
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController;
+- (BOOL)isApplePlayAvailable;
 
 @end

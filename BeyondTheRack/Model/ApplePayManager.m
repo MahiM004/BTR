@@ -12,6 +12,7 @@
 #import "BTRApplePayFetcher.h"
 #import "BTRConnectionHelper.h"
 #import "BTROrderFetcher.h"
+#import "SDVersion.h"
 
 @interface ApplePayManager()
 @property (nonatomic, strong) BTAPIClient *braintreeClient;
@@ -24,6 +25,13 @@
 @end
 
 @implementation ApplePayManager
+
+- (BOOL)isApplePlayAvailable {
+   if (![PKPaymentAuthorizationViewController canMakePayments]) {
+       return YES;
+   } else
+       return NO;
+}
 
 - (PKPaymentRequest *)paymentRequest {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
@@ -57,10 +65,7 @@
 }
 
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController {
-    if (![PKPaymentAuthorizationViewController canMakePayments]) {
-        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Apple Pay not available" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-        return;
-    }
+    
     PKPaymentRequest *paymentRequest = [self paymentRequest];
     PKPaymentAuthorizationViewController *vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
     
