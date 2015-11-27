@@ -57,6 +57,10 @@
 }
 
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController {
+    if (![PKPaymentAuthorizationViewController canMakePayments]) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Apple Pay not available" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        return;
+    }
     PKPaymentRequest *paymentRequest = [self paymentRequest];
     PKPaymentAuthorizationViewController *vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
     
