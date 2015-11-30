@@ -89,8 +89,16 @@
     self.shadowAnimation = [JTSlideShadowAnimation new];
     self.shadowAnimation.animatedView = self.logoImageView;
     self.shadowAnimation.repeatCount = 1;
+    self.shadowAnimation.duration = 5;
+    [NSTimer scheduledTimerWithTimeInterval:4.5
+                                     target:self
+                                   selector:@selector(updateImage)
+                                   userInfo:nil
+                                    repeats:NO];
 }
-
+-(void)updateImage {
+    [self.shadowAnimation stop];
+}
 #pragma mark - Get bag count
 
 - (void)getCartCountServerCallWithSuccess:(void (^)(id  responseObject)) success

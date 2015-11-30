@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BTRPopUpVC.h"
 #import "Order+AppServer.h"
 #import "BTRMasterPassViewController.h"
 #import "CTCheckbox.h"
@@ -21,7 +21,18 @@ typedef enum {
 } paymentType;
 
 
-@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate,MasterPassInfoDelegate,UIAlertViewDelegate,CardIOPaymentViewControllerDelegate,ApplePayDelegate>
+typedef enum  PopUPType{
+    PopUPTypePayment,
+    PopUPTypeExpiryYear,
+    PopUPTypeExpiryMonth,
+    PopUPTypeState,
+    PopUPTypeProvince,
+    PopUPTypeBillingCountry
+}PopUPType;
+
+@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate,MasterPassInfoDelegate,UIAlertViewDelegate,CardIOPaymentViewControllerDelegate,ApplePayDelegate,PopUPDelegate>
+
+@property (readwrite) PopUPType popType;
 
 @property (strong, nonatomic) Order *order;
 @property (strong, nonatomic) NSDictionary *masterCallBackInfo;
@@ -188,6 +199,8 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UILabel *totalDueLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *sampleGiftView;
+@property (weak, nonatomic) IBOutlet UIControl *paymentTypeView;
+@property (weak, nonatomic) IBOutlet UIControl *paymentCreditView;
 
 @end
 

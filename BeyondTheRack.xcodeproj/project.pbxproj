@@ -18,6 +18,8 @@
 		14A6EDE21BEB8C87007944FA /* BTRProductCollecCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */; };
 		14A6EDE31BEB8C87007944FA /* BTRProductCollecCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A6EDE11BEB8C87007944FA /* BTRProductCollecCell.xib */; };
 		14A6EDE51BEB8E1F007944FA /* BTRProductDetailCellDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A6EDE41BEB8E1F007944FA /* BTRProductDetailCellDetail.xib */; };
+		14C046C31C0C18F100521189 /* BTRPopUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C046C21C0C18F100521189 /* BTRPopUpVC.m */; };
+		14C046C61C0C190B00521189 /* BTRPopUPVCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C046C51C0C190B00521189 /* BTRPopUPVCCell.m */; };
 		14F378A51BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */; };
 		5EF64B82268F5B93BD9E3D57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00303CA259B636FFAA0B08E0 /* libPods.a */; };
 		6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4C71AB7598000930D16 /* BTRLogo.png */; };
@@ -260,6 +262,10 @@
 		14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductCollecCell.m; sourceTree = "<group>"; };
 		14A6EDE11BEB8C87007944FA /* BTRProductCollecCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductCollecCell.xib; sourceTree = "<group>"; };
 		14A6EDE41BEB8E1F007944FA /* BTRProductDetailCellDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductDetailCellDetail.xib; sourceTree = "<group>"; };
+		14C046C11C0C18F100521189 /* BTRPopUpVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPopUpVC.h; sourceTree = "<group>"; };
+		14C046C21C0C18F100521189 /* BTRPopUpVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPopUpVC.m; sourceTree = "<group>"; };
+		14C046C41C0C190B00521189 /* BTRPopUPVCCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPopUPVCCell.h; sourceTree = "<group>"; };
+		14C046C51C0C190B00521189 /* BTRPopUPVCCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPopUPVCCell.m; sourceTree = "<group>"; };
 		14F378A31BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTRProductDetailEmbededVC.h; path = BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.h; sourceTree = "<group>"; };
 		14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTRProductDetailEmbededVC.m; path = BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m; sourceTree = "<group>"; };
 		6900B4C71AB7598000930D16 /* BTRLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BTRLogo.png; sourceTree = "<group>"; };
@@ -683,6 +689,17 @@
 			path = BeyondTheRack/viewcontroller;
 			sourceTree = SOURCE_ROOT;
 		};
+		14C046C01C0C18CE00521189 /* PopUP */ = {
+			isa = PBXGroup;
+			children = (
+				14C046C11C0C18F100521189 /* BTRPopUpVC.h */,
+				14C046C21C0C18F100521189 /* BTRPopUpVC.m */,
+				14C046C41C0C190B00521189 /* BTRPopUPVCCell.h */,
+				14C046C51C0C190B00521189 /* BTRPopUPVCCell.m */,
+			);
+			name = PopUP;
+			sourceTree = "<group>";
+		};
 		6900B4CC1AB75AA800930D16 /* Login Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -937,6 +954,7 @@
 		697E057C1A432FCD000146C6 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				14C046C01C0C18CE00521189 /* PopUP */,
 				69D440571B33478500070FD8 /* BTRInitializeViewController.h */,
 				69D440581B33478500070FD8 /* BTRInitializeViewController.m */,
 				69867A131A44A701003CE59C /* BTRMainViewController.h */,
@@ -1603,6 +1621,7 @@
 				6965085F1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m in Sources */,
 				A011426E1B6189D40099A40A /* FAQ.m in Sources */,
 				690A38F41B1DEB7F00D4BA84 /* TNRectangularRadioButton.m in Sources */,
+				14C046C61C0C190B00521189 /* BTRPopUPVCCell.m in Sources */,
 				690A38F21B1DEB7F00D4BA84 /* TNRadioButtonData.m in Sources */,
 				692F24D81AAE2071003AABE1 /* NSString+HeightCalc.m in Sources */,
 				A0FCDED51BA0C69900CD476B /* Address.m in Sources */,
@@ -1636,6 +1655,7 @@
 				B3C16A971B038C5D009470EC /* BTRSizeHandler.m in Sources */,
 				69D440231B3083CA00070FD8 /* BTROrderFetcher.m in Sources */,
 				14F378A51BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m in Sources */,
+				14C046C31C0C18F100521189 /* BTRPopUpVC.m in Sources */,
 				69CEF34D1ABC61BD00835276 /* BTRUserFetcher.m in Sources */,
 				A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */,
 				A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */,
