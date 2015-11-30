@@ -29,9 +29,16 @@
 #import "PinterestSDK.h"
 #import "BTRZoomImageViewController.h"
 #import "UIImageView+AFNetworkingFadeIn.h"
+#import "BTRSettingManager.h"
+#import "BTRLoginViewController.h"
 
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
+
+typedef enum operation {
+    addToBag = 1,
+    gotoBag = 2
+}operation;
 
 @interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 {
@@ -67,6 +74,7 @@
 @property (strong, nonatomic) NSMutableArray *sizeCodesArray;
 @property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
 @property NSMutableArray * rowsArray;
+@property operation lastOperation;
 @end
 
 @implementation BTRProductDetailEmbededVC
@@ -93,16 +101,14 @@
     if (!_sizeQuantityArray) _sizeQuantityArray = [[NSMutableArray alloc]  init];
     return _sizeQuantityArray;
 }
-
 - (NSMutableArray *)attributeValues {
     if (!_attributeValues) _attributeValues = [[NSMutableArray alloc] init];
     return  _attributeValues;
 }
-
-
 - (void)setProductImageCount:(NSInteger)productImageCount {
     _productImageCount = productImageCount;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.variant == nil)
@@ -153,7 +159,8 @@
     }
     [PDKClient configureSharedInstanceWithAppId:@"1445223"];
 }
--(void)viewWillAppear:(BOOL)animated {
+
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [UIView animateWithDuration:0.02 animations:^{
         [_collectionView performBatchUpdates:nil completion:nil];
@@ -163,12 +170,24 @@
     self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidLogin:)
+                                                 name:kUSERDIDLOGIN
+                                               object:nil];
+}
 
--(void)fillWithItem:(Item*)item {
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kUSERDIDLOGIN object:nil];
+}
+
+- (void)fillWithItem:(Item*)item {
     [self extractAttributesFromAttributesDictionary:_getAttribDic];
     [self updateViewWithDeatiledItem:item];
 }
+
 #pragma UpdateView Size and View
+
 - (void)updateViewWithDeatiledItem:(Item *)productItem {
     self.productImageCount = [[productItem imageCount] integerValue];
     if (productItem) {
@@ -222,6 +241,7 @@
     [_collectionView reloadData];
     
 }
+
 - (void)updateSizeSelectionViewforSizeMode:(BTRSizeMode)sizeMode {
     if (sizeMode == BTRSizeModeSingleSizeShow || sizeMode == BTRSizeModeSingleSizeNoShow) {
         [nameCell.selectSizeLabel setAttributedText:[BTRViewUtility crossedOffStringfromString:@"Select Size :"]];
@@ -235,7 +255,6 @@
     } else
         [nameCell.sizeChartView setHidden:NO];
 }
-
 
 #pragma mark - Construct Description Views
 - (UIView *)getDescriptionViewForView:(UIView *)descriptionView1 withDescriptionString:(NSString *)longDescriptionString {
@@ -276,6 +295,7 @@
     
     return descriptionView1;
 }
+
 - (UIView *)getAttribueViewForView:(UIView *)attributeView {
     
     UILabel *additinalInformation = [[UILabel alloc] initWithFrame:CGRectMake(-8, customHeight, self.view.frame.size.width, 10)];
@@ -314,6 +334,7 @@
     
     return attributeView;
 }
+
 - (UIView *)getNoteView:(UIView *)noteView withNote:(NSString *)note withFont:(UIFont *)font andColor:(UIColor *)color {
     if ([note length] > 2) {
         customHeight += 8;
@@ -337,8 +358,6 @@
     return noteView;
 }
 
-
-
 #pragma mark -  Handle JSON with Arbitrary Keys (attributes)
 
 - (void) extractAttributesFromAttributesDictionary:(NSDictionary *)attributeDictionary {
@@ -352,11 +371,11 @@
     }];
 }
 
-
 #pragma TableView Delegates
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _rowsArray.count;
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * cellIdenti = [_rowsArray objectAtIndex:indexPath.row];
     
@@ -425,6 +444,7 @@
     }
     return nil;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:
@@ -467,10 +487,16 @@
     if ([[self getOriginalVCString] isEqualToString:EVENT_SCENE])
         [self performSegueWithIdentifier:@"unwindFromProductDetailToShowcase" sender:self];
 }
+
 - (IBAction)bagButtonTapped:(UIButton *)sender {
-    UIStoryboard *storyboard = self.storyboard;
-    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-    [self presentViewController:vc animated:YES completion:nil];
+    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        UIStoryboard *storyboard = self.storyboard;
+        UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+        [self presentViewController:vc animated:YES completion:nil];
+    } else {
+        [self showLogin];
+        [self setLastOperation:gotoBag];
+    }
 }
 
 #pragma mark - RESTful Calls Add to bag methods
@@ -478,40 +504,34 @@
     if ([[self variant] isEqualToString:SIZE_NOT_SELECTED_STRING]) {
         selectedAddWithOutSize = YES;
         [self selectSizeButtonAction];
-        
     } else {
-        selectedAddWithOutSize = NO;
-        [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
-            if ([successString isEqualToString:@"TRUE"]) {
-                UIStoryboard *storyboard = self.storyboard;
-                BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-                [self presentViewController:vc animated:YES completion:nil];
-            }
-        } failure:^(NSError *error) {
-            
-        }];
+        if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+            selectedAddWithOutSize = NO;
+            [self addToBag];
+        } else {
+            [self showLogin];
+            [self setLastOperation:addToBag];
+        }
     }
 }
+
+- (void)addToBag {
+    [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
+        if ([successString isEqualToString:@"TRUE"]) {
+            UIStoryboard *storyboard = self.storyboard;
+            BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 - (void)cartIncrementServerCallWithSuccess:(void (^)(id  responseObject)) success
                                    failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
     NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
-    NSDictionary *params;
-    if ([[self getItem]eventId]) {
-        params = (@{
-                    @"event_id": [[self getItem]eventId],
-                    @"sku": [[self getItem] sku],
-                    @"variant":[self variant],
-                    @"quantity":[self quantity]
-                    });
-    } else
-        params = (@{
-                    @"sku": [[self getItem] sku],
-                    @"variant":[self variant],
-                    @"quantity":[self quantity]
-                    });
-    NSDictionary *updateParam = (@{@"key1" : params});
-    [BTRConnectionHelper postDataToURL:url withParameters:updateParam setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper postDataToURL:url withParameters:[self itemParameters] setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         NSDictionary *actionResponse = [[[response valueForKey:@"response"]valueForKey:@"key1"]valueForKey:@"response"];
         if (![[actionResponse valueForKey:@"success"]boolValue]) {
             if ([actionResponse valueForKey:@"error_message"]) {
@@ -520,27 +540,6 @@
         }
         [self updateBagWithDictionary:response];
         success(@"TRUE");
-//        if (self.quantity.intValue > 1) {
-//            NSDictionary *itemInfo = (@{@"event_id": [[self getItem] eventId],
-//                                        @"sku": [[self getItem] sku],
-//                                        @"variant":[self variant],
-//                                        @"quantity":[self quantity]
-//                                        });
-//            NSDictionary *updateParam = (@{@"key1" : itemInfo});
-//            NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
-//            [BTRConnectionHelper postDataToURL:url withParameters:updateParam setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-//                [self updateBagWithDictionary:response];
-//                success(@"TRUE");
-//            } faild:^(NSError *error) {
-//                failure(error);
-//            }];
-//            
-//        } else {
-//            
-//            [self updateBagWithDictionary:response];
-//            success(@"TRUE");
-//        }
-        
     } faild:^(NSError *error) {
         failure(error);
     }];
@@ -575,6 +574,7 @@
         failure(error);
     }];
 }
+
 #pragma View Orientation Changes
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
@@ -627,12 +627,12 @@
     }
 }
 
-
 -(void)selectSizeChartAction {
     BTRSizeChartViewController* sizechart = [[BTRSizeChartViewController alloc]initWithNibName:@"BTRSizeChartViewController" bundle:nil];
     [sizechart setCategory:apparel];
     [self presentViewController:sizechart animated:YES completion:nil];
 }
+
 -(void)selectSizeButtonAction {
     UIStoryboard *storyboard = self.storyboard;
     BTRSelectSizeVC * vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
@@ -644,28 +644,21 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-
-
 #pragma mark - BTRSelectSizeVC Delegate
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     self.selectedSizeIndex = selectedIndex;
     nameCell.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
     self.variant = [[self sizesArray] objectAtIndex:selectedIndex];
     if (selectedAddWithOutSize == YES) {
-        [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
-            if ([successString isEqualToString:@"TRUE"]) {
-                UIStoryboard *storyboard = self.storyboard;
-                BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-                [self presentViewController:vc animated:YES completion:nil];
-            }
-        } failure:^(NSError *error) {
-            
-        }];
-        selectedAddWithOutSize = NO;
+        if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+            [self addToBag];
+            selectedAddWithOutSize = NO;
+        } else {
+            [self showLogin];
+            [self setLastOperation:addToBag];
+        }
     }
 }
-
-
 
 #pragma mark - Social Media Sharing
 - (void)shareOnFacebookTapped:(UIButton *)sender {
@@ -687,6 +680,7 @@
         [alert show];
     }
 }
+
 - (void)twitter:(UIButton *)sender {
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
         SLComposeViewController *tweetSheet = [SLComposeViewController
@@ -707,6 +701,7 @@
         [alert show];
     }
 }
+
 - (void)shareOnPinterestTapped:(UIButton *)sender {
     [[PDKClient sharedInstance] authenticateWithPermissions:@[PDKClientReadPublicPermissions,
                                                               PDKClientWritePublicPermissions,
@@ -734,11 +729,7 @@
     //                          description:SOCIAL_MEDIA_INIT_STRING];
 }
 
-
-
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if ([self productImageCount] == 0)
         return 1;
     return [self productImageCount];
@@ -796,6 +787,38 @@
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                duration:(NSTimeInterval)duration{
     [_collectionView.collectionViewLayout invalidateLayout];
+}
+
+- (NSDictionary *)itemParameters {
+    NSDictionary *params;
+    if ([[self getItem]eventId]) {
+        params = (@{
+                    @"event_id": [[self getItem]eventId],
+                    @"sku": [[self getItem] sku],
+                    @"variant":[self variant],
+                    @"quantity":[self quantity]
+                    });
+    } else
+        params = (@{
+                    @"sku": [[self getItem] sku],
+                    @"variant":[self variant],
+                    @"quantity":[self quantity]
+                    });
+    NSDictionary *updateParam = (@{@"key1" : params});
+    return updateParam;
+}
+
+- (void)showLogin {
+    BTRLoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
+    [self presentViewController:login animated:YES completion:nil];
+}
+
+- (void)userDidLogin:(NSNotification *) notification {
+    if (self.lastOperation == addToBag)
+        [self addToBag];
+    if  (self.lastOperation == gotoBag)
+        [self bagButtonTapped:nil];
+    self.lastOperation = 0;
 }
 
 @end
