@@ -22,6 +22,7 @@
 #import "BTRMenuTableViewCell.h"
 #import "LMDropdownView.h"
 #import "MarqueeLabel.h"
+#import "BTRLoginViewController.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -102,6 +103,9 @@ typedef enum ScrollDirection {
 @property LMDropdownView *menu;
 @property (nonatomic) NSUInteger menuType;
 @property (weak, nonatomic) IBOutlet UIView *tableViewContainer;
+
+// operation
+@property operation lastOperation;
 
 @end
 
@@ -727,6 +731,22 @@ typedef enum ScrollDirection {
         self.eventEndTimeLabel.textColor = [UIColor whiteColor];
     }
 }
+
+#pragma mark saved action
+
+- (void)showLogin {
+    BTRLoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
+    [self presentViewController:login animated:YES completion:nil];
+}
+
+- (void)userDidLogin:(NSNotification *) notification {
+    if (self.lastOperation == addToBag)
+        ;
+    if  (self.lastOperation == gotoBag)
+        [self bagButtonTapped:nil];
+    self.lastOperation = 0;
+}
+
 
 @end
 

@@ -35,11 +35,6 @@
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
 
-typedef enum operation {
-    addToBag = 1,
-    gotoBag = 2
-}operation;
-
 @interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 {
     BOOL selectedAddWithOutSize;
