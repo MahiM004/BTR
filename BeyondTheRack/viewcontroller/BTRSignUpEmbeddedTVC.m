@@ -400,4 +400,8 @@
     [sender setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
 }
 
+- (void)sendNotification {
+    [[NSNotificationCenter defaultCenter]postNotificationName:kUSERDIDLOGIN object:nil];
+}
+
 @end

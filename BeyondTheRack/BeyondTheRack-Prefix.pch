@@ -35,6 +35,7 @@
 
 #define MAX_EVENTS_PER_PAGE 35
 #define MAX_ITEMS_PER_PAGE 96
+#define kUSERDIDLOGIN @"USERDIDLOGIN"
 
 #endif
 
