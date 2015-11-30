@@ -32,5 +32,6 @@
 
 - (void)updatePassword:(NSString *)neuPassword;
  
+- (BOOL)isUserLoggedIn;
 
 @end
