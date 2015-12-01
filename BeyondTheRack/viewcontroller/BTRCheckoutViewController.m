@@ -298,9 +298,17 @@
     if (self.order.shippingAddress.postalCodeValid == NO) {
         [_freeMontrealView setHidden:YES];
         [self.freeMontrealViewHeightConstraint setConstant:0];
+        if (![BTRViewUtility isIPAD]) {
+            self.shippingViewHeight.constant = 638;
+            [self resetSize];
+        }
     } else {
         [_freeMontrealView setHidden:NO];
         [self.freeMontrealViewHeightConstraint setConstant:50];
+        if (![BTRViewUtility isIPAD]) {
+            self.shippingViewHeight.constant = 688;
+            [self resetSize];
+        }
     }
     
     // billing
@@ -1092,10 +1100,19 @@
     }
     
     if ([self pickerType] == COUNTRY_PICKER) {
-        if ([self billingOrShipping] == BILLING_ADDRESS)
+        if ([self billingOrShipping] == BILLING_ADDRESS) {
             [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:row]];
-        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
+            [self validateAddressViaAPIAndInCompletion:nil];
+        }
+        else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
             [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:row]];
+            if (row == 1) {
+                [self.freeMontrealViewHeightConstraint setConstant:0];
+                _freeMontrealView.hidden = YES;
+                
+            }
+            [self validateAddressViaAPIAndInCompletion:nil];
+        }
     }
     
     if ([self pickerType] == EXPIRY_MONTH_PICKER)
@@ -1568,7 +1585,13 @@
     else if (self.currentPaymentType == masterPass) {
         
     }
-    
+    if (![BTRViewUtility isIPAD]) {
+        if (self.freeMontrealViewHeightConstraint.constant == 0) {
+            size = size - 50;
+        } else {
+            size = size + 50;
+        }
+    }
     if (self.orderIsGiftCheckbox.checked)
         size = size + GIFT_MAX_HEIGHT;
     
