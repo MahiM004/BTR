@@ -47,13 +47,16 @@
 #define GIFT_CARD_HEIGHT 165.0
 #define REMEBER_CARD_INFO_HEIGHT 75.0
 
-#define DEFAULT_VIEW_HEIGHT_IPHONE 3300
-#define DEFAULT_VIEW_HEIGHT_IPAD 1920
+#define DEFAULT_VIEW_HEIGHT_IPHONE 3200
+#define DEFAULT_VIEW_HEIGHT_IPAD 1843
 
 @class CTCheckbox;
 
 
 @interface BTRCheckoutViewController ()
+{
+    BOOL giftCardOpened;
+}
 @property (nonatomic, strong) UIPopoverController *userDataPopover;
 @property (strong, nonatomic) Freeship* freeshipInfo;
 
@@ -218,6 +221,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    giftCardOpened = YES;
     [CardIOUtilities preload];
     [self resetData];
     [self setCheckboxesTargets];
@@ -415,7 +419,7 @@
     int i = 0;
     CGFloat heightSize = 0;
     CGFloat widthSize = 0;
-    if ([BTRViewUtility isIPAD]) {
+    if ([BTRViewUtility isIPAD] && [self.order.promoItems count] != 0) {
         self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant;
         self.viewHeight.constant = self.viewHeight.constant + SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
         widthSize = self.view.frame.size.width/2 - 50;
@@ -980,6 +984,20 @@
 }
 
 
+- (IBAction)haveGiftCardHeight:(id)sender {
+    if (giftCardOpened == YES) {
+        _giftCardViewHeight.constant += 125;
+        self.haveAGiftViewHeight.constant += 125;
+        _haveAgiftInnerView.hidden = NO;
+        giftCardOpened = NO;
+    } else {
+        _giftCardViewHeight.constant -= 125;
+        self.haveAGiftViewHeight.constant -= 125;
+        _haveAgiftInnerView.hidden = YES;
+        giftCardOpened = YES;
+    }
+    [self resetSize];
+}
 #pragma mark - PickerView Delegates
 
 - (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) addressType {
@@ -1593,6 +1611,9 @@
         } else {
             size = size + 50;
         }
+    }
+    if ( _giftCardViewHeight.constant == 165) {
+        size += 125;
     }
     if (self.orderIsGiftCheckbox.checked)
         size = size + GIFT_MAX_HEIGHT;

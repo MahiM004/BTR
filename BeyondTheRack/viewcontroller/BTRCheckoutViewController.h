@@ -205,6 +205,9 @@ typedef enum  PopUPType{
 //Free Montreal
 @property (weak, nonatomic) IBOutlet UIView *freeMontrealView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *freeMontrealViewHeightConstraint;
+
+
+@property (weak, nonatomic) IBOutlet UIView *haveAgiftInnerView;
 @end
 
 
