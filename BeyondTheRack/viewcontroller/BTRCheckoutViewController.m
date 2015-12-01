@@ -295,6 +295,13 @@
         self.shippingProvinceLB.text = @"PROVINCE";
         self.shippingPostalCodeLB.text = @"POSTAL CODE";
     }
+    if (self.order.shippingAddress.postalCodeValid == NO) {
+        [_freeMontrealView setHidden:YES];
+        [self.freeMontrealViewHeightConstraint setConstant:0];
+    } else {
+        [_freeMontrealView setHidden:NO];
+        [self.freeMontrealViewHeightConstraint setConstant:50];
+    }
     
     // billing
     [self.addressLine1BillingTF setText:[[self.order billingAddress]addressLine1]];
@@ -1362,6 +1369,12 @@
 - (IBAction)zipCodeHasBeenEntererd:(id)sender {
     [self validateAddressViaAPIAndInCompletion:nil];
 }
+- (IBAction)freeMontrealAction:(CTCheckbox *)sender {
+    
+}
+- (IBAction)freeMontrealInfoAction:(UIButton *)sender {
+    
+}
 
 - (BOOL)isShippingAddressCompeleted {
     // checking address line
@@ -1647,13 +1660,20 @@
             [self.provinceShippingTF setText:[[self provincesArray] objectAtIndex:index.row]];
     }
     else if (_popType == PopUPTypeBillingCountry) {
-        if ([self billingOrShipping] == BILLING_ADDRESS)
+        if ([self billingOrShipping] == BILLING_ADDRESS) {
             [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
-        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
+            [self validateAddressViaAPIAndInCompletion:nil];
+        }
+        else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
             [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
+            if (index.row == 1) {
+                [self.freeMontrealViewHeightConstraint setConstant:0];
+                _freeMontrealView.hidden = YES;
+                
+            }
+            [self validateAddressViaAPIAndInCompletion:nil];
+        }
     }
-    
-   
     [self.userDataPopover dismissPopoverAnimated:NO];
 }
 @end
