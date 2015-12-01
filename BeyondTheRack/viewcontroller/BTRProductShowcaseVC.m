@@ -106,6 +106,8 @@ typedef enum ScrollDirection {
 
 // operation
 @property operation lastOperation;
+@property NSInvocation *savedInvocation;
+@property NSString *selectedSize;
 
 @end
 
@@ -179,6 +181,16 @@ typedef enum ScrollDirection {
     self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidLogin:)
+                                                 name:kUSERDIDLOGIN
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kUSERDIDLOGIN object:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -352,7 +364,7 @@ typedef enum ScrollDirection {
     NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
     __weak typeof(cell) weakCell = cell;
     [cell setDidTapSelectSizeButtonBlock:^(id sender) {
-        [self configureForCellOpenSelectSize:weakCell AddToBagSizeArray:tempSizesArray QuantityArr:tempQuantityArray index:indexPath withItem:productItem ];
+        [self openSelectSize:weakCell sizeArray:tempSizesArray quantityArray:tempQuantityArray index:indexPath withItem:productItem ];
     }];
     
     __block NSString *sizeLabelText = [cell.selectSizeButton.titleLabel text];
@@ -368,10 +380,10 @@ typedef enum ScrollDirection {
             selectedCell = weakCell;
             selectedCV = cv;
             sizeTappedWithOutAdd = YES;
-            [self configureForCellOpenSelectSize:weakCell AddToBagSizeArray:tempSizesArray QuantityArr:tempQuantityArray index:indexPath withItem:productItem];
+            [self openSelectSize:weakCell sizeArray:tempSizesArray quantityArray:tempQuantityArray index:indexPath withItem:productItem];
         } else {
             sizeTappedWithOutAdd = NO;
-            [self configureCellAddtoTap:weakCell collec:cv item:productItem selectedSize:selectedSizeString inde:indexPath];
+            [self addToBag:weakCell collection:cv item:productItem selectedSize:selectedSizeString index:indexPath];
         }
     }];
     return cell;
@@ -407,22 +419,38 @@ typedef enum ScrollDirection {
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
--(BTRProductShowcaseCollectionCell*)configureCellAddtoTap:(BTRProductShowcaseCollectionCell*)weakCell
-                                                   collec:(UICollectionView*)cv
-                                                     item:(Item*)ite
-                                             selectedSize:(NSString*)sele
-                                                     inde:(NSIndexPath*)indexPath {
+- (void)addToBag:(BTRProductShowcaseCollectionCell*)cell
+                                                   collection:(UICollectionView*)cv
+                                                     item:(Item*)item
+                                             selectedSize:(NSString*)selelectedSize
+                                                     index:(NSIndexPath*)indexPath {
+
+    if (![[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        NSMethodSignature *signature  = [self methodSignatureForSelector:_cmd];
+        self.savedInvocation = [NSInvocation invocationWithMethodSignature:signature];
+        self.savedInvocation.target = self;
+        self.savedInvocation.selector = _cmd;
+        [self.savedInvocation setArgument:&cell atIndex:2];
+        [self.savedInvocation setArgument:&cv atIndex:3];
+        [self.savedInvocation setArgument:&item atIndex:4];
+        [self.savedInvocation setArgument:&selelectedSize atIndex:5];
+        [self.savedInvocation setArgument:&indexPath atIndex:6];
+        [self setLastOperation:addToBag];
+        [self showLogin];
+        return;
+    }
+
     UICollectionViewLayoutAttributes *attr = [cv layoutAttributesForItemAtIndexPath:indexPath];
-    CGPoint correctedOffset = CGPointMake(weakCell.frame.origin.x - cv.contentOffset.x,weakCell.frame.origin.y - cv.contentOffset.y);
+    CGPoint correctedOffset = CGPointMake(cell.frame.origin.x - cv.contentOffset.x,cell.frame.origin.y - cv.contentOffset.y);
     
     CGPoint cellOrigin = [attr frame].origin;
     cellOrigin = CGPointMake(cellOrigin.x + attr.frame.size.width / 2, cellOrigin.y + attr.frame.size.height / 2);
     
-    CGRect frame = CGRectMake(0.0,0.0,weakCell.frame.size.width,weakCell.frame.size.height);
+    CGRect frame = CGRectMake(0.0,0.0,cell.frame.size.width,cell.frame.size.height);
     
-    frame.origin = [weakCell convertPoint:correctedOffset toView:self.view];
-    CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , weakCell.productImageView.frame.size.width, weakCell.productImageView.frame.size.height);
-    UIImageView *startView = [[UIImageView alloc] initWithImage:weakCell.productImageView.image];
+    frame.origin = [cell convertPoint:correctedOffset toView:self.view];
+    CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , cell.productImageView.frame.size.width, cell.productImageView.frame.size.height);
+    UIImageView *startView = [[UIImageView alloc] initWithImage:cell.productImageView.image];
     [startView setFrame:rect];
     startView.layer.cornerRadius=5;
     startView.layer.borderColor=[[UIColor blackColor]CGColor];
@@ -432,20 +460,20 @@ typedef enum ScrollDirection {
     CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
     [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
     // calling add to bag
-    [self cartIncrementServerCallToAddProductItem:ite withVariant:sele  success:^(NSString *successString) {
+    [self cartIncrementServerCallToAddProductItem:item withVariant:selelectedSize  success:^(NSString *successString) {
         if ([successString isEqualToString:@"TRUE"])
             [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
     } failure:^(NSError *error) {
         
     }];
-    return weakCell;
 }
 
-- (BTRProductShowcaseCollectionCell *)configureForCellOpenSelectSize:(BTRProductShowcaseCollectionCell*)cell
-                                                   AddToBagSizeArray:(NSMutableArray*)sizeArr
-                                                         QuantityArr:(NSMutableArray*)quantityArr
-                                                               index:(NSIndexPath*)indexPath
-                                                            withItem:(Item*)item {
+- (void)openSelectSize:(BTRProductShowcaseCollectionCell*)cell
+             sizeArray:(NSMutableArray*)sizeArray
+         quantityArray:(NSMutableArray*)quantityArray
+                 index:(NSIndexPath*)indexPath
+              withItem:(Item*)item {
+    
     selectedItem = item;
     selectIndex = indexPath;
     
@@ -453,13 +481,12 @@ typedef enum ScrollDirection {
     BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
     viewController.modalPresentationStyle = UIModalPresentationFormSheet;
     viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    viewController.sizesArray = sizeArr;
-    viewController.sizeQuantityArray = quantityArr;
+    viewController.sizesArray = sizeArray;
+    viewController.sizeQuantityArray = quantityArray;
     viewController.delegate = self;
-    selectSizeArr = [NSArray arrayWithArray:sizeArr];
+    selectSizeArr = [NSArray arrayWithArray:sizeArray];
     self.selectedCellIndexRow = indexPath.row;
     [self presentViewController:viewController animated:YES completion:nil];
-    return cell;
 }
 
 - (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell
@@ -595,14 +622,13 @@ typedef enum ScrollDirection {
 #pragma mark - BTRSelectSizeVC Delegate
 
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
-    
     self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:(int)selectedIndex];
     [self.collectionView reloadData];
     if (sizeTappedWithOutAdd == YES) {
-        NSString * sizeSelected = [NSString stringWithFormat:@"%@",selectSizeArr[selectedIndex]];
-        [self configureCellAddtoTap:selectedCell collec:selectedCV item:selectedItem selectedSize:sizeSelected inde:selectIndex];
+        self.selectedSize = [NSString stringWithFormat:@"%@",selectSizeArr[selectedIndex]];
+        self.selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+        [self addToBag:selectedCell collection:selectedCV item:selectedItem selectedSize:self.selectedSize index:self.selectedIndexPath];
         sizeTappedWithOutAdd = NO;
-    } else {
     }
 }
 
@@ -741,7 +767,7 @@ typedef enum ScrollDirection {
 
 - (void)userDidLogin:(NSNotification *) notification {
     if (self.lastOperation == addToBag)
-        ;
+        [self.savedInvocation invoke];
     if  (self.lastOperation == gotoBag)
         [self bagButtonTapped:nil];
     self.lastOperation = 0;

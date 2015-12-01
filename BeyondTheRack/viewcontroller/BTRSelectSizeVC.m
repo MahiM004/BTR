@@ -36,8 +36,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.delegate respondsToSelector:@selector(selectSizeWillDisappearWithSelectionIndex:)]) {
-        [self.delegate selectSizeWillDisappearWithSelectionIndex:[indexPath row]];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self.delegate selectSizeWillDisappearWithSelectionIndex:[indexPath row]];
+        }];
      }
 }
 
