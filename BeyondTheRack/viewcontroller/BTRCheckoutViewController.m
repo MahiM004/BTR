@@ -1580,6 +1580,8 @@
             size = size - (CARD_PAYMENT_HEIGHT) ;
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
+        } else if ([BTRViewUtility isIPAD] && self.freeMontrealViewHeightConstraint.constant != 0) {
+            size = size + 20;
         }
     }
     else if (self.currentPaymentType == masterPass) {
