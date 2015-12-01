@@ -56,6 +56,20 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    BOOL firstLaunch = [[NSUserDefaults standardUserDefaults]boolForKey:@"FirstLaunch"];
+    if (firstLaunch == YES) {
+        self.shadowAnimation = [JTSlideShadowAnimation new];
+        self.shadowAnimation.animatedView = self.logoImageView;
+        self.shadowAnimation.repeatCount = 1;
+        self.shadowAnimation.duration = 5;
+        [NSTimer scheduledTimerWithTimeInterval:4.5
+                                         target:self
+                                       selector:@selector(updateImage)
+                                       userInfo:nil
+                                        repeats:NO];
+    } else {
+        [self.shadowAnimation stop];
+    }
     [self removeTapRecognizerView];
     [self getCartCountServerCallWithSuccess:^(NSString *bagCountString) {
         self.bagButton.badgeValue = bagCountString;
@@ -74,7 +88,10 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    [self.shadowAnimation start];
+    BOOL firstLaunch = [[NSUserDefaults standardUserDefaults]boolForKey:@"FirstLaunch"];
+    if (firstLaunch == YES) {
+        [self.shadowAnimation start];
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -86,18 +103,11 @@
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
     self.isMenuOpen = NO;
-    self.shadowAnimation = [JTSlideShadowAnimation new];
-    self.shadowAnimation.animatedView = self.logoImageView;
-    self.shadowAnimation.repeatCount = 1;
-    self.shadowAnimation.duration = 5;
-    [NSTimer scheduledTimerWithTimeInterval:4.5
-                                     target:self
-                                   selector:@selector(updateImage)
-                                   userInfo:nil
-                                    repeats:NO];
 }
 -(void)updateImage {
     [self.shadowAnimation stop];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FirstLaunch"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 #pragma mark - Get bag count
 
