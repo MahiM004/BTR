@@ -47,13 +47,16 @@
 #define GIFT_CARD_HEIGHT 165.0
 #define REMEBER_CARD_INFO_HEIGHT 75.0
 
-#define DEFAULT_VIEW_HEIGHT_IPHONE 3300
-#define DEFAULT_VIEW_HEIGHT_IPAD 1920
+#define DEFAULT_VIEW_HEIGHT_IPHONE 3200
+#define DEFAULT_VIEW_HEIGHT_IPAD 1843
 
 @class CTCheckbox;
 
 
 @interface BTRCheckoutViewController ()
+{
+    BOOL giftCardOpened;
+}
 @property (nonatomic, strong) UIPopoverController *userDataPopover;
 @property (strong, nonatomic) Freeship* freeshipInfo;
 
@@ -218,6 +221,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    giftCardOpened = YES;
     [CardIOUtilities preload];
     [self resetData];
     [self setCheckboxesTargets];
@@ -294,6 +298,21 @@
     } else {
         self.shippingProvinceLB.text = @"PROVINCE";
         self.shippingPostalCodeLB.text = @"POSTAL CODE";
+    }
+    if (self.order.shippingAddress.postalCodeValid == NO) {
+        [_freeMontrealView setHidden:YES];
+        [self.freeMontrealViewHeightConstraint setConstant:0];
+        if (![BTRViewUtility isIPAD]) {
+            self.shippingViewHeight.constant = 638;
+            [self resetSize];
+        }
+    } else {
+        [_freeMontrealView setHidden:NO];
+        [self.freeMontrealViewHeightConstraint setConstant:50];
+        if (![BTRViewUtility isIPAD]) {
+            self.shippingViewHeight.constant = 688;
+            [self resetSize];
+        }
     }
     
     // billing
@@ -400,7 +419,7 @@
     int i = 0;
     CGFloat heightSize = 0;
     CGFloat widthSize = 0;
-    if ([BTRViewUtility isIPAD]) {
+    if ([BTRViewUtility isIPAD] && [self.order.promoItems count] != 0) {
         self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant;
         self.viewHeight.constant = self.viewHeight.constant + SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
         widthSize = self.view.frame.size.width/2 - 50;
@@ -965,6 +984,20 @@
 }
 
 
+- (IBAction)haveGiftCardHeight:(id)sender {
+    if (giftCardOpened == YES) {
+        _giftCardViewHeight.constant += 125;
+        self.haveAGiftViewHeight.constant += 125;
+        _haveAgiftInnerView.hidden = NO;
+        giftCardOpened = NO;
+    } else {
+        _giftCardViewHeight.constant -= 125;
+        self.haveAGiftViewHeight.constant -= 125;
+        _haveAgiftInnerView.hidden = YES;
+        giftCardOpened = YES;
+    }
+    [self resetSize];
+}
 #pragma mark - PickerView Delegates
 
 - (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) addressType {
@@ -1085,10 +1118,19 @@
     }
     
     if ([self pickerType] == COUNTRY_PICKER) {
-        if ([self billingOrShipping] == BILLING_ADDRESS)
+        if ([self billingOrShipping] == BILLING_ADDRESS) {
             [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:row]];
-        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
+            [self validateAddressViaAPIAndInCompletion:nil];
+        }
+        else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
             [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:row]];
+            if (row == 1) {
+                [self.freeMontrealViewHeightConstraint setConstant:0];
+                _freeMontrealView.hidden = YES;
+                
+            }
+            [self validateAddressViaAPIAndInCompletion:nil];
+        }
     }
     
     if ([self pickerType] == EXPIRY_MONTH_PICKER)
@@ -1362,6 +1404,12 @@
 - (IBAction)zipCodeHasBeenEntererd:(id)sender {
     [self validateAddressViaAPIAndInCompletion:nil];
 }
+- (IBAction)freeMontrealAction:(CTCheckbox *)sender {
+    
+}
+- (IBAction)freeMontrealInfoAction:(UIButton *)sender {
+    
+}
 
 - (BOOL)isShippingAddressCompeleted {
     // checking address line
@@ -1550,12 +1598,23 @@
             size = size - (CARD_PAYMENT_HEIGHT) ;
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
+        } else if ([BTRViewUtility isIPAD] && self.freeMontrealViewHeightConstraint.constant != 0) {
+            size = size + 20;
         }
     }
     else if (self.currentPaymentType == masterPass) {
         
     }
-    
+    if (![BTRViewUtility isIPAD]) {
+        if (self.freeMontrealViewHeightConstraint.constant == 0) {
+            size = size - 50;
+        } else {
+            size = size + 50;
+        }
+    }
+    if ( _giftCardViewHeight.constant == 165) {
+        size += 125;
+    }
     if (self.orderIsGiftCheckbox.checked)
         size = size + GIFT_MAX_HEIGHT;
     
@@ -1647,13 +1706,20 @@
             [self.provinceShippingTF setText:[[self provincesArray] objectAtIndex:index.row]];
     }
     else if (_popType == PopUPTypeBillingCountry) {
-        if ([self billingOrShipping] == BILLING_ADDRESS)
+        if ([self billingOrShipping] == BILLING_ADDRESS) {
             [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
-        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
+            [self validateAddressViaAPIAndInCompletion:nil];
+        }
+        else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
             [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
+            if (index.row == 1) {
+                [self.freeMontrealViewHeightConstraint setConstant:0];
+                _freeMontrealView.hidden = YES;
+                
+            }
+            [self validateAddressViaAPIAndInCompletion:nil];
+        }
     }
-    
-   
     [self.userDataPopover dismissPopoverAnimated:NO];
 }
 @end

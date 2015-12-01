@@ -202,6 +202,12 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet UIControl *paymentTypeView;
 @property (weak, nonatomic) IBOutlet UIControl *paymentCreditView;
 
+//Free Montreal
+@property (weak, nonatomic) IBOutlet UIView *freeMontrealView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *freeMontrealViewHeightConstraint;
+
+
+@property (weak, nonatomic) IBOutlet UIView *haveAgiftInnerView;
 @end
 
 

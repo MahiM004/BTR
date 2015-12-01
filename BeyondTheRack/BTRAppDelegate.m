@@ -87,7 +87,8 @@
         }
     }];
     
-    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FirstLaunch"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     /**
      *
      *  Managing the entry scene to the app based on whether the user has signed up and logged in. Also whether the facebook token is still available.
