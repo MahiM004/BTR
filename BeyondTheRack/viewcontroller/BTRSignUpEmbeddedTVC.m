@@ -132,7 +132,9 @@
                                                       });
                           [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
                               if ([didLogIn isEqualToString:@"TRUE"])
-                                  [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
+                                  [self dismissViewControllerAnimated:YES completion:^{
+                                      [self sendNotification];
+                                  }];
                               else
                                   [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -163,7 +165,9 @@
                 [self userRegistrationServerCallWithSuccess:^(NSString *didSignUp, NSString *messageString) {
                     [sender hideLoading];
                     if ([didSignUp  isEqualToString:@"TRUE"]) {
-                        [self performSegueWithIdentifier:@"SignUpToInitSceneSegueIdentifier" sender:self];
+                            [self dismissViewControllerAnimated:YES completion:^{
+                                [self sendNotification];
+                            }];
                     } else {
                         if (messageString.length != 0) {
                             [self showAlert:@"Please try agian" msg:messageString];

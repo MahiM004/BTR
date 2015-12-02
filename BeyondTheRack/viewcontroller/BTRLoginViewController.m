@@ -90,7 +90,9 @@
                 [self fetchUserWithSuccess:^(NSString *didLogIn) {
                     [sender hideLoading];
                     if ([didLogIn  isEqualToString:@"TRUE"]) {
-                        [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
+                        [self dismissViewControllerAnimated:YES completion:^{
+                            [self sendNotification];
+                        }];
                     }
                     else {
                         [self alertUserForLoginError];
@@ -156,7 +158,9 @@
                      
                      [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
                          if ([didLogIn isEqualToString:@"TRUE"]) {
-                             [self performSegueWithIdentifier:@"BTRInitializeSegueIdentifier" sender:self];
+                             [self dismissViewControllerAnimated:YES completion:^{
+                                 [self sendNotification];
+                             }];
                          } else {
                              [self alertUserForLoginError];
                          }
