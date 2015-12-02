@@ -49,7 +49,9 @@
 
 @property BOOL isMenuOpen;
 @property (strong, nonatomic) UIView *tapRecognizerView;
-@property NSString * type;
+@property NSString *type;
+@property operation lastOperation;
+
 @end
 
 @implementation BTRMainViewController
@@ -88,14 +90,18 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidLogin:)
+                                                 name:kUSERDIDLOGIN
+                                               object:nil];
     BOOL firstLaunch = [[NSUserDefaults standardUserDefaults]boolForKey:@"FirstLaunch"];
     if (firstLaunch == YES) {
         [self.shadowAnimation start];
     }
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kUSERDIDLOGIN object:nil];
 }
 
 - (void)viewDidLoad {
@@ -104,11 +110,13 @@
     self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
     self.isMenuOpen = NO;
 }
+
 -(void)updateImage {
     [self.shadowAnimation stop];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FirstLaunch"];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
+
 #pragma mark - Get bag count
 
 - (void)getCartCountServerCallWithSuccess:(void (^)(id  responseObject)) success
@@ -125,11 +133,16 @@
     }];
 }
 
-
-
 #pragma mark - Navigation
 
 - (IBAction)myAccountButtonTapped:(id)sender {
+    
+    if (![[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        [self setLastOperation:openUserMenu];
+        [self showLogin];
+        return;
+    }
+    
     if (self.isMenuOpen) {
         [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
         [self setIsMenuOpen:NO];
@@ -145,7 +158,6 @@
     [self AddTapRecognizerView];
     [BTRAnimationHandler showViewController:self.accountViewController atLeftOfViewController:self inDuration:0.5];
 }
-
 
 - (IBAction)searchButtonTapped:(UIButton *)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -182,9 +194,11 @@
     [self setIsMenuOpen:NO];
     [self performSegueWithIdentifier:_type sender:self];
 }
+
 -(void)deviceType:(NSString*)type {
     _type = type;
 }
+
 - (void)trackOrderDidSelect {
     [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
     [self setIsMenuOpen:NO];
@@ -216,7 +230,6 @@
     } else
         [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
 }
-
 
 #pragma mark FETCHERS
 
@@ -298,7 +311,6 @@
     }];
 }
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"BTRNotificationsSegueIdentifier"] || [[segue identifier] isEqualToString:@"BTRNotificationsSegueiPadIdentifier"]) {
         BTRNotificationsVC *vc = [segue destinationViewController];
@@ -331,6 +343,17 @@
     [_sideMenuButton setStyle:kFRDLivelyButtonStyleHamburger animated:YES];
     [_tapRecognizerView removeFromSuperview];
     _tapRecognizerView = nil;
+}
+
+- (void)showLogin {
+    BTRLoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
+    [self presentViewController:login animated:YES completion:nil];
+}
+
+- (void)userDidLogin:(NSNotification *) notification {
+    if (self.lastOperation == openUserMenu)
+        [self myAccountButtonTapped:nil];
+        
 }
 
 @end
