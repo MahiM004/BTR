@@ -530,9 +530,14 @@ typedef enum ScrollDirection {
 }
 
 - (IBAction)bagButtonTapped:(UIButton *)sender {
-    UIStoryboard *storyboard = self.storyboard;
-    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-    [self presentViewController:vc animated:YES completion:nil];
+        if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+            UIStoryboard *storyboard = self.storyboard;
+            UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+            [self presentViewController:vc animated:YES completion:nil];
+        } else {
+            [self setLastOperation:gotoBag];
+            [self showLogin];
+        }
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -10,7 +10,7 @@
 
 #define kUSERLOCATION @"kUserLocation"
 #define kAPPVERSION @"kAppVersion"
-
+#define kFIRSTTIMERUNNING @"kFirstTimeRunning"
 
 
 

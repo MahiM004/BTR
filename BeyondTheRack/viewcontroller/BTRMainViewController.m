@@ -136,7 +136,6 @@
 #pragma mark - Navigation
 
 - (IBAction)myAccountButtonTapped:(id)sender {
-    
     if (![[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
         [self setLastOperation:openUserMenu];
         [self showLogin];
@@ -166,11 +165,15 @@
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
-
 - (IBAction)tappedShoppingBag:(id)sender {
-    UIStoryboard *storyboard = self.storyboard;
-    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-    [self presentViewController:vc animated:YES completion:nil];
+    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        UIStoryboard *storyboard = self.storyboard;
+        UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+        [self presentViewController:vc animated:YES completion:nil];
+    } else {
+        [self setLastOperation:gotoBag];
+        [self showLogin];
+    }
 }
 
 #pragma mark Account Delegate
@@ -353,7 +356,8 @@
 - (void)userDidLogin:(NSNotification *) notification {
     if (self.lastOperation == openUserMenu)
         [self myAccountButtonTapped:nil];
-        
+    if (self.lastOperation == gotoBag)
+        [self tappedShoppingBag:nil];
 }
 
 @end

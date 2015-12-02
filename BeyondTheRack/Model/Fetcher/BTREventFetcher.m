@@ -23,5 +23,9 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@%@", STATICURL,imageId]];
 }
 
++ (NSURL *)URLforRecentEventsForURLCategoryName:(NSString *)urlCategoryName inCountry:(NSString *)country {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/events/%@?filter=%@", BASEURL,urlCategoryName,country]];
+}
+
 @end
  

@@ -14,5 +14,6 @@
 + (NSURL *)URLforRecentEventsForURLCategoryName:(NSString *)urlCategoryName forPage:(int)pagenum;
 + (NSURL *)URLforAllRecentEvents;
 + (NSURL *)URLforEventImageWithId:(NSString *)imageId;
++ (NSURL *)URLforRecentEventsForURLCategoryName:(NSString *)urlCategoryName inCountry:(NSString *)country;
 
 @end

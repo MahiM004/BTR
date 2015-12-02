@@ -114,7 +114,7 @@ static NSString *const kFullName = @"fullName";
 }
 
 - (BOOL)isUserLoggedIn {
-    if (self.sessionId)
+    if ([self.sessionId length] > 0)
         return YES; // if use logged in before
     return NO;
 }

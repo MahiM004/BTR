@@ -17,6 +17,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import "BTRSettingManager.h"
 #import <Google/Analytics.h>
 
 @interface BTRAppDelegate ()
@@ -71,29 +72,26 @@
      */
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        BOOL isFirstTime = ![[[BTRSettingManager defaultManager]objectForKeyInSetting:kFIRSTTIMERUNNING]boolValue];
+        if (isFirstTime){
+           
         
-        NSString *firstTime = [[NSUserDefaults standardUserDefaults] stringForKey:@"FirstTime"];
-        
-        if (![firstTime isEqualToString:@"FALSE"]){
-            
-            /**
-             *
-             *  Currently here first time is not used for ant purpose. But in case if you want to run a piece of code only the very first time the app launches, put you code here.
-             *
-             */
-
-            [[NSUserDefaults standardUserDefaults] setValue:@"FALSE" forKey:@"FirstTime"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
         }
     }];
-    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FirstLaunch"];
     [[NSUserDefaults standardUserDefaults]synchronize];
+    
     /**
      *
      *  Managing the entry scene to the app based on whether the user has signed up and logged in. Also whether the facebook token is still available.
      *
      */
+    
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+    [[BTRSettingManager defaultManager]setInSetting:countryCode forKey:kUSERLOCATION];
+    [[BTRSettingManager defaultManager]setInSetting:[NSNumber numberWithBool:YES] forKey:kFIRSTTIMERUNNING];
+
     
     NSString *segueId= @"BTRLoginViewController";
     UIStoryboard *storyboard = self.window.rootViewController.storyboard;
@@ -108,12 +106,12 @@
         if ([FBSDKAccessToken currentAccessToken])
             shouldPresentLogin = TRUE;
     
-    if (shouldPresentLogin) {
-    
-        UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
-        self.window.rootViewController = rootViewController;
-        [self.window makeKeyAndVisible];
-    }
+//    if (shouldPresentLogin) {
+//    
+//        UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
+//        self.window.rootViewController = rootViewController;
+//        [self.window makeKeyAndVisible];
+//    }
     
     /**
      *

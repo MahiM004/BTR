@@ -14,6 +14,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "BTREventCell.h"
 #import "BTRLoader.h"
+#import "BTRSettingManager.h"
 
 @interface BTREventsVC ()
 
@@ -131,7 +132,11 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)fetchEventsDataForPage:(int)pageNum success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure{
-    NSString* url = [NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName] forPage:pageNum]];
+    NSString* url;
+    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn])
+        url = [NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName] forPage:pageNum]];
+    else
+        url = [NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName] inCountry:[[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERLOCATION]lowercaseString]]];
     [BTRLoader showLoaderInView:self.view];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(response);
