@@ -561,7 +561,16 @@
 - (void)fetchItemforProductSku:(NSString *)productSku
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure {
-    NSString* url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku]];
+    NSString *url;
+    BOOL sessionNeeded;
+    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku]];
+        sessionNeeded = YES;
+    } else {
+        NSString *country = [[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERLOCATION]lowercaseString];
+        url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku forCountry:country]];
+        sessionNeeded = NO;
+    }
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         Item *productItem = [Item itemWithAppServerInfo:response withEventId:[self getEventID]];
         success(productItem);

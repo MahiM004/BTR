@@ -23,6 +23,7 @@
 #import "LMDropdownView.h"
 #import "MarqueeLabel.h"
 #import "BTRLoginViewController.h"
+#import "BTRSettingManager.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -255,8 +256,17 @@ typedef enum ScrollDirection {
 - (void)fetchItemsforEventSku:(NSString *)eventSku forPagenum:(int)pageNum andSortMode:(sortMode)selectedSortMode andFilterSize:(NSString *)filterSize
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure {
-    NSString *url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku inPageNumber:pageNum withSortingMode:selectedSortMode andSizeFilter:filterSize]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    NSString *url;
+    BOOL sessionNeeded;
+    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku inPageNumber:pageNum withSortingMode:selectedSortMode andSizeFilter:filterSize]];
+        sessionNeeded = YES;
+    } else {
+        NSString *country = [[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERLOCATION]lowercaseString];
+        url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku inPageNumber:pageNum withSortingMode:selectedSortMode andSizeFilter:filterSize forCountry:country]];
+        sessionNeeded = NO;
+    }
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:sessionNeeded contentType:kContentTypeJSON success:^(NSDictionary *response) {
         NSMutableArray *newItems = [[NSMutableArray alloc]init];
         newItems = [Item loadItemsfromAppServerArray:(NSArray *)response withEventId:[self eventSku] forItemsArray:newItems];
         success(newItems);

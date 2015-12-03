@@ -23,7 +23,10 @@ static NSString *defaultSize = @"Size";
 @interface BTRItemFetcher : BTRFetcher
 
 + (NSURL *)URLforItemWithProductSku:(NSString *)sku;
++ (NSURL *)URLforItemWithProductSku:(NSString *)sku forCountry:(NSString *)country;
+
 + (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode andSizeFilter:(NSString *)size;
++ (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode andSizeFilter:(NSString *)size forCountry:(NSString *)country;
 
 + (NSURL *)URLforItemImageForSku:(NSString *)sku;
 + (NSURL *)URLforItemImageForSku:(NSString *)sku withCount:(NSInteger)countNumber andSize:(NSString *)sizeString;
