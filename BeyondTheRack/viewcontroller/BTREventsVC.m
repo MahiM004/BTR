@@ -133,12 +133,17 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)fetchEventsDataForPage:(int)pageNum success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure{
     NSString* url;
-    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn])
+    BOOL needSession;
+    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
         url = [NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName] forPage:pageNum]];
-    else
+        needSession = YES;
+    }
+    else {
         url = [NSString stringWithFormat:@"%@", [BTREventFetcher URLforRecentEventsForURLCategoryName:[self urlCategoryName] inCountry:[[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERLOCATION]lowercaseString]]];
+        needSession = NO;
+    }
     [BTRLoader showLoaderInView:self.view];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:needSession contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(response);
         [BTRLoader hideLoaderFromView:self.view];
     } faild:^(NSError *error) {
