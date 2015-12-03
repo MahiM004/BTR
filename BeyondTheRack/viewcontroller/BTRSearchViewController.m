@@ -23,6 +23,7 @@
 #import "BTRLoader.h"
 #import "BTRProductDetailEmbededVC.h"
 #import "BTRSettingManager.h"
+#import "BTRLoginViewController.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -33,7 +34,6 @@
     Item * selectedProductItem;
     NSArray * selectSizeArr;
     UICollectionView * selectedCV;
-    NSIndexPath * selectIndex;
     BOOL sizeTappedWithOutAdd;
 }
 @property (weak, nonatomic) IBOutlet UILabel *noResulteLabel;
@@ -55,8 +55,14 @@
 
 @property CGFloat maxSearchTableSize;
 
-@property (copy, nonatomic) NSDictionary *selectedVariantInventories; // an Array of variantInventory Dictionaries
-@property (copy, nonatomic) NSDictionary *selectedAttributes; // an Array of variantInventory Dictionaries
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
+@property (copy, nonatomic) NSDictionary *selectedVariantInventories;
+@property (copy, nonatomic) NSDictionary *selectedAttributes;
+
+@property operation lastOperation;
+@property NSInvocation *savedInvocation;
+@property NSString *selectedSize;
+
 @end
 
 @implementation BTRSearchViewController
@@ -135,6 +141,10 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidLogin:)
+                                                 name:kUSERDIDLOGIN
+                                               object:nil];
     [super viewDidAppear:YES];
     if (![self.itemsArray count])
         [self.searchBar becomeFirstResponder];
@@ -150,6 +160,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kUSERDIDLOGIN object:nil];
     [self.searchBar resignFirstResponder];
     [self.collectionView becomeFirstResponder];
 }
@@ -282,7 +293,7 @@
     NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
     __weak typeof(cell) weakCell = cell;
     [cell setDidTapSelectSizeButtonBlock:^(id sender) {
-        [self configureForCellOpenSelectSize:weakCell AddToBagSizeArray:tempSizesArray QuantityArr:tempQuantityArray index:indexPath withItem:productItem];
+        [self openSelectSize:weakCell sizeArray:tempSizesArray quantityArray:tempQuantityArray index:indexPath withItem:productItem];
     }];
     
     
@@ -299,31 +310,47 @@
             selectedCell = weakCell;
             selectedCV = cv;
             sizeTappedWithOutAdd = YES;
-            [self configureForCellOpenSelectSize:weakCell AddToBagSizeArray:tempSizesArray QuantityArr:tempQuantityArray index:indexPath withItem:productItem];
+            [self openSelectSize:weakCell sizeArray:tempSizesArray quantityArray:tempQuantityArray index:indexPath withItem:productItem];
         } else {
             sizeTappedWithOutAdd = NO;
-            [self configureCellAddtoTap:weakCell collec:cv item:productItem selectedSize:selectedSizeString inde:indexPath];
+            [self addToBag:weakCell collection:cv item:productItem selectedSize:selectedSizeString index:indexPath];
         }
     }];
     
     return cell;
 }
--(BTRProductShowcaseCollectionCell*)configureCellAddtoTap:(BTRProductShowcaseCollectionCell*)weakCell
-                                                   collec:(UICollectionView*)cv
-                                                     item:(Item*)ite
-                                             selectedSize:(NSString*)sele
-                                                     inde:(NSIndexPath*)indexPath {
+- (void)addToBag:(BTRProductShowcaseCollectionCell*)cell
+                                                   collection:(UICollectionView*)cv
+                                                     item:(Item*)item
+                                             selectedSize:(NSString*)selelectedSize
+                                                     index:(NSIndexPath*)indexPath {
+    
+    if (![[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        NSMethodSignature *signature  = [self methodSignatureForSelector:_cmd];
+        self.savedInvocation = [NSInvocation invocationWithMethodSignature:signature];
+        self.savedInvocation.target = self;
+        self.savedInvocation.selector = _cmd;
+        [self.savedInvocation setArgument:&cell atIndex:2];
+        [self.savedInvocation setArgument:&cv atIndex:3];
+        [self.savedInvocation setArgument:&item atIndex:4];
+        [self.savedInvocation setArgument:&selelectedSize atIndex:5];
+        [self.savedInvocation setArgument:&indexPath atIndex:6];
+        [self setLastOperation:addToBag];
+        [self showLogin];
+        return;
+    }
+
     UICollectionViewLayoutAttributes *attr = [cv layoutAttributesForItemAtIndexPath:indexPath];
-    CGPoint correctedOffset = CGPointMake(weakCell.frame.origin.x - cv.contentOffset.x,weakCell.frame.origin.y - cv.contentOffset.y);
+    CGPoint correctedOffset = CGPointMake(cell.frame.origin.x - cv.contentOffset.x,cell.frame.origin.y - cv.contentOffset.y);
     
     CGPoint cellOrigin = [attr frame].origin;
     cellOrigin = CGPointMake(cellOrigin.x + attr.frame.size.width / 2, cellOrigin.y + attr.frame.size.height / 2);
     
-    CGRect frame = CGRectMake(0.0,0.0,weakCell.frame.size.width,weakCell.frame.size.height);
+    CGRect frame = CGRectMake(0.0,0.0,cell.frame.size.width,cell.frame.size.height);
     
-    frame.origin = [weakCell convertPoint:correctedOffset toView:self.view];
-    CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , weakCell.productImageView.frame.size.width, weakCell.productImageView.frame.size.height);
-    UIImageView *startView = [[UIImageView alloc] initWithImage:weakCell.productImageView.image];
+    frame.origin = [cell convertPoint:correctedOffset toView:self.view];
+    CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , cell.productImageView.frame.size.width, cell.productImageView.frame.size.height);
+    UIImageView *startView = [[UIImageView alloc] initWithImage:cell.productImageView.image];
     [startView setFrame:rect];
     startView.layer.cornerRadius=5;
     startView.layer.borderColor=[[UIColor blackColor]CGColor];
@@ -332,35 +359,32 @@
     
     CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
     [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
-    // calling add to bag
-    NSLog(@"Product we are sending %@ , %@",ite,sele);
-    [self cartIncrementServerCallToAddProductItem:ite withVariant:sele  success:^(NSString *successString) {
+
+    [self cartIncrementServerCallToAddProductItem:item withVariant:selelectedSize  success:^(NSString *successString) {
         if ([successString isEqualToString:@"TRUE"])
             [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
     } failure:^(NSError *error) {
         
     }];
-    return weakCell;
 }
-- (BTRProductShowcaseCollectionCell *)configureForCellOpenSelectSize:(BTRProductShowcaseCollectionCell*)cell
-                                                   AddToBagSizeArray:(NSMutableArray*)sizeArr
-                                                         QuantityArr:(NSMutableArray*)quantityArr
+
+- (void)openSelectSize:(BTRProductShowcaseCollectionCell*)cell
+                                                   sizeArray:(NSMutableArray*)sizeArray
+                                                         quantityArray:(NSMutableArray*)quantityArray
                                                                index:(NSIndexPath*)indexPath
                                                             withItem:(Item*)item {
     selectedProductItem = item;
-    selectIndex = indexPath;
-    
+    self.selectedIndexPath = indexPath;
     UIStoryboard *storyboard = self.storyboard;
     BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
     viewController.modalPresentationStyle = UIModalPresentationFormSheet;
     viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    viewController.sizesArray = sizeArr;
-    viewController.sizeQuantityArray = quantityArr;
+    viewController.sizesArray = sizeArray;
+    viewController.sizeQuantityArray = quantityArray;
     viewController.delegate = self;
-    selectSizeArr = [NSArray arrayWithArray:sizeArr];
+    selectSizeArr = [NSArray arrayWithArray:sizeArray];
     self.selectedCellIndexRow = indexPath.row;
     [self presentViewController:viewController animated:YES completion:nil];
-    return cell;
 }
 - (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell withItem:(Item *)productItem {
     [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
@@ -416,9 +440,14 @@
 }
 
 - (IBAction)tappedShoppingBag:(UIButton *)sender {
-    UIStoryboard *storyboard = self.storyboard;
-    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
-    [self presentViewController:vc animated:YES completion:nil];
+    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        UIStoryboard *storyboard = self.storyboard;
+        UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
+        [self presentViewController:vc animated:YES completion:nil];
+    } else {
+        [self setLastOperation:gotoBag];
+        [self showLogin];
+    }
 }
 
 - (IBAction)backButtonTapped:(UIButton *)sender {
@@ -630,8 +659,9 @@
     self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:(int)selectedIndex];
     [self.collectionView reloadData];
     if (sizeTappedWithOutAdd == YES) {
-        NSString * sizeSelected = [NSString stringWithFormat:@"%@",selectSizeArr[selectedIndex]];
-        [self configureCellAddtoTap:selectedCell collec:selectedCV item:selectedProductItem selectedSize:sizeSelected inde:selectIndex];
+        self.selectedSize = [NSString stringWithFormat:@"%@",selectSizeArr[selectedIndex]];
+        self.selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
+        [self addToBag:selectedCell collection:selectedCV item:selectedProductItem selectedSize:self.selectedSize index:self.selectedIndexPath];
         sizeTappedWithOutAdd = NO;
     }
 }
@@ -679,6 +709,19 @@
         [BTRLoader hideLoaderFromView:self.view];
         self.isLoadingNextPage = NO;
     }];
+}
+
+- (void)showLogin {
+    BTRLoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
+    [self presentViewController:login animated:YES completion:nil];
+}
+
+- (void)userDidLogin:(NSNotification *) notification {
+    if (self.lastOperation == addToBag)
+        [self.savedInvocation invoke];
+    if  (self.lastOperation == gotoBag)
+        [self tappedShoppingBag:nil];
+    self.lastOperation = 0;
 }
 
 @end
