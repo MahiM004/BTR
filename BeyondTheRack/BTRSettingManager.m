@@ -28,10 +28,10 @@
 
 - (NSMutableDictionary *)currentSetting {
     NSUserDefaults *userDefault = [[NSUserDefaults alloc]init];
-    NSMutableDictionary* currentSetting = [NSMutableDictionary dictionaryWithDictionary:[userDefault valueForKey:SETTING]];
-    if (!currentSetting)
-        currentSetting = [[NSMutableDictionary alloc]init];
-    return currentSetting;
+    _currentSetting = [NSMutableDictionary dictionaryWithDictionary:[userDefault valueForKey:SETTING]];
+    if (!_currentSetting)
+        _currentSetting = [[NSMutableDictionary alloc]init];
+    return _currentSetting;
 }
 
 - (void)setInSetting:(id)object forKey:(NSString *)key {
@@ -45,7 +45,7 @@
 
 - (void)saveSetting {
     NSUserDefaults *userDefault = [[NSUserDefaults alloc]init];
-    [userDefault setObject:self.currentSetting forKey:SETTING];
+    [userDefault setObject:_currentSetting forKey:SETTING];
     [userDefault synchronize];
 }
 
