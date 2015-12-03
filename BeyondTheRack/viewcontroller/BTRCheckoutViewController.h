@@ -44,6 +44,14 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet UIButton *masterPassButton;
 
 
+// VIP
+@property (weak, nonatomic) IBOutlet UIControl *vipOptionView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *vipOptionViewHeight;
+
+// Pick UP Free Montreal
+@property (weak, nonatomic) IBOutlet UIView *freeMontrealView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *freeMontrealViewHeightConstraint;
+
 /**
  
  Views
@@ -55,7 +63,6 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet UIControl *childViewforScrollView;
 
 @property (weak, nonatomic) IBOutlet UIControl *fastPaymentView;
-@property (weak, nonatomic) IBOutlet UIControl *vipOptionView;
 @property (weak, nonatomic) IBOutlet UIControl *shippingDetailsView;
 @property (weak, nonatomic) IBOutlet UIControl *billingAddressView;
 @property (weak, nonatomic) IBOutlet UIControl *sameAsShippingAddressView;
@@ -86,7 +93,6 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *billingAddressHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cardPaymentTipHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sampleGiftViewHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickupViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fillFormLabelViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *shippingViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *giftCardViewHeight;
@@ -112,7 +118,6 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet CTCheckbox *vipOptionCheckbox;
 @property (weak, nonatomic) IBOutlet CTCheckbox *pickupOptionCheckbox;
 
-@property (weak, nonatomic) IBOutlet UIControl *pickupView;
 @property (weak, nonatomic) IBOutlet UITextField *recipientNameShippingTF;
 @property (weak, nonatomic) IBOutlet UITextField *addressLine1ShippingTF;
 @property (weak, nonatomic) IBOutlet UITextField *addressLine2ShippingTF;
@@ -202,11 +207,7 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet UIControl *paymentTypeView;
 @property (weak, nonatomic) IBOutlet UIControl *paymentCreditView;
 
-//Free Montreal
-@property (weak, nonatomic) IBOutlet UIView *freeMontrealView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *freeMontrealViewHeightConstraint;
-
-
+// Have a gift card
 @property (weak, nonatomic) IBOutlet UIView *haveAgiftInnerView;
 @end
 
