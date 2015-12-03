@@ -22,6 +22,8 @@
 #import "UIImageView+AFNetworking.h"
 #import "BTRLoader.h"
 #import "BTRProductDetailEmbededVC.h"
+#import "BTRSettingManager.h"
+
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
 @interface BTRSearchViewController () <BTRRefineResultsViewController>
@@ -376,7 +378,16 @@
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure {
     [self setIsLoadingNextPage:YES];
-    NSString* url = [NSString stringWithFormat:@"%@",[BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortingQuery withFacetString:facetQuery andPageNumber:pageNum]];
+    NSString *url;
+    BOOL sessionNeeded;
+    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        url = [NSString stringWithFormat:@"%@",[BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortingQuery withFacetString:facetQuery andPageNumber:pageNum]];
+        sessionNeeded = YES;
+    } else {
+        NSString *country = [[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERLOCATION]lowercaseString];
+        url = [NSString stringWithFormat:@"%@",[BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortingQuery withFacetString:facetQuery andPageNumber:pageNum forCountry:country]];
+        sessionNeeded = NO;
+    }
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
         [sharedFacetsHandler setSearchString:[self.searchBar text]];

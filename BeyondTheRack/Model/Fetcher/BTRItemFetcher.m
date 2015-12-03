@@ -44,6 +44,22 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/search?q=%@&page=%lu%@", BASEURL, searchQuery, (unsigned long)pageNumber, sortString]];
 }
 
++ (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber forCountry:(NSString *)country{
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search?q=%@&country=%@&page=%lu%@", BASEURL, searchQuery,country,(unsigned long)pageNumber, sortString]];
+}
+
++ (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString withFacetString:(NSString *)facetsString andPageNumber:(NSUInteger)pageNumber forCountry:(NSString *)country{
+    if ([facetsString length] == 0)
+        return [self URLforSearchQuery:searchQuery withSortString:sortString andPageNumber:pageNumber forCountry:country];
+    NSString *encodedFacetString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                         NULL,
+                                                                                                         (CFStringRef)facetsString,
+                                                                                                         NULL,
+                                                                                                         (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                         kCFStringEncodingUTF8 ));
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/search?q=%@&page=%lu&facets=%@%@&country=%@", BASEURL, searchQuery, (unsigned long)pageNumber, encodedFacetString, sortString,country]];
+}
+
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString withFacetString:(NSString *)facetsString andPageNumber:(NSUInteger)pageNumber{
     if ([facetsString length] == 0)
         return [self URLforSearchQuery:searchQuery withSortString:sortString andPageNumber:pageNumber];
