@@ -145,14 +145,8 @@
         order.shippingAddress.phoneNumber = [shippingAddressDic valueForKeyPath:@"phone"];
     if ([shippingAddressDic valueForKeyPath:@"postal"] && [shippingAddressDic valueForKeyPath:@"postal"] != [NSNull null])
         order.shippingAddress.postalCode = [shippingAddressDic valueForKeyPath:@"postal"];
-    if ([shippingAddressDic valueForKeyPath:@"state"] && [shippingAddressDic valueForKeyPath:@"state"] != [NSNull null]) {
+    if ([shippingAddressDic valueForKeyPath:@"state"] && [shippingAddressDic valueForKeyPath:@"state"] != [NSNull null]) 
         order.shippingAddress.province = [shippingAddressDic valueForKeyPath:@"state"];
-        if ([[shippingAddressDic valueForKey:@"state"] length] != 0) {
-            order.shippingAddress.postalCodeValid = YES;
-        } else {
-            order.shippingAddress.postalCodeValid = NO;
-        }
-    }
     if ([shippingAddressDic valueForKeyPath:@"name"] && [shippingAddressDic valueForKeyPath:@"name"] != [NSNull null])
         order.shippingRecipientName = [shippingAddressDic valueForKeyPath:@"name"];
     

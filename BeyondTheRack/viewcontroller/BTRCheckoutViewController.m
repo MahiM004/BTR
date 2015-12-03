@@ -34,21 +34,23 @@
 #define SHIPPING_ADDRESS        2
 
 #define BILLING_ADDRESS_HEIGHT 685.0
+#define BILLING_ADDRESS_HEIGHT_IPAD 552.0
 #define CARD_PAYMENT_HEIGHT 310.0
 #define PAYPAL_PAYMENT_HEIGHT 160.0
 #define PAYPAL_PAYMENT_HEIGHT_IPAD 150.0
 #define CARD_PAYMENT_TIP_HEIGHT 65.0
 #define SAMPLE_GIFT_HEIGHT 120.0
 #define FASTPAYMENT_HEIGHT 110.0
-#define PICKUP_HEIGHT 45.0
+#define VIP_HEIGHT 45.0
 #define SAME_AS_SHIPPING_HEIGHT 45.0
 #define FILL_SHIPPING_HEIGHT 50.0
 #define GIFT_MAX_HEIGHT 175.0
-#define GIFT_CARD_HEIGHT 165.0
+#define GIFT_CARD_HEIGHT 40.0
 #define REMEBER_CARD_INFO_HEIGHT 75.0
 
 #define DEFAULT_VIEW_HEIGHT_IPHONE 3200
-#define DEFAULT_VIEW_HEIGHT_IPAD 1843
+#define DEFAULT_VIEW_HEIGHT_IPAD 1810
+
 
 @class CTCheckbox;
 
@@ -299,22 +301,7 @@
         self.shippingProvinceLB.text = @"PROVINCE";
         self.shippingPostalCodeLB.text = @"POSTAL CODE";
     }
-    if (self.order.shippingAddress.postalCodeValid == NO) {
-        [_freeMontrealView setHidden:YES];
-        [self.freeMontrealViewHeightConstraint setConstant:0];
-        if (![BTRViewUtility isIPAD]) {
-            self.shippingViewHeight.constant = 638;
-            [self resetSize];
-        }
-    } else {
-        [_freeMontrealView setHidden:NO];
-        [self.freeMontrealViewHeightConstraint setConstant:50];
-        if (![BTRViewUtility isIPAD]) {
-            self.shippingViewHeight.constant = 688;
-            [self resetSize];
-        }
-    }
-    
+   
     // billing
     [self.addressLine1BillingTF setText:[[self.order billingAddress]addressLine1]];
     [self.addressLine2BillingTF setText:[[self.order billingAddress]addressLine2]];
@@ -378,29 +365,27 @@
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.saving floatValue]]];
     [self.totalDueLabel setText:[NSString stringWithFormat:@"TOTAL DUE (%@)",self.order.currency.uppercaseString]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
-    
-    // pickup
-    BOOL hasPickup = NO;
+    // VIP
     if ([[self.order vipPickupEligible] boolValue]) {
         self.pleaseFillOutTheShippingFormView.hidden = YES;
         self.fillFormLabelViewHeight.constant = 0;
         self.giftCardViewHeight.constant = 0;
         self.haveGiftCardView.hidden = YES;
         self.vipOptionView.hidden = NO;
-        hasPickup = YES;
     } else if (![[self.order vipPickupEligible] boolValue]) {
         self.pleaseFillOutTheShippingFormView.hidden = NO;
         self.fillFormLabelViewHeight.constant = FILL_SHIPPING_HEIGHT;
-        self.vipOptionView.hidden = YES;
-        if ([[self.order eligiblePickup] boolValue]) {
-            self.pickupView.hidden = NO;
-            hasPickup = YES;
-        } else
-            self.pickupView.hidden = YES;
+        [self.vipOptionViewHeight setConstant:0];
     }
-    if (!hasPickup)
-        self.pickupViewHeight.constant = 0;
     
+    // Pick UP
+    if ([[self.order eligiblePickup] boolValue]) {
+        [_freeMontrealView setHidden:NO];
+        [self.freeMontrealViewHeightConstraint setConstant:50];
+    } else {
+        [_freeMontrealView setHidden:YES];
+        [self.freeMontrealViewHeightConstraint setConstant:0];
+    }
     if (self.isVisible)
         [self addSampleGifts];
     
@@ -419,7 +404,7 @@
     int i = 0;
     CGFloat heightSize = 0;
     CGFloat widthSize = 0;
-    if ([BTRViewUtility isIPAD] && [self.order.promoItems count] != 0) {
+    if ([BTRViewUtility isIPAD]) {
         self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant;
         self.viewHeight.constant = self.viewHeight.constant + SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
         widthSize = self.view.frame.size.width/2 - 50;
@@ -579,8 +564,13 @@
 }
 
 - (void)disableShippingAddress {
-    [self.sameAsShippingAddressView setHidden:TRUE];
-    [self.sameAsShippingHeight setConstant:0];
+    if ([BTRViewUtility isIPAD]) {
+        [self.sameAsShippingAddressView setAlpha:0.5];
+    } else {
+        [self.sameAsShippingAddressView setHidden:TRUE];
+        [self.sameAsShippingHeight setConstant:0];
+    }
+    
     [self.sameAddressCheckbox setChecked:FALSE];
     
     [self.shippingCountryButton setEnabled:FALSE];
@@ -605,10 +595,9 @@
     [self.sameAsShippingAddressView setHidden:FALSE];
     if (![BTRViewUtility isIPAD]) {
         [self.sameAsShippingHeight setConstant:SAME_AS_SHIPPING_HEIGHT];
-    } else {
-        [self.sameAsShippingHeight setConstant:self.sameAsShippingHeight.constant];
+    } else if (_sameAsShippingAddressView.alpha == 0.5) {
+        _sameAsShippingAddressView.alpha = 1;
     }
-        
     [self.shippingCountryButton setEnabled:TRUE];
     [self.shippingStateButton setEnabled:TRUE];
     
@@ -649,7 +638,7 @@
             self.giftCardInfoView.hidden = YES;
             self.giftViewHeight.constant = 75;
         }
-        [UIView animateWithDuration:2
+        [UIView animateWithDuration:0.5
                          animations:^{
                              [self.view layoutIfNeeded];
                          } completion:^(BOOL finished) {
@@ -920,14 +909,22 @@
         self.billingAddressView.hidden = YES;
         self.billingAddressHeight.constant  =  0;
         [self.view layoutIfNeeded];
+    } else if (self.billingAddressHeight.constant == BILLING_ADDRESS_HEIGHT_IPAD) {
+        self.billingAddressView.alpha = 0.5;
     }
 }
 
 - (void)showBillingAddress {
     if (self.billingAddressHeight.constant == 0) {
         self.billingAddressView.hidden = NO;
-        self.billingAddressHeight.constant  =  BILLING_ADDRESS_HEIGHT;
+        if ([BTRViewUtility isIPAD]) {
+            self.billingAddressHeight.constant  =  BILLING_ADDRESS_HEIGHT_IPAD;
+        } else {
+            self.billingAddressHeight.constant  =  BILLING_ADDRESS_HEIGHT;
+        }
         [self.view layoutIfNeeded];
+    } else if (_billingAddressView.alpha == 0.5) {
+        _billingAddressView.alpha = 1;
     }
 }
 
@@ -986,13 +983,25 @@
 
 - (IBAction)haveGiftCardHeight:(id)sender {
     if (giftCardOpened == YES) {
-        _giftCardViewHeight.constant += 125;
-        self.haveAGiftViewHeight.constant += 125;
+        if ([BTRViewUtility isIPAD]) {
+            _giftCardViewHeight.constant += 125;
+        } else {
+            [UIView animateWithDuration:0.5 animations:^{
+                _giftCardViewHeight.constant += 125;
+                [self.view layoutIfNeeded];
+            }];
+        }
         _haveAgiftInnerView.hidden = NO;
         giftCardOpened = NO;
     } else {
-        _giftCardViewHeight.constant -= 125;
-        self.haveAGiftViewHeight.constant -= 125;
+        if ([BTRViewUtility isIPAD]) {
+            _giftCardViewHeight.constant -= 125;
+        } else {
+            [UIView animateWithDuration:0.5 animations:^{
+                _giftCardViewHeight.constant -= 125;
+                [self.view layoutIfNeeded];
+            }];
+        }
         _haveAgiftInnerView.hidden = YES;
         giftCardOpened = YES;
     }
@@ -1124,11 +1133,6 @@
         }
         else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
             [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:row]];
-            if (row == 1) {
-                [self.freeMontrealViewHeightConstraint setConstant:0];
-                _freeMontrealView.hidden = YES;
-                
-            }
             [self validateAddressViaAPIAndInCompletion:nil];
         }
     }
@@ -1404,9 +1408,7 @@
 - (IBAction)zipCodeHasBeenEntererd:(id)sender {
     [self validateAddressViaAPIAndInCompletion:nil];
 }
-- (IBAction)freeMontrealAction:(CTCheckbox *)sender {
-    
-}
+
 - (IBAction)freeMontrealInfoAction:(UIButton *)sender {
     
 }
@@ -1587,40 +1589,41 @@
         size = DEFAULT_VIEW_HEIGHT_IPHONE;
     
     if (self.currentPaymentType == paypal && self.paypalEmailTF.text.length > 0) {
-//        if(![BTRViewUtility isIPAD]) {
+        if(![BTRViewUtility isIPAD]) {
             size = size - (CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT);
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
-//        }
+        } else {
+            size -= 140;
+        }
     }
     else if (self.currentPaymentType == paypal) {
         if(![BTRViewUtility isIPAD]) {
             size = size - (CARD_PAYMENT_HEIGHT) ;
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
-        } else if ([BTRViewUtility isIPAD] && self.freeMontrealViewHeightConstraint.constant != 0) {
-            size = size + 20;
+        } else {
+            size -= 140;
         }
     }
     else if (self.currentPaymentType == masterPass) {
         
     }
-    if (![BTRViewUtility isIPAD]) {
-        if (self.freeMontrealViewHeightConstraint.constant == 0) {
-            size = size - 50;
-        } else {
-            size = size + 50;
-        }
-    }
+    
     if ( _giftCardViewHeight.constant == 165) {
         size += 125;
     }
     if (self.orderIsGiftCheckbox.checked)
         size = size + GIFT_MAX_HEIGHT;
     
-    if (self.pickupViewHeight == 0)
-        size = size - PICKUP_HEIGHT;
-    
+    if (_vipOptionViewHeight.constant == 0) {
+        size = size - VIP_HEIGHT;
+    }
+    if (_freeMontrealViewHeightConstraint.constant == 50) {
+        size += 50;
+    } else if (_freeMontrealViewHeightConstraint.constant == 0 && [BTRViewUtility isIPAD]) {
+        size += 50;
+    }
     if (self.pleaseFillOutTheShippingFormView.hidden)
         size = size - FILL_SHIPPING_HEIGHT;
     
@@ -1708,17 +1711,11 @@
     else if (_popType == PopUPTypeBillingCountry) {
         if ([self billingOrShipping] == BILLING_ADDRESS) {
             [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
-            [self validateAddressViaAPIAndInCompletion:nil];
         }
         else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
             [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
-            if (index.row == 1) {
-                [self.freeMontrealViewHeightConstraint setConstant:0];
-                _freeMontrealView.hidden = YES;
-                
-            }
-            [self validateAddressViaAPIAndInCompletion:nil];
         }
+        [self validateAddressViaAPIAndInCompletion:nil];
     }
     [self.userDataPopover dismissPopoverAnimated:NO];
 }

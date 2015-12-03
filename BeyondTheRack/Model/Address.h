@@ -19,5 +19,4 @@
 @property (nonatomic,strong) NSString * phoneNumber;
 @property (nonatomic,strong) NSString * postalCode;
 
-@property BOOL postalCodeValid;
 @end
