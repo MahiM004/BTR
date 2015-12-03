@@ -74,51 +74,17 @@
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         BOOL isFirstTime = ![[[BTRSettingManager defaultManager]objectForKeyInSetting:kFIRSTTIMERUNNING]boolValue];
         if (isFirstTime){
-           
-        
+            NSLocale *currentLocale = [NSLocale currentLocale];
+            NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+            [[BTRSettingManager defaultManager]setInSetting:countryCode forKey:kUSERLOCATION];
+            [[BTRSettingManager defaultManager]setInSetting:[NSNumber numberWithBool:YES] forKey:kFIRSTTIMERUNNING];
         }
     }];
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FirstLaunch"];
     [[NSUserDefaults standardUserDefaults]synchronize];
     
-    /**
-     *
-     *  Managing the entry scene to the app based on whether the user has signed up and logged in. Also whether the facebook token is still available.
-     *
-     */
-    
-    NSLocale *currentLocale = [NSLocale currentLocale];
-    NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
-    [[BTRSettingManager defaultManager]setInSetting:countryCode forKey:kUSERLOCATION];
-    [[BTRSettingManager defaultManager]setInSetting:[NSNumber numberWithBool:YES] forKey:kFIRSTTIMERUNNING];
 
-    
-    NSString *segueId= @"BTRLoginViewController";
-    UIStoryboard *storyboard = self.window.rootViewController.storyboard;
 
-    BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
-    BOOL shouldPresentLogin = FALSE;
-    
-    if (![btrSettings activeSessionPresent])
-        shouldPresentLogin = TRUE;
-    
-    if ([btrSettings fbLoggedIn])
-        if ([FBSDKAccessToken currentAccessToken])
-            shouldPresentLogin = TRUE;
-    
-//    if (shouldPresentLogin) {
-//    
-//        UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:segueId];
-//        self.window.rootViewController = rootViewController;
-//        [self.window makeKeyAndVisible];
-//    }
-    
-    /**
-     *
-     *  Activtes network activity indicator
-     *
-     */
-    
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
 //    //Google analytics
