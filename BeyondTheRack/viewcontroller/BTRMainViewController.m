@@ -73,11 +73,13 @@
         [self.shadowAnimation stop];
     }
     [self removeTapRecognizerView];
-    [self getCartCountServerCallWithSuccess:^(NSString *bagCountString) {
-        self.bagButton.badgeValue = bagCountString;
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    }];
+    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        [self getCartCountServerCallWithSuccess:^(NSString *bagCountString) {
+            self.bagButton.badgeValue = bagCountString;
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        }];
+    }
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     [sharedFacetHandler resetFacets];
     sharedFacetHandler.searchString = @"";

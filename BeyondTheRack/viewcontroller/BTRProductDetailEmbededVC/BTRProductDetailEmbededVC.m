@@ -161,8 +161,13 @@
         [_collectionView performBatchUpdates:nil completion:nil];
     }];
     [self willAnimateRotationToInterfaceOrientation:self.interfaceOrientation duration:0.01];
-    BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
-    self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];
+    if ([[BTRSessionSettings sessionSettings]isUserLoggedIn])
+        [self getCartCountServerCallWithSuccess:^(id responseObject) {
+            BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+            self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];
+        } failure:^(NSError *error) {
+            
+        }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -823,6 +828,20 @@
     if  (self.lastOperation == gotoBag)
         [self bagButtonTapped:nil];
     self.lastOperation = 0;
+}
+
+- (void)getCartCountServerCallWithSuccess:(void (^)(id  responseObject)) success
+                                  failure:(void (^)(NSError *error)) failure {
+    NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBagCount]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        NSString *bagCount = [NSString stringWithFormat:@"%@",response[@"count"]];
+        BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
+        sharedShoppingBag.bagCount = [bagCount integerValue];
+        success(bagCount);
+    } faild:^(NSError *error) {
+        NSLog(@"errtr: %@", error);
+        failure(error);
+    }];
 }
 
 @end
