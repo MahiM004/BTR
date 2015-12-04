@@ -13,6 +13,7 @@
 #import "CTCheckbox.h"
 #import "CardIO.h"
 #import "ApplePayManager.h"
+#import <FRDLivelyButton/FRDLivelyButton.h>
 
 typedef enum {
     creditCard,
@@ -209,6 +210,10 @@ typedef enum  PopUPType{
 
 // Have a gift card
 @property (weak, nonatomic) IBOutlet UIView *haveAgiftInnerView;
+
+
+//Havea gife Button
+@property (weak, nonatomic) IBOutlet FRDLivelyButton * expandHaveCode;
 @end
 
 

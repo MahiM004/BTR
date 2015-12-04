@@ -269,6 +269,12 @@
     
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
+    
+    [_expandHaveCode setOptions:@{ kFRDLivelyButtonLineWidth: @(1.5f),
+                                   kFRDLivelyButtonHighlightedColor: [UIColor whiteColor],
+                                   kFRDLivelyButtonColor: [BTRViewUtility BTRBlack]
+                                   }];
+    [_expandHaveCode setStyle:kFRDLivelyButtonStylePlus animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -985,6 +991,7 @@
         }
         _haveAgiftInnerView.hidden = NO;
         giftCardOpened = NO;
+        [_expandHaveCode setStyle:kFRDLivelyButtonStyleClose animated:YES];
     } else {
         if ([BTRViewUtility isIPAD]) {
             _giftCardViewHeight.constant -= 125;
@@ -996,6 +1003,7 @@
         }
         _haveAgiftInnerView.hidden = YES;
         giftCardOpened = YES;
+        [_expandHaveCode setStyle:kFRDLivelyButtonStylePlus animated:YES];
     }
     [self resetSize];
 }
