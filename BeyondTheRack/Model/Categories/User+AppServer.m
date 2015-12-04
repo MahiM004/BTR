@@ -114,6 +114,9 @@
     if ([userDictionary valueForKeyPath:@"occupation"] != [NSNull null])
         user.occupation = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"occupation"]];
     
+    if ([userDictionary valueForKeyPath:@"mobile"] != [NSNull null])
+        user.mobile = [NSString stringWithFormat:@"%@", [userDictionary valueForKeyPath:@"mobile"]];
+    
     
     return user;
 }

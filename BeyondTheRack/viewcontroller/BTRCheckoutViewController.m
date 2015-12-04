@@ -269,6 +269,12 @@
     
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
+    
+    [_expandHaveCode setOptions:@{ kFRDLivelyButtonLineWidth: @(1.5f),
+                                   kFRDLivelyButtonHighlightedColor: [UIColor whiteColor],
+                                   kFRDLivelyButtonColor: [BTRViewUtility BTRBlack]
+                                   }];
+    [_expandHaveCode setStyle:kFRDLivelyButtonStylePlus animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -564,13 +570,8 @@
 }
 
 - (void)disableShippingAddress {
-    if ([BTRViewUtility isIPAD]) {
-        [self.sameAsShippingAddressView setAlpha:0.5];
-    } else {
-        [self.sameAsShippingAddressView setHidden:TRUE];
-        [self.sameAsShippingHeight setConstant:0];
-    }
-    
+    [self.sameAsShippingAddressView setHidden:TRUE];
+    [self.sameAsShippingHeight setConstant:0];
     [self.sameAddressCheckbox setChecked:FALSE];
     
     [self.shippingCountryButton setEnabled:FALSE];
@@ -593,11 +594,8 @@
 
 - (void)enableShippingAddress {
     [self.sameAsShippingAddressView setHidden:FALSE];
-    if (![BTRViewUtility isIPAD]) {
-        [self.sameAsShippingHeight setConstant:SAME_AS_SHIPPING_HEIGHT];
-    } else if (_sameAsShippingAddressView.alpha == 0.5) {
-        _sameAsShippingAddressView.alpha = 1;
-    }
+    [self.sameAsShippingHeight setConstant:SAME_AS_SHIPPING_HEIGHT];
+
     [self.shippingCountryButton setEnabled:TRUE];
     [self.shippingStateButton setEnabled:TRUE];
     
@@ -993,6 +991,7 @@
         }
         _haveAgiftInnerView.hidden = NO;
         giftCardOpened = NO;
+        [_expandHaveCode setStyle:kFRDLivelyButtonStyleClose animated:YES];
     } else {
         if ([BTRViewUtility isIPAD]) {
             _giftCardViewHeight.constant -= 125;
@@ -1004,6 +1003,7 @@
         }
         _haveAgiftInnerView.hidden = YES;
         giftCardOpened = YES;
+        [_expandHaveCode setStyle:kFRDLivelyButtonStylePlus animated:YES];
     }
     [self resetSize];
 }
