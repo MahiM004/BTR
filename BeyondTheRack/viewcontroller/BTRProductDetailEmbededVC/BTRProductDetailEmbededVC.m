@@ -30,7 +30,6 @@
 #import "BTRZoomImageViewController.h"
 #import "UIImageView+AFNetworkingFadeIn.h"
 #import "BTRSettingManager.h"
-#import "BTRLoginViewController.h"
 
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
@@ -166,7 +165,6 @@
             BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
             self.bagButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)[sharedShoppingBag bagCount]];
         } failure:^(NSError *error) {
-            
         }];
 }
 
@@ -818,8 +816,8 @@
 }
 
 - (void)showLogin {
-    BTRLoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
-    [self presentViewController:login animated:YES completion:nil];
+    UINavigationController *navigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginNavigation"];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)userDidLogin:(NSNotification *) notification {

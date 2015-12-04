@@ -90,7 +90,7 @@
                 [self fetchUserWithSuccess:^(NSString *didLogIn) {
                     [sender hideLoading];
                     if ([didLogIn  isEqualToString:@"TRUE"]) {
-                        [self dismissViewControllerAnimated:YES completion:^{
+                        [self.navigationController dismissViewControllerAnimated:YES completion:^{
                             [self sendNotification];
                         }];
                     }
@@ -158,7 +158,7 @@
                      
                      [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
                          if ([didLogIn isEqualToString:@"TRUE"]) {
-                             [self dismissViewControllerAnimated:YES completion:^{
+                             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                                  [self sendNotification];
                              }];
                          } else {
@@ -325,7 +325,7 @@
 }
 
 - (IBAction)backButtonTouched:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

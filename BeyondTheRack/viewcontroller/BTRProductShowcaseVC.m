@@ -22,7 +22,6 @@
 #import "BTRMenuTableViewCell.h"
 #import "LMDropdownView.h"
 #import "MarqueeLabel.h"
-#import "BTRLoginViewController.h"
 #import "BTRSettingManager.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
@@ -781,8 +780,8 @@ typedef enum ScrollDirection {
 #pragma mark saved action
 
 - (void)showLogin {
-    BTRLoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
-    [self presentViewController:login animated:YES completion:nil];
+    UINavigationController *navigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginNavigation"];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)userDidLogin:(NSNotification *) notification {

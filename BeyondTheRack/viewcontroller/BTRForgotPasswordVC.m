@@ -107,8 +107,8 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
--(IBAction)backToLogin:(id)sender {
-    [self dismissViewControllerAnimated:NO completion:nil];
+- (IBAction)backToLoginTapped:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark TextField delegate

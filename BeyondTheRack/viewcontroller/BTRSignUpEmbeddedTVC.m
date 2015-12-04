@@ -132,7 +132,7 @@
                                                       });
                           [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
                               if ([didLogIn isEqualToString:@"TRUE"])
-                                  [self dismissViewControllerAnimated:YES completion:^{
+                                  [self.navigationController dismissViewControllerAnimated:YES completion:^{
                                       [self sendNotification];
                                   }];
                               else
@@ -165,7 +165,7 @@
                 [self userRegistrationServerCallWithSuccess:^(NSString *didSignUp, NSString *messageString) {
                     [sender hideLoading];
                     if ([didSignUp  isEqualToString:@"TRUE"]) {
-                            [self dismissViewControllerAnimated:YES completion:^{
+                            [self.navigationController dismissViewControllerAnimated:YES completion:^{
                                 [self sendNotification];
                             }];
                     } else {
@@ -406,6 +406,10 @@
 
 - (void)sendNotification {
     [[NSNotificationCenter defaultCenter]postNotificationName:kUSERDIDLOGIN object:nil];
+}
+
+- (IBAction)backToLogin:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -181,14 +181,12 @@
 #pragma mark Account Delegate
 
 - (void)signOutDidSelect {
-    [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
+    [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.0];
     [self setIsMenuOpen:NO];
     [self logutUserServerCallWithSuccess:^(NSString *didSucceed) {
         BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
         [btrSettings clearSession];
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        BTRLoginViewController *viewController = (BTRLoginViewController *)[storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
-        [self.navigationController pushViewController:viewController animated:YES];
+        [[[UIAlertView alloc]initWithTitle:@"Sign Out" message:@"You have been successfully signed out" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
@@ -309,6 +307,7 @@
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         FBSDKLoginManager *fbAuth = [[FBSDKLoginManager alloc] init];
         [fbAuth logOut];
+        [self removeTapRecognizerView];
         success(@"TRUE");
     } faild:^(NSError *error) {
         [self removeTapRecognizerView];
@@ -351,8 +350,8 @@
 }
 
 - (void)showLogin {
-    BTRLoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
-    [self presentViewController:login animated:YES completion:nil];
+    UINavigationController *navigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginNavigation"];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)userDidLogin:(NSNotification *) notification {
