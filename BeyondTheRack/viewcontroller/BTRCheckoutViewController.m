@@ -564,13 +564,8 @@
 }
 
 - (void)disableShippingAddress {
-    if ([BTRViewUtility isIPAD]) {
-        [self.sameAsShippingAddressView setAlpha:0.5];
-    } else {
-        [self.sameAsShippingAddressView setHidden:TRUE];
-        [self.sameAsShippingHeight setConstant:0];
-    }
-    
+    [self.sameAsShippingAddressView setHidden:TRUE];
+    [self.sameAsShippingHeight setConstant:0];
     [self.sameAddressCheckbox setChecked:FALSE];
     
     [self.shippingCountryButton setEnabled:FALSE];
@@ -593,11 +588,8 @@
 
 - (void)enableShippingAddress {
     [self.sameAsShippingAddressView setHidden:FALSE];
-    if (![BTRViewUtility isIPAD]) {
-        [self.sameAsShippingHeight setConstant:SAME_AS_SHIPPING_HEIGHT];
-    } else if (_sameAsShippingAddressView.alpha == 0.5) {
-        _sameAsShippingAddressView.alpha = 1;
-    }
+    [self.sameAsShippingHeight setConstant:SAME_AS_SHIPPING_HEIGHT];
+
     [self.shippingCountryButton setEnabled:TRUE];
     [self.shippingStateButton setEnabled:TRUE];
     
