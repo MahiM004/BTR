@@ -212,6 +212,7 @@
     [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] withSortingQuery:sortString andFacetQuery:facetString forPage:self.currentPage
                          success:^(NSMutableArray *responseArray) {
                              [self setItemsArray:responseArray];
+                             [self.suggestionTableView setHidden:YES];
                              [self.collectionView becomeFirstResponder];
                              [self.collectionView reloadData];
                              for (int i = 0; i < [self.itemsArray count]; i++)
@@ -225,7 +226,6 @@
                          }];
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
-    [self.suggestionTableView setHidden:YES];
 }
 
 #pragma mark - UICollectionView Datasource
@@ -541,10 +541,10 @@
             _noResulteLabel.alpha = 0;
             _noResulteLabel.hidden = YES;
             [self.suggestionArray removeAllObjects];
-            [self.suggestionTableView setHidden:NO];
             [self.suggestionArray addObjectsFromArray:receivedData];
             [self.suggestionTableView reloadData];
             [self.suggestionTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            [self.suggestionTableView setHidden:NO];
         } else {
             [self.suggestionTableView setHidden:YES];
             _noResulteLabel.alpha = 1;
