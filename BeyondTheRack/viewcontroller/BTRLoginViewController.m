@@ -324,6 +324,11 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (IBAction)backButtonTouched:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 #pragma mark TextField Delegations
 
 
