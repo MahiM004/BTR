@@ -128,8 +128,8 @@
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];
     } else {
-        [BTRLoader showLoaderInView:self.view];
         if ([FBSDKAccessToken currentAccessToken]) {
+            [BTRLoader showLoaderInView:self.view];
             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": @"id, gender, first_name, last_name, email"}]
              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id responseObject, NSError *error) {
                  if (!error) {
