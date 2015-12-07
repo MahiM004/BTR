@@ -68,7 +68,7 @@
     if ([info valueForKeyPath:@"billing_country"] && [info valueForKeyPath:@"billing_country"] != [NSNull null])
         confirmation.billingAddress.country = [info valueForKey:@"billing_country"];
     if ([info valueForKeyPath:@"billing_postal"] && [info valueForKeyPath:@"billing_postal"] != [NSNull null])
-        confirmation.billingAddress.addressLine1 = [info valueForKey:@"billing_postal"];
+        confirmation.billingAddress.postalCode = [info valueForKey:@"billing_postal"];
     if ([info valueForKeyPath:@"billing_phone"] && [info valueForKeyPath:@"billing_phone"] != [NSNull null])
         confirmation.billingAddress.phoneNumber = [info valueForKey:@"billing_phone"];
     
