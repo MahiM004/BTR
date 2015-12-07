@@ -275,6 +275,21 @@
                                    kFRDLivelyButtonColor: [BTRViewUtility BTRBlack]
                                    }];
     [_expandHaveCode setStyle:kFRDLivelyButtonStylePlus animated:YES];
+    
+    if (![BTRViewUtility isIPAD]) {
+        self.paymentPicker = [[DownPicker alloc] initWithTextField:self.paymentMethodTF withData:[self paymentTypesArray] pickType:@"Payment"];
+        self.expiryMonthPicker = [[DownPicker alloc] initWithTextField:self.expiryMonthPaymentTF withData:[self expiryMonthsArray] pickType:@"expMonth"];
+        self.expiryYearPicker = [[DownPicker alloc] initWithTextField:self.expiryYearPaymentTF withData:[self expiryYearsArray] pickType:@"expYear"];
+        self.shippingCountryPicker = [[DownPicker alloc] initWithTextField:self.countryShippingTF withData:[self countryNameArray] pickType:@"shiCountry"];
+        self.billingCountryPicker = [[DownPicker alloc] initWithTextField:self.countryBillingTF withData:[self countryNameArray] pickType:@"bilCountry"];
+        
+        self.paymentPicker.delegate = self;
+        self.expiryYearPicker.delegate = self;
+        self.expiryMonthPicker.delegate = self;
+        self.shippingCountryPicker.delegate = self;
+        self.billingCountryPicker.delegate = self;
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -1007,20 +1022,6 @@
     }
     [self resetSize];
 }
-#pragma mark - PickerView Delegates
-
-- (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) addressType {
-    [self setBillingOrShipping:addressType];
-    [self loadPickerViewforPickerType:pickerType];
-}
-
-- (void)loadPickerViewforPickerType:(NSUInteger)pickerType {
-    [self setPickerType:pickerType];
-    [self.pickerView reloadAllComponents];
-    [self dismissKeyboard];
-    [self.pickerParentView setHidden:FALSE];
-    [self.pickerView becomeFirstResponder];
-}
 
 - (IBAction)shippingCountryButtonTapped:(UIButton *)sender {
     if ([BTRViewUtility isIPAD]) {
@@ -1028,7 +1029,7 @@
         [self setBillingOrShipping:SHIPPING_ADDRESS];
         [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self countryNameArray]] inView:_shippingDetailsView inFrameView:sender];
     } else {
-        [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:SHIPPING_ADDRESS];
+//        [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:SHIPPING_ADDRESS];
     }
 }
 
@@ -1039,7 +1040,7 @@
             [self setBillingOrShipping:SHIPPING_ADDRESS];
             [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self statesArray]] inView:_shippingDetailsView inFrameView:sender];
         } else {
-            [self loadPickerViewforPickerType:STATE_PICKER andAddressType:SHIPPING_ADDRESS];
+//            [self loadPickerViewforPickerType:STATE_PICKER andAddressType:SHIPPING_ADDRESS];
         }
     }
     else {
@@ -1048,7 +1049,7 @@
             [self setBillingOrShipping:SHIPPING_ADDRESS];
             [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self provincesArray]] inView:_shippingDetailsView inFrameView:sender];
         } else {
-            [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:SHIPPING_ADDRESS];
+//            [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:SHIPPING_ADDRESS];
         }
     }
 }
@@ -1059,7 +1060,7 @@
         [self setBillingOrShipping:BILLING_ADDRESS];
         [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self countryNameArray]] inView:_billingAddressView inFrameView:sender];
     } else {
-        [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:BILLING_ADDRESS];
+//        [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:BILLING_ADDRESS];
     }
 }
 
@@ -1070,7 +1071,7 @@
             [self setBillingOrShipping:BILLING_ADDRESS];
             [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self statesArray]] inView:_billingAddressView inFrameView:sender];
         } else {
-            [self loadPickerViewforPickerType:STATE_PICKER andAddressType:BILLING_ADDRESS];
+//            [self loadPickerViewforPickerType:STATE_PICKER andAddressType:BILLING_ADDRESS];
         }
     }
     else {
@@ -1079,7 +1080,7 @@
             [self setBillingOrShipping:BILLING_ADDRESS];
             [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self provincesArray]] inView:_billingAddressView inFrameView:sender];
         } else {
-            [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:BILLING_ADDRESS];
+//            [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:BILLING_ADDRESS];
         }
     }
 }
@@ -1089,7 +1090,7 @@
         _popType = PopUPTypeExpiryYear;
         [self openPopView:sender Data:[self expiryYearsArray] inView:_paymentCreditView inFrameView:sender];
     } else {
-        [self loadPickerViewforPickerType:EXPIRY_YEAR_PICKER];
+//        [self loadPickerViewforPickerType:EXPIRY_YEAR_PICKER];
     }
 }
 
@@ -1098,7 +1099,7 @@
         _popType = PopUPTypeExpiryMonth;
         [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self expiryMonthsArray]] inView:_paymentCreditView inFrameView:sender];
     } else {
-        [self loadPickerViewforPickerType:EXPIRY_MONTH_PICKER];
+//        [self loadPickerViewforPickerType:EXPIRY_MONTH_PICKER];
     }
 }
 
@@ -1107,10 +1108,25 @@
         _popType = PopUPTypePayment;
         [self openPopView:sender Data:[self paymentTypesArray] inView:_paymentTypeView inFrameView:_paymentMethodButton];
     } else {
-        [self loadPickerViewforPickerType:PAYMENT_TYPE_PICKER];
+//        [self loadPickerViewforPickerType:PAYMENT_TYPE_PICKER];
     }
 }
 
+// Picker We are not using
+/*
+#pragma mark - PickerView Delegates
+- (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) addressType {
+    [self setBillingOrShipping:addressType];
+    
+    [self loadPickerViewforPickerType:pickerType];
+}
+- (void)loadPickerViewforPickerType:(NSUInteger)pickerType {
+    [self setPickerType:pickerType];
+    [self.pickerView reloadAllComponents];
+    [self dismissKeyboard];
+    [self.pickerParentView setHidden:FALSE];
+    [self.pickerView becomeFirstResponder];
+}
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     if ([self pickerType] == PROVINCE_PICKER) {
         if ([self billingOrShipping] == BILLING_ADDRESS)
@@ -1206,7 +1222,7 @@
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     return 300.0;
 }
-
+*/
 
 #pragma mark Actions
 
@@ -1718,6 +1734,40 @@
         [self validateAddressViaAPIAndInCompletion:nil];
     }
     [self.userDataPopover dismissPopoverAnimated:NO];
+}
+
+
+//// iPhone PickerView
+#pragma mark DropPicker Delegate
+
+-(void)pickerType:(NSString *)pickType selectedIndex:(NSInteger)row {
+    [self showPickerWithType:pickType selectedIndex:row];
+}
+
+-(void)showPickerWithType:(NSString*)picType selectedIndex:(NSInteger)row {
+
+    if ([picType isEqualToString:@"Payment"]) {
+        [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
+        if ([self.paymentMethodTF.text isEqualToString:@"Paypal"])
+            [self setCurrentPaymentType:paypal];
+        else
+            [self setCurrentPaymentType:creditCard];
+        [self changeDetailPaymentFor:self.currentPaymentType];
+    }
+    else if ([picType isEqualToString:@"expMonth"]) {
+        [self.expiryMonthPaymentTF setText:[[self expiryMonthsArray] objectAtIndex:row]];
+    }
+    else if ([picType isEqualToString:@"expYear"]) {
+        [self.expiryYearPaymentTF setText:[[self expiryYearsArray] objectAtIndex:row]];
+    }
+    else if ([picType isEqualToString:@"shiCountry"]) {
+        [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:row]];
+        [self validateAddressViaAPIAndInCompletion:nil];
+    }
+    else if ([picType isEqualToString:@"bilCountry"]) {
+        [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:row]];
+        [self validateAddressViaAPIAndInCompletion:nil];
+    }
 }
 @end
 

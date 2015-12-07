@@ -14,6 +14,7 @@
 #import "CardIO.h"
 #import "ApplePayManager.h"
 #import <FRDLivelyButton/FRDLivelyButton.h>
+#import "DownPicker.h"
 
 typedef enum {
     creditCard,
@@ -31,7 +32,7 @@ typedef enum  PopUPType{
     PopUPTypeBillingCountry
 }PopUPType;
 
-@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate,MasterPassInfoDelegate,UIAlertViewDelegate,CardIOPaymentViewControllerDelegate,ApplePayDelegate,PopUPDelegate>
+@interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate,MasterPassInfoDelegate,UIAlertViewDelegate,CardIOPaymentViewControllerDelegate,ApplePayDelegate,PopUPDelegate,DropDownPickerDelegate>
 
 @property (readwrite) PopUPType popType;
 
@@ -214,6 +215,15 @@ typedef enum  PopUPType{
 
 //Havea gife Button
 @property (weak, nonatomic) IBOutlet FRDLivelyButton * expandHaveCode;
+
+
+
+@property (nonatomic) DownPicker *paymentPicker;
+@property (nonatomic) DownPicker *expiryMonthPicker;
+@property (nonatomic) DownPicker *expiryYearPicker;
+@property (nonatomic) DownPicker *billingCountryPicker;
+@property (nonatomic) DownPicker *shippingCountryPicker;
+
 @end
 
 
