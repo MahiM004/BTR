@@ -108,14 +108,14 @@
     self.totalOrderValue.text = [NSString stringWithFormat:@"%.2f",[self.info.totalOrderValue floatValue]];
     self.shippingPriceLabel.text = [NSString stringWithFormat:@"%@",self.info.totalShipping];
     
-    if (self.info.totalTax1 == nil) {
+    if (self.info.labelTax1 == nil) {
         self.taxLabel1.hidden = YES;
         self.taxValue1.hidden = YES;
     } else {
         self.taxValue1.text = [NSString stringWithFormat:@"%.2f",[self.info.totalTax1 floatValue]];
         self.taxLabel1.text = self.info.labelTax1;
     }
-    if (self.info.totalTax2 == nil) {
+    if (self.info.labelTax2 == nil) {
         self.taxLabel2.hidden = YES;
         self.taxValue2.hidden = YES;
     } else {
