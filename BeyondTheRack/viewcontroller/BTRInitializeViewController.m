@@ -49,7 +49,7 @@
         categoriesArray = [EventCategory loadCategoriesfromAppServerArray:entitiesPropertyList forCategoriesArray:categoriesArray];
         BTRCategoryData *sharedCategoryData = [BTRCategoryData sharedCategoryData];
         for (EventCategory *eventCategory in categoriesArray) {
-            [[sharedCategoryData categoryNameArray]  addObject:[eventCategory displayName]];
+            [[sharedCategoryData categoryNameArray]  addObject:[[eventCategory displayName]uppercaseString]];
             [[sharedCategoryData categoryUrlArray]  addObject:[eventCategory name]];
         }
         success(categoriesArray);
