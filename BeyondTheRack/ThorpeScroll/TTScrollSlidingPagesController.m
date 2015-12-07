@@ -127,7 +127,7 @@
         
         //set up the top scroller (for the nav titles to go in) - it is one frame wide, but has clipToBounds turned off to enable you to see the next and previous items in the scroller. We wrap it in an outer uiview so that the background colour can be set on that and span the entire view (because the width of the topScrollView is only one frame wide and centered).
         topScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.titleScrollerItemWidth, self.titleScrollerHeight)];
-        topScrollView.center = CGPointMake(self.view.center.x, topScrollView.center.y); //center it horizontally
+//        topScrollView.center = CGPointMake(self.view.center.x, topScrollView.center.y); //center it horizontally
         topScrollView.pagingEnabled = YES;
         topScrollView.clipsToBounds = NO;
         topScrollView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
@@ -137,7 +137,7 @@
         topScrollView.backgroundColor = [UIColor clearColor];
         topScrollView.pagingEnabled = self.pagingEnabled;
         topScrollView.delegate = self; //move the bottom scroller proportionally as you drag the top.
-        topScrollViewWrapper = [[TTScrollViewWrapper alloc] initWithFrame:CGRectMake(0, nextYPosition, self.view.frame.size.width, self.titleScrollerHeight) andUIScrollView:topScrollView];//make the view to put the scroll view inside which will allow the background colour, and allow dragging from anywhere in this wrapper to be passed to the scrollview.
+        topScrollViewWrapper = [[TTScrollViewWrapper alloc] initWithFrame:CGRectMake(8, nextYPosition, self.view.frame.size.width, self.titleScrollerHeight) andUIScrollView:topScrollView];//make the view to put the scroll view inside which will allow the background colour, and allow dragging from anywhere in this wrapper to be passed to the scrollview.
         topScrollViewWrapper.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         topScrollViewWrapper.backgroundColor = self.titleScrollerBackgroundColour;
         //pass touch events from the wrapper onto the scrollview (so you can drag from the entire width, as the scrollview itself only lives in the very centre, but with clipToBounds turned off)
@@ -264,7 +264,7 @@
             
             UILabel *label = [[UILabel alloc] init];
             label.text = title.headerText;
-            label.textAlignment = NSTextAlignmentCenter;
+            label.textAlignment = NSTextAlignmentLeft;
             //label.adjustsFontSizeToFitWidth = YES;
             label.textColor = self.titleScrollerInActiveTextColour;
             label.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:15];//self.titleScrollerTextFont;
