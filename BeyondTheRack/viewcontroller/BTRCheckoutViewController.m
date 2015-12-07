@@ -283,6 +283,13 @@
         self.shippingCountryPicker = [[DownPicker alloc] initWithTextField:self.countryShippingTF withData:[self countryNameArray] pickType:@"shiCountry"];
         self.billingCountryPicker = [[DownPicker alloc] initWithTextField:self.countryBillingTF withData:[self countryNameArray] pickType:@"bilCountry"];
         
+        
+        [self.paymentPicker showArrowImage:NO];
+        [self.expiryYearPicker showArrowImage:NO];
+        [self.expiryMonthPicker showArrowImage:NO];
+        [self.shippingCountryPicker showArrowImage:NO];
+        [self.billingCountryPicker showArrowImage:NO];
+        
         self.paymentPicker.delegate = self;
         self.expiryYearPicker.delegate = self;
         self.expiryMonthPicker.delegate = self;
