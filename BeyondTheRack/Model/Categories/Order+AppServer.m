@@ -14,52 +14,53 @@
 
 + (Order *)orderWithAppServerInfo:(NSDictionary *)orderDictionary {
     Order *order = [[Order alloc] init];
-    order = [self extractOrderfromJSONDictionary:orderDictionary forOrder:order];
+    order = [self extractOrderfromJSONDictionary:orderDictionary forOrder:order isValidating:NO];
     return order;
 }
 
 
-+ (Order *)extractOrderfromJSONDictionary:(NSDictionary *)orderDictionary forOrder:(Order *)order {
++ (Order *)extractOrderfromJSONDictionary:(NSDictionary *)orderDictionary forOrder:(Order *)order isValidating:(BOOL)isValidating{
 
     NSDictionary *successfulorder = orderDictionary[@"order"];
-    
-    // payment method
-    order.paymentType = [orderDictionary valueForKey:@"paymentMethod"];
     
     // order info
     if ([successfulorder valueForKeyPath:@"order_id"] && [successfulorder valueForKeyPath:@"order_id"] != [NSNull null])
         order.orderId = [successfulorder valueForKeyPath:@"order_id"];
     
-    // card info
-    
-    NSDictionary *cardInfoDic = orderDictionary[@"cardInfo"];
-    
-    if ([cardInfoDic valueForKeyPath:@"cvv"] && [cardInfoDic valueForKeyPath:@"cvv"] != [NSNull null])
-        order.ccvNumber = [cardInfoDic valueForKeyPath:@"cvv"];
-    if ([cardInfoDic valueForKeyPath:@"force_card_update"] && [cardInfoDic valueForKeyPath:@"force_card_update"] != [NSNull null])
-        order.forceCardUpdate = [cardInfoDic valueForKeyPath:@"force_card_update"];
-    if ([cardInfoDic valueForKeyPath:@"lockCCFields"] && [cardInfoDic valueForKeyPath:@"lockCCFields"] != [NSNull null])
-        order.lockCCFields = [[cardInfoDic valueForKeyPath:@"lockCCFields"] stringValue];
-    if ([cardInfoDic valueForKeyPath:@"month"] && [cardInfoDic valueForKeyPath:@"month"] != [NSNull null])
-        order.expiryMonth = [cardInfoDic valueForKeyPath:@"month"];
-    if ([cardInfoDic valueForKeyPath:@"name"] && [cardInfoDic valueForKeyPath:@"name"] != [NSNull null])
-        order.cardHolderName = [cardInfoDic valueForKeyPath:@"name"];
-    if ([cardInfoDic valueForKeyPath:@"number"] && [cardInfoDic valueForKeyPath:@"number"] != [NSNull null])
-        order.cardNumber = [cardInfoDic valueForKeyPath:@"number"];
-    if ([cardInfoDic valueForKeyPath:@"payment_type"] && [cardInfoDic valueForKeyPath:@"payment_type"] != [NSNull null])
-        order.paymentType = [cardInfoDic valueForKeyPath:@"payment_type"];
-    if ([cardInfoDic valueForKeyPath:@"remember_card"] && [cardInfoDic valueForKeyPath:@"remember_card"] != [NSNull null])
-        order.rememberCard = [[cardInfoDic valueForKeyPath:@"remember_card"] stringValue];
-    if ([cardInfoDic valueForKeyPath:@"require_ccv"] && [cardInfoDic valueForKeyPath:@"require_ccv"] != [NSNull null])
-        order.requireCcv = [[cardInfoDic valueForKeyPath:@"require_ccv"] stringValue];
-    if ([cardInfoDic valueForKeyPath:@"token"] && [cardInfoDic valueForKeyPath:@"token"] != [NSNull null])
-        order.cardToken = [cardInfoDic valueForKeyPath:@"token"];
-    if ([cardInfoDic valueForKeyPath:@"type"] && [cardInfoDic valueForKeyPath:@"type"] != [NSNull null])
-        order.cardType = [cardInfoDic valueForKeyPath:@"type"];
-    if ([cardInfoDic valueForKeyPath:@"use_token"] && [cardInfoDic valueForKeyPath:@"use_token"] != [NSNull null])
-        order.useToken = [[cardInfoDic valueForKeyPath:@"use_token"] stringValue];
-    if ([cardInfoDic valueForKeyPath:@"year"] && [cardInfoDic valueForKeyPath:@"year"] != [NSNull null])
-        order.expiryYear = [cardInfoDic valueForKeyPath:@"year"];
+    if (!isValidating) {
+        
+        // payment method
+        order.paymentType = [orderDictionary valueForKey:@"paymentMethod"];
+        
+        // card info
+        NSDictionary *cardInfoDic = orderDictionary[@"cardInfo"];
+        if ([cardInfoDic valueForKeyPath:@"cvv"] && [cardInfoDic valueForKeyPath:@"cvv"] != [NSNull null])
+            order.ccvNumber = [cardInfoDic valueForKeyPath:@"cvv"];
+        if ([cardInfoDic valueForKeyPath:@"force_card_update"] && [cardInfoDic valueForKeyPath:@"force_card_update"] != [NSNull null])
+            order.forceCardUpdate = [cardInfoDic valueForKeyPath:@"force_card_update"];
+        if ([cardInfoDic valueForKeyPath:@"lockCCFields"] && [cardInfoDic valueForKeyPath:@"lockCCFields"] != [NSNull null])
+            order.lockCCFields = [[cardInfoDic valueForKeyPath:@"lockCCFields"] stringValue];
+        if ([cardInfoDic valueForKeyPath:@"month"] && [cardInfoDic valueForKeyPath:@"month"] != [NSNull null])
+            order.expiryMonth = [cardInfoDic valueForKeyPath:@"month"];
+        if ([cardInfoDic valueForKeyPath:@"name"] && [cardInfoDic valueForKeyPath:@"name"] != [NSNull null])
+            order.cardHolderName = [cardInfoDic valueForKeyPath:@"name"];
+        if ([cardInfoDic valueForKeyPath:@"number"] && [cardInfoDic valueForKeyPath:@"number"] != [NSNull null])
+            order.cardNumber = [cardInfoDic valueForKeyPath:@"number"];
+        if ([cardInfoDic valueForKeyPath:@"payment_type"] && [cardInfoDic valueForKeyPath:@"payment_type"] != [NSNull null])
+            order.paymentType = [cardInfoDic valueForKeyPath:@"payment_type"];
+        if ([cardInfoDic valueForKeyPath:@"remember_card"] && [cardInfoDic valueForKeyPath:@"remember_card"] != [NSNull null])
+            order.rememberCard = [[cardInfoDic valueForKeyPath:@"remember_card"] stringValue];
+        if ([cardInfoDic valueForKeyPath:@"require_ccv"] && [cardInfoDic valueForKeyPath:@"require_ccv"] != [NSNull null])
+            order.requireCcv = [[cardInfoDic valueForKeyPath:@"require_ccv"] stringValue];
+        if ([cardInfoDic valueForKeyPath:@"token"] && [cardInfoDic valueForKeyPath:@"token"] != [NSNull null])
+            order.cardToken = [cardInfoDic valueForKeyPath:@"token"];
+        if ([cardInfoDic valueForKeyPath:@"type"] && [cardInfoDic valueForKeyPath:@"type"] != [NSNull null])
+            order.cardType = [cardInfoDic valueForKeyPath:@"type"];
+        if ([cardInfoDic valueForKeyPath:@"use_token"] && [cardInfoDic valueForKeyPath:@"use_token"] != [NSNull null])
+            order.useToken = [[cardInfoDic valueForKeyPath:@"use_token"] stringValue];
+        if ([cardInfoDic valueForKeyPath:@"year"] && [cardInfoDic valueForKeyPath:@"year"] != [NSNull null])
+            order.expiryYear = [cardInfoDic valueForKeyPath:@"year"];
+    }
     
     // order Info
     

@@ -1405,8 +1405,6 @@
     
     [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
     [orderInfo setObject:[self billingInfo] forKey:@"billing"];
-    if (self.currentPaymentType == creditCard)
-        [orderInfo setObject:[self cardInfo] forKey:@"cardInfo"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
@@ -1416,7 +1414,7 @@
     
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]];
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        self.order = [Order extractOrderfromJSONDictionary:response forOrder:self.order];
+        self.order = [Order extractOrderfromJSONDictionary:response forOrder:self.order isValidating:YES];
         [self loadOrderData];
         if (completionBlock)
             completionBlock(nil);
@@ -1582,7 +1580,7 @@
 
 - (void)masterPassInfoDidReceived:(NSDictionary *)info {
     self.masterCallBackInfo = info;
-    self.order = [Order extractOrderfromJSONDictionary:info forOrder:self.order];
+    self.order = [Order extractOrderfromJSONDictionary:info forOrder:self.order isValidating:NO];
     [self fixViewForMasterPass];
 }
 
@@ -1598,7 +1596,7 @@
 }
 
 - (void)payPalInfoDidReceived:(NSDictionary *)info {
-    self.order = [Order extractOrderfromJSONDictionary:info forOrder:self.order];
+    self.order = [Order extractOrderfromJSONDictionary:info forOrder:self.order isValidating:NO];
     [self fixViewForPaypal];
 }
 
