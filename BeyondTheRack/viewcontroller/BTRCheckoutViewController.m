@@ -266,7 +266,7 @@
     [self.paymentMethodTF setText:@"Visa Credit"];
     [self.changePaymentMethodCheckbox setChecked:NO];
     [self.changePaymentMethodView setHidden:YES];
-    
+    [self setIsVisible:YES];
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
     
@@ -302,7 +302,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self addSampleGifts];
-    [self setIsVisible:YES];
 }
 
 - (void)resetData {
@@ -414,8 +413,10 @@
         [_freeMontrealView setHidden:YES];
         [self.freeMontrealViewHeightConstraint setConstant:0];
     }
-    if (self.isVisible)
+    if (self.isVisible) {
         [self addSampleGifts];
+        [self setIsVisible:NO];
+    }
     
     self.isLoading = NO;
 }
@@ -434,7 +435,7 @@
     CGFloat widthSize = 0;
     if ([BTRViewUtility isIPAD]) {
         self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant;
-        self.viewHeight.constant = self.viewHeight.constant + SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
+        self.payListWithSampleOut.constant += SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
         widthSize = self.view.frame.size.width/2 - 50;
     } else {
         widthSize = self.view.frame.size.width;
@@ -961,6 +962,9 @@
 }
 
 - (void)dismissKeyboard {
+    if (![BTRViewUtility isIPAD] && (self.paymentMethodTF.isEditing || self.countryShippingTF.isEditing || self.countryBillingTF.isEditing || self.expiryMonthPaymentTF.isEditing || self.expiryYearPaymentTF.isEditing)) {
+        return;
+    }
     [self.view endEditing:YES];
 }
 
@@ -1005,6 +1009,7 @@
     if (giftCardOpened == YES) {
         if ([BTRViewUtility isIPAD]) {
             _giftCardViewHeight.constant += 125;
+            self.haveAGiftViewHeight.constant += 125;
         } else {
             [UIView animateWithDuration:0.5 animations:^{
                 _giftCardViewHeight.constant += 125;
@@ -1017,6 +1022,7 @@
     } else {
         if ([BTRViewUtility isIPAD]) {
             _giftCardViewHeight.constant -= 125;
+            self.haveAGiftViewHeight.constant -= 125;
         } else {
             [UIView animateWithDuration:0.5 animations:^{
                 _giftCardViewHeight.constant -= 125;
@@ -1415,7 +1421,6 @@
         if (completionBlock)
             completionBlock(nil);
     } faild:^(NSError *error) {
-        
     }];
 }
 
