@@ -21,18 +21,18 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0</string>
+	<string>3.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.beyondtherack.app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.beyondtherack.app</string>
 			</array>
-			<key>CFBundleURLName</key>
-			<string>com.beyondtherack.app</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -59,18 +59,18 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>pinit</key>
 			<dict>
-				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-				<false/>
 				<key>NSIncludesSubDomains</key>
 				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
 			</dict>
 		</dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
