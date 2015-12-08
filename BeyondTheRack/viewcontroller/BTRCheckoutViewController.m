@@ -962,6 +962,9 @@
 }
 
 - (void)dismissKeyboard {
+    if (![BTRViewUtility isIPAD] && (self.paymentMethodTF.isEditing || self.countryShippingTF.isEditing || self.countryBillingTF.isEditing || self.expiryMonthPaymentTF.isEditing || self.expiryYearPaymentTF.isEditing)) {
+        return;
+    }
     [self.view endEditing:YES];
 }
 
