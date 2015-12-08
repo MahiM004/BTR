@@ -533,7 +533,9 @@
         NSDictionary *actionResponse = [[[response valueForKey:@"response"]valueForKey:@"key1"]valueForKey:@"response"];
         if (![[actionResponse valueForKey:@"success"]boolValue]) {
             if ([actionResponse valueForKey:@"error_message"]) {
-                [[[UIAlertView alloc]initWithTitle:@"Error" message:[actionResponse valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                NSString *errorMessage = [actionResponse valueForKey:@"error_message"];
+                errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@"|" withString:@"\n"];
+                [[[UIAlertView alloc]initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
             }
         }
         [self updateBagWithDictionary:response];
