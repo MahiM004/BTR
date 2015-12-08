@@ -11,7 +11,7 @@
 @interface BTRAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+- (void)backToInitialViewControllerFrom:(UIViewController *)viewController;
 - (BOOL)connected;
 @end
 

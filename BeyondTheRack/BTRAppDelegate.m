@@ -19,6 +19,7 @@
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import "BTRSettingManager.h"
 #import <Google/Analytics.h>
+#import "BTRInitializeViewController.h"
 
 @interface BTRAppDelegate ()
 
@@ -171,6 +172,20 @@
         rechable = YES;
     }
     return rechable;
+}
+
+- (void)backToInitialViewControllerFrom:(UIViewController *)viewController {
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    BTRInitializeViewController *initial = [mainStoryBoard instantiateViewControllerWithIdentifier:@"BTRinitializeVCIdentifier"];
+    self.window.rootViewController = initial;
+    for (UIView *subview in self.window.subviews) {
+        if ([subview isKindOfClass:NSClassFromString(@"UITransitionView")]) {
+            [subview removeFromSuperview];
+        }
+    }
+    [viewController dismissViewControllerAnimated:NO completion:^{
+        [viewController.view removeFromSuperview];
+    }];
 }
 
 @end

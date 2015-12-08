@@ -15,4 +15,6 @@
 @property (strong, nonatomic) NSMutableArray *categoryNameArray;
 @property (strong, nonatomic) NSMutableArray *categoryUrlArray;
 
+- (void)clearCategoryData;
+
 @end

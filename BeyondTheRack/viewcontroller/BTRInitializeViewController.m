@@ -48,6 +48,7 @@
         NSMutableArray *categoriesArray = [[NSMutableArray alloc] init];
         categoriesArray = [EventCategory loadCategoriesfromAppServerArray:entitiesPropertyList forCategoriesArray:categoriesArray];
         BTRCategoryData *sharedCategoryData = [BTRCategoryData sharedCategoryData];
+        [sharedCategoryData clearCategoryData];
         for (EventCategory *eventCategory in categoriesArray) {
             [[sharedCategoryData categoryNameArray]  addObject:[[eventCategory displayName]uppercaseString]];
             [[sharedCategoryData categoryUrlArray]  addObject:[eventCategory name]];

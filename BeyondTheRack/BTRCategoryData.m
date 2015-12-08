@@ -39,4 +39,9 @@ static BTRCategoryData *_sharedInstance;
     return _categoryUrlArray;
 }
 
+- (void)clearCategoryData {
+    [_categoryNameArray removeAllObjects];
+    [_categoryUrlArray removeAllObjects];
+}
+
 @end
