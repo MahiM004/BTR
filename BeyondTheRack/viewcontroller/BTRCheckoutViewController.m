@@ -266,7 +266,7 @@
     [self.paymentMethodTF setText:@"Visa Credit"];
     [self.changePaymentMethodCheckbox setChecked:NO];
     [self.changePaymentMethodView setHidden:YES];
-    
+    [self setIsVisible:YES];
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
     
@@ -302,7 +302,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self addSampleGifts];
-    [self setIsVisible:YES];
 }
 
 - (void)resetData {
@@ -414,8 +413,10 @@
         [_freeMontrealView setHidden:YES];
         [self.freeMontrealViewHeightConstraint setConstant:0];
     }
-    if (self.isVisible)
+    if (self.isVisible) {
         [self addSampleGifts];
+        [self setIsVisible:NO];
+    }
     
     self.isLoading = NO;
 }
@@ -1240,16 +1241,13 @@
         return;
     if (self.currentPaymentType == creditCard && [self isBillingAddressCompeleted] && [self isCardInfoCompeleted]) {
         [sender showLoading];
-        self.isVisible = NO;
         [self validateAddressViaAPIAndInCompletion:^() {
             [self makePaymentWithSuccess:^(id responseObject) {
                 [self orderConfirmationWithReceipt:responseObject];
                 [sender hideLoading];
-                self.isVisible = YES;
             } failure:^(NSError *error) {
                 [sender hideLoading];
                 NSLog(@"%@",error);
-                self.isVisible = YES;
             }];
         }];
     } else if (self.currentPaymentType == paypal) {
@@ -1420,7 +1418,6 @@
         if (completionBlock)
             completionBlock(nil);
     } faild:^(NSError *error) {
-        self.isVisible = YES;
     }];
 }
 
