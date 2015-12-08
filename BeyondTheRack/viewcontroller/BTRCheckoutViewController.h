@@ -217,6 +217,8 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet FRDLivelyButton * expandHaveCode;
 
 
+// For iPad
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *payListWithSampleOut;
 
 @property (nonatomic) DownPicker *paymentPicker;
 @property (nonatomic) DownPicker *expiryMonthPicker;

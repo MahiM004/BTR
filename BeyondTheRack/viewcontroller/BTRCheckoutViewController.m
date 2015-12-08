@@ -434,7 +434,7 @@
     CGFloat widthSize = 0;
     if ([BTRViewUtility isIPAD]) {
         self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant;
-        self.viewHeight.constant = self.viewHeight.constant + SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
+        self.payListWithSampleOut.constant += SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
         widthSize = self.view.frame.size.width/2 - 50;
     } else {
         widthSize = self.view.frame.size.width;
@@ -1005,6 +1005,7 @@
     if (giftCardOpened == YES) {
         if ([BTRViewUtility isIPAD]) {
             _giftCardViewHeight.constant += 125;
+            self.haveAGiftViewHeight.constant += 125;
         } else {
             [UIView animateWithDuration:0.5 animations:^{
                 _giftCardViewHeight.constant += 125;
@@ -1017,6 +1018,7 @@
     } else {
         if ([BTRViewUtility isIPAD]) {
             _giftCardViewHeight.constant -= 125;
+            self.haveAGiftViewHeight.constant -= 125;
         } else {
             [UIView animateWithDuration:0.5 animations:^{
                 _giftCardViewHeight.constant -= 125;
@@ -1238,13 +1240,16 @@
         return;
     if (self.currentPaymentType == creditCard && [self isBillingAddressCompeleted] && [self isCardInfoCompeleted]) {
         [sender showLoading];
+        self.isVisible = NO;
         [self validateAddressViaAPIAndInCompletion:^() {
             [self makePaymentWithSuccess:^(id responseObject) {
                 [self orderConfirmationWithReceipt:responseObject];
                 [sender hideLoading];
+                self.isVisible = YES;
             } failure:^(NSError *error) {
                 [sender hideLoading];
                 NSLog(@"%@",error);
+                self.isVisible = YES;
             }];
         }];
     } else if (self.currentPaymentType == paypal) {
@@ -1415,7 +1420,7 @@
         if (completionBlock)
             completionBlock(nil);
     } faild:^(NSError *error) {
-        
+        self.isVisible = YES;
     }];
 }
 
@@ -1633,7 +1638,7 @@
         
     }
     
-    if ( _giftCardViewHeight.constant == 165) {
+    if ( _giftCardViewHeight.constant == 165 && ![BTRViewUtility isIPAD]) {
         size += 125;
     }
     if (self.orderIsGiftCheckbox.checked)
