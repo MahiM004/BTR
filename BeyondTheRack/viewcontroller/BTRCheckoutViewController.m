@@ -1638,7 +1638,7 @@
         
     }
     
-    if ( _giftCardViewHeight.constant == 165 && ![BTRViewUtility isIPAD]) {
+    if ( _giftCardViewHeight.constant == 165) {
         size += 125;
     }
     if (self.orderIsGiftCheckbox.checked)
