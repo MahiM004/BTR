@@ -724,6 +724,18 @@
     self.lastOperation = 0;
 }
 
+#pragma mark shake
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if ( event.subtype == UIEventSubtypeMotionShake ) {
+        BTRAppDelegate *appdel = (BTRAppDelegate *)[[UIApplication sharedApplication]delegate];
+        [appdel backToInitialViewControllerFrom:self];
+    }
+    
+    if ( [super respondsToSelector:@selector(motionEnded:withEvent:)] )
+        [super motionEnded:motion withEvent:event];
+}
+
 @end
 
 
