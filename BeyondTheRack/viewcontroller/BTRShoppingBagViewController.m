@@ -28,6 +28,9 @@
 
 @interface BTRShoppingBagViewController ()
 
+{
+    PKYStepper * pkStepper; // to disable the picked till the response completes(JUST Reference)
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *bagTitle;
 @property (weak, nonatomic) IBOutlet UILabel *subtotalLabel;
@@ -130,6 +133,8 @@
         [UIImageView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:weakcell.itemImageView cache:NO];
         [UIImageView setAnimationDuration:0.5];
         [UIImageView commitAnimations];
+        pkStepper = stepper;
+        pkStepper.userInteractionEnabled = NO;
         [self performSelector:@selector(addOneQuantityForItem:) withObject:bagItem afterDelay:0.5];
     };
     cell.stepper.decrementCallback = ^(PKYStepper *stepper, float count) {
@@ -141,6 +146,8 @@
             [UIImageView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:weakcell.itemImageView cache:NO];
             [UIImageView setAnimationDuration:0.5];
             [UIImageView commitAnimations];
+            pkStepper = stepper;
+            pkStepper.userInteractionEnabled = NO;
             [self performSelector:@selector(removeOneQuantityForItem:) withObject:bagItem afterDelay:0.5];
         }
     };
@@ -281,8 +288,9 @@
     [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         [self reloadInfoWithResponse:response];
 //        [self performSelector:@selector(reloadInfoWithResponse:) withObject:response afterDelay:0.5];
+        pkStepper.userInteractionEnabled = YES;
     }faild:^(NSError *error) {
-        
+        pkStepper.userInteractionEnabled = YES;
     }];
 }
 
@@ -295,8 +303,9 @@
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         [self performSelector:@selector(reloadInfoWithResponse:) withObject:response afterDelay:0.5];
+        pkStepper.userInteractionEnabled = YES;
     }faild:^(NSError *error) {
-        
+        pkStepper.userInteractionEnabled = YES;
     }];
 }
 
