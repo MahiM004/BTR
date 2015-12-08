@@ -24,5 +24,6 @@
 + (NSURL *)URLforFacebookAuthentication;
 + (NSURL *)URLforPasswordReset;
 + (NSURL *)URLforCurrentUser;
++ (NSURL *)URLforDeleteCCToken;
 
 @end

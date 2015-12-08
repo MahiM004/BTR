@@ -30,11 +30,9 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/detail", BASEURL]];
 }
 
-
 + (NSURL *)URLforUserInfoDetail {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/infodetail", BASEURL]];
 }
-
 
 + (NSURL *)URLforUserCredits {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/user/credits", BASEURL]];
@@ -68,6 +66,9 @@
     return [self URLForQuery:[NSString stringWithFormat:@"%@/currentuser", BASEURL]];
 }
 
++ (NSURL *)URLforDeleteCCToken {
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/user/deletecctoken", BASEURL]];
+}
 
 /*
  http://www.mobile.btrdev.com/siteapi/user/logout
