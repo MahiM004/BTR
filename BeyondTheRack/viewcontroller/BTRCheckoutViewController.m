@@ -303,6 +303,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self addSampleGifts];
+    [self setupApplePayButton];
 }
 
 - (void)resetData {
@@ -1108,118 +1109,6 @@
     }
 }
 
-// Picker We are not using
-/*
-#pragma mark - PickerView Delegates
-- (void)loadPickerViewforPickerType:(NSUInteger)pickerType andAddressType:(NSUInteger) addressType {
-    [self setBillingOrShipping:addressType];
-    
-    [self loadPickerViewforPickerType:pickerType];
-}
-- (void)loadPickerViewforPickerType:(NSUInteger)pickerType {
-    [self setPickerType:pickerType];
-    [self.pickerView reloadAllComponents];
-    [self dismissKeyboard];
-    [self.pickerParentView setHidden:FALSE];
-    [self.pickerView becomeFirstResponder];
-}
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    if ([self pickerType] == PROVINCE_PICKER) {
-        if ([self billingOrShipping] == BILLING_ADDRESS)
-            [self.provinceBillingTF setText:[[self provincesArray] objectAtIndex:row]];
-        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
-            [self.provinceShippingTF setText:[[self provincesArray] objectAtIndex:row]];
-    }
-    
-    if ([self pickerType] == STATE_PICKER) {
-        if ([self billingOrShipping] == BILLING_ADDRESS)
-            [self.provinceBillingTF setText:[[self statesArray] objectAtIndex:row]];
-        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
-            [self.provinceShippingTF setText:[[self statesArray] objectAtIndex:row]];
-    }
-    
-    if ([self pickerType] == COUNTRY_PICKER) {
-        if ([self billingOrShipping] == BILLING_ADDRESS) {
-            [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:row]];
-            [self validateAddressViaAPIAndInCompletion:nil];
-        }
-        else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
-            [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:row]];
-            [self validateAddressViaAPIAndInCompletion:nil];
-        }
-    }
-    
-    if ([self pickerType] == EXPIRY_MONTH_PICKER)
-        [self.expiryMonthPaymentTF setText:[[self expiryMonthsArray] objectAtIndex:row]];
-    
-    if ([self pickerType] == EXPIRY_YEAR_PICKER)
-        [self.expiryYearPaymentTF setText:[[self expiryYearsArray] objectAtIndex:row]];
-    
-    if ([self pickerType] == PAYMENT_TYPE_PICKER) {
-        [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
-        if ([self.paymentMethodTF.text isEqualToString:@"Paypal"])
-            [self setCurrentPaymentType:paypal];
-        else
-            [self setCurrentPaymentType:creditCard];
-        [self changeDetailPaymentFor:self.currentPaymentType];
-    }
-    
-    [self.pickerParentView setHidden:TRUE];
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if ([self pickerType] == COUNTRY_PICKER)
-        return [[self countryNameArray] count];
-    
-    if ([self pickerType] == PROVINCE_PICKER)
-        return [[self provincesArray] count];
-    
-    if ([self pickerType] == STATE_PICKER)
-        return [[self statesArray] count];
-    
-    if ([self pickerType] == EXPIRY_MONTH_PICKER)
-        return [[self expiryMonthsArray] count];
-    
-    if ([self pickerType] == EXPIRY_YEAR_PICKER)
-        return [[self expiryYearsArray] count];
-    
-    if ([self pickerType] == PAYMENT_TYPE_PICKER)
-        return [[self paymentTypesArray] count];
-    
-    return  [[self countryNameArray] count];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if ([self pickerType] == COUNTRY_PICKER)
-        return [[self countryNameArray] objectAtIndex:row];
-    
-    if ([self pickerType] == PROVINCE_PICKER)
-        return [[self provincesArray] objectAtIndex:row];
-    
-    if ([self pickerType] == STATE_PICKER)
-        return [[self statesArray] objectAtIndex:row];
-
-    if ([self pickerType] == EXPIRY_MONTH_PICKER)
-        return [[self expiryMonthsArray] objectAtIndex:row];
-    
-    if ([self pickerType] == EXPIRY_YEAR_PICKER)
-        return [[self expiryYearsArray] objectAtIndex:row];
-    
-    if ([self pickerType] == PAYMENT_TYPE_PICKER)
-        return [[self paymentTypesArray] objectAtIndex:row];
-    
-    return [[self countryNameArray] objectAtIndex:row];
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    return 300.0;
-}
-*/
-
 #pragma mark Actions
 
 - (IBAction)processOrderTpped:(BTRLoadingButton *)sender {
@@ -1251,7 +1140,25 @@
     }
 }
 
-- (IBAction)applePayCheckoutTapped:(id)sender {
+#pragma mark ApplePay
+
+- (void)setupApplePayButton {
+    [self.applePayButton removeFromSuperview];
+    if ([self.applePayManager isApplePayAvailable]) {
+        if ([self.applePayManager isApplePaySetup]) {
+            self.applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeBuy style:PKPaymentButtonStyleBlack];
+            [self.applePayButton addTarget:self action:@selector(setupApplePay:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else {
+            self.applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeSetUp style:PKPaymentButtonStyleBlack];
+            [self.applePayButton addTarget:self action:@selector(buyWithApplePay:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        self.applePayButton.bounds = self.applePayButtonView.bounds;
+        [self.applePayButtonView addSubview:self.applePayButton];
+    }
+}
+
+- (IBAction)buyWithApplePay:(UIButton *)sender {
     self.applePayManager = [[ApplePayManager alloc]init];
     self.applePayManager.delegate = self;
     NSDictionary *info = [[NSDictionary alloc]initWithObjectsAndKeys:
@@ -1269,6 +1176,10 @@
         [self.applePayManager showPaymentViewFromViewController:self];
     } failure:^(NSError *error) {
     }];
+}
+
+- (IBAction)setupApplePay:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"shoebox://"]];
 }
 
 #pragma mark - Credit Card RESTful Payment

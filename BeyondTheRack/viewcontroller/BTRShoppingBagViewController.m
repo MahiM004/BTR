@@ -26,15 +26,17 @@
 #import "BTRConfirmationViewController.h"
 #import "BTRLoader.h"
 
-@interface BTRShoppingBagViewController ()
-
-{
-    PKYStepper * pkStepper; // to disable the picked till the response completes(JUST Reference)
+@interface BTRShoppingBagViewController () {
+    PKYStepper * pkStepper;
 }
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *bagTitle;
 @property (weak, nonatomic) IBOutlet UILabel *subtotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *youSaveLabel;
+@property (weak, nonatomic) IBOutlet UIView *applePayButtonView;
+
+@property (weak, nonatomic) UIButton *applePayButton;
 @property (strong, nonatomic) Order *order;
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
@@ -65,6 +67,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self loadBagInfo];
+    [self setupApplePayButton];
 }
 
 - (void)viewDidLoad {
@@ -428,7 +431,7 @@
 
 #pragma mark firstCheckout
 
-- (IBAction)applePay:(UIButton *)sender {
+- (IBAction)buyWithApplePay:(UIButton *)sender {
     if ([self.bagItemsArray count] == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no item in bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
@@ -441,6 +444,10 @@
         [self.applePayManager showPaymentViewFromViewController:self];
     } failure:^(NSError *error) {
     }];
+}
+
+- (IBAction)setupApplePay:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"shoebox://"]];
 }
 
 - (IBAction)paypalCheckout:(UIButton *)sender {
@@ -582,6 +589,23 @@
 - (void)applePayInfoFailedWithError:(NSError *)error {
     
 }
+
+- (void)setupApplePayButton {
+    [self.applePayButton removeFromSuperview];
+    if ([self.applePayManager isApplePayAvailable]) {
+        if ([self.applePayManager isApplePaySetup]) {
+            self.applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeBuy style:PKPaymentButtonStyleBlack];
+            [self.applePayButton addTarget:self action:@selector(setupApplePay:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else {
+            self.applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeSetUp style:PKPaymentButtonStyleBlack];
+            [self.applePayButton addTarget:self action:@selector(buyWithApplePay:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        self.applePayButton.bounds = self.applePayButtonView.bounds;
+        [self.applePayButtonView addSubview:self.applePayButton];
+    }
+}
+
 
 #pragma mark Closing
 

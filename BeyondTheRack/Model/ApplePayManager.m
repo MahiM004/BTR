@@ -26,11 +26,14 @@
 
 @implementation ApplePayManager
 
-- (BOOL)isApplePlayAvailable {
-   if (![PKPaymentAuthorizationViewController canMakePayments]) {
+- (BOOL)isApplePayAvailable {
+   if ([PKPaymentAuthorizationViewController canMakePayments])
        return YES;
-   } else
-       return NO;
+    return NO;
+}
+
+- (BOOL)isApplePaySetup {
+    return [PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkDiscover]];
 }
 
 - (PKPaymentRequest *)paymentRequest {
@@ -40,8 +43,8 @@
     paymentRequest.requiredBillingAddressFields = PKAddressFieldAll;
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
     paymentRequest.merchantCapabilities = PKMerchantCapability3DS;
-    paymentRequest.countryCode = [self.info valueForKey:@"country"]; // e.g. US
-    paymentRequest.currencyCode = [self.info valueForKey:@"currency"]; // e.g. USD
+    paymentRequest.countryCode = [self.info valueForKey:@"country"];
+    paymentRequest.currencyCode = [self.info valueForKey:@"currency"];
     paymentRequest.paymentSummaryItems =
     @[
       [PKPaymentSummaryItem summaryItemWithLabel:@"BEYONDTHERACK" amount:[NSDecimalNumber decimalNumberWithString:[self.info valueForKey:@"total"]]]
