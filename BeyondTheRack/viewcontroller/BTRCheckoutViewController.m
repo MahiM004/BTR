@@ -56,10 +56,10 @@
 @class CTCheckbox;
 
 
-@interface BTRCheckoutViewController ()
-{
+@interface BTRCheckoutViewController () {
     BOOL giftCardOpened;
 }
+
 @property (nonatomic, strong) UIPopoverController *userDataPopover;
 @property (strong, nonatomic) Freeship* freeshipInfo;
 
@@ -267,7 +267,6 @@
     [self.paymentMethodTF setText:@"Visa Credit"];
     [self.changePaymentMethodCheckbox setChecked:NO];
     [self.changePaymentMethodView setHidden:YES];
-    [self setIsVisible:YES];
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
     
