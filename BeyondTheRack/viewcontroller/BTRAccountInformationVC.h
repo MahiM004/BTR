@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <IQKeyboardManager.h>
+#import <IQKeyboardReturnKeyHandler.h>
+#import <IQUIView+IQKeyboardToolbar.h>
+#import <IQUIViewController+Additions.h>
 
 @interface BTRAccountInformationVC : UIViewController <UIPickerViewDelegate>
 

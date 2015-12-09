@@ -15,6 +15,10 @@
 #import "ApplePayManager.h"
 #import <FRDLivelyButton/FRDLivelyButton.h>
 #import "DownPicker.h"
+#import <IQKeyboardManager.h>
+#import <IQKeyboardReturnKeyHandler.h>
+#import <IQUIView+IQKeyboardToolbar.h>
+#import <IQUIViewController+Additions.h>
 
 typedef enum {
     creditCard,
