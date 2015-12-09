@@ -29,7 +29,8 @@ typedef enum  PopUPType{
     PopUPTypeExpiryMonth,
     PopUPTypeState,
     PopUPTypeProvince,
-    PopUPTypeBillingCountry
+    PopUPTypeBillingCountry,
+    PopUPTypeShippingCountry
 }PopUPType;
 
 @interface BTRCheckoutViewController : UIViewController <UIPickerViewDelegate,UITextFieldDelegate,MasterPassInfoDelegate,UIAlertViewDelegate,CardIOPaymentViewControllerDelegate,ApplePayDelegate,PopUPDelegate,DropDownPickerDelegate>
@@ -225,6 +226,10 @@ typedef enum  PopUPType{
 @property (nonatomic) DownPicker *expiryYearPicker;
 @property (nonatomic) DownPicker *billingCountryPicker;
 @property (nonatomic) DownPicker *shippingCountryPicker;
+
+
+//VIP PickUP Label
+@property (weak, nonatomic) IBOutlet UILabel *vipTitleText;
 
 @end
 

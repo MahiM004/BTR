@@ -409,11 +409,16 @@
     if ([[self.order eligiblePickup] boolValue]) {
         [_freeMontrealView setHidden:NO];
         [self.freeMontrealViewHeightConstraint setConstant:50];
+        [self resetSize];
     } else {
         [_freeMontrealView setHidden:YES];
         [self.freeMontrealViewHeightConstraint setConstant:0];
+        [self resetSize];
     }
     if (self.isVisible) {
+        if ([[self.order vipPickupEligible]boolValue]) {
+            [self vipOptionChecked];
+        }
         [self addSampleGifts];
         [self setIsVisible:NO];
     }
@@ -546,21 +551,26 @@
         return;
     
     if ([checkbox checked]) {
-        [self.addressLine1ShippingTF setText:self.order.pickupAddress.addressLine1];
-        [self.addressLine2ShippingTF setText:self.order.pickupAddress.addressLine2];
-        [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:self.order.pickupAddress.country]];
-        [self.zipCodeShippingTF setText:self.order.pickupAddress.postalCode];
-        [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:self.order.pickupAddress.province]];
-        [self.cityShippingTF setText:self.order.pickupAddress.city];
-        [self.recipientNameShippingTF setText:self.order.pickupTitle];
-        [self.phoneShippingTF setText:self.order.pickupAddress.phoneNumber];
-        [self disableShippingAddress];
-        
+        [self vipOptionChecked];
     } else if (![checkbox checked]) {
         [self clearShippingAddress];
         [self enableShippingAddress];
     }
     [self validateAddressViaAPIAndInCompletion:nil];
+}
+
+-(void)vipOptionChecked {
+    [self.addressLine1ShippingTF setText:self.order.pickupAddress.addressLine1];
+    [self.addressLine2ShippingTF setText:self.order.pickupAddress.addressLine2];
+    [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:self.order.pickupAddress.country]];
+    [self.zipCodeShippingTF setText:self.order.pickupAddress.postalCode];
+    [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:self.order.pickupAddress.province]];
+    [self.cityShippingTF setText:self.order.pickupAddress.city];
+    NSString * vipTitle = [NSString stringWithFormat:@"VIP Option: Pick up from %@ (no shipping fees)",self.order.pickupTitle];
+    [self.vipTitleText setText:vipTitle];
+    [self.recipientNameShippingTF setText:self.order.pickupAddress.name];
+    [self.phoneShippingTF setText:self.order.pickupAddress.phoneNumber];
+    [self disableShippingAddress];
 }
 
 - (void)checkboxPickupOptionDidChange:(CTCheckbox *)checkbox {
@@ -1038,7 +1048,7 @@
 
 - (IBAction)shippingCountryButtonTapped:(UIButton *)sender {
     if ([BTRViewUtility isIPAD]) {
-        _popType = PopUPTypeBillingCountry;
+        _popType = PopUPTypeShippingCountry;
         [self setBillingOrShipping:SHIPPING_ADDRESS];
         [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self countryNameArray]] inView:_shippingDetailsView inFrameView:sender];
     } else {
@@ -1737,13 +1747,12 @@
             [self.provinceShippingTF setText:[[self provincesArray] objectAtIndex:index.row]];
     }
     else if (_popType == PopUPTypeBillingCountry) {
-        if ([self billingOrShipping] == BILLING_ADDRESS) {
             [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
-        }
-        else if ([self billingOrShipping] == SHIPPING_ADDRESS) {
+            [self validateAddressViaAPIAndInCompletion:nil];
+    }
+    else if (_popType == PopUPTypeShippingCountry) {
             [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
-        }
-        [self validateAddressViaAPIAndInCompletion:nil];
+            [self validateAddressViaAPIAndInCompletion:nil];
     }
     [self.userDataPopover dismissPopoverAnimated:NO];
 }
