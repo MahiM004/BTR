@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2UK-j1-Cdh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2UK-j1-Cdh">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -2386,7 +2386,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="395FC434-B0B0-44BF-93BF-B75E6B6FA17A" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="959B4102-5800-4101-9959-B93E0C1CFA6C" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3705,6 +3705,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ep-le-8gJ">
+                                <rect key="frame" x="249" y="71" width="66" height="16"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="66" id="4OU-PI-qOP"/>
+                                    <constraint firstAttribute="height" constant="16" id="v6T-vN-THd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LB4-ue-UID">
                                 <rect key="frame" x="13" y="71" width="31" height="16"/>
                                 <animations/>
@@ -3721,8 +3732,10 @@
                         <constraints>
                             <constraint firstItem="bqJ-5g-fyc" firstAttribute="top" secondItem="QxO-dn-zdk" secondAttribute="top" id="5Pz-xW-HNq"/>
                             <constraint firstItem="sMo-um-bY6" firstAttribute="top" secondItem="bqJ-5g-fyc" secondAttribute="bottom" constant="20" id="AGo-G4-q7g"/>
+                            <constraint firstItem="7Ep-le-8gJ" firstAttribute="top" secondItem="bqJ-5g-fyc" secondAttribute="bottom" constant="1" id="OLY-RZ-7FX"/>
                             <constraint firstItem="LB4-ue-UID" firstAttribute="leading" secondItem="QxO-dn-zdk" secondAttribute="leading" constant="13" id="Ukf-a5-wvV"/>
                             <constraint firstItem="sMo-um-bY6" firstAttribute="leading" secondItem="QxO-dn-zdk" secondAttribute="leading" id="VKJ-N2-cjo"/>
+                            <constraint firstAttribute="trailing" secondItem="7Ep-le-8gJ" secondAttribute="trailing" constant="5" id="VzL-Ku-9VT"/>
                             <constraint firstItem="LB4-ue-UID" firstAttribute="top" secondItem="bqJ-5g-fyc" secondAttribute="bottom" constant="1" id="ck8-sr-Z3p"/>
                             <constraint firstItem="bqJ-5g-fyc" firstAttribute="leading" secondItem="QxO-dn-zdk" secondAttribute="leading" id="gyB-Br-4QC"/>
                             <constraint firstAttribute="trailing" secondItem="sMo-um-bY6" secondAttribute="trailing" id="iko-g1-Gzp"/>
@@ -6966,6 +6979,7 @@
                         <outlet property="vipOptionCheckbox" destination="9Cb-mb-Lcm" id="QkX-Ap-Iba"/>
                         <outlet property="vipOptionView" destination="S7k-4C-rbH" id="nRh-jO-pco"/>
                         <outlet property="vipOptionViewHeight" destination="hRQ-1m-vhw" id="w3R-U6-bWp"/>
+                        <outlet property="vipTitleText" destination="2zn-Q3-DuB" id="k3c-R5-vPr"/>
                         <outlet property="visaCheckoutButton" destination="N6S-j5-1Bl" id="NT0-8T-0WX"/>
                         <outlet property="youSaveDollarLabel" destination="wjg-7I-Qij" id="S8x-pN-0AM"/>
                         <outlet property="zipCodeShippingTF" destination="YGG-Uy-qkk" id="eB4-HB-2uw"/>
@@ -11851,6 +11865,7 @@ If so, please provide the order number,
                         <outlet property="vipOptionCheckbox" destination="Wjn-ar-Qmj" id="SqT-cM-M2Y"/>
                         <outlet property="vipOptionView" destination="RIJ-Au-AGY" id="Tgo-lx-ILn"/>
                         <outlet property="vipOptionViewHeight" destination="J8H-uR-d8C" id="ZiZ-eb-7eF"/>
+                        <outlet property="vipTitleText" destination="YNQ-37-UME" id="hYF-kY-IDo"/>
                         <outlet property="visaCheckoutButton" destination="bHu-34-pDc" id="GDo-gq-YWh"/>
                         <outlet property="youSaveDollarLabel" destination="1aS-WB-vs6" id="l4j-ua-L9Y"/>
                         <outlet property="zipCodeShippingTF" destination="KeA-xK-p1X" id="eGS-UJ-rsk"/>
@@ -12271,7 +12286,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="395FC434-B0B0-44BF-93BF-B75E6B6FA17A" width="30" height="30">
+        <image name="959B4102-5800-4101-9959-B93E0C1CFA6C" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
