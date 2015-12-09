@@ -1302,7 +1302,6 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
-    [orderInfo setObject:[self selectedGift] forKey:@"promotions_opted_in"];
     [params setObject:orderInfo forKey:@"orderInfo"];
     
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]];
@@ -1324,7 +1323,22 @@
     }
 }
 
-- (IBAction)zipCodeHasBeenEntererd:(id)sender {
+- (IBAction)zipCodeHasBeenEntererd:(UITextField *)sender {
+    
+    if ([sender isEqual:self.postalCodeBillingTF]) {
+        if ([[self.postalCodeBillingTF.text lowercaseString] characterAtIndex:0] == 'h')
+            self.countryBillingTF.text = @"Canada";
+        else
+            self.countryBillingTF.text = @"USA";
+    }
+    
+    if ([sender isEqual:self.zipCodeShippingTF]) {
+        if ([[self.zipCodeShippingTF.text lowercaseString] characterAtIndex:0] == 'h')
+            self.countryShippingTF.text = @"Canada";
+        else
+            self.countryShippingTF.text = @"USA";
+    }
+    
     [self validateAddressViaAPIAndInCompletion:nil];
 }
 
