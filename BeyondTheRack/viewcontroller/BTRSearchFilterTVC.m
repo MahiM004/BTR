@@ -63,6 +63,9 @@
     
     [super viewWillAppear:YES];
     
+    [self.titles removeAllObjects];
+    [self.titles addObjectsFromArray:@[@"SORT ITEMS", PRICE_TITLE, CATEGORY_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
+    
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     [self.selectedPrices removeAllObjects];
@@ -86,6 +89,23 @@
     if ([sharedFacetHandler getSelectedSizesArray])
         [self.selectedSizes setArray:[sharedFacetHandler getSelectedSizesArray]];
     
+    
+    if (sharedFacetHandler.getPriceFiltersForDisplay.count == 0) {
+        [self.titles removeObjectAtIndex:1];
+    }
+    else if (sharedFacetHandler.getCategoryFiltersForDisplay.count == 0) {
+        [self.titles removeObjectAtIndex:2];
+    }
+    else if (sharedFacetHandler.getBrandFiltersForDisplay.count == 0) {
+        [self.titles removeObjectAtIndex:3];
+    }
+    else  if (sharedFacetHandler.getColorFiltersForDisplay.count == 0) {
+        [self.titles removeObjectAtIndex:4];
+    }
+    else if (sharedFacetHandler.getSizeFiltersForDisplay.count == 0) {
+        [self.titles removeObjectAtIndex:5];
+    }
+    
     [self.tableView reloadData];
     
 }
@@ -102,7 +122,7 @@
     else if ([[sharedFacetHandler getSelectedSortString] isEqualToString:LOWEST_TO_HIGHEST])
         selectedSortIndex = 2;
         
-    self.titles = [[NSMutableArray alloc] initWithArray:@[@"SORT ITEMS", PRICE_TITLE, CATEGORY_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
+    self.titles = [[NSMutableArray alloc]init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -113,7 +133,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    return self.titles.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -146,20 +166,22 @@
     }
     return 1;
 }
-
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == SORT_SECTION)
-        return [NSString stringWithFormat:@"        %@", [self.titles objectAtIndex:section]];
-    return [NSString stringWithFormat:@"        FILTER BY %@", [self.titles objectAtIndex:section]];
+/// Customize if you want
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView * vv = [[UIView alloc]initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, 30)];
+    vv.backgroundColor = [UIColor whiteColor];
+    UILabel * ll = [[UILabel alloc]initWithFrame:CGRectMake(20, 10, 200, 30)];
+    if ( section == 0) {
+        ll.text = [NSString stringWithFormat:@"        %@", [self.titles objectAtIndex:section]];
+    } else {
+        ll.text = [NSString stringWithFormat:@"        FILTER BY %@", [self.titles objectAtIndex:section]];
+    }
+    [vv addSubview: ll];
+    return vv;
 }
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    view.tintColor = [UIColor blueColor];
-    UITableViewHeaderFooterView *headerIndexText = (UITableViewHeaderFooterView *)view;
-    [headerIndexText.textLabel setTextColor:[UIColor colorWithWhite:0 alpha:0.8]];
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 50;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50;
 }

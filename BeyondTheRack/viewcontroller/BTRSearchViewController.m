@@ -182,6 +182,10 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (self.itemsArray.count > 0) {
+        [self.itemsArray removeAllObjects];
+        [self.collectionView reloadData];
+    }
     if (searchText.length == 0) {
         [self.suggestionArray removeAllObjects];
         [self.suggestionTableView setHidden:YES];
@@ -669,13 +673,15 @@
 #pragma mark ScrollView Delegate
 
 -(void)scrollViewDidScroll: (UIScrollView*)scrollView {
-    float scrollViewHeight = scrollView.frame.size.height;
-    float scrollContentSizeHeight = scrollView.contentSize.height;
-    float scrollOffset = scrollView.contentOffset.y;
-    if (scrollOffset + scrollViewHeight > scrollContentSizeHeight - 2 * self.collectionView.frame.size.height) {
-        if (!self.isLoadingNextPage && !self.lastPageDidLoad) {
-            [BTRLoader showLoaderInView:self.view];
-            [self callForNextPage];
+    if (self.suggestionTableView.hidden) {
+        float scrollViewHeight = scrollView.frame.size.height;
+        float scrollContentSizeHeight = scrollView.contentSize.height;
+        float scrollOffset = scrollView.contentOffset.y;
+        if (scrollOffset + scrollViewHeight > scrollContentSizeHeight - 2 * self.collectionView.frame.size.height) {
+            if (!self.isLoadingNextPage && !self.lastPageDidLoad) {
+                [BTRLoader showLoaderInView:self.view];
+                [self callForNextPage];
+            }
         }
     }
 }
