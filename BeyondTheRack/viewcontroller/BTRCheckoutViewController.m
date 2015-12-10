@@ -1324,23 +1324,7 @@
 }
 
 - (IBAction)zipCodeHasBeenEntererd:(UITextField *)sender {
-    if (sender.text.length != 0) {
-        if ([sender isEqual:self.postalCodeBillingTF]) {
-            if ([[self.postalCodeBillingTF.text lowercaseString] characterAtIndex:0] == 'h')
-                self.countryBillingTF.text = @"Canada";
-            else
-                self.countryBillingTF.text = @"USA";
-        }
-        
-        if ([sender isEqual:self.zipCodeShippingTF]) {
-            if ([[self.zipCodeShippingTF.text lowercaseString] characterAtIndex:0] == 'h')
-                self.countryShippingTF.text = @"Canada";
-            else
-                self.countryShippingTF.text = @"USA";
-        }
-        
-        [self validateAddressViaAPIAndInCompletion:nil];
-    }
+    [self validateAddressViaAPIAndInCompletion:nil];
 }
 
 - (IBAction)freeMontrealInfoAction:(UIButton *)sender {
