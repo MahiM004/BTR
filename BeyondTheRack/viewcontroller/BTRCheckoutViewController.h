@@ -51,6 +51,12 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet UIButton *masterPassButton;
 
 
+// Free Shipping Promo
+@property (weak, nonatomic) IBOutlet UIControl *FreeshipingPromoView;
+@property (weak, nonatomic) IBOutlet UILabel *freeshipMessageLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *freeShippingPromoHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *freeshipMessageLabelHeight;
+
 // VIP
 @property (weak, nonatomic) IBOutlet UIControl *vipOptionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *vipOptionViewHeight;
@@ -127,6 +133,7 @@ typedef enum  PopUPType{
 
 @property (weak, nonatomic) IBOutlet CTCheckbox *vipOptionCheckbox;
 @property (weak, nonatomic) IBOutlet CTCheckbox *pickupOptionCheckbox;
+@property (weak, nonatomic) IBOutlet CTCheckbox *freeshipOptionCheckbox;
 
 @property (weak, nonatomic) IBOutlet UITextField *recipientNameShippingTF;
 @property (weak, nonatomic) IBOutlet UITextField *addressLine1ShippingTF;

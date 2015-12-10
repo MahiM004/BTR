@@ -42,14 +42,13 @@
 #define CARD_PAYMENT_TIP_HEIGHT 65.0
 #define SAMPLE_GIFT_HEIGHT 120.0
 #define FASTPAYMENT_HEIGHT 110.0
-#define VIP_HEIGHT 45.0
-#define SAME_AS_SHIPPING_HEIGHT 45.0
+#define CHECKBOXES_HEIGHT 45.0
 #define FILL_SHIPPING_HEIGHT 50.0
 #define GIFT_MAX_HEIGHT 175.0
 #define GIFT_CARD_HEIGHT 40.0
 #define REMEBER_CARD_INFO_HEIGHT 75.0
 
-#define DEFAULT_VIEW_HEIGHT_IPHONE 3200
+#define DEFAULT_VIEW_HEIGHT_IPHONE 3250
 #define DEFAULT_VIEW_HEIGHT_IPAD 1810
 
 
@@ -237,9 +236,6 @@
     for (NSInteger i = currentYear; i < 21 + currentYear; i++)
         [[self expiryYearsArray] addObject:[NSString stringWithFormat:@"%ld", (long)i]];
     
-    self.pickerView.delegate = self;
-    [self.pickerParentView setHidden:TRUE];
-    
     // hidding gift info
     [self.giftLabel setHidden:YES];
     [self.giftDollarLabel setHidden:YES];
@@ -313,39 +309,6 @@
 - (void)loadOrderData {
     self.isLoading = YES;
 
-    // shipping
-    [self.recipientNameShippingTF setText:[self.order shippingRecipientName]];
-    [self.addressLine1ShippingTF setText:[[self.order shippingAddress]addressLine1]];
-    [self.addressLine2ShippingTF setText:[[self.order shippingAddress]addressLine2]];
-    [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:[[self.order shippingAddress]country]]];
-    [self.zipCodeShippingTF setText:[[self.order shippingAddress]postalCode]];
-    [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:[[self.order shippingAddress]province]]];
-    [self.cityShippingTF setText:[[self.order shippingAddress]city]];
-    [self.phoneShippingTF setText:[[self.order shippingAddress]phoneNumber]];
-    if ([self.order.shippingAddress.country isEqualToString:@"US"]) {
-        self.shippingProvinceLB.text = @"STATE";
-        self.shippingPostalCodeLB.text = @"ZIP CODE";
-    } else {
-        self.shippingProvinceLB.text = @"PROVINCE";
-        self.shippingPostalCodeLB.text = @"POSTAL CODE";
-    }
-   
-    // billing
-    [self.addressLine1BillingTF setText:[[self.order billingAddress]addressLine1]];
-    [self.addressLine2BillingTF setText:[[self.order billingAddress]addressLine2]];
-    [self.countryBillingTF setText:[BTRViewUtility countryNameforCode:[[self.order billingAddress]country]]];
-    [self.postalCodeBillingTF setText:[[self.order billingAddress]postalCode]];
-    [self.provinceBillingTF setText:[BTRViewUtility provinceNameforCode:[[self.order billingAddress]province]]];
-    [self.cityBillingTF setText:[[self.order billingAddress]city]];
-    [self.phoneBillingTF setText:[[self.order billingAddress]phoneNumber]];
-    if ([self.order.billingAddress.country isEqualToString:@"US"]) {
-        self.billingProvinceLB.text = @"STATE";
-        self.billingPostalCodeLB.text = @"ZIP CODE";
-    } else {
-        self.billingProvinceLB.text = @"PROVINCE";
-        self.billingPostalCodeLB.text = @"POSTAL CODE";
-    }
-    
     // checkboxes
     [self.vipOptionCheckbox setChecked:[[self.order vipPickup] boolValue]];
     [self.sameAddressCheckbox setChecked:[[self.order billingSameAsShipping] boolValue]];
@@ -416,6 +379,24 @@
         [self.freeMontrealViewHeightConstraint setConstant:0];
         [self resetSize];
     }
+    
+    // Free ShipAddress
+    if ([[self.order isFreeshipAddress]boolValue] && ![[self.order vipPickupEligible]boolValue]) {
+        [self fillShippingAddressByAddress:self.order.promoShippingAddress];
+        [self fillBillingAddressByAddress:self.order.promoBillingAddress];
+        [self disableShippingAddress];
+        [self.FreeshipingPromoView setHidden:NO];
+        [self.pleaseFillOutTheShippingFormView setHidden:YES];
+        [self.fillFormLabelViewHeight setConstant:0];
+        [self.freeShippingPromoHeight setConstant:CHECKBOXES_HEIGHT];
+    } else {
+        [self enableShippingAddress];
+        [self fillShippingAddressByAddress:self.order.shippingAddress];
+        [self fillBillingAddressByAddress:self.order.billingAddress];
+        [self.FreeshipingPromoView setHidden:YES];
+        [self.freeShippingPromoHeight setConstant:0];
+    }
+    
     if (self.isVisible) {
         if ([[self.order vipPickupEligible]boolValue]) {
             [self vipOptionChecked];
@@ -477,11 +458,24 @@
     [self.pickupOptionCheckbox addTarget:self action:@selector(checkboxPickupOptionDidChange:) forControlEvents:UIControlEventValueChanged];
     [self.changePaymentMethodCheckbox addTarget:self action:@selector(checkboxChangePaymentMethodDidChange:) forControlEvents:UIControlEventValueChanged];
     [self.orderIsGiftCheckbox addTarget:self action:@selector(checkboxIsGiftChange:) forControlEvents:UIControlEventValueChanged];
+    [self.freeshipOptionCheckbox addTarget:self action:@selector(checkboxFreeshipAddressChanged:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (IBAction)shippingFieldChanged:(id)sender {
     if (self.sameAddressCheckbox.checked)
         [self copyShipingAddressToBillingAddress];
+}
+
+- (void)checkboxFreeshipAddressChanged:(CTCheckbox *)checkbox {
+    if (checkbox.checked) {
+        [self clearShippingAddress];
+        [self enableShippingAddress];
+        [self.freeshipMessageLabelHeight setConstant:75];
+    } else {
+        [self.freeshipMessageLabelHeight setConstant:0];
+        [self loadOrderData];
+    }
+    [self resetSize];
 }
 
 -(void)checkboxChangePaymentMethodDidChange:(CTCheckbox *)checkbox {
@@ -600,7 +594,7 @@
 
 - (void)enableShippingAddress {
     [self.sameAsShippingAddressView setHidden:FALSE];
-    [self.sameAsShippingHeight setConstant:SAME_AS_SHIPPING_HEIGHT];
+    [self.sameAsShippingHeight setConstant:CHECKBOXES_HEIGHT];
 
     [self.shippingCountryButton setEnabled:TRUE];
     [self.shippingStateButton setEnabled:TRUE];
@@ -787,6 +781,41 @@
     [orderInfo setObject:[self selectedGift] forKey:@"promotions_opted_in"];
     
     return orderInfo;
+}
+
+- (void)fillShippingAddressByAddress:(Address *)address {
+    [self.recipientNameShippingTF setText:address.name];
+    [self.addressLine1ShippingTF setText:address.addressLine1];
+    [self.addressLine2ShippingTF setText:address.addressLine2];
+    [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:address.country]];
+    [self.zipCodeShippingTF setText:address.postalCode];
+    [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:address.province]];
+    [self.cityShippingTF setText:address.city];
+    [self.phoneShippingTF setText:address.phoneNumber];
+    if ([self.order.shippingAddress.country isEqualToString:@"US"]) {
+        self.shippingProvinceLB.text = @"STATE";
+        self.shippingPostalCodeLB.text = @"ZIP CODE";
+    } else {
+        self.shippingProvinceLB.text = @"PROVINCE";
+        self.shippingPostalCodeLB.text = @"POSTAL CODE";
+    }
+}
+
+- (void)fillBillingAddressByAddress:(Address *)address {
+    [self.addressLine1BillingTF setText:address.addressLine1];
+    [self.addressLine2BillingTF setText:address.addressLine2];
+    [self.countryBillingTF setText:[BTRViewUtility countryNameforCode:address.country]];
+    [self.postalCodeBillingTF setText:address.postalCode];
+    [self.provinceBillingTF setText:[BTRViewUtility provinceNameforCode:address.province]];
+    [self.cityBillingTF setText:address.city];
+    [self.phoneBillingTF setText:address.phoneNumber];
+    if ([self.order.billingAddress.country isEqualToString:@"US"]) {
+        self.billingProvinceLB.text = @"STATE";
+        self.billingPostalCodeLB.text = @"ZIP CODE";
+    } else {
+        self.billingProvinceLB.text = @"PROVINCE";
+        self.billingPostalCodeLB.text = @"POSTAL CODE";
+    }
 }
 
 - (void)fillPaymentInfoWithCurrentData {
@@ -1528,6 +1557,12 @@
         
     }
     
+    if (self.freeShippingPromoHeight.constant == 0) {
+        size = size - CHECKBOXES_HEIGHT;
+    }
+    if (self.freeshipMessageLabelHeight.constant > 0) {
+        size = size + self.freeshipMessageLabelHeight.constant;
+    }
     if ( _giftCardViewHeight.constant == 165) {
         size += 125;
     }
@@ -1535,7 +1570,7 @@
         size = size + GIFT_MAX_HEIGHT;
     
     if (_vipOptionViewHeight.constant == 0) {
-        size = size - VIP_HEIGHT;
+        size = size - CHECKBOXES_HEIGHT;
     }
     if (_freeMontrealViewHeightConstraint.constant == 50) {
         size += 50;

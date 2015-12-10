@@ -120,9 +120,8 @@
         order.billingAddress.postalCode = [billingAddressDic valueForKeyPath:@"postal"];
     if ([billingAddressDic valueForKeyPath:@"state"] && [billingAddressDic valueForKeyPath:@"state"] != [NSNull null])
         order.billingAddress.province = [billingAddressDic valueForKeyPath:@"state"];
-    
     if ([billingAddressDic valueForKeyPath:@"name"] && [billingAddressDic valueForKeyPath:@"name"] != [NSNull null])
-        order.billingName = [billingAddressDic valueForKeyPath:@"name"];
+        order.billingAddress.name = [billingAddressDic valueForKeyPath:@"name"];
     
     /**
      
@@ -149,7 +148,7 @@
     if ([shippingAddressDic valueForKeyPath:@"state"] && [shippingAddressDic valueForKeyPath:@"state"] != [NSNull null]) 
         order.shippingAddress.province = [shippingAddressDic valueForKeyPath:@"state"];
     if ([shippingAddressDic valueForKeyPath:@"name"] && [shippingAddressDic valueForKeyPath:@"name"] != [NSNull null])
-        order.shippingRecipientName = [shippingAddressDic valueForKeyPath:@"name"];
+        order.shippingAddress.name = [shippingAddressDic valueForKeyPath:@"name"];
     
     /**
      
@@ -178,9 +177,8 @@
         order.promoBillingAddress.postalCode = [shippingAddressDic valueForKeyPath:@"postal"];
     if ([shippingAddressDic valueForKeyPath:@"state"] && [shippingAddressDic valueForKeyPath:@"state"] != [NSNull null])
         order.promoBillingAddress.province = [shippingAddressDic valueForKeyPath:@"state"];
-    
     if ([shippingAddressDic valueForKeyPath:@"name"] && [shippingAddressDic valueForKeyPath:@"name"] != [NSNull null])
-        order.promoBillingName = [shippingAddressDic valueForKeyPath:@"name"];
+        order.promoBillingAddress.name = [shippingAddressDic valueForKeyPath:@"name"];
     
     if ([shippingPromo valueForKeyPath:@"isFreeshipAddress"] && [shippingPromo valueForKeyPath:@"isFreeshipAddress"] != [NSNull null])
         order.isFreeshipAddress = [[shippingPromo valueForKeyPath:@"isFreeshipAddress"] stringValue];
@@ -188,7 +186,7 @@
     
     NSDictionary *shippingPromoAddress = shippingPromo[@"shipping"];
     if (!order.promoShippingAddress)
-        order.promoBillingAddress = [[Address alloc]init];
+        order.promoShippingAddress = [[Address alloc]init];
     
     if ([shippingPromoAddress valueForKeyPath:@"address1"] && [shippingPromoAddress valueForKeyPath:@"address1"] != [NSNull null])
         order.promoShippingAddress.addressLine1 = [shippingPromoAddress valueForKeyPath:@"address1"];
@@ -204,9 +202,8 @@
         order.promoShippingAddress.postalCode = [shippingPromoAddress valueForKeyPath:@"postal"];
     if ([shippingPromoAddress valueForKeyPath:@"state"] && [shippingPromoAddress valueForKeyPath:@"state"] != [NSNull null])
         order.promoShippingAddress.province = [shippingPromoAddress valueForKeyPath:@"state"];
-    
     if ([shippingPromoAddress valueForKeyPath:@"name"] && [shippingPromoAddress valueForKeyPath:@"name"] != [NSNull null])
-        order.promoShipName = [shippingPromoAddress valueForKeyPath:@"name"];
+        order.promoShippingAddress.name = [shippingPromoAddress valueForKeyPath:@"name"];
     
     /**
      
