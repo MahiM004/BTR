@@ -496,8 +496,10 @@
 }
 
 - (IBAction)unwindFromRefineResultsCleared:(UIStoryboardSegue *)unwindSegue {
-    [self.itemsArray removeAllObjects];
-    [self.collectionView reloadData];
+    // We have to discuss about this
+    // What list we have to show here
+//    [self.itemsArray removeAllObjects];
+//    [self.collectionView reloadData];
 }
 
 - (IBAction)unwindFromProductDetailToSearchScene:(UIStoryboardSegue *)unwindSegue {
