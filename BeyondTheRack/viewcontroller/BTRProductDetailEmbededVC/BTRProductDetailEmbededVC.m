@@ -245,7 +245,7 @@
         [nameCell.selectSizeLabel setAttributedText:[BTRViewUtility crossedOffStringfromString:@"Select Size :"]];
         [nameCell.selectSizeLabel setAlpha:0.4];
         [nameCell.selectSizeButton setEnabled:false];
-        [nameCell.sizeLabel setText:@"One Size"];
+        [nameCell.sizeLabel setText:@"Size"];
         [nameCell.sizeLabel setTextColor:[UIColor blackColor]];
         [nameCell.dropdownLabelIcon setHidden:YES];
         [nameCell.sizeChartView setHidden:YES];
