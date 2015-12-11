@@ -19,6 +19,7 @@
 @interface BTRContactUSViewController ()
 @property (strong, nonatomic) NSArray *inquiryArray;
 @property (nonatomic, strong) NSArray *faqArray;
+@property (nonatomic, strong) UIPopoverController *userDataPopover;
 @end
 
 @implementation BTRContactUSViewController
@@ -44,6 +45,8 @@
         self.faqPicker = [[DownPicker alloc] initWithTextField:self.typeOfInquiryTF withData:[self inquiryArray] pickType:@"faq"];
         [self.faqPicker showArrowImage:NO];
         self.faqPicker.delegate = self;
+    } else {
+        self.typeOfInquiryBtn.hidden = NO;
     }
 }
 -(void)viewWillAppear:(BOOL)animated {
@@ -125,7 +128,9 @@
     [self.sendMessageButton setTitle:self.contactInformaion.sendMessage forState:UIControlStateNormal];
 }
 
-
+-(IBAction)typeOfEnquiry:(id)sender {
+    [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self inquiryArray]] inView:self.parentView inFrameView:self.typeOfInquiryTF];
+}
 // send messsage
 
 - (IBAction)sendMessage:(id)sender {
@@ -263,5 +268,27 @@
 #pragma mark DropPicker Delegate
 -(void)pickerType:(NSString *)pickType selectedIndex:(NSInteger)row {
 
+}
+
+//// iPod PopUp View
+-(void)openPopView:(UIButton*)sender Data:(NSMutableArray*)getArr inView:(UIView*)view inFrameView:(UIView*)frameV {
+    BTRPopUpVC *popView = [self.storyboard instantiateViewControllerWithIdentifier:@"popView"];
+    popView.delegate = self;
+    popView.getArray = [NSMutableArray arrayWithArray:getArr];
+    self.userDataPopover = [[UIPopoverController alloc] initWithContentViewController:popView];
+
+    self.userDataPopover.popoverContentSize = CGSizeMake(400, 225);
+    [self.userDataPopover presentPopoverFromRect:[frameV frame]
+                                          inView:view
+                        permittedArrowDirections:UIPopoverArrowDirectionAny
+                                        animated:NO];
+}
+
+/// iPad Popover
+#pragma mark - BTRPopUPDelegate method implementation
+
+-(void)userDataChangedWith:(NSIndexPath *)index{
+    [self.typeOfInquiryTF setText:[[self inquiryArray] objectAtIndex:index.row]];
+    [self.userDataPopover dismissPopoverAnimated:NO];
 }
 @end
