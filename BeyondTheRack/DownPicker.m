@@ -89,6 +89,18 @@
     return [dataArray count];
 }
 
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view {
+    UILabel* tView = (UILabel*)view;
+    if (!tView){
+        tView = [[UILabel alloc] init];
+        tView.adjustsFontSizeToFitWidth = YES;
+        [tView setFont:[UIFont fontWithName:@"Helvetica neue" size:16]];
+        tView.textAlignment = NSTextAlignmentCenter;
+    }
+    tView.text = [dataArray objectAtIndex:row];
+    return tView;
+}
+
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
 {
     return [dataArray objectAtIndex:row];
@@ -117,6 +129,7 @@
 
 -(void)cancelClicked:(id)sender
 {
+    [self.delegate pickerType:self.pickerType selectedIndex:self.selectedIndex];
     [textField resignFirstResponder]; //hides the pickerView
     if (_previousSelectedString.length == 0 || ![self->dataArray containsObject:_previousSelectedString]) {
         self->textField.placeholder = self->placeholder;

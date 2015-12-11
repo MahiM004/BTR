@@ -38,6 +38,13 @@
     self.view.backgroundColor = _headerView.backgroundColor= [BTRViewUtility BTRBlack];
     _descriptionTV.text = @"Enter message here";
     _descriptionTV.textColor = [UIColor lightGrayColor];
+    
+    // iPhone Picker
+    if (![BTRViewUtility isIPAD]) {
+        self.faqPicker = [[DownPicker alloc] initWithTextField:self.typeOfInquiryTF withData:[self inquiryArray] pickType:@"faq"];
+        [self.faqPicker showArrowImage:NO];
+        self.faqPicker.delegate = self;
+    }
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -47,6 +54,9 @@
     } else {
         _messageLabelWidth.constant = self.view.frame.size.width - 20;
     }
+    
+    [self.typeOfInquiryTF setText:[self.inquiryArray objectAtIndex:0]];
+    
     BOOL close = [[NSUserDefaults standardUserDefaults]boolForKey:@"BackButtonPressed"];
     if (close == YES) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -248,4 +258,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+//// iPhone PickerView
+#pragma mark DropPicker Delegate
+-(void)pickerType:(NSString *)pickType selectedIndex:(NSInteger)row {
+
+}
 @end

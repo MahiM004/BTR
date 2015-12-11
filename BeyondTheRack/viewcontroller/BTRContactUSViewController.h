@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Contact.h"
+#import "DownPicker.h"
 
-@interface BTRContactUSViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
+@interface BTRContactUSViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate,DropDownPickerDelegate>
 
 
 // LABELS
@@ -53,4 +54,6 @@
 @property (nonatomic, strong) Contact *contactInformaion;
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+
+@property (nonatomic) DownPicker *faqPicker;
 @end
