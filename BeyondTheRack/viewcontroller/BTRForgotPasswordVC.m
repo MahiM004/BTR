@@ -31,11 +31,6 @@
     [self.emailField bs_setupErrorMessageViewWithMessage:@"Incorrect email format"];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [_emailField becomeFirstResponder];
-}
-
 - (void)dismissKeyboard {
     [self.emailField resignFirstResponder];
 }
