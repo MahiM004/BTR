@@ -252,6 +252,8 @@
         NSMutableArray* items = [[NSMutableArray alloc]init];
         for (NSDictionary* promoDictionary in promoArray) {
             PromoItem* newItem = [[PromoItem alloc]init];
+            if ([promoDictionary valueForKeyPath:@"opt_in_default"] && [promoDictionary valueForKeyPath:@"opt_in_default"] != [NSNull null])
+                newItem.selectedByDefault = [promoDictionary valueForKey:@"opt_in_default"];
             if ([promoDictionary valueForKeyPath:@"country_ship_to_eligible"] && [promoDictionary valueForKeyPath:@"country_ship_to_eligible"] != [NSNull null])
                 newItem.eligibleCountry = [promoDictionary valueForKey:@"country_ship_to_eligible"];
             if ([promoDictionary valueForKeyPath:@"opt_in_text"] && [promoDictionary valueForKeyPath:@"opt_in_text"] != [NSNull null])

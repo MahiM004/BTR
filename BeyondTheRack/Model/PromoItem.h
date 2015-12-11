@@ -10,6 +10,7 @@
 
 @interface PromoItem : NSObject
 
+@property (nonatomic, retain) NSString * selectedByDefault;
 @property (nonatomic, retain) NSString * eligibleCountry;
 @property (nonatomic, retain) NSString * image;
 @property (nonatomic, retain) NSString * text;

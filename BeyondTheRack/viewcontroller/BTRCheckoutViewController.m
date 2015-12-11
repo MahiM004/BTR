@@ -173,7 +173,7 @@
     if (self.changePaymentMethodCheckbox.checked == NO && [self.order.useToken boolValue])
         info = (@{
                   @"token" : self.order.cardToken,
-                  @"ise_token" : @true,
+                  @"use_token" : @true,
                   @"remember_card" : [NSNumber numberWithBool:[self.remeberCardInfoCheckbox checked]]
                   });
     else
@@ -442,8 +442,8 @@
         [imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",item.image]] placeholderImage:nil];
         [checkbox addTarget:self action:@selector(sampleGiftSelected:) forControlEvents:UIControlEventValueChanged];
         [checkbox setTag:i];
-        [checkbox setChecked:YES];
-
+        if ([item.selectedByDefault boolValue])
+            [checkbox setChecked:YES];
         [self.sampleGiftView addSubview:itemView];
         itemView.backgroundColor = [UIColor clearColor];
         heightSize += SAMPLE_GIFT_HEIGHT;
@@ -564,9 +564,9 @@
 
 -(void)sampleGiftSelected:(CTCheckbox *)checkbox {
     if  (checkbox.checked)
-        [self.selectedGift addObject:[[self.order.promoItems objectAtIndex:checkbox.tag]promoID]];
+        [self.selectedGift addObject:[[self.order.promoItems objectAtIndex:checkbox.tag]promoItemID]];
     else
-        [self.selectedGift removeObject:[[self.order.promoItems objectAtIndex:checkbox.tag]promoID]];
+        [self.selectedGift removeObject:[[self.order.promoItems objectAtIndex:checkbox.tag]promoItemID]];
 }
 
 - (void)disableShippingAddress {
@@ -780,7 +780,6 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
     [orderInfo setObject:[self.giftMessageTF text] forKey:@"recipient_message"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
-    [orderInfo setObject:[self selectedGift] forKey:@"promotions_opted_in"];
     
     return orderInfo;
 }
@@ -829,8 +828,8 @@
         }
     }
     else {
-        if  (self.order.billingName.length > 0)
-            self.nameOnCardPaymentTF.text = self.order.billingName;
+        if  (self.order.cardHolderName.length > 0)
+            self.nameOnCardPaymentTF.text = self.order.cardHolderName;
         if (self.cardNumberPaymentTF.text.length == 0)
             [self.cardNumberPaymentTF setText:self.order.cardNumber];
         if (self.expiryYearPaymentTF.text.length == 0)
@@ -1199,7 +1198,8 @@
                           self.giftMessageTF.text,@"recipient_message",
                           [NSNumber numberWithBool:[self.vipOptionCheckbox checked]],@"vip_pickup",
                           [NSNumber numberWithBool:[self.pickupOptionCheckbox checked]],@"is_pickup",
-                          [NSArray array],@"vanity_codes"
+                          [NSArray array],@"vanity_codes",
+                          [self selectedGift],@"promotions_opted_in"
                           , nil];
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
         [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:info];
@@ -1220,6 +1220,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[self orderInfo] forKey:@"orderInfo"];
     [params setObject:[self cardInfo] forKey:@"cardInfo"];
+    [params setObject:[self selectedGift] forKey:@"promotions_opted_in"];
     [params setObject:@"creditcard" forKey:@"paymentMethod"];
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(response);
@@ -1237,11 +1238,13 @@
     if (self.paypalCallBackInfo) {
         params = [[NSMutableDictionary alloc]initWithDictionary:self.paypalCallBackInfo copyItems:YES];
         [params setObject:[self orderInfo] forKey:@"orderInfo"];
+        [params setObject:[self selectedGift] forKey:@"promotions_opted_in"];
     }
     else {
         params = [[NSMutableDictionary alloc]init];
         [params setObject:[self orderInfo] forKey:@"orderInfo"];
         [params setObject:[self cardInfo] forKey:@"cardInfo"];
+        [params setObject:[self selectedGift] forKey:@"promotions_opted_in"];
         NSDictionary* paypalMode;
         
         if (self.paypalEmailTF.text.length == 0 || self.sendmeToPaypalCheckbox.checked)
