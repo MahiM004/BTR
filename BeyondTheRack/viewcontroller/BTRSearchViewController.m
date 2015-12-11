@@ -496,8 +496,35 @@
 }
 
 - (IBAction)unwindFromRefineResultsCleared:(UIStoryboardSegue *)unwindSegue {
+    // We have to discuss about this
+    // What list we have to show here
     [self.itemsArray removeAllObjects];
     [self.collectionView reloadData];
+    BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]]) {
+        sharedFacetHandler.searchString = [self.searchBar text];
+    }
+    
+    NSString *facetString = [sharedFacetHandler getFacetStringForRESTfulRequest];
+    NSString *sortString = [sharedFacetHandler getSortStringForRESTfulRequest];
+    
+    [self setCurrentPage:1];
+    [self assignFilterIcon];
+    [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] withSortingQuery:sortString andFacetQuery:facetString forPage:self.currentPage
+                           success:^(NSMutableArray *responseArray) {
+                               [self setItemsArray:responseArray];
+                               [self.suggestionTableView setHidden:YES];
+                               [self.collectionView becomeFirstResponder];
+                               [self.collectionView reloadData];
+                               for (int i = 0; i < [self.itemsArray count]; i++)
+                                   [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+                               [self setIsLoadingNextPage:NO];
+                               if ([self.itemsArray count] < MAX_ITEMS_PER_PAGE) {
+                                   [self setLastPageDidLoad:YES];
+                               }
+                           } failure:^(NSError *error) {
+                               
+                           }];
 }
 
 - (IBAction)unwindFromProductDetailToSearchScene:(UIStoryboardSegue *)unwindSegue {

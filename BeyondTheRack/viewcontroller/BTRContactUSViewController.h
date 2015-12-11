@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Contact.h"
+#import "DownPicker.h"
+#import "BTRPopUpVC.h"
 
-@interface BTRContactUSViewController : UIViewController <UITextFieldDelegate>
+@interface BTRContactUSViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate,DropDownPickerDelegate,PopUPDelegate>
 
 
 // LABELS
@@ -47,15 +49,15 @@
 // Button
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *typeOfInquiryBtn;
 
-// PICKERVIEW
-
-@property (weak, nonatomic) IBOutlet UIView *pickerParentView;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+@property (weak, nonatomic) IBOutlet UIView *parentView;
 
 // Contact Informations
 
 @property (nonatomic, strong) Contact *contactInformaion;
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+
+@property (nonatomic) DownPicker *faqPicker;
 @end

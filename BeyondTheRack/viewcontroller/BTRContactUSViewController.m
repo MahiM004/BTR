@@ -19,6 +19,7 @@
 @interface BTRContactUSViewController ()
 @property (strong, nonatomic) NSArray *inquiryArray;
 @property (nonatomic, strong) NSArray *faqArray;
+@property (nonatomic, strong) UIPopoverController *userDataPopover;
 @end
 
 @implementation BTRContactUSViewController
@@ -36,6 +37,17 @@
     [super viewDidLoad];
     [self fillData];
     self.view.backgroundColor = _headerView.backgroundColor= [BTRViewUtility BTRBlack];
+    _descriptionTV.text = @"Enter message here";
+    _descriptionTV.textColor = [UIColor lightGrayColor];
+    
+    // iPhone Picker
+    if (![BTRViewUtility isIPAD]) {
+        self.faqPicker = [[DownPicker alloc] initWithTextField:self.typeOfInquiryTF withData:[self inquiryArray] pickType:@"faq"];
+        [self.faqPicker showArrowImage:NO];
+        self.faqPicker.delegate = self;
+    } else {
+        self.typeOfInquiryBtn.hidden = NO;
+    }
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -45,6 +57,9 @@
     } else {
         _messageLabelWidth.constant = self.view.frame.size.width - 20;
     }
+    
+    [self.typeOfInquiryTF setText:[self.inquiryArray objectAtIndex:0]];
+    
     BOOL close = [[NSUserDefaults standardUserDefaults]boolForKey:@"BackButtonPressed"];
     if (close == YES) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -113,15 +128,9 @@
     [self.sendMessageButton setTitle:self.contactInformaion.sendMessage forState:UIControlStateNormal];
 }
 
-#pragma mark - Actions
-
-// selecting type of enquiry
-
-- (IBAction)typeOfInquirySelecting:(id)sender {
-    [self dismissKeyboard];
-    [self.pickerParentView setHidden:FALSE];
+-(IBAction)typeOfEnquiry:(id)sender {
+    [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self inquiryArray]] inView:self.parentView inFrameView:self.typeOfInquiryTF];
 }
-
 // send messsage
 
 - (IBAction)sendMessage:(id)sender {
@@ -169,7 +178,7 @@
         [self.emailTF becomeFirstResponder];
         return NO;
     }
-    if (self.descriptionTV.text.length == 0) {
+    if ([self.descriptionTV.text isEqualToString:@"Enter message here"]) {
         [[[UIAlertView alloc]initWithTitle:@"Message" message:@"Please fill Message" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
         [self.descriptionTV becomeFirstResponder];
         return NO;
@@ -212,39 +221,25 @@
     return [textField resignFirstResponder];
 }
 
-#pragma mark - PickerView Delegate & DataSource
-
-// PickerView Delegate
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    [self.typeOfInquiryTF setText:[[self inquiryArray] objectAtIndex:row]];
-    [self.pickerParentView setHidden:TRUE];
-}
-
-// PickerView DataSource
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return  [[self inquiryArray] count];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    CGFloat sectionWidth = 300;
-    return sectionWidth;
-}
-
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    UILabel* tView = (UILabel*)view;
-    if (!tView){
-        tView = [[UILabel alloc] init];
-        tView.adjustsFontSizeToFitWidth = YES;
-        tView.textAlignment = NSTextAlignmentCenter;
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    
+    if ([_descriptionTV.text isEqualToString:@"Enter message here"]) {
+        _descriptionTV.text = @"";
+        _descriptionTV.textColor = [UIColor blackColor];
+        _descriptionTV.font = [UIFont systemFontOfSize:14];
     }
-    tView.text = [[self inquiryArray] objectAtIndex:row];
-    return tView;
+    [_descriptionTV becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([_descriptionTV.text isEqualToString:@""]) {
+        _descriptionTV.text = @"Enter message here";
+        _descriptionTV.textColor = [UIColor lightGrayColor];
+        _descriptionTV.font = [UIFont italicSystemFontOfSize:14];
+    }
+    [_descriptionTV resignFirstResponder];
 }
 
 // getting FAQ
@@ -268,4 +263,32 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+//// iPhone PickerView
+#pragma mark DropPicker Delegate
+-(void)pickerType:(NSString *)pickType selectedIndex:(NSInteger)row {
+
+}
+
+//// iPod PopUp View
+-(void)openPopView:(UIButton*)sender Data:(NSMutableArray*)getArr inView:(UIView*)view inFrameView:(UIView*)frameV {
+    BTRPopUpVC *popView = [self.storyboard instantiateViewControllerWithIdentifier:@"popView"];
+    popView.delegate = self;
+    popView.getArray = [NSMutableArray arrayWithArray:getArr];
+    self.userDataPopover = [[UIPopoverController alloc] initWithContentViewController:popView];
+
+    self.userDataPopover.popoverContentSize = CGSizeMake(400, 225);
+    [self.userDataPopover presentPopoverFromRect:[frameV frame]
+                                          inView:view
+                        permittedArrowDirections:UIPopoverArrowDirectionAny
+                                        animated:NO];
+}
+
+/// iPad Popover
+#pragma mark - BTRPopUPDelegate method implementation
+
+-(void)userDataChangedWith:(NSIndexPath *)index{
+    [self.typeOfInquiryTF setText:[[self inquiryArray] objectAtIndex:index.row]];
+    [self.userDataPopover dismissPopoverAnimated:NO];
+}
 @end

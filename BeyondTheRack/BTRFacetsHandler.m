@@ -127,7 +127,13 @@ static BTRFacetsHandler *_sharedInstance;
         
         [arrayStringForDisplay addObject:priceString];
     }
-    return arrayStringForDisplay;
+    NSArray * priceArr = [NSArray arrayWithArray:arrayStringForDisplay];
+    priceArr = [priceArr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
+                {
+                    return [(NSString *)obj1 compare:(NSString*)obj2 options:NSNumericSearch];
+                }];
+    NSMutableArray * finalSortArr = [NSMutableArray arrayWithArray:priceArr];
+    return finalSortArr;
 }
 
 - (void)setCategorySelectionWithCategoryString:(NSString *)categoryString {
@@ -169,6 +175,7 @@ static BTRFacetsHandler *_sharedInstance;
                                  [sharedFacetDictionary.categoryFacetCountArray objectAtIndex:i]];
         [arrayStringForDisplay addObject:priceString];
     }
+    [arrayStringForDisplay sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     return arrayStringForDisplay;
 }
 
@@ -213,13 +220,16 @@ static BTRFacetsHandler *_sharedInstance;
                                  [sharedFacetDictionary.brandFacetCountArray objectAtIndex:i]];
         [arrayStringForDisplay addObject:priceString];
     }
+    [arrayStringForDisplay sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     return arrayStringForDisplay;
 }
 
 
 - (NSMutableArray *)getSelectedBrandsArray {
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
-    return [sharedFacetData selectedBrandsArray];
+    NSMutableArray * selectedArray = [sharedFacetData selectedBrandsArray];
+    [selectedArray sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    return selectedArray;
 }
 
 - (void)addColorSelectionWithColorString:(NSString *)colorString {
@@ -263,12 +273,15 @@ static BTRFacetsHandler *_sharedInstance;
                                  [sharedFacetData.colorFacetCountArray objectAtIndex:i]];
         [arrayStringForDisplay addObject:priceString];
     }
+    [arrayStringForDisplay sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     return arrayStringForDisplay;
 }
 
 - (NSMutableArray *)getSelectedColorsArray {
     BTRFacetData *sharedFacetData = [BTRFacetData sharedFacetData];
-    return [sharedFacetData selectedColorsArray];
+    NSMutableArray * selectedArray = [sharedFacetData selectedColorsArray];
+    [selectedArray sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    return selectedArray;
 }
 
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2UK-j1-Cdh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2UK-j1-Cdh">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -1898,7 +1898,7 @@
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q9k-PO-13Q">
                                                         <rect key="frame" x="10" y="90" width="300" height="30"/>
                                                         <animations/>
-                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="tintColor" red="0.090196078430000007" green="0.1019607843" blue="0.16078431369999999" alpha="0.98507543099999995" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="DTS-fb-ldH"/>
                                                             <constraint firstAttribute="width" constant="300" id="DxV-hZ-T71"/>
@@ -2386,7 +2386,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="84F8C834-BB24-4587-847B-C96A6F080B8E" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="6E2A277A-2902-48DD-9CC2-1AD0DAB39C48" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -7836,6 +7836,21 @@
                                                         </attributedString>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUn-lc-Ysp">
+                                                        <rect key="frame" x="16" y="1455" width="288" height="55"/>
+                                                        <animations/>
+                                                        <color key="backgroundColor" red="0.89411764709999997" green="0.16078431369999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="55" id="eiB-mE-wAA"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Send Message">
+                                                            <color key="titleColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="sendMessage:" destination="xJh-xx-cTN" eventType="touchUpInside" id="sC5-Al-GcL"/>
+                                                        </connections>
+                                                    </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57c-rp-O8O" userLabel="Contact View" customClass="UIControl">
                                                         <rect key="frame" x="16" y="497" width="288" height="950"/>
                                                         <subviews>
@@ -7861,6 +7876,13 @@
                                                                     <outlet property="delegate" destination="xJh-xx-cTN" id="siB-1I-N5X"/>
                                                                 </connections>
                                                             </textField>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYE-Vb-dPJ">
+                                                                <rect key="frame" x="0.0" y="36" width="288" height="30"/>
+                                                                <animations/>
+                                                                <connections>
+                                                                    <action selector="typeOfEnquiry:" destination="xJh-xx-cTN" eventType="touchUpInside" id="VYY-qF-i0k"/>
+                                                                </connections>
+                                                            </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="Pv8-Fc-ByW">
                                                                 <rect key="frame" x="0.0" y="74" width="288" height="60"/>
                                                                 <animations/>
@@ -8043,26 +8065,15 @@ If so, please provide the order number,
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="400" id="3UH-ol-OuG"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                            </textView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLJ-Eb-o5t">
-                                                                <rect key="frame" x="0.0" y="36" width="288" height="30"/>
-                                                                <animations/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="98b-oe-gz2"/>
-                                                                </constraints>
-                                                                <state key="normal">
-                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                                </state>
                                                                 <connections>
-                                                                    <action selector="typeOfInquirySelecting:" destination="xJh-xx-cTN" eventType="touchUpInside" id="v8M-aM-WLI"/>
+                                                                    <outlet property="delegate" destination="xJh-xx-cTN" id="ANh-3K-dJI"/>
                                                                 </connections>
-                                                            </button>
+                                                            </textView>
                                                         </subviews>
                                                         <animations/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="gLJ-Eb-o5t" secondAttribute="trailing" id="2uL-Gs-6Al"/>
                                                             <constraint firstAttribute="trailing" secondItem="Pv8-Fc-ByW" secondAttribute="trailing" id="36B-m6-rlI"/>
                                                             <constraint firstAttribute="trailing" secondItem="1Ey-aZ-vgY" secondAttribute="trailing" id="9UC-0b-Xea"/>
                                                             <constraint firstItem="cL1-Hh-8Cv" firstAttribute="top" secondItem="Pv8-Fc-ByW" secondAttribute="bottom" constant="8" id="9YX-aW-Tjo"/>
@@ -8076,20 +8087,20 @@ If so, please provide the order number,
                                                             <constraint firstItem="aUe-qz-WcC" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="Juj-uR-Ejc"/>
                                                             <constraint firstAttribute="trailing" secondItem="1dd-m8-BEI" secondAttribute="trailing" id="Lnm-JH-Isk"/>
                                                             <constraint firstAttribute="trailing" secondItem="Ujw-qu-Cuk" secondAttribute="trailing" id="NHo-PD-g0L"/>
-                                                            <constraint firstItem="Pv8-Fc-ByW" firstAttribute="top" secondItem="gLJ-Eb-o5t" secondAttribute="bottom" constant="8" id="Nwn-U5-7Yb"/>
                                                             <constraint firstItem="1dd-m8-BEI" firstAttribute="top" secondItem="6bE-wx-DDL" secondAttribute="bottom" constant="16" id="OjJ-zg-eaG"/>
                                                             <constraint firstItem="Qdv-ge-wKe" firstAttribute="top" secondItem="aUe-qz-WcC" secondAttribute="bottom" constant="8" id="PZ5-Dn-Sgi"/>
+                                                            <constraint firstItem="UYE-Vb-dPJ" firstAttribute="centerY" secondItem="z7o-Vw-MK5" secondAttribute="centerY" id="Qo9-ai-66J"/>
                                                             <constraint firstItem="RgZ-IS-hcs" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="VlA-nR-ohT"/>
                                                             <constraint firstAttribute="trailing" secondItem="z7o-Vw-MK5" secondAttribute="trailing" id="WEG-Hx-3aj"/>
                                                             <constraint firstItem="Ejm-fv-MQP" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="Wk1-bN-VkK"/>
                                                             <constraint firstItem="hU7-20-4qB" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="Z92-MO-Pv1"/>
                                                             <constraint firstItem="1Ey-aZ-vgY" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="aw3-JZ-clY"/>
-                                                            <constraint firstItem="gLJ-Eb-o5t" firstAttribute="top" secondItem="hU7-20-4qB" secondAttribute="bottom" constant="8" id="bKC-b6-kQF"/>
                                                             <constraint firstAttribute="trailing" secondItem="cL1-Hh-8Cv" secondAttribute="trailing" id="bob-gB-ya9"/>
                                                             <constraint firstItem="Ejm-fv-MQP" firstAttribute="top" secondItem="tRn-bb-vAJ" secondAttribute="bottom" constant="16" id="cdQ-aV-U1h"/>
                                                             <constraint firstItem="7dQ-tM-HHK" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="d5f-hL-rJM"/>
                                                             <constraint firstItem="ENV-hH-Pak" firstAttribute="top" secondItem="7dQ-tM-HHK" secondAttribute="bottom" constant="16" id="dIQ-qU-RfE"/>
-                                                            <constraint firstItem="gLJ-Eb-o5t" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="fWa-SO-0jq"/>
+                                                            <constraint firstItem="Pv8-Fc-ByW" firstAttribute="top" secondItem="z7o-Vw-MK5" secondAttribute="bottom" constant="8" id="e1z-Xp-8Wf"/>
+                                                            <constraint firstItem="UYE-Vb-dPJ" firstAttribute="height" secondItem="z7o-Vw-MK5" secondAttribute="height" id="eer-TO-Jgn"/>
                                                             <constraint firstItem="Qdv-ge-wKe" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="ffx-0a-hCP"/>
                                                             <constraint firstItem="z7o-Vw-MK5" firstAttribute="top" secondItem="hU7-20-4qB" secondAttribute="bottom" constant="8" id="fiJ-O4-NDp"/>
                                                             <constraint firstItem="7dQ-tM-HHK" firstAttribute="top" secondItem="Ejm-fv-MQP" secondAttribute="bottom" constant="8" id="fqw-JA-v8H"/>
@@ -8099,11 +8110,13 @@ If so, please provide the order number,
                                                             <constraint firstItem="6bE-wx-DDL" firstAttribute="top" secondItem="ENV-hH-Pak" secondAttribute="bottom" constant="8" id="hEg-vL-DiI"/>
                                                             <constraint firstItem="Ujw-qu-Cuk" firstAttribute="top" secondItem="1dd-m8-BEI" secondAttribute="bottom" constant="8" id="hUf-ZN-E1R"/>
                                                             <constraint firstItem="6bE-wx-DDL" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="iP5-aE-ro7"/>
+                                                            <constraint firstItem="UYE-Vb-dPJ" firstAttribute="centerX" secondItem="z7o-Vw-MK5" secondAttribute="centerX" id="ifv-Z4-ASp"/>
                                                             <constraint firstItem="1Ey-aZ-vgY" firstAttribute="top" secondItem="RgZ-IS-hcs" secondAttribute="bottom" constant="16" id="kx1-xa-Lsm"/>
                                                             <constraint firstItem="aUe-qz-WcC" firstAttribute="top" secondItem="Ujw-qu-Cuk" secondAttribute="bottom" constant="16" id="l6W-Ny-0cA"/>
                                                             <constraint firstAttribute="trailing" secondItem="hU7-20-4qB" secondAttribute="trailing" id="leb-jo-3BB"/>
                                                             <constraint firstAttribute="height" constant="950" id="nfx-hN-SLn"/>
                                                             <constraint firstAttribute="trailing" secondItem="aUe-qz-WcC" secondAttribute="trailing" id="q9W-sK-7sK"/>
+                                                            <constraint firstItem="UYE-Vb-dPJ" firstAttribute="width" secondItem="z7o-Vw-MK5" secondAttribute="width" id="rI6-ge-m79"/>
                                                             <constraint firstItem="hU7-20-4qB" firstAttribute="top" secondItem="57c-rp-O8O" secondAttribute="top" constant="8" id="rvX-TY-crE"/>
                                                             <constraint firstItem="RgZ-IS-hcs" firstAttribute="top" secondItem="Qdv-ge-wKe" secondAttribute="bottom" constant="16" id="s7a-qe-bgN"/>
                                                             <constraint firstItem="ENV-hH-Pak" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="smJ-Gk-sOO"/>
@@ -8113,21 +8126,6 @@ If so, please provide the order number,
                                                             <constraint firstItem="1dd-m8-BEI" firstAttribute="leading" secondItem="57c-rp-O8O" secondAttribute="leading" id="yZM-tR-Yim"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUn-lc-Ysp">
-                                                        <rect key="frame" x="16" y="1455" width="288" height="55"/>
-                                                        <animations/>
-                                                        <color key="backgroundColor" red="0.50196081399917603" green="0.0" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="55" id="eiB-mE-wAA"/>
-                                                        </constraints>
-                                                        <state key="normal" title="Send Message">
-                                                            <color key="titleColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="sendMessage:" destination="xJh-xx-cTN" eventType="touchUpInside" id="sC5-Al-GcL"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
                                                 <animations/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -8181,41 +8179,14 @@ If so, please provide the order number,
                                             <constraint firstItem="M1N-Wk-FH5" firstAttribute="top" secondItem="c2A-0g-0Bd" secondAttribute="top" id="bJq-K6-Ica"/>
                                         </constraints>
                                     </scrollView>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LMO-Sv-ru1" userLabel="Picker Parent View">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1828"/>
-                                        <subviews>
-                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGA-DZ-2e4">
-                                                <rect key="frame" x="0.0" y="780" width="320" height="268"/>
-                                                <animations/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="268" id="IP6-bp-Cgf"/>
-                                                </constraints>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="xJh-xx-cTN" id="nrA-Ut-iP2"/>
-                                                    <outlet property="delegate" destination="xJh-xx-cTN" id="2HI-z2-3mq"/>
-                                                </connections>
-                                            </pickerView>
-                                        </subviews>
-                                        <animations/>
-                                        <color key="backgroundColor" white="1" alpha="0.89000000000000001" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="MGA-DZ-2e4" firstAttribute="leading" secondItem="LMO-Sv-ru1" secondAttribute="leading" id="4DN-LI-ge9"/>
-                                            <constraint firstItem="MGA-DZ-2e4" firstAttribute="centerY" secondItem="LMO-Sv-ru1" secondAttribute="centerY" id="D2K-s0-Svb"/>
-                                            <constraint firstAttribute="trailing" secondItem="MGA-DZ-2e4" secondAttribute="trailing" id="hr3-p6-J4d"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="LMO-Sv-ru1" secondAttribute="bottom" id="Aay-al-eKj"/>
                                     <constraint firstAttribute="bottom" secondItem="c2A-0g-0Bd" secondAttribute="bottom" id="Fuy-Nt-oH0"/>
-                                    <constraint firstItem="LMO-Sv-ru1" firstAttribute="leading" secondItem="y8o-Bp-xxO" secondAttribute="leading" id="MBZ-3r-wdG"/>
                                     <constraint firstItem="c2A-0g-0Bd" firstAttribute="leading" secondItem="y8o-Bp-xxO" secondAttribute="leading" id="UGg-2h-hPe"/>
-                                    <constraint firstAttribute="trailing" secondItem="LMO-Sv-ru1" secondAttribute="trailing" id="Zof-z5-Kjr"/>
                                     <constraint firstItem="c2A-0g-0Bd" firstAttribute="top" secondItem="y8o-Bp-xxO" secondAttribute="top" id="hO2-RL-kkc"/>
                                     <constraint firstAttribute="trailing" secondItem="c2A-0g-0Bd" secondAttribute="trailing" id="opE-y6-bxZ"/>
-                                    <constraint firstItem="LMO-Sv-ru1" firstAttribute="top" secondItem="y8o-Bp-xxO" secondAttribute="top" id="rv6-zx-XVe"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -8255,11 +8226,11 @@ If so, please provide the order number,
                         <outlet property="messageLabelWidth" destination="keR-DV-Cl5" id="A0C-xj-HGU"/>
                         <outlet property="orderNumberLabel" destination="1dd-m8-BEI" id="Qa3-yq-34o"/>
                         <outlet property="orderTF" destination="Ujw-qu-Cuk" id="bAG-2K-kk9"/>
-                        <outlet property="pickerParentView" destination="LMO-Sv-ru1" id="rL4-jX-Jd0"/>
-                        <outlet property="pickerView" destination="MGA-DZ-2e4" id="hoT-pd-kxS"/>
+                        <outlet property="parentView" destination="57c-rp-O8O" id="i7q-5X-ypK"/>
                         <outlet property="productLabel" destination="aUe-qz-WcC" id="FFA-3g-shR"/>
                         <outlet property="sendMessageButton" destination="YUn-lc-Ysp" id="dTj-Gh-VHj"/>
                         <outlet property="typeOfEnquiryLabel" destination="hU7-20-4qB" id="N1c-P6-xAs"/>
+                        <outlet property="typeOfInquiryBtn" destination="UYE-Vb-dPJ" id="v67-oO-t4Y"/>
                         <outlet property="typeOfInquiryTF" destination="z7o-Vw-MK5" id="ke8-hS-9Q7"/>
                         <segue destination="liD-hU-dij" kind="push" identifier="BTRFAQSegueIdentifier" id="Qhh-c8-aZh"/>
                     </connections>
@@ -12250,7 +12221,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="84F8C834-BB24-4587-847B-C96A6F080B8E" width="30" height="30">
+        <image name="6E2A277A-2902-48DD-9CC2-1AD0DAB39C48" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
