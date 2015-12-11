@@ -115,14 +115,6 @@
     [self.sendMessageButton setTitle:self.contactInformaion.sendMessage forState:UIControlStateNormal];
 }
 
-#pragma mark - Actions
-
-// selecting type of enquiry
-
-- (IBAction)typeOfInquirySelecting:(id)sender {
-    [self dismissKeyboard];
-    [self.pickerParentView setHidden:FALSE];
-}
 
 // send messsage
 
@@ -233,41 +225,6 @@
         _descriptionTV.font = [UIFont italicSystemFontOfSize:14];
     }
     [_descriptionTV resignFirstResponder];
-}
-
-#pragma mark - PickerView Delegate & DataSource
-
-// PickerView Delegate
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    [self.typeOfInquiryTF setText:[[self inquiryArray] objectAtIndex:row]];
-    [self.pickerParentView setHidden:TRUE];
-}
-
-// PickerView DataSource
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return  [[self inquiryArray] count];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    CGFloat sectionWidth = 300;
-    return sectionWidth;
-}
-
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    UILabel* tView = (UILabel*)view;
-    if (!tView){
-        tView = [[UILabel alloc] init];
-        tView.adjustsFontSizeToFitWidth = YES;
-        tView.textAlignment = NSTextAlignmentCenter;
-    }
-    tView.text = [[self inquiryArray] objectAtIndex:row];
-    return tView;
 }
 
 // getting FAQ

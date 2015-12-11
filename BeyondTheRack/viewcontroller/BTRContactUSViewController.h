@@ -48,11 +48,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendMessageButton;
 
 
-// PICKERVIEW
-
-@property (weak, nonatomic) IBOutlet UIView *pickerParentView;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-
 // Contact Informations
 
 @property (nonatomic, strong) Contact *contactInformaion;
