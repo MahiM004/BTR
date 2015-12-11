@@ -500,7 +500,6 @@
     // What list we have to show here
     [self.itemsArray removeAllObjects];
     [self.collectionView reloadData];
-    [self searchFor:self.searchBar.text];
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]]) {
         sharedFacetHandler.searchString = [self.searchBar text];
