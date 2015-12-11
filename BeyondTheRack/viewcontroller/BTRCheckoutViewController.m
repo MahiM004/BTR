@@ -87,6 +87,7 @@
 @property (strong, nonatomic) ApplePayManager *applePayManager;
 
 @property (strong, nonatomic) NSMutableArray *selectedGift;
+@property (strong, nonatomic) NSMutableArray *deSelectedGift;
 @property (strong, nonatomic) ConfirmationInfo *confirmationInfo;
 
 @end
@@ -263,6 +264,7 @@
     [self.paymentMethodTF setText:@"Visa Credit"];
     [self.changePaymentMethodCheckbox setChecked:NO];
     [self.changePaymentMethodView setHidden:YES];
+    [self setIsVisible:NO];
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
     
@@ -279,7 +281,6 @@
         self.shippingCountryPicker = [[DownPicker alloc] initWithTextField:self.countryShippingTF withData:[self countryNameArray] pickType:@"shiCountry"];
         self.billingCountryPicker = [[DownPicker alloc] initWithTextField:self.countryBillingTF withData:[self countryNameArray] pickType:@"bilCountry"];
         
-        
         [self.paymentPicker showArrowImage:NO];
         [self.expiryYearPicker showArrowImage:NO];
         [self.expiryMonthPicker showArrowImage:NO];
@@ -292,11 +293,11 @@
         self.shippingCountryPicker.delegate = self;
         self.billingCountryPicker.delegate = self;
     }
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self setIsVisible:YES];
     [self addSampleGifts];
     [self setupApplePayButton];
 }
@@ -382,13 +383,15 @@
     
     // Free ShipAddress
     if ([[self.order isFreeshipAddress]boolValue] && ![[self.order vipPickupEligible]boolValue]) {
-        [self fillShippingAddressByAddress:self.order.promoShippingAddress];
-        [self fillBillingAddressByAddress:self.order.promoBillingAddress];
-        [self disableShippingAddress];
-        [self.FreeshipingPromoView setHidden:NO];
-        [self.pleaseFillOutTheShippingFormView setHidden:YES];
-        [self.fillFormLabelViewHeight setConstant:0];
-        [self.freeShippingPromoHeight setConstant:CHECKBOXES_HEIGHT];
+        if (!self.freeshipOptionCheckbox.checked) {
+            [self fillShippingAddressByAddress:self.order.promoShippingAddress];
+            [self fillBillingAddressByAddress:self.order.promoBillingAddress];
+            [self disableShippingAddress];
+            [self.FreeshipingPromoView setHidden:NO];
+            [self.pleaseFillOutTheShippingFormView setHidden:YES];
+            [self.fillFormLabelViewHeight setConstant:0];
+            [self.freeShippingPromoHeight setConstant:CHECKBOXES_HEIGHT];
+        }
     } else {
         [self enableShippingAddress];
         [self fillShippingAddressByAddress:self.order.shippingAddress];
@@ -397,13 +400,8 @@
         [self.freeShippingPromoHeight setConstant:0];
     }
     
-    if (self.isVisible) {
-        if ([[self.order vipPickupEligible]boolValue]) {
-            [self vipOptionChecked];
-        }
+    if (self.isVisible)
         [self addSampleGifts];
-        [self setIsVisible:NO];
-    }
     
     self.isLoading = NO;
 }
@@ -415,9 +413,14 @@
     for (UIView *subView in [self.sampleGiftView subviews])
         [subView removeFromSuperview];
     
-    self.sampleGiftViewHeight.constant = SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
+    CGFloat height = 0;
+    for (PromoItem* item in self.order.promoItems)
+        if ([self.order.shippingAddress.country isEqualToString:item.eligibleCountry])
+            height = height + SAMPLE_GIFT_HEIGHT;
+    self.sampleGiftViewHeight.constant = height;
     
     int i = 0;
+    
     CGFloat heightSize = 0;
     CGFloat widthSize = 0;
     if ([BTRViewUtility isIPAD]) {
@@ -429,25 +432,27 @@
     }
     
     for (PromoItem* item in self.order.promoItems) {
-        UIView *itemView = [[[NSBundle mainBundle]loadNibNamed:@"BTRSampleGiftView" owner:self options:nil]firstObject];
-        itemView.frame = CGRectMake(0, heightSize, widthSize, SAMPLE_GIFT_HEIGHT);
-        
-        UIImageView *imageView = (UIImageView *)[itemView viewWithTag:100];
-        CTCheckbox* checkbox = (CTCheckbox *)[itemView viewWithTag:200];
-        UILabel * label = (UILabel *)[itemView viewWithTag:300];
-        
-        HTMLAttributedString *string  = [[HTMLAttributedString alloc] initWithHtml:item.text andBodyFont:[UIFont systemFontOfSize:12.0]];
-        [label setAttributedText:string.attributedString];
-        
-        [imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",item.image]] placeholderImage:nil];
-        [checkbox addTarget:self action:@selector(sampleGiftSelected:) forControlEvents:UIControlEventValueChanged];
-        [checkbox setTag:i];
-        if ([item.selectedByDefault boolValue])
-            [checkbox setChecked:YES];
-        [self.sampleGiftView addSubview:itemView];
-        itemView.backgroundColor = [UIColor clearColor];
-        heightSize += SAMPLE_GIFT_HEIGHT;
-        i++;
+        if ([self.order.shippingAddress.country isEqualToString:item.eligibleCountry]) {
+            UIView *itemView = [[[NSBundle mainBundle]loadNibNamed:@"BTRSampleGiftView" owner:self options:nil]firstObject];
+            itemView.frame = CGRectMake(0, heightSize, widthSize, SAMPLE_GIFT_HEIGHT);
+            
+            UIImageView *imageView = (UIImageView *)[itemView viewWithTag:100];
+            CTCheckbox* checkbox = (CTCheckbox *)[itemView viewWithTag:200];
+            UILabel * label = (UILabel *)[itemView viewWithTag:300];
+            
+            HTMLAttributedString *string  = [[HTMLAttributedString alloc] initWithHtml:item.text andBodyFont:[UIFont systemFontOfSize:12.0]];
+            [label setAttributedText:string.attributedString];
+            
+            [imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http:%@",item.image]] placeholderImage:nil];
+            [checkbox addTarget:self action:@selector(sampleGiftSelected:) forControlEvents:UIControlEventValueChanged];
+            [checkbox setTag:i];
+            if ([item.selectedByDefault boolValue] && ![self.deSelectedGift containsObject:item.promoItemID])
+                [checkbox setChecked:YES];
+            [self.sampleGiftView addSubview:itemView];
+            itemView.backgroundColor = [UIColor clearColor];
+            heightSize += SAMPLE_GIFT_HEIGHT;
+            i++;
+        }
     }
     [self resetSize];
 }
@@ -563,10 +568,17 @@
 }
 
 -(void)sampleGiftSelected:(CTCheckbox *)checkbox {
-    if  (checkbox.checked)
+    if (self.deSelectedGift == nil)
+        self.deSelectedGift = [[NSMutableArray alloc]init];
+    
+    if  (checkbox.checked) {
         [self.selectedGift addObject:[[self.order.promoItems objectAtIndex:checkbox.tag]promoItemID]];
-    else
-        [self.selectedGift removeObject:[[self.order.promoItems objectAtIndex:checkbox.tag]promoItemID]];
+        [self.deSelectedGift removeObject:[(PromoItem *)[self.order.promoItems objectAtIndex:checkbox.tag]promoItemID]] ;
+    }
+    else {
+        [self.selectedGift removeObject:[(PromoItem *)[self.order.promoItems objectAtIndex:checkbox.tag]promoItemID]];
+        [self.deSelectedGift addObject:[(PromoItem *)[self.order.promoItems objectAtIndex:checkbox.tag]promoItemID]];
+    }
 }
 
 - (void)disableShippingAddress {
