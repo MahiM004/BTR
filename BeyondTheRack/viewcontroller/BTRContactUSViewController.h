@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Contact.h"
 
-@interface BTRContactUSViewController : UIViewController <UITextFieldDelegate>
+@interface BTRContactUSViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
 
 
 // LABELS

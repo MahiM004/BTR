@@ -36,6 +36,8 @@
     [super viewDidLoad];
     [self fillData];
     self.view.backgroundColor = _headerView.backgroundColor= [BTRViewUtility BTRBlack];
+    _descriptionTV.text = @"Enter message here";
+    _descriptionTV.textColor = [UIColor lightGrayColor];
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -169,7 +171,7 @@
         [self.emailTF becomeFirstResponder];
         return NO;
     }
-    if (self.descriptionTV.text.length == 0) {
+    if ([self.descriptionTV.text isEqualToString:@"Enter message here"]) {
         [[[UIAlertView alloc]initWithTitle:@"Message" message:@"Please fill Message" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
         [self.descriptionTV becomeFirstResponder];
         return NO;
@@ -210,6 +212,27 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     return [textField resignFirstResponder];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    
+    if ([_descriptionTV.text isEqualToString:@"Enter message here"]) {
+        _descriptionTV.text = @"";
+        _descriptionTV.textColor = [UIColor blackColor];
+        _descriptionTV.font = [UIFont systemFontOfSize:14];
+    }
+    [_descriptionTV becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([_descriptionTV.text isEqualToString:@""]) {
+        _descriptionTV.text = @"Enter message here";
+        _descriptionTV.textColor = [UIColor lightGrayColor];
+        _descriptionTV.font = [UIFont italicSystemFontOfSize:14];
+    }
+    [_descriptionTV resignFirstResponder];
 }
 
 #pragma mark - PickerView Delegate & DataSource
