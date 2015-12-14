@@ -208,6 +208,7 @@
             </tableViewCellContentView>
             <animations/>
             <connections>
+                <outlet property="brandHeight" destination="Mf6-Gz-AFk" id="52S-ZW-2Sr"/>
                 <outlet property="brandLabel" destination="dnd-Mc-uLq" id="4af-K4-ywE"/>
                 <outlet property="crossedOffPriceLabel" destination="VfQ-cJ-ZFL" id="NFf-5g-ZQ5"/>
                 <outlet property="dropdownLabelIcon" destination="hbE-OJ-btt" id="XUD-Xx-CqW"/>
@@ -217,6 +218,7 @@
                 <outlet property="selectSizeButton" destination="33m-cH-mfa" id="Fef-NH-wB9"/>
                 <outlet property="selectSizeLabel" destination="R1j-4X-Tzt" id="6Ll-Tr-8na"/>
                 <outlet property="shortDescriptionLabel" destination="6ZR-8C-RVY" id="vNa-qx-2Bj"/>
+                <outlet property="sizeChartHeight" destination="hUI-i2-JQ1" id="5PZ-2u-5ua"/>
                 <outlet property="sizeChartView" destination="yNh-Is-lA6" id="OrB-4l-6OB"/>
                 <outlet property="sizeLabel" destination="5cI-cy-brU" id="bkp-aa-o2U"/>
                 <outlet property="stepperView" destination="JNZ-gv-ga0" id="FPt-I8-mQ0"/>

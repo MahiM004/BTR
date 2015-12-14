@@ -46,6 +46,7 @@
     BTRProductShareCell * shareCell;
     UIView * descriptionView;
     UICollectionView *_collectionView;
+    NSInteger decreaseNameCellSize;
 }
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
@@ -190,7 +191,13 @@
     self.productImageCount = [[productItem imageCount] integerValue];
     if (productItem) {
         [self setProductSku:[productItem sku]];
-        [nameCell.brandLabel setText:[productItem brand]];
+        NSString * brandText = productItem.brand;
+        if (brandText.length != 0) {
+            [nameCell.brandLabel setText:[productItem brand]];
+        } else {
+            [nameCell.brandHeight setConstant:0];
+            decreaseNameCellSize += 20;
+        }
         [nameCell.shortDescriptionLabel setText:[productItem shortItemDescription]];
         [nameCell.salePriceLabel setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
         [nameCell.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
@@ -249,6 +256,8 @@
         [nameCell.sizeLabel setTextColor:[UIColor blackColor]];
         [nameCell.dropdownLabelIcon setHidden:YES];
         [nameCell.sizeChartView setHidden:YES];
+        [nameCell.sizeChartHeight setConstant:0];
+        decreaseNameCellSize += 38;
         self.variant = @"Z";
     } else
         [nameCell.sizeChartView setHidden:NO];
@@ -461,7 +470,7 @@
                     return 312;
             break;
         case 1:
-            return 227;
+            return 227 - decreaseNameCellSize;
             break;
         case 2:
             return [self descriptionCellHeight];
