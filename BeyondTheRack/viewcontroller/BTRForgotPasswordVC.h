@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface BTRForgotPasswordVC : UIViewController
+#import "BTRLoadingButton.h"
+@interface BTRForgotPasswordVC : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet BTRLoadingButton *loadingBtn;
 
 @end

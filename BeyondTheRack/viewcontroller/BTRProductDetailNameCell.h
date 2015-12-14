@@ -21,4 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIView *stepperView;
 @property (weak, nonatomic) IBOutlet UIButton *selectChart;
 @property (weak, nonatomic) IBOutlet UIView *sizeChartView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *brandHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sizeChartHeight;
 @end

@@ -49,7 +49,7 @@
 #define REMEBER_CARD_INFO_HEIGHT 75.0
 
 #define DEFAULT_VIEW_HEIGHT_IPHONE 3250
-#define DEFAULT_VIEW_HEIGHT_IPAD 1810
+#define DEFAULT_VIEW_HEIGHT_IPAD 1850
 
 
 @class CTCheckbox;
@@ -681,6 +681,7 @@
     [self.postalCodeBillingTF setEnabled:FALSE];
     [self.provinceBillingTF setEnabled:FALSE];
     [self.cityBillingTF setEnabled:FALSE];
+    [self.billingCountryButton setEnabled:FALSE];
     
     [self.addressLine1BillingTF setAlpha:0.6f];
     [self.addressLine2BillingTF setAlpha:0.6f];
@@ -697,6 +698,7 @@
     [self.postalCodeBillingTF setEnabled:TRUE];
     [self.provinceBillingTF setEnabled:TRUE];
     [self.cityBillingTF setEnabled:TRUE];
+    [self.billingCountryButton setEnabled:TRUE];
     
     [self.addressLine1BillingTF setAlpha:1.0f];
     [self.addressLine2BillingTF setAlpha:1.0f];
@@ -735,8 +737,8 @@
     [self.expiryMonthPaymentTF setEnabled:NO];
     [self.paypalEmailTF setEnabled:NO];
     [self.paymentMethodButton setEnabled:NO];
-    [self.billingCountryButton setEnabled:NO];
-    [self.billingStateButton setEnabled:NO];
+//    [self.billingCountryButton setEnabled:NO];
+//    [self.billingStateButton setEnabled:NO];
     
     [self.paymentMethodTF setAlpha:0.6f];
     [self.cardNumberPaymentTF setAlpha:0.6f];
@@ -756,8 +758,8 @@
     [self.expiryMonthPaymentTF setEnabled:YES];
     [self.paymentMethodButton setEnabled:YES];
     [self.paypalEmailTF setEnabled:YES];
-    [self.billingCountryButton setEnabled:YES];
-    [self.billingStateButton setEnabled:YES];
+//    [self.billingCountryButton setEnabled:YES];
+//    [self.billingStateButton setEnabled:YES];
     
     [self.paymentMethodTF setAlpha:1.0f];
     [self.cardNumberPaymentTF setAlpha:1.0f];
