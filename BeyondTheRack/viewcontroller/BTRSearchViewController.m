@@ -33,6 +33,7 @@
     BTRProductShowcaseCollectionCell * selectedCell;
     Item * selectedProductItem;
     NSArray * selectSizeArr;
+    NSArray *selectedSizeCodedArray;
     UICollectionView * selectedCV;
     BOOL sizeTappedWithOutAdd;
 }
@@ -295,9 +296,11 @@
     
     NSMutableArray *tempSizesArray = [cell sizesArray];
     NSMutableArray *tempQuantityArray = [cell sizeQuantityArray];
+    NSMutableArray *tempSizeCodedArray = [cell sizeCodesArray];
+    
     __weak typeof(cell) weakCell = cell;
     [cell setDidTapSelectSizeButtonBlock:^(id sender) {
-        [self openSelectSize:weakCell sizeArray:tempSizesArray quantityArray:tempQuantityArray index:indexPath withItem:productItem];
+        [self openSelectSize:weakCell sizeArray:tempSizesArray codedSizeArray:tempSizeCodedArray quantityArray:tempQuantityArray index:indexPath withItem:productItem];
     }];
     
     
@@ -314,7 +317,7 @@
             selectedCell = weakCell;
             selectedCV = cv;
             sizeTappedWithOutAdd = YES;
-            [self openSelectSize:weakCell sizeArray:tempSizesArray quantityArray:tempQuantityArray index:indexPath withItem:productItem];
+            [self openSelectSize:weakCell sizeArray:tempSizesArray codedSizeArray:tempSizeCodedArray quantityArray:tempQuantityArray index:indexPath withItem:productItem];
         } else {
             sizeTappedWithOutAdd = NO;
             [self addToBag:weakCell collection:cv item:productItem selectedSize:selectedSizeString index:indexPath];
@@ -373,12 +376,16 @@
 }
 
 - (void)openSelectSize:(BTRProductShowcaseCollectionCell*)cell
-                                                   sizeArray:(NSMutableArray*)sizeArray
-                                                         quantityArray:(NSMutableArray*)quantityArray
-                                                               index:(NSIndexPath*)indexPath
-                                                            withItem:(Item*)item {
+             sizeArray:(NSMutableArray*)sizeArray
+        codedSizeArray:(NSMutableArray *)codedSizeArray
+         quantityArray:(NSMutableArray*)quantityArray
+                 index:(NSIndexPath*)indexPath
+              withItem:(Item*)item {
+    
     selectedProductItem = item;
+    selectedSizeCodedArray = codedSizeArray;
     self.selectedIndexPath = indexPath;
+    
     UIStoryboard *storyboard = self.storyboard;
     BTRSelectSizeVC *viewController = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
     viewController.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -690,7 +697,7 @@
     self.chosenSizesArray[self.selectedCellIndexRow] = [NSNumber numberWithInt:(int)selectedIndex];
     [self.collectionView reloadData];
     if (sizeTappedWithOutAdd == YES) {
-        self.selectedSize = [NSString stringWithFormat:@"%@",selectSizeArr[selectedIndex]];
+        self.selectedSize = [selectedSizeCodedArray objectAtIndex:selectedIndex];;
         self.selectedIndexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];
         [self addToBag:selectedCell collection:selectedCV item:selectedProductItem selectedSize:self.selectedSize index:self.selectedIndexPath];
         sizeTappedWithOutAdd = NO;

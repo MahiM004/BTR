@@ -380,7 +380,7 @@ typedef enum ScrollDirection {
     NSMutableArray *tempSizeCodedArray = [cell sizeCodesArray];
     __weak typeof(cell) weakCell = cell;
     [cell setDidTapSelectSizeButtonBlock:^(id sender) {
-        [self openSelectSize:weakCell sizeArray:tempSizesArray codedSizeArray:tempSizeCodedArray quantityArray:tempQuantityArray index:indexPath withItem:productItem ];
+        [self openSelectSize:weakCell sizeArray:tempSizesArray codedSizeArray:tempSizeCodedArray quantityArray:tempQuantityArray index:indexPath withItem:productItem];
     }];
     
     __block NSString *sizeLabelText = [cell.selectSizeButton.titleLabel text];
