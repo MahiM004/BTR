@@ -10,7 +10,6 @@
 #import "BTRUserFetcher.h"
 #import "BTRConnectionHelper.h"
 #import "UITextField+BSErrorMessageView.h"
-#import "BTRloadingButton.h"
 
 @interface BTRForgotPasswordVC ()
 {
@@ -85,6 +84,14 @@
     } faild:^(NSError *error) {
         failure(error);
     }];
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.returnKeyType == UIReturnKeyGo) {
+        [self newPasswordTapped:_loadingBtn];
+    }
+    return YES;
 }
 
 -(UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege {
