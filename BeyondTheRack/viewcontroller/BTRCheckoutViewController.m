@@ -322,8 +322,6 @@
     [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
     [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
     
-    if ([self.order.vipPickup boolValue])
-        [self disableShippingAddress];
     // prices
     if (self.totalSave == 0)
         for (Item* item  in self.order.items)
@@ -399,6 +397,9 @@
         [self.FreeshipingPromoView setHidden:YES];
         [self.freeShippingPromoHeight setConstant:0];
     }
+    
+    if ([self.order.vipPickup boolValue])
+        [self disableShippingAddress];
     
     if (self.isVisible)
         [self addSampleGifts];
@@ -584,7 +585,6 @@
 - (void)disableShippingAddress {
     [self.sameAsShippingAddressView setHidden:TRUE];
     [self.sameAsShippingHeight setConstant:0];
-    [self.sameAddressCheckbox setChecked:FALSE];
     
     [self.shippingCountryButton setEnabled:FALSE];
     [self.shippingStateButton setEnabled:FALSE];
