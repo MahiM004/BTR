@@ -33,7 +33,8 @@
 }
 
 - (BOOL)isApplePaySetup {
-    return [PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkDiscover]];
+    NSArray *paymentNetworks = [NSArray arrayWithObjects:PKPaymentNetworkMasterCard, PKPaymentNetworkVisa, PKPaymentNetworkAmex, nil];
+    return [PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:paymentNetworks];
 }
 
 - (PKPaymentRequest *)paymentRequest {

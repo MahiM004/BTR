@@ -1184,17 +1184,18 @@
 #pragma mark ApplePay
 
 - (void)setupApplePayButton {
-    [self.applePayButton removeFromSuperview];
+    if (self.applePayManager == nil)
+        self.applePayManager = [[ApplePayManager alloc]init];
     if ([self.applePayManager isApplePayAvailable]) {
         if ([self.applePayManager isApplePaySetup]) {
             self.applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeBuy style:PKPaymentButtonStyleBlack];
-            [self.applePayButton addTarget:self action:@selector(setupApplePay:) forControlEvents:UIControlEventTouchUpInside];
+            [self.applePayButton addTarget:self action:@selector(buyWithApplePay:) forControlEvents:UIControlEventTouchUpInside];
         }
         else {
             self.applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeSetUp style:PKPaymentButtonStyleBlack];
-            [self.applePayButton addTarget:self action:@selector(buyWithApplePay:) forControlEvents:UIControlEventTouchUpInside];
+            [self.applePayButton addTarget:self action:@selector(setupApplePay:) forControlEvents:UIControlEventTouchUpInside];
         }
-        self.applePayButton.bounds = self.applePayButtonView.bounds;
+        self.applePayButton.frame = self.applePayButtonView.bounds;
         [self.applePayButtonView addSubview:self.applePayButton];
     }
 }

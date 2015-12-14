@@ -36,7 +36,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *youSaveLabel;
 @property (weak, nonatomic) IBOutlet UIView *applePayButtonView;
 
-@property (weak, nonatomic) UIButton *applePayButton;
+@property (strong, nonatomic) UIButton *applePayButton;
 @property (strong, nonatomic) Order *order;
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @property (strong, nonatomic) NSMutableArray *bagItemsArray;
@@ -67,6 +67,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self loadBagInfo];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     [self setupApplePayButton];
 }
 
@@ -595,18 +598,21 @@
 }
 
 - (void)setupApplePayButton {
-    [self.applePayButton removeFromSuperview];
+    if (self.applePayManager == nil)
+        self.applePayManager = [[ApplePayManager alloc]init];
+    self.applePayButtonView.hidden = YES;
     if ([self.applePayManager isApplePayAvailable]) {
         if ([self.applePayManager isApplePaySetup]) {
             self.applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeBuy style:PKPaymentButtonStyleBlack];
-            [self.applePayButton addTarget:self action:@selector(setupApplePay:) forControlEvents:UIControlEventTouchUpInside];
+            [self.applePayButton addTarget:self action:@selector(buyWithApplePay:) forControlEvents:UIControlEventTouchUpInside];
         }
         else {
             self.applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeSetUp style:PKPaymentButtonStyleBlack];
-            [self.applePayButton addTarget:self action:@selector(buyWithApplePay:) forControlEvents:UIControlEventTouchUpInside];
+            [self.applePayButton addTarget:self action:@selector(setupApplePay:) forControlEvents:UIControlEventTouchUpInside];
         }
-        self.applePayButton.bounds = self.applePayButtonView.bounds;
+        self.applePayButton.frame = self.applePayButtonView.bounds;
         [self.applePayButtonView addSubview:self.applePayButton];
+        self.applePayButtonView.hidden = NO;
     }
 }
 

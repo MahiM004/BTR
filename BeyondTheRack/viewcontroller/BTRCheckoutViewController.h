@@ -72,7 +72,7 @@ typedef enum  PopUPType{
  */
 
 @property (weak, nonatomic) IBOutlet UIView *applePayButtonView;
-@property (weak, nonatomic) UIButton *applePayButton;
+@property (strong, nonatomic) UIButton *applePayButton;
 
 @property (weak, nonatomic) IBOutlet UIView *parentViewforScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
