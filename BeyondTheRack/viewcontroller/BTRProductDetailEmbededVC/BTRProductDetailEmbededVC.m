@@ -666,7 +666,7 @@
 - (void)selectSizeWillDisappearWithSelectionIndex:(NSUInteger)selectedIndex {
     self.selectedSizeIndex = selectedIndex;
     nameCell.sizeLabel.text = [[self sizesArray] objectAtIndex:selectedIndex];
-    self.variant = [[self sizesArray] objectAtIndex:selectedIndex];
+    self.variant = [[self sizeCodesArray] objectAtIndex:selectedIndex];
     if (selectedAddWithOutSize == YES) {
         if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
             [self addToBag];
