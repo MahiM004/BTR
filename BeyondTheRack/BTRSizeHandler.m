@@ -32,11 +32,9 @@
     }
     
     if ([allKeys count] > 0) {
-        
         keyString = [allKeys objectAtIndex:0];
-        [sizesQuantityArray addObject:variantInventoryDictionary[keyString]];
-
         if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@"One Size"]) {
+            [sizesQuantityArray addObject:variantInventoryDictionary[keyString]];
             return BTRSizeModeSingleSizeShow;
         }
         
