@@ -461,7 +461,7 @@
                     return 312;
             break;
         case 1:
-            return 260;
+            return 227;
             break;
         case 2:
             return [self descriptionCellHeight];
