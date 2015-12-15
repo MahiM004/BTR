@@ -398,8 +398,10 @@
         [self.freeShippingPromoHeight setConstant:0];
     }
     
-    if ([self.order.vipPickup boolValue])
+    if ([self.order.vipPickup boolValue]) {
+        [self vipOptionChecked];
         [self disableShippingAddress];
+    }
     
     if (self.isVisible)
         [self addSampleGifts];
