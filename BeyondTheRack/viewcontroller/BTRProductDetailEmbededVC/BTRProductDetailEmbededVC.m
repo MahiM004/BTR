@@ -249,18 +249,19 @@
 
 - (void)updateSizeSelectionViewforSizeMode:(BTRSizeMode)sizeMode {
     if (sizeMode == BTRSizeModeSingleSizeShow || sizeMode == BTRSizeModeSingleSizeNoShow) {
-        [nameCell.selectSizeLabel setAttributedText:[BTRViewUtility crossedOffStringfromString:@"Select Size :"]];
-        [nameCell.selectSizeLabel setAlpha:0.4];
-        [nameCell.selectSizeButton setEnabled:false];
-        [nameCell.sizeLabel setText:@"Size"];
-        [nameCell.sizeLabel setTextColor:[UIColor blackColor]];
-        [nameCell.dropdownLabelIcon setHidden:YES];
+
+        [nameCell.selectSizeView setHidden:YES];
+        [nameCell.selectSizeViewHeight setConstant:0];//32
+        [nameCell.selectSizeViewTopMargin setConstant:0];//8
+        
         [nameCell.sizeChartView setHidden:YES];
-        [nameCell.sizeChartHeight setConstant:0];
-        decreaseNameCellSize += 38;
+        [nameCell.sizeChartHeight setConstant:0];//38
+        [nameCell.sizeChartTopConstraint setConstant:0];//8
+        
+        decreaseNameCellSize += 38 + 32 + 8 + 8;
+
         self.variant = @"Z";
-    } else
-        [nameCell.sizeChartView setHidden:NO];
+    }
 }
 
 #pragma mark - Construct Description Views

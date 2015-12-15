@@ -23,4 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIView *sizeChartView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *brandHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sizeChartHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectSizeViewHeight;
+@property (weak, nonatomic) IBOutlet UIView *selectSizeView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectSizeViewTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sizeChartTopConstraint;
 @end
