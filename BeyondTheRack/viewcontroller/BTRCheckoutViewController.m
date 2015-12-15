@@ -476,7 +476,7 @@
 
 - (void)checkboxFreeshipAddressChanged:(CTCheckbox *)checkbox {
     if (checkbox.checked) {
-        [self clearShippingAddress];
+        [self clearShippingAddressAndkeepPhoneAndName:NO];
         [self enableShippingAddress];
         [self.freeshipMessageLabelHeight setConstant:75];
     } else {
@@ -528,7 +528,7 @@
     if ([checkbox checked]) {
         [self vipOptionChecked];
     } else if (![checkbox checked]) {
-        [self clearShippingAddress];
+        [self clearShippingAddressAndkeepPhoneAndName:YES];
         [self enableShippingAddress];
     }
     [self validateAddressViaAPIAndInCompletion:nil];
@@ -543,8 +543,6 @@
     [self.cityShippingTF setText:self.order.pickupAddress.city];
     NSString * vipTitle = [NSString stringWithFormat:@"VIP Option: Pick up from %@ (no shipping fees)",self.order.pickupTitle];
     [self.vipTitleText setText:vipTitle];
-    [self.recipientNameShippingTF setText:self.order.pickupAddress.name];
-    [self.phoneShippingTF setText:self.order.pickupAddress.phoneNumber];
     [self disableShippingAddress];
 }
 
@@ -564,7 +562,7 @@
         [self disableShippingAddress];
 
     } else if (![checkbox checked]) {
-        [self clearShippingAddress];
+        [self clearShippingAddressAndkeepPhoneAndName:YES];
         [self enableShippingAddress];
     }
     [self validateAddressViaAPIAndInCompletion:nil];
@@ -732,14 +730,17 @@
     [self.phoneBillingTF setText:@""];
 }
 
-- (void)clearShippingAddress {
+- (void)clearShippingAddressAndkeepPhoneAndName:(BOOL)keepPhoneAndNum{
     [self.addressLine1ShippingTF setText:@""];
     [self.addressLine2ShippingTF setText:@""];
     [self.countryShippingTF setText:@""];
     [self.zipCodeShippingTF setText:@""];
     [self.provinceShippingTF setText:@""];
     [self.cityShippingTF setText:@""];
-    [self.phoneShippingTF setText:@""];
+    if (!keepPhoneAndNum) {
+        [self.phoneShippingTF setText:@""];
+        [self.recipientNameShippingTF setText:@""];
+    }
 }
 
 - (void)disablePaymentInfo {
