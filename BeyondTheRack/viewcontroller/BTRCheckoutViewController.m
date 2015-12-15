@@ -90,6 +90,8 @@
 @property (strong, nonatomic) NSMutableArray *deSelectedGift;
 @property (strong, nonatomic) ConfirmationInfo *confirmationInfo;
 
+@property (strong, nonatomic) Address *savedShippingAddress;
+
 @end
 
 @implementation BTRCheckoutViewController
@@ -175,7 +177,7 @@
         info = (@{
                   @"token" : self.order.cardToken,
                   @"use_token" : @true,
-                  @"remember_card" : [NSNumber numberWithBool:[self.remeberCardInfoCheckbox checked]]
+                  @"payment_type" : @""
                   });
     else
         info = (@{
@@ -483,6 +485,7 @@
         [self.freeshipMessageLabelHeight setConstant:0];
         [self loadOrderData];
     }
+    [self validateAddressViaAPIAndInCompletion:nil];
     [self resetSize];
 }
 
@@ -551,18 +554,19 @@
         return;
     
     if ([checkbox checked]) {
+        [self saveCurrentShippingAddress];
         [self.addressLine1ShippingTF setText:self.order.pickupAddress.addressLine1];
         [self.addressLine2ShippingTF setText:self.order.pickupAddress.addressLine2];
         [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:self.order.pickupAddress.country]];
         [self.zipCodeShippingTF setText:self.order.pickupAddress.postalCode];
         [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:self.order.pickupAddress.province]];
         [self.cityShippingTF setText:self.order.pickupAddress.city];
-        [self.recipientNameShippingTF setText:self.order.pickupTitle];
-        [self.phoneShippingTF setText:self.order.pickupAddress.phoneNumber];
         [self disableShippingAddress];
 
     } else if (![checkbox checked]) {
-        [self clearShippingAddressAndkeepPhoneAndName:YES];
+        [self.order setIsPickup:@"0"];
+        if (self.savedShippingAddress)
+            [self fillShippingAddressByAddress:self.savedShippingAddress];
         [self enableShippingAddress];
     }
     [self validateAddressViaAPIAndInCompletion:nil];
@@ -626,6 +630,19 @@
     [self.provinceShippingTF setAlpha:1.0f];
     [self.cityShippingTF setAlpha:1.0f];
     [self.phoneShippingTF setAlpha:1.0f];
+}
+         
+- (void)saveCurrentShippingAddress {
+     if (!self.savedShippingAddress)
+         self.savedShippingAddress = [[Address alloc]init];
+    self.savedShippingAddress.addressLine1 = self.addressLine1ShippingTF.text;
+    self.savedShippingAddress.addressLine2 = self.addressLine2ShippingTF.text;
+    self.savedShippingAddress.country = [BTRViewUtility countryCodeforName:[[self countryShippingTF] text]];
+    self.savedShippingAddress.province =  [BTRViewUtility provinceCodeforName:[[self provinceShippingTF] text]];
+    self.savedShippingAddress.city = self.cityShippingTF.text;
+    self.savedShippingAddress.postalCode = self.zipCodeShippingTF.text;
+    self.savedShippingAddress.name = self.recipientNameShippingTF.text;
+    self.savedShippingAddress.phoneNumber = self.phoneShippingTF.text;
 }
 
 - (void)checkboxIsGiftChange:(CTCheckbox *)checkbox {
@@ -793,6 +810,7 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
+    [orderInfo setObject:[NSNumber numberWithBool:NO] forKey:@"check_booze"];
     [orderInfo setObject:[self.giftMessageTF text] forKey:@"recipient_message"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
     
@@ -1238,6 +1256,8 @@
     [params setObject:[self cardInfo] forKey:@"cardInfo"];
     [params setObject:[self selectedGift] forKey:@"promotions_opted_in"];
     [params setObject:@"creditcard" forKey:@"paymentMethod"];
+    [params setObject:[NSDictionary dictionary] forKey:@"masterPassInfo"];
+    [params setObject:[NSDictionary dictionary] forKey:@"visaMeInfo"];
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         success(response);
     } faild:^(NSError *error) {
