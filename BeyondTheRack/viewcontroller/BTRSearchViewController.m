@@ -135,6 +135,7 @@
     
     self.suggestionArray = [[NSMutableArray alloc]init];
     self.suggestionTableView.hidden = YES;
+    self.suggestionTableView.backgroundColor = [UIColor colorWithRed:222/255.0f green:222/255.0f blue:222/255.0f alpha:1]; // This is better to add instead of showing the background CollectionView.....
     
     self.currentPage = 1;
     self.isLoadingNextPage = NO;
@@ -183,10 +184,16 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    if (self.itemsArray.count > 0) {
-        [self.itemsArray removeAllObjects];
-        [self.collectionView reloadData];
-    }
+// There is no need to add this lines because we are given background color for the Suggestion TableView so if there is data or not we are not showing . i believe this is best solution
+    
+    
+//    Because what ever they dont want to see collection view if suggestion view is opened
+    
+//    if (self.itemsArray.count > 0) {
+//        [self.itemsArray removeAllObjects];
+//        [self.collectionView reloadData];
+//    }
+    
     if (searchText.length == 0) {
         [self.suggestionArray removeAllObjects];
         [self.suggestionTableView setHidden:YES];

@@ -82,7 +82,7 @@
 - (BTRTrackOrdersItemCell *)configureCell:(BTRTrackOrdersItemCell *)cell forOrderItem:(OrderHistoryItem *)orderItem {
     [[cell descriptionLabel] setText:[orderItem shortDescription]];
     [[cell sizeLabel] setText:[orderItem variant]];
-    [[cell priceLabel] setText:[NSString stringWithFormat:@"$%@",[orderItem price]]];
+    [[cell priceLabel] setText:[NSString stringWithFormat:@"$%.2f",[[orderItem price] floatValue]]];
     [[cell skuLabel] setText:[orderItem skuNumber]];
     [[cell statusLabel] setText:[orderItem status]];
     return cell;

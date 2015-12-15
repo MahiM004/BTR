@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2UK-j1-Cdh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2UK-j1-Cdh">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -2388,7 +2388,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="B913C6B9-23BA-47F8-91E7-81683B3C5700" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="2EC2629F-62EB-4220-8D5B-70C7DAB0BC75" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -5719,9 +5719,12 @@
                                                                     <constraint firstAttribute="width" constant="183" id="Cb0-w8-Fbl"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Learn more about the gifts">
-                                                                    <color key="titleColor" red="0.43215356691919193" green="0.28986546998551477" blue="0.14890847237502278" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="titleColor" red="0.89411764709999997" green="0.16078431369999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="learnMoreAboutGifts:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="IOP-Ir-hke"/>
+                                                                </connections>
                                                             </button>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="whn-t0-a6y" userLabel="Gift Info">
                                                                 <rect key="frame" x="8" y="78" width="285" height="164"/>
@@ -6427,7 +6430,7 @@
                                                                     <constraint firstAttribute="height" constant="21" id="pPN-vi-lvq"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                                                <color key="textColor" red="0.43215356690000001" green="0.28986547000000001" blue="0.14890847239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.89411764709999997" green="0.16078431369999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mzu-6q-fRO" userLabel="Total Due View">
@@ -6452,7 +6455,6 @@
                                                                             <constraint firstAttribute="width" constant="120" id="kok-sa-AFs"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                                        <color key="textColor" red="0.43215356690000001" green="0.28986547000000001" blue="0.14890847239999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -7352,7 +7354,6 @@
                                                                     <constraint firstAttribute="width" constant="102" id="GLZ-OR-N9b"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
-                                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHIPPING" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2nn-WO-yk3">
@@ -7431,8 +7432,8 @@
                                                             <constraint firstItem="SyT-S8-1aa" firstAttribute="top" secondItem="PaB-tO-NNZ" secondAttribute="bottom" constant="9" id="pv6-XL-zO2"/>
                                                             <constraint firstItem="mP0-dc-PlX" firstAttribute="leading" secondItem="SyT-S8-1aa" secondAttribute="trailing" constant="8" id="qxN-gw-zbd"/>
                                                             <constraint firstItem="PaB-tO-NNZ" firstAttribute="top" secondItem="5yE-Aq-t6j" secondAttribute="bottom" constant="8" id="u1u-xq-rLb"/>
+                                                            <constraint firstItem="4mX-GP-zcS" firstAttribute="leading" secondItem="lFN-gs-j27" secondAttribute="trailing" constant="2" id="ukM-jS-G6l"/>
                                                             <constraint firstItem="HA0-TC-Xox" firstAttribute="top" secondItem="fQI-Wy-WvY" secondAttribute="bottom" constant="8" id="wsd-cu-Qzi"/>
-                                                            <constraint firstItem="lFN-gs-j27" firstAttribute="centerX" secondItem="XZM-SC-pjf" secondAttribute="centerX" constant="-49" id="z9e-eO-A9z"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNB-XL-2p6" userLabel="ContinueShopping">
@@ -10517,9 +10518,12 @@ If so, please provide the order number,
                                                                     <constraint firstAttribute="height" constant="30" id="b0l-g4-EhD"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Learn more about the gifts">
-                                                                    <color key="titleColor" red="0.43215356690000001" green="0.28986547000000001" blue="0.14890847239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="titleColor" red="0.89411764709999997" green="0.16078431369999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="learnMoreAboutGifts:" destination="KI2-4Z-PmZ" eventType="touchUpInside" id="8h0-Ql-vXb"/>
+                                                                </connections>
                                                             </button>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QKB-Gg-h48" userLabel="Gift Info">
                                                                 <rect key="frame" x="10" y="78" width="280" height="164"/>
@@ -10746,7 +10750,7 @@ If so, please provide the order number,
                                                                             <constraint firstAttribute="height" constant="21" id="RlL-2N-Yos"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                                        <color key="textColor" red="0.43215356690000001" green="0.28986547000000001" blue="0.14890847239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="textColor" red="0.89411764709999997" green="0.16078431369999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BAG TOTAL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4u-ZG-RAW">
@@ -10973,7 +10977,6 @@ If so, please provide the order number,
                                                                                     <constraint firstAttribute="height" constant="30" id="952-FV-LOw"/>
                                                                                 </constraints>
                                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                                                <color key="textColor" red="0.43215356690000001" green="0.28986547000000001" blue="0.14890847239999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
@@ -12229,7 +12232,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="B913C6B9-23BA-47F8-91E7-81683B3C5700" width="30" height="30">
+        <image name="2EC2629F-62EB-4220-8D5B-70C7DAB0BC75" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -12307,9 +12310,9 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="trackorders" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4mB-Cf-BtX"/>
-        <segue reference="wA3-jM-FeK"/>
-        <segue reference="4NP-4y-F7L"/>
+        <segue reference="ue6-nF-fny"/>
+        <segue reference="HxW-sB-vXc"/>
+        <segue reference="Hl3-o6-ufa"/>
         <segue reference="VWb-YF-urN"/>
     </inferredMetricsTieBreakers>
 </document>

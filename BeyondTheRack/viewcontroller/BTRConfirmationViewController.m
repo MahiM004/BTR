@@ -103,23 +103,23 @@
         self.viewHeight.constant = self.viewHeight.constant + (self.info.items.count - 1) * 140;
     
     // Prices
-    self.bagTotalLabel.text = [NSString stringWithFormat:@"%.2f",[self.info.bagTotal floatValue]];
+    self.bagTotalLabel.text = [NSString stringWithFormat:@"$%.2f",[self.info.bagTotal floatValue]];
     self.totalOrder.text = [NSString stringWithFormat:@"TOTAL %@ :",self.info.orderCurrency];
-    self.totalOrderValue.text = [NSString stringWithFormat:@"%.2f",[self.info.totalOrderValue floatValue]];
-    self.shippingPriceLabel.text = [NSString stringWithFormat:@"%@",self.info.totalShipping];
+    self.totalOrderValue.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalOrderValue floatValue]];
+    self.shippingPriceLabel.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalShipping floatValue]];
     
     if (self.info.labelTax1 == nil) {
         self.taxLabel1.hidden = YES;
         self.taxValue1.hidden = YES;
     } else {
-        self.taxValue1.text = [NSString stringWithFormat:@"%.2f",[self.info.totalTax1 floatValue]];
+        self.taxValue1.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalTax1 floatValue]];
         self.taxLabel1.text = self.info.labelTax1;
     }
     if (self.info.labelTax2 == nil) {
         self.taxLabel2.hidden = YES;
         self.taxValue2.hidden = YES;
     } else {
-        self.taxValue2.text = [NSString stringWithFormat:@"%.2f",[self.info.totalTax1 floatValue]];
+        self.taxValue2.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalTax1 floatValue]];
         self.taxLabel2.text = self.info.labelTax2;
     }
     

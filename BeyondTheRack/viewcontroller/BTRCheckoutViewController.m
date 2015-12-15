@@ -1374,8 +1374,8 @@
     [self validateAddressViaAPIAndInCompletion:nil];
 }
 
-- (IBAction)freeMontrealInfoAction:(UIButton *)sender {
-    
+- (IBAction)learnMoreAboutGifts:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.beyondtherack.com/help/faq#gifts-gift_howto"]];
 }
 
 - (BOOL)isShippingAddressCompeleted {
