@@ -55,10 +55,7 @@
 @class CTCheckbox;
 
 
-@interface BTRCheckoutViewController () {
-    BOOL giftCardOpened;
-}
-
+@interface BTRCheckoutViewController ()
 @property (nonatomic, strong) UIPopoverController *userDataPopover;
 @property (strong, nonatomic) Freeship* freeshipInfo;
 
@@ -226,7 +223,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    giftCardOpened = YES;
     [CardIOUtilities preload];
     [self resetData];
     [self setCheckboxesTargets];
@@ -274,7 +270,7 @@
                                    kFRDLivelyButtonHighlightedColor: [UIColor whiteColor],
                                    kFRDLivelyButtonColor: [BTRViewUtility BTRBlack]
                                    }];
-    [_expandHaveCode setStyle:kFRDLivelyButtonStylePlus animated:YES];
+    [_expandHaveCode setStyle:kFRDLivelyButtonStyleClose animated:YES];
     
     if (![BTRViewUtility isIPAD]) {
         self.paymentPicker = [[DownPicker alloc] initWithTextField:self.paymentMethodTF withData:[self paymentTypesArray] pickType:@"Payment"];
@@ -368,6 +364,10 @@
         self.pleaseFillOutTheShippingFormView.hidden = NO;
         self.fillFormLabelViewHeight.constant = FILL_SHIPPING_HEIGHT;
         [self.vipOptionViewHeight setConstant:0];
+        _haveAgiftInnerView.hidden = NO;
+        if (_giftCardViewHeight.constant == 40) {
+            _giftCardViewHeight.constant += 125;
+        }
     }
     
     // Pick UP
@@ -1052,7 +1052,7 @@
 
 
 - (IBAction)haveGiftCardHeight:(id)sender {
-    if (giftCardOpened == YES) {
+    if (_giftCardViewHeight.constant == 40) {
         if ([BTRViewUtility isIPAD]) {
             _giftCardViewHeight.constant += 125;
             self.haveAGiftViewHeight.constant += 125;
@@ -1063,7 +1063,6 @@
             }];
         }
         _haveAgiftInnerView.hidden = NO;
-        giftCardOpened = NO;
         [_expandHaveCode setStyle:kFRDLivelyButtonStyleClose animated:YES];
     } else {
         if ([BTRViewUtility isIPAD]) {
@@ -1076,7 +1075,6 @@
             }];
         }
         _haveAgiftInnerView.hidden = YES;
-        giftCardOpened = YES;
         [_expandHaveCode setStyle:kFRDLivelyButtonStylePlus animated:YES];
     }
     [self resetSize];
