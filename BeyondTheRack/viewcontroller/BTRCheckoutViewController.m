@@ -173,7 +173,7 @@
     if (self.changePaymentMethodCheckbox.checked == NO && [self.order.useToken boolValue])
         info = (@{
                   @"token" : self.order.cardToken,
-                  @"use_token" : @true,
+                  @"use_token" : [NSNumber numberWithBool:YES],
                   @"payment_type" : @""
                   });
     else
@@ -184,7 +184,7 @@
                   @"year": [[self expiryYearPaymentTF] text],
                   @"month": expMonth,
                   @"cvv": [[self cardVerificationPaymentTF] text],
-                  @"use_token": @false,
+                  @"use_token": [NSNumber numberWithBool:NO],
                   @"token": @"295219000",
                   @"remember_card": [NSNumber numberWithBool:[self.remeberCardInfoCheckbox checked]]
                   });
