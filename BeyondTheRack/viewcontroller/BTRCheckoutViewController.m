@@ -756,7 +756,6 @@
 - (void)clearBillingAddress {
     [self.addressLine1BillingTF setText:@""];
     [self.addressLine2BillingTF setText:@""];
-    [self.countryBillingTF setText:@""];
     [self.postalCodeBillingTF setText:@""];
     [self.provinceBillingTF setText:@""];
     [self.cityBillingTF setText:@""];
@@ -766,7 +765,6 @@
 - (void)clearShippingAddressAndkeepPhoneAndName:(BOOL)keepPhoneAndNum{
     [self.addressLine1ShippingTF setText:@""];
     [self.addressLine2ShippingTF setText:@""];
-    [self.countryShippingTF setText:@""];
     [self.zipCodeShippingTF setText:@""];
     [self.provinceShippingTF setText:@""];
     [self.cityShippingTF setText:@""];
@@ -872,8 +870,8 @@
     if ([self.order.paymentType isEqualToString:@"paypal"]) {
         [self.paymentMethodTF setText:@"Paypal"];
         [self setCurrentPaymentType:paypal];
-        if  (self.order.billingName.length > 0) {
-            self.paypalEmailTF.text = self.order.billingName;
+        if  (self.order.billingAddress.name.length > 0) {
+            self.paypalEmailTF.text = self.order.billingAddress.name;
         }
     }
     else {
@@ -952,8 +950,9 @@
             self.sendmeToPaypalLabel.hidden = NO;
             self.changePaymentMethodView.hidden = NO;
             if (![BTRViewUtility isIPAD]) {
+                self.paymentDetailsView.hidden = YES;
                 self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT;
-            self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT;
+                self.paypalDetailHeight.constant = CARD_PAYMENT_HEIGHT;
             } else {
                 self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT_IPAD;
                 self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT_IPAD;
