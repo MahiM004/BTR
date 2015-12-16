@@ -135,8 +135,6 @@
     
     self.suggestionArray = [[NSMutableArray alloc]init];
     self.suggestionTableView.hidden = YES;
-    self.suggestionTableView.backgroundColor = [UIColor colorWithRed:222/255.0f green:222/255.0f blue:222/255.0f alpha:1]; // This is better to add instead of showing the background CollectionView.....
-    
     self.currentPage = 1;
     self.isLoadingNextPage = NO;
     self.lastPageDidLoad = NO;
@@ -177,22 +175,11 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.suggestionTableView setHidden:YES];
-    _noResulteLabel.alpha = 0;
-    _noResulteLabel.hidden = YES;
     [searchBar setText:@""];
     [searchBar resignFirstResponder];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-// There is no need to add this lines because we are given background color for the Suggestion TableView so if there is data or not we are not showing . i believe this is best solution
-    
-    
-//    Because what ever they dont want to see collection view if suggestion view is opened
-    
-//    if (self.itemsArray.count > 0) {
-//        [self.itemsArray removeAllObjects];
-//        [self.collectionView reloadData];
-//    }
     
     if (searchText.length == 0) {
         [self.suggestionArray removeAllObjects];
@@ -208,7 +195,6 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.itemsArray removeAllObjects];
-    [self.collectionView reloadData];
     [self setIsLoadingNextPage:YES];
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
@@ -226,6 +212,14 @@
                              [self setItemsArray:responseArray];
                              [self.suggestionTableView setHidden:YES];
                              [self.collectionView becomeFirstResponder];
+                             if ([self.itemsArray count] == 0){
+                                 _noResulteLabel.alpha = 0.8;
+                                 _noResulteLabel.hidden = NO;
+                             }
+                             else {
+                                 _noResulteLabel.alpha = 0;
+                                 _noResulteLabel.hidden = YES;
+                             }
                              [self.collectionView reloadData];
                              for (int i = 0; i < [self.itemsArray count]; i++)
                                  [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
@@ -583,8 +577,6 @@
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeHTMLOrText success:^(NSDictionary * response) {
         NSArray * receivedData = [[NSArray alloc]initWithArray:(NSArray *)response];
         if (receivedData.count > 0) {
-            _noResulteLabel.alpha = 0;
-            _noResulteLabel.hidden = YES;
             [self.suggestionArray removeAllObjects];
             [self.suggestionArray addObjectsFromArray:receivedData];
             [self.suggestionTableView reloadData];
@@ -592,8 +584,6 @@
             [self.suggestionTableView setHidden:NO];
         } else {
             [self.suggestionTableView setHidden:YES];
-            _noResulteLabel.alpha = 1;
-            _noResulteLabel.hidden = NO;
         }
     } faild:^(NSError *error) {
         NSLog(@"%@",error);
