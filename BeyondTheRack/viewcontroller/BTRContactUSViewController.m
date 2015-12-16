@@ -43,7 +43,7 @@
     // iPhone Picker
     if (![BTRViewUtility isIPAD]) {
         self.faqPicker = [[DownPicker alloc] initWithTextField:self.typeOfInquiryTF withData:[self inquiryArray] pickType:@"faq"];
-        [self.faqPicker showArrowImage:NO];
+        [self.faqPicker showArrowImage:YES];
         self.faqPicker.delegate = self;
     } else {
         self.typeOfInquiryBtn.hidden = NO;
