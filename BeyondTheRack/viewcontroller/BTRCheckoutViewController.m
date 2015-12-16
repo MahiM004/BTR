@@ -391,6 +391,9 @@
             [self.pleaseFillOutTheShippingFormView setHidden:YES];
             [self.fillFormLabelViewHeight setConstant:0];
             [self.freeShippingPromoHeight setConstant:CHECKBOXES_HEIGHT];
+        } else {
+            [self enableShippingAddress];
+            [self fillShippingAddressByAddress:self.order.shippingAddress];
         }
     } else {
         [self enableShippingAddress];
