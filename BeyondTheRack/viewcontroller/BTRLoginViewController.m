@@ -21,10 +21,11 @@
 #define IDIOM    UI_USER_INTERFACE_IDIOM()
 #define IPAD     UIUserInterfaceIdiomPad
 
-@interface BTRLoginViewController ()
+@interface BTRLoginViewController ()<UITextFieldDelegate>
 {
     BTRAppDelegate * appDelegate;
 }
+@property (weak, nonatomic) IBOutlet BTRLoadingButton *loadingBtn;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
@@ -104,10 +105,13 @@
             });
         }
         else {
-            if (self.passwordTextField.text.length < 4)
-                [self.passwordTextField bs_showError];
-            if (![self validateEmailWithString:_emailTextField.text])
+            if (![self validateEmailWithString:_emailTextField.text]) {
+                [_emailTextField becomeFirstResponder];
                 [self.emailTextField bs_showError];
+            } else if (self.passwordTextField.text.length < 4) {
+                [_passwordTextField becomeFirstResponder];
+                [self.passwordTextField bs_showError];
+            }
             [self showAlert:@"Please try again" msg:@"Please check the Email and Password !"];
         }
     }
@@ -331,6 +335,15 @@
 
 #pragma mark TextField Delegations
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.returnKeyType == UIReturnKeyNext) {
+        [_passwordTextField becomeFirstResponder];
+    } else {
+        [_passwordTextField resignFirstResponder];
+        [self signInButtonTapped:_loadingBtn];
+    }
+    return YES;
+}
 
 - (IBAction)textFieldValueChangedOrSelected:(UITextField *)sender {
     [sender bs_hideError];
