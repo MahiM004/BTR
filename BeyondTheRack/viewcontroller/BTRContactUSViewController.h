@@ -16,7 +16,6 @@
 
 // LABELS
 
-@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *faqSugesstionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contactSupportTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contactSupportContentLabel;
@@ -30,10 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *productLabel;
 @property (weak, nonatomic) IBOutlet UILabel *helpLabel;
 
-// Heights
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageLabelHeight;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageLabelWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *oneWidthForAll;
 
 // TEXT FIELDS
 
