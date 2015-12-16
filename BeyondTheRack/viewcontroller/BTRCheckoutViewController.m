@@ -455,6 +455,7 @@
         widthSize = self.view.frame.size.width;
     }
     
+    [self.selectedGift removeAllObjects];
     for (PromoItem* item in self.order.promoItems) {
         if ([self.order.shippingAddress.country isEqualToString:item.eligibleCountry]) {
             UIView *itemView = [[[NSBundle mainBundle]loadNibNamed:@"BTRSampleGiftView" owner:self options:nil]firstObject];
