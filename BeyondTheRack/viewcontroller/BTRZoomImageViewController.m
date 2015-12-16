@@ -14,18 +14,17 @@
 
 
 @implementation BTRZoomImageViewController
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [UIView animateWithDuration:0.02 animations:^{
         [self.collectionView performBatchUpdates:nil completion:nil];
     }];
+    [self.collectionView scrollToItemAtIndexPath:_selectedIndex atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    
 }
 
 #pragma mark - UICollectionView Datasource
@@ -43,6 +42,7 @@
                           placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
      return cell;
 }
+
 - (IBAction)closeAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -57,14 +57,14 @@
         } else
             return CGSizeMake(screenBounds.size.width - 10, screenBounds.size.height - 120);
     } else
-        return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height);
+        return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.height-20);
 }
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [self.collectionView performBatchUpdates:nil completion:nil];
 }
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                               duration:(NSTimeInterval)duration{
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     [self.collectionView.collectionViewLayout invalidateLayout];
 }
 @end

@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSString *productSkuString;
+@property NSIndexPath* selectedIndex;
 @property (nonatomic) NSInteger zoomImageCount;
 
 @end

@@ -169,7 +169,7 @@
                         <rect key="frame" x="24" y="185" width="366" height="38"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fa-mi-0oN">
-                                <rect key="frame" x="8" y="4" width="350" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="366" height="38"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Size Chart">
@@ -181,10 +181,10 @@
                         <animations/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2fa-mi-0oN" secondAttribute="trailing" constant="8" id="EQI-1L-1aX"/>
-                            <constraint firstItem="2fa-mi-0oN" firstAttribute="leading" secondItem="yNh-Is-lA6" secondAttribute="leading" constant="8" id="M5R-nL-REC"/>
-                            <constraint firstAttribute="bottom" secondItem="2fa-mi-0oN" secondAttribute="bottom" constant="4" id="Zla-In-kTk"/>
-                            <constraint firstItem="2fa-mi-0oN" firstAttribute="top" secondItem="yNh-Is-lA6" secondAttribute="top" constant="4" id="bFw-D5-0sw"/>
+                            <constraint firstAttribute="trailing" secondItem="2fa-mi-0oN" secondAttribute="trailing" id="EQI-1L-1aX"/>
+                            <constraint firstItem="2fa-mi-0oN" firstAttribute="leading" secondItem="yNh-Is-lA6" secondAttribute="leading" id="M5R-nL-REC"/>
+                            <constraint firstAttribute="bottom" secondItem="2fa-mi-0oN" secondAttribute="bottom" id="Zla-In-kTk"/>
+                            <constraint firstItem="2fa-mi-0oN" firstAttribute="top" secondItem="yNh-Is-lA6" secondAttribute="top" id="bFw-D5-0sw"/>
                             <constraint firstAttribute="height" constant="38" id="hUI-i2-JQ1"/>
                         </constraints>
                     </view>

@@ -770,11 +770,11 @@
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     if ([BTRViewUtility isIPAD]) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-            return CGSizeMake(screenBounds.size.width / 2 - 40,screenBounds.size.height - 165);
+            return CGSizeMake(screenBounds.size.width / 2 - 8,screenBounds.size.height - 145);
         } else
             return CGSizeMake(280 , 390);
     } else {
-        return CGSizeMake((collectionView.bounds.size.width * 2) / 3, collectionView.bounds.size.height);
+        return CGSizeMake(collectionView.frame.size.width - 8, collectionView.frame.size.height - 10);
     }
 }
 
@@ -785,6 +785,7 @@
         zoomVC.zoomImageCount = 1;
     else
         zoomVC.zoomImageCount = [self productImageCount];
+    zoomVC.selectedIndex = indexPath;
     zoomVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
     [self presentViewController:zoomVC animated:YES completion:nil];
 }
@@ -794,6 +795,7 @@
     _collectionView=[[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
     [_collectionView setDataSource:self];
     [_collectionView setDelegate:self];
+    _collectionView.pagingEnabled = YES;
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     [_collectionView setBackgroundColor:[UIColor whiteColor]];
     return _collectionView;
