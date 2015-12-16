@@ -399,6 +399,22 @@
         [self.FreeshipingPromoView setHidden:YES];
         [self.freeShippingPromoHeight setConstant:0];
     }
+    // If Shipping Country is US we are displaying no shipping Label else we hide it
+    if ([_countryShippingTF.text isEqualToString:@"Canada"]) {
+        [_noShippingLabel setHidden:YES];
+    } else {
+        [_noShippingLabel setHidden:NO];
+    }
+    
+    if (_noShippingLabel.hidden && _noShippingLabelHeight.constant != 0) {
+        [_noShippingLabelHeight setConstant:0];
+        [_noShippingLabelTopMargin setConstant:0];
+        _shippingViewHeight.constant -= 47+8;
+    } else if (!_noShippingLabel.hidden && _noShippingLabelHeight.constant == 0) {
+        [_noShippingLabelHeight setConstant:47];
+        [_noShippingLabelTopMargin setConstant:8];
+        _shippingViewHeight.constant += 47+8;
+    }
     
     if ([self.order.vipPickup boolValue]) {
         [self vipOptionChecked];
@@ -1625,6 +1641,9 @@
     if (self.rememberCardInfoHeight.constant == 0)
         size = size - REMEBER_CARD_INFO_HEIGHT;
     
+    if (_noShippingLabelHeight.constant == 0 && ![BTRViewUtility isIPAD]) {
+        size -= 47;
+    }
     size = size + self.sampleGiftViewHeight.constant;
     self.viewHeight.constant = size;
     [self.view layoutIfNeeded];
@@ -1705,6 +1724,11 @@
             [self validateAddressViaAPIAndInCompletion:nil];
     }
     else if (_popType == PopUPTypeShippingCountry) {
+        if (index.row == 1) {
+            [_noShippingLabel setHidden:NO];
+        } else {
+            [_noShippingLabel setHidden:YES];
+        }
             [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
             [self validateAddressViaAPIAndInCompletion:nil];
     }
@@ -1736,6 +1760,11 @@
         [self.expiryYearPaymentTF setText:[[self expiryYearsArray] objectAtIndex:row]];
     }
     else if ([picType isEqualToString:@"shiCountry"]) {
+        if (row == 1) {
+            [_noShippingLabel setHidden:NO];
+        } else {
+            [_noShippingLabel setHidden:YES];
+        }
         [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:row]];
         [self validateAddressViaAPIAndInCompletion:nil];
     }

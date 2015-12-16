@@ -2391,7 +2391,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="E40FEBDD-6E9A-454B-A01F-B40AF360479F" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="DB86B536-EB33-4994-A060-62C0BD0269B8" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -3620,7 +3620,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-9881" y="-2173"/>
+            <point key="canvasLocation" x="-9349" y="-2173"/>
         </scene>
         <!--Select SizeVC-->
         <scene sceneID="lMB-QA-car">
@@ -3742,7 +3742,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nn8-TZ-5cT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="2RB-YU-c7f" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-10677" y="-2173"/>
+            <point key="canvasLocation" x="-10145" y="-2173"/>
         </scene>
         <!--Zoom Image View Controller-->
         <scene sceneID="nLl-d3-tPN">
@@ -3864,7 +3864,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gK5-LP-xyc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-9126" y="-2161"/>
+            <point key="canvasLocation" x="-8594" y="-2161"/>
         </scene>
         <!--EventsVC-->
         <scene sceneID="rKa-x5-tlE">
@@ -3935,7 +3935,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Faa-nG-mOq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10287" y="-2173"/>
+            <point key="canvasLocation" x="-9755" y="-2173"/>
         </scene>
         <!--Shopping Bag View Controller-->
         <scene sceneID="fVo-F9-AIa">
@@ -6904,6 +6904,9 @@
                         <outlet property="learnAboutGiftsButton" destination="gY8-TS-4hU" id="Q8T-VC-Khn"/>
                         <outlet property="masterPassButton" destination="vu1-7h-Jvf" id="TR0-IW-mCL"/>
                         <outlet property="nameOnCardPaymentTF" destination="ofS-V2-LS7" id="xEo-6I-34j"/>
+                        <outlet property="noShippingLabel" destination="d5e-ZA-FMw" id="CsC-ja-lgb"/>
+                        <outlet property="noShippingLabelHeight" destination="ESF-PV-ay2" id="k27-Dv-mXk"/>
+                        <outlet property="noShippingLabelTopMargin" destination="COe-6K-e1j" id="arY-2j-L0g"/>
                         <outlet property="orderIsGiftCheckbox" destination="GUj-Ba-z4z" id="Fob-Oh-KbA"/>
                         <outlet property="orderTotalDollarLabel" destination="zQS-Up-C2G" id="n7u-iS-SPW"/>
                         <outlet property="parentViewforScrollView" destination="Srq-vU-sly" id="Qh7-zt-Cc0"/>
@@ -9542,7 +9545,7 @@ If so, please provide the order number,
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wBf-mQ-fPH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Df5-rT-b19" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-9500" y="-2161"/>
+            <point key="canvasLocation" x="-8968" y="-2161"/>
         </scene>
         <!--Checkout View Controller-->
         <scene sceneID="l4d-83-tn0">
@@ -11731,6 +11734,9 @@ If so, please provide the order number,
                         <outlet property="learnAboutGiftsButton" destination="leD-go-Tt0" id="yN5-vz-gLB"/>
                         <outlet property="masterPassButton" destination="AlV-3V-PIL" id="Ad1-pO-IAY"/>
                         <outlet property="nameOnCardPaymentTF" destination="nSl-4K-0uB" id="xf8-CV-pp5"/>
+                        <outlet property="noShippingLabel" destination="Hlg-8w-94u" id="Cr8-MF-WDY"/>
+                        <outlet property="noShippingLabelHeight" destination="OYb-vI-h2D" id="y8X-Rj-lS7"/>
+                        <outlet property="noShippingLabelTopMargin" destination="gpO-9L-evF" id="RRb-ab-4o7"/>
                         <outlet property="orderIsGiftCheckbox" destination="mOE-yE-8OB" id="apE-Uq-pJV"/>
                         <outlet property="orderTotalDollarLabel" destination="46o-vd-M2q" id="gfQ-86-hwc"/>
                         <outlet property="parentViewforScrollView" destination="UHe-TM-Kaa" id="Aaf-Oy-i3s"/>
@@ -12204,7 +12210,7 @@ If so, please provide the order number,
     </scenes>
     <resources>
         <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="E40FEBDD-6E9A-454B-A01F-B40AF360479F" width="30" height="30">
+        <image name="DB86B536-EB33-4994-A060-62C0BD0269B8" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -12281,9 +12287,9 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="trackorders" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ue6-nF-fny"/>
-        <segue reference="HxW-sB-vXc"/>
-        <segue reference="Hl3-o6-ufa"/>
+        <segue reference="4mB-Cf-BtX"/>
+        <segue reference="wA3-jM-FeK"/>
+        <segue reference="4NP-4y-F7L"/>
         <segue reference="VWb-YF-urN"/>
     </inferredMetricsTieBreakers>
 </document>
