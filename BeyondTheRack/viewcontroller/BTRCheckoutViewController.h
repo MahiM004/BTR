@@ -115,6 +115,9 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *rememberCardInfoHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sameAsShippingHeight;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *noShippingLabelHeight;
+@property (weak, nonatomic) IBOutlet UILabel *noShippingLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *noShippingLabelTopMargin;
 
 /**
  

@@ -43,7 +43,7 @@
     // iPhone Picker
     if (![BTRViewUtility isIPAD]) {
         self.faqPicker = [[DownPicker alloc] initWithTextField:self.typeOfInquiryTF withData:[self inquiryArray] pickType:@"faq"];
-        [self.faqPicker showArrowImage:NO];
+        [self.faqPicker showArrowImage:YES];
         self.faqPicker.delegate = self;
     } else {
         self.typeOfInquiryBtn.hidden = NO;
@@ -53,9 +53,9 @@
     [super viewWillAppear:animated];
     //One Width Will Change the all widths because of Equal Width constraint is added
     if ([BTRViewUtility isIPAD]) {
-        _messageLabelWidth.constant = self.view.frame.size.width - 300;
+        _oneWidthForAll.constant = self.view.frame.size.width - 300;
     } else {
-        _messageLabelWidth.constant = self.view.frame.size.width - 20;
+        _oneWidthForAll.constant = self.view.frame.size.width - 20;
     }
     
     [self.typeOfInquiryTF setText:[self.inquiryArray objectAtIndex:0]];
@@ -73,16 +73,6 @@
 }
 
 - (void)fillData {
-    // message
-    if (self.contactInformaion.lostEmail) {
-        self.messageLabel.text = [self.contactInformaion lostEmail];
-        self.messageLabelHeight.constant = 120;
-        self.messageLabel.hidden = NO;
-    } else {
-        self.messageLabelHeight.constant = 0;
-        self.messageLabel.hidden = YES;
-    }
-    
     // faq suggestion
     NSString* faqString = [[[self.contactInformaion headersArray]firstObject]content];
     NSRange range = [faqString rangeOfString:@"FAQ"];
@@ -270,7 +260,7 @@
 
 }
 
-//// iPod PopUp View
+//// iPad PopUp View
 -(void)openPopView:(UIButton*)sender Data:(NSMutableArray*)getArr inView:(UIView*)view inFrameView:(UIView*)frameV {
     BTRPopUpVC *popView = [self.storyboard instantiateViewControllerWithIdentifier:@"popView"];
     popView.delegate = self;

@@ -55,10 +55,7 @@
 @class CTCheckbox;
 
 
-@interface BTRCheckoutViewController () {
-    BOOL giftCardOpened;
-}
-
+@interface BTRCheckoutViewController ()
 @property (nonatomic, strong) UIPopoverController *userDataPopover;
 @property (strong, nonatomic) Freeship* freeshipInfo;
 
@@ -226,7 +223,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    giftCardOpened = YES;
     [CardIOUtilities preload];
     [self resetData];
     [self setCheckboxesTargets];
@@ -274,7 +270,7 @@
                                    kFRDLivelyButtonHighlightedColor: [UIColor whiteColor],
                                    kFRDLivelyButtonColor: [BTRViewUtility BTRBlack]
                                    }];
-    [_expandHaveCode setStyle:kFRDLivelyButtonStylePlus animated:YES];
+    [_expandHaveCode setStyle:kFRDLivelyButtonStyleClose animated:YES];
     
     if (![BTRViewUtility isIPAD]) {
         self.paymentPicker = [[DownPicker alloc] initWithTextField:self.paymentMethodTF withData:[self paymentTypesArray] pickType:@"Payment"];
@@ -368,6 +364,10 @@
         self.pleaseFillOutTheShippingFormView.hidden = NO;
         self.fillFormLabelViewHeight.constant = FILL_SHIPPING_HEIGHT;
         [self.vipOptionViewHeight setConstant:0];
+        _haveAgiftInnerView.hidden = NO;
+        if (_giftCardViewHeight.constant == 40) {
+            _giftCardViewHeight.constant += 125;
+        }
     }
     
     // Pick UP
@@ -398,6 +398,22 @@
         [self fillBillingAddressByAddress:self.order.billingAddress];
         [self.FreeshipingPromoView setHidden:YES];
         [self.freeShippingPromoHeight setConstant:0];
+    }
+    // If Shipping Country is US we are displaying no shipping Label else we hide it
+    if ([_countryShippingTF.text isEqualToString:@"Canada"]) {
+        [_noShippingLabel setHidden:YES];
+    } else {
+        [_noShippingLabel setHidden:NO];
+    }
+    
+    if (_noShippingLabel.hidden && _noShippingLabelHeight.constant != 0) {
+        [_noShippingLabelHeight setConstant:0];
+        [_noShippingLabelTopMargin setConstant:0];
+        _shippingViewHeight.constant -= 47+8;
+    } else if (!_noShippingLabel.hidden && _noShippingLabelHeight.constant == 0) {
+        [_noShippingLabelHeight setConstant:47];
+        [_noShippingLabelTopMargin setConstant:8];
+        _shippingViewHeight.constant += 47+8;
     }
     
     if ([self.order.vipPickup boolValue]) {
@@ -1052,7 +1068,7 @@
 
 
 - (IBAction)haveGiftCardHeight:(id)sender {
-    if (giftCardOpened == YES) {
+    if (_giftCardViewHeight.constant == 40) {
         if ([BTRViewUtility isIPAD]) {
             _giftCardViewHeight.constant += 125;
             self.haveAGiftViewHeight.constant += 125;
@@ -1063,7 +1079,6 @@
             }];
         }
         _haveAgiftInnerView.hidden = NO;
-        giftCardOpened = NO;
         [_expandHaveCode setStyle:kFRDLivelyButtonStyleClose animated:YES];
     } else {
         if ([BTRViewUtility isIPAD]) {
@@ -1076,7 +1091,6 @@
             }];
         }
         _haveAgiftInnerView.hidden = YES;
-        giftCardOpened = YES;
         [_expandHaveCode setStyle:kFRDLivelyButtonStylePlus animated:YES];
     }
     [self resetSize];
@@ -1627,6 +1641,9 @@
     if (self.rememberCardInfoHeight.constant == 0)
         size = size - REMEBER_CARD_INFO_HEIGHT;
     
+    if (_noShippingLabelHeight.constant == 0 && ![BTRViewUtility isIPAD]) {
+        size -= 47;
+    }
     size = size + self.sampleGiftViewHeight.constant;
     self.viewHeight.constant = size;
     [self.view layoutIfNeeded];
@@ -1707,6 +1724,11 @@
             [self validateAddressViaAPIAndInCompletion:nil];
     }
     else if (_popType == PopUPTypeShippingCountry) {
+        if (index.row == 1) {
+            [_noShippingLabel setHidden:NO];
+        } else {
+            [_noShippingLabel setHidden:YES];
+        }
             [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
             [self validateAddressViaAPIAndInCompletion:nil];
     }
@@ -1738,6 +1760,11 @@
         [self.expiryYearPaymentTF setText:[[self expiryYearsArray] objectAtIndex:row]];
     }
     else if ([picType isEqualToString:@"shiCountry"]) {
+        if (row == 1) {
+            [_noShippingLabel setHidden:NO];
+        } else {
+            [_noShippingLabel setHidden:YES];
+        }
         [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:row]];
         [self validateAddressViaAPIAndInCompletion:nil];
     }
