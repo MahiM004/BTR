@@ -56,6 +56,9 @@
 
 
 @interface BTRCheckoutViewController ()
+{
+    BOOL shouldCallOnceInLaunch;
+}
 @property (nonatomic, strong) UIPopoverController *userDataPopover;
 @property (strong, nonatomic) Freeship* freeshipInfo;
 
@@ -227,7 +230,7 @@
     [self resetData];
     [self setCheckboxesTargets];
     [self getImage];
-    
+    shouldCallOnceInLaunch = YES;
     NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [gregorian components:NSCalendarUnitYear fromDate:[NSDate date]];
     NSInteger currentYear = [components year];
@@ -364,9 +367,11 @@
         self.pleaseFillOutTheShippingFormView.hidden = NO;
         self.fillFormLabelViewHeight.constant = FILL_SHIPPING_HEIGHT;
         [self.vipOptionViewHeight setConstant:0];
-        _haveAgiftInnerView.hidden = NO;
-        if (_giftCardViewHeight.constant == 40) {
+        if (_giftCardViewHeight.constant == 40 && shouldCallOnceInLaunch) {// This should call once in launch
+            _haveAgiftInnerView.hidden = NO;
+            shouldCallOnceInLaunch = NO;
             _giftCardViewHeight.constant += 125;
+            self.haveAGiftViewHeight.constant += 125; // for iPad
         }
     }
     
