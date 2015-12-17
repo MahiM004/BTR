@@ -41,6 +41,8 @@
 // Heights
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *itemsHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *label3HeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *noteLabelHeight;
 
 // scrollView
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -55,6 +57,15 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ([BTRViewUtility isIPAD]) {
+        [_label3HeightConstraint setConstant:30];
+        [_noteLabelHeight setConstant:70];
+        _viewHeight.constant -= 100;
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -65,7 +76,7 @@
     NSString *thanksString = [NSString stringWithFormat:@"%@,THANK YOU FOR YOUR ORDER NO. %@",self.info.shippingAddress.name,self.info.orderID];
     NSRange range = [thanksString rangeOfString:self.info.shippingAddress.name];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:thanksString];
-    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:range];
     self.thanksLabel.attributedText = attributedString;
     
     NSMutableAttributedString *billingString;
@@ -76,14 +87,16 @@
         NSString *text = [NSString stringWithFormat:@"We've billed your order to your PayPal account – %@, the transaction id is %@ with the following shipping address:",self.info.billingAddress.name,self.info.confirmationNumber];
         NSRange range = [text rangeOfString:self.info.billingAddress.name];
         billingString = [[NSMutableAttributedString alloc]initWithString:text];
-        [billingString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+        [billingString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:range];
     }
     self.billingLabel.attributedText = billingString;
     //address
-    NSString* shippingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n%@",self.info.shippingAddress.addressLine1,self.info.shippingAddress.addressLine2,self.info.shippingAddress.city,self.info.shippingAddress.country,self.info.shippingAddress.postalCode];
+    NSString * shippingAddress1 = [NSString stringWithFormat:@"%@, ",self.info.shippingAddress.addressLine1];
+    NSString* shippingAddressString = [NSString stringWithFormat:@"%@\n%@%@\n%@\n%@\n%@",self.info.shippingAddress.name,shippingAddress1,self.info.shippingAddress.addressLine2,self.info.shippingAddress.city,self.info.shippingAddress.country,self.info.shippingAddress.postalCode];
     self.shippingAddress.text = shippingAddressString;
     
-    NSString* billingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n%@",self.info.billingAddress.addressLine1,self.info.billingAddress.addressLine2,self.info.billingAddress.city,self.info.billingAddress.country,self.info.billingAddress.postalCode];
+    NSString * billingAddress1 = [NSString stringWithFormat:@"%@, ",self.info.billingAddress.addressLine1];
+    NSString* billingAddressString = [NSString stringWithFormat:@"%@\n%@%@\n%@\n%@\n%@",self.info.shippingAddress.name,billingAddress1,self.info.billingAddress.addressLine2,self.info.billingAddress.city,self.info.billingAddress.country,self.info.billingAddress.postalCode];
     self.billingAddress.text = billingAddressString;
     
     // order Items
