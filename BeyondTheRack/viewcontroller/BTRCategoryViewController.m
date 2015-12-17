@@ -20,9 +20,10 @@
 @interface BTRCategoryViewController ()
 
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
-@property (strong, nonatomic) MarqueeLabel *bannerView;
 @property (strong, nonatomic) Freeship* freeshipInfo;
 @property (strong, nonatomic) NSDate* dueDate;
+@property (weak, nonatomic) IBOutlet UILabel *bannerLabel;
+@property (weak, nonatomic) IBOutlet UIView *sliderBackFrame;
 
 @end
 
@@ -46,8 +47,6 @@
     [[self categoryNames] addObjectsFromArray:[sharedCategoryData categoryNameArray]];
     [[self urlCategoryNames] addObjectsFromArray:[sharedCategoryData categoryUrlArray]];
     
-    //set properties to customiser the slider. Make sure you set these BEFORE you access any other properties on the slider, such as the view or the datasource. Best to do it immediately after calling the init method.
-    
     self.slider = [[TTScrollSlidingPagesController alloc] init];
     self.slider.titleScrollerInActiveTextColour = [UIColor darkGrayColor];
     self.slider.titleScrollerBottomEdgeHeight = 2;
@@ -61,32 +60,18 @@
     self.slider.titleScrollerBackgroundColour = [BTRViewUtility BTRBlack];
     self.view.backgroundColor = [BTRViewUtility BTRBlack];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7){
-        self.slider.hideStatusBarWhenScrolling = YES;//this property normally only makes sense on iOS7+. See the documentation in TTScrollSlidingPagesController.h. If you wanted to use it in iOS6 you'd have to make sure the status bar overlapped the TTScrollSlidingPagesController.
+        self.slider.hideStatusBarWhenScrolling = YES;
     }
     
     self.slider.dataSource = self;
-    //add the slider's view to this view as a subview, and add the viewcontroller to this viewcontrollers child collection (so that it gets retained and stays in memory! And gets all relevant events in the view controller lifecycle
-    
     // getting header's info
     [self getheaderInfo];
     
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    // adding banner
-    if (_bannerView == nil) {
-        _bannerView = [[MarqueeLabel alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen]applicationFrame].size.width, 25) rate:70.0 andFadeLength:30.0];
-        _bannerView.textAlignment = NSTextAlignmentCenter;
-        _bannerView.marqueeType = MLContinuous;
-        _bannerView.backgroundColor = [BTRViewUtility BTRBlack];
-        _bannerView.textColor = [UIColor whiteColor];
-        _bannerView.font = [UIFont systemFontOfSize:13];
-        _bannerView.text = @"Beyond The Rack";
-        [self.view addSubview:_bannerView];
-    }
-    
     // adding tableview frame
-    self.slider.view.frame = CGRectMake(0, _bannerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.bannerView.frame.size.height);
+    self.slider.view.frame = _sliderBackFrame.frame;
     [self.view addSubview:self.slider.view];
     [self addChildViewController:self.slider];
 }
@@ -125,17 +110,13 @@
     self.freeshipInfo = [[Freeship alloc]init];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         self.freeshipInfo = [Freeship extractFreeshipInfofromJSONDictionary:response forFreeship:self.freeshipInfo];
-        
-        //// containsString available only after iOS 8.0
-        //Please see all conditions i have changed all over the project if the conditions are right or wrong
         if ([self.freeshipInfo.banner rangeOfString:@"##counter##"].location != NSNotFound) {
             self.dueDate = [NSDate dateWithTimeIntervalSince1970:[self.freeshipInfo.endTimestamp integerValue]];
             [self changeTimerString:nil];
             [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(changeTimerString:) userInfo:nil repeats:YES];
             return ;
         }
-        [self.bannerView setText:self.freeshipInfo.banner];
-        [self.bannerView resetLabel];
+        [_bannerLabel setText:self.freeshipInfo.banner];
     } faild:^(NSError *error) {
         
     }];
@@ -158,11 +139,11 @@
         timerString = [NSString stringWithFormat:@"%02ld days %02d Hours : %02d Minutes",days,hours,minutes];
     }
     NSString* bannerString = [self.freeshipInfo.banner stringByReplacingOccurrencesOfString:@"##counter##" withString:timerString];
-    [self.bannerView setText:bannerString];
+    [_bannerLabel setText:bannerString];
 }
 
 - (void) viewWillLayoutSubviews {
-    [_bannerView setCenter:CGPointMake(self.view.center.x, _bannerView.center.y)];
+    [_bannerLabel setCenter:CGPointMake(self.view.center.x, _bannerLabel.center.y)];
 }
 
 @end

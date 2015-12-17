@@ -2391,7 +2391,7 @@
             <objects>
                 <navigationController wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="C3C57BD0-F6BD-4C51-AC60-A037224F6C86" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="81FAAAAE-81CC-4BDD-9563-E6816EAD1F0E" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -6898,14 +6898,43 @@
                     <view key="view" opaque="NO" clipsSubviews="YES" contentMode="center" id="pta-9g-qU3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="508"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beyond the Rack" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQ9-kZ-gWw">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="RTT-fX-5wx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mu6-cg-8WM">
+                                <rect key="frame" x="0.0" y="30" width="320" height="478"/>
+                                <animations/>
+                            </view>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.12941176470588237" green="0.12941176470588237" blue="0.12941176470588237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Mu6-cg-8WM" firstAttribute="leading" secondItem="pta-9g-qU3" secondAttribute="leading" id="3UV-GQ-6vO"/>
+                            <constraint firstItem="Mu6-cg-8WM" firstAttribute="top" secondItem="GQ9-kZ-gWw" secondAttribute="bottom" id="KAf-ZC-xuc"/>
+                            <constraint firstItem="GQ9-kZ-gWw" firstAttribute="top" secondItem="p15-O4-ETW" secondAttribute="bottom" id="jaA-UF-aVa"/>
+                            <constraint firstAttribute="trailing" secondItem="GQ9-kZ-gWw" secondAttribute="trailing" id="ju2-gg-Uhb"/>
+                            <constraint firstAttribute="trailing" secondItem="Mu6-cg-8WM" secondAttribute="trailing" id="jza-xM-nLk"/>
+                            <constraint firstItem="0D9-4j-hW5" firstAttribute="top" secondItem="Mu6-cg-8WM" secondAttribute="bottom" id="rce-zN-kk6"/>
+                            <constraint firstItem="GQ9-kZ-gWw" firstAttribute="leading" secondItem="pta-9g-qU3" secondAttribute="leading" id="wfL-7u-55L"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
+                    <connections>
+                        <outlet property="bannerLabel" destination="GQ9-kZ-gWw" id="bXJ-bi-gkw"/>
+                        <outlet property="sliderBackFrame" destination="Mu6-cg-8WM" id="6JY-4u-quf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HQR-Xn-3eu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-12320" y="-1582"/>
+            <point key="canvasLocation" x="-12390" y="-1593"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lvt-wn-93T">
@@ -12080,8 +12109,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="C3C57BD0-F6BD-4C51-AC60-A037224F6C86" width="30" height="30">
+        <image name="81FAAAAE-81CC-4BDD-9563-E6816EAD1F0E" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -12138,6 +12166,7 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
+        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="account" width="128" height="128"/>
         <image name="backarrowcool.png" width="420" height="490"/>
