@@ -80,10 +80,14 @@
     }
     self.billingLabel.attributedText = billingString;
     //address
-    NSString* shippingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n%@",self.info.shippingAddress.addressLine1,self.info.shippingAddress.addressLine2,self.info.shippingAddress.city,self.info.shippingAddress.country,self.info.shippingAddress.postalCode];
+    NSLog(@"shippingAddress :%@",self.info.shippingAddress);
+    NSString * shippingAddress1 = [NSString stringWithFormat:@"%@, ",self.info.shippingAddress.addressLine1];
+    NSString* shippingAddressString = [NSString stringWithFormat:@"%@\n%@%@\n%@\n%@\n%@",self.info.shippingAddress.name,shippingAddress1,self.info.shippingAddress.addressLine2,self.info.shippingAddress.city,self.info.shippingAddress.country,self.info.shippingAddress.postalCode];
     self.shippingAddress.text = shippingAddressString;
     
-    NSString* billingAddressString = [NSString stringWithFormat:@"%@%@\n%@\n%@\n%@",self.info.billingAddress.addressLine1,self.info.billingAddress.addressLine2,self.info.billingAddress.city,self.info.billingAddress.country,self.info.billingAddress.postalCode];
+    NSLog(@"billingAddress :%@",self.info.billingAddress);
+    NSString * billingAddress1 = [NSString stringWithFormat:@"%@, ",self.info.billingAddress.addressLine1];
+    NSString* billingAddressString = [NSString stringWithFormat:@"%@\n%@%@\n%@\n%@\n%@",self.info.shippingAddress.name,billingAddress1,self.info.billingAddress.addressLine2,self.info.billingAddress.city,self.info.billingAddress.country,self.info.billingAddress.postalCode];
     self.billingAddress.text = billingAddressString;
     
     // order Items
