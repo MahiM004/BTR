@@ -15,7 +15,6 @@
 @protocol MPManagerDelegate <NSObject>
 
 @optional
-
 /**
  * Method that executes when pairing completes
  *
@@ -63,14 +62,14 @@
  * long access token from the user object
  */
 - (void)resetUserPairing;
-
-
 /**
  * Method that executes when checkout has been canceled
  *
  *
  */
 - (void)checkoutDidCancel;
+
+- (void)pairRequestFaildByError:(NSError *)error;
 
 @end
 

@@ -84,6 +84,12 @@
     }
 }
 
+- (void)pairRequestFaildByError:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Master pass" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+    }];
+}
+
 #pragma mark confirmation
 
 - (void)getConfirmationInfoWithOrderID:(NSString *)orderID {

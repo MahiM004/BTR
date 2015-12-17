@@ -105,5 +105,11 @@ NSInteger const MPErrorCodeBadRequest = 400;
     }];
 }
 
-
+- (void)lightBox:(MPLightboxViewController *)lightBoxViewController requestDidFailWithError:(NSError *)error {
+    [lightBoxViewController dismissViewControllerAnimated:YES completion:^{
+        if ([self.delegate respondsToSelector:@selector(pairRequestFaildByError:)]) {
+            [self.delegate pairRequestFaildByError:error];
+        }
+    }];
+}
 @end
