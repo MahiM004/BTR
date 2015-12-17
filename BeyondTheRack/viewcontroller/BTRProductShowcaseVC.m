@@ -92,7 +92,8 @@ typedef enum ScrollDirection {
 @property (strong, nonatomic) NSArray* collectionViewResourceArray;
 @property (strong, nonatomic) NSArray* sortedItemsArray;
 
-@property (strong, nonatomic) NSArray* sizeArray;
+@property (strong, nonatomic) NSArray* allSizes;
+@property (strong, nonatomic) NSArray* allCodedSizes;
 @property (strong, nonatomic) NSArray* sortArray;
 
 // textFields
@@ -144,26 +145,48 @@ typedef enum ScrollDirection {
     return @[kSUGGESTED,kDISCOUNTASCENDING,kDISCOUNTDESCENDING,kPRICEASCENDING,kPRICEDESCENDING,kSKUASCENDING];
 }
 
-- (NSArray *)sizeArray {
-    if (!_sizeArray)  {
-        NSMutableArray* allSizes = [[NSMutableArray alloc]init];
-        for (Item* item in self.originalItemArray) {
-            if ([item.variantInventory isKindOfClass:[NSDictionary class]]){
-                for (NSString *key in [item.variantInventory keyEnumerator])
-                    if (![allSizes containsObject:[[key componentsSeparatedByString:@"#"]firstObject]])
-                        [allSizes addObject:[[key componentsSeparatedByString:@"#"]firstObject]];
-            }
+//- (NSArray *)sizeArray {
+//    if (!_sizeArray)  {
+//        NSMutableArray* allSizes = [[NSMutableArray alloc]init];
+//        for (Item* item in self.originalItemArray) {
+//            if ([item.variantInventory isKindOfClass:[NSDictionary class]]){
+//                for (NSString *key in [item.variantInventory keyEnumerator])
+//                    if (![allSizes containsObject:[[key componentsSeparatedByString:@"#"]firstObject]])
+//                        [allSizes addObject:[[key componentsSeparatedByString:@"#"]firstObject]];
+//            }
+//        }
+//        allSizes = [NSMutableArray arrayWithArray:[allSizes sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+//            return [(NSString *)obj1 compare:(NSString *)obj2 options:NSNumericSearch];
+//        }]];
+//        if ([allSizes containsObject:@"One Size"])
+//            [allSizes removeObject:@"One Size"];
+//        
+//        [allSizes insertObject:@"Size" atIndex:0];
+//        _sizeArray = [allSizes mutableCopy];
+//    }
+//    return _sizeArray;
+//}
+
+- (void)fillSizesArrays {
+    NSMutableArray* allSizes = [[NSMutableArray alloc]init];
+    NSMutableArray* allCodedSizes = [[NSMutableArray alloc]init];
+    for (Item* item in self.originalItemArray) {
+        if ([item.variantInventory isKindOfClass:[NSDictionary class]]){
+            for (NSString *key in [item.variantInventory keyEnumerator])
+                if (![allSizes containsObject:[[key componentsSeparatedByString:@"#"]objectAtIndex:0]]) {
+                    [allSizes addObject:[[key componentsSeparatedByString:@"#"]objectAtIndex:0]];
+                    [allCodedSizes addObject:[[key componentsSeparatedByString:@"#"]objectAtIndex:1]];
+                }
         }
-        allSizes = [NSMutableArray arrayWithArray:[allSizes sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            return [(NSString *)obj1 compare:(NSString *)obj2 options:NSNumericSearch];
-        }]];
-        if ([allSizes containsObject:@"One Size"])
-            [allSizes removeObject:@"One Size"];
-        
-        [allSizes insertObject:@"Size" atIndex:0];
-        _sizeArray = [allSizes mutableCopy];
     }
-    return _sizeArray;
+//    allSizes = [NSMutableArray arrayWithArray:[allSizes sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+//        return [(NSString *)obj1 compare:(NSString *)obj2 options:NSNumericSearch];
+//    }]];
+    
+    [allSizes insertObject:@"Size" atIndex:0];
+    [allCodedSizes insertObject:@"Size" atIndex:0];
+    self.allSizes = [allSizes mutableCopy];
+    self.allCodedSizes = [allCodedSizes mutableCopy];
 }
 
 - (BOOL)isItemSoldOutWithVariant:(NSArray *)variantArray {
@@ -221,12 +244,25 @@ typedef enum ScrollDirection {
     self.isLoadingNextPage = YES;
     [self.originalItemArray removeAllObjects];
     [self.chosenSizesArray removeAllObjects];
-    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]] andFilterSize:self.filterSizeTextField.text
+    
+    int indexOfSize = [self.allSizes indexOfObject:self.filterSizeTextField.text];
+    NSString *filter;
+    if (indexOfSize == NSNotFound)
+        filter = self.filterSizeTextField.text;
+    else if (self.allCodedSizes)
+        filter = [self.allCodedSizes objectAtIndex:indexOfSize];
+    else
+        filter = @"Size";
+    
+    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]] andFilterSize:filter
                         success:^(NSMutableArray *responseObject) {
                             self.isLoadingNextPage = NO;
                             [self.originalItemArray addObjectsFromArray:responseObject];
                             for (int i = 0; i < [self.originalItemArray count]; i++)
                                 [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+                            if (self.allSizes == nil) {
+                                [self fillSizesArrays];
+                            }
                             [self.collectionView reloadData];
                         } failure:^(NSError *error) {
                             self.isLoadingNextPage = NO;
@@ -731,7 +767,7 @@ typedef enum ScrollDirection {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.menuType == SIZE_MENU)
-        return [self.sizeArray count];
+        return [self.allSizes count];
     if (self.menuType == SORT_MENU)
         return [self.sortArray count];
     return 0;
@@ -742,7 +778,7 @@ typedef enum ScrollDirection {
     if (self.menuType == SORT_MENU)
         [cell.titleLabel setText:[self.sortArray objectAtIndex:indexPath.row]];
     if (self.menuType == SIZE_MENU)
-        [cell.titleLabel setText:[self.sizeArray objectAtIndex:indexPath.row]];
+        [cell.titleLabel setText:[self.allSizes objectAtIndex:indexPath.row]];
     return cell;
 }
 
@@ -755,9 +791,9 @@ typedef enum ScrollDirection {
     }
 
     if ([self menuType] == SIZE_MENU) {
-        if ([self.filterSizeTextField.text isEqualToString:[self.sizeArray objectAtIndex:indexPath.row]])
+        if ([self.filterSizeTextField.text isEqualToString:[self.allSizes objectAtIndex:indexPath.row]])
             return;
-        [self.filterSizeTextField setText:[self.sizeArray objectAtIndex:indexPath.row]];
+        [self.filterSizeTextField setText:[self.allSizes objectAtIndex:indexPath.row]];
     }
     [self loadFirstPageOfItems];
 }
