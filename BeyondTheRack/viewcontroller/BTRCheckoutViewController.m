@@ -390,7 +390,6 @@
     if ([[self.order isFreeshipAddress]boolValue] && ![[self.order vipPickupEligible]boolValue]) {
         if (!self.freeshipOptionCheckbox.checked) {
             [self fillShippingAddressByAddress:self.order.promoShippingAddress];
-            [self fillBillingAddressByAddress:self.order.promoBillingAddress];
             [self disableShippingAddress];
             [self.FreeshipingPromoView setHidden:NO];
             [self.pleaseFillOutTheShippingFormView setHidden:YES];
@@ -403,11 +402,13 @@
     } else {
         [self enableShippingAddress];
         [self fillShippingAddressByAddress:self.order.shippingAddress];
-        [self fillBillingAddressByAddress:self.order.billingAddress];
         [self.FreeshipingPromoView setHidden:YES];
         [self.freeShippingPromoHeight setConstant:0];
     }
+    
+    [self fillBillingAddressByAddress:self.order.billingAddress];
     // If Shipping Country is US we are displaying no shipping Label else we hide it
+    
     if ([_countryShippingTF.text isEqualToString:@"Canada"]) {
         [_noShippingLabel setHidden:YES];
     } else {
