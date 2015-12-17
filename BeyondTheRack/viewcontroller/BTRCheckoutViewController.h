@@ -119,14 +119,6 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet UILabel *noShippingLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *noShippingLabelTopMargin;
 
-/**
- 
- Picker
- 
- */
-
-@property (weak, nonatomic) IBOutlet UIView *pickerParentView;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 /**
  
@@ -191,6 +183,8 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet CTCheckbox *sendmeToPaypalCheckbox;
 
 @property (weak, nonatomic) IBOutlet UIButton *paymentMethodButton;
+@property (weak, nonatomic) IBOutlet UIButton *expMnthBtn;
+@property (weak, nonatomic) IBOutlet UIButton *expYearBtn;
 @property (weak, nonatomic) IBOutlet UITextField *paymentMethodTF;
 @property (weak, nonatomic) IBOutlet UITextField *expiryMonthPaymentTF;
 @property (weak, nonatomic) IBOutlet UITextField *expiryYearPaymentTF;

@@ -779,14 +779,19 @@
 }
 
 - (void)disablePaymentInfo {
+    //Card
     [self.paymentMethodTF setEnabled:NO];
     [self.cardNumberPaymentTF setEnabled:NO];
     [self.cardVerificationPaymentTF setEnabled:NO];
     [self.nameOnCardPaymentTF setEnabled:NO];
     [self.expiryYearPaymentTF setEnabled:NO];
     [self.expiryMonthPaymentTF setEnabled:NO];
+    //Paypal
     [self.paypalEmailTF setEnabled:NO];
+    //iPad buttons
     [self.paymentMethodButton setEnabled:NO];
+    [self.expMnthBtn setEnabled:NO];
+    [self.expYearBtn setEnabled:NO];
 //    [self.billingCountryButton setEnabled:NO];
 //    [self.billingStateButton setEnabled:NO];
     
@@ -800,14 +805,19 @@
 }
 
 - (void)enablePaymentInfo {
+    //Card
     [self.paymentMethodTF setEnabled:YES];
     [self.cardNumberPaymentTF setEnabled:YES];
     [self.cardVerificationPaymentTF setEnabled:YES];
     [self.nameOnCardPaymentTF setEnabled:YES];
     [self.expiryYearPaymentTF setEnabled:YES];
     [self.expiryMonthPaymentTF setEnabled:YES];
-    [self.paymentMethodButton setEnabled:YES];
+    //Paypal
     [self.paypalEmailTF setEnabled:YES];
+    //iPad buttons
+    [self.paymentMethodButton setEnabled:YES];
+    [self.expMnthBtn setEnabled:YES];
+    [self.expYearBtn setEnabled:YES];
 //    [self.billingCountryButton setEnabled:YES];
 //    [self.billingStateButton setEnabled:YES];
     
@@ -1100,92 +1110,56 @@
 }
 
 - (IBAction)shippingCountryButtonTapped:(UIButton *)sender {
-    if ([BTRViewUtility isIPAD]) {
-        _popType = PopUPTypeShippingCountry;
-        [self setBillingOrShipping:SHIPPING_ADDRESS];
-        [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self countryNameArray]] inView:_shippingDetailsView inFrameView:sender];
-    } else {
-//        [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:SHIPPING_ADDRESS];
-    }
+    _popType = PopUPTypeShippingCountry;
+    [self setBillingOrShipping:SHIPPING_ADDRESS];
+    [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self countryNameArray]] inView:_shippingDetailsView inFrameView:sender];
 }
 
 - (IBAction)shippingStateButtonTapped:(UIButton *)sender {
     if ([[[self countryShippingTF] text] isEqualToString:@"USA"]) {
-        if ([BTRViewUtility isIPAD]) {
-            _popType = PopUPTypeState;
-            [self setBillingOrShipping:SHIPPING_ADDRESS];
-            [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self statesArray]] inView:_shippingDetailsView inFrameView:sender];
-        } else {
-//            [self loadPickerViewforPickerType:STATE_PICKER andAddressType:SHIPPING_ADDRESS];
-        }
+        _popType = PopUPTypeState;
+        [self setBillingOrShipping:SHIPPING_ADDRESS];
+        [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self statesArray]] inView:_shippingDetailsView inFrameView:sender];
     }
     else {
-        if ([BTRViewUtility isIPAD]) {
-            _popType = PopUPTypeProvince;
-            [self setBillingOrShipping:SHIPPING_ADDRESS];
-            [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self provincesArray]] inView:_shippingDetailsView inFrameView:sender];
-        } else {
-//            [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:SHIPPING_ADDRESS];
-        }
+        _popType = PopUPTypeProvince;
+        [self setBillingOrShipping:SHIPPING_ADDRESS];
+        [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self provincesArray]] inView:_shippingDetailsView inFrameView:sender];
     }
 }
 
 - (IBAction)billingCountryButtonTapped:(UIButton *)sender {
-    if ([BTRViewUtility isIPAD]) {
-        _popType = PopUPTypeBillingCountry;
-        [self setBillingOrShipping:BILLING_ADDRESS];
-        [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self countryNameArray]] inView:_billingAddressView inFrameView:sender];
-    } else {
-//        [self loadPickerViewforPickerType:COUNTRY_PICKER andAddressType:BILLING_ADDRESS];
-    }
+    _popType = PopUPTypeBillingCountry;
+    [self setBillingOrShipping:BILLING_ADDRESS];
+    [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self countryNameArray]] inView:_billingAddressView inFrameView:sender];
 }
 
 - (IBAction)billingStateButtonTapped:(UIButton *)sender {
     if ([[[self countryBillingTF] text] isEqualToString:@"USA"]) {
-        if ([BTRViewUtility isIPAD]) {
-            _popType = PopUPTypeState;
-            [self setBillingOrShipping:BILLING_ADDRESS];
-            [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self statesArray]] inView:_billingAddressView inFrameView:sender];
-        } else {
-//            [self loadPickerViewforPickerType:STATE_PICKER andAddressType:BILLING_ADDRESS];
-        }
+        _popType = PopUPTypeState;
+        [self setBillingOrShipping:BILLING_ADDRESS];
+        [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self statesArray]] inView:_billingAddressView inFrameView:sender];
     }
     else {
-        if ([BTRViewUtility isIPAD]) {
-            _popType = PopUPTypeProvince;
-            [self setBillingOrShipping:BILLING_ADDRESS];
-            [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self provincesArray]] inView:_billingAddressView inFrameView:sender];
-        } else {
-//            [self loadPickerViewforPickerType:PROVINCE_PICKER andAddressType:BILLING_ADDRESS];
-        }
+        _popType = PopUPTypeProvince;
+        [self setBillingOrShipping:BILLING_ADDRESS];
+        [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self provincesArray]] inView:_billingAddressView inFrameView:sender];
     }
 }
 
 - (IBAction)expiryYearButtonTapped:(UIButton *)sender {
-    if ([BTRViewUtility isIPAD]) {
-        _popType = PopUPTypeExpiryYear;
-        [self openPopView:sender Data:[self expiryYearsArray] inView:_paymentCreditView inFrameView:sender];
-    } else {
-//        [self loadPickerViewforPickerType:EXPIRY_YEAR_PICKER];
-    }
+    _popType = PopUPTypeExpiryYear;
+    [self openPopView:sender Data:[self expiryYearsArray] inView:_paymentCreditView inFrameView:sender];
 }
 
 - (IBAction)expiryMonthButtonTapped:(UIButton *)sender {
-    if ([BTRViewUtility isIPAD]) {
-        _popType = PopUPTypeExpiryMonth;
-        [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self expiryMonthsArray]] inView:_paymentCreditView inFrameView:sender];
-    } else {
-//        [self loadPickerViewforPickerType:EXPIRY_MONTH_PICKER];
-    }
+    _popType = PopUPTypeExpiryMonth;
+    [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self expiryMonthsArray]] inView:_paymentCreditView inFrameView:sender];
 }
 
 - (IBAction)paymentMethodButtonTapped:(UIButton *)sender {
-    if ([BTRViewUtility isIPAD]) {
-        _popType = PopUPTypePayment;
-        [self openPopView:sender Data:[self paymentTypesArray] inView:_paymentTypeView inFrameView:_paymentMethodButton];
-    } else {
-//        [self loadPickerViewforPickerType:PAYMENT_TYPE_PICKER];
-    }
+    _popType = PopUPTypePayment;
+    [self openPopView:sender Data:[self paymentTypesArray] inView:_paymentTypeView inFrameView:_paymentMethodButton];
 }
 
 #pragma mark Actions
@@ -1710,21 +1684,9 @@
     else if (_popType == PopUPTypeExpiryYear) {
         [self.expiryYearPaymentTF setText:[[self expiryYearsArray] objectAtIndex:index.row]];
     }
-    else if (_popType == PopUPTypeState) {
-        if ([self billingOrShipping] == BILLING_ADDRESS)
-            [self.provinceBillingTF setText:[[self statesArray] objectAtIndex:index.row]];
-        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
-            [self.provinceShippingTF setText:[[self statesArray] objectAtIndex:index.row]];
-    }
-    else if (_popType == PopUPTypeProvince) {
-        if ([self billingOrShipping] == BILLING_ADDRESS)
-            [self.provinceBillingTF setText:[[self provincesArray] objectAtIndex:index.row]];
-        else if ([self billingOrShipping] == SHIPPING_ADDRESS)
-            [self.provinceShippingTF setText:[[self provincesArray] objectAtIndex:index.row]];
-    }
     else if (_popType == PopUPTypeBillingCountry) {
-            [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
-            [self validateAddressViaAPIAndInCompletion:nil];
+        [self.countryBillingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
+        [self validateAddressViaAPIAndInCompletion:nil];
     }
     else if (_popType == PopUPTypeShippingCountry) {
         if (index.row == 1) {
@@ -1732,8 +1694,8 @@
         } else {
             [_noShippingLabel setHidden:YES];
         }
-            [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
-            [self validateAddressViaAPIAndInCompletion:nil];
+        [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
+        [self validateAddressViaAPIAndInCompletion:nil];
     }
     [self.userDataPopover dismissPopoverAnimated:NO];
 }
