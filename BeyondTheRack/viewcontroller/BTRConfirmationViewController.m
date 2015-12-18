@@ -91,12 +91,10 @@
     }
     self.billingLabel.attributedText = billingString;
     //address
-    NSString * shippingAddress1 = [NSString stringWithFormat:@"%@, ",self.info.shippingAddress.addressLine1];
-    NSString* shippingAddressString = [NSString stringWithFormat:@"%@\n%@%@\n%@\n%@\n%@",self.info.shippingAddress.name,shippingAddress1,self.info.shippingAddress.addressLine2,self.info.shippingAddress.city,self.info.shippingAddress.country,self.info.shippingAddress.postalCode];
+    NSString* shippingAddressString = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@\n%@",self.info.shippingAddress.name,self.info.shippingAddress.addressLine1,self.info.shippingAddress.addressLine2,self.info.shippingAddress.city,self.info.shippingAddress.country,self.info.shippingAddress.postalCode];
     self.shippingAddress.text = shippingAddressString;
     
-    NSString * billingAddress1 = [NSString stringWithFormat:@"%@, ",self.info.billingAddress.addressLine1];
-    NSString* billingAddressString = [NSString stringWithFormat:@"%@\n%@%@\n%@\n%@\n%@",self.info.shippingAddress.name,billingAddress1,self.info.billingAddress.addressLine2,self.info.billingAddress.city,self.info.billingAddress.country,self.info.billingAddress.postalCode];
+    NSString* billingAddressString = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@\n%@",self.info.shippingAddress.name,self.info.billingAddress.addressLine1,self.info.billingAddress.addressLine2,self.info.billingAddress.city,self.info.billingAddress.country,self.info.billingAddress.postalCode];
     self.billingAddress.text = billingAddressString;
     
     // order Items
@@ -108,7 +106,7 @@
         UILabel *newLabel = [[UILabel alloc]initWithFrame:CGRectMake(begingingpoint.x, begingingpoint.y + (i * space), size.width, space)];
         newLabel.numberOfLines = -1;
         newLabel.font = [UIFont systemFontOfSize:13];
-        newLabel.text = [NSString stringWithFormat:@"%@\nBrand : %@\nSize: %@\nPrice:$%@\nItem code : %@",item.shortItemDescription,item.brand,item.variant,item.salePrice,item.sku];
+        newLabel.text = [NSString stringWithFormat:@"%@\nBrand : %@\nSize: %@\nPrice:$%.2f\nItem code : %@",item.shortItemDescription,item.brand,item.variant,[item.salePrice floatValue],item.sku];
         [self.orderView addSubview:newLabel];
     }
     self.itemsHeight.constant = self.info.items.count * 140;
