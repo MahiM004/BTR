@@ -49,12 +49,17 @@ NSInteger const MPErrorCodeBadRequest = 400;
 
 - (void)pairAndCheckoutInViewController:(UIViewController *)viewController WithInfo:(MasterPassInfo *)info {
     NSDictionary *lightBoxParams = @{@"requestToken":info.requestToken,
+                                     @"suppressShippingAddressEnable":info.suppressShippingAddressEnable,
                                      @"merchantCheckoutId":info.merchantCheckoutId,
                                      @"requestedDataTypes":info.requestDataType,
                                      @"callbackUrl":info.callbackUrl,
+                                     @"cancelCallback":info.cancelCallback,
                                      @"pairingRequestToken":info.pairingRequestToken,
-                                     @"allowedCardTypes":info.allowedCardTypes,
+                                     @"allowedCardTypes":@"master,amex,visa",
                                      @"requestPairing":info.requestPairing,
+                                     @"loyaltyEnabled":info.loyaltyEnabled,
+                                     @"requestBasicCheckout":info.requestBasicCheckout,
+                                     @"mode":info.mode,
                                      @"version":info.version,
                                      @"shippingLocationProfile":info.shippingLocationProfile
                                      };

@@ -12,6 +12,7 @@
 
 @property (nonatomic, retain) NSArray * allowedCardTypes;
 @property (nonatomic, retain) NSArray * requestDataType;
+@property (nonatomic, retain) NSNumber * suppressShippingAddressEnable;
 @property (nonatomic, retain) NSString * callbackUrl;
 @property (nonatomic, retain) NSString * cancelCallback;
 @property (nonatomic, retain) NSNumber * loyaltyEnabled;
@@ -21,6 +22,7 @@
 @property (nonatomic, retain) NSNumber * requestPairing;
 @property (nonatomic, retain) NSString * requestToken;
 @property (nonatomic, retain) NSString * version;
+@property (nonatomic, retain) NSString * mode;
 @property (nonatomic, retain) NSArray * shippingLocationProfile;
 
 @end

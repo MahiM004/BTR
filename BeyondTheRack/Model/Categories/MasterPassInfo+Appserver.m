@@ -33,6 +33,8 @@
         masterPassInfo.cancelCallback = [masterPassDictionary valueForKey:@"cancelCallback"];
     if ([masterPassDictionary valueForKeyPath:@"loyaltyEnabled"] && [masterPassDictionary valueForKeyPath:@"loyaltyEnabled"] != [NSNull null])
         masterPassInfo.loyaltyEnabled = [masterPassDictionary valueForKey:@"loyaltyEnabled"];
+    if ([masterPassDictionary valueForKeyPath:@"mode"] && [masterPassDictionary valueForKeyPath:@"mode"] != [NSNull null])
+        masterPassInfo.mode = [masterPassDictionary valueForKey:@"mode"];
     if ([masterPassDictionary valueForKeyPath:@"merchantCheckoutId"] && [masterPassDictionary valueForKeyPath:@"merchantCheckoutId"] != [NSNull null])
         masterPassInfo.merchantCheckoutId = [masterPassDictionary valueForKey:@"merchantCheckoutId"];
     if ([masterPassDictionary valueForKeyPath:@"pairingRequestToken"] && [masterPassDictionary valueForKeyPath:@"pairingRequestToken"] != [NSNull null])
@@ -45,8 +47,11 @@
         masterPassInfo.requestToken = [masterPassDictionary valueForKey:@"requestToken"];
     if ([masterPassDictionary valueForKeyPath:@"shippingLocationProfile"] && [masterPassDictionary valueForKeyPath:@"shippingLocationProfile"] != [NSNull null])
         masterPassInfo.shippingLocationProfile = [masterPassDictionary valueForKey:@"shippingLocationProfile"];
+    if ([masterPassDictionary valueForKeyPath:@"suppressShippingAddressEnable"] && [masterPassDictionary valueForKeyPath:@"suppressShippingAddressEnable"] != [NSNull null])
+        masterPassInfo.suppressShippingAddressEnable = [masterPassDictionary valueForKey:@"suppressShippingAddressEnable"];
     if ([masterPassDictionary valueForKeyPath:@"version"] && [masterPassDictionary valueForKeyPath:@"version"] != [NSNull null])
         masterPassInfo.version = [masterPassDictionary valueForKey:@"version"];
+    
     
     return masterPassInfo;
 }
