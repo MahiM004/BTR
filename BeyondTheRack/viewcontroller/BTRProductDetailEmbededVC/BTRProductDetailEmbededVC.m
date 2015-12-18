@@ -762,7 +762,7 @@
     BTRProductCollecCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellImage" forIndexPath:indexPath];
     [cell.productImage setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
                                                                    withCount:1+indexPath.row
-                                                                     andSize:@"large"] placeholderImage:[UIImage imageNamed:@"placeHolderImage"] fadeInWithDuration:0.5];
+                                                                     andSize:@"large"] placeholderImage:nil fadeInWithDuration:0.5];
     return cell;
 }
 

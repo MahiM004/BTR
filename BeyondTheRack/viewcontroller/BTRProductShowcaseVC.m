@@ -245,7 +245,7 @@ typedef enum ScrollDirection {
     [self.originalItemArray removeAllObjects];
     [self.chosenSizesArray removeAllObjects];
     
-    int indexOfSize = [self.allSizes indexOfObject:self.filterSizeTextField.text];
+    unsigned long indexOfSize = [self.allSizes indexOfObject:self.filterSizeTextField.text];
     NSString *filter;
     if (indexOfSize == NSNotFound)
         filter = self.filterSizeTextField.text;
@@ -560,7 +560,7 @@ typedef enum ScrollDirection {
             cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
         }
     }
-    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]]  placeholderImage:[UIImage imageNamed:@"placeHolderImage"] fadeInWithDuration:0.5];
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]]  placeholderImage:nil fadeInWithDuration:0.5];
     [cell.productImageView setContentMode:UIViewContentModeScaleAspectFit];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
