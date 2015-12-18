@@ -150,7 +150,8 @@
 }
 
 - (IBAction)continueTapped:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    BTRAppDelegate *appdel = (BTRAppDelegate *)[[UIApplication sharedApplication]delegate];
+    [appdel backToInitialViewControllerFrom:self];
 }
 
 
