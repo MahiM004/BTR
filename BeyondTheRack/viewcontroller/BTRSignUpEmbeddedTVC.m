@@ -362,7 +362,7 @@
 - (void)makeCountryView {
     TNCircularRadioButtonData *usData = [TNCircularRadioButtonData new];
     usData.labelText = @"USA";
-    usData.identifier = @"us";
+    usData.identifier = @"US";
     usData.selected = NO;
     usData.borderColor = [UIColor blackColor];
     usData.circleColor = [UIColor redColor];
