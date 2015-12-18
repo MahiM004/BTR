@@ -77,7 +77,7 @@
     NSString* faqString = [[[self.contactInformaion headersArray]firstObject]content];
     NSRange range = [faqString rangeOfString:@"FAQ"];
     NSMutableAttributedString *faqAttributedString = [[NSMutableAttributedString alloc]initWithString:faqString];
-    [faqAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+    [faqAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:range];
     self.faqSugesstionLabel.attributedText = faqAttributedString;
 
     // contact support
@@ -92,7 +92,7 @@
     NSMutableAttributedString *contactAttributedString = [[NSMutableAttributedString alloc]initWithString:contactString];
     if (range.location != -1) {
         range.length = 14;
-        [contactAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+        [contactAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:range];
     }
     self.customerServiceHoursContentLabel.attributedText = contactAttributedString;
     
