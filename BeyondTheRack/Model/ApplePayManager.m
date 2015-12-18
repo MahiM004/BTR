@@ -33,13 +33,14 @@
 }
 
 - (BOOL)isApplePaySetup {
-    NSArray *paymentNetworks = [NSArray arrayWithObjects:PKPaymentNetworkMasterCard, PKPaymentNetworkVisa, PKPaymentNetworkAmex, nil];
-    return [PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:paymentNetworks];
+    NSArray *acceptedNetworks = @[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkAmex];
+    BOOL canPay = [PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:acceptedNetworks];
+    return canPay;
 }
 
 - (PKPaymentRequest *)paymentRequest {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
-    paymentRequest.merchantIdentifier = @"merchant.com.beyondtherack.sandbox";
+    paymentRequest.merchantIdentifier = @"merchant.beyondtherack.com.prod";
     paymentRequest.requiredShippingAddressFields = PKAddressFieldAll;
     paymentRequest.requiredBillingAddressFields = PKAddressFieldAll;
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
@@ -199,6 +200,11 @@
     } faild:^(NSError *error) {
         [self.delegate applePayInfoFailedWithError:error];
     }];
+}
+
+- (void)setupApplePay {
+    PKPassLibrary* passbookLibrary = [[PKPassLibrary alloc] init];
+    [passbookLibrary openPaymentSetup];
 }
 
 @end

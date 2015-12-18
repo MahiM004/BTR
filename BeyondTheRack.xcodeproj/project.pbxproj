@@ -589,6 +589,7 @@
 		A029D77E1BFBA9A500BFC7F7 /* profileBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileBack.png; sourceTree = "<group>"; };
 		A02A6BF21BB08E0400C01F2C /* BTRLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoader.h; sourceTree = "<group>"; };
 		A02A6BF31BB08E0400C01F2C /* BTRLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoader.m; sourceTree = "<group>"; };
+		A03C03661C24982900A10E00 /* BeyondTheRack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BeyondTheRack.entitlements; sourceTree = "<group>"; };
 		A043E9211BB335AB00B42BB1 /* PromoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoItem.h; sourceTree = "<group>"; };
 		A043E9221BB335AB00B42BB1 /* PromoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoItem.m; sourceTree = "<group>"; };
 		A044DC911BFF760100100B1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1299,6 +1300,7 @@
 		69FF40651A3F8939000BD092 /* BeyondTheRack */ = {
 			isa = PBXGroup;
 			children = (
+				A03C03661C24982900A10E00 /* BeyondTheRack.entitlements */,
 				69FF406A1A3F8939000BD092 /* BTRAppDelegate.h */,
 				69FF406B1A3F8939000BD092 /* BTRAppDelegate.m */,
 				69FF40731A3F8939000BD092 /* Main.storyboard */,
@@ -1454,6 +1456,14 @@
 					69FF40621A3F8939000BD092 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = XX3Z92Q2ZW;
+						SystemCapabilities = {
+							com.apple.OMC = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					69FF407E1A3F8939000BD092 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1900,6 +1910,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = BeyondTheRack/BeyondTheRack.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -1916,7 +1927,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/BeyondTheRack/etpushsdk",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.beyondtherack.btr-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.beyondtherack.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1930,6 +1941,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = BeyondTheRack/BeyondTheRack.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -1946,7 +1958,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/BeyondTheRack/etpushsdk",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.beyondtherack.btr-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.beyondtherack.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

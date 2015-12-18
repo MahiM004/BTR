@@ -1240,7 +1240,7 @@
 }
 
 - (IBAction)setupApplePay:(UIButton *)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"shoebox://"]];
+    [self.applePayManager setupApplePay];
 }
 
 #pragma mark - Credit Card RESTful Payment

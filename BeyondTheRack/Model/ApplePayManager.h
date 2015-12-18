@@ -29,5 +29,6 @@
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController;
 - (BOOL)isApplePayAvailable;
 - (BOOL)isApplePaySetup;
+- (void)setupApplePay;
 
 @end

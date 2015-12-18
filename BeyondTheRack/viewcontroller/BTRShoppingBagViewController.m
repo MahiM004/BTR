@@ -445,7 +445,7 @@
 }
 
 - (IBAction)setupApplePay:(UIButton *)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"shoebox://"]];
+    [self.applePayManager setupApplePay];
 }
 
 - (IBAction)paypalCheckout:(UIButton *)sender {
