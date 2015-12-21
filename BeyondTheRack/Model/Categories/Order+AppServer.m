@@ -306,13 +306,7 @@
      */
     
     NSDictionary *taxes = totalPriceDictionary[@"taxes"];
-    NSArray* taxesArray = [taxes valueForKey:@"receipt_lines"];
-    for (NSDictionary *tax in taxesArray) {
-        if ([[tax valueForKey:@"label"]isEqualToString:@"GST"])
-            order.gstTax = [NSString stringWithFormat:@"%@",[tax valueForKey:@"amount"]];
-        if ([[tax valueForKey:@"label"]isEqualToString:@"QST"])
-            order.qstTax = [NSString stringWithFormat:@"%@",[tax valueForKey:@"amount"]];
-    }
+    order.taxes = [taxes valueForKey:@"receipt_lines"];
     
     return order;
 }

@@ -333,21 +333,23 @@
     [self.shippingDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order shippingPrice].floatValue]];
 
     // calculating taxes
-    [self.gstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order gstTax].floatValue]];
-    [self.qstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order qstTax].floatValue]];
-    if (self.order.gstTax == nil) {
-        [self.gstTaxLebl setHidden:YES];
-        [self.gstTaxDollarLabel setHidden:YES];
-    }
-    else {
+    
+    [self.gstTaxLebl setHidden:YES];
+    [self.gstTaxDollarLabel setHidden:YES];
+    [self.qstTaxLabel setHidden:YES];
+    [self.qstTaxDollarLabel setHidden:YES];
+    
+    if ([self.order.taxes count] > 0) {
+        NSDictionary *firstTax = [self.order.taxes objectAtIndex:0];
+        [self.gstTaxLebl setText:[[firstTax valueForKey:@"label"]uppercaseString]];
+        [self.gstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[[firstTax valueForKey:@"amount"]floatValue]]];
         [self.gstTaxLebl setHidden:NO];
         [self.gstTaxDollarLabel setHidden:NO];
     }
-    if (self.order.qstTax == nil) {
-        [self.qstTaxLabel setHidden:YES];
-        [self.qstTaxDollarLabel setHidden:YES];
-    }
-    else {
+    if ([self.order.taxes count] > 1) {
+        NSDictionary *secondTax = [self.order.taxes objectAtIndex:1];
+        [self.qstTaxLabel setText:[[secondTax valueForKey:@"label"]uppercaseString]];
+        [self.qstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[[secondTax valueForKey:@"amount"]floatValue]]];
         [self.qstTaxLabel setHidden:NO];
         [self.qstTaxDollarLabel setHidden:NO];
     }
@@ -356,6 +358,7 @@
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.saving floatValue]]];
     [self.totalDueLabel setText:[NSString stringWithFormat:@"TOTAL DUE (%@)",self.order.currency.uppercaseString]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
+    
     // VIP
     if ([[self.order vipPickupEligible] boolValue]) {
         self.pleaseFillOutTheShippingFormView.hidden = YES;
