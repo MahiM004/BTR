@@ -183,7 +183,15 @@
 
 - (BTRBagTableViewCell *)configureCell:(BTRBagTableViewCell *)cell forBagItem:(BagItem *)bagItem andItem:(Item *)item {
     cell.brandLabel.text = [item brand];
-    cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[bagItem pricing]];
+    NSString* priceString = [BTRViewUtility priceStringfromNumber:[bagItem pricing]];
+    if ([[bagItem additionalShipping]boolValue]) {
+        priceString = [priceString stringByAppendingString:@" + Additional Shipping"];
+        NSRange range = [priceString rangeOfString:@" + Additional Shipping"];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:priceString];
+        [attributedString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue" size:13.0f] range:range];
+        cell.priceLabel.attributedText = attributedString;
+    } else
+        cell.priceLabel.text = priceString;
     cell.itemLabel.text = [item shortItemDescription];
     cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [bagItem  variantDesc]];
     cell.dueDateTime = [bagItem dueDateTime];
