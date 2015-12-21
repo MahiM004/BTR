@@ -185,12 +185,12 @@
 
 + (NSString *)countryCodeforName:(NSString *)name {
     if ([name  isEqualToString:@"USA"])
-        return @"US";
-    return @"CA";
+        return @"us";
+    return @"ca";
 }
 
 + (NSString *)countryNameforCode:(NSString *)code {
-    if ([code isEqualToString:@"US"])
+    if ([[code uppercaseString] isEqualToString:@"US"])
         return @"USA";
     return @"Canada";
 }

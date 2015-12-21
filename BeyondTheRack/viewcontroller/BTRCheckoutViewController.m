@@ -860,7 +860,7 @@
     [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:address.province]];
     [self.cityShippingTF setText:address.city];
     [self.phoneShippingTF setText:address.phoneNumber];
-    if ([self.order.shippingAddress.country isEqualToString:@"US"]) {
+    if ([[self.order.shippingAddress.country uppercaseString] isEqualToString:@"US"]) {
         self.shippingProvinceLB.text = @"STATE";
         self.shippingPostalCodeLB.text = @"ZIP CODE";
     } else {
@@ -877,7 +877,7 @@
     [self.provinceBillingTF setText:[BTRViewUtility provinceNameforCode:address.province]];
     [self.cityBillingTF setText:address.city];
     [self.phoneBillingTF setText:address.phoneNumber];
-    if ([self.order.billingAddress.country isEqualToString:@"US"]) {
+    if ([[self.order.billingAddress.country uppercaseString] isEqualToString:@"US"]) {
         self.billingProvinceLB.text = @"STATE";
         self.billingPostalCodeLB.text = @"ZIP CODE";
     } else {
