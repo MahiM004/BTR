@@ -61,6 +61,10 @@
     if ([bagItemDictionary valueForKeyPath:@"variant"] && [bagItemDictionary valueForKeyPath:@"variant"] != [NSNull null]) {
         bagItem.variant = [bagItemDictionary valueForKeyPath:@"variant"];
     }
+    
+    if ([bagItemDictionary valueForKeyPath:@"variant_desc"] && [bagItemDictionary valueForKeyPath:@"variant_desc"] != [NSNull null]) {
+        bagItem.variantDesc = [bagItemDictionary valueForKeyPath:@"variant_desc"];
+    }
 
     if ([bagItemDictionary valueForKeyPath:@"addtionalShipping"] && [bagItemDictionary valueForKeyPath:@"addtionalShipping"] != [NSNull null]) {
         bagItem.additionalShipping = [bagItemDictionary valueForKeyPath:@"addtionalShipping"];

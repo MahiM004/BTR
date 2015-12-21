@@ -185,7 +185,7 @@
     cell.brandLabel.text = [item brand];
     cell.priceLabel.text =  [BTRViewUtility priceStringfromNumber:[bagItem pricing]];
     cell.itemLabel.text = [item shortItemDescription];
-    cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [bagItem  variant]];
+    cell.sizeLabel.text = [NSString stringWithFormat:@"Size: %@", [bagItem  variantDesc]];
     cell.dueDateTime = [bagItem dueDateTime];
     
     NSInteger ti = ((NSInteger)[cell.dueDateTime timeIntervalSinceNow]);

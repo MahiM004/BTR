@@ -25,6 +25,7 @@
 @property (nonatomic, retain) NSString * eventId;
 @property (nonatomic, retain) NSString * sku;
 @property (nonatomic, retain) NSString * variant;
+@property (nonatomic, retain) NSString * variantDesc;
 @property (nonatomic, retain) NSString * expiryDuration;
 @property (nonatomic, retain) NSDate * dueDateTime;
 @property (nonatomic, retain) NSDate * serverDateTime;
