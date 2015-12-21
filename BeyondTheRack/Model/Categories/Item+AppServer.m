@@ -117,6 +117,9 @@
 
     if ([itemDictionary valueForKeyPath:@"is_fragile"] && [itemDictionary valueForKeyPath:@"is_fragile"] != [NSNull null])
         item.isFragile = [itemDictionary valueForKey:@"is_fragile"];
+    
+    if ([itemDictionary valueForKeyPath:@"is_flat_rate"] && [itemDictionary valueForKeyPath:@"is_flat_rate"] != [NSNull null])
+        item.isFlatRate = [itemDictionary valueForKey:@"is_flat_rate"];
 
     if ([itemDictionary valueForKeyPath:@"restricted_shipping"] && [itemDictionary valueForKeyPath:@"restricted_shipping"] != [NSNull null])
         item.restrictedShipping = [itemDictionary valueForKey:@"restricted_shipping"];

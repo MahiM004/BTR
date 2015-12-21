@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSString * imageNameMedium;
 @property (nonatomic, retain) NSString * imageNameSmall;
 @property (nonatomic, retain) NSString * isFragile;
+@property (nonatomic, retain) NSString * isFlatRate;
 @property (nonatomic, retain) NSString * itemId;
 @property (nonatomic, retain) NSString * longItemDescription;
 @property (nonatomic, retain) NSString * productHeight;
