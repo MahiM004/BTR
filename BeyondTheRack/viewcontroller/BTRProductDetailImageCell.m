@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    _pageController.pageIndicatorTintColor = [UIColor grayColor];
+    _pageController.currentPageIndicatorTintColor = [UIColor redColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -14,7 +14,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aVb-c6-Q1o">
                     <rect key="frame" x="8" y="8" width="284" height="44"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flat-Rate Shipping" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e58-RT-3wA">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flat-Rate Shipping" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="157" translatesAutoresizingMaskIntoConstraints="NO" id="e58-RT-3wA">
                             <rect key="frame" x="40" y="11" width="157" height="21"/>
                             <animations/>
                             <constraints>
@@ -49,7 +49,7 @@
                         <constraint firstItem="e58-RT-3wA" firstAttribute="top" secondItem="aVb-c6-Q1o" secondAttribute="top" constant="11" id="wt5-7A-6RQ"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRm-UO-zrm">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="284" translatesAutoresizingMaskIntoConstraints="NO" id="fRm-UO-zrm">
                     <rect key="frame" x="8" y="61" width="284" height="130"/>
                     <animations/>
                     <string key="text">Certain larger and heavier items, as well as items which ship directly from the vendor, are subject to flat-rate shipping. If you shop from more than one flat-rate event you will be charged flat-rate shipping once per event. You can purchase as many items as you want from a flat-rate event and will only be charged flat-rate shipping once per order.</string>

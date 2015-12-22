@@ -35,7 +35,7 @@
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
 
-@interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+@interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate>
 {
     BOOL selectedAddWithOutSize;
     UIView * view1;
@@ -159,6 +159,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if ([BTRViewUtility isIPAD]) {
+        [imageCell.pgParentHeight setConstant:0];
+        [imageCell.pgParentView setHidden:YES];
+    }
+    imageCell.pageController.currentPage = 0;
     [UIView animateWithDuration:0.02 animations:^{
         [_collectionView performBatchUpdates:nil completion:nil];
     }];
@@ -192,6 +197,11 @@
 - (void)updateViewWithDeatiledItem:(Item *)productItem {
     self.productImageCount = [[productItem imageCount] integerValue];
     if (productItem) {
+        if (self.productImageCount == 1) {
+            [imageCell.pgParentHeight setConstant:0];
+            [imageCell.pgParentView setHidden:YES];
+        }
+        imageCell.pageController.numberOfPages = self.productImageCount;
         [self setProductSku:[productItem sku]];
         NSString * brandText = productItem.brand;
         if (brandText.length != 0) {
@@ -400,7 +410,6 @@
         if (imageCell == nil) {
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductDetailImageCell" owner:self options:nil];
             imageCell = [nib objectAtIndex:0];
-            imageCell.contentView.backgroundColor = [UIColor grayColor];
             if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
                 CGFloat viewWidth = self.view.frame.size.width;
                 CGFloat collectHeight;
@@ -408,9 +417,9 @@
                     collectHeight = 400;
                 } else {
                     if (self.view.frame.size.height < 500) {
-                        collectHeight = 200;
+                        collectHeight = 200-37;
                     } else {
-                        collectHeight = 312;
+                        collectHeight = 312-37;
                     }
                 }
                 [imageCell.contentView addSubview:[self collectionView:CGRectMake(0, 0, viewWidth, collectHeight)]];
@@ -621,17 +630,20 @@
             collectHeight = 400;
         } else {
             if (self.view.frame.size.height < 500) {
-                collectHeight = 200;
+                collectHeight = 200-37;
             } else {
-                collectHeight = 312;
+                collectHeight = 312-37;
             }
         }
         
         //When ever we change the Orientation we remove and readd the CollectionView
         NSArray *viewsToRemove = [imageCell.contentView subviews];
         for (UIView *v in viewsToRemove) {
-            [v removeFromSuperview];
+            if (v.tag != 504) {
+                [v removeFromSuperview];
+            }
         }
+        
         [imageCell.contentView addSubview:[self collectionView:CGRectMake(0, 0, viewWidth, collectHeight)]];
         
     } else {
@@ -648,7 +660,9 @@
             //When ever we change the Orientation we remove and readd the CollectionView
             NSArray *viewsToRemove = [view1 subviews];
             for (UIView *v in viewsToRemove) {
-                [v removeFromSuperview];
+                if (v.tag != 504) {
+                    [v removeFromSuperview];
+                }
             }
             [view1 addSubview:[self collectionView:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145)]];
         }
@@ -797,6 +811,22 @@
     zoomVC.selectedIndex = indexPath;
     zoomVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
     [self presentViewController:zoomVC animated:YES completion:nil];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (_collectionView) {
+        CGFloat currentIndex = _collectionView.frame.size.width;
+        float currentPage = _collectionView.contentOffset.x/currentIndex;
+        if (0.0f != fmodf(currentPage, 1.0f))
+        {
+            imageCell.pageController.currentPage = currentPage + 1;
+        }
+        else
+        {
+            imageCell.pageController.currentPage = currentPage;
+        }
+    }
 }
 
 -(UICollectionView *)collectionView:(CGRect)frame {
