@@ -30,7 +30,8 @@
 #import "BTRZoomImageViewController.h"
 #import "UIImageView+AFNetworkingFadeIn.h"
 #import "BTRSettingManager.h"
-
+#import "CustomIOSAlertView.h"
+#import "loadPopView.h"
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
 
@@ -47,6 +48,7 @@
     UIView * descriptionView;
     UICollectionView *_collectionView;
     NSInteger decreaseNameCellSize;
+    CustomIOSAlertView * customAlert;
 }
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
@@ -200,7 +202,6 @@
         }
         if (! [productItem.isFlatRate boolValue]) {
             [nameCell.flatShippingBtn setHidden:YES];
-            [nameCell.flatShippingBtn addTarget:self action:@selector(flatRateShipping) forControlEvents:UIControlEventTouchUpInside];
             [nameCell.flatShippingHeight setConstant:0];
             [nameCell.flatShippingTopMargin setConstant:0];
             decreaseNameCellSize += 28;
@@ -422,6 +423,7 @@
         if (!nameCell) {
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductDetailNameCell" owner:self options:nil];
             nameCell = [nib objectAtIndex:0];
+            [nameCell.flatShippingBtn addTarget:self action:@selector(flatRateShipping) forControlEvents:UIControlEventTouchUpInside];
             [nameCell.selectChart addTarget:self action:@selector(selectSizeChartAction) forControlEvents:UIControlEventTouchUpInside];
             [nameCell.selectSizeButton addTarget:self action:@selector(selectSizeButtonAction) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -875,9 +877,20 @@
         [super motionEnded:motion withEvent:event];
 }
 
-
 - (void)flatRateShipping {
-    
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closePop)];
+    NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"LoadPopView" owner:self options:nil];
+    loadPopView * pop = [nib objectAtIndex:0];
+    [pop.closeAction addTarget:self action:@selector(closePop) forControlEvents:UIControlEventTouchUpInside];
+    customAlert = [[CustomIOSAlertView alloc] init];
+    [customAlert addGestureRecognizer:tap];
+    [customAlert setButtonTitles:nil];
+    [customAlert setContainerView:pop];
+    [customAlert setUseMotionEffects:false];
+    [customAlert show];
+}
+-(void)closePop {
+    [customAlert close];
 }
 
 @end

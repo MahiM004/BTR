@@ -26,6 +26,9 @@
 		14F418FA1C23D5AA003F90C7 /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F418F71C23D5AA003F90C7 /* downArrow.png */; };
 		14F418FB1C23D5AA003F90C7 /* downArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F418F81C23D5AA003F90C7 /* downArrow@2x.png */; };
 		14F418FC1C23D5AA003F90C7 /* downArrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F418F91C23D5AA003F90C7 /* downArrow@3x.png */; };
+		14FBCD8D1C292FB400DDECE0 /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FBCD8C1C292FB400DDECE0 /* CustomIOSAlertView.m */; };
+		14FBCD901C2933D200DDECE0 /* loadPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FBCD8F1C2933D200DDECE0 /* loadPopView.m */; };
+		14FBCD921C2933E600DDECE0 /* LoadPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14FBCD911C2933E600DDECE0 /* LoadPopView.xib */; };
 		5EF64B82268F5B93BD9E3D57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00303CA259B636FFAA0B08E0 /* libPods.a */; };
 		6900B4C81AB7598000930D16 /* BTRLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6900B4C71AB7598000930D16 /* BTRLogo.png */; };
 		6900B4CB1AB75A9E00930D16 /* BTRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */; };
@@ -280,6 +283,11 @@
 		14F418F71C23D5AA003F90C7 /* downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downArrow.png; sourceTree = "<group>"; };
 		14F418F81C23D5AA003F90C7 /* downArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downArrow@2x.png"; sourceTree = "<group>"; };
 		14F418F91C23D5AA003F90C7 /* downArrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downArrow@3x.png"; sourceTree = "<group>"; };
+		14FBCD8B1C292FB400DDECE0 /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
+		14FBCD8C1C292FB400DDECE0 /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		14FBCD8E1C2933D200DDECE0 /* loadPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = loadPopView.h; path = viewcontroller/loadPopView.h; sourceTree = "<group>"; };
+		14FBCD8F1C2933D200DDECE0 /* loadPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = loadPopView.m; path = viewcontroller/loadPopView.m; sourceTree = "<group>"; };
+		14FBCD911C2933E600DDECE0 /* LoadPopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoadPopView.xib; path = viewcontroller/LoadPopView.xib; sourceTree = "<group>"; };
 		6900B4C71AB7598000930D16 /* BTRLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BTRLogo.png; sourceTree = "<group>"; };
 		6900B4C91AB75A9E00930D16 /* BTRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoginViewController.h; sourceTree = "<group>"; };
 		6900B4CA1AB75A9E00930D16 /* BTRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoginViewController.m; sourceTree = "<group>"; };
@@ -702,6 +710,18 @@
 			path = BeyondTheRack/viewcontroller;
 			sourceTree = SOURCE_ROOT;
 		};
+		145BBD661C2944FB00F651B8 /* CustomPopUP */ = {
+			isa = PBXGroup;
+			children = (
+				14FBCD8B1C292FB400DDECE0 /* CustomIOSAlertView.h */,
+				14FBCD8C1C292FB400DDECE0 /* CustomIOSAlertView.m */,
+				14FBCD8E1C2933D200DDECE0 /* loadPopView.h */,
+				14FBCD8F1C2933D200DDECE0 /* loadPopView.m */,
+				14FBCD911C2933E600DDECE0 /* LoadPopView.xib */,
+			);
+			name = CustomPopUP;
+			sourceTree = "<group>";
+		};
 		14C046C01C0C18CE00521189 /* PopUP */ = {
 			isa = PBXGroup;
 			children = (
@@ -1044,6 +1064,7 @@
 		69867A0F1A4480C7003CE59C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				145BBD661C2944FB00F651B8 /* CustomPopUP */,
 				14DE66C91C159A2100A7AA1F /* DownPicker */,
 				A00E4DDA1B865B5700C93CD3 /* Masterpass */,
 				695C75481B3841D1003F65F8 /* CTCheckbox */,
@@ -1537,6 +1558,7 @@
 				690A39101B1DEE0000D4BA84 /* unchecked.png in Resources */,
 				A01670681B8CF11400448EF3 /* BTRSizeChartViewController.xib in Resources */,
 				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,
+				14FBCD921C2933E600DDECE0 /* LoadPopView.xib in Resources */,
 				69F0BB291B457156008C0498 /* SF-UI-Display-Semibold.otf in Resources */,
 				1408D1B81BEA1D0400125FE8 /* BTRProductDetailImageCell.xib in Resources */,
 				695C755D1B386AFD003F65F8 /* paypalcheckout.png in Resources */,
@@ -1647,6 +1669,7 @@
 			files = (
 				69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */,
 				69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */,
+				14FBCD901C2933D200DDECE0 /* loadPopView.m in Sources */,
 				69659F1E1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m in Sources */,
 				B3C16A911B01371C009470EC /* BTRSizeSelector.m in Sources */,
 				6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */,
@@ -1736,6 +1759,7 @@
 				690A38F51B1DEB7F00D4BA84 /* TNRectangularRadioButtonData.m in Sources */,
 				69B02CB41A5DBAB000040C86 /* BTRCategoryViewController.m in Sources */,
 				69B02CA21A5DA23100040C86 /* TTScrollViewWrapper.m in Sources */,
+				14FBCD8D1C292FB400DDECE0 /* CustomIOSAlertView.m in Sources */,
 				A00E4DE51B865B5700C93CD3 /* MPAddress.m in Sources */,
 				69659F1B1A8139A400C52FC5 /* BTRFilterWithModalTableViewCell.m in Sources */,
 				690A38D51B1DE67F00D4BA84 /* BTRNotificationsVC.m in Sources */,
