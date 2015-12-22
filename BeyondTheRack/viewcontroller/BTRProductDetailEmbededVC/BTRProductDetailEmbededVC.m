@@ -32,11 +32,13 @@
 #import "BTRSettingManager.h"
 #import "CustomIOSAlertView.h"
 #import "loadPopView.h"
+#import "SKUContents+AppServer.h"
+#import "BTRSKUContentFetcher.h"
+
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
 
-@interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate>
-{
+@interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate> {
     BOOL selectedAddWithOutSize;
     UIView * view1;
     UIView * view2;
@@ -50,6 +52,7 @@
     NSInteger decreaseNameCellSize;
     CustomIOSAlertView * customAlert;
 }
+
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
@@ -185,6 +188,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kUSERDIDLOGIN object:nil];
+    [_collectionView removeFromSuperview];
+    
 }
 
 - (void)fillWithItem:(Item*)item {
@@ -908,17 +913,27 @@
 }
 
 - (void)flatRateShipping {
-    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closePop)];
-    NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"LoadPopView" owner:self options:nil];
-    loadPopView * pop = [nib objectAtIndex:0];
-    [pop.closeAction addTarget:self action:@selector(closePop) forControlEvents:UIControlEventTouchUpInside];
-    customAlert = [[CustomIOSAlertView alloc] init];
-    [customAlert addGestureRecognizer:tap];
-    [customAlert setButtonTitles:nil];
-    [customAlert setContainerView:pop];
-    [customAlert setUseMotionEffects:false];
-    [customAlert show];
+    NSString *url = [NSString stringWithFormat:@"%@",[BTRSKUContentFetcher URLForContent]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        SKUContents *content = [[SKUContents alloc]init];
+        [SKUContents extractSKUContentFromContentInformation:response forSKUContent:content];
+        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closePop)];
+        NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"LoadPopView" owner:self options:nil];
+        loadPopView * pop = [nib objectAtIndex:0];
+        [pop.closeAction addTarget:self action:@selector(closePop) forControlEvents:UIControlEventTouchUpInside];
+        [pop.flatShipMessage setText:content.flatRateDropShipMessage];
+        [pop.flatShipTitle setText:content.flatRateDropShipTitle];
+        customAlert = [[CustomIOSAlertView alloc] init];
+        [customAlert addGestureRecognizer:tap];
+        [customAlert setButtonTitles:nil];
+        [customAlert setContainerView:pop];
+        [customAlert setUseMotionEffects:false];
+        [customAlert show];
+    } faild:^(NSError *error) {
+        
+    }];
 }
+
 -(void)closePop {
     [customAlert close];
 }
