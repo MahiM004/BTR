@@ -27,4 +27,8 @@
 @property (weak, nonatomic) IBOutlet UIView *selectSizeView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectSizeViewTopMargin;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sizeChartTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *flatShippingHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *flatShippingTopMargin;
+@property (weak, nonatomic) IBOutlet UIButton *flatShippingBtn;
+
 @end

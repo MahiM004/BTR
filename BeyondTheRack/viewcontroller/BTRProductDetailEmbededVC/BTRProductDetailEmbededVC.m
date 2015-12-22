@@ -198,6 +198,13 @@
             [nameCell.brandHeight setConstant:0];
             decreaseNameCellSize += 20;
         }
+        if (! [productItem.isFlatRate boolValue]) {
+            [nameCell.flatShippingBtn setHidden:YES];
+            [nameCell.flatShippingBtn addTarget:self action:@selector(flatRateShipping) forControlEvents:UIControlEventTouchUpInside];
+            [nameCell.flatShippingHeight setConstant:0];
+            [nameCell.flatShippingTopMargin setConstant:0];
+            decreaseNameCellSize += 28;
+        }
         [nameCell.shortDescriptionLabel setText:[productItem shortItemDescription]];
         [nameCell.salePriceLabel setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
         [nameCell.crossedOffPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
@@ -471,7 +478,7 @@
                     return 312;
             break;
         case 1:
-            return 227 - decreaseNameCellSize;
+            return 260 - decreaseNameCellSize;
             break;
         case 2:
             return [self descriptionCellHeight];
@@ -866,6 +873,11 @@
     
     if ( [super respondsToSelector:@selector(motionEnded:withEvent:)] )
         [super motionEnded:motion withEvent:event];
+}
+
+
+- (void)flatRateShipping {
+    
 }
 
 @end
