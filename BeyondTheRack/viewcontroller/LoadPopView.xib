@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="loadPopView">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aVb-c6-Q1o">
+                    <rect key="frame" x="8" y="8" width="284" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flat-Rate Shipping" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="157" translatesAutoresizingMaskIntoConstraints="NO" id="e58-RT-3wA">
+                            <rect key="frame" x="40" y="11" width="157" height="21"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="157" id="MUs-4h-8oh"/>
+                                <constraint firstAttribute="height" constant="21" id="gbc-m2-L6h"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qv-7x-iuC">
+                            <rect key="frame" x="246" y="11" width="30" height="21"/>
+                            <animations/>
+                            <color key="backgroundColor" red="0.49411764705882355" green="0.070588235294117646" blue="0.12941176470588237" alpha="0.54978448275862069" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="BP1-Ie-Np4"/>
+                                <constraint firstAttribute="height" constant="21" id="Wrq-w5-rYr"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <state key="normal" title="X">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" red="0.89411764709999997" green="0.16078431369999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="e58-RT-3wA" firstAttribute="leading" secondItem="aVb-c6-Q1o" secondAttribute="leading" constant="40" id="ASM-DG-5Fn"/>
+                        <constraint firstAttribute="trailing" secondItem="1qv-7x-iuC" secondAttribute="trailing" constant="8" id="b4r-2b-spS"/>
+                        <constraint firstAttribute="height" constant="44" id="p1p-pI-GE8"/>
+                        <constraint firstItem="1qv-7x-iuC" firstAttribute="top" secondItem="aVb-c6-Q1o" secondAttribute="top" constant="11" id="tXK-Od-wQ2"/>
+                        <constraint firstItem="e58-RT-3wA" firstAttribute="top" secondItem="aVb-c6-Q1o" secondAttribute="top" constant="11" id="wt5-7A-6RQ"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="284" translatesAutoresizingMaskIntoConstraints="NO" id="fRm-UO-zrm">
+                    <rect key="frame" x="8" y="61" width="284" height="130"/>
+                    <animations/>
+                    <string key="text">Certain larger and heavier items, as well as items which ship directly from the vendor, are subject to flat-rate shipping. If you shop from more than one flat-rate event you will be charged flat-rate shipping once per event. You can purchase as many items as you want from a flat-rate event and will only be charged flat-rate shipping once per order.</string>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" red="0.14509803921568629" green="0.14901960784313725" blue="0.14509803921568629" alpha="0.88170797413793101" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="fRm-UO-zrm" firstAttribute="top" secondItem="aVb-c6-Q1o" secondAttribute="bottom" constant="9" id="RKd-tz-NuT"/>
+                <constraint firstAttribute="bottom" secondItem="fRm-UO-zrm" secondAttribute="bottom" constant="9" id="Wcb-Nd-ucq"/>
+                <constraint firstItem="fRm-UO-zrm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Z8t-pB-Vuc"/>
+                <constraint firstItem="aVb-c6-Q1o" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="lfP-Ro-TeX"/>
+                <constraint firstAttribute="trailing" secondItem="aVb-c6-Q1o" secondAttribute="trailing" constant="8" id="wsG-n6-rtC"/>
+                <constraint firstItem="aVb-c6-Q1o" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="xXL-hc-DkC"/>
+                <constraint firstAttribute="trailing" secondItem="fRm-UO-zrm" secondAttribute="trailing" constant="8" id="xeu-j5-7fk"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="closeAction" destination="1qv-7x-iuC" id="38A-IS-4E9"/>
+                <outlet property="flatShipMessage" destination="fRm-UO-zrm" id="OTt-Lw-1aj"/>
+                <outlet property="flatShipTitle" destination="e58-RT-3wA" id="Iqs-Qq-509"/>
+            </connections>
+            <point key="canvasLocation" x="501" y="468"/>
+        </view>
+    </objects>
+</document>

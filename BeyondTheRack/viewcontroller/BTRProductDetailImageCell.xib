@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,9 +13,39 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="215"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view tag="504" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QvG-z3-FbB">
+                        <rect key="frame" x="0.0" y="178" width="414" height="37"/>
+                        <subviews>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="JZU-e3-o80">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="37"/>
+                                <animations/>
+                            </pageControl>
+                        </subviews>
+                        <animations/>
+                        <color key="tintColor" red="0.4941176471" green="0.070588235289999995" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="JZU-e3-o80" firstAttribute="leading" secondItem="QvG-z3-FbB" secondAttribute="leading" id="CkW-rz-L0a"/>
+                            <constraint firstAttribute="trailing" secondItem="JZU-e3-o80" secondAttribute="trailing" id="LT2-9u-v6b"/>
+                            <constraint firstAttribute="height" constant="37" id="hsq-tM-gVq"/>
+                            <constraint firstItem="JZU-e3-o80" firstAttribute="centerY" secondItem="QvG-z3-FbB" secondAttribute="centerY" id="viD-c5-n6V"/>
+                            <constraint firstItem="JZU-e3-o80" firstAttribute="centerX" secondItem="QvG-z3-FbB" secondAttribute="centerX" id="yZs-lh-6Kt"/>
+                        </constraints>
+                    </view>
+                </subviews>
                 <animations/>
+                <constraints>
+                    <constraint firstItem="QvG-z3-FbB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4fI-ZD-1hD"/>
+                    <constraint firstAttribute="trailing" secondItem="QvG-z3-FbB" secondAttribute="trailing" id="7iT-BH-hld"/>
+                    <constraint firstAttribute="bottom" secondItem="QvG-z3-FbB" secondAttribute="bottom" id="L71-95-ess"/>
+                </constraints>
             </tableViewCellContentView>
             <animations/>
+            <connections>
+                <outlet property="pageController" destination="JZU-e3-o80" id="1Xc-Jc-k9L"/>
+                <outlet property="pgParentHeight" destination="hsq-tM-gVq" id="6t6-pJ-E2x"/>
+                <outlet property="pgParentView" destination="QvG-z3-FbB" id="KPo-Zp-oZA"/>
+            </connections>
             <point key="canvasLocation" x="403" y="437"/>
         </tableViewCell>
     </objects>

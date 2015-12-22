@@ -30,11 +30,12 @@
 #import "BTRZoomImageViewController.h"
 #import "UIImageView+AFNetworkingFadeIn.h"
 #import "BTRSettingManager.h"
-
+#import "CustomIOSAlertView.h"
+#import "loadPopView.h"
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
 
-@interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+@interface BTRProductDetailEmbededVC ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate>
 {
     BOOL selectedAddWithOutSize;
     UIView * view1;
@@ -47,6 +48,7 @@
     UIView * descriptionView;
     UICollectionView *_collectionView;
     NSInteger decreaseNameCellSize;
+    CustomIOSAlertView * customAlert;
 }
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
@@ -157,6 +159,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if ([BTRViewUtility isIPAD]) {
+        [imageCell.pgParentHeight setConstant:0];
+        [imageCell.pgParentView setHidden:YES];
+    }
+    imageCell.pageController.currentPage = 0;
     [UIView animateWithDuration:0.02 animations:^{
         [_collectionView performBatchUpdates:nil completion:nil];
     }];
@@ -190,6 +197,11 @@
 - (void)updateViewWithDeatiledItem:(Item *)productItem {
     self.productImageCount = [[productItem imageCount] integerValue];
     if (productItem) {
+        if (self.productImageCount == 1) {
+            [imageCell.pgParentHeight setConstant:0];
+            [imageCell.pgParentView setHidden:YES];
+        }
+        imageCell.pageController.numberOfPages = self.productImageCount;
         [self setProductSku:[productItem sku]];
         NSString * brandText = productItem.brand;
         if (brandText.length != 0) {
@@ -197,6 +209,12 @@
         } else {
             [nameCell.brandHeight setConstant:0];
             decreaseNameCellSize += 20;
+        }
+        if (! [productItem.isFlatRate boolValue]) {
+            [nameCell.flatShippingBtn setHidden:YES];
+            [nameCell.flatShippingHeight setConstant:0];
+            [nameCell.flatShippingTopMargin setConstant:0];
+            decreaseNameCellSize += 28;
         }
         [nameCell.shortDescriptionLabel setText:[productItem shortItemDescription]];
         [nameCell.salePriceLabel setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
@@ -392,7 +410,6 @@
         if (imageCell == nil) {
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductDetailImageCell" owner:self options:nil];
             imageCell = [nib objectAtIndex:0];
-            imageCell.contentView.backgroundColor = [UIColor grayColor];
             if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
                 CGFloat viewWidth = self.view.frame.size.width;
                 CGFloat collectHeight;
@@ -400,9 +417,9 @@
                     collectHeight = 400;
                 } else {
                     if (self.view.frame.size.height < 500) {
-                        collectHeight = 200;
+                        collectHeight = 200-37;
                     } else {
-                        collectHeight = 312;
+                        collectHeight = 312-37;
                     }
                 }
                 [imageCell.contentView addSubview:[self collectionView:CGRectMake(0, 0, viewWidth, collectHeight)]];
@@ -415,6 +432,7 @@
         if (!nameCell) {
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductDetailNameCell" owner:self options:nil];
             nameCell = [nib objectAtIndex:0];
+            [nameCell.flatShippingBtn addTarget:self action:@selector(flatRateShipping) forControlEvents:UIControlEventTouchUpInside];
             [nameCell.selectChart addTarget:self action:@selector(selectSizeChartAction) forControlEvents:UIControlEventTouchUpInside];
             [nameCell.selectSizeButton addTarget:self action:@selector(selectSizeButtonAction) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -471,7 +489,7 @@
                     return 312;
             break;
         case 1:
-            return 227 - decreaseNameCellSize;
+            return 260 - decreaseNameCellSize;
             break;
         case 2:
             return [self descriptionCellHeight];
@@ -612,17 +630,20 @@
             collectHeight = 400;
         } else {
             if (self.view.frame.size.height < 500) {
-                collectHeight = 200;
+                collectHeight = 200-37;
             } else {
-                collectHeight = 312;
+                collectHeight = 312-37;
             }
         }
         
         //When ever we change the Orientation we remove and readd the CollectionView
         NSArray *viewsToRemove = [imageCell.contentView subviews];
         for (UIView *v in viewsToRemove) {
-            [v removeFromSuperview];
+            if (v.tag != 504) {
+                [v removeFromSuperview];
+            }
         }
+        
         [imageCell.contentView addSubview:[self collectionView:CGRectMake(0, 0, viewWidth, collectHeight)]];
         
     } else {
@@ -639,7 +660,9 @@
             //When ever we change the Orientation we remove and readd the CollectionView
             NSArray *viewsToRemove = [view1 subviews];
             for (UIView *v in viewsToRemove) {
-                [v removeFromSuperview];
+                if (v.tag != 504) {
+                    [v removeFromSuperview];
+                }
             }
             [view1 addSubview:[self collectionView:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145)]];
         }
@@ -790,6 +813,22 @@
     [self presentViewController:zoomVC animated:YES completion:nil];
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (_collectionView) {
+        CGFloat currentIndex = _collectionView.frame.size.width;
+        float currentPage = _collectionView.contentOffset.x/currentIndex;
+        if (0.0f != fmodf(currentPage, 1.0f))
+        {
+            imageCell.pageController.currentPage = currentPage + 1;
+        }
+        else
+        {
+            imageCell.pageController.currentPage = currentPage;
+        }
+    }
+}
+
 -(UICollectionView *)collectionView:(CGRect)frame {
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
     _collectionView=[[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
@@ -866,6 +905,22 @@
     
     if ( [super respondsToSelector:@selector(motionEnded:withEvent:)] )
         [super motionEnded:motion withEvent:event];
+}
+
+- (void)flatRateShipping {
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closePop)];
+    NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"LoadPopView" owner:self options:nil];
+    loadPopView * pop = [nib objectAtIndex:0];
+    [pop.closeAction addTarget:self action:@selector(closePop) forControlEvents:UIControlEventTouchUpInside];
+    customAlert = [[CustomIOSAlertView alloc] init];
+    [customAlert addGestureRecognizer:tap];
+    [customAlert setButtonTitles:nil];
+    [customAlert setContainerView:pop];
+    [customAlert setUseMotionEffects:false];
+    [customAlert show];
+}
+-(void)closePop {
+    [customAlert close];
 }
 
 @end
