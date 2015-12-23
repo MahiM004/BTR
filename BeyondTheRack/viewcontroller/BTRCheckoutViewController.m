@@ -1582,7 +1582,7 @@
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
         } else {
-            size -= 140;
+            size -= 100;
         }
     }
     else if (self.currentPaymentType == paypal) {
@@ -1591,7 +1591,7 @@
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
         } else {
-            size -= 140;
+            size -= 100;
         }
     }
     else if (self.currentPaymentType == masterPass) {
