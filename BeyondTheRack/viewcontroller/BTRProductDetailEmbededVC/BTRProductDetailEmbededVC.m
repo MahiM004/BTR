@@ -51,6 +51,7 @@
     UICollectionView *_collectionView;
     NSInteger decreaseNameCellSize;
     CustomIOSAlertView * customAlert;
+    UIPageControl * iPadPageController;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
@@ -162,11 +163,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([BTRViewUtility isIPAD]) {
-        [imageCell.pgParentHeight setConstant:0];
-        [imageCell.pgParentView setHidden:YES];
-    }
     imageCell.pageController.currentPage = 0;
+    iPadPageController.currentPage = 0;
     [UIView animateWithDuration:0.02 animations:^{
         [_collectionView performBatchUpdates:nil completion:nil];
     }];
@@ -207,6 +205,7 @@
             [imageCell.pgParentView setHidden:YES];
         }
         imageCell.pageController.numberOfPages = self.productImageCount;
+        iPadPageController.numberOfPages = self.productImageCount;
         [self setProductSku:[productItem sku]];
         NSString * brandText = productItem.brand;
         if (brandText.length != 0) {
@@ -419,7 +418,7 @@
                 CGFloat viewWidth = self.view.frame.size.width;
                 CGFloat collectHeight;
                 if ([BTRViewUtility isIPAD]) {
-                    collectHeight = 400;
+                    collectHeight = 400-37;
                 } else {
                     if (self.view.frame.size.height < 500) {
                         collectHeight = 200-37;
@@ -632,7 +631,7 @@
         
         CGFloat collectHeight;
         if ([BTRViewUtility isIPAD]) {
-            collectHeight = 400;
+            collectHeight = 400-37;
         } else {
             if (self.view.frame.size.height < 500) {
                 collectHeight = 200-37;
@@ -657,19 +656,29 @@
             view1.hidden = NO;
             CGFloat viewWidth = screenBounds.size.width;
             CGFloat viewHeight = screenBounds.size.height;
+            
+            UIView * pageController = [[UIView alloc]initWithFrame:CGRectMake(0, viewHeight - 145-37, viewWidth/2, 37)];
+            pageController.tag = 505;
+            iPadPageController = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, viewWidth/2, 37)];
+            iPadPageController.pageIndicatorTintColor = [UIColor grayColor];
+            iPadPageController.currentPageIndicatorTintColor = [UIColor redColor];
+            iPadPageController.numberOfPages = [self productImageCount];
+            [pageController addSubview:iPadPageController];
             [view1 setFrame:CGRectMake(0, 75, viewWidth / 2, viewHeight - 145)];
             [view2 setFrame:CGRectMake(viewWidth/2, 75, viewWidth / 2, viewHeight - 145)];
             [detailTV setFrame:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145)];
-            [self collectionView:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145)];
             
             //When ever we change the Orientation we remove and readd the CollectionView
             NSArray *viewsToRemove = [view1 subviews];
             for (UIView *v in viewsToRemove) {
-                if (v.tag != 504) {
+                if (v.tag != 504 || v.tag !=505) {
                     [v removeFromSuperview];
                 }
             }
-            [view1 addSubview:[self collectionView:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145)]];
+            
+            [pageController addSubview:iPadPageController];
+            [view1 addSubview:pageController];
+            [view1 addSubview:[self collectionView:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145-37)]];
         }
     }
 }
@@ -798,9 +807,9 @@
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     if ([BTRViewUtility isIPAD]) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-            return CGSizeMake(screenBounds.size.width / 2 - 8,screenBounds.size.height - 145);
+            return CGSizeMake(screenBounds.size.width / 2 - 8,screenBounds.size.height - 200);
         } else
-            return CGSizeMake(280 , 390);
+            return CGSizeMake(280 , 353);
     } else {
         return CGSizeMake(collectionView.frame.size.width - 8, collectionView.frame.size.height - 10);
     }
@@ -826,10 +835,12 @@
         if (0.0f != fmodf(currentPage, 1.0f))
         {
             imageCell.pageController.currentPage = currentPage + 1;
+            iPadPageController.currentPage = currentPage + 1;
         }
         else
         {
             imageCell.pageController.currentPage = currentPage;
+            iPadPageController.currentPage = currentPage;
         }
     }
 }
