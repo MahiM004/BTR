@@ -264,7 +264,7 @@
             
             UILabel *label = [[UILabel alloc] init];
             label.text = title.headerText;
-            label.textAlignment = NSTextAlignmentLeft;
+            label.textAlignment = NSTextAlignmentCenter;
             //label.adjustsFontSizeToFitWidth = YES;
             label.textColor = self.titleScrollerInActiveTextColour;
             label.font = [UIFont fontWithName:@"Arial" size:13];//self.titleScrollerTextFont;
