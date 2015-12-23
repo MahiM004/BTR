@@ -598,6 +598,9 @@
             [self fillShippingAddressByAddress:self.savedShippingAddress];
         [self enableShippingAddress];
     }
+    if (_sameAddressCheckbox.checked) {
+        [self copyShipingAddressToBillingAddress];
+    }
     [self validateAddressViaAPIAndInCompletion:nil];
 }
 
@@ -1057,6 +1060,9 @@
 }
 
 - (IBAction)shippingDetailsViewTapped:(UIControl *)sender {
+    if (_sameAddressCheckbox.checked) {
+        [self copyShipingAddressToBillingAddress];
+    }
     [self dismissKeyboard];
 }
 
@@ -1119,6 +1125,10 @@
 }
 
 - (IBAction)shippingCountryButtonTapped:(UIButton *)sender {
+    if (_sameAddressCheckbox.checked) {
+        [self copyShipingAddressToBillingAddress];
+    }
+    
     _popType = PopUPTypeShippingCountry;
     [self setBillingOrShipping:SHIPPING_ADDRESS];
     [self openPopView:sender Data:[NSMutableArray arrayWithArray:[self countryNameArray]] inView:_shippingDetailsView inFrameView:sender];
@@ -1582,7 +1592,7 @@
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
         } else {
-            size -= 140;
+            size -= 100;
         }
     }
     else if (self.currentPaymentType == paypal) {
@@ -1591,7 +1601,7 @@
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
         } else {
-            size -= 140;
+            size -= 100;
         }
     }
     else if (self.currentPaymentType == masterPass) {
@@ -1704,6 +1714,17 @@
             [_noShippingLabel setHidden:YES];
         }
         [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:index.row]];
+        if (_sameAddressCheckbox.checked) {
+            if (index.row == 0) {
+                self.billingProvinceLB.text = @"PROVINCE";
+                self.billingPostalCodeLB.text = @"POSTAL CODE";
+                
+            } else {
+                self.billingProvinceLB.text = @"STATE";
+                self.billingPostalCodeLB.text = @"ZIP CODE";
+            }
+            self.countryBillingTF.text = self.countryShippingTF.text;
+        }
         [self validateAddressViaAPIAndInCompletion:nil];
     }
     [self.userDataPopover dismissPopoverAnimated:NO];
@@ -1740,6 +1761,16 @@
             [_noShippingLabel setHidden:YES];
         }
         [self.countryShippingTF setText:[[self countryNameArray] objectAtIndex:row]];
+        if (_sameAddressCheckbox.checked) {
+            if (row == 0) {
+                self.billingProvinceLB.text = @"PROVINCE";
+                self.billingPostalCodeLB.text = @"POSTAL CODE";
+            } else {
+                self.billingProvinceLB.text = @"STATE";
+                self.billingPostalCodeLB.text = @"ZIP CODE";
+            }
+            self.countryBillingTF.text = self.countryShippingTF.text;
+        }
         [self validateAddressViaAPIAndInCompletion:nil];
     }
     else if ([picType isEqualToString:@"bilCountry"]) {
