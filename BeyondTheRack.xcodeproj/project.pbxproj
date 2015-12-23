@@ -201,6 +201,9 @@
 		A01BCF431B66BA6500A6242F /* BTRPaypalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A01BCF421B66BA6500A6242F /* BTRPaypalFetcher.m */; };
 		A01E5DFC1B690FBF00B0EC5B /* BTRConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */; };
 		A024A2C41BB4424000B5B596 /* BTRSampleGiftView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */; };
+		A027C33B1C2AECD80013A8AF /* SKUContents+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A027C33A1C2AECD80013A8AF /* SKUContents+AppServer.m */; };
+		A027C33E1C2AED010013A8AF /* BTRSKUContentFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A027C33D1C2AED010013A8AF /* BTRSKUContentFetcher.m */; };
+		A027C3411C2AED1F0013A8AF /* SKUContents.m in Sources */ = {isa = PBXBuildFile; fileRef = A027C3401C2AED1F0013A8AF /* SKUContents.m */; };
 		A029D77F1BFBA9A500BFC7F7 /* profileBack.png in Resources */ = {isa = PBXBuildFile; fileRef = A029D77E1BFBA9A500BFC7F7 /* profileBack.png */; };
 		A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A02A6BF31BB08E0400C01F2C /* BTRLoader.m */; };
 		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; };
@@ -594,6 +597,12 @@
 		A01E5DFA1B690FBF00B0EC5B /* BTRConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRConfirmationViewController.h; sourceTree = "<group>"; };
 		A01E5DFB1B690FBF00B0EC5B /* BTRConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRConfirmationViewController.m; sourceTree = "<group>"; };
 		A024A2C31BB4424000B5B596 /* BTRSampleGiftView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRSampleGiftView.xib; sourceTree = "<group>"; };
+		A027C3391C2AECD80013A8AF /* SKUContents+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKUContents+AppServer.h"; sourceTree = "<group>"; };
+		A027C33A1C2AECD80013A8AF /* SKUContents+AppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKUContents+AppServer.m"; sourceTree = "<group>"; };
+		A027C33C1C2AED010013A8AF /* BTRSKUContentFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSKUContentFetcher.h; sourceTree = "<group>"; };
+		A027C33D1C2AED010013A8AF /* BTRSKUContentFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSKUContentFetcher.m; sourceTree = "<group>"; };
+		A027C33F1C2AED1F0013A8AF /* SKUContents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUContents.h; sourceTree = "<group>"; };
+		A027C3401C2AED1F0013A8AF /* SKUContents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUContents.m; sourceTree = "<group>"; };
 		A029D77E1BFBA9A500BFC7F7 /* profileBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileBack.png; sourceTree = "<group>"; };
 		A02A6BF21BB08E0400C01F2C /* BTRLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoader.h; sourceTree = "<group>"; };
 		A02A6BF31BB08E0400C01F2C /* BTRLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoader.m; sourceTree = "<group>"; };
@@ -1082,6 +1091,8 @@
 		69869F831A63F8FD00F986BC /* Fetcher */ = {
 			isa = PBXGroup;
 			children = (
+				A027C33C1C2AED010013A8AF /* BTRSKUContentFetcher.h */,
+				A027C33D1C2AED010013A8AF /* BTRSKUContentFetcher.m */,
 				69869FA11A63FCA500F986BC /* BTRFetcher.h */,
 				69869FA21A63FCA500F986BC /* BTRFetcher.m */,
 				A09F488C1BFCE27000A45B0B /* BTRApplePayFetcher.h */,
@@ -1193,6 +1204,8 @@
 				69B02CE91A6058F400040C86 /* Categories */,
 				A00E4DD41B8642FC00C93CD3 /* MasterPassInfo.h */,
 				A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */,
+				A027C33F1C2AED1F0013A8AF /* SKUContents.h */,
+				A027C3401C2AED1F0013A8AF /* SKUContents.m */,
 				B3CC532C1B17798D0024EA08 /* User.h */,
 				B3CC532D1B17798D0024EA08 /* User.m */,
 				69D4404B1B331A5B00070FD8 /* EventCategory.h */,
@@ -1228,6 +1241,8 @@
 		69B02CE91A6058F400040C86 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				A027C3391C2AECD80013A8AF /* SKUContents+AppServer.h */,
+				A027C33A1C2AECD80013A8AF /* SKUContents+AppServer.m */,
 				69B02CFF1A605AB700040C86 /* User+AppServer.h */,
 				69B02D001A605AB700040C86 /* User+AppServer.m */,
 				69B02D021A605AD200040C86 /* Event+AppServer.h */,
@@ -1710,6 +1725,7 @@
 				14DE66CF1C159A2E00A7AA1F /* UIDownPicker.m in Sources */,
 				6901EA461ADEB89A002534D9 /* UIBarButtonItem+Badge.m in Sources */,
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
+				A027C3411C2AED1F0013A8AF /* SKUContents.m in Sources */,
 				692F24E41AAF7BC5003AABE1 /* BTRZoomImageViewController.m in Sources */,
 				A00E4DD31B8632ED00C93CD3 /* BTRMasterPassFetcher.m in Sources */,
 				69D5663F1A7A8F2300FAEDE2 /* UIImage+ImageEffects.m in Sources */,
@@ -1740,6 +1756,7 @@
 				69D4404D1B331A5B00070FD8 /* EventCategory.m in Sources */,
 				14A6EDE21BEB8C87007944FA /* BTRProductCollecCell.m in Sources */,
 				A00E4DD91B86444700C93CD3 /* MasterPassInfo+Appserver.m in Sources */,
+				A027C33B1C2AECD80013A8AF /* SKUContents+AppServer.m in Sources */,
 				A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */,
 				69D4405C1B34508600070FD8 /* BTRCategoryData.m in Sources */,
 				A00E4DE81B865B5700C93CD3 /* MPManager.m in Sources */,
@@ -1798,6 +1815,7 @@
 				690A38ED1B1DEB7F00D4BA84 /* TNCircularRadioButton.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
 				690A38EE1B1DEB7F00D4BA84 /* TNCircularRadioButtonData.m in Sources */,
+				A027C33E1C2AED010013A8AF /* BTRSKUContentFetcher.m in Sources */,
 				6901EA0D1AD5BA9A002534D9 /* PKYStepper.m in Sources */,
 				69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */,
 				A01142681B61777A0099A40A /* BTRFAQTableViewCell.m in Sources */,
