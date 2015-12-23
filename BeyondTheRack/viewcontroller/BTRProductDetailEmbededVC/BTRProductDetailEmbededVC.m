@@ -809,7 +809,7 @@
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             return CGSizeMake(screenBounds.size.width / 2 - 8,screenBounds.size.height - 200);
         } else
-            return CGSizeMake(280 , 353);
+            return CGSizeMake(screenBounds.size.width -16 , 353);
     } else {
         return CGSizeMake(collectionView.frame.size.width - 8, collectionView.frame.size.height - 10);
     }

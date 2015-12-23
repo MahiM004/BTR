@@ -53,7 +53,7 @@
     if ([BTRViewUtility isIPAD]) {
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-            return CGSizeMake(screenBounds.size.width - 300,screenBounds.size.height - 120);
+            return CGSizeMake(screenBounds.size.width - 10,screenBounds.size.height - 120);
         } else
             return CGSizeMake(screenBounds.size.width - 10, screenBounds.size.height - 120);
     } else
