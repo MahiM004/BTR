@@ -46,7 +46,6 @@
 @property (strong, nonatomic) NSDictionary *paypalCallBackInfo;
 @property (strong, nonatomic) UILabel *emptyLabel;
 @property (strong, nonatomic) BagItem *removeItem;
-@property (strong, nonatomic) NSMutableDictionary* info;
 @property (strong, nonatomic) ApplePayManager* applePayManager;
 
 @end
@@ -78,7 +77,6 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.info = [[NSMutableDictionary alloc]init];
     
     NSTimer *timer = [NSTimer timerWithTimeInterval:1.0
                                              target:self
@@ -446,8 +444,14 @@
     self.applePayManager = [[ApplePayManager alloc]init];
     self.applePayManager.delegate = self;
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
-        [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:self.info];
-        [self.applePayManager showPaymentViewFromViewController:self];
+        
+        [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
+            [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:self.order checkoutMode:checkoutOne];
+            [self.applePayManager showPaymentViewFromViewController:self];
+        } failure:^(NSError *error) {
+            
+        }];
+        
     } failure:^(NSError *error) {
     }];
 }
@@ -533,9 +537,15 @@
     NSNumber *total = response[@"total"];
     NSString *totalString = [NSString stringWithFormat:@"%@",total];
     
-    [self.info setObject:totalString forKey:@"total"];
-    [self.info setObject:[(NSString *)[response valueForKey:@"country"] uppercaseString] forKey:@"country"];
-    [self.info setObject:[NSString stringWithFormat:@"%@D",[self.info valueForKey:@"country"]] forKey:@"currency"];
+    if (!self.order)
+        self.order = [[Order alloc]init];
+
+    [self.order setOrderTotalPrice:totalString];
+    [self.order setSubTotalPrice:@"0.0"];
+    [self.order setShippingPrice:@"0.0"];
+    [self.order setBagTotalPrice:@"0.0"];
+    [self.order setCountry:[[response valueForKey:@"country"]uppercaseString]];
+    [self.order setCurrency:[NSString stringWithFormat:@"%@D",self.order.country]];
     
     [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
                          withServerDateTime:serverTime

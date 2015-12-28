@@ -390,6 +390,7 @@
     }
     
     // Free ShipAddress
+    BOOL shouldCallValidate = NO;
     if ([[self.order isFreeshipAddress]boolValue] && ![[self.order vipPickupEligible]boolValue]) {
         if (!self.freeshipOptionCheckbox.checked) {
             [self fillShippingAddressByAddress:self.order.promoShippingAddress];
@@ -398,6 +399,7 @@
             [self.pleaseFillOutTheShippingFormView setHidden:YES];
             [self.fillFormLabelViewHeight setConstant:0];
             [self.freeShippingPromoHeight setConstant:CHECKBOXES_HEIGHT];
+            shouldCallValidate = YES;
         } else {
             [self enableShippingAddress];
             [self fillShippingAddressByAddress:self.order.shippingAddress];
@@ -437,6 +439,9 @@
         [self addSampleGifts];
     
     self.isLoading = NO;
+    
+    if (!self.isVisible && shouldCallValidate)
+        [self validateAddressViaAPIAndInCompletion:nil];
 }
 
 - (void)addSampleGifts {
@@ -1234,19 +1239,10 @@
 - (IBAction)buyWithApplePay:(UIButton *)sender {
     self.applePayManager = [[ApplePayManager alloc]init];
     self.applePayManager.delegate = self;
-    NSDictionary *info = [[NSDictionary alloc]initWithObjectsAndKeys:
-                          self.order.orderTotalPrice,@"total",
-                          self.order.billingAddress.country,@"country",
-                          [self.order.currency uppercaseString],@"currency",
-                          [NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]],@"is_gift",
-                          self.giftMessageTF.text,@"recipient_message",
-                          [NSNumber numberWithBool:[self.vipOptionCheckbox checked]],@"vip_pickup",
-                          [NSNumber numberWithBool:[self.pickupOptionCheckbox checked]],@"is_pickup",
-                          [NSArray array],@"vanity_codes",
-                          [self selectedGift],@"promotions_opted_in"
-                          , nil];
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
-        [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:info];
+        [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:self.order checkoutMode:checkoutTwo];
+        [self.applePayManager setVanityCodes:self.selectedGift];
+        [self.applePayManager setRecipientMessage:self.giftMessageTF.text];
         [self.applePayManager showPaymentViewFromViewController:self];
     } failure:^(NSError *error) {
     }];

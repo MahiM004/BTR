@@ -10,7 +10,12 @@
 
 #import <Foundation/Foundation.h>
 #import "BraintreeApplePay.h"
+#import "Order+AppServer.h"
 
+typedef enum checkoutMode {
+    checkoutOne = 1,
+    checkoutTwo = 2,
+}checkoutMode;
 
 @protocol ApplePayDelegate <NSObject>
 
@@ -22,10 +27,12 @@
 @interface ApplePayManager : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
 @property (nonatomic,strong) id <ApplePayDelegate> delegate;
+@property (nonatomic,strong) NSString *recipientMessage;
+@property (nonatomic,strong) NSArray *vanityCodes;
 
 - (void)requestForTokenWithSuccess:(void (^)(id  responseObject)) success
                            failure:(void (^)(NSError *error)) failure;
-- (void)initWithClientWithToken:(NSString *)token andOrderInfromation:(NSDictionary *)information;
+- (void)initWithClientWithToken:(NSString *)token andOrderInfromation:(Order *)information checkoutMode:(checkoutMode)mode;
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController;
 - (BOOL)isApplePayAvailable;
 - (BOOL)isApplePaySetup;

@@ -19,9 +19,12 @@
 @property (nonatomic, strong) PKPaymentRequest *paymentRequest;
 @property (nonatomic, strong) UIViewController *controller;
 @property (nonatomic, strong) NSString *token;
-@property (nonatomic, strong) NSDictionary *info;
+@property (nonatomic, strong) Order *info;
 @property (nonatomic, strong) PKPayment *paymentInfo;
 @property (nonatomic, strong) NSString *nonce;
+@property (nonatomic, strong) PKPaymentAuthorizationViewController *vc;
+@property (nonatomic) BOOL applePayIsLoaded;
+@property (nonatomic) checkoutMode currentCheckOutMode;
 @end
 
 @implementation ApplePayManager
@@ -40,18 +43,104 @@
 
 - (PKPaymentRequest *)paymentRequest {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
-    paymentRequest.merchantIdentifier = @"merchant.beyondtherack.com.prod";
-    paymentRequest.requiredShippingAddressFields = PKAddressFieldAll;
-    paymentRequest.requiredBillingAddressFields = PKAddressFieldAll;
+    paymentRequest.merchantIdentifier = @"merchant.com.beyondtherack.sandbox";
+    paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
+    paymentRequest.requiredBillingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
+    paymentRequest.billingContact = [self contactForAddress:self.info.billingAddress];
+    paymentRequest.shippingContact = [self contactForAddress:self.info.shippingAddress];
     paymentRequest.merchantCapabilities = PKMerchantCapability3DS;
-    paymentRequest.countryCode = [self.info valueForKey:@"country"];
-    paymentRequest.currencyCode = [self.info valueForKey:@"currency"];
-    paymentRequest.paymentSummaryItems =
-    @[
-      [PKPaymentSummaryItem summaryItemWithLabel:@"BEYONDTHERACK" amount:[NSDecimalNumber decimalNumberWithString:[self.info valueForKey:@"total"]]]
-      ];
+    paymentRequest.countryCode = [self.info.country uppercaseString];
+    paymentRequest.currencyCode = [self.info.currency uppercaseString];
+    paymentRequest.paymentSummaryItems = [self summaryItems];
+    paymentRequest.shippingMethods = [self shippingMethod];
     return paymentRequest;
+}
+
+- (PKContact *)contactForAddress:(Address *)address {
+    PKContact *contact = [[PKContact alloc]init];
+    
+    NSPersonNameComponents *nameComponent = [[NSPersonNameComponents alloc]init];
+    nameComponent.givenName = [[address.name componentsSeparatedByString:@" "]firstObject];
+    if ([[address.name componentsSeparatedByString:@" "]count] > 1)
+        nameComponent.familyName = [[address.name componentsSeparatedByString:@" "]objectAtIndex:1];
+    contact.name = nameComponent;
+    
+    CNPhoneNumber *phone = [CNPhoneNumber phoneNumberWithStringValue:address.phoneNumber];
+    contact.phoneNumber = phone;
+    
+    CNMutablePostalAddress *postalAddress = [[CNMutablePostalAddress alloc]init];
+    postalAddress.postalCode = address.postalCode;
+    postalAddress.street = address.addressLine1;
+    postalAddress.ISOCountryCode = address.country;
+    postalAddress.city = address.city;
+    postalAddress.state = address.province;
+    contact.postalAddress = postalAddress;
+    return contact;
+}
+
+- (NSArray *)summaryItems {
+    NSArray *summaryItems;
+    if ([self.info.taxes count] > 1) {
+        summaryItems =
+        @[
+          [PKPaymentSummaryItem summaryItemWithLabel:@"BAG TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.bagTotalPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.subTotalPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:[[[self.info.taxes firstObject]valueForKey:@"label"]uppercaseString] amount:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%@",[[self.info.taxes firstObject]valueForKey:@"amount"]]]],
+          [PKPaymentSummaryItem summaryItemWithLabel:[[[self.info.taxes objectAtIndex:1]valueForKey:@"label"]uppercaseString] amount:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%@",[[self.info.taxes objectAtIndex:1]valueForKey:@"amount"]]]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:[NSDecimalNumber decimalNumberWithString:self.info.shippingPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"ORDER TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"BEYOND THE RACK" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
+          ];
+    }else if ([self.info.taxes count] > 0) {
+        summaryItems =
+        @[
+          [PKPaymentSummaryItem summaryItemWithLabel:@"BAG TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.bagTotalPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.subTotalPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:[[[self.info.taxes firstObject]valueForKey:@"label"]uppercaseString] amount:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%@",[[self.info.taxes firstObject]valueForKey:@"amount"]]]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:[NSDecimalNumber decimalNumberWithString:self.info.shippingPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"ORDER TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"BEYOND THE RACK" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
+          ];
+    } else {
+        summaryItems =
+        @[
+          [PKPaymentSummaryItem summaryItemWithLabel:@"BAG TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.bagTotalPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.subTotalPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:[NSDecimalNumber decimalNumberWithString:self.info.shippingPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"ORDER TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
+          [PKPaymentSummaryItem summaryItemWithLabel:@"BEYOND THE RACK" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
+          ];
+    }
+    return summaryItems;
+}
+
+- (NSArray *)shippingMethod {
+    NSMutableArray *shippingMethods = [[NSMutableArray alloc]init];
+    if ([self.info.isPickup boolValue]) {
+        PKShippingMethod *newMethod = [[PKShippingMethod alloc]init];
+        [newMethod setLabel:self.info.pickupTitle];
+        [newMethod setIdentifier:@"PICKUP"];
+        [newMethod setDetail:[self stringOfAddress:[self.info pickupAddress]]];
+        [newMethod setAmount:[NSDecimalNumber decimalNumberWithString:@"0"]];
+        [shippingMethods addObject:newMethod];
+    }
+    else if ([self.info.vipPickup boolValue]){
+        PKShippingMethod *newMethod = [[PKShippingMethod alloc]init];
+        [newMethod setLabel:self.info.pickupTitle];
+        [newMethod setIdentifier:@"VIPPICKUP"];
+        [newMethod setDetail:[self stringOfAddress:[self.info pickupAddress]]];
+        [newMethod setAmount:[NSDecimalNumber decimalNumberWithString:@"0"]];
+        [shippingMethods addObject:newMethod];
+    } else {
+        PKShippingMethod *newMethod = [[PKShippingMethod alloc]init];
+        [newMethod setLabel:@"SHIPPING"];
+        [newMethod setIdentifier:@"SHIPPING"];
+        [newMethod setDetail:@"SHIPPING"];
+        [newMethod setAmount:[NSDecimalNumber decimalNumberWithString:self.info.shippingPrice]];
+        [shippingMethods addObject:newMethod];
+    }
+    return shippingMethods;
 }
 
 - (void)requestForTokenWithSuccess:(void (^)(id  responseObject)) success
@@ -64,20 +153,20 @@
     }];
 }
 
-- (void)initWithClientWithToken:(NSString *)token andOrderInfromation:(NSDictionary *)information{
+- (void)initWithClientWithToken:(NSString *)token andOrderInfromation:(Order *)information checkoutMode:(checkoutMode)mode{
     self.braintreeClient = [[BTAPIClient alloc]initWithAuthorization:token];
     self.info = information;
+    self.currentCheckOutMode = mode;
 }
 
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController {
-    
+    self.applePayIsLoaded = NO;
     PKPaymentRequest *paymentRequest = [self paymentRequest];
-    PKPaymentAuthorizationViewController *vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
-    
-    vc.delegate = self;
-    [viewController presentViewController:vc animated:YES completion:nil];
-        // Present Apple Pay as an option in your UI based on Apple's recommendations at https://developer.apple.com/apple-pay/
-
+    self.vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
+    self.vc.delegate = self;
+    [viewController presentViewController:self.vc animated:YES completion:^{
+        self.applePayIsLoaded = YES;
+    }];
 }
 
 #pragma mark Delegates
@@ -127,70 +216,139 @@
 
 - (NSMutableDictionary *)makeOrderInfo{
     NSMutableDictionary *order = [[NSMutableDictionary alloc]init];
-    
     NSDictionary *nonce = [NSDictionary dictionaryWithObject:self.nonce forKey:@"nonce"];
     [order setObject:nonce forKey:@"applePay"];
     
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc]init];
-    [orderInfo setObject:[self addressFromRecord:self.paymentInfo.shippingAddress] forKey:@"shipping"];
-    [orderInfo setObject:[self addressFromRecord:self.paymentInfo.billingAddress] forKey:@"billing"];
+    [orderInfo setObject:[self addressForContact:self.paymentInfo.shippingContact] forKey:@"shipping"];
+    [orderInfo setObject:[self addressForContact:self.paymentInfo.billingContact] forKey:@"billing"];
+    [orderInfo setObject:[NSNumber numberWithBool:self.info.isPickup.boolValue] forKey:@"is_pickup"];
+    [orderInfo setObject:[NSNumber numberWithBool:self.info.vipPickup.boolValue] forKey:@"vip_pickup"];
+    [orderInfo setObject:[NSNumber numberWithBool:self.info.isGift.boolValue] forKey:@"is_gift"];
     
-    if ([self.info valueForKey:@"is_pickup"])
-        [orderInfo setObject:[self.info valueForKey:@"is_pickup"] forKey:@"is_pickup"];
-    else
-        [orderInfo setObject:@"" forKey:@"is_pickup"];
-    
-    if ([self.info valueForKey:@"vip_pickup"])
-        [orderInfo setObject:[self.info valueForKey:@"vip_pickup"] forKey:@"vip_pickup"];
-    else
-        [orderInfo setObject:@"" forKey:@"vip_pickup"];
-    
-    if ([self.info valueForKey:@"is_gift"])
-        [orderInfo setObject:[self.info valueForKey:@"is_gift"] forKey:@"is_gift"];
-    else
-        [orderInfo setObject:@"" forKey:@"is_gift"];
-    
-    if ([self.info valueForKey:@"recipient_message"])
-        [orderInfo setObject:[self.info valueForKey:@"recipient_message"] forKey:@"recipient_message"];
+    if (self.recipientMessage)
+        [orderInfo setObject:self.recipientMessage forKey:@"recipient_message"];
     else
         [orderInfo setObject:@"" forKey:@"recipient_message"];
     
-    if ([self.info valueForKey:@"vanity_codes"])
-        [orderInfo setObject:[self.info valueForKey:@"vanity_codes"] forKey:@"vanity_codes"];
+    if (self.vanityCodes)
+        [orderInfo setObject:self.vanityCodes forKey:@"vanity_codes"];
     else
         [orderInfo setObject:[NSArray array] forKey:@"vanity_codes"];
-    
     [order setObject:orderInfo forKey:@"orderInfo"];
+    
     return order;
 }
 
-- (NSDictionary *)addressFromRecord:(ABRecordRef)record {
-    ABMultiValueRef addresses = ABRecordCopyValue(record, kABPersonAddressProperty);
-    ABMultiValueRef phoneNumberMultiValue = ABRecordCopyValue(record, kABPersonPhoneProperty);
-    NSString *phoneNumber  = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneNumberMultiValue, 0);
-    if (phoneNumber == nil) {
-        phoneNumber = @"8888888888";
-    }
-    CFDictionaryRef dict = ABMultiValueCopyValueAtIndex(addresses, 0);
-    NSString *fname = (__bridge NSString *)ABRecordCopyValue((ABRecordRef)record, kABPersonFirstNameProperty);
-    NSString *lname = (__bridge NSString *)ABRecordCopyValue((ABRecordRef)record, kABPersonLastNameProperty);
-    NSString *postCode = [(NSString *)CFDictionaryGetValue(dict, kABPersonAddressZIPKey) copy];
-    NSString *street = [(NSString *)CFDictionaryGetValue(dict, kABPersonAddressStreetKey) copy];
-    NSString *state = [(NSString *)CFDictionaryGetValue(dict, kABPersonAddressStateKey) copy];
-    NSString *city = [(NSString *)CFDictionaryGetValue(dict, kABPersonAddressCityKey) copy];
-    NSString *country = [[(NSString *)CFDictionaryGetValue(dict, kABPersonAddressCountryCodeKey) copy]uppercaseString];
+- (NSDictionary *)addressForContact:(PKContact *)contact {
+    NSMutableDictionary* addressDic = [[NSMutableDictionary alloc]init];
+    [addressDic setObject:[NSString stringWithFormat:@"%@ %@",contact.name.givenName,contact.name.familyName] forKey:@"name"];
     
+    if (contact.postalAddress.postalCode)
+        if ([contact.postalAddress.postalCode length] < 4)
+            [addressDic setObject:[[contact.postalAddress postalCode]stringByAppendingString:@"@@@"] forKey:@"postal"];
+        else
+            [addressDic setObject:[contact.postalAddress postalCode] forKey:@"postal"];
+    else
+        [addressDic setObject:@" " forKey:@"postal"];
+    
+    if (contact.postalAddress.street)
+        [addressDic setObject:contact.postalAddress.street forKey:@"address1"];
+    else
+        [addressDic setObject:@" " forKey:@"address1"];
+    
+    [addressDic setObject:@" " forKey:@"address2"];
+
+    if (contact.postalAddress.ISOCountryCode)
+        [addressDic setObject:contact.postalAddress.ISOCountryCode forKey:@"country"];
+    else
+        [addressDic setObject:@" " forKey:@"country"];
+    
+    if (contact.postalAddress.state)
+        [addressDic setObject:contact.postalAddress.state forKey:@"state"];
+    else
+        [addressDic setObject:@" " forKey:@"state"];
+    
+    if (contact.phoneNumber)
+        [addressDic setObject:contact.phoneNumber.stringValue forKey:@"phone"];
+    else
+        [addressDic setObject:@" " forKey:@"phone"];
+    
+    if (contact.postalAddress.city)
+        [addressDic setObject:contact.postalAddress.city forKey:@"city"];
+    else
+        [addressDic setObject:@" " forKey:@"city"];
+    return addressDic;
+}
+
+- (NSDictionary *)dictionatyOfAddress:(Address *)address {
     NSDictionary *addressDic = [[NSDictionary alloc]initWithObjectsAndKeys:
-                                [NSString stringWithFormat:@"%@ %@",fname,lname],@"name",
-                                street,@"address1",
-                                @"",@"address2",
-                                country,@"country",
-                                postCode,@"postal",
-                                state,@"state",
-                                city,@"city",
-                                phoneNumber,@"phone"
+                                address.name,@"name",
+                                address.addressLine1,@"address1",
+                                address.addressLine2,@"address2",
+                                address.country,@"country",
+                                address.postalCode,@"postal",
+                                address.province,@"state",
+                                address.city,@"city",
+                                address.phoneNumber,@"phone"
                                 , nil];
     return addressDic;
+}
+
+- (NSString *)stringOfAddress:(Address *)address {
+    return [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@",address.addressLine1,address.addressLine2,address.city,address.province,address.country,address.postalCode];
+}
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion {
+    if ((self.applePayIsLoaded && self.currentCheckOutMode == checkoutTwo) || self.currentCheckOutMode == checkoutOne) {
+        [self validateShippingAddress:[self addressForContact:contact] andBillingAddress:[self dictionatyOfAddress:self.info.billingAddress] AndInCompletion:^{
+            completion(PKPaymentAuthorizationStatusSuccess,[self shippingMethod],[self summaryItems]);
+        }];
+    }
+    else {
+        completion(PKPaymentAuthorizationStatusSuccess,[self shippingMethod],[self summaryItems]);
+    }
+}
+
+//
+//- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion {
+//    NSLog(@"Shipping Did Select");
+//
+//    if ([shippingMethod.identifier isEqualToString:@"PICKUP"])
+//        [self.info setIsPickup:@"1"];
+//    else
+//        [self.info setIsPickup:@"0"];
+//    
+//    if ([shippingMethod.identifier isEqualToString:@"VIPPICKUP"])
+//        [self.info setVipPickup:@"1"];
+//    else
+//        [self.info setVipPickup:@"0"];
+//    
+//    [self validateShippingAddress:[self dictionatyOfAddress:self.info.shippingAddress] andBillingAddress:[self dictionatyOfAddress:self.info.billingAddress] AndInCompletion:^{
+//        completion(PKPaymentAuthorizationStatusSuccess,[self summaryItems]);
+//    }];
+//}
+
+- (void)validateShippingAddress:(NSDictionary *)shippingAddress andBillingAddress:(NSDictionary*)billingAddress AndInCompletion:(void(^)())completionBlock; {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
+    
+    [orderInfo setObject:shippingAddress forKey:@"shipping"];
+    [orderInfo setObject:billingAddress forKey:@"billing"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.info.isGift boolValue]] forKey:@"is_gift"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.info.vipPickup boolValue]] forKey:@"vip_pickup"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.info.isPickup boolValue]] forKey:@"is_pickup"];
+    [params setObject:[NSArray array] forKey:@"vanity_codes"];
+    [params setObject:orderInfo forKey:@"orderInfo"];
+    
+    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]];
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        [Order extractOrderfromJSONDictionary:response forOrder:self.info isValidating:YES];
+        if (completionBlock)
+            completionBlock(nil);
+    } faild:^(NSError *error) {
+        
+    }];
 }
 
 - (void)getConfirmationInfoWithOrderID:(NSString *)orderID {
