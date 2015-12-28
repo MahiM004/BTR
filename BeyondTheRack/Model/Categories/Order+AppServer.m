@@ -112,8 +112,10 @@
         order.billingAddress.addressLine2 = [billingAddressDic valueForKeyPath:@"address2"];
     if ([billingAddressDic valueForKeyPath:@"city"] && [billingAddressDic valueForKeyPath:@"city"] != [NSNull null])
         order.billingAddress.city = [billingAddressDic valueForKeyPath:@"city"];
-    if ([billingAddressDic valueForKeyPath:@"country"] && [billingAddressDic valueForKeyPath:@"country"] != [NSNull null])
+    if ([billingAddressDic valueForKeyPath:@"country"] && [billingAddressDic valueForKeyPath:@"country"] != [NSNull null]) {
         order.billingAddress.country = [billingAddressDic valueForKeyPath:@"country"];
+        order.country = [[billingAddressDic valueForKeyPath:@"country"]uppercaseString];
+    }
     if ([billingAddressDic valueForKeyPath:@"phone"] && [billingAddressDic valueForKeyPath:@"phone"] != [NSNull null])
         order.billingAddress.phoneNumber = [billingAddressDic valueForKeyPath:@"phone"];
     if ([billingAddressDic valueForKeyPath:@"postal"] && [billingAddressDic valueForKeyPath:@"postal"] != [NSNull null])
