@@ -44,7 +44,10 @@
 - (PKPaymentRequest *)paymentRequest {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
     paymentRequest.merchantIdentifier = @"merchant.com.beyondtherack.sandbox";
-    paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
+    if (self.currentCheckOutMode == checkoutOne)
+        paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
+    else
+        paymentRequest.requiredShippingAddressFields = PKAddressFieldNone;
     paymentRequest.requiredBillingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
     paymentRequest.billingContact = [self contactForAddress:self.info.billingAddress];
@@ -61,6 +64,7 @@
     PKContact *contact = [[PKContact alloc]init];
     
     NSPersonNameComponents *nameComponent = [[NSPersonNameComponents alloc]init];
+    address.name = [address.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     nameComponent.givenName = [[address.name componentsSeparatedByString:@" "]firstObject];
     if ([[address.name componentsSeparatedByString:@" "]count] > 1)
         nameComponent.familyName = [[address.name componentsSeparatedByString:@" "]objectAtIndex:1];
@@ -119,7 +123,7 @@
     NSMutableArray *shippingMethods = [[NSMutableArray alloc]init];
     if ([self.info.isPickup boolValue]) {
         PKShippingMethod *newMethod = [[PKShippingMethod alloc]init];
-        [newMethod setLabel:self.info.pickupTitle];
+        [newMethod setLabel:@"PICKUP"];
         [newMethod setIdentifier:@"PICKUP"];
         [newMethod setDetail:[self stringOfAddress:[self.info pickupAddress]]];
         [newMethod setAmount:[NSDecimalNumber decimalNumberWithString:@"0"]];
@@ -220,7 +224,10 @@
     [order setObject:nonce forKey:@"applePay"];
     
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc]init];
-    [orderInfo setObject:[self addressForContact:self.paymentInfo.shippingContact] forKey:@"shipping"];
+    if (self.currentCheckOutMode == checkoutOne)
+        [orderInfo setObject:[self addressForContact:self.paymentInfo.shippingContact] forKey:@"shipping"];
+    else
+        [orderInfo setObject:[self dictionatyOfAddress:self.info.shippingAddress] forKey:@"shipping"];
     [orderInfo setObject:[self addressForContact:self.paymentInfo.billingContact] forKey:@"billing"];
     [orderInfo setObject:[NSNumber numberWithBool:self.info.isPickup.boolValue] forKey:@"is_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:self.info.vipPickup.boolValue] forKey:@"vip_pickup"];
@@ -330,6 +337,9 @@
 //}
 
 - (void)validateShippingAddress:(NSDictionary *)shippingAddress andBillingAddress:(NSDictionary*)billingAddress AndInCompletion:(void(^)())completionBlock; {
+    
+    NSLog(@"Validate Address");
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     
