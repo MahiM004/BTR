@@ -25,6 +25,7 @@
 @property (nonatomic, strong) PKYStepper *stepper;
 @property (weak, nonatomic) IBOutlet UIButton *rereserveItemButton;
 @property (weak, nonatomic) IBOutlet UIButton *removeButton;
+@property (weak, nonatomic) IBOutlet UIButton *goToPDPBtn;
 
 
 /**
@@ -35,5 +36,6 @@
 
 - (void)setDidTapRereserveItemButtonBlock:(void (^)(UIView *sender))didTapRereserveItemButtonBlock;
 - (void)setDidTapRemoveItemButtonBlock:(void (^)(UIView *sender))didTapRemoveItemButtonBlock;
+- (void)setDidTapGoToPDPButtonBlock:(void (^)(UIView *sender))didTapGoToPDPButtonBlock;
 
 @end

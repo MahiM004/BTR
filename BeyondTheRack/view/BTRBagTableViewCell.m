@@ -13,6 +13,7 @@
 
 @property (copy, nonatomic) void (^didTapRereserveItemButtonBlock)(UIView *sender);
 @property (copy, nonatomic) void (^didTapRemoveItemButtonBlock)(UIView *sender);
+@property (copy, nonatomic) void (^didTapGoToPDPButtonBlock)(UIView *sender);
 
 @end
 
@@ -24,6 +25,7 @@
     [self.stepperView addSubview:self.stepper];
     [self.rereserveItemButton addTarget:self action:@selector(didTapRereserveItemButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.removeButton addTarget:self action:@selector(didTapRemoveItemButtonBlock:) forControlEvents:UIControlEventTouchUpInside];
+    [self.goToPDPBtn addTarget:self action:@selector(didTapGoToPDPButtonBlock:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -38,6 +40,11 @@
 - (void)didTapRemoveItemButtonBlock:(UIView *)sender {
     if (self.didTapRemoveItemButtonBlock)
         self.didTapRemoveItemButtonBlock(sender);
+}
+
+- (void)didTapGoToPDPButtonBlock:(UIView*)sender {
+    if (self.didTapGoToPDPButtonBlock)
+        self.didTapGoToPDPButtonBlock(sender);
 }
 
 

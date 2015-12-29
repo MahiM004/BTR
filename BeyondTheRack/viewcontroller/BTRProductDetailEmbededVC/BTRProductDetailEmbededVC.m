@@ -160,6 +160,12 @@
     }
     [PDKClient configureSharedInstanceWithAppId:@"1445223"];
 }
+- (BOOL)isItemSoldOutWithVariant:(NSArray *)variantArray {
+    for (int i = 0; i < [variantArray count]; i++)
+        if ([[variantArray objectAtIndex:i]intValue] > 0)
+            return NO;
+    return YES;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -258,6 +264,12 @@
                                                                         toSizeCodesArray:[self sizeCodesArray]
                                                                      toSizeQuantityArray:[self sizeQuantityArray]];
         [self updateSizeSelectionViewforSizeMode:sizeMode];
+        
+        if ([self isItemSoldOutWithVariant:[self sizeQuantityArray]] && [[self getOriginalVCString] isEqualToString:BAG_SCENE]) {
+            self.addTobagButton.enabled = NO;
+            self.addTobagButton.backgroundColor = [UIColor grayColor];
+            self.addToBagView.backgroundColor = [UIColor grayColor];
+        }
     } else {
         [nameCell.brandLabel setText:@""];
         [nameCell.shortDescriptionLabel setText:@""];
@@ -516,10 +528,18 @@
     
     if ([[self getOriginalVCString] isEqualToString:EVENT_SCENE])
         [self performSegueWithIdentifier:@"unwindFromProductDetailToShowcase" sender:self];
+    
+    if ([[self getOriginalVCString] isEqualToString:BAG_SCENE])
+        [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (IBAction)bagButtonTapped:(UIButton *)sender {
     if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        if ([[self getOriginalVCString] isEqualToString:BAG_SCENE]) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            return;
+        }
         UIStoryboard *storyboard = self.storyboard;
         UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
         [self presentViewController:vc animated:YES completion:nil];
@@ -548,6 +568,10 @@
 - (void)addToBag {
     [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
         if ([successString isEqualToString:@"TRUE"]) {
+            if ([[self getOriginalVCString] isEqualToString:BAG_SCENE]) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+                return;
+            }
             UIStoryboard *storyboard = self.storyboard;
             BTRShoppingBagViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"ShoppingBagViewController"];
             [self presentViewController:vc animated:YES completion:nil];

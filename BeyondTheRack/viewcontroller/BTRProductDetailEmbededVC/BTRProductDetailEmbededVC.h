@@ -14,6 +14,7 @@
 
 #define EVENT_SCENE @"EventScene"
 #define SEARCH_SCENE @"SearchScene"
+#define BAG_SCENE @"BagScene"
 
 @property NSString *getOriginalVCString;
 @property NSString *getProductSKUfromSearchResult;
