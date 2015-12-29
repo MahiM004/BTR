@@ -586,11 +586,16 @@
     [[self bagItemsArray] removeAllObjects];
     NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]];
     [BTRConnectionHelper postDataToURL:url withParameters:[self itemParameters] setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        if (![[response valueForKey:@"success"]boolValue]) {
-            if ([response valueForKey:@"error_message"]) {
-                NSString *errorMessage = [response valueForKey:@"error_message"];
-                errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@"|" withString:@"\n"];
-                [[[UIAlertView alloc]initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        NSArray *errorResponseArray = [[response valueForKey:@"response"]valueForKey:@"response"];
+        for (NSDictionary* errorResponse in errorResponseArray) {
+            if (![errorResponse isEqual:[NSNull null]]) {
+                if (![[errorResponse valueForKey:@"success"]boolValue]) {
+                    if ([errorResponse valueForKey:@"error_message"]) {
+                        NSString *errorMessage = [errorResponse valueForKey:@"error_message"];
+                        errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@"|" withString:@"\n"];
+                        [[[UIAlertView alloc]initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                    }
+                }
             }
         }
         [self updateBagWithDictionary:response];
