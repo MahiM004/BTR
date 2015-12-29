@@ -25,9 +25,12 @@
 #import "ConfirmationInfo+AppServer.h"
 #import "BTRConfirmationViewController.h"
 #import "BTRLoader.h"
+#import "BTRProductDetailEmbededVC.h"
 
 @interface BTRShoppingBagViewController () {
     PKYStepper * pkStepper;
+    Item * selectedItemToPDP;
+    NSString * selectedItemEventID;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -118,9 +121,14 @@
         Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
         bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];
         cell = [self configureCell:cell forBagItem:bagItem andItem:item];
+        [cell setDidTapGoToPDPButtonBlock:^(id sender) {
+            selectedItemToPDP = item;
+            [self performSegueWithIdentifier:@"segueBagToPDP" sender:selectedItemToPDP];
+        }];
     }
     NSString *sku = [bagItem sku];
     NSString *eventId = [bagItem eventId];
+    selectedItemEventID = eventId;
     NSString *variant = [bagItem variant];
     
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
@@ -378,6 +386,13 @@
         checkoutVC.paypalCallBackInfo = self.paypalCallBackInfo;
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"] || [[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueiPadIdentifier"]) {
 
+    } else if ([[segue identifier]isEqualToString:@"segueBagToPDP"]) {
+        BTRProductDetailEmbededVC * productEmbededVC = [segue destinationViewController];
+        productEmbededVC.getOriginalVCString = BAG_SCENE;
+        productEmbededVC.getItem = selectedItemToPDP;
+        productEmbededVC.getEventID = selectedItemEventID;
+        productEmbededVC.getVariantInventoryDic = selectedItemToPDP.variantInventory;
+        productEmbededVC.getAttribDic = selectedItemToPDP.attributeDictionary;
     }
 }
 

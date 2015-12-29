@@ -186,6 +186,7 @@
     [self logutUserServerCallWithSuccess:^(NSString *didSucceed) {
         BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
         [btrSettings clearSession];
+        self.bagButton.badgeValue = 0;
         [[[UIAlertView alloc]initWithTitle:@"Sign Out" message:@"You have been successfully signed out" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
