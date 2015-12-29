@@ -584,12 +584,11 @@
 - (void)cartIncrementServerCallWithSuccess:(void (^)(id  responseObject)) success
                                    failure:(void (^)(NSError *error)) failure {
     [[self bagItemsArray] removeAllObjects];
-    NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforSetBag]];
+    NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforAddtoBag]];
     [BTRConnectionHelper postDataToURL:url withParameters:[self itemParameters] setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        NSDictionary *actionResponse = [[[response valueForKey:@"response"]valueForKey:@"key1"]valueForKey:@"response"];
-        if (![[actionResponse valueForKey:@"success"]boolValue]) {
-            if ([actionResponse valueForKey:@"error_message"]) {
-                NSString *errorMessage = [actionResponse valueForKey:@"error_message"];
+        if (![[response valueForKey:@"success"]boolValue]) {
+            if ([response valueForKey:@"error_message"]) {
+                NSString *errorMessage = [response valueForKey:@"error_message"];
                 errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@"|" withString:@"\n"];
                 [[[UIAlertView alloc]initWithTitle:@"Error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
             }
@@ -904,8 +903,8 @@
                     @"variant":[self variant],
                     @"quantity":[self quantity]
                     });
-    NSDictionary *updateParam = (@{@"key1" : params});
-    return updateParam;
+//    NSDictionary *updateParam = (@{@"key1" : params});
+    return params;
 }
 
 - (void)showLogin {
