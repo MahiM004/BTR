@@ -55,14 +55,14 @@
 @class CTCheckbox;
 
 
-@interface BTRCheckoutViewController ()
-{
+@interface BTRCheckoutViewController () {
     BOOL shouldCallOnceInLaunch;
 }
 @property (nonatomic, strong) UIPopoverController *userDataPopover;
 @property (strong, nonatomic) Freeship* freeshipInfo;
 
 @property BOOL isLoading;
+@property BOOL comeFromMasterPass;
 @property BOOL isVisible;
 @property float totalSave;
 
@@ -267,6 +267,7 @@
     [self.changePaymentMethodView setHidden:YES];
     [self setIsVisible:NO];
     [self loadOrderData];
+    [self setComeFromMasterPass:NO];
     [self fillPaymentInfoWithCurrentData];
     
     [_expandHaveCode setOptions:@{ kFRDLivelyButtonLineWidth: @(1.5f),
@@ -519,7 +520,8 @@
         [self.freeshipMessageLabelHeight setConstant:0];
         [self loadOrderData];
     }
-    [self validateAddressViaAPIAndInCompletion:nil];
+    if (!self.comeFromMasterPass)
+        [self validateAddressViaAPIAndInCompletion:nil];
     [self resetSize];
 }
 
@@ -1553,6 +1555,9 @@
 }
 
 - (void)fixViewForMasterPass {
+    [self setComeFromMasterPass:YES];
+    if ([self.order.isFreeshipAddress boolValue])
+        [self.freeshipOptionCheckbox setChecked:YES];
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
     [self changeDetailPaymentFor:creditCard];
@@ -1561,6 +1566,7 @@
     [self.cardVerificationPaymentLB setHidden:YES];
     [self.creditCardDetailHeight setConstant:self.creditCardDetailHeight.constant - 60];
     [self resetSize];
+    [self setComeFromMasterPass:NO];
 }
 
 - (void)payPalInfoDidReceived:(NSDictionary *)info {
