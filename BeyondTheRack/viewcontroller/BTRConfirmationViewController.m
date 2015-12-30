@@ -126,7 +126,7 @@
         self.taxValue1.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalTax1 floatValue]];
         self.taxLabel1.text = self.info.labelTax1;
     }
-    if (self.info.totalTax2.intValue == 0) {
+    if (self.info.totalTax2.doubleValue == 0) {
         self.taxLabel2.hidden = YES;
         self.taxValue2.hidden = YES;
     } else {
