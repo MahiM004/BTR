@@ -331,13 +331,20 @@
 
 - (void)removeBagItem:(BagItem *)bagItem {
     [self setRemoveItem:bagItem];
-    [[[UIAlertView alloc] initWithTitle:@"Remove item?" message:[NSString stringWithFormat:@"Are you sure you want to remove item \"%@\" from your bag?",[self getItemforSku:bagItem.sku].shortItemDescription] delegate:self cancelButtonTitle:@"No, keep it" otherButtonTitles:@"Yes, remove it", nil]show];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Remove item?" message:[NSString stringWithFormat:@"Are you sure you want to remove item \"%@\" from your bag?",[self getItemforSku:bagItem.sku].shortItemDescription] delegate:self cancelButtonTitle:@"No, keep it" otherButtonTitles:@"Yes, remove it", nil];
+    alert.tag = 100;
+    [alert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        [self.removeItem setQuantity:@"0"];
-        [self updateShoppingBag];
+    if (alertView.tag == 100) {
+        if (buttonIndex == 1) {
+            [self.removeItem setQuantity:@"0"];
+            [self updateShoppingBag];
+        }
+    }
+    if (alertView.tag == 200) {
+        [self tappedCheckout:nil];
     }
 }
 
@@ -451,6 +458,15 @@
 #pragma mark firstCheckout
 
 - (IBAction)buyWithApplePay:(UIButton *)sender {
+    
+    if (self.order.orderTotalPrice.doubleValue == 0) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Good news!" message:@"You have enough credits to pay for your order.\nPlease complete your order on the checkout page without Apple Pay." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert.tag = 200;
+        [alert show];
+        return;
+    }
+    
+    
     if ([self.bagItemsArray count] == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no item in bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
@@ -656,6 +672,7 @@
 }
 
 @end
+
 
 
 
