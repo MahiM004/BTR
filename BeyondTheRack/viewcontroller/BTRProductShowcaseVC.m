@@ -502,19 +502,21 @@ typedef enum ScrollDirection {
     
     frame.origin = [cell convertPoint:correctedOffset toView:self.view];
     CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , cell.productImageView.frame.size.width, cell.productImageView.frame.size.height);
-    UIImageView *startView = [[UIImageView alloc] initWithImage:cell.productImageView.image];
-    [startView setFrame:rect];
-    startView.layer.cornerRadius=5;
-    startView.layer.borderColor=[[UIColor blackColor]CGColor];
-    startView.layer.borderWidth=1;
-    [self.view addSubview:startView];
     
-    CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
-    [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
     // calling add to bag
     [self cartIncrementServerCallToAddProductItem:item withVariant:selelectedSize  success:^(NSString *successString) {
-        if ([successString isEqualToString:@"TRUE"])
+        if ([successString isEqualToString:@"TRUE"]) {
             [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
+            UIImageView *startView = [[UIImageView alloc] initWithImage:cell.productImageView.image];
+            [startView setFrame:rect];
+            startView.layer.cornerRadius=5;
+            startView.layer.borderColor=[[UIColor blackColor]CGColor];
+            startView.layer.borderWidth=1;
+            [self.view addSubview:startView];
+            
+            CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
+            [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
+        }
     } failure:^(NSError *error) {
         
     }];
