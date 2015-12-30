@@ -1247,7 +1247,9 @@
 
 - (IBAction)buyWithApplePay:(UIButton *)sender {
     
-    
+    if (![self isShippingAddressCompeleted]) {
+        return;
+    }
     
     self.applePayManager = [[ApplePayManager alloc]init];
     self.applePayManager.delegate = self;
