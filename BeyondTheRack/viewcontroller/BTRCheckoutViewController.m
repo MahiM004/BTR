@@ -1246,6 +1246,9 @@
 }
 
 - (IBAction)buyWithApplePay:(UIButton *)sender {
+    
+    
+    
     self.applePayManager = [[ApplePayManager alloc]init];
     self.applePayManager.delegate = self;
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
@@ -1418,18 +1421,42 @@
 
 - (BOOL)isShippingAddressCompeleted {
     // checking address line
+    
+    if (self.recipientNameShippingTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter recipient name" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.recipientNameShippingTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.recipientNameShippingTF.frame animated:YES];
+        return NO;
+    }
+    
     if (self.addressLine1ShippingTF.text.length == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill shipping address field" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.addressLine1ShippingTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.addressLine1ShippingTF.frame animated:YES];
         return NO;
     }
+    
     if ((self.zipCodeShippingTF.text.length < 5 && [self.countryShippingTF.text isEqualToString:@"USA"]) || (self.zipCodeShippingTF.text.length < 6 && [self.countryShippingTF.text isEqualToString:@"Canada"])) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your shipping postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.zipCodeShippingTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.zipCodeShippingTF.frame animated:YES];
         return NO;
     }
+    
+    if (self.cityShippingTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter your shipping city" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.cityShippingTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.cityShippingTF.frame animated:YES];
+        return NO;
+    }
+    
+    if (self.phoneShippingTF.text.length == 0) {
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter your phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.phoneShippingTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.phoneShippingTF.frame animated:YES];
+        return NO;
+    }
+    
     return YES;
 }
 
