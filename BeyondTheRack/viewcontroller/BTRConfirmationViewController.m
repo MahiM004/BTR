@@ -119,7 +119,7 @@
     self.totalOrderValue.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalOrderValue floatValue]];
     self.shippingPriceLabel.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalShipping floatValue]];
     
-    if (self.info.totalTax1.intValue == 0) {
+    if (self.info.totalTax1.doubleValue == 0) {
         self.taxLabel1.hidden = YES;
         self.taxValue1.hidden = YES;
     } else {
