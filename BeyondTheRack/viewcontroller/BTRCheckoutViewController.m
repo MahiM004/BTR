@@ -1750,11 +1750,12 @@
 -(void)showPickerWithType:(NSString*)picType selectedIndex:(NSInteger)row {
 
     if ([picType isEqualToString:@"Payment"]) {
-        [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
         if ([self.paymentMethodTF.text isEqualToString:@"Paypal"])
             [self setCurrentPaymentType:paypal];
         else
             [self setCurrentPaymentType:creditCard];
+        
+        [self.paymentMethodTF setText:[[self paymentTypesArray] objectAtIndex:row]];
         [self changeDetailPaymentFor:self.currentPaymentType];
     }
     else if ([picType isEqualToString:@"expMonth"]) {
