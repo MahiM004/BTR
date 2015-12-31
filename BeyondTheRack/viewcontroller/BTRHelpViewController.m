@@ -61,8 +61,11 @@
         cell.questionAndAnswerLabel.text = resultString;
         cell.questionAndAnswerLabel.font = [UIFont systemFontOfSize:12.0f];
         self.expandedIndexPath = indexPath;
-        
-        self.heightOfSelectedCell = [self findHeightForText:resultString havingWidth:self.helpTable.frame.size.width andFont:[UIFont systemFontOfSize:12.0f]] - 140;
+        CGFloat decreaseForiPad;
+        if ([BTRViewUtility isIPAD]) {
+            decreaseForiPad = 140.0f;
+        }
+        self.heightOfSelectedCell = [self findHeightForText:resultString havingWidth:self.helpTable.frame.size.width andFont:[UIFont systemFontOfSize:12.0f]] -decreaseForiPad;
     }
 }
 
