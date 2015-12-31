@@ -24,6 +24,11 @@
 #import "Freeship+appServer.h"
 #import "BTRFreeshipFetcher.h"
 
+#import "BTRHelpViewController.h"
+#import "BTRFAQFetcher.h"
+#import "FAQ.h"
+#import "FAQ+AppServer.h"
+
 #define COUNTRY_PICKER          1
 #define PROVINCE_PICKER         2
 #define STATE_PICKER            3
@@ -65,6 +70,8 @@
 @property BOOL comeFromMasterPass;
 @property BOOL isVisible;
 @property float totalSave;
+
+@property (nonatomic, strong) NSArray *faqArray;
 
 @property (assign, nonatomic) NSUInteger pickerType;
 @property (assign, nonatomic) NSUInteger billingOrShipping;
@@ -1406,7 +1413,7 @@
 }
 
 - (IBAction)learnMoreAboutGifts:(UIButton *)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.beyondtherack.com/help/faq#gifts-gift_howto"]];
+    [self learnMoreAboutGift];
 }
 
 - (BOOL)isShippingAddressCompeleted {
@@ -1780,4 +1787,41 @@
         [self validateAddressViaAPIAndInCompletion:nil];
     }
 }
+
+
+- (void)learnMoreAboutGift {
+    
+    if (self.faqArray == nil) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [self fetchFAQWithSuccess:^(id responseObject) {
+                BTRHelpViewController *help = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRHelpViewController"];
+                help.getOriginalVCString = FROM_CHECKOUT;
+                [help setFaqArray:self.faqArray];
+                [self presentViewController:help animated:YES completion:nil];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"%@",error);
+            }];
+        });
+    }else {
+        BTRHelpViewController *help = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRHelpViewController"];
+        [help setFaqArray:self.faqArray];
+        help.getOriginalVCString = FROM_CHECKOUT;
+        [self presentViewController:help animated:YES completion:nil];
+    }
+}
+// getting FAQ
+
+- (void)fetchFAQWithSuccess:(void (^)(id  responseObject)) success
+                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
+    NSString* url = [NSString stringWithFormat:@"%@", [BTRFAQFetcher URLforFAQ]];
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        if (response) {
+            self.faqArray = [FAQ arrayOfFAQWithAppServerInfo:response];
+            success(self.faqArray);
+        }
+    } faild:^(NSError *error) {
+        failure(nil, error);
+    }];
+}
+
 @end

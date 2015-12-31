@@ -8,8 +8,12 @@
 
 #import "BTRHelpViewController.h"
 #import "BTRFAQTableViewCell.h"
-
+#import "BTRCheckoutViewController.h"
 @interface BTRHelpViewController ()
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *faqBtnHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineTopMargin;
+
 @property NSIndexPath *expandedIndexPath;
 @property CGFloat heightOfSelectedCell;
 @end
@@ -36,13 +40,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     _headerView.backgroundColor= [BTRViewUtility BTRBlack];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ([_getOriginalVCString isEqualToString:FROM_CHECKOUT]) {
+        [_faqBtnHeight setConstant:0];
+        [_lineTopMargin setConstant:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:4];
+        [_helpTable selectRowAtIndexPath:indexPath animated:NO scrollPosition: UITableViewScrollPositionTop];
+        FAQ* faq = [self.faqArray objectAtIndex:indexPath.section];
+        NSString* answerString = [[NSString alloc]init];
+        QA* qa = [faq.questionsAndAnswers objectAtIndex:0];
+        for (NSString* answer in qa.answer)
+            answerString = [answerString stringByAppendingFormat:@"\n%@",answer];
+        NSString* resultString = [NSString stringWithFormat:@"%@ \n %@",qa.question,answerString];
+        
+        BTRFAQTableViewCell* cell = (BTRFAQTableViewCell *)[self.helpTable cellForRowAtIndexPath:indexPath];
+        cell.questionAndAnswerLabel.text = resultString;
+        cell.questionAndAnswerLabel.font = [UIFont systemFontOfSize:12.0f];
+        self.expandedIndexPath = indexPath;
+        
+        self.heightOfSelectedCell = [self findHeightForText:resultString havingWidth:self.helpTable.frame.size.width andFont:[UIFont systemFontOfSize:12.0f]] - 140;
+    }
 }
 
 - (IBAction)contactUS:(id)sender {
@@ -156,7 +177,11 @@
 #pragma mark back
 
 - (IBAction)backbuttonTapped:(id)sender {
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"BackButtonPressed"];
-    [self.navigationController popViewControllerAnimated:NO];
+    if ([_getOriginalVCString isEqualToString:FROM_CHECKOUT]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"BackButtonPressed"];
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 @end

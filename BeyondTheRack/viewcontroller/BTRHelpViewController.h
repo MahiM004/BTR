@@ -16,4 +16,5 @@
 
 @property (strong , nonatomic) NSArray* faqArray;
 
+@property NSString * getOriginalVCString;
 @end
