@@ -924,10 +924,10 @@
 				690A38D41B1DE67F00D4BA84 /* BTRNotificationsVC.m */,
 				6986A6A01B3D99E900DE481A /* BTRTrackOrdersVC.h */,
 				6986A6A11B3D99E900DE481A /* BTRTrackOrdersVC.m */,
-				A01142691B617A830099A40A /* BTRHelpViewController.h */,
-				A011426A1B617A830099A40A /* BTRHelpViewController.m */,
 				A00C9A311B7CE1E30047D6F5 /* BTRContactUSViewController.h */,
 				A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */,
+				A01142691B617A830099A40A /* BTRHelpViewController.h */,
+				A011426A1B617A830099A40A /* BTRHelpViewController.m */,
 			);
 			name = MyAccount;
 			sourceTree = "<group>";

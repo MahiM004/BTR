@@ -20,6 +20,9 @@
 #import <IQUIView+IQKeyboardToolbar.h>
 #import <IQUIViewController+Additions.h>
 
+#define FROM_CHECKOUT @"checkout"
+
+
 typedef enum {
     creditCard,
     paypal,

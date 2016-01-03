@@ -129,12 +129,12 @@
 
 -(void)cancelClicked:(id)sender
 {
-    [self.delegate pickerType:self.pickerType selectedIndex:self.selectedIndex];
     [textField resignFirstResponder]; //hides the pickerView
     if (_previousSelectedString.length == 0 || ![self->dataArray containsObject:_previousSelectedString]) {
         self->textField.placeholder = self->placeholder;
     }
     self->textField.text = _previousSelectedString;
+    [self.delegate pickerType:self.pickerType selectedIndex:self.selectedIndex];
 }
 
 
