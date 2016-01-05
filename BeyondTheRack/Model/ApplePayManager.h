@@ -29,6 +29,7 @@ typedef enum checkoutMode {
 @property (nonatomic,strong) id <ApplePayDelegate> delegate;
 @property (nonatomic,strong) NSString *recipientMessage;
 @property (nonatomic,strong) NSArray *vanityCodes;
+@property (nonatomic,strong) NSArray *selectedPromoGifts;
 
 - (void)requestForTokenWithSuccess:(void (^)(id  responseObject)) success
                            failure:(void (^)(NSError *error)) failure;

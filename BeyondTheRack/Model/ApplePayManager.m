@@ -242,10 +242,10 @@
     else
         [orderInfo setObject:@"" forKey:@"recipient_message"];
     
-    if (self.vanityCodes)
-        [orderInfo setObject:self.vanityCodes forKey:@"vanity_codes"];
+    if (self.selectedPromoGifts)
+        [orderInfo setObject:self.selectedPromoGifts forKey:@"promotions_opted_in"];
     else
-        [orderInfo setObject:[NSArray array] forKey:@"vanity_codes"];
+        [orderInfo setObject:[NSArray array] forKey:@"promotions_opted_in"];
     [order setObject:orderInfo forKey:@"orderInfo"];
     
     return order;
