@@ -25,6 +25,7 @@
 @property (nonatomic, strong) PKPaymentAuthorizationViewController *vc;
 @property (nonatomic) BOOL applePayIsLoaded;
 @property (nonatomic) checkoutMode currentCheckOutMode;
+
 @end
 
 @implementation ApplePayManager
@@ -44,12 +45,13 @@
 - (PKPaymentRequest *)paymentRequest {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
     paymentRequest.merchantIdentifier = @"merchant.com.beyondtherack.sandbox";
-    if (self.currentCheckOutMode == checkoutOne)
-        paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
-    else
-        paymentRequest.requiredShippingAddressFields = PKAddressFieldNone;
+    paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.requiredBillingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
+    if ([self.info.isPickup boolValue])
+        paymentRequest.shippingAddress = [self recordFromAddress:self.info.pickupAddress withLabel:@"Pickup"];
+    else if (self.info.shippingAddress.postalCode.length > 0)
+        paymentRequest.shippingAddress = [self recordFromAddress:self.info.shippingAddress withLabel:@"Shipping"];
     paymentRequest.billingContact = [self contactForAddress:self.info.billingAddress];
     paymentRequest.shippingContact = [self contactForAddress:self.info.shippingAddress];
     paymentRequest.merchantCapabilities = PKMerchantCapability3DS;
@@ -73,13 +75,18 @@
     CNPhoneNumber *phone = [CNPhoneNumber phoneNumberWithStringValue:address.phoneNumber];
     contact.phoneNumber = phone;
     
+    NSString * streetAdress = [NSString stringWithFormat:@"%@\n%@",[address.addressLine1 stringByReplacingOccurrencesOfString:@" " withString:@"\n"],[address.addressLine2 stringByReplacingOccurrencesOfString:@" " withString:@"\n"]];
+    
     CNMutablePostalAddress *postalAddress = [[CNMutablePostalAddress alloc]init];
     postalAddress.postalCode = address.postalCode;
-    postalAddress.street = address.addressLine1;
+    postalAddress.street = streetAdress;
     postalAddress.ISOCountryCode = address.country;
+    postalAddress.country = address.country;
     postalAddress.city = address.city;
     postalAddress.state = address.province;
+    
     contact.postalAddress = postalAddress;
+    
     return contact;
 }
 
@@ -125,7 +132,7 @@
         PKShippingMethod *newMethod = [[PKShippingMethod alloc]init];
         [newMethod setLabel:@"PICKUP"];
         [newMethod setIdentifier:@"PICKUP"];
-        [newMethod setDetail:[self stringOfAddress:[self.info pickupAddress]]];
+        [newMethod setDetail:[self.info pickupTitle]];//[self stringOfAddress:[self.info pickupAddress]]];
         [newMethod setAmount:[NSDecimalNumber decimalNumberWithString:@"0"]];
         [shippingMethods addObject:newMethod];
     }
@@ -224,10 +231,7 @@
     [order setObject:nonce forKey:@"applePay"];
     
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc]init];
-    if (self.currentCheckOutMode == checkoutOne)
-        [orderInfo setObject:[self addressForContact:self.paymentInfo.shippingContact] forKey:@"shipping"];
-    else
-        [orderInfo setObject:[self dictionatyOfAddress:self.info.shippingAddress] forKey:@"shipping"];
+    [orderInfo setObject:[self addressForContact:self.paymentInfo.shippingContact] forKey:@"shipping"];
     [orderInfo setObject:[self addressForContact:self.paymentInfo.billingContact] forKey:@"billing"];
     [orderInfo setObject:[NSNumber numberWithBool:self.info.isPickup.boolValue] forKey:@"is_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:self.info.vipPickup.boolValue] forKey:@"vip_pickup"];
@@ -267,7 +271,7 @@
     [addressDic setObject:@" " forKey:@"address2"];
 
     if (contact.postalAddress.ISOCountryCode)
-        [addressDic setObject:contact.postalAddress.ISOCountryCode forKey:@"country"];
+        [addressDic setObject:[contact.postalAddress.ISOCountryCode uppercaseString] forKey:@"country"];
     else
         [addressDic setObject:@" " forKey:@"country"];
     
@@ -337,9 +341,6 @@
 //}
 
 - (void)validateShippingAddress:(NSDictionary *)shippingAddress andBillingAddress:(NSDictionary*)billingAddress AndInCompletion:(void(^)())completionBlock; {
-    
-    NSLog(@"Validate Address");
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     
@@ -373,6 +374,82 @@
 - (void)setupApplePay {
     PKPassLibrary* passbookLibrary = [[PKPassLibrary alloc] init];
     [passbookLibrary openPaymentSetup];
+}
+
+- (ABRecordRef)recordFromAddress:(Address *)userAddress withLabel:(NSString *)label{
+    NSString *fullname = [userAddress.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *firstName = [[fullname componentsSeparatedByString:@" "]firstObject];
+    NSString *lastName = @" ";
+    if ([[userAddress.name componentsSeparatedByString:@" "]count] > 1)
+        lastName = [[userAddress.name componentsSeparatedByString:@" "]objectAtIndex:1];
+    
+    NSString * streetAdress = [NSString stringWithFormat:@"%@ %@",userAddress.addressLine1,userAddress.addressLine2];
+    
+    ABRecordRef person = ABPersonCreate();
+    CFErrorRef error = NULL;
+    ABRecordSetValue(person, kABPersonFirstNameProperty, (__bridge CFTypeRef)(firstName), &error);
+    ABRecordSetValue(person, kABPersonLastNameProperty, (__bridge CFTypeRef)(lastName), &error);
+    
+    ABMutableMultiValueRef address = ABMultiValueCreateMutable(kABDictionaryPropertyType);
+    CFStringRef keys[6];
+    CFStringRef values[6];
+    
+    keys[0] = kABPersonAddressStreetKey;
+    keys[1] = kABPersonAddressCityKey;
+    keys[2] = kABPersonAddressStateKey;
+    keys[3] = kABPersonAddressZIPKey;
+    keys[4] = kABPersonAddressCountryKey;
+    keys[5] = kABPersonAddressCountryCodeKey;
+    
+    CFStringRef ref1;
+    CFStringRef ref2;
+    CFStringRef ref3;
+    CFStringRef ref4;
+    CFStringRef ref5;
+    CFStringRef ref6;
+    
+    if (streetAdress.length > 0)
+        ref1 = (__bridge_retained CFStringRef)streetAdress;
+    else
+        ref1 = CFSTR("");
+    if (userAddress.city.length > 0)
+        ref2 = (__bridge_retained CFStringRef)userAddress.city;
+    else
+        ref2 = CFSTR("");
+    if (userAddress.province.length > 0)
+        ref3 = (__bridge_retained CFStringRef)userAddress.province;
+    else
+        ref3 = CFSTR("");
+    if (userAddress.postalCode.length > 0)
+        ref4 = (__bridge_retained CFStringRef)userAddress.postalCode;
+    else
+        ref4 = CFSTR("");
+    if (userAddress.country.length > 0) {
+        ref5 = (__bridge_retained CFStringRef)[BTRViewUtility countryNameforCode:userAddress.country];
+        ref6 = (__bridge_retained CFStringRef)userAddress.country;
+    }
+    else {
+        ref5 = CFSTR("");
+        ref6 = CFSTR("");
+    }
+    
+    values[0] = ref1;
+    values[1] = ref2;
+    values[2] = ref3;
+    values[3] = ref4;
+    values[4] = ref5;
+    values[5] = ref6;
+    
+    CFDictionaryRef dicref = CFDictionaryCreate(kCFAllocatorDefault, (void *)keys, (void *)values, 6, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    
+    ABMultiValueIdentifier identifier;
+    ABMultiValueAddValueAndLabel(address, dicref, (__bridge_retained CFStringRef)label, &identifier);
+    ABRecordSetValue(person, kABPersonAddressProperty, address,&error);
+    ABMutableMultiValueRef phoneNumberMultiValue = ABMultiValueCreateMutable(kABMultiStringPropertyType);
+    ABMultiValueAddValueAndLabel(phoneNumberMultiValue, (__bridge CFTypeRef)(userAddress.phoneNumber), kABPersonPhoneMobileLabel, NULL);
+    ABRecordSetValue(person, kABPersonPhoneProperty, phoneNumberMultiValue, nil);
+
+    return person;
 }
 
 @end
