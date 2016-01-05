@@ -1246,11 +1246,6 @@
 }
 
 - (IBAction)buyWithApplePay:(UIButton *)sender {
-    
-    if (![self isShippingAddressCompeleted]) {
-        return;
-    }
-    
     self.applePayManager = [[ApplePayManager alloc]init];
     self.applePayManager.delegate = self;
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
@@ -1820,7 +1815,6 @@
 
 
 - (void)learnMoreAboutGift {
-    
     if (self.faqArray == nil) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [self fetchFAQWithSuccess:^(id responseObject) {
