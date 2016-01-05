@@ -66,7 +66,8 @@
 @property (nonatomic, retain) NSArray * taxes;
 @property (nonatomic, retain) NSString * totalTax;
 @property (nonatomic, retain) NSArray * items;
-@property (nonatomic, retain) NSArray* promoItems;
+@property (nonatomic, retain) NSArray * promoItems;
+@property (nonatomic, retain) NSDictionary * vanityCodes;
 
 
 @end

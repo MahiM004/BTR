@@ -310,6 +310,16 @@
     NSDictionary *taxes = totalPriceDictionary[@"taxes"];
     order.taxes = [taxes valueForKey:@"receipt_lines"];
     
+    /**
+     
+     VANITY
+     
+     */
+    
+    NSArray *vanityCodes = orderDictionary[@"vanity_codes"];
+    if ([vanityCodes count] > 0)
+        order.vanityCodes = [vanityCodes valueForKey:@"codes"];
+    
     return order;
 }
 
