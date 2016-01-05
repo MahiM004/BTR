@@ -88,7 +88,9 @@
 @property (strong, nonatomic) NSString *chosenBillingCountryString;
 
 @property paymentType currentPaymentType;
+
 @property (strong, nonatomic) NSMutableArray *arrayOfGiftCards;
+@property (strong, nonatomic) NSMutableArray *arrayOfVanityCodes;
 
 @property (strong, nonatomic) MasterPassInfo *masterpass;
 @property (strong, nonatomic) ApplePayManager *applePayManager;
@@ -366,6 +368,15 @@
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.saving floatValue]]];
     [self.totalDueLabel setText:[NSString stringWithFormat:@"TOTAL DUE (%@)",self.order.currency.uppercaseString]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
+    
+    if ([self.order.vanityCodes count] > 0) {
+        // adding text for gift
+        [self.giftDollarLabel setHidden:NO];
+        [self.giftLabel setHidden:NO];
+        NSString *currentVanity = [[self.order.vanityCodes allKeys]firstObject];
+        [self.giftLabel setText:[NSString stringWithFormat:@"DISCOUNT (%@)",currentVanity]];
+        [self.giftDollarLabel setText:[NSString stringWithFormat:@"$%@",[[self.order.vanityCodes valueForKey:currentVanity]valueForKey:@"discount"]]];
+    }
     
     // VIP
     if ([[self.order vipPickupEligible] boolValue]) {
@@ -1250,7 +1261,7 @@
     self.applePayManager.delegate = self;
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
         [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:self.order checkoutMode:checkoutTwo];
-        [self.applePayManager setVanityCodes:self.selectedGift];
+        [self.applePayManager setSelectedPromoGifts:self.selectedGift];
         [self.applePayManager setRecipientMessage:self.giftMessageTF.text];
         [self.applePayManager showPaymentViewFromViewController:self];
     } failure:^(NSError *error) {
@@ -1388,6 +1399,10 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
     [params setObject:orderInfo forKey:@"orderInfo"];
+    if (self.arrayOfVanityCodes)
+        [params setObject:self.arrayOfVanityCodes forKey:@"vanity_codes"];
+    else
+        [params setObject:[NSArray array] forKey:@"vanity_codes"];
     
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]];
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
@@ -1520,24 +1535,21 @@
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:self.giftCardCodePaymentTF.text,@"code", nil];
     [sender showLoading];
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-            [self validateAddressViaAPIAndInCompletion:^{
-                [sender hideLoading];
-                 if ([[response valueForKey:@"success"]boolValue]) {
+            if ([[response valueForKey:@"success"]boolValue]) {
+                if ([[response valueForKey:@"type"]isEqualToString:@"vanity"]) {
+                    if (self.arrayOfVanityCodes == nil)
+                        self.arrayOfVanityCodes = [[NSMutableArray alloc]init];
+                    [self.arrayOfVanityCodes addObject:self.giftCardCodePaymentTF.text];
+                    [[[UIAlertView alloc]initWithTitle:@"Promotional code applied" message:[response valueForKey:@"description"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                } else {
                     [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@$ has been added sucessfully",[response valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-                    
-                    // adding text for gift
-                    float sumOfGifts = [self.giftDollarLabel.text floatValue] - [[response valueForKey:@"amount"]floatValue];
-                    self.giftDollarLabel.text = [NSString stringWithFormat:@"%.2f",sumOfGifts];
-                    self.giftDollarLabel.textColor = [UIColor redColor];
-                    [self.giftDollarLabel setHidden:NO];
-                    [self.giftLabel setHidden:NO];
-                    
-                    // save used gift cards
                     [self.arrayOfGiftCards addObject:self.giftCardCodePaymentTF.text];
-                 } else {
-                     [[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"Your Gift Number is Not Vaild"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-                 }
-            }];
+                }
+                [self validateAddressViaAPIAndInCompletion:^{
+                    [sender hideLoading];
+                }];
+            } else
+                [[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"Not Vaild"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         } faild:^(NSError *error) {
             [sender hideLoading];
             NSLog(@"%@",error);
