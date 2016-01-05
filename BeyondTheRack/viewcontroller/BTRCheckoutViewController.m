@@ -315,6 +315,7 @@
 
 - (void)resetData {
     self.arrayOfGiftCards = [[NSMutableArray alloc]init];
+    self.arrayOfVanityCodes = [[NSMutableArray alloc]init];
     self.totalSave = 0;
 }
 
@@ -1281,6 +1282,7 @@
     [params setObject:[self orderInfo] forKey:@"orderInfo"];
     [params setObject:[self cardInfo] forKey:@"cardInfo"];
     [params setObject:[self selectedGift] forKey:@"promotions_opted_in"];
+    [params setObject:self.arrayOfVanityCodes forKey:@"vanity_codes"];
     [params setObject:@"creditcard" forKey:@"paymentMethod"];
     [params setObject:[NSDictionary dictionary] forKey:@"masterPassInfo"];
     [params setObject:[NSDictionary dictionary] forKey:@"visaMeInfo"];
@@ -1301,12 +1303,14 @@
         params = [[NSMutableDictionary alloc]initWithDictionary:self.paypalCallBackInfo copyItems:YES];
         [params setObject:[self orderInfo] forKey:@"orderInfo"];
         [params setObject:[self selectedGift] forKey:@"promotions_opted_in"];
+        [params setObject:self.arrayOfVanityCodes forKey:@"vanity_codes"];
     }
     else {
         params = [[NSMutableDictionary alloc]init];
         [params setObject:[self orderInfo] forKey:@"orderInfo"];
         [params setObject:[self cardInfo] forKey:@"cardInfo"];
         [params setObject:[self selectedGift] forKey:@"promotions_opted_in"];
+        [params setObject:self.arrayOfVanityCodes forKey:@"vanity_codes"];
         NSDictionary* paypalMode;
         
         if (self.paypalEmailTF.text.length == 0 || self.sendmeToPaypalCheckbox.checked)
@@ -1399,11 +1403,8 @@
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.pickupOptionCheckbox checked]] forKey:@"is_pickup"];
     [params setObject:orderInfo forKey:@"orderInfo"];
-    if (self.arrayOfVanityCodes)
-        [params setObject:self.arrayOfVanityCodes forKey:@"vanity_codes"];
-    else
-        [params setObject:[NSArray array] forKey:@"vanity_codes"];
-    
+    [params setObject:self.arrayOfVanityCodes forKey:@"vanity_codes"];
+
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]];
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         self.order = [Order extractOrderfromJSONDictionary:response forOrder:self.order isValidating:YES];
@@ -1537,8 +1538,6 @@
     [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
             if ([[response valueForKey:@"success"]boolValue]) {
                 if ([[response valueForKey:@"type"]isEqualToString:@"vanity"]) {
-                    if (self.arrayOfVanityCodes == nil)
-                        self.arrayOfVanityCodes = [[NSMutableArray alloc]init];
                     [self.arrayOfVanityCodes addObject:self.giftCardCodePaymentTF.text];
                     [[[UIAlertView alloc]initWithTitle:@"Promotional code applied" message:[response valueForKey:@"description"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
                 } else {
