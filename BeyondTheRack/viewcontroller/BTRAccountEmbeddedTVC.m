@@ -56,7 +56,7 @@
     [super viewDidLoad];
     
     self.appVersionLabel.text = [NSString stringWithFormat:@"Application Version : %@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    self.deviceModelLabel.text = [NSString stringWithFormat:@"Device Model : %@",[SDVersion deviceName]];
+    self.deviceModelLabel.text = [NSString stringWithFormat:@"Device Model : %@",stringFromDeviceVersion([SDVersion deviceVersion])];
     
     self.user = [[User alloc] init];
     [self fetchUserWithSuccess:^(User *user) {
