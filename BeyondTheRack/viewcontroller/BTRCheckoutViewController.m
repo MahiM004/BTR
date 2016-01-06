@@ -1342,6 +1342,7 @@
 }
 
 - (void)getMasterPassInfo {
+    self.masterCallBackInfo = nil;
     NSString* url = [NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if (response) {
