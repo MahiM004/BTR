@@ -145,6 +145,7 @@ typedef enum ScrollDirection {
     return @[kSUGGESTED,kDISCOUNTASCENDING,kDISCOUNTDESCENDING,kPRICEASCENDING,kPRICEDESCENDING,kSKUASCENDING];
 }
 
+/*
 //- (NSArray *)sizeArray {
 //    if (!_sizeArray)  {
 //        NSMutableArray* allSizes = [[NSMutableArray alloc]init];
@@ -166,6 +167,7 @@ typedef enum ScrollDirection {
 //    }
 //    return _sizeArray;
 //}
+*/
 
 - (void)fillSizesArrays {
     NSMutableArray* allSizes = [[NSMutableArray alloc]init];
