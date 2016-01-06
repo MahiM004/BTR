@@ -1545,11 +1545,14 @@
                     [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@$ has been added sucessfully",[response valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
                     [self.arrayOfGiftCards addObject:self.giftCardCodePaymentTF.text];
                 }
+                [self.giftCardCodePaymentTF resignFirstResponder];
                 [self validateAddressViaAPIAndInCompletion:^{
                     [sender hideLoading];
                 }];
-            } else
+            } else {
                 [[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"Not Vaild"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                [sender hideLoading];
+            }
         } faild:^(NSError *error) {
             [sender hideLoading];
             NSLog(@"%@",error);
