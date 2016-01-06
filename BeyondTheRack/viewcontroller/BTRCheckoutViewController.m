@@ -1206,8 +1206,9 @@
 #pragma mark Actions
 
 - (IBAction)processOrderTpped:(BTRLoadingButton *)sender {
-    if (![self isShippingAddressCompeleted] && self.currentPaymentType == creditCard)
+    if (![self isShippingAddressCompeleted] && self.currentPaymentType != paypal)
         return;
+    
     if (self.currentPaymentType == creditCard && [self isBillingAddressCompeleted] && [self isCardInfoCompeleted]) {
         [sender showLoading];
         [self validateAddressViaAPIAndInCompletion:^() {
@@ -1224,13 +1225,7 @@
             [self sendPayPalInfo];
         }];
     } else if (self.currentPaymentType == masterPass){
-        NSString * identifierSB;
-        if ([BTRViewUtility isIPAD]) {
-            identifierSB = @"BTRMasterPassCheckoutSegueiPadIdentifier";
-        } else {
-            identifierSB = @"BTRMasterPassCheckoutSegueIdentifier";
-        }
-        [self performSegueWithIdentifier:identifierSB sender:self];
+        [self sendMasterPassInfo];
     }
 }
 
@@ -1328,6 +1323,24 @@
 
 #pragma mark MasterPass RESTful Payment
 
+- (void)sendMasterPassInfo {
+    if (self.masterCallBackInfo) {
+        NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithDictionary:self.masterCallBackInfo copyItems:YES];
+        [params setObject:[self orderInfo] forKey:@"orderInfo"];
+        [params setObject:[self selectedGift] forKey:@"promotions_opted_in"];
+        [params setObject:self.arrayOfVanityCodes forKey:@"vanity_codes"];
+        [self setMasterCallBackInfo:params];
+        
+        NSString * identifierSB;
+        if ([BTRViewUtility isIPAD]) {
+            identifierSB = @"BTRMasterPassCheckoutSegueiPadIdentifier";
+        } else {
+            identifierSB = @"BTRMasterPassCheckoutSegueIdentifier";
+        }
+        [self performSegueWithIdentifier:identifierSB sender:self];
+    }
+}
+
 - (void)getMasterPassInfo {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
@@ -1385,9 +1398,6 @@
 #pragma mark Validation
 
 - (void)validateAddressViaAPIAndInCompletion:(void(^)())completionBlock; {
-    
-    if (self.currentPaymentType == masterPass)
-        return;
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
@@ -1597,6 +1607,7 @@
 
 - (void)fixViewForMasterPass {
     [self setComeFromMasterPass:YES];
+    [self.FreeshipingPromoView setHidden:NO];
     if ([self.order.isFreeshipAddress boolValue])
         [self.freeshipOptionCheckbox setChecked:YES];
     [self loadOrderData];

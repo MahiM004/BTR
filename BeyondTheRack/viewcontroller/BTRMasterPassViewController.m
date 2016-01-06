@@ -72,8 +72,13 @@
     [BTRConnectionHelper postDataToURL:url withParameters:info setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue])
             [self getConfirmationInfoWithOrderID:[[response valueForKey:@"order"]valueForKey:@"order_id"]];
+        else if ([[[response valueForKey:@"orderInfo"]valueForKey:@"errors"]length] > 0) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                [[[UIAlertView alloc]initWithTitle:@"Error" message:[[response valueForKey:@"orderInfo"]valueForKey:@"errors"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            }];
+        }
     } faild:^(NSError *error) {
-        NSLog(@"%@",error);
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
 
@@ -105,7 +110,8 @@
         }
         [self performSegueWithIdentifier:identifierSB sender:self];
     } faild:^(NSError *error) {
-        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        NSLog(@"%@",error);
     }];
 }
 
