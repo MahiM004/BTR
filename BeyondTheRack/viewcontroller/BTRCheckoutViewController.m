@@ -472,9 +472,7 @@
         [subView removeFromSuperview];
     
     CGFloat height = 0;
-    for (PromoItem* item in self.order.promoItems)
-        if ([self.order.shippingAddress.country isEqualToString:item.eligibleCountry])
-            height = height + SAMPLE_GIFT_HEIGHT;
+    height = [self.order.promoItems count] * SAMPLE_GIFT_HEIGHT;
     self.sampleGiftViewHeight.constant = height;
     
     int i = 0;
@@ -491,7 +489,6 @@
     
     [self.selectedGift removeAllObjects];
     for (PromoItem* item in self.order.promoItems) {
-        if ([self.order.shippingAddress.country isEqualToString:item.eligibleCountry]) {
             UIView *itemView = [[[NSBundle mainBundle]loadNibNamed:@"BTRSampleGiftView" owner:self options:nil]firstObject];
             itemView.frame = CGRectMake(0, heightSize, widthSize, SAMPLE_GIFT_HEIGHT);
             
@@ -511,7 +508,6 @@
             itemView.backgroundColor = [UIColor clearColor];
             heightSize += SAMPLE_GIFT_HEIGHT;
             i++;
-        }
     }
     [self resetSize];
 }
