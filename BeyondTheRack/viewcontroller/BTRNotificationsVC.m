@@ -59,7 +59,7 @@
     
     if ([preferencesList rangeOfString:@"dailyreminders"].location != NSNotFound) {
         // Please check the condition is correct or not
-        if (![preferencesList rangeOfString:@"oncedailyreminders"].location != NSNotFound) {
+        if ([preferencesList rangeOfString:@"oncedailyreminders"].location == NSNotFound) {
             [self setChosenEmailFrequencyString:@"dailyreminders"];
             [self setEmailFrequency:btrAllEmails];
             
