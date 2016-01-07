@@ -9,7 +9,7 @@
 #define BRAND_TITLE @"Brand"
 #define COLOR_TITLE @"Color"
 #define SIZE_TITLE @"Size"
-#define CATEGORY_TITLE @"Type"
+#define CATEGORY_TITLE @"Category"
 #define PRICE_TITLE @"Price"
 
 #define BEST_MATCH @"Best Match"

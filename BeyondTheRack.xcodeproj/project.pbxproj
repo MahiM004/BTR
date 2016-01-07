@@ -14,6 +14,8 @@
 		1408D1BE1BEA2A2E00125FE8 /* BTRProductDetailNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1BC1BEA2A2E00125FE8 /* BTRProductDetailNameCell.xib */; };
 		1408D1C21BEA38B700125FE8 /* BTRProductShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1408D1C01BEA38B700125FE8 /* BTRProductShareCell.m */; };
 		1408D1C31BEA38B700125FE8 /* BTRProductShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1C11BEA38B700125FE8 /* BTRProductShareCell.xib */; };
+		144D8CB91C3E436700CD57E2 /* FilterTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 144D8CB61C3E436700CD57E2 /* FilterTypeCell.m */; };
+		144D8CBA1C3E436700CD57E2 /* FilterSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 144D8CB81C3E436700CD57E2 /* FilterSelectionCell.m */; };
 		145D3CC51BECA7DB00627DD5 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 145D3CC41BECA7DB00627DD5 /* facebook.png */; };
 		14A6EDE21BEB8C87007944FA /* BTRProductCollecCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */; };
 		14A6EDE31BEB8C87007944FA /* BTRProductCollecCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A6EDE11BEB8C87007944FA /* BTRProductCollecCell.xib */; };
@@ -268,6 +270,10 @@
 		1408D1BF1BEA38B700125FE8 /* BTRProductShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductShareCell.h; sourceTree = "<group>"; };
 		1408D1C01BEA38B700125FE8 /* BTRProductShareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductShareCell.m; sourceTree = "<group>"; };
 		1408D1C11BEA38B700125FE8 /* BTRProductShareCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRProductShareCell.xib; sourceTree = "<group>"; };
+		144D8CB51C3E436700CD57E2 /* FilterTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterTypeCell.h; sourceTree = "<group>"; };
+		144D8CB61C3E436700CD57E2 /* FilterTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTypeCell.m; sourceTree = "<group>"; };
+		144D8CB71C3E436700CD57E2 /* FilterSelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterSelectionCell.h; sourceTree = "<group>"; };
+		144D8CB81C3E436700CD57E2 /* FilterSelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterSelectionCell.m; sourceTree = "<group>"; };
 		145D3CC41BECA7DB00627DD5 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		14A6EDDF1BEB8C87007944FA /* BTRProductCollecCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductCollecCell.h; sourceTree = "<group>"; };
 		14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductCollecCell.m; sourceTree = "<group>"; };
@@ -719,6 +725,17 @@
 			path = BeyondTheRack/viewcontroller;
 			sourceTree = SOURCE_ROOT;
 		};
+		144D8CBB1C3E436F00CD57E2 /* RefineCells */ = {
+			isa = PBXGroup;
+			children = (
+				144D8CB51C3E436700CD57E2 /* FilterTypeCell.h */,
+				144D8CB61C3E436700CD57E2 /* FilterTypeCell.m */,
+				144D8CB71C3E436700CD57E2 /* FilterSelectionCell.h */,
+				144D8CB81C3E436700CD57E2 /* FilterSelectionCell.m */,
+			);
+			name = RefineCells;
+			sourceTree = "<group>";
+		};
 		145BBD661C2944FB00F651B8 /* CustomPopUP */ = {
 			isa = PBXGroup;
 			children = (
@@ -935,6 +952,7 @@
 		69385FBF1A7BF3830074FE33 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				144D8CBB1C3E436F00CD57E2 /* RefineCells */,
 				69AB983A1A6EA19300EDB1E6 /* BTRSearchViewController.h */,
 				69AB983B1A6EA19300EDB1E6 /* BTRSearchViewController.m */,
 				69385FBC1A7AD2B70074FE33 /* BTRRefineResultsViewController.h */,
@@ -1723,6 +1741,7 @@
 				69F0BB071B418756008C0498 /* OrderHistoryItem+AppServer.m in Sources */,
 				690A38F11B1DEB7F00D4BA84 /* TNRadioButton.m in Sources */,
 				14DE66CF1C159A2E00A7AA1F /* UIDownPicker.m in Sources */,
+				144D8CBA1C3E436700CD57E2 /* FilterSelectionCell.m in Sources */,
 				6901EA461ADEB89A002534D9 /* UIBarButtonItem+Badge.m in Sources */,
 				69B02D0A1A605B0F00040C86 /* BagItem+AppServer.m in Sources */,
 				A027C3411C2AED1F0013A8AF /* SKUContents.m in Sources */,
@@ -1765,6 +1784,7 @@
 				A0D037481B90A82300EA9E48 /* BTRAttributeHandler.m in Sources */,
 				69867A151A44A701003CE59C /* BTRMainViewController.m in Sources */,
 				69FF406C1A3F8939000BD092 /* BTRAppDelegate.m in Sources */,
+				144D8CB91C3E436700CD57E2 /* FilterTypeCell.m in Sources */,
 				69F0BAFB1B41868B008C0498 /* OrderHistoryBag.m in Sources */,
 				69B02D011A605AB700040C86 /* User+AppServer.m in Sources */,
 				69D440561B331AEA00070FD8 /* EventCategory+AppServer.m in Sources */,
