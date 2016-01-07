@@ -1608,9 +1608,10 @@
 
 - (void)fixViewForMasterPass {
     [self setComeFromMasterPass:YES];
-    [self.FreeshipingPromoView setHidden:NO];
-    if ([self.order.isFreeshipAddress boolValue])
+    if ([self.order.isFreeshipAddress boolValue]){
+        [self.FreeshipingPromoView setHidden:NO];
         [self.freeshipOptionCheckbox setChecked:YES];
+    }
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
     [self changeDetailPaymentFor:creditCard];
