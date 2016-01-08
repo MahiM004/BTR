@@ -208,6 +208,7 @@
 		A027C3411C2AED1F0013A8AF /* SKUContents.m in Sources */ = {isa = PBXBuildFile; fileRef = A027C3401C2AED1F0013A8AF /* SKUContents.m */; };
 		A029D77F1BFBA9A500BFC7F7 /* profileBack.png in Resources */ = {isa = PBXBuildFile; fileRef = A029D77E1BFBA9A500BFC7F7 /* profileBack.png */; };
 		A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A02A6BF31BB08E0400C01F2C /* BTRLoader.m */; };
+		A03C2FCC1C40571B00B9D8F0 /* whiteblank.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A03C2FCB1C40571B00B9D8F0 /* whiteblank.jpg */; };
 		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; };
 		A044DC921BFF760100100B1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A044DC911BFF760100100B1F /* GoogleService-Info.plist */; };
 		A044DC941BFFC05600100B1F /* apple_pay_2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A044DC931BFFC05600100B1F /* apple_pay_2x.png */; };
@@ -613,6 +614,7 @@
 		A02A6BF21BB08E0400C01F2C /* BTRLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoader.h; sourceTree = "<group>"; };
 		A02A6BF31BB08E0400C01F2C /* BTRLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoader.m; sourceTree = "<group>"; };
 		A03C03661C24982900A10E00 /* BeyondTheRack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BeyondTheRack.entitlements; sourceTree = "<group>"; };
+		A03C2FCB1C40571B00B9D8F0 /* whiteblank.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = whiteblank.jpg; sourceTree = "<group>"; };
 		A043E9211BB335AB00B42BB1 /* PromoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoItem.h; sourceTree = "<group>"; };
 		A043E9221BB335AB00B42BB1 /* PromoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoItem.m; sourceTree = "<group>"; };
 		A044DC911BFF760100100B1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1053,6 +1055,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A03C2FCB1C40571B00B9D8F0 /* whiteblank.jpg */,
 				A044DC931BFFC05600100B1F /* apple_pay_2x.png */,
 				A029D77E1BFBA9A500BFC7F7 /* profileBack.png */,
 				A0F1E9B51BFA912D0034A55A /* camera.png */,
@@ -1611,6 +1614,7 @@
 				69F0BB281B457156008C0498 /* SF-UI-Display-Regular.otf in Resources */,
 				69867A051A43894B003CE59C /* neumyaccount.png in Resources */,
 				A044DC921BFF760100100B1F /* GoogleService-Info.plist in Resources */,
+				A03C2FCC1C40571B00B9D8F0 /* whiteblank.jpg in Resources */,
 				695C75601B38957A003F65F8 /* masterpass_t.png in Resources */,
 				69F0BB231B457156008C0498 /* SF-UI-Display-Black.otf in Resources */,
 				A0F1E9B61BFA912D0034A55A /* camera.png in Resources */,
