@@ -123,7 +123,7 @@ static NSString * const reuseIdentifier = @"Cell";
                                                    }
                                                    completion:nil];
                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                  weakImageView.image = [UIImage imageNamed:nil];
+                                  weakImageView.image = [UIImage imageNamed:@"whiteblank.jpg"];
                               }];
     return cell;
 }
