@@ -470,14 +470,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"BTRSearchFilterSegue"]) {
-        CGSize screenSize = [UIScreen mainScreen].bounds.size;
-        UIGraphicsBeginImageContextWithOptions(screenSize, NO, [UIScreen mainScreen].scale);
-        CGRect rec = CGRectMake(0, 0, screenSize.width, screenSize.height);
-        [self.view drawViewHierarchyInRect:rec afterScreenUpdates:YES];
-        UIImage *screenShotImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+//        CGSize screenSize = [UIScreen mainScreen].bounds.size;
+//        UIGraphicsBeginImageContextWithOptions(screenSize, NO, [UIScreen mainScreen].scale);
+//        CGRect rec = CGRectMake(0, 0, screenSize.width, screenSize.height);
+//        [self.view drawViewHierarchyInRect:rec afterScreenUpdates:YES];
+//        UIImage *screenShotImage = UIGraphicsGetImageFromCurrentImageContext();
+//        UIGraphicsEndImageContext();
         BTRRefineResultsViewController *refineVC = [segue destinationViewController];
-        refineVC.backgroundImage = screenShotImage;
+//        refineVC.backgroundImage = screenShotImage;
         refineVC.delegate = self;
     }else if ([[segue identifier] isEqualToString:@"productEmbededSegueSearch"]) {
         BTRProductDetailEmbededVC * productEmbededVC = [segue destinationViewController];

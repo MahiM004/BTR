@@ -5,12 +5,12 @@
 //  Created by Hadi Kheyruri on 2015-02-13.
 //  Copyright (c) 2015 Hadi Kheyruri. All rights reserved.
 //
-
-#define BRAND_TITLE @"Brand"
-#define COLOR_TITLE @"Color"
-#define SIZE_TITLE @"Size"
-#define CATEGORY_TITLE @"Type"
-#define PRICE_TITLE @"Price"
+#define SORT_TITLE @"SORT ITEMS"
+#define BRAND_TITLE @"BRAND"
+#define COLOR_TITLE @"COLOR"
+#define SIZE_TITLE @"SIZE"
+#define CATEGORY_TITLE @"CATEGORY"
+#define PRICE_TITLE @"PRICE"
 
 #define BEST_MATCH @"Best Match"
 #define HIGHEST_TO_LOWEST @"Highest to Lowest Price"
