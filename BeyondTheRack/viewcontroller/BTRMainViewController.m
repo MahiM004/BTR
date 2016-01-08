@@ -29,6 +29,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "BTRLoginViewController.h"
 #import "JTSlideShadowAnimation.h"
+#import "BTRLoader.h"
 #import <math.h>
 #import <FRDLivelyButton/FRDLivelyButton.h>
 
@@ -51,6 +52,7 @@
 @property (strong, nonatomic) UIView *tapRecognizerView;
 @property NSString *type;
 @property operation lastOperation;
+@property BOOL isWorking;
 
 @end
 
@@ -72,7 +74,6 @@
     } else {
         [self.shadowAnimation stop];
     }
-    [self removeTapRecognizerView];
     if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
         [self getCartCountServerCallWithSuccess:^(NSString *bagCountString) {
             self.bagButton.badgeValue = bagCountString;
@@ -145,10 +146,13 @@
     }
     
     if (self.isMenuOpen) {
+        [self removeTapRecognizerView];
         [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
         [self setIsMenuOpen:NO];
         [_sideMenuButton setStyle:kFRDLivelyButtonStyleHamburger animated:YES];
-        [self removeTapRecognizerView];
+        dispatch_async (dispatch_get_main_queue(), ^{
+            [self removeTapRecognizerView];
+        });
         return;
     }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -181,6 +185,7 @@
 #pragma mark Account Delegate
 
 - (void)signOutDidSelect {
+    [self removeTapRecognizerView];
     [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.0];
     [self setIsMenuOpen:NO];
     [self logutUserServerCallWithSuccess:^(NSString *didSucceed) {
@@ -194,6 +199,7 @@
 }
 
 - (void)userInformationDidSelect {
+    [self removeTapRecognizerView];
     [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
     [self setIsMenuOpen:NO];
     [self performSegueWithIdentifier:_type sender:self];
@@ -204,7 +210,12 @@
 }
 
 - (void)trackOrderDidSelect {
+    [self removeTapRecognizerView];
     [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
+    if (self.isWorking)
+        return;
+    [BTRLoader showLoaderInView:self.view];
+    self.isWorking = YES;
     [self setIsMenuOpen:NO];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [self fetchOrderHistoryWithSuccess:^(NSString *successString) {
@@ -215,22 +226,30 @@
 }
 
 - (void)notificationSettingDidSelect {
+    [self removeTapRecognizerView];
     [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
+    if (self.isWorking)
+        return;
+    [BTRLoader showLoaderInView:self.view];
+    self.isWorking = YES;
     [self setIsMenuOpen:NO];
     [self performSegueWithIdentifier:_type sender:nil];
 }
 
 - (void)helpDidSelect {
+    [self removeTapRecognizerView];
     [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
+    if (self.isWorking)
+        return;
+    [BTRLoader showLoaderInView:self.view];
+    self.isWorking = YES;
     [self setIsMenuOpen:NO];
     if (self.contactInfo == nil) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            [self fetchContactWithSuccess:^(id responseObject) {
-                [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"%@",error);
-            }];
-        });
+        [self fetchContactWithSuccess:^(id responseObject) {
+            [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@",error);
+        }];
     } else
         [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
 }
@@ -263,11 +282,9 @@
             }
             success(@"TRUE");
         }else {
-            [self removeTapRecognizerView];
             [[[UIAlertView alloc]initWithTitle:@"Empty" message:@"You dont have any order to track" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         }
     } faild:^(NSError *error) {
-        [self removeTapRecognizerView];
         failure(error);
     }];
 }
@@ -282,7 +299,6 @@
         }
     } faild:^(NSError *error) {
         failure(nil, error);
-        [self removeTapRecognizerView];
     }];
 }
 
@@ -297,7 +313,6 @@
             success(self.contactInfo);
         }
     } faild:^(NSError *error) {
-        [self removeTapRecognizerView];
         failure(nil,error);
     }];
 }
@@ -308,15 +323,15 @@
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         FBSDKLoginManager *fbAuth = [[FBSDKLoginManager alloc] init];
         [fbAuth logOut];
-        [self removeTapRecognizerView];
         success(@"TRUE");
     } faild:^(NSError *error) {
-        [self removeTapRecognizerView];
         failure(nil, error);
     }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    self.isWorking = NO;
+    [BTRLoader hideLoaderFromView:self.view];
     if ([[segue identifier] isEqualToString:@"BTRNotificationsSegueIdentifier"] || [[segue identifier] isEqualToString:@"BTRNotificationsSegueiPadIdentifier"]) {
         BTRNotificationsVC *vc = [segue destinationViewController];
         vc.user = [self user];
