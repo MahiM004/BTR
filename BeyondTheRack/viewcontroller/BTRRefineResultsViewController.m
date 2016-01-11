@@ -118,6 +118,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _multipleSelChange = NO;
+     self.headerView.backgroundColor = self.view.backgroundColor = [BTRViewUtility BTRBlack];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -143,11 +144,11 @@
         
         cell.lblTitle.text = self.titles[indexPath.row];
         if (_selectedSortIndex == (int)indexPath.row) {
-            cell.lblTitle.backgroundColor = [UIColor lightGrayColor];
-            cell.lblTitle.textColor = [UIColor whiteColor];
+            cell.backView.backgroundColor = [UIColor whiteColor];
+            cell.lblTitle.textColor = [UIColor blackColor];
         } else {
-            cell.lblTitle.backgroundColor = [UIColor clearColor];
-            cell.lblTitle.textColor = [UIColor darkGrayColor];
+            cell.backView.backgroundColor = [UIColor clearColor];
+            cell.lblTitle.textColor = [UIColor lightGrayColor];
         }
         return cell;
     }
@@ -241,10 +242,11 @@
     }
 
     else {
-        _multipleSelChange = YES;
+       
         FilterSelectionCell *cell = (FilterSelectionCell*)[tableView cellForRowAtIndexPath:indexPath];
         if (_isMultiSelect) {
             //3
+            _multipleSelChange = YES;
             if (cell.accessoryType == 0) {
                 cell.accessoryType = 3;
                 [self.getSelectedArray addObject:cell.lblTitle.text];
@@ -402,8 +404,17 @@
     
     
     
+    /* Animate the table view reload */
+    [UIView transitionWithView:_tableFilterSelection
+                      duration:0.35f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^(void)
+     {
+         [_tableFilterSelection reloadData];
+     }
+                    completion:nil];
+
     [_tableFilterType reloadData];
-    [_tableFilterSelection reloadData];
 }
 
 #pragma mark - Navigation
@@ -422,6 +433,7 @@
                                    [self.getSelectedArray removeAllObjects];
                                }
                                failure:^(NSError *error) {
+                                   [BTRLoader hideLoaderFromView:self.view];
                                }];
         
     }
