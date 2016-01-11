@@ -45,7 +45,7 @@
 
 @property  NSString * selectedPrice; // temp string
 
-
+@property BOOL multipleSelChange; // to check if multiple selection has a change or not(if add or remove)
 
 @end
 
@@ -117,6 +117,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _multipleSelChange = NO;
+     self.headerView.backgroundColor = self.view.backgroundColor = [BTRViewUtility BTRBlack];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -142,11 +144,11 @@
         
         cell.lblTitle.text = self.titles[indexPath.row];
         if (_selectedSortIndex == (int)indexPath.row) {
-            cell.lblTitle.backgroundColor = [UIColor lightGrayColor];
-            cell.lblTitle.textColor = [UIColor whiteColor];
+            cell.backView.backgroundColor = [UIColor whiteColor];
+            cell.lblTitle.textColor = [UIColor blackColor];
         } else {
-            cell.lblTitle.backgroundColor = [UIColor clearColor];
-            cell.lblTitle.textColor = [UIColor darkGrayColor];
+            cell.backView.backgroundColor = [UIColor clearColor];
+            cell.lblTitle.textColor = [UIColor lightGrayColor];
         }
         return cell;
     }
@@ -166,36 +168,25 @@
             }
         }
         else if ([self.titles[_selectedSortIndex] isEqualToString:CATEGORY_TITLE]) { // Category Single selection
-            cell.lblTitle.text = self.optionsArray[indexPath.row];
-            
-            
             // we are doing this because  for example we select some category "HELLO WORLD: (55)" after aplying some more filters it may become "HELLO WORLD: (22)" difference in number so condition not satisfied same for price also
             
+            cell.lblTitle.text = self.optionsArray[indexPath.row];
             
-            NSString * filterStringC;
-            NSString * selectedSingleC = cell.lblTitle.text;
+            NSString * selectedSingleC = [self breakStringGetFirst:cell.lblTitle.text];
             
-            NSArray *stringsC = [selectedSingleC componentsSeparatedByString:@": "];
-            if (stringsC.count!=0) {
-                filterStringC = stringsC[0];
-            }
-
-            if ([filterStringC isEqualToString:_selectedCategory]) {
+            if ([selectedSingleC isEqualToString:_selectedCategory]) {
                 cell.accessoryType = 3;
             } else {
                 cell.accessoryType = 0;
             }
         }
-        else if ([self.titles[_selectedSortIndex] isEqualToString:PRICE_TITLE]) { // Price Single 
-            cell.lblTitle.text = self.optionsArray[indexPath.row];
-            NSString * filterStringP;
-            NSString * selectedSingleP = cell.lblTitle.text;
+        else if ([self.titles[_selectedSortIndex] isEqualToString:PRICE_TITLE]) { // Price Single
             
-            NSArray *stringsP = [selectedSingleP componentsSeparatedByString:@": "];
-            if (stringsP.count!=0) {
-                filterStringP = stringsP[0];
-            }
-            if ([filterStringP isEqualToString:_selectedPrice]) {
+            cell.lblTitle.text = self.optionsArray[indexPath.row];
+            
+            NSString * selectedSingleP = [self breakStringGetFirst:cell.lblTitle.text];
+            
+            if ([selectedSingleP isEqualToString:_selectedPrice]) {
                 cell.accessoryType = 3;
             } else {
                 cell.accessoryType = 0;
@@ -222,48 +213,40 @@
         
          _selectedSortIndex = (int)indexPath.row; //For Sort Section
         
-        if ([cell.lblTitle.text isEqualToString:SORT_TITLE]) {
+        if ([cell.lblTitle.text isEqualToString:SORT_TITLE] && _multipleSelChange == NO) {
             [self loadDataWithSelectedSortType:cell.lblTitle.text];
             getPreviousSelectedSortType = cell.lblTitle.text;
         }
-        else {
-            if (self.getSelectedArray.count!= 0) { // this should only call if any Multiple selection selected
-                [self.totalSelectedArray addObjectsFromArray:self.getSelectedArray];
-                //Removing duplicates from total array
-                NSArray *copy = [self.totalSelectedArray copy];
-                NSInteger index = [copy count] - 1;
-                for (id object in [copy reverseObjectEnumerator]) {
-                    if ([self.totalSelectedArray indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
-                        [self.totalSelectedArray removeObjectAtIndex:index];
-                    }
-                    index--;
-                }
-                NSLog(@"%@",[self facetsQueryString:getPreviousSelectedSortType]);
-                [BTRLoader showLoaderInView:self.view];
-                BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
-                [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
-                              withFacetsString:[self facetsQueryString:getPreviousSelectedSortType]
-                                       success:^(NSDictionary *responseDictionary) {
-                                           [self loadDataWithSelectedSortType:cell.lblTitle.text];
-                                           getPreviousSelectedSortType = cell.lblTitle.text;
-                                           [self.getSelectedArray removeAllObjects];
-                                           [BTRLoader hideLoaderFromView:self.view];
-                                           [self.tableFilterType reloadData];
-                                       } failure:^(NSError *error) {
-                                           [BTRLoader hideLoaderFromView:self.view];
-                                       }];
-                
-            } else {
-                [self loadDataWithSelectedSortType:cell.lblTitle.text];
-                getPreviousSelectedSortType = cell.lblTitle.text;
-            }
+        else if (_multipleSelChange == YES){
+            _multipleSelChange = NO;
+            // this should only call if any Multiple selection selected
+            [self.totalSelectedArray addObjectsFromArray:self.getSelectedArray];
+           
+            [BTRLoader showLoaderInView:self.view];
+            BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+            [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
+                          withFacetsString:[self facetsQueryString:getPreviousSelectedSortType]
+                                   success:^(NSDictionary *responseDictionary) {
+                                       [self loadDataWithSelectedSortType:cell.lblTitle.text];
+                                       getPreviousSelectedSortType = cell.lblTitle.text;
+                                       [self.getSelectedArray removeAllObjects];
+                                       [BTRLoader hideLoaderFromView:self.view];
+                                   } failure:^(NSError *error) {
+                                       [BTRLoader hideLoaderFromView:self.view];
+                                   }];
+            NSLog(@"%@",[self facetsQueryString:getPreviousSelectedSortType]);
+        } else {
+            [self loadDataWithSelectedSortType:cell.lblTitle.text];
+            getPreviousSelectedSortType = cell.lblTitle.text;
         }
     }
 
     else {
+       
         FilterSelectionCell *cell = (FilterSelectionCell*)[tableView cellForRowAtIndexPath:indexPath];
         if (_isMultiSelect) {
             //3
+            _multipleSelChange = YES;
             if (cell.accessoryType == 0) {
                 cell.accessoryType = 3;
                 [self.getSelectedArray addObject:cell.lblTitle.text];
@@ -272,6 +255,7 @@
                 [self.getSelectedArray removeObject:cell.lblTitle.text];
             }
         }
+        
         else if (![self isMultiSelect]){
             //3
             if (cell.accessoryType == 0) {
@@ -281,18 +265,10 @@
             NSString * selectedSort = self.titles[_selectedSortIndex];
             BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
             if (_selectedSortIndex != 0) {
-                NSString * filterString;
-                NSString * selectedSingle = cell.lblTitle.text;
-                
-                NSArray *strings = [selectedSingle componentsSeparatedByString:@": "];
-                if (strings.count!=0) {
-                    filterString = strings[0];
-                }
-                
-                
                 if ([selectedSort isEqualToString:CATEGORY_TITLE]) {
-                    _selectedCategory = filterString;
+                    _selectedCategory = [self breakStringGetFirst:cell.lblTitle.text];
                     [sharedFacetHandler setCategorySelectionWithCategoryString:_selectedCategory];
+                    [self.totalSelectedArray addObjectsFromArray:self.getSelectedArray];
                     [BTRLoader showLoaderInView:self.view];
                     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
                     [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
@@ -300,13 +276,14 @@
                                            success:^(NSDictionary *responseDictionary) {
                                                [self.getSelectedArray removeAllObjects];
                                                [self loadDataWithSelectedSortType:CATEGORY_TITLE];
+                                               getPreviousSelectedSortType = cell.lblTitle.text;
                                                [BTRLoader hideLoaderFromView:self.view];
                                            } failure:^(NSError *error) {
                                                [BTRLoader hideLoaderFromView:self.view];
                                            }];
+                    NSLog(@"%@",[self facetsQueryString:getPreviousSelectedSortType]);
                 } else {
-                    
-                    _selectedPrice = filterString;
+                    _selectedPrice = [self breakStringGetFirst:cell.lblTitle.text];
                     [sharedFacetHandler setPriceSelectionWithPriceString:_selectedPrice];
                     [self.totalSelectedArray addObjectsFromArray:self.getSelectedArray];
                     [BTRLoader showLoaderInView:self.view];
@@ -316,74 +293,70 @@
                                            success:^(NSDictionary *responseDictionary) {
                                                [self.getSelectedArray removeAllObjects];
                                                [self loadDataWithSelectedSortType:PRICE_TITLE];
+                                               getPreviousSelectedSortType = cell.lblTitle.text;
                                                [BTRLoader hideLoaderFromView:self.view];
                                            } failure:^(NSError *error) {
                                                [BTRLoader hideLoaderFromView:self.view];
                                            }];
+                    NSLog(@"%@",[self facetsQueryString:getPreviousSelectedSortType]);
                 }
             }
             else {
                 _selectSortString = cell.lblTitle.text;
                 [sharedFacetHandler setSortChosenOptionString:_selectSortString]; // Sort selection
+                getPreviousSelectedSortType = cell.lblTitle.text;
+                [_tableFilterSelection reloadData];
             }
-            [_tableFilterSelection reloadData];
         }
     }
 }
 
 
 - (void)loadDataWithSelectedSortType:(NSString*)title {
+    
+    [self.totalSelectedArray removeAllObjects];//Remove all objects any way we are adding at bottom
+    
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     if ([title isEqualToString:SORT_TITLE]) {
         _isMultiSelect = NO;
-        getPreviousSelectedSortType = SORT_TITLE;
         [self.sortTypeArray setArray:@[BEST_MATCH,HIGHEST_TO_LOWEST,LOWEST_TO_HIGHEST]];//Static
     }
     else if ([title isEqualToString:CATEGORY_TITLE]) {
         _isMultiSelect = NO;
-        getPreviousSelectedSortType = CATEGORY_TITLE;
-        
         if ([sharedFacetHandler getCategoryFiltersForDisplay] )
             [self.optionsArray setArray:[sharedFacetHandler getCategoryFiltersForDisplay]];
-        
-        
     }
     else if ([title isEqualToString:PRICE_TITLE]) {
         _isMultiSelect = NO;
-        getPreviousSelectedSortType = PRICE_TITLE;
-        
         if ([sharedFacetHandler getPriceFiltersForDisplay] )
             [self.optionsArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
-        
-        
     }
     else if ([title isEqualToString:BRAND_TITLE]) {
         _isMultiSelect = YES;
-        getPreviousSelectedSortType = BRAND_TITLE;
-        
-        if ([sharedFacetHandler getBrandFiltersForDisplay] )
+        if ([[sharedFacetHandler getBrandFiltersForDisplay] count] != 0 ) {
             [self.optionsArray setArray:[sharedFacetHandler getBrandFiltersForDisplay]];
-        
-        
+        } else {
+            _selectedSortIndex = 0;
+            //this is because if after selecting the row there is no data it shows empty so just make him to go the first
+            // we can also make him to go above one but difficult to handle i think
+        }
     }
     else if ([title isEqualToString:COLOR_TITLE]) {
         _isMultiSelect = YES;
-        getPreviousSelectedSortType = COLOR_TITLE;
-        
-        if ([sharedFacetHandler getColorFiltersForDisplay] )
+        if ([[sharedFacetHandler getColorFiltersForDisplay] count] != 0) {
             [self.optionsArray setArray:[sharedFacetHandler getColorFiltersForDisplay]];
-        
-        
+        } else {
+            _selectedSortIndex = 0;
+        }
     }
     else if ([title isEqualToString:SIZE_TITLE]) {
         _isMultiSelect = YES;
-        getPreviousSelectedSortType = SIZE_TITLE;
-        
-        if ([sharedFacetHandler getSizeFiltersForDisplay] )
+        if ([[sharedFacetHandler getSizeFiltersForDisplay] count] != 0) {
             [self.optionsArray setArray:[sharedFacetHandler getSizeFiltersForDisplay]];
-        
-        
+        } else {
+            _selectedSortIndex = 0;
+        }
     }
     
     
@@ -429,25 +402,18 @@
     if ([sharedFacetHandler getSelectedSizesArray])
         [self.totalSelectedArray addObjectsFromArray:[sharedFacetHandler getSelectedSizesArray]];
     
-    NSString * selectedSingleC = _selectedCategory;
     
-    NSArray *stringsC = [selectedSingleC componentsSeparatedByString:@": "];
-    if (stringsC.count!=0) {
-        _selectedCategory = stringsC[0];
-    }
+    
+    /* Animate the table view reload */
+    [UIView transitionWithView:_tableFilterSelection
+                      duration:0.35f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^(void)
+     {
+         [_tableFilterSelection reloadData];
+     }
+                    completion:nil];
 
-    NSString * selectedSingleP = _selectedPrice;
-    
-    NSArray *stringsP = [selectedSingleP componentsSeparatedByString:@": "];
-    if (stringsP.count!=0) {
-        _selectedPrice = stringsP[0];
-    }
-
-    
-    
-//    NSLog(@"%@",_selectedCategory);
-    
-    [_tableFilterSelection reloadData];
     [_tableFilterType reloadData];
 }
 
@@ -458,15 +424,6 @@
     //we are making the array empty in didselectrow in case not empty it should perform the below method
     if (self.getSelectedArray.count != 0) {
         [self.totalSelectedArray addObjectsFromArray:self.getSelectedArray];
-        //Removing duplicates from total array
-        NSArray *copy = [self.totalSelectedArray copy];
-        NSInteger index = [copy count] - 1;
-        for (id object in [copy reverseObjectEnumerator]) {
-            if ([self.totalSelectedArray indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
-                [self.totalSelectedArray removeObjectAtIndex:index];
-            }
-            index--;
-        }
         [BTRLoader showLoaderInView:self.view];
         
         [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
@@ -476,6 +433,7 @@
                                    [self.getSelectedArray removeAllObjects];
                                }
                                failure:^(NSError *error) {
+                                   [BTRLoader hideLoaderFromView:self.view];
                                }];
         
     }
@@ -562,11 +520,12 @@
 - (NSString *)facetsQueryString:(NSString *)title {
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     if ([[self totalSelectedArray] count] != 0) {
-        if ([title isEqualToString:PRICE_TITLE])
-            [sharedFacetHandler setPriceSelectionWithPriceString:_selectedPrice];
         
         if ([title isEqualToString:CATEGORY_TITLE])
             [sharedFacetHandler setCategorySelectionWithCategoryString:_selectedCategory];
+        
+        if ([title isEqualToString:PRICE_TITLE])
+            [sharedFacetHandler setPriceSelectionWithPriceString:_selectedPrice];
         
         if ([title isEqualToString:BRAND_TITLE])
             [sharedFacetHandler setSelectedBrandsWithArray:[self totalSelectedArray]];
@@ -580,7 +539,18 @@
     return [sharedFacetHandler getFacetStringForRESTfulRequest];
 }
 
-
+- (NSString*)breakStringGetFirst:(NSString*)string {
+    
+    NSString * firstString;
+    NSArray *stringsP = [string componentsSeparatedByString:@": "];
+    
+    if (stringsP.count!=0) {
+        firstString = stringsP[0];
+        return firstString;
+    } else {
+        return string;
+    }
+}
 
 @end
 

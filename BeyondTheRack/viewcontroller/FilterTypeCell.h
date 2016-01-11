@@ -10,5 +10,7 @@
 
 @interface FilterTypeCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
+@property (weak, nonatomic) IBOutlet UIImageView * sortImage;
+@property (weak, nonatomic) IBOutlet UIView *backView;
 
 @end

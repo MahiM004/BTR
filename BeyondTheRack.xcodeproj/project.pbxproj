@@ -24,6 +24,11 @@
 		14C046C61C0C190B00521189 /* BTRPopUPVCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C046C51C0C190B00521189 /* BTRPopUPVCCell.m */; };
 		14DE66CE1C159A2E00A7AA1F /* DownPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DE66CB1C159A2E00A7AA1F /* DownPicker.m */; };
 		14DE66CF1C159A2E00A7AA1F /* UIDownPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DE66CD1C159A2E00A7AA1F /* UIDownPicker.m */; };
+		14EE31DE1C43906600CB8A77 /* priceTag.png in Resources */ = {isa = PBXBuildFile; fileRef = 14EE31DD1C43906600CB8A77 /* priceTag.png */; };
+		14EE31E21C43925200CB8A77 /* offer.png in Resources */ = {isa = PBXBuildFile; fileRef = 14EE31DF1C43925200CB8A77 /* offer.png */; };
+		14EE31E41C43925200CB8A77 /* colorImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 14EE31E11C43925200CB8A77 /* colorImage.png */; };
+		14EE31E61C4393C100CB8A77 /* sortBy.png in Resources */ = {isa = PBXBuildFile; fileRef = 14EE31E51C4393C100CB8A77 /* sortBy.png */; };
+		14EE31E81C4398E900CB8A77 /* Category.png in Resources */ = {isa = PBXBuildFile; fileRef = 14EE31E71C4398E900CB8A77 /* Category.png */; };
 		14F378A51BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */; };
 		14F418FA1C23D5AA003F90C7 /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F418F71C23D5AA003F90C7 /* downArrow.png */; };
 		14F418FB1C23D5AA003F90C7 /* downArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14F418F81C23D5AA003F90C7 /* downArrow@2x.png */; };
@@ -288,6 +293,11 @@
 		14DE66CB1C159A2E00A7AA1F /* DownPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownPicker.m; sourceTree = "<group>"; };
 		14DE66CC1C159A2E00A7AA1F /* UIDownPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDownPicker.h; sourceTree = "<group>"; };
 		14DE66CD1C159A2E00A7AA1F /* UIDownPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDownPicker.m; sourceTree = "<group>"; };
+		14EE31DD1C43906600CB8A77 /* priceTag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = priceTag.png; path = ../priceTag.png; sourceTree = "<group>"; };
+		14EE31DF1C43925200CB8A77 /* offer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = offer.png; path = ../offer.png; sourceTree = "<group>"; };
+		14EE31E11C43925200CB8A77 /* colorImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = colorImage.png; path = ../colorImage.png; sourceTree = "<group>"; };
+		14EE31E51C4393C100CB8A77 /* sortBy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sortBy.png; path = ../sortBy.png; sourceTree = "<group>"; };
+		14EE31E71C4398E900CB8A77 /* Category.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Category.png; sourceTree = "<group>"; };
 		14F378A31BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTRProductDetailEmbededVC.h; path = BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.h; sourceTree = "<group>"; };
 		14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTRProductDetailEmbededVC.m; path = BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m; sourceTree = "<group>"; };
 		14F418F71C23D5AA003F90C7 /* downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downArrow.png; sourceTree = "<group>"; };
@@ -730,6 +740,11 @@
 		144D8CBB1C3E436F00CD57E2 /* RefineCells */ = {
 			isa = PBXGroup;
 			children = (
+				14EE31E71C4398E900CB8A77 /* Category.png */,
+				14EE31DD1C43906600CB8A77 /* priceTag.png */,
+				14EE31E51C4393C100CB8A77 /* sortBy.png */,
+				14EE31DF1C43925200CB8A77 /* offer.png */,
+				14EE31E11C43925200CB8A77 /* colorImage.png */,
 				144D8CB51C3E436700CD57E2 /* FilterTypeCell.h */,
 				144D8CB61C3E436700CD57E2 /* FilterTypeCell.m */,
 				144D8CB71C3E436700CD57E2 /* FilterSelectionCell.h */,
@@ -1558,6 +1573,7 @@
 				145D3CC51BECA7DB00627DD5 /* facebook.png in Resources */,
 				69F0BB2F1B457156008C0498 /* SF-UI-Text-HeavyItalic.otf in Resources */,
 				690A39191B1DF56600D4BA84 /* mychecked@2x.png in Resources */,
+				14EE31E21C43925200CB8A77 /* offer.png in Resources */,
 				69D4400A1B2A0D7900070FD8 /* masterpass.png in Resources */,
 				69F0BB261B457156008C0498 /* SF-UI-Display-Light.otf in Resources */,
 				69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */,
@@ -1572,6 +1588,7 @@
 				14F418FC1C23D5AA003F90C7 /* downArrow@3x.png in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
 				A029D77F1BFBA9A500BFC7F7 /* profileBack.png in Resources */,
+				14EE31E61C4393C100CB8A77 /* sortBy.png in Resources */,
 				A00E4DE41B865B5700C93CD3 /* mp_lightbox_base.html in Resources */,
 				14F418FB1C23D5AA003F90C7 /* downArrow@2x.png in Resources */,
 				690A391C1B1DF57100D4BA84 /* myunchecked.png in Resources */,
@@ -1581,7 +1598,9 @@
 				A01670701B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib in Resources */,
 				69F0BB321B457156008C0498 /* SF-UI-Text-LightItalic.otf in Resources */,
 				690A390C1B1DEE0000D4BA84 /* checked.png in Resources */,
+				14EE31E41C43925200CB8A77 /* colorImage.png in Resources */,
 				A0FD342A1BA76C2E00B6B2C3 /* neulogo.png in Resources */,
+				14EE31E81C4398E900CB8A77 /* Category.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
 				69D4400B1B2A0D7900070FD8 /* masterpass@2x.png in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
@@ -1595,6 +1614,7 @@
 				A01670681B8CF11400448EF3 /* BTRSizeChartViewController.xib in Resources */,
 				6900B4E01AB7747900930D16 /* FontAwesome.ttf in Resources */,
 				14FBCD921C2933E600DDECE0 /* LoadPopView.xib in Resources */,
+				14EE31DE1C43906600CB8A77 /* priceTag.png in Resources */,
 				69F0BB291B457156008C0498 /* SF-UI-Display-Semibold.otf in Resources */,
 				1408D1B81BEA1D0400125FE8 /* BTRProductDetailImageCell.xib in Resources */,
 				695C755D1B386AFD003F65F8 /* paypalcheckout.png in Resources */,
