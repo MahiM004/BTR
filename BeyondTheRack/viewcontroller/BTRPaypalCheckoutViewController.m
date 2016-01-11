@@ -111,11 +111,7 @@
         self.confirmationInfo = [[ConfirmationInfo alloc]init];
         self.confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:response forConformationInfo:self.confirmationInfo];
         NSString * identifierSB;
-        if ([BTRViewUtility isIPAD]) {
-            identifierSB = @"BTRConfirmationSegueiPadIdentifier";
-        } else {
-            identifierSB = @"BTRConfirmationSegueIdentifier";
-        }
+        identifierSB = @"BTRConfirmationSegueIdentifier";
         [self performSegueWithIdentifier:identifierSB sender:self];
     } faild:^(NSError *error) {
         
