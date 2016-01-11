@@ -218,9 +218,30 @@
     self.isWorking = YES;
     [self setIsMenuOpen:NO];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [self fetchOrderHistoryWithSuccess:^(NSString *successString) {
-            [self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
+        [self fetchOrderHistoryWithSuccess:^(NSDictionary *response) {
+            if (response.count > 0) {
+                NSArray *allKeysArray = response.allKeys;
+                NSMutableArray *tempHeaderArray = [[NSMutableArray alloc] init];
+                if ([allKeysArray count] != 0) {
+                    for (NSString *key in allKeysArray) {
+                        OrderHistoryBag *ohBag = [[OrderHistoryBag alloc] init];
+                        NSDictionary *tempDictionary = [response objectForKey:key];
+                        ohBag = [OrderHistoryBag extractOrderHistoryfromJSONDictionary:tempDictionary forOrderHistoryBag:ohBag];
+                        [tempHeaderArray addObject:ohBag];
+                        NSArray *tempArray = tempDictionary[@"lines"];
+                        NSMutableArray *linesArray = [[NSMutableArray alloc] init];
+                        linesArray = [OrderHistoryItem loadOrderHistoryItemsfromAppServerArray:tempArray forOrderHistoryItemsArray:linesArray];
+                        [self.itemsDictionary setObject:linesArray forKey:key];
+                    }
+                    self.headersArray = tempHeaderArray;
+                }
+                [self performSegueWithIdentifier:@"BTRTrackOrdersSegueIdentifier" sender:self];
+            }else {
+                [self faildRequest];
+                [[[UIAlertView alloc]initWithTitle:@"Empty" message:@"You dont have any order to track" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            }
         } failure:^(NSError *error) {
+            [self faildRequest];
         }];
     });
 }
@@ -248,7 +269,7 @@
         [self fetchContactWithSuccess:^(id responseObject) {
             [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@",error);
+            [self faildRequest];
         }];
     } else
         [self performSegueWithIdentifier:@"BTRContactusSegueIdentifier" sender:self];
@@ -264,26 +285,7 @@
     [[self headersArray] removeAllObjects];
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderHistoryFetcher URLforOrderHistory]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
-        if (response.count > 0) {
-            NSArray *allKeysArray = response.allKeys;
-            NSMutableArray *tempHeaderArray = [[NSMutableArray alloc] init];
-            if ([allKeysArray count] != 0) {
-                for (NSString *key in allKeysArray) {
-                    OrderHistoryBag *ohBag = [[OrderHistoryBag alloc] init];
-                    NSDictionary *tempDictionary = [response objectForKey:key];
-                    ohBag = [OrderHistoryBag extractOrderHistoryfromJSONDictionary:tempDictionary forOrderHistoryBag:ohBag];
-                    [tempHeaderArray addObject:ohBag];
-                    NSArray *tempArray = tempDictionary[@"lines"];
-                    NSMutableArray *linesArray = [[NSMutableArray alloc] init];
-                    linesArray = [OrderHistoryItem loadOrderHistoryItemsfromAppServerArray:tempArray forOrderHistoryItemsArray:linesArray];
-                    [self.itemsDictionary setObject:linesArray forKey:key];
-                }
-                self.headersArray = tempHeaderArray;
-            }
-            success(@"TRUE");
-        }else {
-            [[[UIAlertView alloc]initWithTitle:@"Empty" message:@"You dont have any order to track" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-        }
+        success(response);
     } faild:^(NSError *error) {
         failure(error);
     }];
@@ -376,5 +378,13 @@
     if (self.lastOperation == gotoBag)
         [self tappedShoppingBag:nil];
 }
+
+- (void)faildRequest {
+    dispatch_async (dispatch_get_main_queue(), ^{
+        [BTRLoader hideLoaderFromView:self.view];
+        [self setIsWorking:NO];
+    });
+}
+
 
 @end
