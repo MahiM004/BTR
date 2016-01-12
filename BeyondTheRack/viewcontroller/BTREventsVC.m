@@ -11,7 +11,7 @@
 #import "Event+AppServer.h"
 #import "BTRProductShowcaseVC.h"
 #import "BTRConnectionHelper.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+AFNetworkingFadeIn.h"
 #import "BTREventCell.h"
 #import "BTRLoader.h"
 #import "BTRSettingManager.h"
@@ -107,24 +107,8 @@ static NSString * const reuseIdentifier = @"Cell";
     BTREventCell *cell = (BTREventCell *)[collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     cell.backgroundColor = [UIColor darkGrayColor];
     Event *event = [[self eventsArray] objectAtIndex:[indexPath row]];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]]];
     cell.durationLabel.adjustsFontSizeToFitWidth = YES;
-//    [self changeDateForLabel:cell.durationLabel withDate:[[self.eventsArray objectAtIndex:indexPath.row]endDateTime]];
-    __weak UIImageView *weakImageView = cell.eventImage;
-    [cell.eventImage setImageWithURLRequest:urlRequest placeholderImage:nil
-                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                  UIImageView *strongImageView = weakImageView; // make local strong reference to protect against race conditions
-                                  if (!strongImageView) return;
-                                  weakImageView.alpha = 0.9;
-                                  weakImageView.image = image;
-                                  [UIView animateWithDuration:0.6
-                                                   animations:^{
-                                                       weakImageView.alpha = 1;
-                                                   }
-                                                   completion:nil];
-                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                  weakImageView.image = [UIImage imageNamed:@"whiteblank.jpg"];
-                              }];
+    [cell.eventImage setImageWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]] placeholderImage:[UIImage imageNamed:@"whiteblank.jpg"] fadeInWithDuration:0.8];
     return cell;
 }
 
