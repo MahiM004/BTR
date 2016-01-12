@@ -22,6 +22,8 @@
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableFilterType; // table 11
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableFilterTypeWidth;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableFilterSelection; // table 22
 @property (strong, nonatomic) NSMutableArray *titles; // Titles table 11
 
@@ -123,6 +125,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if ([BTRViewUtility isIPAD]) {
+        [_tableFilterTypeWidth setConstant:150];
+    }
     [self initOptionsArray];
     _tableFilterSelection.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -422,7 +427,7 @@
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     //we are making the array empty in didselectrow in case not empty it should perform the below method
-    if (self.getSelectedArray.count != 0) {
+    if (self.getSelectedArray.count != 0 || _multipleSelChange == YES) {
         [self.totalSelectedArray addObjectsFromArray:self.getSelectedArray];
         [BTRLoader showLoaderInView:self.view];
         
