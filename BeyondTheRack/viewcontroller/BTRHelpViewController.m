@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _headerView.backgroundColor= [BTRViewUtility BTRBlack];
+    _headerView.backgroundColor= [UIColor whiteColor];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

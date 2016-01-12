@@ -29,7 +29,7 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 
 - (void)badgeInit
 {
-    int mySize = 10;
+    int mySize = 12;
     
     // Default design initialization
     self.badgeBGColor   = [UIColor redColor];
@@ -52,8 +52,8 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
     self.badgeFont      = [UIFont systemFontOfSize:mySize];
     self.badgePadding   = 0;
     self.badgeMinSize   = mySize;
-    self.badgeOriginX   = self.frame.size.width - self.frame.size.width/2;
-    self.badgeOriginY   = self.frame.size.height/2 - mySize - 3;//self.frame.size.height - 40;
+    self.badgeOriginX   = self.frame.size.width/2 - 8.0f;
+    self.badgeOriginY   = self.frame.size.height/2 - 3.5f;
     
     self.shouldHideBadgeAtZero = YES;
     self.shouldAnimateBadge = YES;

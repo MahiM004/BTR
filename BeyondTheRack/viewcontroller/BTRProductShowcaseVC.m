@@ -230,7 +230,8 @@ typedef enum ScrollDirection {
 
     [self.eventTitleLabel setText:[self eventTitleString]];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeDate) userInfo:nil repeats:YES];
-    self.headerView.backgroundColor = self.sortAndFilterView.backgroundColor = self.timerView.backgroundColor = [UIColor whiteColor];
+    self.headerView.backgroundColor = self.timerView.backgroundColor = [UIColor whiteColor];
+    self.sortAndFilterView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:0.8];
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.collectionView.delegate = self;

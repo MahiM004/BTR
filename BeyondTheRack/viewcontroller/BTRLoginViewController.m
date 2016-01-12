@@ -323,15 +323,9 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
-
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
-}
-
 - (IBAction)backButtonTouched:(id)sender {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 #pragma mark TextField Delegations
 
