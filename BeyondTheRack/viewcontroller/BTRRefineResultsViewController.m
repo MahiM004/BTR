@@ -120,7 +120,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _multipleSelChange = NO;
-     self.headerView.backgroundColor = self.view.backgroundColor = [BTRViewUtility BTRBlack];
+     self.headerView.backgroundColor = self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
