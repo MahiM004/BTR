@@ -104,7 +104,7 @@
     [self.titles addObjectsFromArray:@[SORT_TITLE, CATEGORY_TITLE, PRICE_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
     
     // SORT TYPES
-    [self.sortTypeArray setArray:@[BEST_MATCH, HIGHEST_TO_LOWEST, LOWEST_TO_HIGHEST]];
+    [self.sortTypeArray setArray:[sharedFacetHandler getSortOptionStringsArray]];
     
     
     // By default this only SORT_TITLE only needed
@@ -326,7 +326,7 @@
     
     if ([title isEqualToString:SORT_TITLE]) {
         _isMultiSelect = NO;
-        [self.sortTypeArray setArray:@[BEST_MATCH,HIGHEST_TO_LOWEST,LOWEST_TO_HIGHEST]];//Static
+        [self.sortTypeArray setArray:[sharedFacetHandler getSortOptionStringsArray]];
     }
     else if ([title isEqualToString:CATEGORY_TITLE]) {
         _isMultiSelect = NO;
