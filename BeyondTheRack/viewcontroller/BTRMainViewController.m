@@ -85,8 +85,8 @@
     [sharedFacetHandler resetFacets];
     sharedFacetHandler.searchString = @"";
     [_sideMenuButton setOptions:@{ kFRDLivelyButtonLineWidth: @(1.5f),
-                          kFRDLivelyButtonHighlightedColor: [BTRViewUtility BTRBlack],
-                          kFRDLivelyButtonColor: [UIColor whiteColor]
+                          kFRDLivelyButtonHighlightedColor: [UIColor whiteColor],
+                          kFRDLivelyButtonColor: [BTRViewUtility BTRBlack]
                           }];
     [_sideMenuButton setStyle:kFRDLivelyButtonStyleHamburger animated:YES];
 
@@ -109,8 +109,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [BTRViewUtility BTRBlack];
-    self.headerView.backgroundColor = [BTRViewUtility BTRBlack];
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.headerView.backgroundColor = [UIColor whiteColor];
     self.isMenuOpen = NO;
 }
 

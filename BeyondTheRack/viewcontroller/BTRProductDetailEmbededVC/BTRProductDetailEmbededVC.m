@@ -119,7 +119,7 @@
     }
     _selectedSizeIndex = -1;
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self.headerView setBackgroundColor:[BTRViewUtility BTRBlack]];
+    [self.headerView setBackgroundColor:[UIColor whiteColor]];
     if ([[[self getItem] brand] length] > 1)
         [self.eventTitleLabel setText:[[self getItem] brand]];
     else

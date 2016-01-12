@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [BTRViewUtility BTRBlack];
+    self.view.backgroundColor = [UIColor whiteColor];
     [BTRLoader showLoaderInView:self.view];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         // Do something...

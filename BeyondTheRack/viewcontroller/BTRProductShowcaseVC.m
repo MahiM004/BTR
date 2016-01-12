@@ -230,8 +230,8 @@ typedef enum ScrollDirection {
 
     [self.eventTitleLabel setText:[self eventTitleString]];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeDate) userInfo:nil repeats:YES];
-    self.headerView.backgroundColor = self.sortAndFilterView.backgroundColor = self.timerView.backgroundColor = [BTRViewUtility BTRBlack];
-    self.view.backgroundColor = [BTRViewUtility BTRBlack];
+    self.headerView.backgroundColor = self.sortAndFilterView.backgroundColor = self.timerView.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -825,7 +825,7 @@ typedef enum ScrollDirection {
         [self.timer invalidate];
     } else {
         self.eventEndTimeLabel.text = [NSString stringWithFormat:@"Event Ends In %li days %02ld:%02ld:%02ld",(long)components.day,(long)components.hour,(long)components.minute,(long)components.second];
-        self.eventEndTimeLabel.textColor = [UIColor whiteColor];
+        self.eventEndTimeLabel.textColor = [UIColor blackColor];
     }
 }
 

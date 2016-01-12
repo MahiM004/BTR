@@ -50,21 +50,21 @@
     self.slider = [[TTScrollSlidingPagesController alloc] init];
     self.slider.titleScrollerInActiveTextColour = [UIColor darkGrayColor];
     self.slider.titleScrollerBottomEdgeHeight = 2;
-    
     self.slider.hideStatusBarWhenScrolling = NO;
     self.slider.disableTitleScrollerShadow = YES;
     self.slider.initialPageNumber = INITIAL_PAGE_INDEX;
     self.slider.pagingEnabled = YES;
     self.slider.zoomOutAnimationDisabled = YES;
     self.slider.disableTitleShadow = YES;
-    self.slider.titleScrollerBackgroundColour = [BTRViewUtility BTRBlack];
-    self.view.backgroundColor = [BTRViewUtility BTRBlack];
+    self.slider.titleScrollerBackgroundColour = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7){
         self.slider.hideStatusBarWhenScrolling = YES;
     }
     
     self.slider.dataSource = self;
     // getting header's info
+    [self.bannerLabel setTextColor:[UIColor blackColor]];
     [self getheaderInfo];
     
 }
