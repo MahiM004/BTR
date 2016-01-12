@@ -769,7 +769,7 @@
     
     if (hideStatusBarWhenScrolling){
         //set the status bar style to light because the background it shares with the pagedots is black. You could do both of these in viewDidLoad, but doing it here just ensures that it still gets set if someone changed the property after viewDidLoad was called.
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
         
     }
 }
