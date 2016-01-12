@@ -352,7 +352,7 @@ static BTRFacetsHandler *_sharedInstance;
         return @"[600 TO 800]";
     else if ([labelString rangeOfString:@"$800 to $1000"].location != NSNotFound)
         return @"[800 TO 1000]";
-    else if ([labelString rangeOfString:@"$1000 to *"].location != NSNotFound)
+    else if ([labelString rangeOfString:@"$1000 to $*"].location != NSNotFound)
         return @"[1000 TO *]";
     return nil;
 }
