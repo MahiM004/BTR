@@ -22,6 +22,8 @@
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableFilterType; // table 11
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableFilterTypeWidth;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableFilterSelection; // table 22
 @property (strong, nonatomic) NSMutableArray *titles; // Titles table 11
 
@@ -102,7 +104,7 @@
     [self.titles addObjectsFromArray:@[SORT_TITLE, CATEGORY_TITLE, PRICE_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
     
     // SORT TYPES
-    [self.sortTypeArray setArray:@[BEST_MATCH, HIGHEST_TO_LOWEST, LOWEST_TO_HIGHEST]];
+    [self.sortTypeArray setArray:[sharedFacetHandler getSortOptionStringsArray]];
     
     
     // By default this only SORT_TITLE only needed
@@ -123,6 +125,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if ([BTRViewUtility isIPAD]) {
+        [_tableFilterTypeWidth setConstant:150];
+    }
     [self initOptionsArray];
     _tableFilterSelection.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -195,7 +200,8 @@
         else {
             // Multiple selection
             cell.lblTitle.text = self.optionsArray[indexPath.row];
-            if ([self isOptionSelected:[self.optionsArray objectAtIndex:indexPath.row]] >= 0){
+            NSString * selectedSingleP = [self breakStringGetFirst:cell.lblTitle.text];
+            if ([self isOptionSelected:selectedSingleP] >= 0){
                 cell.accessoryType = 3;
             } else {
                 cell.accessoryType = 0;
@@ -249,10 +255,13 @@
             _multipleSelChange = YES;
             if (cell.accessoryType == 0) {
                 cell.accessoryType = 3;
-                [self.getSelectedArray addObject:cell.lblTitle.text];
+                [self.getSelectedArray addObject:[self breakStringGetFirst:cell.lblTitle.text]];
             } else {
                 cell.accessoryType = 0;
-                [self.getSelectedArray removeObject:cell.lblTitle.text];
+                NSString * selected = [self breakStringGetFirst:cell.lblTitle.text];
+                [self.getSelectedArray removeObject:selected];
+                if ([self.totalSelectedArray containsObject:selected])
+                    [self.totalSelectedArray removeObject:selected];
             }
         }
         
@@ -320,7 +329,7 @@
     
     if ([title isEqualToString:SORT_TITLE]) {
         _isMultiSelect = NO;
-        [self.sortTypeArray setArray:@[BEST_MATCH,HIGHEST_TO_LOWEST,LOWEST_TO_HIGHEST]];//Static
+        [self.sortTypeArray setArray:[sharedFacetHandler getSortOptionStringsArray]];
     }
     else if ([title isEqualToString:CATEGORY_TITLE]) {
         _isMultiSelect = NO;
@@ -422,7 +431,7 @@
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     //we are making the array empty in didselectrow in case not empty it should perform the below method
-    if (self.getSelectedArray.count != 0) {
+    if (self.getSelectedArray.count != 0 || _multipleSelChange == YES) {
         [self.totalSelectedArray addObjectsFromArray:self.getSelectedArray];
         [BTRLoader showLoaderInView:self.view];
         
