@@ -200,7 +200,8 @@
         else {
             // Multiple selection
             cell.lblTitle.text = self.optionsArray[indexPath.row];
-            if ([self isOptionSelected:[self.optionsArray objectAtIndex:indexPath.row]] >= 0){
+            NSString * selectedSingleP = [self breakStringGetFirst:cell.lblTitle.text];
+            if ([self isOptionSelected:selectedSingleP] >= 0){
                 cell.accessoryType = 3;
             } else {
                 cell.accessoryType = 0;
@@ -254,10 +255,10 @@
             _multipleSelChange = YES;
             if (cell.accessoryType == 0) {
                 cell.accessoryType = 3;
-                [self.getSelectedArray addObject:cell.lblTitle.text];
+                [self.getSelectedArray addObject:[self breakStringGetFirst:cell.lblTitle.text]];
             } else {
                 cell.accessoryType = 0;
-                [self.getSelectedArray removeObject:cell.lblTitle.text];
+                [self.getSelectedArray removeObject:[self breakStringGetFirst:cell.lblTitle.text]];
             }
         }
         
