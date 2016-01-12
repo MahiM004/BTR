@@ -258,7 +258,10 @@
                 [self.getSelectedArray addObject:[self breakStringGetFirst:cell.lblTitle.text]];
             } else {
                 cell.accessoryType = 0;
-                [self.getSelectedArray removeObject:[self breakStringGetFirst:cell.lblTitle.text]];
+                NSString * selected = [self breakStringGetFirst:cell.lblTitle.text];
+                [self.getSelectedArray removeObject:selected];
+                if ([self.totalSelectedArray containsObject:selected])
+                    [self.totalSelectedArray removeObject:selected];
             }
         }
         
