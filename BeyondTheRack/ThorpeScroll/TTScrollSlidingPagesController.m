@@ -199,6 +199,9 @@
     
     [super viewDidAppear:YES];
     
+    if (!self.titleScrollerHidden)
+        topScrollView.frame = CGRectMake(0, 0, topScrollView.frame.size.width, topScrollView.frame.size.height);
+
     if (!viewDidAppearHasBeenCalled){
         viewDidAppearHasBeenCalled = YES;
         [self reloadPages];
