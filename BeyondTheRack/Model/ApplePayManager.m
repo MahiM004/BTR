@@ -276,8 +276,12 @@
     
     [addressDic setObject:@" " forKey:@"address2"];
 
-    if (contact.postalAddress.ISOCountryCode)
+    if ([contact.postalAddress.ISOCountryCode length] > 0)
         [addressDic setObject:[contact.postalAddress.ISOCountryCode uppercaseString] forKey:@"country"];
+    else if ([contact.postalAddress.country isEqualToString:@"United States"])
+        [addressDic setObject:@"US" forKey:@"country"];
+    else if ([contact.postalAddress.country isEqualToString:@"Canada"])
+        [addressDic setObject:@"CA" forKey:@"country"];
     else
         [addressDic setObject:@" " forKey:@"country"];
     
