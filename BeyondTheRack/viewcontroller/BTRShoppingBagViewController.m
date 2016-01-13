@@ -141,12 +141,12 @@
     cell.stepper.countLabel.text = bagItem.quantity;
     cell.stepper.incrementCallback =  ^(PKYStepper *stepper, float count) {
         stepper.value = stepper.value - 1;
-        [UIImageView beginAnimations:@"reload" context:NULL];
-        [UIImageView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:weakcell.itemImageView cache:NO];
+        [UIImageView beginAnimations:@"addintOne" context:NULL];
+        [UIImageView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:weakcell.itemImageView cache:YES];
         [UIImageView setAnimationDuration:0.5];
         [UIImageView commitAnimations];
+        stepper.userInteractionEnabled = NO;
         pkStepper = stepper;
-        pkStepper.userInteractionEnabled = NO;
         [self performSelector:@selector(addOneQuantityForItem:) withObject:bagItem afterDelay:0.5];
     };
     cell.stepper.decrementCallback = ^(PKYStepper *stepper, float count) {
@@ -154,12 +154,12 @@
         if ([weakcell.stepper.countLabel.text isEqualToString:@"1"]) {
             [self removeBagItem:bagItem];
         } else {
-            [UIImageView beginAnimations:@"reload" context:NULL];
-            [UIImageView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:weakcell.itemImageView cache:NO];
+            [UIImageView beginAnimations:@"removeOne" context:NULL];
+            [UIImageView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:weakcell.itemImageView cache:YES];
             [UIImageView setAnimationDuration:0.5];
             [UIImageView commitAnimations];
+            stepper.userInteractionEnabled = NO;
             pkStepper = stepper;
-            pkStepper.userInteractionEnabled = NO;
             [self performSelector:@selector(removeOneQuantityForItem:) withObject:bagItem afterDelay:0.5];
         }
     };
@@ -308,7 +308,6 @@
     [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         [self reloadInfoWithResponse:response];
 //        [self performSelector:@selector(reloadInfoWithResponse:) withObject:response afterDelay:0.5];
-        pkStepper.userInteractionEnabled = YES;
     }faild:^(NSError *error) {
         pkStepper.userInteractionEnabled = YES;
     }];
@@ -323,7 +322,6 @@
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         [self performSelector:@selector(reloadInfoWithResponse:) withObject:response afterDelay:0.5];
-        pkStepper.userInteractionEnabled = YES;
     }faild:^(NSError *error) {
         pkStepper.userInteractionEnabled = YES;
     }];
@@ -612,7 +610,7 @@
         [self.view addSubview:self.emptyLabel];
         [self.view bringSubviewToFront:self.emptyLabel];
     }
-    
+    pkStepper.userInteractionEnabled = YES;
 }
 
 - (void)masterPassInfoDidReceived:(NSDictionary *)info {

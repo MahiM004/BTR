@@ -187,7 +187,9 @@ static const float kButtonWidth = 30.0f;
         self.value += self.stepInterval;
         if (self.incrementCallback)
         {
+            dispatch_async(dispatch_get_main_queue(), ^{
             self.incrementCallback(self, self.value);
+            });
         }
     }
 }
@@ -200,7 +202,9 @@ static const float kButtonWidth = 30.0f;
         self.value -= self.stepInterval;
         if (self.decrementCallback)
         {
-            self.decrementCallback(self, self.value);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.decrementCallback(self, self.value);
+            });
         }
     }
 }
