@@ -19,6 +19,8 @@
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import "BTRSettingManager.h"
 #import <Google/Analytics.h>
+#import "DNNotificationController.h"
+#import "DNDonkyCore.h"
 #import "BTRInitializeViewController.h"
 
 @interface BTRAppDelegate ()
@@ -89,6 +91,7 @@
     }];
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    [[DNDonkyCore sharedInstance] initialiseWithAPIKey:@"1KgJgRCYwEhqnA1PHeaKEaQsLaklBN2t8TiBI0gezGFmhmki9Kr7mHTKEGb3QPWeCwia1qDRKNtJbt3wyFyQ"];
     
 //    //Google analytics
 //    NSError *configureError;
@@ -189,5 +192,24 @@
         [viewController.view removeFromSuperview];
     }];
 }
+
+#pragma mark Notification
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [DNNotificationController registerDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    [DNNotificationController didReceiveNotification:userInfo handleActionIdentifier:nil completionHandler:^(NSString *string) {
+        completionHandler(UIBackgroundFetchResultNewData);
+    }];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    [DNNotificationController didReceiveNotification:userInfo handleActionIdentifier:identifier completionHandler:^(NSString *string) {
+        completionHandler();
+    }];
+}
+
 
 @end
