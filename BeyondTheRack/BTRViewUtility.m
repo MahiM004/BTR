@@ -213,6 +213,13 @@
     return dateString;
 }
 
+
++ (UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege {
+    UIAlertView * aa = [[UIAlertView alloc]initWithTitle:title message:messege delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [aa show];
+    return aa;
+}
+
 @end
 
 
