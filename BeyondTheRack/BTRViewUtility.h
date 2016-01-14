@@ -36,4 +36,5 @@
 
 + (NSDictionary *)inquiryTypes;
 
++ (UIAlertView*)showAlert:(NSString *)title msg:(NSString *)messege;
 @end

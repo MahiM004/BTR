@@ -72,7 +72,7 @@ static BTRFacetsHandler *_sharedInstance;
 
 - (void)clearSortSelection {
     BTRFacetData * sharedFacetData = [BTRFacetData sharedFacetData];
-    sharedFacetData.selectedSortString = @"";
+    sharedFacetData.selectedSortString = BEST_MATCH;
 }
 
 - (void)setSortChosenOptionString:(NSString *)chosenSortString {
