@@ -34,7 +34,7 @@
 static NSString *const kShouldSkipLoginKey = @"shouldSkipLogin";
 static NSString *const kLoggedInWithFacebook = @"loggedInWithFacebook";
 
-static NSString *const kSessionId = @"sessionId";
+static NSString *const kSessionId = @"legacySessionToken";
 static NSString *const kPassword = @"password";
 static NSString *const kEmail = @"email";
 static NSString *const kFullName = @"fullName";
