@@ -53,6 +53,7 @@
 @property NSString *type;
 @property operation lastOperation;
 @property BOOL isWorking;
+@property BOOL isShadowsAnimationDone;
 
 @end
 
@@ -60,20 +61,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    BOOL firstLaunch = [[NSUserDefaults standardUserDefaults]boolForKey:@"FirstLaunch"];
-    if (firstLaunch == YES) {
-        self.shadowAnimation = [JTSlideShadowAnimation new];
-        self.shadowAnimation.animatedView = self.logoImageView;
-        self.shadowAnimation.repeatCount = 1;
-        self.shadowAnimation.duration = 5;
-        [NSTimer scheduledTimerWithTimeInterval:4.5
-                                         target:self
-                                       selector:@selector(updateImage)
-                                       userInfo:nil
-                                        repeats:NO];
-    } else {
-        [self.shadowAnimation stop];
-    }
     if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
         [self getCartCountServerCallWithSuccess:^(NSString *bagCountString) {
             self.bagButton.badgeValue = bagCountString;
@@ -97,8 +84,16 @@
                                              selector:@selector(userDidLogin:)
                                                  name:kUSERDIDLOGIN
                                                object:nil];
-    BOOL firstLaunch = [[NSUserDefaults standardUserDefaults]boolForKey:@"FirstLaunch"];
-    if (firstLaunch == YES) {
+    if (self.isShadowsAnimationDone == NO) {
+        [NSTimer scheduledTimerWithTimeInterval:6.4
+                                         target:self
+                                       selector:@selector(updateImage)
+                                       userInfo:nil
+                                        repeats:NO];
+        self.shadowAnimation = [JTSlideShadowAnimation new];
+        self.shadowAnimation.animatedView = self.logoImageView;
+        self.shadowAnimation.repeatCount = 1;
+        self.shadowAnimation.duration = 7;
         [self.shadowAnimation start];
     }
 }
@@ -112,12 +107,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.headerView.backgroundColor = [UIColor whiteColor];
     self.isMenuOpen = NO;
+    self.isShadowsAnimationDone = NO;
 }
 
 -(void)updateImage {
     [self.shadowAnimation stop];
-    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"FirstLaunch"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    [self setIsShadowsAnimationDone:YES];
 }
 
 #pragma mark - Get bag count
