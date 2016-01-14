@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '29FF5D5973F153CDE97E7DBD'
+               BlueprintIdentifier = 'E08C32F1FE660BE99C9D032F'
                BlueprintName = 'PinterestSDK'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPinterestSDK.a'>

@@ -59,10 +59,30 @@ install_resource()
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "BSErrorMessageView/Source/BSResources.bundle"
+  install_resource "Donky-CommonMessaging-UI/src/modules/Messaging/Common/UI/Rich Modules/Localisation/DRLocalization.strings"
+  install_resource "Donky-CommonMessaging-UI/src/modules/Messaging/Common/UI/Localization/DCUILocalization.strings"
+  install_resource "Donky-CommonMessaging-UI/src/modules/Messaging/Common/UI/Donky Banner View/Assets/common_messaging_default_avatar.png"
+  install_resource "Donky-CommonMessaging-UI/src/modules/Messaging/Common/UI/Donky Banner View/Assets/common_messaging_default_avatar@2x.png"
+  install_resource "Donky-Core-SDK/src/modules/Core/App Settings Controller/Resources/DNConfiguration.plist"
+  install_resource "Donky-Core-SDK/src/modules/Core/Data Controller/Resources/DNDonkyDataModel.xcdatamodeld"
+  install_resource "Donky-Core-SDK/src/modules/Core/Universal Helpers/Localization/DNLocalization.strings"
+  install_resource "Donky-SimplePush-UI/src/modules/Messaging/SimplePush/UI/Helpers/Images/avatar_default.png"
+  install_resource "Donky-SimplePush-UI/src/modules/Messaging/SimplePush/UI/Helpers/Images/avatar_default@2x.png"
+  install_resource "Donky-SimplePush-UI/src/modules/Messaging/SimplePush/UI/Helpers/Images/avatar_default@3x.png"
   install_resource "IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "BSErrorMessageView/Source/BSResources.bundle"
+  install_resource "Donky-CommonMessaging-UI/src/modules/Messaging/Common/UI/Rich Modules/Localisation/DRLocalization.strings"
+  install_resource "Donky-CommonMessaging-UI/src/modules/Messaging/Common/UI/Localization/DCUILocalization.strings"
+  install_resource "Donky-CommonMessaging-UI/src/modules/Messaging/Common/UI/Donky Banner View/Assets/common_messaging_default_avatar.png"
+  install_resource "Donky-CommonMessaging-UI/src/modules/Messaging/Common/UI/Donky Banner View/Assets/common_messaging_default_avatar@2x.png"
+  install_resource "Donky-Core-SDK/src/modules/Core/App Settings Controller/Resources/DNConfiguration.plist"
+  install_resource "Donky-Core-SDK/src/modules/Core/Data Controller/Resources/DNDonkyDataModel.xcdatamodeld"
+  install_resource "Donky-Core-SDK/src/modules/Core/Universal Helpers/Localization/DNLocalization.strings"
+  install_resource "Donky-SimplePush-UI/src/modules/Messaging/SimplePush/UI/Helpers/Images/avatar_default.png"
+  install_resource "Donky-SimplePush-UI/src/modules/Messaging/SimplePush/UI/Helpers/Images/avatar_default@2x.png"
+  install_resource "Donky-SimplePush-UI/src/modules/Messaging/SimplePush/UI/Helpers/Images/avatar_default@3x.png"
   install_resource "IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle"
 fi
 

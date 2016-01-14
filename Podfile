@@ -17,3 +17,4 @@ pod 'Braintree/Apple-Pay', :git => 'https://github.com/braintree/braintree_ios.g
 pod 'CardIO'
 pod 'SDVersion'
 pod 'IQKeyboardManager'
+pod 'Donky-SimplePush-UI'

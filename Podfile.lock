@@ -31,6 +31,18 @@ PODS:
   - Braintree/Core (4.0.0)
   - BSErrorMessageView (1.1)
   - CardIO (5.2.2)
+  - Donky-CommonMessaging-Logic (4.6.5.4):
+    - Donky-Core-SDK
+  - Donky-CommonMessaging-UI (4.6.5.4):
+    - Donky-CommonMessaging-Logic
+    - UIView-Autolayout (~> 0.2)
+  - Donky-Core-SDK (4.6.5.6):
+    - AFNetworking (~> 2.3)
+  - Donky-SimplePush-Logic (4.6.5.4):
+    - Donky-CommonMessaging-Logic
+  - Donky-SimplePush-UI (4.6.5.4):
+    - Donky-CommonMessaging-UI
+    - Donky-SimplePush-Logic
   - FBSDKCoreKit (4.7.0):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc (= 4.7.0)
@@ -73,6 +85,7 @@ PODS:
   - SDVersion (2.5.2)
   - SpinKit (1.2.0)
   - SSKeychain (1.2.3)
+  - UIView-Autolayout (0.2.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
@@ -80,6 +93,7 @@ DEPENDENCIES:
     `4.0-beta`)
   - BSErrorMessageView (from `https://github.com/BenjaminSarkisyan/BSErrorMessageView.git`)
   - CardIO
+  - Donky-SimplePush-UI
   - FBSDKCoreKit (~> 4.7)
   - FBSDKLoginKit (~> 4.7)
   - FBSDKShareKit (~> 4.7)
@@ -121,6 +135,11 @@ SPEC CHECKSUMS:
   Braintree: 660cca560c01a7464626ee1e18c971d6491a3889
   BSErrorMessageView: 67cc7d172995fbc6df602c2b8923f48121ddf7a9
   CardIO: 2460db0f4936f3441b08d51e3904b436d77ec8fc
+  Donky-CommonMessaging-Logic: ec4908cdc65430a58816ce52b1b890564290b821
+  Donky-CommonMessaging-UI: 81ac8778024eb0baca71ce3ae328cf5d4affb5dc
+  Donky-Core-SDK: ad20067831342daabcfe0712b607c2208110ec67
+  Donky-SimplePush-Logic: 28c1f001407d597057338ec3a857b5fdd7591e7c
+  Donky-SimplePush-UI: 646ad636583a543e0da4aa78f8c7aad6a63a9cb2
   FBSDKCoreKit: eb580bfc2040ad44f4c0b4f4d0befb1d35bce59c
   FBSDKLoginKit: 028c5a205990441123764609fe795e65027c447f
   FBSDKShareKit: 1f927bb05e4d36a99d5d5bf2f4b1ff294ce3e15c
@@ -141,5 +160,6 @@ SPEC CHECKSUMS:
   SDVersion: 52f2641db3a580616936b0ce66f4769706570654
   SpinKit: 65906a8b534a4e14cbfd3f8b0b6c329131faef4a
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
+  UIView-Autolayout: 042510c499403f58620998278ddd60fa7b6cd4a7
 
 COCOAPODS: 0.39.0

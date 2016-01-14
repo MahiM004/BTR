@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '643B5BC98F577E29B620B2D5'
+               BlueprintIdentifier = '601037E9A54E7DA321BF5745'
                BlueprintName = 'FRDLivelyButton'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libFRDLivelyButton.a'>
