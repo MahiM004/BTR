@@ -392,7 +392,7 @@
     NSLog(@"%@ : %@",title,self.totalSelectedArray);
     
     if ([[self optionsArray]count] == 0) // if problem with backend data
-        [self clearTapped:_clearBtn];
+        [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
     
     /* Animate the table view reload */
     [UIView transitionWithView:_tableFilterSelection
@@ -507,7 +507,6 @@
 }
 
 - (NSString *)facetsQueryString:(NSString *)title {
-    NSLog(@"%@",self.totalSelectedArray);
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     if ([[self totalSelectedArray] count] != 0) {
         
