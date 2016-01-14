@@ -71,6 +71,11 @@
      *  Use the following for first time app launch
      *
      */
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    NSString *secretAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *userAgent = [NSString stringWithFormat:@"%@; %@ ; BTR_IOS_App",appVersion,secretAgent];
+    [[BTRSettingManager defaultManager]setInSetting:userAgent forKey:kUSERAGENT];
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
         BOOL isFirstTime = ![[[BTRSettingManager defaultManager]objectForKeyInSetting:kFIRSTTIMERUNNING]boolValue];
@@ -79,13 +84,10 @@
             NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
             [[BTRSettingManager defaultManager]setInSetting:countryCode forKey:kUSERLOCATION];
             [[BTRSettingManager defaultManager]setInSetting:[NSNumber numberWithBool:YES] forKey:kFIRSTTIMERUNNING];
+            
         }
     }];
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"FirstLaunch"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
     
-
-
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
 //    //Google analytics

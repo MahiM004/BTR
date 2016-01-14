@@ -7,6 +7,7 @@
 //
 
 #import "BTRConnectionHelper.h"
+#import "BTRSettingManager.h"
 
 @implementation BTRConnectionHelper
 
@@ -22,7 +23,7 @@
     if (needSession)
         [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
-    [manager.requestSerializer setValue:@"BTR_IOS_App" forHTTPHeaderField:@"User-Agent"];
+    [manager.requestSerializer setValue:[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERAGENT] forHTTPHeaderField:@"User-Agent"];
     [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [manager POST:url
        parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -48,7 +49,7 @@
     if (needSession)
         [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
-    [manager.requestSerializer setValue:@"BTR_IOS_App" forHTTPHeaderField:@"User-Agent"];
+    [manager.requestSerializer setValue:[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERAGENT] forHTTPHeaderField:@"User-Agent"];
     [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
@@ -73,7 +74,7 @@
     if (needSession)
         [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
     
-    [manager.requestSerializer setValue:@"BTR_IOS_App" forHTTPHeaderField:@"User-Agent"];
+    [manager.requestSerializer setValue:[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERAGENT] forHTTPHeaderField:@"User-Agent"];
     [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [manager PUT:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
@@ -85,4 +86,5 @@
             faild(error);
     }];
 }
+
 @end
