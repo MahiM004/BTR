@@ -196,12 +196,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    
     [super viewDidAppear:YES];
-    
-    if (!self.titleScrollerHidden)
-        topScrollView.frame = CGRectMake(0, 0, topScrollView.frame.size.width, topScrollView.frame.size.height);
-
     if (!viewDidAppearHasBeenCalled){
         viewDidAppearHasBeenCalled = YES;
         [self reloadPages];
@@ -522,13 +517,14 @@
 #pragma mark Some delegate methods for handling rotation.
 
 -(void)didRotate{
+    [self fixViewPosition];
     currentPageBeforeRotation = [self getCurrentDisplayedPage];
 }
 
 
 -(void)viewDidLayoutSubviews{
     //this will get called when the screen rotates, at which point we need to fix the frames of all the subviews to be the new correct x position horizontally. The autolayout mask will automatically change the width for us.
-    
+    [self fixViewPosition];
     if (!self.titleScrollerHidden && !self.disableTitleScrollerShadow){
         //Fix the shadow path now the bounds might have changed.
         CGPathRef shadowPath = [UIBezierPath bezierPathWithRect:topScrollViewWrapper.bounds].CGPath;
@@ -556,6 +552,10 @@
     int contentOffsetWidth = [self getXPositionOfPage:currentPageBeforeRotation];
     bottomScrollView.contentOffset = CGPointMake(contentOffsetWidth, 0);
     
+}
+
+- (void)fixViewPosition {
+    topScrollView.frame = CGRectMake(0, 0, topScrollView.frame.size.width, topScrollView.frame.size.height);
 }
 
 #pragma mark UIScrollView delegate
