@@ -41,8 +41,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 @property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
 
+@property (strong, nonatomic) UISwipeGestureRecognizer *swipeGest;
+
 @property (strong, nonatomic) JTSlideShadowAnimation *shadowAnimation;
-@property (strong, nonatomic) BTRAccountEmbeddedTVC* accountViewController;
+@property (strong, nonatomic) BTRAccountEmbeddedTVC *accountViewController;
 
 @property (strong, nonatomic) NSMutableDictionary *itemsDictionary;
 @property (strong, nonatomic) NSMutableArray *headersArray;
@@ -108,6 +110,11 @@
     self.headerView.backgroundColor = [UIColor whiteColor];
     self.isMenuOpen = NO;
     self.isShadowsAnimationDone = NO;
+    if (!self.swipeGest) {
+        self.swipeGest = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(closeMenu)];
+        self.swipeGest.direction = UISwipeGestureRecognizerDirectionLeft;
+        [self.view addGestureRecognizer:self.swipeGest];
+    }
 }
 
 -(void)updateImage {
@@ -141,13 +148,7 @@
     }
     
     if (self.isMenuOpen) {
-        [self removeTapRecognizerView];
-        [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
-        [self setIsMenuOpen:NO];
-        [_sideMenuButton setStyle:kFRDLivelyButtonStyleHamburger animated:YES];
-        dispatch_async (dispatch_get_main_queue(), ^{
-            [self removeTapRecognizerView];
-        });
+        [self closeMenu];
         return;
     }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -157,6 +158,16 @@
     [_sideMenuButton setStyle:kFRDLivelyButtonStyleArrowLeft animated:YES];
     [self AddTapRecognizerView];
     [BTRAnimationHandler showViewController:self.accountViewController atLeftOfViewController:self inDuration:0.5];
+}
+
+- (void)closeMenu {
+    [self removeTapRecognizerView];
+    [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
+    [self setIsMenuOpen:NO];
+    [_sideMenuButton setStyle:kFRDLivelyButtonStyleHamburger animated:YES];
+    dispatch_async (dispatch_get_main_queue(), ^{
+        [self removeTapRecognizerView];
+    });
 }
 
 - (IBAction)searchButtonTapped:(UIButton *)sender {
