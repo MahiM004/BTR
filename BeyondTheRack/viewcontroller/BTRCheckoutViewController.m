@@ -1249,6 +1249,7 @@
 }
 
 - (IBAction)buyWithApplePay:(UIButton *)sender {
+    self.order.shippingAddress.phoneNumber = self.phoneShippingTF.text;
     self.applePayManager = [[ApplePayManager alloc]init];
     self.applePayManager.delegate = self;
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
