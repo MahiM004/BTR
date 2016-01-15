@@ -475,7 +475,7 @@
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
         
         [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
-            [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:self.order checkoutMode:checkoutOne];
+            [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:[self.order copy] checkoutMode:checkoutOne];
             [self.applePayManager showPaymentViewFromViewController:self];
         } failure:^(NSError *error) {
             
