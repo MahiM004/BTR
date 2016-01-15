@@ -10,7 +10,7 @@
 #import "Address.h"
 #import "PromoItem.h"
 
-@interface Order : NSObject
+@interface Order : NSObject <NSCopying>
 
 @property BOOL isAccepted;
 @property (nonatomic, retain) NSString * confirmDateTime;
