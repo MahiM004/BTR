@@ -1433,6 +1433,9 @@
 }
 
 - (IBAction)zipCodeHasBeenEntererd:(UITextField *)sender {
+    if (_sameAddressCheckbox.checked) {
+        [self copyShipingAddressToBillingAddress];
+    }
     [self validateAddressViaAPIAndInCompletion:nil];
 }
 
