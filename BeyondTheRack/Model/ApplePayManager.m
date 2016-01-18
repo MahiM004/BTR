@@ -12,6 +12,7 @@
 #import "BTRApplePayFetcher.h"
 #import "BTRConnectionHelper.h"
 #import "BTROrderFetcher.h"
+#import "BTRViewUtility.h"
 #import "SDVersion.h"
 
 @interface ApplePayManager()
@@ -285,7 +286,9 @@
     else
         [addressDic setObject:@" " forKey:@"country"];
     
-    if (contact.postalAddress.state)
+    if (contact.postalAddress.state && contact.postalAddress.state.length > 2)
+        [addressDic setObject:[BTRViewUtility provinceCodeforName:contact.postalAddress.state] forKey:@"state"];
+    else if (contact.postalAddress)
         [addressDic setObject:contact.postalAddress.state forKey:@"state"];
     else
         [addressDic setObject:@" " forKey:@"state"];
