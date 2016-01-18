@@ -7,7 +7,7 @@
 */
 
 //For all standard push notifications, including push, where %1$@ is the senders name and %2$@ is the message preview:
-"MSG_PRV" = "%2$@";
+"MSG_PRV" = "%1$@ : %2$@";
 
 //For new device notifications, where %2$@ is the description of the new device:
 "MSG_NEWDVC" = "A new %2$@ has been registered against your account; if you did not register this device please let us know immediately.";
