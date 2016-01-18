@@ -15,6 +15,7 @@
 #import "BTREventCell.h"
 #import "BTRLoader.h"
 #import "BTRSettingManager.h"
+#import "SDVersion.h"
 
 @interface BTREventsVC ()
 
@@ -163,20 +164,29 @@ static NSString * const reuseIdentifier = @"Cell";
     if ([BTRViewUtility isIPAD]) {
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            if (iOSVersionLessThan(@"8.0")) {
+                return CGSizeMake(screenBounds.size.height / 2  + 7.5 ,250);
+            }
             return CGSizeMake(screenBounds.size.width / 2 - 4.6,250);
-        } else
+        } else {
+            if (iOSVersionLessThan(@"8.0")) {
+               return CGSizeMake(screenBounds.size.width / 2 + 7.5 ,200);
+            }
             return CGSizeMake(screenBounds.size.width / 2 - 4.6, 200);
+        }
     }else
         return CGSizeMake(collectionView.frame.size.width, collectionView.frame.size.width / 2);
 }
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [self.collectionView performBatchUpdates:nil completion:nil];
 }
+
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                duration:(NSTimeInterval)duration{
     [self.collectionView.collectionViewLayout invalidateLayout];
 }
+
 #pragma mark <UICollectionViewDelegate>
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

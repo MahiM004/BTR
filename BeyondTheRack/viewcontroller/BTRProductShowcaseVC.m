@@ -23,6 +23,7 @@
 #import "LMDropdownView.h"
 #import "MarqueeLabel.h"
 #import "BTRSettingManager.h"
+#import "SDVersion.h"
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -365,6 +366,9 @@ typedef enum ScrollDirection {
     if ([BTRViewUtility isIPAD]) {
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            if (iOSVersionLessThan(@"8.0")) {
+                return CGSizeMake(screenBounds.size.height / 4 - 1,400);
+            }
             return CGSizeMake(screenBounds.size.width / 4 - 1,400);
         } else
             return CGSizeMake(screenBounds.size.width / 3 - 1, 500);
