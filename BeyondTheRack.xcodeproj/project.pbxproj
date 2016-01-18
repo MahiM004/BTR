@@ -224,6 +224,7 @@
 		A06A40EF1B837103008DD60B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06A40EE1B837103008DD60B /* CoreLocation.framework */; };
 		A06A40F21B8392C2008DD60B /* BTRSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */; };
 		A06C6A531C05003B001D25ED /* apple_white_pay_2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A06C6A521C05003B001D25ED /* apple_white_pay_2x.png */; };
+		A076F4A81C4D565400B2E1CF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A076F4A71C4D565400B2E1CF /* Localizable.strings */; };
 		A07EC4031BDA7D1300938B1A /* BTRMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */; };
 		A07EC4061BDA7D6300938B1A /* BTRMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */; };
 		A097F08D1B948F56002CBB71 /* BTRConnectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A097F08C1B948F56002CBB71 /* BTRConnectionHelper.m */; };
@@ -640,6 +641,7 @@
 		A06A40F01B8392C2008DD60B /* BTRSuggestionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRSuggestionFetcher.h; sourceTree = "<group>"; };
 		A06A40F11B8392C2008DD60B /* BTRSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSuggestionFetcher.m; sourceTree = "<group>"; };
 		A06C6A521C05003B001D25ED /* apple_white_pay_2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple_white_pay_2x.png; sourceTree = "<group>"; };
+		A076F4A71C4D565400B2E1CF /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		A07EC4001BDA7D1300938B1A /* BTRMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMenuTableViewCell.h; sourceTree = "<group>"; };
 		A07EC4011BDA7D1300938B1A /* BTRMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMenuTableViewCell.m; sourceTree = "<group>"; };
 		A07EC4051BDA7D6300938B1A /* BTRMenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRMenuTableViewCell.xib; sourceTree = "<group>"; };
@@ -1120,6 +1122,7 @@
 				6900B4D31AB7747900930D16 /* ios-fontawesome */,
 				69D5663C1A7A8F2300FAEDE2 /* UIImageEffects */,
 				69B02C8A1A5DA23100040C86 /* ThorpeScroll */,
+				A076F4A71C4D565400B2E1CF /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1583,6 +1586,7 @@
 				14A6EDE31BEB8C87007944FA /* BTRProductCollecCell.xib in Resources */,
 				A06782411BF523790058F1BF /* cardImages_us.png in Resources */,
 				69F0BB2C1B457156008C0498 /* SF-UI-Text-Bold.otf in Resources */,
+				A076F4A81C4D565400B2E1CF /* Localizable.strings in Resources */,
 				69F0BB341B457156008C0498 /* SF-UI-Text-MediumItalic.otf in Resources */,
 				69F0BB2D1B457156008C0498 /* SF-UI-Text-BoldItalic.otf in Resources */,
 				14F418FC1C23D5AA003F90C7 /* downArrow@3x.png in Resources */,
