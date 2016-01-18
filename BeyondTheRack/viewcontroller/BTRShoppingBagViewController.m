@@ -624,6 +624,7 @@
 }
 
 - (void)applePayReceiptInfoDidReceivedSuccessful:(NSDictionary *)receiptInfo {
+    [BTRLoader hideLoaderFromView:self.view];
     ConfirmationInfo *confirmationInfo = [[ConfirmationInfo alloc]init];
     confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:receiptInfo forConformationInfo:confirmationInfo];
     BTRConfirmationViewController *confirmationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ConfirmationViewController"];
@@ -632,7 +633,12 @@
 }
 
 - (void)applePayInfoFailedWithError:(NSError *)error {
-    
+    [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Apple pay process does not work" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+    [BTRLoader hideLoaderFromView:self.view];
+}
+
+- (void)applePayProcessDidStart {
+    [BTRLoader showLoaderInView:self.view];
 }
 
 - (void)setupApplePayButton {

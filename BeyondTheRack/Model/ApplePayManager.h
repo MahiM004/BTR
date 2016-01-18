@@ -21,6 +21,7 @@ typedef enum checkoutMode {
 
 - (void)applePayReceiptInfoDidReceivedSuccessful:(NSDictionary *)receiptInfo;
 - (void)applePayInfoFailedWithError:(NSError *)error;
+- (void)applePayProcessDidStart;
 
 @end
 

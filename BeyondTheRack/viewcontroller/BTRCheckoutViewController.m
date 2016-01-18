@@ -23,6 +23,7 @@
 #import "ConfirmationInfo+AppServer.h"
 #import "Freeship+appServer.h"
 #import "BTRFreeshipFetcher.h"
+#import "BTRLoader.h"
 
 #import "BTRHelpViewController.h"
 #import "BTRFAQFetcher.h"
@@ -1377,7 +1378,12 @@
 }
 
 - (void)applePayInfoFailedWithError:(NSError *)error {
-    
+    [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Apple pay process does not work" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+    [BTRLoader hideLoaderFromView:self.view];
+}
+
+- (void)applePayProcessDidStart {
+    [BTRLoader showLoaderInView:self.view];
 }
 
 #pragma mark - Navigation

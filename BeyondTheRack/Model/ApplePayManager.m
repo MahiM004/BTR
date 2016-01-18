@@ -206,6 +206,7 @@
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
     [controller dismissViewControllerAnimated:YES completion:^{
         if (self.nonce) {
+            [self.delegate applePayProcessDidStart];
             [self processApplePayWithSuccess:^(id responseObject) {
             } failure:^(NSError *error) {
                 [self.delegate applePayInfoFailedWithError:error];
