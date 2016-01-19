@@ -52,6 +52,8 @@
 @property (nonatomic, retain) Address * promoBillingAddress;
 @property (nonatomic, retain) NSString * promoBillingName;
 @property (nonatomic, retain) Address * promoShippingAddress;
+@property (nonatomic, retain) NSString * promoCredit;
+@property (nonatomic, retain) NSString * accountCredit;
 @property (nonatomic, retain) NSString * promoShipName;
 @property (nonatomic, retain) NSString * billingName;
 @property (nonatomic, retain) NSString * promoShipPhone;

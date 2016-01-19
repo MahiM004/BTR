@@ -294,6 +294,15 @@
     if ([totalPriceDictionary valueForKeyPath:@"currency"] && [totalPriceDictionary valueForKeyPath:@"currency"] != [NSNull null])
         order.currency = [totalPriceDictionary valueForKeyPath:@"currency"];
     
+    
+    // credits
+    NSDictionary *credits = [totalPriceDictionary valueForKey:@"credit_buckets"];
+    if ([credits valueForKeyPath:@"post"] && [credits valueForKeyPath:@"post"] != [NSNull null])
+        order.currency = [credits valueForKeyPath:@"post"];
+    if ([credits valueForKeyPath:@"pre"] && [credits valueForKeyPath:@"pre"] != [NSNull null])
+        order.currency = [credits valueForKeyPath:@"pre"];
+    
+    
     NSDictionary* payment = [orderDictionary valueForKey:@"payment"];
     if (payment) {
         if ([payment valueForKeyPath:@"success"] && [payment valueForKeyPath:@"success"] != [NSNull null]) {
