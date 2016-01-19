@@ -34,6 +34,7 @@
 #import "loadPopView.h"
 #import "SKUContents+AppServer.h"
 #import "BTRSKUContentFetcher.h"
+#import "SDVersion.h"
 
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
@@ -682,8 +683,15 @@
         // Landscape frames
         if ([BTRViewUtility isIPAD]) {
             view1.hidden = NO;
-            CGFloat viewWidth = screenBounds.size.width;
-            CGFloat viewHeight = screenBounds.size.height;
+            CGFloat viewWidth;
+            CGFloat viewHeight;
+            if (iOSVersionLessThan(@"8.0")) {
+                viewWidth = screenBounds.size.height;
+                viewHeight = screenBounds.size.width;
+            }else {
+                viewWidth = screenBounds.size.width;
+                viewHeight = screenBounds.size.height;
+            }
             
             UIView * pageController = [[UIView alloc]initWithFrame:CGRectMake(0, viewHeight - 145-37, viewWidth/2, 37)];
             pageController.tag = 505;
