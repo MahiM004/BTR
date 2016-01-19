@@ -8,6 +8,8 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 		<key>BSErrorMessageView.xcscheme</key>
 		<dict>
@@ -23,6 +25,31 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+		</dict>
+		<key>Donky-CommonMessaging-Logic.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Donky-CommonMessaging-UI.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Donky-Core-SDK.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>Donky-SimplePush-Logic.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>Donky-SimplePush-UI.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
@@ -78,16 +105,22 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Reachability.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
 		<key>SDVersion.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 		<key>SSKeychain.xcscheme</key>
 		<dict>
@@ -98,6 +131,13 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>UIView-Autolayout.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -118,6 +158,16 @@
 			<true/>
 		</dict>
 		<key>2194D03F7810A754D068D55C4962A90F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>256A84326528146EFAD181F240973699</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4034650BA0EBDD4072952A0F686C5222</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,6 +197,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>625E5FCBCA08BA3B2F08D8AB7A79874E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>740381082E237CABD792925DBD0807D1</key>
 		<dict>
 			<key>primary</key>
@@ -172,7 +227,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>86C4E0020EE21D4E987D06CF45D37249</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8E4BB2723503E9941499EA55BA6B1BDC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>912936AD681D2A4634352444CB3400BB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>94273C4DFED3E290FBEAAB4A1D07CC11</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -187,12 +257,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A4EB12394826EBB49E75CC854633344F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A7048693BD744D4A333727D0C53C276B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C78CAB9013653EB1A250B2DFD3BC7666</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>DB76F0A5582EDB73CDF88EE66A1D5D02</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>EB5FF639E52AE23B5F8AA431D3006162</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ED1FBDF7E4C88A09C077E1EEF5943FE1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

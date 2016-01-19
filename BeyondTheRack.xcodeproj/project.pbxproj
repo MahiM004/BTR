@@ -22,7 +22,6 @@
 		14A6EDE51BEB8E1F007944FA /* BTRProductDetailCellDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A6EDE41BEB8E1F007944FA /* BTRProductDetailCellDetail.xib */; };
 		14C046C31C0C18F100521189 /* BTRPopUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C046C21C0C18F100521189 /* BTRPopUpVC.m */; };
 		14C046C61C0C190B00521189 /* BTRPopUPVCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C046C51C0C190B00521189 /* BTRPopUPVCCell.m */; };
-		14D54A361C4E00C400D37F10 /* BTREventVCHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D54A351C4E00C400D37F10 /* BTREventVCHeaderCell.m */; };
 		14DE66CE1C159A2E00A7AA1F /* DownPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DE66CB1C159A2E00A7AA1F /* DownPicker.m */; };
 		14DE66CF1C159A2E00A7AA1F /* UIDownPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DE66CD1C159A2E00A7AA1F /* UIDownPicker.m */; };
 		14EE31DE1C43906600CB8A77 /* priceTag.png in Resources */ = {isa = PBXBuildFile; fileRef = 14EE31DD1C43906600CB8A77 /* priceTag.png */; };
@@ -291,8 +290,6 @@
 		14C046C21C0C18F100521189 /* BTRPopUpVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPopUpVC.m; sourceTree = "<group>"; };
 		14C046C41C0C190B00521189 /* BTRPopUPVCCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPopUPVCCell.h; sourceTree = "<group>"; };
 		14C046C51C0C190B00521189 /* BTRPopUPVCCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPopUPVCCell.m; sourceTree = "<group>"; };
-		14D54A341C4E00C400D37F10 /* BTREventVCHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTREventVCHeaderCell.h; sourceTree = "<group>"; };
-		14D54A351C4E00C400D37F10 /* BTREventVCHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTREventVCHeaderCell.m; sourceTree = "<group>"; };
 		14DE66CA1C159A2E00A7AA1F /* DownPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownPicker.h; sourceTree = "<group>"; };
 		14DE66CB1C159A2E00A7AA1F /* DownPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownPicker.m; sourceTree = "<group>"; };
 		14DE66CC1C159A2E00A7AA1F /* UIDownPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDownPicker.h; sourceTree = "<group>"; };
@@ -1067,8 +1064,6 @@
 				69385FBF1A7BF3830074FE33 /* Search */,
 				695F99D81A573D1500A80D12 /* Checkout */,
 				6900B4CC1AB75AA800930D16 /* Login Scenes */,
-				14D54A341C4E00C400D37F10 /* BTREventVCHeaderCell.h */,
-				14D54A351C4E00C400D37F10 /* BTREventVCHeaderCell.m */,
 			);
 			name = ViewController;
 			path = viewcontroller;
@@ -1794,7 +1789,6 @@
 				A00FB1F81BACAA3E005166C3 /* BTREventCell.m in Sources */,
 				69B02CA41A5DA23100040C86 /* TTSlidingPageTitle.m in Sources */,
 				B321351D1AEFE0E900285B12 /* BTRSessionSettings.m in Sources */,
-				14D54A361C4E00C400D37F10 /* BTREventVCHeaderCell.m in Sources */,
 				1408D1C21BEA38B700125FE8 /* BTRProductShareCell.m in Sources */,
 				6900B4DD1AB7747900930D16 /* FAImageView.m in Sources */,
 				69D440141B2B138000070FD8 /* BTRCheckoutViewController.m in Sources */,

@@ -22,6 +22,8 @@
 #import "DNNotificationController.h"
 #import "DNDonkyCore.h"
 #import "BTRInitializeViewController.h"
+#import <IQKeyboardManager.h>
+#import "BTRCheckoutViewController.h"
 
 @interface BTRAppDelegate ()
 
@@ -66,7 +68,7 @@
      */
     
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
-    
+    [[IQKeyboardManager sharedManager] disableToolbarInViewControllerClass:[BTRCheckoutViewController class]];
     
     /**
      *
