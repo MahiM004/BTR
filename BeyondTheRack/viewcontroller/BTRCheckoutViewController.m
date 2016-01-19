@@ -369,6 +369,25 @@
         [self.qstViewHeight setConstant:RECEIPT_CELL_SIZE];
     }
     
+    if (self.order.promoCredit.floatValue == 0.0) {
+        self.promoView.hidden = YES;
+        self.promocreditViewHeight.constant = 0;
+    } else {
+       // should fix
+        self.promoView.hidden = NO;
+        self.promocreditViewHeight.constant = RECEIPT_CELL_SIZE;
+    }
+    
+    if (self.order.accountCredit.floatValue == 0.0) {
+        self.accountCreditView.hidden = YES;
+        self.accountCreditViewHeight.constant = 0;
+    } else {
+        // should fix
+        self.accountCreditView.hidden = NO;
+        self.accountCreditViewHeight.constant = RECEIPT_CELL_SIZE;
+    }
+    
+    
     [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.orderTotalPrice floatValue]]];
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.saving floatValue]]];
     [self.totalDueLabel setText:[NSString stringWithFormat:@"TOTAL DUE (%@)",self.order.currency.uppercaseString]];
