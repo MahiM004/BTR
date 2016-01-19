@@ -248,6 +248,9 @@
     for (NSInteger i = currentYear; i < 21 + currentYear; i++)
         [[self expiryYearsArray] addObject:[NSString stringWithFormat:@"%ld", (long)i]];
     
+    
+    self.expiryYearPaymentTF.text = [[self expiryYearsArray]firstObject];
+    self.expiryMonthPaymentTF.text = [[self expiryMonthsArray]firstObject];
     // hidding gift info
     [self.giftLabel setHidden:YES];
     [self.giftDollarLabel setHidden:YES];
