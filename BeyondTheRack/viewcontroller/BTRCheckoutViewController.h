@@ -206,6 +206,19 @@ typedef enum  PopUPType{
  
  */
 
+
+@property (weak, nonatomic) IBOutlet UIView *vanityView;
+@property (weak, nonatomic) IBOutlet UIView *gstView;
+@property (weak, nonatomic) IBOutlet UIView *qstView;
+@property (weak, nonatomic) IBOutlet UIView *promoView;
+@property (weak, nonatomic) IBOutlet UIView *accountCreditView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *vanityViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *promocreditViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *gstViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *qstViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *accountCreditViewHeight;
+
 @property (weak, nonatomic) IBOutlet UILabel *youSaveDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bagTotalDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subtotalDollarLabel;

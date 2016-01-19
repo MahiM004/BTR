@@ -53,6 +53,7 @@
 #define GIFT_MAX_HEIGHT 175.0
 #define GIFT_CARD_HEIGHT 40.0
 #define REMEBER_CARD_INFO_HEIGHT 75.0
+#define RECEIPT_CELL_SIZE 30.0
 
 #define DEFAULT_VIEW_HEIGHT_IPHONE 3250
 #define DEFAULT_VIEW_HEIGHT_IPAD 1850
@@ -346,33 +347,35 @@
     [self.bagTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order bagTotalPrice].floatValue]];
     [self.subtotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order subTotalPrice].floatValue]];
     [self.shippingDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order shippingPrice].floatValue]];
-
-    // calculating taxes
     
-    [self.gstTaxLebl setHidden:YES];
-    [self.gstTaxDollarLabel setHidden:YES];
-    [self.qstTaxLabel setHidden:YES];
-    [self.qstTaxDollarLabel setHidden:YES];
+    // calculating taxes
+    [self.qstView setHidden:YES];
+    [self.gstView setHidden:YES];
+    [self.gstViewHeight setConstant:0.0];
+    [self.qstViewHeight setConstant:0.0];
     
     if ([self.order.taxes count] > 0) {
         NSDictionary *firstTax = [self.order.taxes objectAtIndex:0];
         [self.gstTaxLebl setText:[[firstTax valueForKey:@"label"]uppercaseString]];
         [self.gstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[[firstTax valueForKey:@"amount"]floatValue]]];
-        [self.gstTaxLebl setHidden:NO];
-        [self.gstTaxDollarLabel setHidden:NO];
+        [self.gstViewHeight setConstant:RECEIPT_CELL_SIZE];
+        [self.gstView setHidden:NO];
     }
     if ([self.order.taxes count] > 1) {
         NSDictionary *secondTax = [self.order.taxes objectAtIndex:1];
         [self.qstTaxLabel setText:[[secondTax valueForKey:@"label"]uppercaseString]];
         [self.qstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[[secondTax valueForKey:@"amount"]floatValue]]];
-        [self.qstTaxLabel setHidden:NO];
-        [self.qstTaxDollarLabel setHidden:NO];
+        [self.qstView setHidden:NO];
+        [self.qstViewHeight setConstant:RECEIPT_CELL_SIZE];
     }
     
     [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.orderTotalPrice floatValue]]];
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.saving floatValue]]];
     [self.totalDueLabel setText:[NSString stringWithFormat:@"TOTAL DUE (%@)",self.order.currency.uppercaseString]];
     [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
+    
+    [self.vanityView setHidden:YES];
+    [self.vanityViewHeight setConstant:0];
     
     if ([self.order.vanityCodes count] > 0) {
         // adding text for gift
@@ -381,6 +384,8 @@
         NSString *currentVanity = [[self.order.vanityCodes allKeys]firstObject];
         [self.giftLabel setText:[NSString stringWithFormat:@"DISCOUNT (%@)",currentVanity]];
         [self.giftDollarLabel setText:[NSString stringWithFormat:@"$%@",[[self.order.vanityCodes valueForKey:currentVanity]valueForKey:@"discount"]]];
+        [self.vanityView setHidden:NO];
+        [self.vanityViewHeight setConstant:RECEIPT_CELL_SIZE];
     }
     
     // VIP
