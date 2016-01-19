@@ -298,9 +298,9 @@
     // credits
     NSDictionary *credits = [totalPriceDictionary valueForKey:@"credit_buckets"];
     if ([credits valueForKeyPath:@"post"] && [credits valueForKeyPath:@"post"] != [NSNull null])
-        order.currency = [credits valueForKeyPath:@"post"];
+        order.accountCredit = [credits valueForKeyPath:@"post"];
     if ([credits valueForKeyPath:@"pre"] && [credits valueForKeyPath:@"pre"] != [NSNull null])
-        order.currency = [credits valueForKeyPath:@"pre"];
+        order.promoCredit = [credits valueForKeyPath:@"pre"];
     
     
     NSDictionary* payment = [orderDictionary valueForKey:@"payment"];
