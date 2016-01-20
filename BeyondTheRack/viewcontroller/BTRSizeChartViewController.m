@@ -31,7 +31,7 @@
 
 
 - (NSArray *)apparelArray {
-    _apparelArray = @[@"WOMEN",@"MEN",@"KID",@"HOW TO MEASURE ( MEN )",@"HOW TO MEASURE ( WOMEN )",@"RINGS"];
+    _apparelArray = @[@"WOMEN",@"MEN",@"KIDS",@"HOW TO MEASURE ( MEN )",@"HOW TO MEASURE ( WOMEN )",@"RING SIZER"];
     return _apparelArray;
 }
 - (NSArray *)apparelImages {
