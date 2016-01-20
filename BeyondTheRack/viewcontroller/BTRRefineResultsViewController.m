@@ -296,29 +296,29 @@
 
 
 - (void)loadDataWithSelectedSortType:(NSString*)title {
-    
+    [self.optionsArray removeAllObjects];
     [self.totalSelectedArray removeAllObjects];//Remove all objects any way we are adding at bottom
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     if ([title isEqualToString:SORT_TITLE]) {
         _isMultiSelect = NO;
-        [self.optionsArray setArray:[sharedFacetHandler getSortOptionStringsArray]];
+        [self.optionsArray addObjectsFromArray:[sharedFacetHandler getSortOptionStringsArray]];
     }
     else if ([title isEqualToString:CATEGORY_TITLE]) {
         _isMultiSelect = NO;
         if ([sharedFacetHandler getCategoryFiltersForDisplay] )
-            [self.optionsArray setArray:[sharedFacetHandler getCategoryFiltersForDisplay]];
+            [self.optionsArray addObjectsFromArray:[sharedFacetHandler getCategoryFiltersForDisplay]];
     }
     else if ([title isEqualToString:PRICE_TITLE]) {
         _isMultiSelect = NO;
         if ([sharedFacetHandler getPriceFiltersForDisplay] )
-            [self.optionsArray setArray:[sharedFacetHandler getPriceFiltersForDisplay]];
+            [self.optionsArray addObjectsFromArray:[sharedFacetHandler getPriceFiltersForDisplay]];
     }
     else if ([title isEqualToString:BRAND_TITLE]) {
         _isMultiSelect = YES;
         if ([[sharedFacetHandler getBrandFiltersForDisplay] count] != 0 ) {
-            [self.optionsArray setArray:[sharedFacetHandler getBrandFiltersForDisplay]];
+            [self.optionsArray addObjectsFromArray:[sharedFacetHandler getBrandFiltersForDisplay]];
             
             if ([sharedFacetHandler getSelectedBrandsArray])
                 [self.totalSelectedArray addObjectsFromArray:[sharedFacetHandler getSelectedBrandsArray]];
@@ -332,7 +332,7 @@
     else if ([title isEqualToString:COLOR_TITLE]) {
         _isMultiSelect = YES;
         if ([[sharedFacetHandler getColorFiltersForDisplay] count] != 0) {
-            [self.optionsArray setArray:[sharedFacetHandler getColorFiltersForDisplay]];
+            [self.optionsArray addObjectsFromArray:[sharedFacetHandler getColorFiltersForDisplay]];
             
             if ([sharedFacetHandler getSelectedColorsArray])
                 [self.totalSelectedArray addObjectsFromArray:[sharedFacetHandler getSelectedColorsArray]];
@@ -344,7 +344,7 @@
     else if ([title isEqualToString:SIZE_TITLE]) {
         _isMultiSelect = YES;
         if ([[sharedFacetHandler getSizeFiltersForDisplay] count] != 0) {
-            [self.optionsArray setArray:[sharedFacetHandler getSizeFiltersForDisplay]];
+            [self.optionsArray addObjectsFromArray:[sharedFacetHandler getSizeFiltersForDisplay]];
             
             if ([sharedFacetHandler getSelectedSizesArray])
                 [self.totalSelectedArray addObjectsFromArray:[sharedFacetHandler getSelectedSizesArray]];
@@ -389,7 +389,20 @@
     
     
     
-    NSLog(@"%@ : %@",title,self.totalSelectedArray);
+    // Move the selected Objects to the First List
+    if (self.totalSelectedArray.count != 0) {
+        NSMutableArray * selectedArray = [[NSMutableArray alloc]init];
+        for (NSString*title in self.optionsArray) {
+            NSString * firstObject = [self breakStringGetFirst:title];
+            if ([self.totalSelectedArray containsObject:firstObject])
+                [selectedArray addObject:title];
+        }
+        for (NSString * object in selectedArray) {
+            [self.optionsArray removeObject:object];
+            [self.optionsArray insertObject:object atIndex:0];
+        }
+    }
+    
     
     if ([[self optionsArray]count] == 0) // if problem with backend data
         [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
@@ -455,7 +468,7 @@
 }
 
 - (IBAction)closeTapped:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
