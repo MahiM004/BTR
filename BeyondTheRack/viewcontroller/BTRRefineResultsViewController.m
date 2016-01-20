@@ -455,7 +455,7 @@
 }
 
 - (IBAction)closeTapped:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
