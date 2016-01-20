@@ -43,6 +43,7 @@
 #define BILLING_ADDRESS_HEIGHT 685.0
 #define BILLING_ADDRESS_HEIGHT_IPAD 552.0
 #define CARD_PAYMENT_HEIGHT 310.0
+#define RECEIPT_HEIGHT 380.0
 #define PAYPAL_PAYMENT_HEIGHT 160.0
 #define PAYPAL_PAYMENT_HEIGHT_IPAD 150.0
 #define CARD_PAYMENT_TIP_HEIGHT 65.0
@@ -55,7 +56,7 @@
 #define REMEBER_CARD_INFO_HEIGHT 75.0
 #define RECEIPT_CELL_SIZE 30.0
 
-#define DEFAULT_VIEW_HEIGHT_IPHONE 3250
+#define DEFAULT_VIEW_HEIGHT_IPHONE 3200
 #define DEFAULT_VIEW_HEIGHT_IPAD 1850
 
 
@@ -322,9 +323,11 @@
     self.arrayOfGiftCards = [[NSMutableArray alloc]init];
     self.arrayOfVanityCodes = [[NSMutableArray alloc]init];
     self.totalSave = 0;
+    self.totalRemovedPlaceInReceipt = 0;
 }
 
 - (void)loadOrderData {
+    self.totalRemovedPlaceInReceipt = 0;
     self.isLoading = YES;
 
     // checkboxes
@@ -353,6 +356,8 @@
     [self.gstView setHidden:YES];
     [self.gstViewHeight setConstant:0.0];
     [self.qstViewHeight setConstant:0.0];
+
+    self.totalRemovedPlaceInReceipt =+ 2;
     
     if ([self.order.taxes count] > 0) {
         NSDictionary *firstTax = [self.order.taxes objectAtIndex:0];
@@ -360,6 +365,8 @@
         [self.gstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[[firstTax valueForKey:@"amount"]floatValue]]];
         [self.gstViewHeight setConstant:RECEIPT_CELL_SIZE];
         [self.gstView setHidden:NO];
+        self.totalRemovedPlaceInReceipt--;
+        
     }
     if ([self.order.taxes count] > 1) {
         NSDictionary *secondTax = [self.order.taxes objectAtIndex:1];
@@ -367,13 +374,15 @@
         [self.qstTaxDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[[secondTax valueForKey:@"amount"]floatValue]]];
         [self.qstView setHidden:NO];
         [self.qstViewHeight setConstant:RECEIPT_CELL_SIZE];
+        self.totalRemovedPlaceInReceipt--;
     }
     
     if (self.order.promoCredit.floatValue == 0.0) {
         self.promoView.hidden = YES;
         self.promocreditViewHeight.constant = 0;
+        self.totalRemovedPlaceInReceipt ++;
     } else {
-       // should fix
+        self.promoDollarLabel.text = [NSString stringWithFormat:@"$%.2f",[self.order.promoCredit floatValue]];
         self.promoView.hidden = NO;
         self.promocreditViewHeight.constant = RECEIPT_CELL_SIZE;
     }
@@ -381,8 +390,9 @@
     if (self.order.accountCredit.floatValue == 0.0) {
         self.accountCreditView.hidden = YES;
         self.accountCreditViewHeight.constant = 0;
+        self.totalRemovedPlaceInReceipt ++;
     } else {
-        // should fix
+        self.accountCreditDollarLabel.text = [NSString stringWithFormat:@"$%.2f",[self.order.accountCredit floatValue]];
         self.accountCreditView.hidden = NO;
         self.accountCreditViewHeight.constant = RECEIPT_CELL_SIZE;
     }
@@ -395,6 +405,7 @@
     
     [self.vanityView setHidden:YES];
     [self.vanityViewHeight setConstant:0];
+    self.totalRemovedPlaceInReceipt++;
     
     if ([self.order.vanityCodes count] > 0) {
         // adding text for gift
@@ -405,7 +416,11 @@
         [self.giftDollarLabel setText:[NSString stringWithFormat:@"$%@",[[self.order.vanityCodes valueForKey:currentVanity]valueForKey:@"discount"]]];
         [self.vanityView setHidden:NO];
         [self.vanityViewHeight setConstant:RECEIPT_CELL_SIZE];
+        self.totalRemovedPlaceInReceipt--;
     }
+    
+    // Setting Receipt size
+    self.receiptViewHeight.constant = RECEIPT_HEIGHT - self.totalRemovedPlaceInReceipt * RECEIPT_CELL_SIZE;
     
     // VIP
     if ([[self.order vipPickupEligible] boolValue]) {
@@ -1690,14 +1705,14 @@
     }
     else if (self.currentPaymentType == paypal) {
         if(![BTRViewUtility isIPAD]) {
-            size = size - (CARD_PAYMENT_HEIGHT) ;
+            size = size - (CARD_PAYMENT_HEIGHT + PAYPAL_PAYMENT_HEIGHT) ;
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
         } else {
             size -= 100;
         }
     }
-    else if (self.currentPaymentType == masterPass) {
+    else {
         
     }
     
@@ -1734,6 +1749,7 @@
         size -= 47;
     }
     size = size + self.sampleGiftViewHeight.constant;
+    size = size - self.totalRemovedPlaceInReceipt * RECEIPT_CELL_SIZE;
     self.viewHeight.constant = size;
     [self.view layoutIfNeeded];
 }

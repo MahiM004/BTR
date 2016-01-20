@@ -103,6 +103,7 @@ typedef enum  PopUPType{
  
  */
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *receiptViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *haveAGiftViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fastPaymentHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *creditCardDetailHeight;
@@ -206,6 +207,7 @@ typedef enum  PopUPType{
  
  */
 
+@property int totalRemovedPlaceInReceipt;
 
 @property (weak, nonatomic) IBOutlet UIView *vanityView;
 @property (weak, nonatomic) IBOutlet UIView *gstView;
@@ -232,6 +234,9 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet UILabel *giftDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalDueDollarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalDueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *promoDollarLabel;
+@property (weak, nonatomic) IBOutlet UILabel *accountCreditDollarLabel;
+
 
 @property (weak, nonatomic) IBOutlet UIView *sampleGiftView;
 @property (weak, nonatomic) IBOutlet UIControl *paymentTypeView;
