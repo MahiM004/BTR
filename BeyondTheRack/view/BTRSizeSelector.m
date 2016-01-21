@@ -39,7 +39,6 @@ static const float kButtonWidth = 30.0f;
     
     self.clipsToBounds = YES;
     [self setBorderWidth:1.0f];
-    [self setCornerRadius:3.0];
     
     self.titleLabel = [[UILabel alloc] init];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
