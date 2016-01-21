@@ -104,7 +104,6 @@ typedef enum  PopUPType{
  */
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *receiptViewHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *haveAGiftViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fastPaymentHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *creditCardDetailHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *paypalDetailHeight;
@@ -250,8 +249,6 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet FRDLivelyButton * expandHaveCode;
 
 
-// For iPad
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *payListWithSampleOut;
 
 @property (nonatomic) DownPicker *paymentPicker;
 @property (nonatomic) DownPicker *expiryMonthPicker;
