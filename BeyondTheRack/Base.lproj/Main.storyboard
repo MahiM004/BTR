@@ -2406,7 +2406,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="5F7E032C-5195-4F71-BCD4-0C8CB8A29BD0" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="D3C99A59-A96D-4A50-932A-E016E015E944" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -4198,7 +4198,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="220" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="glW-mg-mvP">
-                                <rect key="frame" x="0.0" y="72" width="320" height="341"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="331"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -4395,7 +4395,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HjT-PF-7g4">
-                                <rect key="frame" x="0.0" y="413" width="320" height="155"/>
+                                <rect key="frame" x="0.0" y="403" width="320" height="165"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gu-Jg-cSw" userLabel="total">
                                         <rect key="frame" x="16" y="0.0" width="165" height="25"/>
@@ -4446,24 +4446,27 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XEY-Uv-4k1">
-                                        <rect key="frame" x="8" y="65" width="304" height="85"/>
+                                        <rect key="frame" x="8" y="65" width="304" height="100"/>
                                         <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="paypalCheckout1.png" translatesAutoresizingMaskIntoConstraints="NO" id="psI-bM-YIQ">
+                                                <rect key="frame" x="4" y="3" width="300" height="56"/>
+                                                <animations/>
+                                            </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ly-aP-5fw">
-                                                <rect key="frame" x="0.0" y="41" width="149" height="49"/>
+                                                <rect key="frame" x="4" y="3" width="300" height="56"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
-                                                <state key="normal" image="paypal_yellow.png"/>
                                                 <connections>
                                                     <action selector="paypalCheckout:" destination="cAR-4K-mYr" eventType="touchUpInside" id="yAm-bd-HD8"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tZy-4M-DXm">
-                                                <rect key="frame" x="0.0" y="9" width="304" height="30"/>
+                                                <rect key="frame" x="4" y="62" width="149" height="32"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckD-9p-aYG">
-                                                <rect key="frame" x="162" y="47" width="142" height="39"/>
+                                                <rect key="frame" x="162" y="58" width="142" height="39"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="2" minY="3" maxX="2" maxY="2"/>
                                                 <state key="normal" image="masterpass.png"/>
@@ -4475,7 +4478,7 @@
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="85" id="axW-RQ-M1K"/>
+                                            <constraint firstAttribute="height" constant="100" id="axW-RQ-M1K"/>
                                             <constraint firstAttribute="width" constant="304" id="hQb-nY-8Mp"/>
                                         </constraints>
                                     </view>
@@ -4484,7 +4487,7 @@
                                 <color key="backgroundColor" red="0.94420770200000004" green="0.94420770200000004" blue="0.94420770200000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="4gu-Jg-cSw" firstAttribute="leading" secondItem="HjT-PF-7g4" secondAttribute="leading" constant="16" id="4Xu-9A-Myh"/>
-                                    <constraint firstAttribute="height" constant="155" id="AOa-Dd-7Zm"/>
+                                    <constraint firstAttribute="height" constant="165" id="AOa-Dd-7Zm"/>
                                     <constraint firstItem="hJ3-va-HSf" firstAttribute="centerX" secondItem="XEY-Uv-4k1" secondAttribute="centerX" id="Mo5-QY-Q3l"/>
                                     <constraint firstItem="4gu-Jg-cSw" firstAttribute="top" secondItem="HjT-PF-7g4" secondAttribute="top" id="Mu2-5v-dF7"/>
                                     <constraint firstItem="I0H-aC-zYn" firstAttribute="top" secondItem="HjT-PF-7g4" secondAttribute="top" constant="10" id="N2C-ZM-cEe"/>
@@ -12786,7 +12789,8 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="5F7E032C-5195-4F71-BCD4-0C8CB8A29BD0" width="30" height="30">
+        <image name="BTRLogo.png" width="925" height="125"/>
+        <image name="D3C99A59-A96D-4A50-932A-E016E015E944" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -12843,7 +12847,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="account" width="128" height="128"/>
         <image name="backarrowcool.png" width="512" height="512"/>
@@ -12858,6 +12861,7 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="masterpass.png" width="429" height="100"/>
         <image name="neulogo.png" width="925" height="125"/>
         <image name="notifications" width="128" height="128"/>
+        <image name="paypalCheckout1.png" width="300" height="74"/>
         <image name="paypal_yellow.png" width="240" height="60"/>
         <image name="profileBack.png" width="600" height="400"/>
         <image name="searchglass.png" width="200" height="200"/>
