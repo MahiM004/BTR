@@ -157,6 +157,7 @@
  **/
 @property (nonatomic) bool hideStatusBarWhenScrolling;
 
+@property (nonatomic, strong) UILabel * msgLbl;
 
 
 @end

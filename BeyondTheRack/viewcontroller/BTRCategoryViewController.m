@@ -22,7 +22,7 @@
 @property (strong, nonatomic) TTScrollSlidingPagesController *slider;
 @property (strong, nonatomic) Freeship* freeshipInfo;
 @property (strong, nonatomic) NSDate* dueDate;
-@property (weak, nonatomic) IBOutlet UILabel *bannerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bannerLabel; // its just hidden
 @property (weak, nonatomic) IBOutlet UIView *sliderBackFrame;
 
 @end
@@ -116,7 +116,8 @@
             [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(changeTimerString:) userInfo:nil repeats:YES];
             return ;
         }
-        [_bannerLabel setText:self.freeshipInfo.banner];
+//        [_bannerLabel setText:self.freeshipInfo.banner];
+        [self.slider.msgLbl setText: self.freeshipInfo.banner];
     } faild:^(NSError *error) {
         
     }];
@@ -139,7 +140,8 @@
         timerString = [NSString stringWithFormat:@"%02ld days %02d Hours : %02d Minutes",days,hours,minutes];
     }
     NSString* bannerString = [self.freeshipInfo.banner stringByReplacingOccurrencesOfString:@"##counter##" withString:timerString];
-    [_bannerLabel setText:bannerString];
+//    [_bannerLabel setText:bannerString];
+    [self.slider.msgLbl setText: bannerString];
 }
 
 - (void) viewWillLayoutSubviews {

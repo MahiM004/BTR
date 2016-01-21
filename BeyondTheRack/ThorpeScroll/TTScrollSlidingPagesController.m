@@ -58,7 +58,7 @@
         viewDidLoadHasBeenCalled = NO;
         //set defaults
         self.titleScrollerHidden = NO;
-        self.titleScrollerHeight = 34;
+        self.titleScrollerHeight = 74; // TitleScroll(34) + message Label (40)
         self.titleScrollerItemWidth = 150;
         self.disableTitleShadow = YES;
         
@@ -121,10 +121,10 @@
     
     if (!self.titleScrollerHidden){
         //add a triangle view to point to the currently selected page from the header
-
+        
         
         //set up the top scroller (for the nav titles to go in) - it is one frame wide, but has clipToBounds turned off to enable you to see the next and previous items in the scroller. We wrap it in an outer uiview so that the background colour can be set on that and span the entire view (because the width of the topScrollView is only one frame wide and centered).
-        topScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.titleScrollerItemWidth, self.titleScrollerHeight)];
+        topScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.titleScrollerItemWidth, 34)];
 //        topScrollView.center = CGPointMake(self.view.center.x, topScrollView.center.y); //center it horizontally
         topScrollView.pagingEnabled = YES;
         topScrollView.clipsToBounds = NO;
@@ -135,10 +135,21 @@
         topScrollView.backgroundColor = [UIColor clearColor];
         topScrollView.pagingEnabled = self.pagingEnabled;
         topScrollView.delegate = self; //move the bottom scroller proportionally as you drag the top.
-        topScrollViewWrapper = [[TTScrollViewWrapper alloc] initWithFrame:CGRectMake(0, nextYPosition, self.view.frame.size.width, self.titleScrollerHeight) andUIScrollView:topScrollView];//make the view to put the scroll view inside which will allow the background colour, and allow dragging from anywhere in this wrapper to be passed to the scrollview.
+        topScrollViewWrapper = [[TTScrollViewWrapper alloc] initWithFrame:CGRectMake(0, nextYPosition, self.view.frame.size.width, 34) andUIScrollView:topScrollView];//make the view to put the scroll view inside which will allow the background colour, and allow dragging from anywhere in this wrapper to be passed to the scrollview.
         topScrollViewWrapper.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         topScrollViewWrapper.backgroundColor = self.titleScrollerBackgroundColour;
         //pass touch events from the wrapper onto the scrollview (so you can drag from the entire width, as the scrollview itself only lives in the very centre, but with clipToBounds turned off)
+        
+        
+        _msgLbl = [[UILabel alloc]initWithFrame:CGRectMake(0, 35, self.view.frame.size.width, 38)];
+        _msgLbl.textColor = [UIColor blackColor];
+        _msgLbl.backgroundColor = [UIColor whiteColor];
+        _msgLbl.textAlignment = NSTextAlignmentCenter;
+        _msgLbl.font = [UIFont systemFontOfSize:13];
+        _msgLbl.numberOfLines = 0;
+        _msgLbl.adjustsFontSizeToFitWidth = YES;
+        _msgLbl.minimumScaleFactor = 0.5;
+        
         
         //single tap to switch to different item
         UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(topScrollViewTapped:)];
@@ -147,6 +158,7 @@
         [topScrollViewWrapper addGestureRecognizer: singleTap];
         
         [topScrollViewWrapper addSubview:topScrollView];//put the top scroll view in the wrapper.
+        [topScrollViewWrapper addSubview:_msgLbl];
         [self.view addSubview:topScrollViewWrapper]; //put the wrapper in this view.
         nextYPosition += self.titleScrollerHeight;
         
@@ -255,13 +267,13 @@
             imageView.image = title.headerImage;
             topItem = (UIView *)imageView;
         } else {
-
+            
             UILabel *label = [[UILabel alloc] init];
             label.text = title.headerText;
             label.textAlignment = NSTextAlignmentCenter;
             label.textColor = self.titleScrollerInActiveTextColour;
             label.backgroundColor = [UIColor clearColor];
-
+            
             if (!self.disableTitleShadow) {
                 //add subtle drop shadow
                 label.layer.shadowColor = [self.titleScrollerTextDropShadowColour CGColor];
@@ -269,7 +281,7 @@
                 label.layer.shadowRadius = 2.0f;
                 label.layer.shadowOpacity = 1.0f;
             }
-
+            
             //set view as the top item
             topItem = (UIView *)label;
         }
@@ -502,14 +514,14 @@
  */
 -(void)setStatusBarReplacedWithPageDots:(BOOL)statusBarHidden{
     /*
-    if (self.hideStatusBarWhenScrolling && !self.disableUIPageControl){
-        //hide the status bar and show the page dots control
-        [[UIApplication sharedApplication] setStatusBarHidden:statusBarHidden withAnimation:UIStatusBarAnimationFade];
-        float pageControlAlpha = statusBarHidden ? 1 : 0;
-        [UIView animateWithDuration:0.3 animations:^{
-            pageControl.alpha = pageControlAlpha;
-        }];
-    }
+     if (self.hideStatusBarWhenScrolling && !self.disableUIPageControl){
+     //hide the status bar and show the page dots control
+     [[UIApplication sharedApplication] setStatusBarHidden:statusBarHidden withAnimation:UIStatusBarAnimationFade];
+     float pageControlAlpha = statusBarHidden ? 1 : 0;
+     [UIView animateWithDuration:0.3 animations:^{
+     pageControl.alpha = pageControlAlpha;
+     }];
+     }
      */
 }
 
@@ -547,7 +559,7 @@
         view.frame = frame;
     }
     bottomScrollView.contentSize = CGSizeMake(nextXPosition, bottomScrollView.frame.size.height);
-    
+    [_msgLbl setFrame:CGRectMake(0, 35, self.view.frame.size.width, 38)];
     //set it back to the same page as it was before (the contentoffset will be different now the widths are different)
     int contentOffsetWidth = [self getXPositionOfPage:currentPageBeforeRotation];
     bottomScrollView.contentOffset = CGPointMake(contentOffsetWidth, 0);
@@ -666,9 +678,9 @@
     [self updateHaderUnderLines:currentPage];
     //call the delegate to tell him you've scrolled to another page
     if([self.delegate respondsToSelector:@selector(didScrollToViewAtIndex:)]){
-      [self.delegate didScrollToViewAtIndex:currentPage];
+        [self.delegate didScrollToViewAtIndex:currentPage];
     }
-  
+    
     /*Just do a quick check, that if the paging enabled property is YES (paging is enabled), the user should not define widthForPageOnSlidingPagesViewController on the datasource delegate because scrollviews do not cope well with paging being enabled for scrollviews where each subview is not full width! */
     if (self.pagingEnabled == YES && [self.dataSource respondsToSelector:@selector(widthForPageOnSlidingPagesViewController:atIndex:)]){
         NSLog(@"Warning: TTScrollSlidingPagesController. You have paging enabled in the TTScrollSlidingPagesController (pagingEnabled is either not set, or specifically set to YES), but you have also implemented widthForPageOnSlidingPagesViewController:atIndex:. ScrollViews do not cope well with paging being disabled when items have custom widths. You may get weird behaviour with your paging, in which case you should either disable paging (set pagingEnabled to NO) and keep widthForPageOnSlidingPagesViewController:atIndex: implented, or not implement widthForPageOnSlidingPagesViewController:atIndex: in your datasource for the TTScrollSlidingPagesController instance.");
@@ -689,9 +701,9 @@
 
 -(void)setDataSource:(id<TTSlidingPagesDataSource>)dataSource{
     _dataSource = dataSource;
-//    if (self.isViewLoaded){
-//        [self reloadPages];
-//    }
+    //    if (self.isViewLoaded){
+    //        [self reloadPages];
+    //    }
 }
 
 -(void)setPagingEnabled:(BOOL)pagingEnabled{
