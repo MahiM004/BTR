@@ -100,6 +100,8 @@ typedef enum ScrollDirection {
 // textFields
 @property (weak, nonatomic) IBOutlet UITextField *filterSizeTextField;
 @property (weak, nonatomic) IBOutlet UITextField *sortTextField;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *filterSizeTextFieldWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sortTextFieldWidth;
 
 // Menu
 @property UITableView *menuTableView;
@@ -752,6 +754,13 @@ typedef enum ScrollDirection {
 #pragma mark MENU
 
 - (void)setupMenu {
+    
+    if ([BTRViewUtility isIPAD]) {
+        self.filterSizeTextFieldWidth.constant = 110;
+        self.sortTextFieldWidth.constant = 200;
+        [self.view layoutIfNeeded];
+    }
+    
     self.menuTableView = [[UITableView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.size.height / 4, 160, 200) style:UITableViewStylePlain];
     self.menuTableView.delegate = self;
     self.menuTableView.dataSource = self;
@@ -769,13 +778,8 @@ typedef enum ScrollDirection {
     if (type == SORT_MENU) {
         CGRect frame;
         CGPoint point;
-        if ([BTRViewUtility isIPAD]) {
-            frame = CGRectMake(self.sortByLabel.bounds.origin.x, self.sortByLabel.bounds.origin.y ,self.sortTextField.bounds.size.width , 280);
-            point = self.sortTextField.frame.origin;
-        } else {
-            frame = CGRectMake(self.sortByLabel.bounds.origin.x, self.sortByLabel.bounds.origin.y , self.sortByLabel.bounds.size.width + self.sortTextField.bounds.size.width , 280);
-            point = self.sortByLabel.frame.origin;
-        }
+        frame = CGRectMake(self.sortByLabel.bounds.origin.x, self.sortByLabel.bounds.origin.y , self.sortByLabel.bounds.size.width + self.sortTextField.bounds.size.width , 280);
+        point = self.sortByLabel.frame.origin;
         [self.menuTableView setFrame:frame];
         [self.menu showInView:self.tableViewContainer withContentView:self.menuTableView atOrigin:point];
     }
