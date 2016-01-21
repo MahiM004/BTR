@@ -49,6 +49,7 @@
 #define CARD_PAYMENT_TIP_HEIGHT 65.0
 #define SAMPLE_GIFT_HEIGHT 120.0
 #define FASTPAYMENT_HEIGHT 110.0
+#define FASTPAYMENT_HEIGHT_IPAD 75.0
 #define CHECKBOXES_HEIGHT 45.0
 #define FILL_SHIPPING_HEIGHT 50.0
 #define GIFT_MAX_HEIGHT 175.0
@@ -57,7 +58,7 @@
 #define RECEIPT_CELL_SIZE 30.0
 
 #define DEFAULT_VIEW_HEIGHT_IPHONE 3200
-#define DEFAULT_VIEW_HEIGHT_IPAD 1850
+#define DEFAULT_VIEW_HEIGHT_IPAD 1760
 
 
 @class CTCheckbox;
@@ -437,7 +438,6 @@
             _haveAgiftInnerView.hidden = NO;
             shouldCallOnceInLaunch = NO;
             _giftCardViewHeight.constant += 125;
-            self.haveAGiftViewHeight.constant += 125; // for iPad
         }
     }
     
@@ -445,11 +445,17 @@
     if ([[self.order eligiblePickup] boolValue]) {
         [_freeMontrealView setHidden:NO];
         [self.freeMontrealViewHeightConstraint setConstant:50];
-        [self resetSize];
+        if ([BTRViewUtility isIPAD])
+            [self resetSizeForiPad];
+        else
+            [self resetSize];
     } else {
         [_freeMontrealView setHidden:YES];
         [self.freeMontrealViewHeightConstraint setConstant:0];
-        [self resetSize];
+        if ([BTRViewUtility isIPAD])
+            [self resetSizeForiPad];
+        else
+            [self resetSize];
     }
     
     // Free ShipAddress
@@ -523,8 +529,6 @@
     CGFloat heightSize = 0;
     CGFloat widthSize = 0;
     if ([BTRViewUtility isIPAD]) {
-        self.haveAGiftViewHeight.constant = self.haveAGiftViewHeight.constant + self.sampleGiftViewHeight.constant;
-        self.payListWithSampleOut.constant += SAMPLE_GIFT_HEIGHT * [self.order.promoItems count];
         widthSize = self.view.frame.size.width/2 - 50;
     } else {
         widthSize = self.view.frame.size.width;
@@ -552,7 +556,10 @@
             heightSize += SAMPLE_GIFT_HEIGHT;
             i++;
     }
-    [self resetSize];
+    if ([BTRViewUtility isIPAD])
+        [self resetSizeForiPad];
+    else
+        [self resetSize];
 }
 
 - (void)setCheckboxesTargets {
@@ -580,7 +587,10 @@
     }
     if (!self.comeFromMasterPass)
         [self validateAddressViaAPIAndInCompletion:nil];
-    [self resetSize];
+    if ([BTRViewUtility isIPAD])
+        [self resetSizeForiPad];
+    else
+        [self resetSize];
 }
 
 -(void)checkboxChangePaymentMethodDidChange:(CTCheckbox *)checkbox {
@@ -749,12 +759,11 @@
         if (checkbox.checked) {
             self.giftViewHeight.constant = 250;
             self.giftCardInfoView.hidden = NO;
-            self.viewHeight.constant = self.viewHeight.constant + 175;
         } else {
             self.giftViewHeight.constant = 75;
             self.giftCardInfoView.hidden = YES;
-            self.viewHeight.constant = self.viewHeight.constant - 175;
         }
+        [self resetSizeForiPad];
     } else {
         if (checkbox.checked) {
             self.giftViewHeight.constant = 250;
@@ -769,7 +778,7 @@
                              if ([checkbox checked]) {
                                  self.giftCardInfoView.hidden = NO;
                              }
-                             [self resetSize];
+                            [self resetSize];
                          }];
     }
 }
@@ -1005,16 +1014,19 @@
         } else {
             self.billingAddressView.userInteractionEnabled = YES;
             self.billingAddressView.alpha = 1.0;
-            self.fastPaymentHeight.constant = 56;
+            self.fastPaymentHeight.constant = FASTPAYMENT_HEIGHT_IPAD;
             self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
         }
+        UIImageView * camImage = [self.view viewWithTag:555];
         self.cameraButton.hidden = NO;
+        camImage.hidden = NO;
         self.paymentDetailsView.hidden = NO;
         self.paypalDetailsView.hidden = YES;
         self.fastPaymentView.hidden = NO;
         self.rememberCardInfoView.hidden = NO;
         if ([self.order.lockCCFields boolValue]) {
             self.cameraButton.hidden = YES;
+            camImage.hidden = YES;
             self.rememberCardInfoView.hidden = YES;
             self.changePaymentMethodView.hidden = NO;
             self.cardVerificationPaymentTF.text = @"xxx";
@@ -1064,7 +1076,10 @@
     else
         self.rememberCardInfoHeight.constant = REMEBER_CARD_INFO_HEIGHT;
     
-    [self resetSize];
+    if ([BTRViewUtility isIPAD])
+        [self resetSizeForiPad];
+    else
+        [self resetSize];
 }
 
 - (void)hideCardPaymentTip {
@@ -1164,7 +1179,6 @@
     if (_giftCardViewHeight.constant == 40) {
         if ([BTRViewUtility isIPAD]) {
             _giftCardViewHeight.constant += 125;
-            self.haveAGiftViewHeight.constant += 125;
         } else {
             [UIView animateWithDuration:0.5 animations:^{
                 _giftCardViewHeight.constant += 125;
@@ -1176,7 +1190,6 @@
     } else {
         if ([BTRViewUtility isIPAD]) {
             _giftCardViewHeight.constant -= 125;
-            self.haveAGiftViewHeight.constant -= 125;
         } else {
             [UIView animateWithDuration:0.5 animations:^{
                 _giftCardViewHeight.constant -= 125;
@@ -1186,7 +1199,10 @@
         _haveAgiftInnerView.hidden = YES;
         [_expandHaveCode setStyle:kFRDLivelyButtonStylePlus animated:YES];
     }
-    [self resetSize];
+    if ([BTRViewUtility isIPAD])
+        [self resetSizeForiPad];
+    else
+        [self resetSize];
 }
 
 - (IBAction)shippingCountryButtonTapped:(UIButton *)sender {
@@ -1671,7 +1687,10 @@
     [self.cardVerificationPaymentTF setHidden:YES];
     [self.cardVerificationPaymentLB setHidden:YES];
     [self.creditCardDetailHeight setConstant:self.creditCardDetailHeight.constant - 60];
-    [self resetSize];
+    if ([BTRViewUtility isIPAD])
+        [self resetSizeForiPad];
+    else
+        [self resetSize];
     [self setComeFromMasterPass:NO];
 }
 
@@ -1684,33 +1703,25 @@
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
     [self changeDetailPaymentFor:paypal];
-    [self resetSize];
+    if ([BTRViewUtility isIPAD])
+        [self resetSizeForiPad];
+    else
+        [self resetSize];
 }
 
 - (void)resetSize {
-    CGFloat size;
-    if ([BTRViewUtility isIPAD])
-        size = DEFAULT_VIEW_HEIGHT_IPAD;
-    else
-        size = DEFAULT_VIEW_HEIGHT_IPHONE;
+    
+    CGFloat size= DEFAULT_VIEW_HEIGHT_IPHONE;
     
     if (self.currentPaymentType == paypal && self.paypalEmailTF.text.length > 0) {
-        if(![BTRViewUtility isIPAD]) {
             size = size - (CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT);
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
-        } else {
-            size -= 100;
-        }
     }
     else if (self.currentPaymentType == paypal) {
-        if(![BTRViewUtility isIPAD]) {
             size = size - (CARD_PAYMENT_HEIGHT + PAYPAL_PAYMENT_HEIGHT) ;
             size = size - BILLING_ADDRESS_HEIGHT;
             size = size - FASTPAYMENT_HEIGHT;
-        } else {
-            size -= 100;
-        }
     }
     else {
         
@@ -1733,8 +1744,6 @@
     }
     if (_freeMontrealViewHeightConstraint.constant == 50) {
         size += 50;
-    } else if (_freeMontrealViewHeightConstraint.constant == 0 && [BTRViewUtility isIPAD]) {
-        size += 50;
     }
     if (self.pleaseFillOutTheShippingFormView.hidden)
         size = size - FILL_SHIPPING_HEIGHT;
@@ -1745,7 +1754,7 @@
     if (self.rememberCardInfoHeight.constant == 0)
         size = size - REMEBER_CARD_INFO_HEIGHT;
     
-    if (_noShippingLabelHeight.constant == 0 && ![BTRViewUtility isIPAD]) {
+    if (_noShippingLabelHeight.constant == 0) {
         size -= 47;
     }
     size = size + self.sampleGiftViewHeight.constant;
@@ -1753,6 +1762,69 @@
     self.viewHeight.constant = size;
     [self.view layoutIfNeeded];
 }
+
+-(void)resetSizeForiPad {
+    CGFloat leftSize = DEFAULT_VIEW_HEIGHT_IPAD;
+    CGFloat rightSize = DEFAULT_VIEW_HEIGHT_IPAD;
+    
+    if (self.currentPaymentType == paypal) {
+        leftSize -= FASTPAYMENT_HEIGHT_IPAD;
+        rightSize -= FASTPAYMENT_HEIGHT_IPAD;
+        
+        if (self.paypalEmailTF.text.length != 0) {
+            leftSize -= (CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT_IPAD);
+        } else {
+            leftSize -= CARD_PAYMENT_HEIGHT;
+        }
+    }
+    
+    if (self.pleaseFillOutTheShippingFormView.hidden)
+        leftSize -= FILL_SHIPPING_HEIGHT;
+    
+    if (self.freeShippingPromoHeight.constant == 0)
+        leftSize -= CHECKBOXES_HEIGHT;
+    
+    if (_noShippingLabelHeight.constant == 0)
+        leftSize -= 39;
+    
+    if (_freeMontrealViewHeightConstraint.constant == 50)
+        leftSize += 50;
+    
+    if (_vipOptionViewHeight.constant == 0)
+        leftSize -= 45;
+    
+    if (_freeshipMessageLabelHeight.constant > 0)
+        leftSize += self.freeshipMessageLabelHeight.constant;
+    
+    if (_cardPaymentTipHeight.constant == 0)
+        leftSize -= 65;
+    
+    if (_rememberCardInfoHeight.constant == 0)
+        leftSize -= REMEBER_CARD_INFO_HEIGHT;
+    
+    if (self.orderIsGiftCheckbox.checked)
+        rightSize += GIFT_MAX_HEIGHT;
+    
+    if (_giftCardViewHeight.constant == 0)
+        rightSize -= 125;
+    
+    if (_giftCardViewHeight.constant == 40)
+        rightSize -= 125;
+    
+    rightSize += _sampleGiftViewHeight.constant;
+    rightSize -= self.totalRemovedPlaceInReceipt * RECEIPT_CELL_SIZE;
+    
+    
+    NSLog(@"%f %f",leftSize,rightSize);
+    
+    if (leftSize > rightSize)
+        self.viewHeight.constant = leftSize;
+    else
+        self.viewHeight.constant = rightSize;
+    [self.view layoutIfNeeded];
+}
+
+
 
 #pragma mark camera
 

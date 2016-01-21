@@ -16,6 +16,7 @@
 		1408D1C31BEA38B700125FE8 /* BTRProductShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1408D1C11BEA38B700125FE8 /* BTRProductShareCell.xib */; };
 		144D8CB91C3E436700CD57E2 /* FilterTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 144D8CB61C3E436700CD57E2 /* FilterTypeCell.m */; };
 		144D8CBA1C3E436700CD57E2 /* FilterSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 144D8CB81C3E436700CD57E2 /* FilterSelectionCell.m */; };
+		145B37031C51188500269D44 /* paypalCheckout1.png in Resources */ = {isa = PBXBuildFile; fileRef = 145B37021C51188500269D44 /* paypalCheckout1.png */; };
 		145D3CC51BECA7DB00627DD5 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 145D3CC41BECA7DB00627DD5 /* facebook.png */; };
 		14A6EDE21BEB8C87007944FA /* BTRProductCollecCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */; };
 		14A6EDE31BEB8C87007944FA /* BTRProductCollecCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A6EDE11BEB8C87007944FA /* BTRProductCollecCell.xib */; };
@@ -281,6 +282,7 @@
 		144D8CB61C3E436700CD57E2 /* FilterTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTypeCell.m; sourceTree = "<group>"; };
 		144D8CB71C3E436700CD57E2 /* FilterSelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterSelectionCell.h; sourceTree = "<group>"; };
 		144D8CB81C3E436700CD57E2 /* FilterSelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterSelectionCell.m; sourceTree = "<group>"; };
+		145B37021C51188500269D44 /* paypalCheckout1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paypalCheckout1.png; sourceTree = "<group>"; };
 		145D3CC41BECA7DB00627DD5 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		14A6EDDF1BEB8C87007944FA /* BTRProductCollecCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRProductCollecCell.h; sourceTree = "<group>"; };
 		14A6EDE01BEB8C87007944FA /* BTRProductCollecCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRProductCollecCell.m; sourceTree = "<group>"; };
@@ -1072,6 +1074,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				145B37021C51188500269D44 /* paypalCheckout1.png */,
 				A03C2FCB1C40571B00B9D8F0 /* whiteblank.jpg */,
 				A044DC931BFFC05600100B1F /* apple_pay_2x.png */,
 				A029D77E1BFBA9A500BFC7F7 /* profileBack.png */,
@@ -1606,6 +1609,7 @@
 				A0FD342A1BA76C2E00B6B2C3 /* neulogo.png in Resources */,
 				14EE31E81C4398E900CB8A77 /* Category.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,
+				145B37031C51188500269D44 /* paypalCheckout1.png in Resources */,
 				69D4400B1B2A0D7900070FD8 /* masterpass@2x.png in Resources */,
 				698679FD1A4351A4003CE59C /* neulogocentered.png in Resources */,
 				69F0BB271B457156008C0498 /* SF-UI-Display-Medium.otf in Resources */,
