@@ -212,6 +212,7 @@
 		A027C33B1C2AECD80013A8AF /* SKUContents+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A027C33A1C2AECD80013A8AF /* SKUContents+AppServer.m */; };
 		A027C33E1C2AED010013A8AF /* BTRSKUContentFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A027C33D1C2AED010013A8AF /* BTRSKUContentFetcher.m */; };
 		A027C3411C2AED1F0013A8AF /* SKUContents.m in Sources */ = {isa = PBXBuildFile; fileRef = A027C3401C2AED1F0013A8AF /* SKUContents.m */; };
+		A029B0971C5154BF00782566 /* CloseX.png in Resources */ = {isa = PBXBuildFile; fileRef = A029B0961C5154BF00782566 /* CloseX.png */; };
 		A029D77F1BFBA9A500BFC7F7 /* profileBack.png in Resources */ = {isa = PBXBuildFile; fileRef = A029D77E1BFBA9A500BFC7F7 /* profileBack.png */; };
 		A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A02A6BF31BB08E0400C01F2C /* BTRLoader.m */; };
 		A03C2FCC1C40571B00B9D8F0 /* whiteblank.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A03C2FCB1C40571B00B9D8F0 /* whiteblank.jpg */; };
@@ -623,6 +624,7 @@
 		A027C33D1C2AED010013A8AF /* BTRSKUContentFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRSKUContentFetcher.m; sourceTree = "<group>"; };
 		A027C33F1C2AED1F0013A8AF /* SKUContents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUContents.h; sourceTree = "<group>"; };
 		A027C3401C2AED1F0013A8AF /* SKUContents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUContents.m; sourceTree = "<group>"; };
+		A029B0961C5154BF00782566 /* CloseX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseX.png; sourceTree = "<group>"; };
 		A029D77E1BFBA9A500BFC7F7 /* profileBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profileBack.png; sourceTree = "<group>"; };
 		A02A6BF21BB08E0400C01F2C /* BTRLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRLoader.h; sourceTree = "<group>"; };
 		A02A6BF31BB08E0400C01F2C /* BTRLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoader.m; sourceTree = "<group>"; };
@@ -1074,6 +1076,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A029B0961C5154BF00782566 /* CloseX.png */,
 				145B37021C51188500269D44 /* paypalCheckout1.png */,
 				A03C2FCB1C40571B00B9D8F0 /* whiteblank.jpg */,
 				A044DC931BFFC05600100B1F /* apple_pay_2x.png */,
@@ -1585,6 +1588,7 @@
 				69AB984A1A71A50400EDB1E6 /* filtericon.png in Resources */,
 				A00393E61B7B8B4000A3F79F /* delivery.jpg in Resources */,
 				69FF40751A3F8939000BD092 /* Main.storyboard in Resources */,
+				A029B0971C5154BF00782566 /* CloseX.png in Resources */,
 				69F0BB251B457156008C0498 /* SF-UI-Display-Heavy.otf in Resources */,
 				14A6EDE31BEB8C87007944FA /* BTRProductCollecCell.xib in Resources */,
 				A06782411BF523790058F1BF /* cardImages_us.png in Resources */,
