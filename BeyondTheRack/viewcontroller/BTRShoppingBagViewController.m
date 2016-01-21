@@ -51,6 +51,9 @@
 @property (strong, nonatomic) BagItem *removeItem;
 @property (strong, nonatomic) ApplePayManager* applePayManager;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *masterPassCenter;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *appleButtonWidth;
+
 @end
 
 @implementation BTRShoppingBagViewController
@@ -644,7 +647,6 @@
 - (void)setupApplePayButton {
     if (self.applePayManager == nil)
         self.applePayManager = [[ApplePayManager alloc]init];
-    self.applePayButtonView.hidden = YES;
     if ([self.applePayManager isApplePayAvailable]) {
         if ([self.applePayManager isApplePaySetup]) {
             self.applePayButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeBuy style:PKPaymentButtonStyleBlack];
@@ -657,6 +659,10 @@
         self.applePayButton.frame = self.applePayButtonView.bounds;
         [self.applePayButtonView addSubview:self.applePayButton];
         self.applePayButtonView.hidden = NO;
+    } else {
+        self.applePayButtonView.hidden = YES;
+        self.appleButtonWidth.constant = 0;
+        self.masterPassCenter.constant = 0;
     }
 }
 
