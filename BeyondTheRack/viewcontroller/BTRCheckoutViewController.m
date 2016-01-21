@@ -1019,6 +1019,7 @@
         }
         UIImageView * camImage = [self.view viewWithTag:555];
         self.cameraButton.hidden = NO;
+        self.scanCardButton.hidden = NO;
         camImage.hidden = NO;
         self.paymentDetailsView.hidden = NO;
         self.paypalDetailsView.hidden = YES;
@@ -1026,6 +1027,7 @@
         self.rememberCardInfoView.hidden = NO;
         if ([self.order.lockCCFields boolValue]) {
             self.cameraButton.hidden = YES;
+            self.scanCardButton.hidden = YES;
             camImage.hidden = YES;
             self.rememberCardInfoView.hidden = YES;
             self.changePaymentMethodView.hidden = NO;

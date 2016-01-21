@@ -2221,7 +2221,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="C470EB17-AFBD-400D-B1C2-5860B4F71CDF" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="48757A94-52E0-41AF-9F07-1164001DB936" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -2868,8 +2868,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="qiO-0f-fnO">
-                                <rect key="frame" x="0.0" y="53" width="320" height="515"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="qiO-0f-fnO">
+                                <rect key="frame" x="0.0" y="73" width="320" height="495"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -2898,8 +2898,8 @@
                                     <outlet property="delegate" destination="x04-h8-Xnb" id="jbz-gF-QwU"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pct-dI-aVn">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pct-dI-aVn">
+                                <rect key="frame" x="0.0" y="20" width="320" height="50"/>
                                 <subviews>
                                     <button opaque="NO" alpha="0.64999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QyH-LU-Lan">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
@@ -5691,8 +5691,8 @@
                                                                     <outlet property="delegate" destination="0sZ-8O-Aj3" id="kAk-Uv-Sez"/>
                                                                 </connections>
                                                             </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CARD NUMBER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1P-cj-hlo">
-                                                                <rect key="frame" x="8" y="83" width="285" height="29"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="CARD NUMBER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1P-cj-hlo">
+                                                                <rect key="frame" x="8" y="83" width="125" height="29"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="29" id="ih9-b2-6ZM"/>
                                                                 </constraints>
@@ -5777,10 +5777,10 @@
                                                                 </connections>
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blJ-Hd-qhm">
-                                                                <rect key="frame" x="256" y="195" width="45" height="30"/>
+                                                                <rect key="frame" x="126" y="83" width="45" height="30"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="45" id="oe4-70-Ko3"/>
-                                                                    <constraint firstAttribute="height" constant="30" id="oeX-Db-vhk"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="PDt-Lo-TkJ"/>
+                                                                    <constraint firstAttribute="width" constant="45" id="V2K-ix-NIJ"/>
                                                                 </constraints>
                                                                 <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                                                 <state key="normal" image="camera.png"/>
@@ -5788,12 +5788,28 @@
                                                                     <action selector="cameraButtonTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="hPx-NH-TS1"/>
                                                                 </connections>
                                                             </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Keu-Sx-1sc">
+                                                                <rect key="frame" x="168" y="83" width="125" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="125" id="RYx-c0-V7K"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="q6e-10-tHf"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
+                                                                <state key="normal" title="Scan your card">
+                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="cameraButtonTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="xgW-ix-wod"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="egH-om-XPR" secondAttribute="trailing" constant="52" id="2wg-yc-fXN"/>
+                                                            <constraint firstItem="blJ-Hd-qhm" firstAttribute="centerY" secondItem="B1P-cj-hlo" secondAttribute="centerY" id="3c8-hj-rW1"/>
+                                                            <constraint firstItem="blJ-Hd-qhm" firstAttribute="leading" secondItem="B1P-cj-hlo" secondAttribute="trailing" constant="8" id="8gg-1x-Vla"/>
                                                             <constraint firstItem="B1P-cj-hlo" firstAttribute="top" secondItem="ofS-V2-LS7" secondAttribute="bottom" constant="8" id="AuB-pM-3jt"/>
-                                                            <constraint firstItem="iYh-q3-k6j" firstAttribute="top" secondItem="blJ-Hd-qhm" secondAttribute="bottom" constant="5" id="CW8-QS-SPH"/>
+                                                            <constraint firstItem="Keu-Sx-1sc" firstAttribute="leading" secondItem="blJ-Hd-qhm" secondAttribute="trailing" constant="-3" id="DME-2m-gkR"/>
                                                             <constraint firstItem="raD-T7-Cel" firstAttribute="top" secondItem="UMJ-3u-QOG" secondAttribute="top" constant="8" id="HJr-br-k5x"/>
                                                             <constraint firstItem="QqB-TQ-m8l" firstAttribute="width" secondItem="egH-om-XPR" secondAttribute="width" id="HLh-MG-AyF"/>
                                                             <constraint firstItem="TGM-Q9-KXr" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="Io7-gn-xxQ"/>
@@ -5808,11 +5824,10 @@
                                                             <constraint firstItem="egH-om-XPR" firstAttribute="width" secondItem="TGM-Q9-KXr" secondAttribute="width" id="Vdw-ML-3oj"/>
                                                             <constraint firstItem="LsO-pP-D0H" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="Wqo-3q-03i"/>
                                                             <constraint firstItem="iYh-q3-k6j" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="WrE-q0-Yh2"/>
-                                                            <constraint firstAttribute="trailing" secondItem="blJ-Hd-qhm" secondAttribute="trailing" id="Xml-mf-d0I"/>
-                                                            <constraint firstItem="blJ-Hd-qhm" firstAttribute="leading" secondItem="egH-om-XPR" secondAttribute="trailing" constant="7" id="Yhj-0s-ktE"/>
                                                             <constraint firstItem="QqB-TQ-m8l" firstAttribute="top" secondItem="egH-om-XPR" secondAttribute="bottom" constant="8" id="ZA2-77-dc0"/>
                                                             <constraint firstItem="iYh-q3-k6j" firstAttribute="top" secondItem="PM4-29-cSq" secondAttribute="bottom" constant="5" id="a7c-ZS-ZqL"/>
                                                             <constraint firstItem="egH-om-XPR" firstAttribute="centerY" secondItem="TGM-Q9-KXr" secondAttribute="centerY" id="apG-DY-6XP"/>
+                                                            <constraint firstItem="Keu-Sx-1sc" firstAttribute="centerY" secondItem="blJ-Hd-qhm" secondAttribute="centerY" id="awQ-4j-JT4"/>
                                                             <constraint firstItem="TGM-Q9-KXr" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="beo-ze-rvQ"/>
                                                             <constraint firstItem="egH-om-XPR" firstAttribute="leading" secondItem="TGM-Q9-KXr" secondAttribute="trailing" constant="9" id="eur-LC-nsC"/>
                                                             <constraint firstItem="PM4-29-cSq" firstAttribute="top" secondItem="TGM-Q9-KXr" secondAttribute="bottom" constant="8" id="guB-Xk-3bx"/>
@@ -5820,7 +5835,6 @@
                                                             <constraint firstAttribute="trailing" secondItem="ofS-V2-LS7" secondAttribute="trailing" constant="8" id="nR7-L9-0LE"/>
                                                             <constraint firstAttribute="trailing" secondItem="LsO-pP-D0H" secondAttribute="trailing" constant="8" id="ngu-IM-bvH"/>
                                                             <constraint firstItem="ofS-V2-LS7" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="o1U-Oi-dwd"/>
-                                                            <constraint firstAttribute="trailing" secondItem="B1P-cj-hlo" secondAttribute="trailing" constant="8" id="pPb-tv-n9Q"/>
                                                             <constraint firstItem="LsO-pP-D0H" firstAttribute="top" secondItem="B1P-cj-hlo" secondAttribute="bottom" constant="8" id="poB-Zc-Huc"/>
                                                             <constraint firstItem="ofS-V2-LS7" firstAttribute="top" secondItem="raD-T7-Cel" secondAttribute="bottom" constant="8" id="uVj-yg-jeS"/>
                                                             <constraint firstItem="raD-T7-Cel" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="wT6-HM-vwX"/>
@@ -6771,6 +6785,7 @@
                         <outlet property="sameAsShippingHeight" destination="Ooo-ex-xwB" id="Ez8-WP-Zmc"/>
                         <outlet property="sampleGiftView" destination="zBS-n1-fCG" id="qd7-pa-834"/>
                         <outlet property="sampleGiftViewHeight" destination="14d-dS-DBd" id="dcL-3h-evR"/>
+                        <outlet property="scanCardButton" destination="Keu-Sx-1sc" id="xgU-yv-qXq"/>
                         <outlet property="scrollView" destination="Ol2-Jf-Nst" id="qPI-5a-bxn"/>
                         <outlet property="sendmeToPaypalCheckbox" destination="Tj6-qv-WWR" id="GLv-Sz-KSN"/>
                         <outlet property="sendmeToPaypalLabel" destination="IU8-Ib-jrv" id="Of5-d1-84h"/>
@@ -9375,8 +9390,8 @@ If so, please provide the order number,
                                                             <constraint firstAttribute="bottom" secondItem="zhj-qP-Bfs" secondAttribute="bottom" id="bkX-xx-NAC"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSD-T5-Fpc">
-                                                        <rect key="frame" x="10" y="190" width="285" height="0.0"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSD-T5-Fpc">
+                                                        <rect key="frame" x="10" y="190" width="855" height="0.0"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" id="rGN-bb-3yR"/>
                                                         </constraints>
@@ -9911,16 +9926,6 @@ If so, please provide the order number,
                                                                     <outlet property="delegate" destination="KI2-4Z-PmZ" id="chV-Mu-Pmn"/>
                                                                 </connections>
                                                             </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CARD NUMBER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufr-mK-LeD">
-                                                                <rect key="frame" x="0.0" y="83" width="115" height="29"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="115" id="3qJ-9R-SiB"/>
-                                                                    <constraint firstAttribute="height" constant="29" id="kDT-Pa-htb"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
-                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="96u-OO-xjq" userLabel="Card Number Text Field">
                                                                 <rect key="frame" x="0.0" y="120" width="284" height="30"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -10052,6 +10057,16 @@ If so, please provide the order number,
                                                                     <constraint firstAttribute="width" constant="30" id="cfg-m9-7zP"/>
                                                                 </constraints>
                                                             </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CARD NUMBER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufr-mK-LeD">
+                                                                <rect key="frame" x="0.0" y="83" width="115" height="29"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="115" id="3qJ-9R-SiB"/>
+                                                                    <constraint firstAttribute="height" constant="29" id="kDT-Pa-htb"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.97938368060000003" green="0.97938368060000003" blue="0.97938368060000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -11900,8 +11915,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="C470EB17-AFBD-400D-B1C2-5860B4F71CDF" width="30" height="30">
+        <image name="48757A94-52E0-41AF-9F07-1164001DB936" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGSUpYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEAcI
 ERYbHCUmJysyNzo9Q0ZVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlND
@@ -11959,6 +11973,7 @@ Lws6Cz8LRwtKC08LXgtiC2kLcQt+C4MLhQuHC4wLlAuXC5wLpAunC7kLvAvBAAAAAAAAAgEAAAAAAAAA
 TQAAAAAAAAAAAAAAAAAAC8M
 </mutableData>
         </image>
+        <image name="BTRLogo.png" width="925" height="125"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="account" width="128" height="128"/>
         <image name="backarrowcool.png" width="512" height="512"/>
@@ -11981,9 +11996,9 @@ TQAAAAAAAAAAAAAAAAAAC8M
         <image name="trackorders" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4mB-Cf-BtX"/>
         <segue reference="BuZ-Hx-nC7"/>
-        <segue reference="4NP-4y-F7L"/>
         <segue reference="wA3-jM-FeK"/>
+        <segue reference="4NP-4y-F7L"/>
+        <segue reference="4mB-Cf-BtX"/>
     </inferredMetricsTieBreakers>
 </document>

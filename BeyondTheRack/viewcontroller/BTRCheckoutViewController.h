@@ -199,6 +199,7 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet UITextField *giftCardCodePaymentTF;
 @property (weak, nonatomic) IBOutlet CTCheckbox *changePaymentMethodCheckbox;
 @property (weak, nonatomic) IBOutlet UIButton *cameraButton;
+@property (weak, nonatomic) IBOutlet UIButton *scanCardButton;
 
 /**
  
