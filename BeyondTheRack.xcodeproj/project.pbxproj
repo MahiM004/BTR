@@ -23,6 +23,7 @@
 		14A6EDE51BEB8E1F007944FA /* BTRProductDetailCellDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14A6EDE41BEB8E1F007944FA /* BTRProductDetailCellDetail.xib */; };
 		14C046C31C0C18F100521189 /* BTRPopUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C046C21C0C18F100521189 /* BTRPopUpVC.m */; };
 		14C046C61C0C190B00521189 /* BTRPopUPVCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C046C51C0C190B00521189 /* BTRPopUPVCCell.m */; };
+		14D680351C51FE7100DBAA29 /* blackwhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 14D680341C51FE7100DBAA29 /* blackwhite.png */; };
 		14DE66CE1C159A2E00A7AA1F /* DownPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DE66CB1C159A2E00A7AA1F /* DownPicker.m */; };
 		14DE66CF1C159A2E00A7AA1F /* UIDownPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DE66CD1C159A2E00A7AA1F /* UIDownPicker.m */; };
 		14EE31DE1C43906600CB8A77 /* priceTag.png in Resources */ = {isa = PBXBuildFile; fileRef = 14EE31DD1C43906600CB8A77 /* priceTag.png */; };
@@ -293,6 +294,7 @@
 		14C046C21C0C18F100521189 /* BTRPopUpVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPopUpVC.m; sourceTree = "<group>"; };
 		14C046C41C0C190B00521189 /* BTRPopUPVCCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPopUPVCCell.h; sourceTree = "<group>"; };
 		14C046C51C0C190B00521189 /* BTRPopUPVCCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPopUPVCCell.m; sourceTree = "<group>"; };
+		14D680341C51FE7100DBAA29 /* blackwhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackwhite.png; sourceTree = "<group>"; };
 		14DE66CA1C159A2E00A7AA1F /* DownPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownPicker.h; sourceTree = "<group>"; };
 		14DE66CB1C159A2E00A7AA1F /* DownPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownPicker.m; sourceTree = "<group>"; };
 		14DE66CC1C159A2E00A7AA1F /* UIDownPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDownPicker.h; sourceTree = "<group>"; };
@@ -954,6 +956,7 @@
 		692F24D21AA8E0B4003AABE1 /* MyAccount */ = {
 			isa = PBXGroup;
 			children = (
+				14D680341C51FE7100DBAA29 /* blackwhite.png */,
 				69765FEB1A51BE5A004A0F46 /* BTRMyAccountViewController.h */,
 				69765FEC1A51BE5A004A0F46 /* BTRMyAccountViewController.m */,
 				69CEF34E1ABCBE2C00835276 /* BTRAccountEmbeddedTVC.h */,
@@ -1607,6 +1610,7 @@
 				69F0BB311B457156008C0498 /* SF-UI-Text-Light.otf in Resources */,
 				690A390D1B1DEE0000D4BA84 /* checked@2x.png in Resources */,
 				A01670701B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib in Resources */,
+				14D680351C51FE7100DBAA29 /* blackwhite.png in Resources */,
 				69F0BB321B457156008C0498 /* SF-UI-Text-LightItalic.otf in Resources */,
 				690A390C1B1DEE0000D4BA84 /* checked.png in Resources */,
 				14EE31E41C43925200CB8A77 /* colorImage.png in Resources */,
