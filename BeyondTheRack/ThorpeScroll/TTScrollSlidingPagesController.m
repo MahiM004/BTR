@@ -36,6 +36,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TTScrollViewWrapper.h"
 
+typedef enum ScrollDirection {
+    ScrollDirectionNone,
+    ScrollDirectionRight,
+    ScrollDirectionLeft,
+} ScrollDirection;
+
 @interface TTScrollSlidingPagesController ()
 
 @end
@@ -578,16 +584,50 @@
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    ScrollDirection direction;
+    if ([scrollView.panGestureRecognizer translationInView:scrollView.superview].x > 0)
+        direction = ScrollDirectionRight;
+    else
+        direction = ScrollDirectionLeft;
+    
     if (bottomScrollView.subviews.count == 0){
         return; //there are no pages in the bottom scroll view so we couldn't have scrolled. This probably happened during a rotation before the pages had been created (E.g if the app starts in landscape mode)
     }
     
     int currentPage = [self getCurrentDisplayedPage];
     
-    if (!self.zoomOutAnimationDisabled){
+    int numOfPages = [self.dataSource numberOfPagesForSlidingPagesViewController:self];
+    if (scrollView == topScrollView) {
+        BOOL fixHeader = NO;
+        if (currentPage == numOfPages - 2 && direction == ScrollDirectionLeft){
+            currentPage++;
+            fixHeader = YES;
+        }
+        if (currentPage == numOfPages - 1 && direction == ScrollDirectionRight) {
+            currentPage--;
+            fixHeader = YES;
+        }
+        if (fixHeader) {
+            int bottomPageStart = [self getXPositionOfPage:currentPage];
+            
+            [self killScroll:scrollView];
+            
+            bottomScrollView.delegate = nil;
+            bottomScrollView.contentOffset = CGPointMake(bottomPageStart, 0);
+            bottomScrollView.delegate = self;
+            
+            [self updateHeaderTextColour:currentPage];
+            [self updateHeaderTextFont:currentPage];
+            [self updateHaderUnderLines:currentPage];
+            
+            return;
+        }
+    }
+    
+    if (self.zoomOutAnimationDisabled){
         //Do a zoom out effect on the current view and next view depending on the amount scrolled
-        double minimumZoom = 0.93;
-        double zoomSpeed = 1000;//increase this number to slow down the zoom
+        double minimumZoom = 0.80;
+        double zoomSpeed = 1300;//increase this number to slow down the zoom
         UIView *currentView = [bottomScrollView.subviews objectAtIndex:currentPage];
         UIView *nextView;
         if (currentPage < [bottomScrollView.subviews count]-1){
@@ -611,7 +651,6 @@
             nextView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scaleAmount, scaleAmount);
         }
     }
-    
     
     if (scrollView == topScrollView){
         //translate the top scroll to the bottom scroll
@@ -651,11 +690,16 @@
         float addToTopXPosition = percentageTowardsNextPage * self.titleScrollerItemWidth;
         topXPosition = topXPosition + roundf(addToTopXPosition);
         
-        topScrollView.delegate = nil;
-        topScrollView.contentOffset = CGPointMake(topXPosition, 0);
-        topScrollView.delegate = self;
+        if ((currentPage == numOfPages - 2 && direction == ScrollDirectionLeft) || (currentPage == numOfPages - 1 && direction == ScrollDirectionLeft))
+            return;
+        else if ((currentPage == numOfPages - 2 && direction == ScrollDirectionRight) || (currentPage == numOfPages - 1 && direction == ScrollDirectionRight))
+            return;
+        else {
+            topScrollView.delegate = nil;
+            topScrollView.contentOffset = CGPointMake(topXPosition, 0);
+            topScrollView.delegate = self;
+        }
     }
-    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -789,7 +833,9 @@
     }
 }
 
-
-
+- (void)killScroll:(UIScrollView *)scrollView {
+    scrollView.scrollEnabled = NO;
+    scrollView.scrollEnabled = YES;
+}
 
 @end
