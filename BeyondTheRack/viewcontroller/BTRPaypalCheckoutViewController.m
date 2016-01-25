@@ -89,8 +89,10 @@
     [BTRConnectionHelper postDataToURL:url withParameters:info setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
         if ([[[response valueForKey:@"payment"]valueForKey:@"success"]boolValue]) {
             [self getConfirmationInfoWithOrderID:[[response valueForKey:@"order"]valueForKey:@"order_id"]];
-        }else if ([[response valueForKey:@"paypalInfo"]valueForKey:@"paypalUrl"])
+        }else if ([[[response valueForKey:@"paypalInfo"] valueForKey:@"success"]boolValue] && [[response valueForKey:@"paypalInfo"]valueForKey:@"paypalUrl"])
             [self loadPaypalURLWithURL:[[response valueForKey:@"paypalInfo"]valueForKey:@"paypalUrl"]];
+        else
+            [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Paypal Checkout does not work now. Please try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
     } faild:^(NSError *error) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
