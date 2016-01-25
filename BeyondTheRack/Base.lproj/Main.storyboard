@@ -2221,7 +2221,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="E482B857-A068-4A43-B6A6-DD2627536303" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="9726F267-ADFE-4446-A42D-CA1129581F54" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -9397,7 +9397,7 @@ If so, please provide the order number,
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSD-T5-Fpc">
-                                                        <rect key="frame" x="10" y="190" width="855" height="0.0"/>
+                                                        <rect key="frame" x="10" y="190" width="285" height="0.0"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" id="rGN-bb-3yR"/>
                                                         </constraints>
@@ -11367,6 +11367,7 @@ If so, please provide the order number,
                                                     <constraint firstItem="VSD-T5-Fpc" firstAttribute="top" secondItem="0dW-uu-dgo" secondAttribute="bottom" constant="5" id="s1Y-dZ-8jX"/>
                                                     <constraint firstItem="XGO-b1-D0y" firstAttribute="leading" secondItem="ECx-B1-isb" secondAttribute="leading" constant="10" id="sXz-8U-qce"/>
                                                     <constraint firstAttribute="trailing" secondItem="W5h-DL-qeW" secondAttribute="trailing" constant="10" id="sgc-Rx-QYG"/>
+                                                    <constraint firstItem="VSD-T5-Fpc" firstAttribute="trailing" secondItem="0dW-uu-dgo" secondAttribute="trailing" id="u8F-VH-dEt"/>
                                                     <constraint firstItem="ZNU-1X-01B" firstAttribute="centerX" secondItem="fFt-g1-q3g" secondAttribute="centerX" id="uws-9D-e9V"/>
                                                     <constraint firstItem="20y-j5-gcK" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="trailing" constant="8" id="w9o-Mx-inW"/>
                                                     <constraint firstItem="UWe-G1-yI1" firstAttribute="leading" secondItem="kRD-9y-vQJ" secondAttribute="trailing" id="xF6-bR-7pp"/>
@@ -11922,9 +11923,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="CloseX.png" width="512" height="512"/>
-        <image name="E482B857-A068-4A43-B6A6-DD2627536303" width="30" height="30">
+        <image name="9726F267-ADFE-4446-A42D-CA1129581F54" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -11981,6 +11980,8 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
+        <image name="BTRLogo.png" width="925" height="125"/>
+        <image name="CloseX.png" width="512" height="512"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="account" width="128" height="128"/>
         <image name="backarrowcool.png" width="512" height="512"/>
@@ -12004,8 +12005,8 @@ RgAAAAAAAAAAAAAAAAAAC5U
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="BuZ-Hx-nC7"/>
-        <segue reference="ue6-nF-fny"/>
-        <segue reference="Hl3-o6-ufa"/>
-        <segue reference="HxW-sB-vXc"/>
+        <segue reference="wA3-jM-FeK"/>
+        <segue reference="4NP-4y-F7L"/>
+        <segue reference="4mB-Cf-BtX"/>
     </inferredMetricsTieBreakers>
 </document>
