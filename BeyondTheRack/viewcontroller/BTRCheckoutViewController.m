@@ -1359,6 +1359,10 @@
         [params setObject:[self orderInfo] forKey:@"orderInfo"];
         [params setObject:[self selectedGift] forKey:@"promotions_opted_in"];
         [params setObject:self.arrayOfVanityCodes forKey:@"vanity_codes"];
+        if (self.paypalEmailTF.text.length == 0 || self.sendmeToPaypalCheckbox.checked) {
+            NSDictionary* paypalMode = [NSDictionary dictionaryWithObject:@"paypalLogin" forKey:@"mode"];
+            [params setObject:paypalMode forKey:@"paypalInfo"];
+        }
     }
     else {
         params = [[NSMutableDictionary alloc]init];
@@ -1457,6 +1461,7 @@
     } else if ([[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueIdentifier"] || [[segue identifier]isEqualToString:@"BTRPaypalCheckoutSegueiPadIdentifier"]) {
         BTRPaypalCheckoutViewController* paypalVC = [segue destinationViewController];
         paypalVC.paypalInfo = self.paypalCallBackInfo;
+        paypalVC.delegate = nil;
     } else if ([[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueIdentifier"] || [[segue identifier]isEqualToString:@"BTRMasterPassCheckoutSegueiPadIdentifier"]) {
         BTRMasterPassViewController* mpVC = [segue destinationViewController];
         mpVC.info = self.masterpass;
