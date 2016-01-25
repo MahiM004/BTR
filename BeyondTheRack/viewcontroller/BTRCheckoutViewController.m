@@ -1001,6 +1001,7 @@
 }
 
 - (void)changeDetailPaymentFor:(paymentType)type {
+    self.paymentCreditView.hidden = NO;
     if (type == creditCard) {
         if ([self.order.billingAddress.country isEqualToString:@"US"])
             [self.paymentMethodImageView setImage:[UIImage imageNamed:@"cardImages_us"]];
@@ -1059,7 +1060,8 @@
                 self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT;
                 self.paypalDetailHeight.constant = CARD_PAYMENT_HEIGHT;
             } else {
-                self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT_IPAD;
+                self.paymentCreditView.hidden = YES;
+                self.creditCardDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT_IPAD;
                 self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT_IPAD;
             }
             [self disablePaymentInfo];
