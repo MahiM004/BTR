@@ -2221,7 +2221,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="B4D0D2BF-070E-427B-8319-F36D9BB4DB30" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="E482B857-A068-4A43-B6A6-DD2627536303" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -5687,7 +5687,7 @@
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ofS-V2-LS7" userLabel="Name On Card Text Field">
                                                                 <rect key="frame" x="8" y="45" width="285" height="30"/>
-                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="qAO-bw-hWM"/>
                                                                 </constraints>
@@ -5709,7 +5709,7 @@
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LsO-pP-D0H" userLabel="Card Number Text Field">
                                                                 <rect key="frame" x="8" y="120" width="285" height="30"/>
-                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="8c7-0d-cl9"/>
                                                                 </constraints>
@@ -5772,7 +5772,7 @@
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Usu-Zh-w15" userLabel="Card Verification Text Field">
                                                                 <rect key="frame" x="8" y="267" width="55" height="30"/>
-                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="HPZ-83-vgC"/>
                                                                     <constraint firstAttribute="width" constant="55" id="KI6-N3-h8I"/>
@@ -5784,10 +5784,10 @@
                                                                 </connections>
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blJ-Hd-qhm">
-                                                                <rect key="frame" x="133" y="83" width="45" height="30"/>
+                                                                <rect key="frame" x="157" y="83" width="45" height="30"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="PDt-Lo-TkJ"/>
-                                                                    <constraint firstAttribute="width" constant="45" id="V2K-ix-NIJ"/>
+                                                                    <constraint firstAttribute="width" constant="45" id="8K3-Fj-Iif"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="VPp-xu-AT3"/>
                                                                 </constraints>
                                                                 <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                                                 <state key="normal" image="camera.png"/>
@@ -5795,11 +5795,11 @@
                                                                     <action selector="cameraButtonTapped:" destination="0sZ-8O-Aj3" eventType="touchUpInside" id="hPx-NH-TS1"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Keu-Sx-1sc">
-                                                                <rect key="frame" x="178" y="83" width="125" height="30"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Keu-Sx-1sc">
+                                                                <rect key="frame" x="203" y="83" width="90" height="30"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="125" id="RYx-c0-V7K"/>
-                                                                    <constraint firstAttribute="height" constant="30" id="q6e-10-tHf"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="DFn-l9-JBG"/>
+                                                                    <constraint firstAttribute="width" constant="90" id="FnU-ga-lpR"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
                                                                 <state key="normal" title="Scan your card">
@@ -5813,12 +5813,11 @@
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="egH-om-XPR" secondAttribute="trailing" constant="52" id="2wg-yc-fXN"/>
-                                                            <constraint firstItem="blJ-Hd-qhm" firstAttribute="centerY" secondItem="B1P-cj-hlo" secondAttribute="centerY" id="3c8-hj-rW1"/>
-                                                            <constraint firstItem="blJ-Hd-qhm" firstAttribute="leading" secondItem="B1P-cj-hlo" secondAttribute="trailing" id="8gg-1x-Vla"/>
+                                                            <constraint firstItem="blJ-Hd-qhm" firstAttribute="centerY" secondItem="B1P-cj-hlo" secondAttribute="centerY" id="413-cb-nbJ"/>
                                                             <constraint firstItem="B1P-cj-hlo" firstAttribute="top" secondItem="ofS-V2-LS7" secondAttribute="bottom" constant="8" id="AuB-pM-3jt"/>
-                                                            <constraint firstItem="Keu-Sx-1sc" firstAttribute="leading" secondItem="blJ-Hd-qhm" secondAttribute="trailing" id="DME-2m-gkR"/>
                                                             <constraint firstItem="raD-T7-Cel" firstAttribute="top" secondItem="UMJ-3u-QOG" secondAttribute="top" constant="8" id="HJr-br-k5x"/>
                                                             <constraint firstItem="QqB-TQ-m8l" firstAttribute="width" secondItem="egH-om-XPR" secondAttribute="width" id="HLh-MG-AyF"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Keu-Sx-1sc" secondAttribute="trailing" constant="8" id="Idn-vs-qGo"/>
                                                             <constraint firstItem="TGM-Q9-KXr" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="Io7-gn-xxQ"/>
                                                             <constraint firstItem="Usu-Zh-w15" firstAttribute="top" secondItem="iYh-q3-k6j" secondAttribute="bottom" constant="8" id="LqT-Lw-Qds"/>
                                                             <constraint firstItem="PM4-29-cSq" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="NBZ-Ix-dqN"/>
@@ -5831,10 +5830,10 @@
                                                             <constraint firstItem="egH-om-XPR" firstAttribute="width" secondItem="TGM-Q9-KXr" secondAttribute="width" id="Vdw-ML-3oj"/>
                                                             <constraint firstItem="LsO-pP-D0H" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="Wqo-3q-03i"/>
                                                             <constraint firstItem="iYh-q3-k6j" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="WrE-q0-Yh2"/>
+                                                            <constraint firstItem="Keu-Sx-1sc" firstAttribute="leading" secondItem="blJ-Hd-qhm" secondAttribute="trailing" constant="1" id="XMF-UF-5MN"/>
                                                             <constraint firstItem="QqB-TQ-m8l" firstAttribute="top" secondItem="egH-om-XPR" secondAttribute="bottom" constant="8" id="ZA2-77-dc0"/>
                                                             <constraint firstItem="iYh-q3-k6j" firstAttribute="top" secondItem="PM4-29-cSq" secondAttribute="bottom" constant="5" id="a7c-ZS-ZqL"/>
                                                             <constraint firstItem="egH-om-XPR" firstAttribute="centerY" secondItem="TGM-Q9-KXr" secondAttribute="centerY" id="apG-DY-6XP"/>
-                                                            <constraint firstItem="Keu-Sx-1sc" firstAttribute="centerY" secondItem="blJ-Hd-qhm" secondAttribute="centerY" id="awQ-4j-JT4"/>
                                                             <constraint firstItem="TGM-Q9-KXr" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="beo-ze-rvQ"/>
                                                             <constraint firstItem="egH-om-XPR" firstAttribute="leading" secondItem="TGM-Q9-KXr" secondAttribute="trailing" constant="9" id="eur-LC-nsC"/>
                                                             <constraint firstItem="PM4-29-cSq" firstAttribute="top" secondItem="TGM-Q9-KXr" secondAttribute="bottom" constant="8" id="guB-Xk-3bx"/>
@@ -5843,6 +5842,7 @@
                                                             <constraint firstAttribute="trailing" secondItem="LsO-pP-D0H" secondAttribute="trailing" constant="8" id="ngu-IM-bvH"/>
                                                             <constraint firstItem="ofS-V2-LS7" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="o1U-Oi-dwd"/>
                                                             <constraint firstItem="LsO-pP-D0H" firstAttribute="top" secondItem="B1P-cj-hlo" secondAttribute="bottom" constant="8" id="poB-Zc-Huc"/>
+                                                            <constraint firstItem="Keu-Sx-1sc" firstAttribute="centerY" secondItem="B1P-cj-hlo" secondAttribute="centerY" id="qyw-Nb-EKG"/>
                                                             <constraint firstItem="ofS-V2-LS7" firstAttribute="top" secondItem="raD-T7-Cel" secondAttribute="bottom" constant="8" id="uVj-yg-jeS"/>
                                                             <constraint firstItem="raD-T7-Cel" firstAttribute="leading" secondItem="UMJ-3u-QOG" secondAttribute="leading" constant="8" id="wT6-HM-vwX"/>
                                                             <constraint firstAttribute="height" constant="310" id="y2o-J5-x7F"/>
@@ -11922,7 +11922,9 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="B4D0D2BF-070E-427B-8319-F36D9BB4DB30" width="30" height="30">
+        <image name="BTRLogo.png" width="925" height="125"/>
+        <image name="CloseX.png" width="512" height="512"/>
+        <image name="E482B857-A068-4A43-B6A6-DD2627536303" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -11979,8 +11981,6 @@ AwsMCxELGQscCyELMAs0CzsLQwtQC1ULVwtZC14LZgtpC24Ldgt5C4sLjguTAAAAAAAAAgEAAAAAAAAA
 RgAAAAAAAAAAAAAAAAAAC5U
 </mutableData>
         </image>
-        <image name="BTRLogo.png" width="925" height="125"/>
-        <image name="CloseX.png" width="512" height="512"/>
         <image name="VisaCheckout.png" width="135" height="30"/>
         <image name="account" width="128" height="128"/>
         <image name="backarrowcool.png" width="512" height="512"/>
