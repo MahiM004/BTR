@@ -348,10 +348,6 @@
         for (Item* item  in self.order.items)
             self.totalSave = self.totalSave + (item.retailPrice.floatValue - item.salePrice.floatValue);
     
-    [self.bagTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order bagTotalPrice].floatValue]];
-    [self.subtotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order subTotalPrice].floatValue]];
-    [self.shippingDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order shippingPrice].floatValue]];
-    
     // calculating taxes
     [self.qstView setHidden:YES];
     [self.gstView setHidden:YES];
@@ -383,7 +379,7 @@
         self.promocreditViewHeight.constant = 0;
         self.totalRemovedPlaceInReceipt ++;
     } else {
-        self.promoDollarLabel.text = [NSString stringWithFormat:@"$%.2f",[self.order.promoCredit floatValue]];
+        self.promoDollarLabel.text = [NSString stringWithFormat:@"($%.2f)",[self.order.promoCredit floatValue]];
         self.promoView.hidden = NO;
         self.promocreditViewHeight.constant = RECEIPT_CELL_SIZE;
     }
@@ -393,7 +389,7 @@
         self.accountCreditViewHeight.constant = 0;
         self.totalRemovedPlaceInReceipt ++;
     } else {
-        self.accountCreditDollarLabel.text = [NSString stringWithFormat:@"$%.2f",[self.order.accountCredit floatValue]];
+        self.accountCreditDollarLabel.text = [NSString stringWithFormat:@"($%.2f)",[self.order.accountCredit floatValue]];
         self.accountCreditView.hidden = NO;
         self.accountCreditViewHeight.constant = RECEIPT_CELL_SIZE;
     }
@@ -413,12 +409,18 @@
         [self.giftDollarLabel setHidden:NO];
         [self.giftLabel setHidden:NO];
         NSString *currentVanity = [[self.order.vanityCodes allKeys]firstObject];
-        [self.giftLabel setText:[NSString stringWithFormat:@"DISCOUNT (%@)",currentVanity]];
-        [self.giftDollarLabel setText:[NSString stringWithFormat:@"$%@",[[self.order.vanityCodes valueForKey:currentVanity]valueForKey:@"discount"]]];
+        [self.giftLabel setText:[NSString stringWithFormat:@"DISCOUNT (%@)",[currentVanity uppercaseString]]];
+        float price = [[[self.order.vanityCodes valueForKey:currentVanity]valueForKey:@"discount"]floatValue];
+        self.order.bagTotalPrice = [NSString stringWithFormat:@"%.2f",self.order.bagTotalPrice.floatValue + price];
+        [self.giftDollarLabel setText:[NSString stringWithFormat:@"($%.2f)",price]];
         [self.vanityView setHidden:NO];
         [self.vanityViewHeight setConstant:RECEIPT_CELL_SIZE];
         self.totalRemovedPlaceInReceipt--;
     }
+    
+    [self.bagTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order bagTotalPrice].floatValue]];
+    [self.subtotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order subTotalPrice].floatValue]];
+    [self.shippingDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order shippingPrice].floatValue]];
     
     // Setting Receipt size
     self.receiptViewHeight.constant = RECEIPT_HEIGHT - self.totalRemovedPlaceInReceipt * RECEIPT_CELL_SIZE;
