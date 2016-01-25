@@ -275,6 +275,16 @@
 
     /**
      
+     Paypal
+     
+     */
+    
+    NSDictionary *paypalDic = orderDictionary[@"paypalInfo"];
+    if (paypalDic)
+        order.paypalInfo = paypalDic;
+    
+    /**
+     
      Total Price
      
      */

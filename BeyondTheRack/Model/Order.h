@@ -70,6 +70,6 @@
 @property (nonatomic, retain) NSArray * items;
 @property (nonatomic, retain) NSArray * promoItems;
 @property (nonatomic, retain) NSDictionary * vanityCodes;
-
+@property (nonatomic, retain) NSDictionary * paypalInfo;
 
 @end
