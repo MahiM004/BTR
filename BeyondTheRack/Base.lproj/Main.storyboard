@@ -2221,7 +2221,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" navigationBarHidden="YES" id="Kg0-s3-5cm" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="First" image="BA6AB2E4-FBE8-49AE-B76D-2C0FA67AF74C" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="First" image="B4D0D2BF-070E-427B-8319-F36D9BB4DB30" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -3121,7 +3121,7 @@
                     </connections>
                 </screenEdgePanGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-12758" y="-1582"/>
+            <point key="canvasLocation" x="-12752" y="-1739"/>
         </scene>
         <!--Product-->
         <scene sceneID="wuF-Dj-fNH">
@@ -4122,7 +4122,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XEY-Uv-4k1">
                                         <rect key="frame" x="8" y="65" width="304" height="100"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paypalCheckout1.png" translatesAutoresizingMaskIntoConstraints="NO" id="psI-bM-YIQ">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paypal_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="psI-bM-YIQ">
                                                 <rect key="frame" x="2" y="3" width="300" height="56"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ly-aP-5fw" userLabel="PayPalButton">
@@ -11922,7 +11922,7 @@ If so, please provide the order number,
         </scene>
     </scenes>
     <resources>
-        <image name="BA6AB2E4-FBE8-49AE-B76D-2C0FA67AF74C" width="30" height="30">
+        <image name="B4D0D2BF-070E-427B-8319-F36D9BB4DB30" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGQkNYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QDwcI
 ERYbHCUmJygwMzY8P1UkbnVsbNQJCgsMDQ4PEFYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0Nv
@@ -11995,7 +11995,7 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="masterpass.png" width="429" height="100"/>
         <image name="neulogo.png" width="925" height="125"/>
         <image name="notifications" width="128" height="128"/>
-        <image name="paypalCheckout1.png" width="300" height="74"/>
+        <image name="paypal_logo.png" width="1945" height="542"/>
         <image name="paypal_yellow.png" width="240" height="60"/>
         <image name="profileBack.png" width="320" height="138"/>
         <image name="searchglass.png" width="200" height="200"/>
@@ -12003,9 +12003,9 @@ RgAAAAAAAAAAAAAAAAAAC5U
         <image name="trackorders" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VWb-YF-urN"/>
-        <segue reference="wA3-jM-FeK"/>
-        <segue reference="4NP-4y-F7L"/>
-        <segue reference="4mB-Cf-BtX"/>
+        <segue reference="BuZ-Hx-nC7"/>
+        <segue reference="ue6-nF-fny"/>
+        <segue reference="Hl3-o6-ufa"/>
+        <segue reference="HxW-sB-vXc"/>
     </inferredMetricsTieBreakers>
 </document>

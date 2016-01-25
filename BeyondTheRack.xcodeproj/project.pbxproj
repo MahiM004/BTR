@@ -181,6 +181,7 @@
 		69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FF40781A3F8939000BD092 /* LaunchScreen.xib */; };
 		69FF40861A3F8939000BD092 /* BeyondTheRackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */; };
 		A00393E61B7B8B4000A3F79F /* delivery.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A00393E51B7B8B4000A3F79F /* delivery.jpg */; };
+		A003EE3D1C56C40100C823E8 /* paypal_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A003EE3C1C56C40100C823E8 /* paypal_logo.png */; };
 		A00A7FEC1B8E102200568BB6 /* BTRChartFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */; };
 		A00BD8741B97370D00B4693E /* BTRAnimationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A00BD8731B97370D00B4693E /* BTRAnimationHandler.m */; };
 		A00C9A331B7CE1E30047D6F5 /* BTRContactUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */; };
@@ -567,6 +568,7 @@
 		69FF40851A3F8939000BD092 /* BeyondTheRackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BeyondTheRackTests.m; sourceTree = "<group>"; };
 		712E4DFD1AB764A322A67A99 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A00393E51B7B8B4000A3F79F /* delivery.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = delivery.jpg; sourceTree = "<group>"; };
+		A003EE3C1C56C40100C823E8 /* paypal_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paypal_logo.png; sourceTree = "<group>"; };
 		A00A7FEA1B8E102200568BB6 /* BTRChartFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRChartFetcher.h; sourceTree = "<group>"; };
 		A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRChartFetcher.m; sourceTree = "<group>"; };
 		A00BD8721B97370D00B4693E /* BTRAnimationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAnimationHandler.h; sourceTree = "<group>"; };
@@ -1079,6 +1081,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A003EE3C1C56C40100C823E8 /* paypal_logo.png */,
 				A029B0961C5154BF00782566 /* CloseX.png */,
 				145B37021C51188500269D44 /* paypalCheckout1.png */,
 				A03C2FCB1C40571B00B9D8F0 /* whiteblank.jpg */,
@@ -1623,6 +1626,7 @@
 				69F0BB271B457156008C0498 /* SF-UI-Display-Medium.otf in Resources */,
 				69F0BB2A1B457156008C0498 /* SF-UI-Display-Thin.otf in Resources */,
 				A0FD342C1BA76F2200B6B2C3 /* placeHolderImage.png in Resources */,
+				A003EE3D1C56C40100C823E8 /* paypal_logo.png in Resources */,
 				69F0BB371B457156008C0498 /* SF-UI-Text-SemiboldItalic.otf in Resources */,
 				695C75611B38957A003F65F8 /* masterpass_t@2x.png in Resources */,
 				A0FD34281BA75CFB00B6B2C3 /* cardImages.png in Resources */,
