@@ -262,12 +262,13 @@
 - (NSDictionary *)addressForContact:(PKContact *)contact {
     NSMutableDictionary* addressDic = [[NSMutableDictionary alloc]init];
     [addressDic setObject:[NSString stringWithFormat:@"%@ %@",contact.name.givenName,contact.name.familyName] forKey:@"name"];
-    
-    if (contact.postalAddress.postalCode)
-        if ([contact.postalAddress.postalCode length] < 4)
+    if (contact.postalAddress.postalCode){
+        NSString *postCode = [contact.postalAddress.postalCode stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if ([postCode length] < 4)
             [addressDic setObject:[[contact.postalAddress postalCode]stringByAppendingString:@"@@@"] forKey:@"postal"];
         else
             [addressDic setObject:[contact.postalAddress postalCode] forKey:@"postal"];
+    }
     else
         [addressDic setObject:@" " forKey:@"postal"];
     
