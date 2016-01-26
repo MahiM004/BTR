@@ -423,22 +423,14 @@
     NSString * cellIdenti = [_rowsArray objectAtIndex:indexPath.row];
     
     if ([cellIdenti isEqual:@"imageCell"]) {
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
         imageCell = (BTRProductDetailImageCell*)[tableView dequeueReusableCellWithIdentifier:cellIdenti];
         if (imageCell == nil) {
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductDetailImageCell" owner:self options:nil];
             imageCell = [nib objectAtIndex:0];
             if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
                 CGFloat viewWidth = self.view.frame.size.width;
-                CGFloat collectHeight;
-                if ([BTRViewUtility isIPAD]) {
-                    collectHeight = 400-37;
-                } else {
-                    if (self.view.frame.size.height < 500) {
-                        collectHeight = 200-37;
-                    } else {
-                        collectHeight = 312-37;
-                    }
-                }
+                CGFloat collectHeight = (screenBounds.size.height * 5.5) / 10 - 30;
                 [imageCell.contentView addSubview:[self collectionView:CGRectMake(0, 0, viewWidth, collectHeight)]];
             }
         }
@@ -489,21 +481,19 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
     switch (indexPath.row) {
         case 0:
             if ([BTRViewUtility isIPAD]) {
                 if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication]statusBarOrientation])) {
                     imageCell.contentView.hidden = NO;
-                    return 400;
+                    return (screenBounds.size.height * 5.5) / 10;
                 } else {
                     imageCell.contentView.hidden = YES;
                     return 0;
                 }
             }else
-                if (self.view.frame.size.height < 500) {
-                    return 200;
-                }else
-                    return 312;
+                return (screenBounds.size.height * 5.5) / 10;
             break;
         case 1:
             return 260 - decreaseNameCellSize;
@@ -658,16 +648,7 @@
         [detailTV setFrame:CGRectMake(0, 0, viewWidth, viewHeight - 145)];
         
         
-        CGFloat collectHeight;
-        if ([BTRViewUtility isIPAD]) {
-            collectHeight = 400-37;
-        } else {
-            if (self.view.frame.size.height < 500) {
-                collectHeight = 200-37;
-            } else {
-                collectHeight = 312-37;
-            }
-        }
+        CGFloat collectHeight = (screenBounds.size.height * 5.5) / 10 - 30;
         
         //When ever we change the Orientation we remove and readd the CollectionView
         NSArray *viewsToRemove = [imageCell.contentView subviews];
@@ -845,9 +826,9 @@
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             return CGSizeMake(screenBounds.size.width / 2 - 8,screenBounds.size.height - 200);
         } else
-            return CGSizeMake(screenBounds.size.width -16 , 353);
+            return CGSizeMake(screenBounds.size.width -16 , (screenBounds.size.height * 5.5) / 10 - 35);
     } else {
-        return CGSizeMake(collectionView.frame.size.width - 8, collectionView.frame.size.height - 10);
+        return CGSizeMake(collectionView.frame.size.width - 8, (screenBounds.size.height * 5.5) / 10 - 35);
     }
 }
 
