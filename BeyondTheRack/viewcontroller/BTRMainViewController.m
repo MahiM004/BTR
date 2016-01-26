@@ -31,6 +31,7 @@
 #import "JTSlideShadowAnimation.h"
 #import "BTRLoader.h"
 #import <math.h>
+#import "BTRViewUtility.h"
 #import <FRDLivelyButton/FRDLivelyButton.h>
 
 @interface BTRMainViewController ()
@@ -250,6 +251,12 @@
             [self faildRequest];
         }];
     });
+}
+
+- (void)viewWillLayoutSubviews {
+    if ([BTRViewUtility isIPAD]) {
+        self.logoImageView.center = CGPointMake(self.view.center.x, self.logoImageView.center.y);
+    }
 }
 
 - (void)notificationSettingDidSelect {
