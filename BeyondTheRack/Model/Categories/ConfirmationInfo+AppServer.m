@@ -51,6 +51,12 @@
         confirmation.labelTax1 = [info valueForKey:@"label_tax1"];
     if ([info valueForKeyPath:@"label_tax2"] && [info valueForKeyPath:@"label_tax2"] != [NSNull null])
         confirmation.labelTax2 = [info valueForKey:@"label_tax2"];
+    
+    if ([info valueForKeyPath:@"pretax_credit_applied"] && [info valueForKeyPath:@"pretax_credit_applied"] != [NSNull null])
+        confirmation.creditPromo = [info valueForKey:@"pretax_credit_applied"];
+    if ([info valueForKeyPath:@"posttax_credit_applied"] && [info valueForKeyPath:@"posttax_credit_applied"] != [NSNull null])
+        confirmation.accountCredit = [info valueForKey:@"posttax_credit_applied"];
+    
     if ([info valueForKeyPath:@"payment_method"] && [info valueForKeyPath:@"payment_method"] != [NSNull null])
         confirmation.paymentMethod = [info valueForKey:@"payment_method"];
     

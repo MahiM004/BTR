@@ -35,5 +35,7 @@
 @property (nonatomic, retain) NSString * labelTax1;
 @property (nonatomic, retain) NSString * labelTax2;
 @property (nonatomic, retain) NSString * paymentMethod;
+@property (nonatomic, retain) NSString * creditPromo;
+@property (nonatomic, retain) NSString * accountCredit;
 
 @end
