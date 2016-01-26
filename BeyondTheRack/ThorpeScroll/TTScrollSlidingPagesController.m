@@ -624,7 +624,7 @@ typedef enum ScrollDirection {
         }
     }
     
-    if (self.zoomOutAnimationDisabled){
+    if (!self.zoomOutAnimationDisabled){
         //Do a zoom out effect on the current view and next view depending on the amount scrolled
         double minimumZoom = 0.80;
         double zoomSpeed = 1300;//increase this number to slow down the zoom
