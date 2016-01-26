@@ -1044,7 +1044,7 @@
         }
         
     } else if (type == paypal) {
-        [self.paymentMethodImageView setImage:[UIImage imageNamed:@"paypal_yellow"]];
+        [self.paymentMethodImageView setImage:[UIImage imageNamed:@"paypal_logo"]];
         self.rememberCardInfoView.hidden = YES;
         self.fastPaymentHeight.constant = 0;
         self.fastPaymentView.hidden = YES;
