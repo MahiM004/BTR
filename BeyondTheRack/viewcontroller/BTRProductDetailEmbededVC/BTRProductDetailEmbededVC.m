@@ -22,7 +22,7 @@
 #import "BTRConnectionHelper.h"
 #import "BTRLoader.h"
 #import "NSString+HeightCalc.h"
-#import "BTRSizeChartViewController.h"
+#import "BTRHTMLSizeChartViewController.h"
 #import "PKYStepper.h"
 #import "BTRSizeHandler.h"
 #import <Social/Social.h>
@@ -701,8 +701,7 @@
 }
 
 -(void)selectSizeChartAction {
-    BTRSizeChartViewController* sizechart = [[BTRSizeChartViewController alloc]initWithNibName:@"BTRSizeChartViewController" bundle:nil];
-    [sizechart setCategory:apparel];
+    BTRHTMLSizeChartViewController * sizechart = [[BTRHTMLSizeChartViewController alloc]initWithNibName:@"BTRHTMLSizeChartViewController" bundle:nil];
     [self presentViewController:sizechart animated:YES completion:nil];
 }
 

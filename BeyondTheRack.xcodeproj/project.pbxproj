@@ -221,6 +221,9 @@
 		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; };
 		A044DC921BFF760100100B1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A044DC911BFF760100100B1F /* GoogleService-Info.plist */; };
 		A044DC941BFFC05600100B1F /* apple_pay_2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A044DC931BFFC05600100B1F /* apple_pay_2x.png */; };
+		A05763861C57E0AA008640D9 /* BTRHTMLSizeChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A05763841C57E0AA008640D9 /* BTRHTMLSizeChartViewController.m */; };
+		A05763871C57E0AA008640D9 /* BTRHTMLSizeChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05763851C57E0AA008640D9 /* BTRHTMLSizeChartViewController.xib */; };
+		A05763891C57E27C008640D9 /* size.html in Resources */ = {isa = PBXBuildFile; fileRef = A05763881C57E27C008640D9 /* size.html */; };
 		A06214C61BC71215006443F7 /* ConfirmationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C51BC71215006443F7 /* ConfirmationInfo.m */; };
 		A06214C91BC71245006443F7 /* ConfirmationInfo+AppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = A06214C81BC71245006443F7 /* ConfirmationInfo+AppServer.m */; };
 		A0628DA51BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.m in Sources */ = {isa = PBXBuildFile; fileRef = A0628DA41BF39AB7007A6741 /* UIImageView+AFNetworkingFadeIn.m */; };
@@ -638,6 +641,10 @@
 		A043E9221BB335AB00B42BB1 /* PromoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoItem.m; sourceTree = "<group>"; };
 		A044DC911BFF760100100B1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A044DC931BFFC05600100B1F /* apple_pay_2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple_pay_2x.png; sourceTree = "<group>"; };
+		A05763831C57E0AA008640D9 /* BTRHTMLSizeChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRHTMLSizeChartViewController.h; sourceTree = "<group>"; };
+		A05763841C57E0AA008640D9 /* BTRHTMLSizeChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRHTMLSizeChartViewController.m; sourceTree = "<group>"; };
+		A05763851C57E0AA008640D9 /* BTRHTMLSizeChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTRHTMLSizeChartViewController.xib; sourceTree = "<group>"; };
+		A05763881C57E27C008640D9 /* size.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = size.html; sourceTree = "<group>"; };
 		A06214C41BC71215006443F7 /* ConfirmationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationInfo.h; sourceTree = "<group>"; };
 		A06214C51BC71215006443F7 /* ConfirmationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationInfo.m; sourceTree = "<group>"; };
 		A06214C71BC71245006443F7 /* ConfirmationInfo+AppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ConfirmationInfo+AppServer.h"; sourceTree = "<group>"; };
@@ -1406,6 +1413,7 @@
 		69FF40661A3F8939000BD092 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A05763881C57E27C008640D9 /* size.html */,
 				A044DC911BFF760100100B1F /* GoogleService-Info.plist */,
 				69F0BB0B1B457156008C0498 /* SF-UI */,
 				6900B4E21AB8703300930D16 /* FontAwesome.ttf */,
@@ -1459,6 +1467,9 @@
 				A016706C1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.h */,
 				A016706D1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.m */,
 				A016706E1B8D002B00448EF3 /* BTRSizeChartCategoryCollectionViewCell.xib */,
+				A05763831C57E0AA008640D9 /* BTRHTMLSizeChartViewController.h */,
+				A05763841C57E0AA008640D9 /* BTRHTMLSizeChartViewController.m */,
+				A05763851C57E0AA008640D9 /* BTRHTMLSizeChartViewController.xib */,
 			);
 			name = SizeChart;
 			sourceTree = "<group>";
@@ -1601,6 +1612,7 @@
 				69F0BB2C1B457156008C0498 /* SF-UI-Text-Bold.otf in Resources */,
 				A076F4A81C4D565400B2E1CF /* Localizable.strings in Resources */,
 				69F0BB341B457156008C0498 /* SF-UI-Text-MediumItalic.otf in Resources */,
+				A05763891C57E27C008640D9 /* size.html in Resources */,
 				69F0BB2D1B457156008C0498 /* SF-UI-Text-BoldItalic.otf in Resources */,
 				14F418FC1C23D5AA003F90C7 /* downArrow@3x.png in Resources */,
 				69AB98391A6E95C300EDB1E6 /* searchglass.png in Resources */,
@@ -1616,6 +1628,7 @@
 				14D680351C51FE7100DBAA29 /* blackwhite.png in Resources */,
 				69F0BB321B457156008C0498 /* SF-UI-Text-LightItalic.otf in Resources */,
 				690A390C1B1DEE0000D4BA84 /* checked.png in Resources */,
+				A05763871C57E0AA008640D9 /* BTRHTMLSizeChartViewController.xib in Resources */,
 				14EE31E41C43925200CB8A77 /* colorImage.png in Resources */,
 				A0FD342A1BA76C2E00B6B2C3 /* neulogo.png in Resources */,
 				14EE31E81C4398E900CB8A77 /* Category.png in Resources */,
@@ -1748,6 +1761,7 @@
 				69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */,
 				14FBCD901C2933D200DDECE0 /* loadPopView.m in Sources */,
 				69659F1E1A814ECA00C52FC5 /* BTRModalFilterSelectionVC.m in Sources */,
+				A05763861C57E0AA008640D9 /* BTRHTMLSizeChartViewController.m in Sources */,
 				B3C16A911B01371C009470EC /* BTRSizeSelector.m in Sources */,
 				6900B4EB1AB8C72D00930D16 /* BTRSignUpEmbeddedTVC.m in Sources */,
 				A01142711B618AEB0099A40A /* BTRFAQFetcher.m in Sources */,
