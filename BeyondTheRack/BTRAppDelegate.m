@@ -109,6 +109,7 @@
 //    
 //#endif
     
+    [[BTRRefreshManager sharedInstance]start];
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }
 

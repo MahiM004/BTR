@@ -239,6 +239,7 @@
 		A09F488E1BFCE27000A45B0B /* BTRApplePayFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A09F488D1BFCE27000A45B0B /* BTRApplePayFetcher.m */; };
 		A0A402A91BB9AEA200902D75 /* BTRLoadingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */; };
 		A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */; };
+		A0C0B3AA1C593F0F0059DF39 /* BTRRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0B3A91C593E4E0059DF39 /* BTRRefreshManager.m */; };
 		A0CE31431B8665BA007D7682 /* BTRMasterPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */; };
 		A0D037481B90A82300EA9E48 /* BTRAttributeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D037471B90A82300EA9E48 /* BTRAttributeHandler.m */; };
 		A0D1B45D1B7E495100848FA7 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45C1B7E495100848FA7 /* Contact.m */; };
@@ -670,6 +671,8 @@
 		A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRLoadingButton.m; sourceTree = "<group>"; };
 		A0ABECCF1B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPaypalCheckoutViewController.h; sourceTree = "<group>"; };
 		A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalCheckoutViewController.m; sourceTree = "<group>"; };
+		A0C0B3A81C593E4E0059DF39 /* BTRRefreshManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTRRefreshManager.h; sourceTree = "<group>"; };
+		A0C0B3A91C593E4E0059DF39 /* BTRRefreshManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTRRefreshManager.m; sourceTree = "<group>"; };
 		A0CE31411B8665BA007D7682 /* BTRMasterPassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMasterPassViewController.h; sourceTree = "<group>"; };
 		A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMasterPassViewController.m; sourceTree = "<group>"; };
 		A0D037461B90A82300EA9E48 /* BTRAttributeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAttributeHandler.h; sourceTree = "<group>"; };
@@ -1232,6 +1235,8 @@
 				A0E277FA1B9F32F4006E7D33 /* BTRSettingManager.h */,
 				A0E277FB1B9F32F4006E7D33 /* BTRSettingManager.m */,
 				A0E277FD1B9F3BA5006E7D33 /* SettingsKeys.h */,
+				A0C0B3A81C593E4E0059DF39 /* BTRRefreshManager.h */,
+				A0C0B3A91C593E4E0059DF39 /* BTRRefreshManager.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -1757,6 +1762,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0C0B3AA1C593F0F0059DF39 /* BTRRefreshManager.m in Sources */,
 				69385FC51A7BF40A0074FE33 /* BTRSearchFilterTVC.m in Sources */,
 				69AB983C1A6EA19300EDB1E6 /* BTRSearchViewController.m in Sources */,
 				14FBCD901C2933D200DDECE0 /* loadPopView.m in Sources */,

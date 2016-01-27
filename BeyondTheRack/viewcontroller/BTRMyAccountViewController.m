@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

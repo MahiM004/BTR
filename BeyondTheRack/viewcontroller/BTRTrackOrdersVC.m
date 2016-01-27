@@ -39,6 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
     
     NSArray *unsortedKeys = [self.itemsDictionary allKeys];
     NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];

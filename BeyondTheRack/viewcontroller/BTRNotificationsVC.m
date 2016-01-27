@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
     _view1.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _view1.layer.borderWidth = 0.8;
     _radioView.layer.borderColor = [UIColor lightGrayColor].CGColor;

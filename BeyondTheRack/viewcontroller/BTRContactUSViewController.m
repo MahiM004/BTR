@@ -35,6 +35,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
+
     [self fillData];
     self.view.backgroundColor = _headerView.backgroundColor= [UIColor whiteColor];
     _descriptionTV.text = @"Enter message here";

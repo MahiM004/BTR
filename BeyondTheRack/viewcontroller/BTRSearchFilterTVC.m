@@ -112,7 +112,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
+    
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
     if ([[sharedFacetHandler getSelectedSortString] isEqualToString:BEST_MATCH])

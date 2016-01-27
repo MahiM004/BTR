@@ -240,6 +240,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
     [CardIOUtilities preload];
     [self resetData];
     [self setCheckboxesTargets];

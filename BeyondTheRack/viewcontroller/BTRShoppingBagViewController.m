@@ -80,6 +80,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

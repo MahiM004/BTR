@@ -113,6 +113,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
     if (self.variant == nil)
         self.variant = SIZE_NOT_SELECTED_STRING;
     if (!_rowsArray) {

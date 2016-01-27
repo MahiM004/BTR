@@ -12,6 +12,6 @@
 #define kAPPVERSION @"kAppVersion"
 #define kFIRSTTIMERUNNING @"kFirstTimeRunning"
 #define kUSERAGENT @"kUserAgent"
-
+#define kBACKGROUNDTIME @"kBackGroundTime"
 
 //

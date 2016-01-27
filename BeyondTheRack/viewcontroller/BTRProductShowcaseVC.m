@@ -228,6 +228,7 @@ typedef enum ScrollDirection {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
     [BTRLoader showLoaderInView:self.view];
     [self setSelectedCellIndexRow:NSUIntegerMax];
 

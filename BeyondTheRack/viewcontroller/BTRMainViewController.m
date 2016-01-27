@@ -107,6 +107,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
     self.view.backgroundColor = [UIColor whiteColor];
     self.headerView.backgroundColor = [UIColor whiteColor];
     self.isMenuOpen = NO;

@@ -97,6 +97,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [[BTRRefreshManager sharedInstance]setTopViewController:self];
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
