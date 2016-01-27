@@ -271,6 +271,9 @@
             self.addTobagButton.backgroundColor = [UIColor grayColor];
             self.addToBagView.backgroundColor = [UIColor grayColor];
         }
+        NSString * totalDescTxt =  [self getLongDescArray:[productItem longItemDescription] generalNote:[productItem generalNote] specialNote:[productItem specialNote] shipTime:[productItem shipTime]];
+        
+        NSLog(@"%@",totalDescTxt);
     } else {
         [nameCell.brandLabel setText:@""];
         [nameCell.shortDescriptionLabel setText:@""];
@@ -280,6 +283,38 @@
     [detailTV reloadData];
     [_collectionView reloadData];
     
+}
+
+- (NSString *)getLongDescArray:(NSString *)longDesc generalNote:(NSString*)genNote specialNote:(NSString*)spclNote shipTime:(NSString*)shpTime {
+    NSString * helloString = @"\nDescription : \n\n";
+    if (longDesc.length == 0 || [longDesc isEqual:[NSNull null]]) {
+        helloString = [NSString stringWithFormat:@"%@no descriptions available for this item",helloString];
+    } else {
+         NSArray * breakDescArr = [longDesc componentsSeparatedByString:@"|"];
+        for (int i = 0; i < breakDescArr.count; i++) {
+            NSString *labelText = [NSString stringWithFormat:@" - %@",breakDescArr[i]];
+            helloString = [NSString stringWithFormat:@"%@%@\n",helloString,labelText];
+        }
+    }
+    helloString = [NSString stringWithFormat:@"%@\nAdditional Information :\n\n",helloString];
+    
+    for (int j = 0; j < [self attributeKeys].count; j++) {
+        NSString *attributeText = [NSString stringWithFormat:@"    %@ : %@", self.attributeKeys[j], self.attributeValues[j]];
+        helloString = [NSString stringWithFormat:@"%@%@\n",helloString,attributeText];
+    }
+    
+    if ([genNote length]>2)
+        helloString = [NSString stringWithFormat:@"%@\n\n%@",helloString,genNote];
+    
+    if ([spclNote length] > 2)
+        helloString = [NSString stringWithFormat:@"%@\n\n%@",helloString,spclNote];
+    
+    helloString = [NSString stringWithFormat:@"%@\n\n%@",helloString,@"Applicable sales tax will be added."];
+    
+    if ([shpTime length] > 2)
+        helloString = [NSString stringWithFormat:@"%@\n\n%@",helloString,shpTime];
+    
+    return helloString;
 }
 
 - (void)updateSizeSelectionViewforSizeMode:(BTRSizeMode)sizeMode {
