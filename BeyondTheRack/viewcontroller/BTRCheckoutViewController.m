@@ -415,7 +415,10 @@
             if (![[vanityDic valueForKey:@"success"]boolValue]) {
                 [self.arrayOfVanityCodes removeObject:currentVanity];
                 [[[UIAlertView alloc]initWithTitle:@"Sorry, yout promotional code cound not be applied" message:[NSString stringWithFormat:@"%@\n%@",[vanityDic valueForKey:@"description"],[vanityDic valueForKey:@"message"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
-            } else if (![self.approvedVanityCodes containsObject:currentVanity]){
+            } else {
+                if (![self.approvedVanityCodes containsObject:currentVanity]) {
+                    [[[UIAlertView alloc]initWithTitle:@"Promotional code applied" message:[NSString stringWithFormat:@"%@\n%@",[vanityDic valueForKey:@"description"],[vanityDic valueForKey:@"message"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+                }
                 [self.approvedVanityCodes addObject:currentVanity];
                 [self.giftDollarLabel setHidden:NO];
                 [self.giftLabel setHidden:NO];
@@ -426,7 +429,6 @@
                 [self.vanityView setHidden:NO];
                 [self.vanityViewHeight setConstant:RECEIPT_CELL_SIZE];
                 self.totalRemovedPlaceInReceipt--;
-                [[[UIAlertView alloc]initWithTitle:@"Promotional code applied" message:[NSString stringWithFormat:@"%@\n%@",[vanityDic valueForKey:@"description"],[vanityDic valueForKey:@"message"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
             }
         }
     }
