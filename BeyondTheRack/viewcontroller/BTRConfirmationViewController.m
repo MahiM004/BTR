@@ -43,10 +43,20 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *itemsHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *label3HeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *noteLabelHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *receiptViewHeight;
 
 // scrollView
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+
+// Credit Promos
+@property (weak, nonatomic) IBOutlet UILabel *lblCreditPromoPrice;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightCreditPromo;
+@property (weak, nonatomic) IBOutlet UIView *creditView;
+// Account Credited
+@property (weak, nonatomic) IBOutlet UILabel *lblAccountCredited;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightAccountCredit;
+@property (weak, nonatomic) IBOutlet UIView *accountView;
 @end
 
 @implementation BTRConfirmationViewController
@@ -89,6 +99,33 @@
         billingString = [[NSMutableAttributedString alloc]initWithString:text];
         [billingString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:range];
     }
+    
+    
+    NSNumber * creditPromoTxt = [NSNumber numberWithInt:[self.info.creditPromo intValue]];
+    NSNumber * accountCreditedTxt = [NSNumber numberWithInt:[self.info.accountCredit intValue]];
+    
+    //You can Test With below
+//    creditPromoTxt = @5;
+//    accountCreditedTxt = @6;
+    if ([creditPromoTxt isEqualToNumber:@0]) {
+        [self.heightCreditPromo setConstant:0];
+        self.receiptViewHeight.constant -= 35;
+        self.viewHeight.constant -= 35;
+        self.creditView.hidden = YES;
+    } else {
+        self.lblCreditPromoPrice.text = [NSString stringWithFormat:@"$%.2f",[self.info.creditPromo floatValue]];
+    }
+    
+    if ([accountCreditedTxt isEqualToNumber:@0]) {
+        [self.heightAccountCredit setConstant:0];
+        self.receiptViewHeight.constant -= 35;
+        self.viewHeight.constant -= 35;
+        self.accountView.hidden = YES;
+    } else {
+        self.lblAccountCredited.text = [NSString stringWithFormat:@"$%.2f",[self.info.accountCredit floatValue]];
+    }
+    
+    
     self.billingLabel.attributedText = billingString;
     //address
     NSString* shippingAddressString = [NSString stringWithFormat:@"%@\n%@\n%@\n%@, %@\n%@\n%@",self.info.shippingAddress.name,self.info.shippingAddress.addressLine1,self.info.shippingAddress.addressLine2,self.info.shippingAddress.city,self.info.shippingAddress.province,self.info.shippingAddress.country,self.info.shippingAddress.postalCode];
