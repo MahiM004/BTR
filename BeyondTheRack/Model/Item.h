@@ -38,6 +38,7 @@
 @property (nonatomic, retain) NSString * sku;
 @property (nonatomic, retain) NSString * specialNote;
 @property (nonatomic, retain) NSDictionary * variantInventory;
+@property (nonatomic, retain) NSDictionary * reserverdSizes;
 @property (nonatomic, retain) NSString * videoCount;
 @property (nonatomic, retain) NSString * videoName;
 @property (nonatomic, retain) NSNumber * retailPrice;

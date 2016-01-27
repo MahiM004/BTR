@@ -127,6 +127,9 @@
     if ([itemDictionary valueForKeyPath:@"variant_inventory"] && [itemDictionary valueForKeyPath:@"variant_inventory"] != [NSNull null])
         item.variantInventory = [itemDictionary valueForKey:@"variant_inventory"];
     
+    if ([itemDictionary valueForKeyPath:@"reserved"] && [itemDictionary valueForKeyPath:@"reserved"] != [NSNull null])
+        item.reserverdSizes = [itemDictionary valueForKey:@"reserved"];
+    
     if ([item.sku hasPrefix:@"BTR"])
         item.isMockItem = YES;
     else

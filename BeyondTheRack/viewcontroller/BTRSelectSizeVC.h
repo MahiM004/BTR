@@ -15,9 +15,12 @@
 @interface BTRSelectSizeVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) id<BTRSelectSizeVC> delegate;
+
 @property (strong, nonatomic) NSMutableArray *sizesArray;
 @property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
 @property (strong, nonatomic) NSMutableArray *variantInventoryArray;
+@property (strong, nonatomic) NSMutableArray *sizeCodes;
+@property (strong, nonatomic) NSDictionary *reservedSizes;
 
 @end
 

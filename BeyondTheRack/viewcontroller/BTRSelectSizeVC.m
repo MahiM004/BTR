@@ -50,23 +50,23 @@
     
     cell.textLabel.text = [[self sizesArray] objectAtIndex:[indexPath row]];
     if ([[self sizesArray] count] > 0) {
-        cell.detailTextLabel.text = [self getQuantityStringforQuantity:[[self.sizeQuantityArray objectAtIndex:indexPath.row] integerValue]];
-        if ([[[cell detailTextLabel] text]  isEqualToString:@"SOLD OUT"]) {
+        cell.detailTextLabel.text = [self getQuantityStringforIndex:indexPath.row];
+        if ([[[cell detailTextLabel] text]  isEqualToString:@"SOLD OUT"] || [[[cell detailTextLabel] text]  isEqualToString:@"RESERVED"]) {
             cell.detailTextLabel.hidden = NO;
             cell.userInteractionEnabled = FALSE;
         } else {
             cell.detailTextLabel.hidden = YES;
         }
-        
         if ([[self.sizeQuantityArray objectAtIndex:indexPath.row] integerValue] == 0)
             cell.detailTextLabel.textColor = [UIColor redColor];
     }
     return cell;
 }
 
-- (NSString *)getQuantityStringforQuantity:(NSUInteger)quantity {
+- (NSString *)getQuantityStringforIndex:(NSUInteger)index {
     NSString *quantityString = @"";
-    
+    int quantity = [[self.sizeQuantityArray objectAtIndex:index] intValue];
+    BOOL allReserved = [[self.reservedSizes valueForKey:[self.sizeCodes objectAtIndex:index]]boolValue];
     if (quantity <= 0)
         quantityString = @"SOLD OUT";
     
@@ -76,14 +76,11 @@
     else if (quantity >= 7)
         quantityString = [NSString stringWithFormat:@"%lu", (unsigned long)quantity];
     
+    if (allReserved)
+        quantityString = @"RESERVED";
+    
     return quantityString;
 }
-
-
-
-
-
-
 
 @end
 

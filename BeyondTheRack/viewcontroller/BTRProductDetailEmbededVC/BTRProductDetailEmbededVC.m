@@ -75,6 +75,8 @@
 @property (strong, nonatomic) NSMutableArray *sizesArray;
 @property (strong, nonatomic) NSMutableArray *sizeCodesArray;
 @property (strong, nonatomic) NSMutableArray *sizeQuantityArray;
+@property (strong, nonatomic) NSDictionary *sizeReserved;
+
 @property NSMutableArray * rowsArray;
 @property operation lastOperation;
 @end
@@ -265,6 +267,7 @@
                                                                             toSizesArray:[self sizesArray]
                                                                         toSizeCodesArray:[self sizeCodesArray]
                                                                      toSizeQuantityArray:[self sizeQuantityArray]];
+        self.sizeReserved = productItem.reserverdSizes;
         [self updateSizeSelectionViewforSizeMode:sizeMode];
         
         if ([self isItemSoldOutWithVariant:[self sizeQuantityArray]] && [[self getOriginalVCString] isEqualToString:BAG_SCENE]) {
@@ -746,8 +749,10 @@
     BTRSelectSizeVC * vc = [storyboard instantiateViewControllerWithIdentifier:@"SelectSizeVCIdentifier"];
     vc.modalPresentationStyle = UIModalPresentationFormSheet;
     vc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    vc.sizeCodes = [self sizeCodesArray];
     vc.sizesArray = [self sizesArray];
     vc.sizeQuantityArray = [self sizeQuantityArray];
+    vc.reservedSizes = self.sizeReserved;
     vc.delegate = self;
     [self presentViewController:vc animated:YES completion:nil];
 }
