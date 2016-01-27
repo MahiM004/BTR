@@ -605,15 +605,20 @@
             
             [self.titles removeAllObjects];
             [self.titles addObjectsFromArray:@[SORT_TITLE,CATEGORY_TITLE,PRICE_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
+
             _selectedSortIndex = 0;
-            
             _selectedCategory = nil;
             _selectedPrice = nil;
             _selectSortString = BEST_MATCH;
-            [sharedFacetHandler setCategorySelectionWithCategoryString:_selectedCategory];
-            [sharedFacetHandler setPriceSelectionWithPriceString:_selectedPrice];
-            [sharedFacetHandler setSortChosenOptionString:_selectSortString];
-            [sharedFacetHandler resetFacets];
+            
+            [sharedFacetHandler clearSortSelection];
+            [sharedFacetHandler clearCategoryString];
+            [sharedFacetHandler clearBrandSelection];
+            [sharedFacetHandler clearColorSelection];
+            [sharedFacetHandler clearPriceSelection];
+            [sharedFacetHandler clearSizeSelection];
+            
+            
             [self addViewWithLoader];
             [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                           withFacetsString:[self facetsQueryString:getPreviousSelectedSortType]
