@@ -95,6 +95,7 @@
 
 @property (strong, nonatomic) NSMutableArray *arrayOfGiftCards;
 @property (strong, nonatomic) NSMutableArray *arrayOfVanityCodes;
+@property (strong,nonatomic)  NSMutableArray *approvedVanityCodes;
 
 @property (strong, nonatomic) MasterPassInfo *masterpass;
 @property (strong, nonatomic) ApplePayManager *applePayManager;
@@ -323,6 +324,7 @@
 - (void)resetData {
     self.arrayOfGiftCards = [[NSMutableArray alloc]init];
     self.arrayOfVanityCodes = [[NSMutableArray alloc]init];
+    self.approvedVanityCodes = [[NSMutableArray alloc]init];
     self.totalSave = 0;
     self.totalRemovedPlaceInReceipt = 0;
 }
@@ -406,16 +408,26 @@
     
     if ([self.order.vanityCodes count] > 0) {
         // adding text for gift
-        [self.giftDollarLabel setHidden:NO];
-        [self.giftLabel setHidden:NO];
-        NSString *currentVanity = [[self.order.vanityCodes allKeys]firstObject];
-        [self.giftLabel setText:[NSString stringWithFormat:@"DISCOUNT (%@)",[currentVanity uppercaseString]]];
-        float price = [[[self.order.vanityCodes valueForKey:currentVanity]valueForKey:@"discount"]floatValue];
-        self.order.bagTotalPrice = [NSString stringWithFormat:@"%.2f",self.order.bagTotalPrice.floatValue + price];
-        [self.giftDollarLabel setText:[NSString stringWithFormat:@"($%.2f)",price]];
-        [self.vanityView setHidden:NO];
-        [self.vanityViewHeight setConstant:RECEIPT_CELL_SIZE];
-        self.totalRemovedPlaceInReceipt--;
+        for (int i = 0; i < [self.order.vanityCodes count]; i++) {
+            NSString *currentVanity = [[self.order.vanityCodes allKeys]objectAtIndex:i];
+            NSDictionary *vanityDic = [self.order.vanityCodes valueForKey:currentVanity];
+            if (![[vanityDic valueForKey:@"success"]boolValue]) {
+                [self.arrayOfVanityCodes removeObject:currentVanity];
+                [[[UIAlertView alloc]initWithTitle:@"Sorry, yout promotional code cound not be applied" message:[NSString stringWithFormat:@"%@\n%@",[vanityDic valueForKey:@"description"],[vanityDic valueForKey:@"message"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            } else if (![self.approvedVanityCodes containsObject:currentVanity]){
+                [self.approvedVanityCodes addObject:currentVanity];
+                [self.giftDollarLabel setHidden:NO];
+                [self.giftLabel setHidden:NO];
+                [self.giftLabel setText:[NSString stringWithFormat:@"DISCOUNT (%@)",[currentVanity uppercaseString]]];
+                float price = [[[self.order.vanityCodes valueForKey:currentVanity]valueForKey:@"discount"]floatValue];
+                self.order.bagTotalPrice = [NSString stringWithFormat:@"%.2f",self.order.bagTotalPrice.floatValue + price];
+                [self.giftDollarLabel setText:[NSString stringWithFormat:@"($%.2f)",price]];
+                [self.vanityView setHidden:NO];
+                [self.vanityViewHeight setConstant:RECEIPT_CELL_SIZE];
+                self.totalRemovedPlaceInReceipt--;
+                [[[UIAlertView alloc]initWithTitle:@"Promotional code applied" message:[NSString stringWithFormat:@"%@\n%@",[vanityDic valueForKey:@"description"],[vanityDic valueForKey:@"message"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            }
+        }
     }
     
     [self.bagTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order bagTotalPrice].floatValue]];
@@ -1611,6 +1623,8 @@
 #pragma mark giftcard adding
 
 - (IBAction)checkAndValidateGiftCard:(BTRLoadingButton *)sender {
+    [self.arrayOfVanityCodes removeAllObjects];
+    [self.approvedVanityCodes removeAllObjects];
     if ([self.arrayOfGiftCards containsObject:self.giftCardCodePaymentTF.text]) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"This gift card is already used" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
@@ -1628,7 +1642,6 @@
             if ([[response valueForKey:@"success"]boolValue]) {
                 if ([[response valueForKey:@"type"]isEqualToString:@"vanity"]) {
                     [self.arrayOfVanityCodes addObject:self.giftCardCodePaymentTF.text];
-                    [[[UIAlertView alloc]initWithTitle:@"Promotional code applied" message:[response valueForKey:@"description"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
                 } else {
                     [[[UIAlertView alloc]initWithTitle:@"Gift" message:[NSString stringWithFormat:@"%@$ has been added sucessfully",[response valueForKey:@"amount"]] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
                     [self.arrayOfGiftCards addObject:self.giftCardCodePaymentTF.text];
