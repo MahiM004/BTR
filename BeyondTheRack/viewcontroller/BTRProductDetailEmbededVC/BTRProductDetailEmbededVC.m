@@ -48,11 +48,17 @@
     BTRProductDetailImageCell * imageCell;
     BTRProductDetailNameCell * nameCell;
     BTRProductShareCell * shareCell;
-    UIView * descriptionView;
     UICollectionView *_collectionView;
     NSInteger decreaseNameCellSize;
     CustomIOSAlertView * customAlert;
     UIPageControl * iPadPageController;
+    
+    //Long Description Strings
+    NSString *longDescString;
+    NSString *additionalDescString;
+    NSString *generalnoteString;
+    NSString *specialNoteString;
+    NSString *shipTimeString;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *eventTitleLabel;
@@ -141,6 +147,7 @@
     detailTV = [[UITableView alloc]initWithFrame:view2.frame];
     detailTV.delegate = self;
     detailTV.dataSource = self;
+    detailTV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [view2 addSubview:detailTV];
     [self.view addSubview:view1];
     [self.view addSubview:view2];
@@ -239,15 +246,6 @@
             self.addTobagButton.backgroundColor = [UIColor grayColor];
         }
         
-        descriptionView = [[UIView alloc]init];
-        descriptionView = [self getDescriptionViewForView:descriptionView withDescriptionString:[productItem longItemDescription]];
-        descriptionView = [self getAttribueViewForView:descriptionView];
-        descriptionView = [self getNoteView:descriptionView withNote:[productItem generalNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
-        descriptionView = [self getNoteView:descriptionView withNote:[productItem specialNote] withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor redColor]];
-        descriptionView = [self getNoteView:descriptionView withNote:@"Applicable sales tax will be added." withFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12] andColor:[UIColor blackColor]];
-        descriptionView = [self getNoteView:descriptionView withNote:[productItem shipTime] withFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:13] andColor:[UIColor blackColor]];
-        [detailCell.detailView addSubview:descriptionView];
-        
         CGRect stepperFrame = CGRectMake(0, 0, 90, 20);
         
         self.stepper = [[PKYStepper alloc] initWithFrame:stepperFrame];
@@ -275,9 +273,19 @@
             self.addTobagButton.backgroundColor = [UIColor grayColor];
             self.addToBagView.backgroundColor = [UIColor grayColor];
         }
-        NSString * totalDescTxt =  [self getLongDescArray:[productItem longItemDescription] generalNote:[productItem generalNote] specialNote:[productItem specialNote] shipTime:[productItem shipTime]];
+
+        longDescString =  [self getLongDescription:[productItem longItemDescription]];
+        additionalDescString = [self getAdditionalDescription];
+        generalnoteString = [productItem generalNote];
+        specialNoteString = [productItem specialNote];
+        shipTimeString = [productItem shipTime];
         
-        NSLog(@"%@",totalDescTxt);
+        CGFloat screenWidth = self.view.frame.size.width;
+        if ([BTRViewUtility isIPAD] && UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+            screenWidth = screenWidth/2;
+        
+        [self loadDetailCellDescriptionWithWidth:screenWidth];
+        
     } else {
         [nameCell.brandLabel setText:@""];
         [nameCell.shortDescriptionLabel setText:@""];
@@ -289,35 +297,75 @@
     
 }
 
-- (NSString *)getLongDescArray:(NSString *)longDesc generalNote:(NSString*)genNote specialNote:(NSString*)spclNote shipTime:(NSString*)shpTime {
-    NSString * helloString = @"\nDescription : \n\n";
+- (void)loadDetailCellDescriptionWithWidth:(CGFloat)width {
+    descriptionCellHeight = 0;
+
+    // Calculate Heights
+    int labelHeight = [longDescString heightForWidth:width - 20 usingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    int desc2Height = [additionalDescString heightForWidth:width - 20 usingFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
+    
+    int genStringHeight = 0;
+    int spclStringHeight = 0;
+    int shipStringHeight = 0;
+    
+    if ([generalnoteString length] > 2)
+        genStringHeight = [generalnoteString heightForWidth:width - 20 usingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+    else
+        [detailCell.topMarginGenNote setConstant:0];
+    
+    if ([specialNoteString length] > 2)
+        spclStringHeight = [specialNoteString heightForWidth:width - 20 usingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+    else
+        [detailCell.topMarginSpclNote setConstant:0];
+    
+    if ([shipTimeString length] > 2)
+        shipStringHeight = [shipTimeString heightForWidth:width - 20 usingFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]];
+    else
+        [detailCell.topMarginTimeNote setConstant:0];
+    
+    
+    //Height for Labels
+    [detailCell.descHeight  setConstant:labelHeight];
+    [detailCell.heightDesc2 setConstant:desc2Height];
+    [detailCell.heightGenNote setConstant:genStringHeight];
+    [detailCell.heightSpclNote setConstant:spclStringHeight];
+    [detailCell.heightTimeNote setConstant:shipStringHeight];
+    
+    
+    // Height For Cell
+    descriptionCellHeight = labelHeight + desc2Height + genStringHeight + spclStringHeight + shipStringHeight;
+    
+    // Setting Texts
+    [detailCell.detailLabel setText:longDescString];
+    [detailCell.lblDesc2 setText:additionalDescString];
+    [detailCell.lblGenNote setText:generalnoteString];
+    [detailCell.lblSpclNote setText:specialNoteString];
+    [detailCell.lblTimeNote setText:shipTimeString];
+    
+    [detailCell.lblSpclNote setTextColor:[UIColor redColor]];
+    
+}
+
+- (NSString *)getLongDescription:(NSString *)longDesc {
+    NSString * helloString = @"";
     if (longDesc.length == 0 || [longDesc isEqual:[NSNull null]]) {
-        helloString = [NSString stringWithFormat:@"%@no descriptions available for this item",helloString];
+        helloString = [NSString stringWithFormat:@"no descriptions available for this item\n"];
     } else {
-         NSArray * breakDescArr = [longDesc componentsSeparatedByString:@"|"];
+        NSArray * breakDescArr = [longDesc componentsSeparatedByString:@"|"];
         for (int i = 0; i < breakDescArr.count; i++) {
             NSString *labelText = [NSString stringWithFormat:@" - %@",breakDescArr[i]];
             helloString = [NSString stringWithFormat:@"%@%@\n",helloString,labelText];
         }
     }
-    helloString = [NSString stringWithFormat:@"%@\nAdditional Information :\n\n",helloString];
-    
+        return helloString;
+}
+
+- (NSString*)getAdditionalDescription {
+    NSString * helloString = @"";
     for (int j = 0; j < [self attributeKeys].count; j++) {
         NSString *attributeText = [NSString stringWithFormat:@"    %@ : %@", self.attributeKeys[j], self.attributeValues[j]];
         helloString = [NSString stringWithFormat:@"%@%@\n",helloString,attributeText];
     }
-    
-    if ([genNote length]>2)
-        helloString = [NSString stringWithFormat:@"%@\n\n%@",helloString,genNote];
-    
-    if ([spclNote length] > 2)
-        helloString = [NSString stringWithFormat:@"%@\n\n%@",helloString,spclNote];
-    
-    helloString = [NSString stringWithFormat:@"%@\n\n%@",helloString,@"Applicable sales tax will be added."];
-    
-    if ([shpTime length] > 2)
-        helloString = [NSString stringWithFormat:@"%@\n\n%@",helloString,shpTime];
-    
     return helloString;
 }
 
@@ -336,108 +384,6 @@
 
         self.variant = @"Z";
     }
-}
-
-#pragma mark - Construct Description Views
-- (UIView *)getDescriptionViewForView:(UIView *)descriptionView1 withDescriptionString:(NSString *)longDescriptionString {
-    customHeight = 0;
-    
-    NSString *descriptionString = longDescriptionString;
-    NSMutableArray *descriptionArray = [[NSMutableArray alloc] init];
-    
-    if ([descriptionString length] == 0 || [descriptionString isEqual:[NSNull null]]) {
-        descriptionString = @"no descriptions available for this item.";
-    }
-    [descriptionArray addObjectsFromArray:[descriptionString componentsSeparatedByString:@"|"]];
-//    [descriptionArray removeLastObject];
-    for (int i = 0; i < [descriptionArray count]; i++) {
-        
-        NSString *labelText = [NSString stringWithFormat:@" - %@.", [descriptionArray objectAtIndex:i]];
-        UIFont *descriptionFont =  [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
-        int labelHeight = [labelText heightForWidth:self.view.frame.size.width - 40 usingFont:descriptionFont];
-        CGRect labelFrame = CGRectMake(0, customHeight, self.view.frame.size.width - 40 , labelHeight);
-        
-        customHeight = customHeight + (labelHeight + 5);
-        
-        UILabel *myLabel = [[UILabel alloc] initWithFrame:labelFrame];
-        [myLabel setFont:descriptionFont];
-        [myLabel setText:labelText];
-        [myLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
-        [myLabel sizeToFit];
-        [myLabel setTextAlignment:NSTextAlignmentLeft];
-        [descriptionView1 addSubview:myLabel];
-    }
-    
-    customHeight = customHeight + 15;
-    
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, customHeight, self.view.frame.size.width, 0.5)];
-    [lineView setBackgroundColor:[UIColor lightGrayColor]];
-    [descriptionView1 addSubview:lineView];
-    customHeight += 15;
-    
-    return descriptionView1;
-}
-
-- (UIView *)getAttribueViewForView:(UIView *)attributeView {
-    
-    UILabel *additinalInformation = [[UILabel alloc] initWithFrame:CGRectMake(-8, customHeight, self.view.frame.size.width, 10)];
-    [additinalInformation setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [additinalInformation setText:@"Additional Information : "];
-    [additinalInformation setNumberOfLines:0];
-    [additinalInformation sizeToFit];
-    [additinalInformation setTextAlignment:NSTextAlignmentLeft];
-    [attributeView addSubview:additinalInformation];
-    customHeight +=30;
-    
-    for (int i = 0; i < [self.attributeKeys count]; i++) {
-        
-        NSString *attributeText = [NSString stringWithFormat:@"    %@ : %@", [self.attributeKeys objectAtIndex:i], [self.attributeValues objectAtIndex:i]];
-        UIFont *attributeFont =  [UIFont fontWithName:@"HelveticaNeue" size:12];
-        
-        int attributeHeight = [attributeText heightForWidth:self.view.frame.size.width - 40 usingFont:attributeFont];
-        CGRect attributeFrame = CGRectMake(0, customHeight, self.view.frame.size.width - 40, attributeHeight);
-        
-        customHeight = customHeight + (attributeHeight + 5);
-        
-        UILabel *attributeLabel = [[UILabel alloc] initWithFrame:attributeFrame];
-        [attributeLabel setFont:attributeFont];
-        [attributeLabel setText:attributeText];
-        [attributeLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
-        [attributeLabel sizeToFit];
-        [attributeLabel setTextAlignment:NSTextAlignmentLeft];
-        [attributeView addSubview:attributeLabel];
-    }
-    
-    customHeight += 10;
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, customHeight, self.view.frame.size.width, 0.5)];
-    [lineView setBackgroundColor:[UIColor lightGrayColor]];
-    [attributeView addSubview:lineView];
-    customHeight += 10;
-    
-    return attributeView;
-}
-
-- (UIView *)getNoteView:(UIView *)noteView withNote:(NSString *)note withFont:(UIFont *)font andColor:(UIColor *)color {
-    if ([note length] > 2) {
-        customHeight += 8;
-        
-        NSString *noteLabelText = note;
-        int generalNoteLabelHeight = [noteLabelText heightForWidth:self.view.frame.size.width - 40  usingFont:font];
-        CGRect specialNoteFrame = CGRectMake(0, customHeight, self.view.frame.size.width - 40 , generalNoteLabelHeight);
-        
-        customHeight = customHeight + generalNoteLabelHeight + 10;
-        UILabel *noteLabel = [[UILabel alloc] initWithFrame:specialNoteFrame];
-        [noteLabel setFont:font];
-        [noteLabel setTextColor:color];
-        [noteLabel setText:noteLabelText];
-        [noteLabel setNumberOfLines:0];      // Tell the label to use an unlimited number of lines
-        [noteLabel sizeToFit];
-        [noteLabel setTextAlignment:NSTextAlignmentLeft];
-        [noteView addSubview:noteLabel];
-    }
-    
-    self.descriptionCellHeight = customHeight + 80;
-    return noteView;
 }
 
 #pragma mark -  Handle JSON with Arbitrary Keys (attributes)
@@ -492,7 +438,8 @@
             NSArray * nib = [[NSBundle mainBundle]loadNibNamed:@"BTRProductDetailCellDetail" owner:self options:nil];
             detailCell = [nib objectAtIndex:0];
             if (![BTRViewUtility isIPAD]) {
-                [detailCell.detailView addSubview:descriptionView];
+                CGFloat screenWidth = self.view.frame.size.width;
+                [self loadDetailCellDescriptionWithWidth:screenWidth];
             }
         }
         return detailCell;
@@ -538,7 +485,7 @@
             return 260 - decreaseNameCellSize;
             break;
         case 2:
-            return [self descriptionCellHeight];
+            return [self descriptionCellHeight] + 180; // 180 is default
             break;
         case 3:
             return 206;
@@ -692,12 +639,15 @@
         //When ever we change the Orientation we remove and readd the CollectionView
         NSArray *viewsToRemove = [imageCell.contentView subviews];
         for (UIView *v in viewsToRemove) {
-            if (v.tag != 504) {
+            if (v.tag != 504 && v.tag != 444) {
                 [v removeFromSuperview];
             }
         }
         
         [imageCell.contentView addSubview:[self collectionView:CGRectMake(0, 0, viewWidth, collectHeight)]];
+        [detailTV beginUpdates];
+        [self loadDetailCellDescriptionWithWidth:viewWidth];
+        [detailTV endUpdates];
         
     } else {
         // Landscape frames
@@ -735,6 +685,9 @@
             [pageController addSubview:iPadPageController];
             [view1 addSubview:pageController];
             [view1 addSubview:[self collectionView:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145-37)]];
+            [detailTV beginUpdates];
+            [self loadDetailCellDescriptionWithWidth:viewWidth/2];
+            [detailTV endUpdates];
         }
     }
 }

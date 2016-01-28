@@ -394,6 +394,8 @@
     viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     viewController.sizesArray = sizeArray;
     viewController.sizeQuantityArray = quantityArray;
+    viewController.sizeCodes = codedSizeArray;
+    viewController.reservedSizes = item.reserverdSizes;
     viewController.delegate = self;
     selectSizeArr = [NSArray arrayWithArray:sizeArray];
     self.selectedCellIndexRow = indexPath.row;
