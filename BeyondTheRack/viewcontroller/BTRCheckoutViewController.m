@@ -525,7 +525,7 @@
     if (self.isVisible)
         [self addSampleGifts];
     
-    if (self.order.orderTotalPrice.floatValue == 0.0)
+    if (self.order.allTotalPrice.floatValue == 0.0)
         self.applePayButtonView.hidden = YES;
     
     self.isLoading = NO;
