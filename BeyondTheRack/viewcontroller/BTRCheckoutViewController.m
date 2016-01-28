@@ -313,6 +313,7 @@
         self.shippingCountryPicker.delegate = self;
         self.billingCountryPicker.delegate = self;
     }
+    self.cardVerificationPaymentTF.tag = 4444;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -1605,7 +1606,7 @@
         [self.scrollView scrollRectToVisible:self.cardNumberPaymentTF.frame animated:YES];
         return NO;
     }
-    if (self.cardVerificationPaymentTF.text.length < 3 || self.cardVerificationPaymentTF.text.length > 4) {
+    if (self.cardVerificationPaymentTF.text.length < 3) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your Credit Card Verification Number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.cardVerificationPaymentTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.cardVerificationPaymentTF.frame animated:YES];
@@ -2022,6 +2023,21 @@
     } faild:^(NSError *error) {
         failure(nil, error);
     }];
+}
+
+
+#pragma UITextField delegates
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // Prevent crashing undo bug – see note below.
+    if(range.length + range.location > textField.text.length)
+    {
+        return NO;
+    }
+    if (textField.tag == 4444) {
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return newLength <= 4;
+    }
+    return YES;
 }
 
 @end
