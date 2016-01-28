@@ -402,7 +402,7 @@
     [self.orderTotalDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.orderTotalPrice floatValue]]];
     [self.youSaveDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.saving floatValue]]];
     [self.totalDueLabel setText:[NSString stringWithFormat:@"TOTAL DUE (%@)",self.order.currency.uppercaseString]];
-    [self.totalDueDollarLabel setText:self.orderTotalDollarLabel.text];
+    [self.totalDueDollarLabel setText:[NSString stringWithFormat:@"$%.2f",[self.order.allTotalPrice floatValue]]];
     
     [self.vanityView setHidden:YES];
     [self.vanityViewHeight setConstant:0];
