@@ -26,6 +26,7 @@
 
 // receipt
 @property (weak, nonatomic) IBOutlet UILabel *bagTotalLabel;
+@property (weak, nonatomic) IBOutlet UILabel *subTotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shippingPriceLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *taxLabel1;
@@ -152,6 +153,7 @@
     
     // Prices
     self.bagTotalLabel.text = [NSString stringWithFormat:@"$%.2f",[self.info.bagTotal floatValue]];
+    self.subTotalLabel.text = [NSString stringWithFormat:@"%.2f",[self.info.orderSubtotal floatValue]];
     self.totalOrder.text = [NSString stringWithFormat:@"TOTAL %@ :",self.info.orderCurrency];
     self.totalOrderValue.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalOrderValue floatValue]];
     self.shippingPriceLabel.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalShipping floatValue]];
