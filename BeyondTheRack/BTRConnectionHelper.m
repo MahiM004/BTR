@@ -14,6 +14,9 @@
 + (void)postDataToURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    securityPolicy.validatesDomainName = NO;
+    [manager setSecurityPolicy:securityPolicy];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     
     serializer.acceptableContentTypes = [NSSet setWithObject:contentType];
@@ -40,6 +43,9 @@
 + (void)getDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    securityPolicy.validatesDomainName = NO;
+    [manager setSecurityPolicy:securityPolicy];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     
     serializer.acceptableContentTypes = [NSSet setWithObject:contentType];
@@ -65,6 +71,9 @@
 + (void)putDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    securityPolicy.validatesDomainName = NO;
+    [manager setSecurityPolicy:securityPolicy];
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     
     serializer.acceptableContentTypes = [NSSet setWithObject:contentType];
