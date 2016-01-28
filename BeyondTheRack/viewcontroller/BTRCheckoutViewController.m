@@ -1290,6 +1290,8 @@
 - (IBAction)processOrderTpped:(BTRLoadingButton *)sender {
     if (![self isShippingAddressCompeleted] && self.currentPaymentType != paypal)
         return;
+    if (self.currentPaymentType == paypal && [self.phoneShippingTF.text length] == 0)
+        return;
     
     if (self.currentPaymentType == creditCard && [self isBillingAddressCompeleted] && [self isCardInfoCompeleted]) {
         [sender showLoading];
