@@ -630,12 +630,13 @@
             NSString *deleteTokenURL = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforDeleteCCToken]];
             [BTRConnectionHelper getDataFromURL:deleteTokenURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
                     if ([[response valueForKey:@"success"]boolValue]) {
-                        [self.order setLockCCFields:@"0"];
-                        [self enablePaymentInfo];
-                        [self clearPaymentInfo];
-                        [self setCurrentPaymentType:creditCard];
-                        [self changeDetailPaymentFor:creditCard];
-                        [self.paymentMethodTF setText:@"Visa Credit"];
+                        [self validateAddressViaAPIAndInCompletion:^{
+                            [self enablePaymentInfo];
+                            [self.changePaymentMethodCheckbox setUserInteractionEnabled:NO];
+                            [self setCurrentPaymentType:creditCard];
+                            [self changeDetailPaymentFor:creditCard];
+                            [self.paymentMethodTF setText:@"Visa Credit"];
+                        }];
                     } else {
                         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Something wrong, your credit card's information did not clean" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil]show];
                     }
@@ -885,9 +886,12 @@
     }
 }
 
+- (void)disablePaymentMethod {
+    [self.paymentMethodTF setEnabled:NO];
+}
+
 - (void)disablePaymentInfo {
     //Card
-    [self.paymentMethodTF setEnabled:NO];
     [self.cardNumberPaymentTF setEnabled:NO];
     [self.cardVerificationPaymentTF setEnabled:NO];
     [self.nameOnCardPaymentTF setEnabled:NO];
@@ -1053,6 +1057,7 @@
             self.rememberCardInfoView.hidden = YES;
             self.changePaymentMethodView.hidden = NO;
             self.cardVerificationPaymentTF.text = @"xxx";
+            [self disablePaymentMethod];
             [self disablePaymentInfo];
         } else {
             self.changePaymentMethodView.hidden = NO;
@@ -1085,6 +1090,9 @@
                 self.paypalDetailHeight.constant = PAYPAL_PAYMENT_HEIGHT_IPAD;
             }
             [self disablePaymentInfo];
+            if (!self.changePaymentMethodCheckbox.checked) {
+                [self disablePaymentMethod];
+            }
         }
         else {
             self.paypalDetailHeight.constant = 0;
