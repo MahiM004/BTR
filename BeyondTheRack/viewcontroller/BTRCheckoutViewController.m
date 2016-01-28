@@ -991,9 +991,6 @@
     if ([self.order.paymentType isEqualToString:@"paypal"]) {
         [self.paymentMethodTF setText:@"Paypal"];
         [self setCurrentPaymentType:paypal];
-        if  ([self.order.paypalInfo valueForKey:@"email"]&&[[self.order.paypalInfo valueForKey:@"mode"]isEqualToString:@"billingAgreement"]) {
-            self.paypalEmailTF.text = [self.order.paypalInfo valueForKey:@"email"];
-        }
     }
     else {
         if  (self.order.cardHolderName.length > 0)
@@ -1008,6 +1005,8 @@
             [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
         [self setCurrentPaymentType:creditCard];
     }
+    if  ([self.order.paypalInfo valueForKey:@"email"]&&[[self.order.paypalInfo valueForKey:@"mode"]isEqualToString:@"billingAgreement"])
+        self.paypalEmailTF.text = [self.order.paypalInfo valueForKey:@"email"];
     [self changeDetailPaymentFor:self.currentPaymentType];
 }
 
