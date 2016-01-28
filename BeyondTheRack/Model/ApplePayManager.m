@@ -92,38 +92,36 @@
 }
 
 - (NSArray *)summaryItems {
-    NSArray *summaryItems;
-    if ([self.info.taxes count] > 1) {
-        summaryItems =
-        @[
-          [PKPaymentSummaryItem summaryItemWithLabel:@"BAG TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.bagTotalPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.subTotalPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:[[[self.info.taxes firstObject]valueForKey:@"label"]uppercaseString] amount:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%@",[[self.info.taxes firstObject]valueForKey:@"amount"]]]],
-          [PKPaymentSummaryItem summaryItemWithLabel:[[[self.info.taxes objectAtIndex:1]valueForKey:@"label"]uppercaseString] amount:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%@",[[self.info.taxes objectAtIndex:1]valueForKey:@"amount"]]]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:[NSDecimalNumber decimalNumberWithString:self.info.shippingPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"ORDER TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"BEYOND THE RACK" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
-          ];
-    }else if ([self.info.taxes count] > 0) {
-        summaryItems =
-        @[
-          [PKPaymentSummaryItem summaryItemWithLabel:@"BAG TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.bagTotalPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.subTotalPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:[[[self.info.taxes firstObject]valueForKey:@"label"]uppercaseString] amount:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%@",[[self.info.taxes firstObject]valueForKey:@"amount"]]]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:[NSDecimalNumber decimalNumberWithString:self.info.shippingPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"ORDER TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"BEYOND THE RACK" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
-          ];
-    } else {
-        summaryItems =
-        @[
-          [PKPaymentSummaryItem summaryItemWithLabel:@"BAG TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.bagTotalPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.subTotalPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:[NSDecimalNumber decimalNumberWithString:self.info.shippingPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"ORDER TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
-          [PKPaymentSummaryItem summaryItemWithLabel:@"BEYOND THE RACK" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]],
-          ];
+    NSMutableArray *summaryItems = [[NSMutableArray alloc]init];
+    NSString *vanityCode;
+    NSString *vanityValue;
+    if ([self.info.vanityCodes count] > 0) {
+        NSString *currentVanity = [[self.info.vanityCodes allKeys]firstObject];
+        NSDictionary *vanityDic = [self.info.vanityCodes valueForKey:currentVanity];
+        if ([[vanityDic valueForKey:@"success"]boolValue]) {
+            vanityCode = [NSString stringWithFormat:@"DISCOUNT (%@)",[currentVanity uppercaseString]];
+            vanityValue = [NSString stringWithFormat:@"%@",[[self.info.vanityCodes valueForKey:currentVanity]valueForKey:@"discount"]];
+            float price = [vanityValue floatValue];
+            self.info.bagTotalPrice = [NSString stringWithFormat:@"%.2f",self.info.bagTotalPrice.floatValue + price];
+        }
     }
+    [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"BAG TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.bagTotalPrice]]];
+    if (vanityCode)
+        [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:vanityCode amount:[NSDecimalNumber decimalNumberWithString:vanityValue]]];
+    if (self.info.promoCredit.floatValue > 0.0) {
+        self.info.promoCredit = [NSString stringWithFormat:@"%.2f",self.info.promoCredit.floatValue];
+       [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"PROMO CREDIT" amount:[NSDecimalNumber decimalNumberWithString:self.info.promoCredit]]];
+    }
+    [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.subTotalPrice]]];
+    for (int i = 0; i < [self.info.taxes count]; i++)
+        [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:[[[self.info.taxes objectAtIndex:i]valueForKey:@"label"]uppercaseString] amount:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%@",[[self.info.taxes firstObject]valueForKey:@"amount"]]]]];
+    [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:[NSDecimalNumber decimalNumberWithString:self.info.shippingPrice]]];
+    [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"ORDER TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]]];
+    if (self.info.accountCredit.floatValue > 0.0){
+        self.info.accountCredit = [NSString stringWithFormat:@"%.2f",self.info.accountCredit.floatValue];
+        [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"PROMO CREDIT" amount:[NSDecimalNumber decimalNumberWithString:self.info.accountCredit]]];
+    }
+    [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"BEYOND THE RACK" amount:[NSDecimalNumber decimalNumberWithString:self.info.allTotalPrice]]];
     return summaryItems;
 }
 

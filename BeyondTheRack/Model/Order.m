@@ -67,6 +67,9 @@
     another.vanityCodes = self.vanityCodes;
     another.vipPickup = self.vipPickup;
     another.vipPickupEligible = self.vipPickupEligible;
+    another.accountCredit = self.accountCredit;
+    another.promoCredit = self.promoCredit;
+    another.paypalInfo = self.paypalInfo;
     return another;
 }
 

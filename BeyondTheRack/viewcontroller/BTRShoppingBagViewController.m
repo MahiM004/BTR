@@ -282,8 +282,7 @@
     }];
 }
 
-- (void)getCheckoutInfoforSessionId:(NSString *)sessionId
-                              success:(void (^)(id  responseObject)) success
+- (void)getCheckoutInfoSuccess:(void (^)(id  responseObject)) success
                               failure:(void (^)(NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
@@ -406,8 +405,7 @@
 }
 
 - (IBAction)tappedCheckout:(UIButton *)sender {
-    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
-    [self getCheckoutInfoforSessionId:[sessionSettings sessionId] success:^(NSDictionary *response) {
+    [self getCheckoutInfoSuccess:^(NSDictionary *response) {
         [self gotoCheckoutPageWithPaymentInfo:response];
     } failure:^(NSError *error) {
         
@@ -460,31 +458,27 @@
 #pragma mark firstCheckout
 
 - (IBAction)buyWithApplePay:(UIButton *)sender {
-    
-    if (self.order.orderTotalPrice.doubleValue == 0) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Good news!" message:@"You have enough credits to pay for your order.\nPlease complete your order on the checkout page without Apple Pay." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        alert.tag = 200;
-        [alert show];
-        return;
-    }
-    
-    
     if ([self.bagItemsArray count] == 0) {
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no item in bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
     }
-    
+
     self.applePayManager = [[ApplePayManager alloc]init];
     self.applePayManager.delegate = self;
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
-        
-        [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
+        [self getCheckoutInfoSuccess:^(id responseObject) {
+            self.order = [Order extractOrderfromJSONDictionary:responseObject forOrder:self.order isValidating:NO];
+            if (self.order.allTotalPrice.doubleValue == 0) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Good news!" message:@"You have enough credits to pay for your order.\nPlease complete your order on the checkout page without Apple Pay." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                alert.tag = 200;
+                [alert show];
+                return;
+            }
             [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:[self.order copy] checkoutMode:checkoutOne];
             [self.applePayManager showPaymentViewFromViewController:self];
         } failure:^(NSError *error) {
             
         }];
-        
     } failure:^(NSError *error) {
     }];
 }
