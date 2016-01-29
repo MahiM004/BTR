@@ -349,7 +349,7 @@
 - (NSString *)getLongDescription:(NSString *)longDesc {
     NSString * helloString = @"";
     if (longDesc.length == 0 || [longDesc isEqual:[NSNull null]]) {
-        helloString = [NSString stringWithFormat:@"no descriptions available for this item\n"];
+        helloString = [NSString stringWithFormat:@"No description available for this item\n"];
     } else {
         NSArray * breakDescArr = [longDesc componentsSeparatedByString:@"|"];
         for (int i = 0; i < breakDescArr.count; i++) {
