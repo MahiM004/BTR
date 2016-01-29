@@ -20,39 +20,60 @@
     [sizeCodesArray removeAllObjects];
     [sizesQuantityArray removeAllObjects];
     
+    NSDictionary *reference = @{
+                                @"XXXS#XXXS":  @0,
+                                @"XXS#XXS":   @1,
+                                @"XS#XS":   @2,
+                                @"S#S":   @3,
+                                @"M#M":  @4,
+                                @"L#L": @5,
+                                @"XL#XL" : @6,
+                                @"XXL#XXL" : @7,
+                                @"XXXL#XXXL" : @8
+                                };
+    
     if (![variantInventoryDictionary isKindOfClass:[NSDictionary class]])
         return BTRSizeModeNoInfo;
     
-    NSString *keyString = @"";
-    NSArray *allKeys = [variantInventoryDictionary allKeys];
+    NSArray *sortedKeys = [[variantInventoryDictionary allKeys] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        if ([(NSString *)obj1 intValue] == 0) {
+            return [reference[obj1] compare:reference[obj2]];
+        }else {
+            if ([obj1 integerValue] > [obj2 integerValue]) {
+                return (NSComparisonResult)NSOrderedDescending;
+            }
+            if ([obj1 integerValue] < [obj2 integerValue]) {
+                return (NSComparisonResult)NSOrderedAscending;
+            }
+            return (NSComparisonResult)NSOrderedSame;
+        }
+    }];
     
-    
-    if ([allKeys count] == 0) {
+    if ([sortedKeys count] == 0) {
         return BTRSizeModeNoInfo;
     }
     
-    if ([allKeys count] > 0) {
-        keyString = [allKeys objectAtIndex:0];
+    NSString *keyString = @"";
+
+    if ([sortedKeys count] > 0) {
+        keyString = [sortedKeys objectAtIndex:0];
         if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@"One Size"]) {
             [sizesQuantityArray addObject:variantInventoryDictionary[keyString]];
             return BTRSizeModeSingleSizeShow;
         }
         
         else if ([[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] &&
-                 [allKeys count] == 1 )  /*  To deal with the follwoing faulty data entry: { "#Z" = 79; "L#L" = 4; "M#M" = 8; }; */
+                 [sortedKeys count] == 1 )  /*  To deal with the follwoing faulty data entry: { "#Z" = 79; "L#L" = 4; "M#M" = 8; }; */
         /*  if #Z and anything else ignore #Z" */
             return BTRSizeModeSingleSizeNoShow;
     }
     
-    [variantInventoryDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        
-        NSString *keyString = key;
-        
+    [sortedKeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *keyString = obj;
         if ( ![[keyString componentsSeparatedByString:@"#"][0] isEqualToString:@""] ) {
-            
             [sizesArray addObject:[keyString componentsSeparatedByString:@"#"][0]];
             [sizeCodesArray addObject:[keyString componentsSeparatedByString:@"#"][1]];
-            [sizesQuantityArray addObject:variantInventoryDictionary[key]];
+            [sizesQuantityArray addObject:variantInventoryDictionary[obj]];
         }
     }];
     
