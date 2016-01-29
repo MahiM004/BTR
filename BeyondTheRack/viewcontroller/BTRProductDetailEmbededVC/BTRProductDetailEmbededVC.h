@@ -10,7 +10,9 @@
 #import "Item+AppServer.h"
 #import "Item.h"
 #import "BTRSelectSizeVC.h"
-@interface BTRProductDetailEmbededVC : UIViewController<BTRSelectSizeVC>
+@import MessageUI;
+
+@interface BTRProductDetailEmbededVC : UIViewController<BTRSelectSizeVC,MFMailComposeViewControllerDelegate>
 
 #define EVENT_SCENE @"EventScene"
 #define SEARCH_SCENE @"SearchScene"

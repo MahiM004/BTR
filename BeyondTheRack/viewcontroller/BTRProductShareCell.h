@@ -12,5 +12,5 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *twitterAction;
 @property (weak, nonatomic) IBOutlet UIButton *facebookAction;
-@property (weak, nonatomic) IBOutlet UIButton *pinitAction;
+@property (weak, nonatomic) IBOutlet UIButton *emailAction;
 @end

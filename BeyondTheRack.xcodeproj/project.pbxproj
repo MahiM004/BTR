@@ -219,6 +219,7 @@
 		A02A6BF41BB08E0400C01F2C /* BTRLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A02A6BF31BB08E0400C01F2C /* BTRLoader.m */; };
 		A03C2FCC1C40571B00B9D8F0 /* whiteblank.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A03C2FCB1C40571B00B9D8F0 /* whiteblank.jpg */; };
 		A043E9231BB335AB00B42BB1 /* PromoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A043E9221BB335AB00B42BB1 /* PromoItem.m */; };
+		A044955F1C5BE24400F5377D /* email_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A044955E1C5BE24400F5377D /* email_icon.jpg */; };
 		A044DC921BFF760100100B1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A044DC911BFF760100100B1F /* GoogleService-Info.plist */; };
 		A044DC941BFFC05600100B1F /* apple_pay_2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A044DC931BFFC05600100B1F /* apple_pay_2x.png */; };
 		A05763861C57E0AA008640D9 /* BTRHTMLSizeChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A05763841C57E0AA008640D9 /* BTRHTMLSizeChartViewController.m */; };
@@ -640,6 +641,7 @@
 		A03C2FCB1C40571B00B9D8F0 /* whiteblank.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = whiteblank.jpg; sourceTree = "<group>"; };
 		A043E9211BB335AB00B42BB1 /* PromoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoItem.h; sourceTree = "<group>"; };
 		A043E9221BB335AB00B42BB1 /* PromoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoItem.m; sourceTree = "<group>"; };
+		A044955E1C5BE24400F5377D /* email_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = email_icon.jpg; sourceTree = "<group>"; };
 		A044DC911BFF760100100B1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A044DC931BFFC05600100B1F /* apple_pay_2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple_pay_2x.png; sourceTree = "<group>"; };
 		A05763831C57E0AA008640D9 /* BTRHTMLSizeChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRHTMLSizeChartViewController.h; sourceTree = "<group>"; };
@@ -1091,6 +1093,7 @@
 		69807AE21A420BB00001A154 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				A044955E1C5BE24400F5377D /* email_icon.jpg */,
 				A003EE3C1C56C40100C823E8 /* paypal_logo.png */,
 				A029B0961C5154BF00782566 /* CloseX.png */,
 				145B37021C51188500269D44 /* paypalCheckout1.png */,
@@ -1635,6 +1638,7 @@
 				690A390C1B1DEE0000D4BA84 /* checked.png in Resources */,
 				A05763871C57E0AA008640D9 /* BTRHTMLSizeChartViewController.xib in Resources */,
 				14EE31E41C43925200CB8A77 /* colorImage.png in Resources */,
+				A044955F1C5BE24400F5377D /* email_icon.jpg in Resources */,
 				A0FD342A1BA76C2E00B6B2C3 /* neulogo.png in Resources */,
 				14EE31E81C4398E900CB8A77 /* Category.png in Resources */,
 				69FF407A1A3F8939000BD092 /* LaunchScreen.xib in Resources */,

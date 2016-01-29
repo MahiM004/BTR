@@ -366,6 +366,7 @@
         NSString *attributeText = [NSString stringWithFormat:@"    %@ : %@", self.attributeKeys[j], self.attributeValues[j]];
         helloString = [NSString stringWithFormat:@"%@%@\n",helloString,attributeText];
     }
+    helloString = [NSString stringWithFormat:@"%@\nITEM : %@",helloString,self.productSku];
     return helloString;
 }
 
@@ -451,7 +452,7 @@
             shareCell = [nib objectAtIndex:0];
             [shareCell.twitterAction addTarget:self action:@selector(twitter:) forControlEvents:UIControlEventTouchUpInside];
             [shareCell.facebookAction addTarget:self action:@selector(shareOnFacebookTapped:) forControlEvents:UIControlEventTouchUpInside];
-            [shareCell.pinitAction addTarget:self action:@selector(shareOnPinterestTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [shareCell.emailAction addTarget:self action:@selector(shareOnEmailTapped:) forControlEvents:UIControlEventTouchUpInside];
         }
         return shareCell;
     }
@@ -771,6 +772,13 @@
     }
 }
 
+- (void)shareOnEmailTapped:(UIButton *)sender  {
+    MFMailComposeViewController *emailVC = [[MFMailComposeViewController alloc]init];
+    [emailVC setMailComposeDelegate:self];
+    [emailVC setMessageBody:[NSString stringWithFormat:@"<HTML>%@</br><a href=\"%@\">%@</a><HTML>",SOCIAL_MEDIA_INIT_STRING,[BTRItemFetcher URLtoShareforEventId:_getEventID withProductSku:[self productSku]],[self productSku]] isHTML:YES];
+    [self presentViewController:emailVC animated:YES completion:nil];
+}
+
 - (void)shareOnPinterestTapped:(UIButton *)sender {
     [[PDKClient sharedInstance] authenticateWithPermissions:@[PDKClientReadPublicPermissions,
                                                               PDKClientWritePublicPermissions,
@@ -960,6 +968,12 @@
 
 -(void)closePop {
     [customAlert close];
+}
+
+#pragma mark - Email Delegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error{
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
