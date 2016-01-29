@@ -466,11 +466,13 @@
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
         [self getCheckoutInfoSuccess:^(id responseObject) {
             self.order = [Order extractOrderfromJSONDictionary:responseObject forOrder:self.order isValidating:NO];
-            if (self.order.allTotalPrice.doubleValue == 0) {
+            if (self.order.allTotalPrice.doubleValue == 0 && [self.order.shippingAddress.postalCode length] > 0) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Good news!" message:@"You have enough credits to pay for your order.\nPlease complete your order on the checkout page without Apple Pay." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 alert.tag = 200;
                 [alert show];
                 return;
+            } else if (self.order.allTotalPrice.doubleValue == 0){
+                self.order.allTotalPrice = @"0.99";
             }
             [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:[self.order copy] checkoutMode:checkoutOne];
             [self.applePayManager showPaymentViewFromViewController:self];
