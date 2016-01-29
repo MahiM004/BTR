@@ -630,13 +630,15 @@
             NSString *deleteTokenURL = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforDeleteCCToken]];
             [BTRConnectionHelper getDataFromURL:deleteTokenURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
                     if ([[response valueForKey:@"success"]boolValue]) {
-                            [self.order setLockCCFields:@"0"];
-                            [self enablePaymentInfo];
-                            [self clearPaymentInfo];
+                        [self.order setLockCCFields:@"0"];
+                        [self enablePaymentInfo];
+                        [self clearPaymentInfo];
+                        [self validateAddressViaAPIAndInCompletion:^{
                             [self.changePaymentMethodCheckbox setUserInteractionEnabled:NO];
                             [self setCurrentPaymentType:creditCard];
                             [self changeDetailPaymentFor:creditCard];
                             [self.paymentMethodTF setText:@"Visa Credit"];
+                        }];
                     } else {
                         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Something wrong, your credit card's information did not clean" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil]show];
                     }
