@@ -114,7 +114,7 @@
         self.viewHeight.constant -= 35;
         self.creditView.hidden = YES;
     } else {
-        self.lblCreditPromoPrice.text = [NSString stringWithFormat:@"$%.2f",[self.info.creditPromo floatValue]];
+        self.lblCreditPromoPrice.text = [NSString stringWithFormat:@"($%.2f)",[self.info.creditPromo floatValue]];
     }
     
     if ([accountCreditedTxt isEqualToNumber:@0]) {
@@ -123,7 +123,7 @@
         self.viewHeight.constant -= 35;
         self.accountView.hidden = YES;
     } else {
-        self.lblAccountCredited.text = [NSString stringWithFormat:@"$%.2f",[self.info.accountCredit floatValue]];
+        self.lblAccountCredited.text = [NSString stringWithFormat:@"($%.2f)",[self.info.accountCredit floatValue]];
     }
     
     
