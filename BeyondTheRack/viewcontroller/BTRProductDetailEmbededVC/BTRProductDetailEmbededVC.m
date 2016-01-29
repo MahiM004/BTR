@@ -349,7 +349,7 @@
 - (NSString *)getLongDescription:(NSString *)longDesc {
     NSString * helloString = @"";
     if (longDesc.length == 0 || [longDesc isEqual:[NSNull null]]) {
-        helloString = [NSString stringWithFormat:@"no descriptions available for this item\n"];
+        helloString = [NSString stringWithFormat:@"No description available for this item\n"];
     } else {
         NSArray * breakDescArr = [longDesc componentsSeparatedByString:@"|"];
         for (int i = 0; i < breakDescArr.count; i++) {
@@ -652,6 +652,9 @@
     } else {
         // Landscape frames
         if ([BTRViewUtility isIPAD]) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [detailTV scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            
             view1.hidden = NO;
             CGFloat viewWidth;
             CGFloat viewHeight;

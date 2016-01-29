@@ -61,6 +61,31 @@
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="omL-Q2-1Uz">
+                        <rect key="frame" x="24" y="95" width="252" height="20"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="252" id="Awv-fq-SgV"/>
+                            <constraint firstAttribute="height" constant="20" id="FlV-FK-uTG"/>
+                        </constraints>
+                        <state key="normal">
+                            <attributedString key="attributedTitle">
+                                <fragment content="This item is subject to ">
+                                    <attributes>
+                                        <color key="NSColor" red="0.89411764705882357" green="0.16078431372549021" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="flat-rate shipping">
+                                    <attributes>
+                                        <color key="NSColor" red="0.89411764705882357" green="0.16078431372549021" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                        <integer key="NSUnderline" value="1"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                        </state>
+                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Dr-0u-yfC">
                         <rect key="frame" x="24" y="123" width="272" height="32"/>
                         <subviews>
@@ -82,7 +107,7 @@
                                     <constraint firstAttribute="height" constant="21" id="uSu-Lx-M96"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.89411764705882357" green="0.16078431372549021" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
@@ -103,7 +128,6 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.040000000000000001" colorSpace="calibratedWhite"/>
                                 <state key="normal">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -175,22 +199,28 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yNh-Is-lA6" userLabel="SizeChart">
-                        <rect key="frame" x="24" y="209" width="272" height="38"/>
+                        <rect key="frame" x="24" y="209" width="70" height="38"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fa-mi-0oN">
-                                <rect key="frame" x="0.0" y="0.0" width="272" height="38"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fa-mi-0oN">
+                                <rect key="frame" x="0.0" y="0.0" width="70" height="38"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Size Chart">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Size Chart">
+                                            <attributes>
+                                                <color key="NSColor" red="0.89411764705882357" green="0.16078431372549021" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
                                 </state>
                             </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="272" id="6VE-d8-xk6"/>
+                            <constraint firstAttribute="width" constant="70" id="6VE-d8-xk6"/>
                             <constraint firstAttribute="trailing" secondItem="2fa-mi-0oN" secondAttribute="trailing" id="EQI-1L-1aX"/>
                             <constraint firstItem="2fa-mi-0oN" firstAttribute="leading" secondItem="yNh-Is-lA6" secondAttribute="leading" id="M5R-nL-REC"/>
                             <constraint firstAttribute="bottom" secondItem="2fa-mi-0oN" secondAttribute="bottom" id="Zla-In-kTk"/>
@@ -198,31 +228,6 @@
                             <constraint firstAttribute="height" constant="38" id="hUI-i2-JQ1"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="omL-Q2-1Uz">
-                        <rect key="frame" x="24" y="95" width="252" height="20"/>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="252" id="Awv-fq-SgV"/>
-                            <constraint firstAttribute="height" constant="20" id="FlV-FK-uTG"/>
-                        </constraints>
-                        <state key="normal">
-                            <attributedString key="attributedTitle">
-                                <fragment content="This item is subject to ">
-                                    <attributes>
-                                        <color key="NSColor" red="0.89411764709999997" green="0.16078431369999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                    </attributes>
-                                </fragment>
-                                <fragment content="flat-rate shipping">
-                                    <attributes>
-                                        <color key="NSColor" red="0.89411764709999997" green="0.16078431369999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                        <integer key="NSUnderline" value="1"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
-                        </state>
-                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2i2-8f-yYR">
                         <rect key="frame" x="10" y="258" width="300" height="1"/>
                         <animations/>
