@@ -57,8 +57,6 @@
 @property CGFloat maxSearchTableSize;
 
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
-@property (copy, nonatomic) NSDictionary *selectedVariantInventories;
-@property (copy, nonatomic) NSDictionary *selectedAttributes;
 
 @property operation lastOperation;
 @property NSInvocation *savedInvocation;
@@ -448,8 +446,6 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
     Item *productItem = [self.itemsArray objectAtIndex:indexPath.row];
     [self setSelectedItem:productItem];
-    [self setSelectedAttributes:productItem.attributeDictionary];
-    [self setSelectedVariantInventories:productItem.variantInventory];
     
     [self performSegueWithIdentifier:@"productEmbededSegueSearch" sender:self];
 }
@@ -486,8 +482,6 @@
         BTRProductDetailEmbededVC * productEmbededVC = [segue destinationViewController];
         productEmbededVC.getOriginalVCString = SEARCH_SCENE;
         productEmbededVC.getItem = [self selectedItem];
-        productEmbededVC.getAttribDic = self.selectedAttributes;
-        productEmbededVC.getVariantInventoryDic = self.selectedVariantInventories;
     }
 }
 

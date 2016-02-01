@@ -399,8 +399,6 @@
         productEmbededVC.getOriginalVCString = BAG_SCENE;
         productEmbededVC.getItem = selectedItemToPDP;
         productEmbededVC.getEventID = selectedItemEventID;
-        productEmbededVC.getVariantInventoryDic = selectedItemToPDP.variantInventory;
-        productEmbededVC.getAttribDic = selectedItemToPDP.attributeDictionary;
     }
 }
 

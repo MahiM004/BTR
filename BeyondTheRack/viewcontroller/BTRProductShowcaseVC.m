@@ -80,8 +80,6 @@ typedef enum ScrollDirection {
 @property (weak, nonatomic) IBOutlet UILabel *filterByLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sortByLabel;
 @property (strong, nonatomic) NSMutableArray *originalItemArray;
-@property (copy, nonatomic) NSDictionary *selectedVariantInventories; // an Array of variantInventory Dictionaries
-@property (copy, nonatomic) NSDictionary *selectedAttributes; // an Array of variantInventory Dictionaries
 
 @property (strong, nonatomic) NSMutableArray *chosenSizesArray;
 @property (assign, nonatomic) NSUInteger selectedCellIndexRow;
@@ -591,8 +589,6 @@ typedef enum ScrollDirection {
         return;
     [self setSelectedIndexPath:indexPath];
     [self setSelectedBrandString:[productItem brand]];
-    [self setSelectedAttributes:productItem.attributeDictionary];
-    [self setSelectedVariantInventories:productItem.variantInventory];
     [self performSegueWithIdentifier:@"productEmbededSegue" sender:self];
 }
 
@@ -615,8 +611,6 @@ typedef enum ScrollDirection {
         productEmbededVC.getOriginalVCString = EVENT_SCENE;
         productEmbededVC.getItem = [self.originalItemArray objectAtIndex:[self.selectedIndexPath row]];
         productEmbededVC.getEventID = [self eventSku];
-        productEmbededVC.getVariantInventoryDic = self.selectedVariantInventories;
-        productEmbededVC.getAttribDic = self.selectedAttributes;
         
         BTRProductShowcaseCollectionCell* cell = (BTRProductShowcaseCollectionCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPath];
         if ([self isItemSoldOutWithVariant:[cell sizeQuantityArray]])
