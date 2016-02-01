@@ -153,7 +153,7 @@
     
     // Prices
     self.bagTotalLabel.text = [NSString stringWithFormat:@"$%.2f",[self.info.bagTotal floatValue]];
-    self.subTotalLabel.text = [NSString stringWithFormat:@"%.2f",[self.info.orderSubtotal floatValue]];
+    self.subTotalLabel.text = [NSString stringWithFormat:@"$%.2f",[self.info.orderSubtotal floatValue]];
     self.totalOrder.text = [NSString stringWithFormat:@"TOTAL %@ :",self.info.orderCurrency];
     self.totalOrderValue.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalOrderValue floatValue]];
     self.shippingPriceLabel.text = [NSString stringWithFormat:@"$%.2f",[self.info.totalShipping floatValue]];
