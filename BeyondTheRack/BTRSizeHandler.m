@@ -36,7 +36,7 @@
         return BTRSizeModeNoInfo;
     
     NSArray *sortedKeys = [[variantInventoryDictionary allKeys] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        if ([(NSString *)obj1 intValue] == 0) {
+        if ([(NSString *)obj1 intValue] == 0 && [(NSString *)obj2 intValue]) {
             return [reference[obj1] compare:reference[obj2]];
         }else {
             if ([obj1 integerValue] > [obj2 integerValue]) {
