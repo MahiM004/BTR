@@ -17,10 +17,7 @@
 #define BAG_SCENE @"BagScene"
 
 @property NSString *getOriginalVCString;
-@property NSString *getProductSKUfromSearchResult;
 @property Item * getItem;
-@property NSDictionary * getVariantInventoryDic;
-@property NSDictionary * getAttribDic;
 @property NSString * getEventID;
 @property BOOL disableAddToCart;
 

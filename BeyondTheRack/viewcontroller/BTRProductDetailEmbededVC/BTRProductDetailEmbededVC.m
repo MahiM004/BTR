@@ -208,7 +208,7 @@
 }
 
 - (void)fillWithItem:(Item*)item {
-    [self extractAttributesFromAttributesDictionary:_getAttribDic];
+    [self extractAttributesFromAttributesDictionary:item.attributeDictionary];
     [self updateViewWithDeatiledItem:item];
 }
 
@@ -261,7 +261,7 @@
         [self.stepper setup];
         [nameCell.stepperView addSubview:self.stepper];
         
-        BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:_getVariantInventoryDic
+        BTRSizeMode sizeMode = [BTRSizeHandler extractSizesfromVarianInventoryDictionary:productItem.variantInventory
                                                                             toSizesArray:[self sizesArray]
                                                                         toSizeCodesArray:[self sizeCodesArray]
                                                                      toSizeQuantityArray:[self sizeQuantityArray]];
