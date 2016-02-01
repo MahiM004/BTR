@@ -11,7 +11,7 @@
 @implementation BTROrderHistoryFetcher
 
 + (NSURL *)URLforOrderHistory {
-    return [self URLForQuery:[NSString stringWithFormat:@"%@/user/orders", BASEURL]];
+    return [self URLForQuery:[NSString stringWithFormat:@"%@/user/orders?limit=15", BASEURL]];
 }
 
 

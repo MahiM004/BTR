@@ -17,14 +17,11 @@
 @interface BTRTrackOrdersVC ()
 
 @property (strong, nonatomic) NSArray *monthsArray;
-@property (strong, nonatomic) NSArray *sortedKeys;
 
 @end
 
 
 @implementation BTRTrackOrdersVC
-
-@synthesize sortedKeys;
 
 - (NSMutableArray *)headersArray {
     if (!_headersArray) _headersArray = [[NSMutableArray alloc] init];
@@ -40,10 +37,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[BTRRefreshManager sharedInstance]setTopViewController:self];
-    
-    NSArray *unsortedKeys = [self.itemsDictionary allKeys];
-    NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
-    self.sortedKeys =  [unsortedKeys sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
+    NSArray * sorted = [self.headersArray sortedArrayUsingComparator:^NSComparisonResult(OrderHistoryBag *obj1, OrderHistoryBag *obj2) {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *obj1date = [formatter dateFromString:obj1.orderDateString];
+        NSDate *obj2date = [formatter dateFromString:obj2.orderDateString];
+        return [obj2date compare:obj1date];
+    }];
+    self.headersArray = [[NSMutableArray alloc]initWithArray:sorted];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
@@ -55,7 +56,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSNumber *orderId = [self.sortedKeys objectAtIndex:section];
+    NSString *orderId = [[self.headersArray objectAtIndex:section]orderId];
     NSArray *tempArray = [[self itemsDictionary] objectForKey:orderId];
     return [tempArray count];
 }
@@ -69,7 +70,7 @@
     BTRTrackOrdersItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
         cell = [[BTRTrackOrdersItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    NSNumber *orderId = [self.sortedKeys objectAtIndex:indexPath.section];
+    NSString *orderId = [[self.headersArray objectAtIndex:indexPath.section]orderId];
     NSArray *tempArray = [[self itemsDictionary] objectForKey:orderId];
     OrderHistoryItem *orderItem = [tempArray objectAtIndex:[indexPath row]];
     [cell.productImageView setImageWithURL:[BTRItemFetcher
@@ -95,12 +96,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-    NSString *orderIdString = [NSString stringWithFormat:@"%@", [self.sortedKeys objectAtIndex:section]];
-    OrderHistoryBag *orderBag = [[OrderHistoryBag alloc] init];
-    for (int i=0; i < [[self headersArray] count]; i++)
-        if ([[[[self headersArray]  objectAtIndex:i] orderId] isEqualToString:orderIdString])
-            orderBag = [[self headersArray] objectAtIndex:i];
-    
+    OrderHistoryBag *orderBag = [[self headersArray] objectAtIndex:section];
     if (orderBag) {
         view = [self configureFirstRowHeaderforView:view withTableView:tableView forOrderBag:orderBag];
         view = [self configureSecondRowHeaderforView:view withTableView:tableView forOrderBag:orderBag];
