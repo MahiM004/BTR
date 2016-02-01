@@ -29,7 +29,7 @@
                                 @"L#L": @5,
                                 @"XL#XL" : @6,
                                 @"XXL#XXL" : @7,
-                                @"XXXL#XXXL" : @8
+                                @"3XL#3XL" : @8
                                 };
     
     if (![variantInventoryDictionary isKindOfClass:[NSDictionary class]])
