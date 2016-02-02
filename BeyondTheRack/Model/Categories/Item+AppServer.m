@@ -29,6 +29,7 @@
                                     withEventId:(NSString *)eventId
                                  forItemsArray:(NSMutableArray *)itemsArray
                                  withJsonString:(NSString *)jSonString{
+    
     NSMutableArray *jSonArray = [[NSMutableArray alloc]initWithArray:[jSonString componentsSeparatedByString:@"sku_id"]];
     [jSonArray removeObjectAtIndex:0];
     
@@ -38,6 +39,8 @@
             item = [self itemWithAppServerInfo:[items objectAtIndex:i] withJsonString:[jSonArray objectAtIndex:i]];
         else
             item = [self itemWithAppServerInfo:[items objectAtIndex:i] withJsonString:nil];
+        if (item.eventId == nil)
+            item.eventId = eventId;
         [itemsArray addObject:item];
     }
     return itemsArray;
