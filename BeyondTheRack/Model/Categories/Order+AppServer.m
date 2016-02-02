@@ -91,7 +91,7 @@
     NSMutableArray* tempProductArray = [[NSMutableArray alloc]init];
     for (NSDictionary* itemDic in ArrayOfItems) {
         Item *newItem = [[Item alloc]init];
-        [tempProductArray addObject:[Item extractItemfromJsonDictionary:itemDic forItem:newItem]];
+        [tempProductArray addObject:[Item extractItemfromJsonDictionary:itemDic forItem:newItem withJSonString:nil]];
     }
     order.items = tempProductArray;
     

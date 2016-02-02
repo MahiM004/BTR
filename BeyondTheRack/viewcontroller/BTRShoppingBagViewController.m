@@ -255,7 +255,7 @@
                                       isExpired:@"true"];
         
         NSArray *productJsonArray = response[@"products"];
-        self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
+        self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray] withJsonString:nil];
         
         BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
         [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
@@ -585,7 +585,7 @@
                                   isExpired:@"true"];
     
     NSArray *productJsonArray = response[@"products"];
-    self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray]];
+    self.itemsArray = [Item loadItemsfromAppServerArray:productJsonArray forItemsArray:[self itemsArray] withJsonString:nil];
     BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
     [sharedShoppingBag setBagItems:(NSArray *)[self bagItemsArray]];
     

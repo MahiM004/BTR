@@ -615,7 +615,7 @@
         sessionNeeded = NO;
     }
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
-        Item *productItem = [Item itemWithAppServerInfo:response withEventId:[self getEventID]];
+        Item *productItem = [Item itemWithAppServerInfo:response withEventId:[self getEventID] withJsonString:jSonString];
         success(productItem);
     } faild:^(NSError *error) {
         failure(error);

@@ -433,7 +433,7 @@
         NSMutableArray* newItems = [[NSMutableArray alloc]init];
         if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"])
             if ([arrayToPass count] != 0)
-                newItems = [Item loadItemsfromAppServerArray:arrayToPass forItemsArray:newItems];
+                newItems = [Item loadItemsfromAppServerArray:arrayToPass forItemsArray:newItems withJsonString:jSonString];
         
         success(newItems);
     } faild:^(NSError *error) {
@@ -493,7 +493,7 @@
     NSMutableArray * arrayToPass = [sharedFacetHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"])
         if ([arrayToPass count] != 0) {
-            self.itemsArray = [Item loadItemsfromAppServerArray:arrayToPass forItemsArray:[self itemsArray]];
+            self.itemsArray = [Item loadItemsfromAppServerArray:arrayToPass forItemsArray:[self itemsArray] withJsonString:nil];
             for (int i =  0; i < self.itemsArray.count ; i++)
                 [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
         }

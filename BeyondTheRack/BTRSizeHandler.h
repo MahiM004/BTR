@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, BTRSizeMode) {
 @interface BTRSizeHandler : NSObject
 
 
-+ (BTRSizeMode) extractSizesfromVarianInventoryDictionary: (NSDictionary *)variantInventoryDictionary
++ (BTRSizeMode) extractSizesfromVarianInventoryDictionary: (NSArray *)variantInventory
                                                   toSizesArray:(NSMutableArray *)sizesArray
                                               toSizeCodesArray:(NSMutableArray *)sizeCodesArray
                                            toSizeQuantityArray:(NSMutableArray *)sizesQuantityArray;

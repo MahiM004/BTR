@@ -174,12 +174,14 @@ typedef enum ScrollDirection {
     NSMutableArray* allSizes = [[NSMutableArray alloc]init];
     NSMutableArray* allCodedSizes = [[NSMutableArray alloc]init];
     for (Item* item in self.originalItemArray) {
-        if ([item.variantInventory isKindOfClass:[NSDictionary class]]){
-            for (NSString *key in [item.variantInventory keyEnumerator])
+        if ([item.variantInventory isKindOfClass:[NSArray class]]){
+            for (NSDictionary *dic in item.variantInventory) {
+                NSString *key = [[dic allKeys]objectAtIndex:0];
                 if (![allSizes containsObject:[[key componentsSeparatedByString:@"#"]objectAtIndex:0]]) {
                     [allSizes addObject:[[key componentsSeparatedByString:@"#"]objectAtIndex:0]];
                     [allCodedSizes addObject:[[key componentsSeparatedByString:@"#"]objectAtIndex:1]];
                 }
+            }
         }
     }
 //    allSizes = [NSMutableArray arrayWithArray:[allSizes sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -314,7 +316,7 @@ typedef enum ScrollDirection {
     }
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:sessionNeeded contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         NSMutableArray *newItems = [[NSMutableArray alloc]init];
-        newItems = [Item loadItemsfromAppServerArray:(NSArray *)response withEventId:[self eventSku] forItemsArray:newItems];
+        newItems = [Item loadItemsfromAppServerArray:(NSArray *)response withEventId:[self eventSku] forItemsArray:newItems withJsonString:jSonString];
         success(newItems);
         [BTRLoader hideLoaderFromView:self.view];
     } faild:^(NSError *error) {

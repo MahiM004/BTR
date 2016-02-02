@@ -11,42 +11,58 @@
 @implementation Item (AppServer)
 
 + (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
-                    withEventId:(NSString *)eventId {
+                    withEventId:(NSString *)eventId withJsonString:(NSString *)jSonString{
     Item *item = [[Item alloc] init];
     item.eventId = eventId;
-    item = [self extractItemfromJsonDictionary:itemDictionary forItem:item];
+    item = [self extractItemfromJsonDictionary:itemDictionary forItem:item withJSonString:jSonString];
     return item;
 }
 
 
-+ (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary {
++ (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary withJsonString:(NSString *)jSonString{
     Item *item = [[Item alloc] init];
-    item = [self extractItemfromJsonDictionary:itemDictionary forItem:item];
+    item = [self extractItemfromJsonDictionary:itemDictionary forItem:item withJSonString:jSonString];
     return item;
 }
 
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                                     withEventId:(NSString *)eventId
-                                 forItemsArray:(NSMutableArray *)itemsArray {
-    for (NSDictionary *item in items) {
-        NSObject *someObject = [self itemWithAppServerInfo:item withEventId:eventId];
-        if (someObject)
-            [itemsArray addObject:someObject];
+                                 forItemsArray:(NSMutableArray *)itemsArray
+                                 withJsonString:(NSString *)jSonString{
+    NSMutableArray *jSonArray = [[NSMutableArray alloc]initWithArray:[jSonString componentsSeparatedByString:@"sku_id"]];
+    [jSonArray removeObjectAtIndex:0];
+    
+    for (int i = 0; i < [items count]; i++) {
+        Item *item;
+        if ([jSonArray count] == [items count])
+            item = [self itemWithAppServerInfo:[items objectAtIndex:i] withJsonString:[jSonArray objectAtIndex:i]];
+        else
+            item = [self itemWithAppServerInfo:[items objectAtIndex:i] withJsonString:nil];
+        [itemsArray addObject:item];
     }
     return itemsArray;
 }
 
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
-                                  forItemsArray:(NSMutableArray *)itemsArray {
-    for (NSDictionary *item in items) {
-        NSObject *someObject = [self itemWithAppServerInfo:item];
-        if (someObject)
-            [itemsArray addObject:someObject];
+                                  forItemsArray:(NSMutableArray *)itemsArray withJsonString:(NSString *)jSonString{
+    
+    NSMutableArray *jSonArray = [[NSMutableArray alloc]initWithArray:[jSonString componentsSeparatedByString:@"sku_id"]];
+    if ([jSonArray count] > 1) {
+        [jSonArray removeObjectAtIndex:0];
+    }
+
+    for (int i = 0; i < [items count]; i++) {
+        Item *item;
+        if ([jSonArray count] == [items count])
+            item = [self itemWithAppServerInfo:[items objectAtIndex:i] withJsonString:[jSonArray objectAtIndex:i]];
+        else
+            item = [self itemWithAppServerInfo:[items objectAtIndex:i] withJsonString:nil];
+        [itemsArray addObject:item];
     }
     return itemsArray;
 }
 
-+ (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item {
++ (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item withJSonString:(NSString *)jSonString{
     NSNumberFormatter *nformatter = [[NSNumberFormatter alloc] init];
     nformatter.numberStyle = NSNumberFormatterDecimalStyle;
     
@@ -124,7 +140,9 @@
     if ([itemDictionary valueForKeyPath:@"restricted_shipping"] && [itemDictionary valueForKeyPath:@"restricted_shipping"] != [NSNull null])
         item.restrictedShipping = [itemDictionary valueForKey:@"restricted_shipping"];
     
-    if ([itemDictionary valueForKeyPath:@"variant_inventory"] && [itemDictionary valueForKeyPath:@"variant_inventory"] != [NSNull null])
+    if (jSonString) {
+        item.variantInventory = [self extractSizeFromJSonString:jSonString];
+    } else if ([itemDictionary valueForKeyPath:@"variant_inventory"] && [itemDictionary valueForKeyPath:@"variant_inventory"] != [NSNull null])
         item.variantInventory = [itemDictionary valueForKey:@"variant_inventory"];
     
     if ([itemDictionary valueForKeyPath:@"reserved"] && [itemDictionary valueForKeyPath:@"reserved"] != [NSNull null])

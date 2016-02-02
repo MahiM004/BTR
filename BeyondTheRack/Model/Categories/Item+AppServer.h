@@ -26,20 +26,26 @@
  */
 
 + (Item *)itemWithAppServerInfo:(NSDictionary *)itemDictionary
-                    withEventId:(NSString *)eventId;
+                    withEventId:(NSString *)eventId
+                 withJsonString:(NSString *)jSonString;
 
-+ (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item;
++ (Item *)extractItemfromJsonDictionary:(NSDictionary *)itemDictionary
+                                forItem:(Item *)item
+                         withJSonString:(NSString *)jSonString;
 
-+ (Item *)extractItemfromConfirmationDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item;
++ (Item *)extractItemfromConfirmationDictionary:(NSDictionary *)itemDictionary
+                                        forItem:(Item *)item;
 
 + (NSArray *)extractSizeFromJSonString:(NSString *)jSonString;
 
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                                     withEventId:(NSString *)eventId
-                                 forItemsArray:(NSMutableArray *)itemsArray;
+                                 forItemsArray:(NSMutableArray *)itemsArray
+                                 withJsonString:(NSString *)jSonString;
 
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
-                                  forItemsArray:(NSMutableArray *)itemsArray;
+                                  forItemsArray:(NSMutableArray *)itemsArray
+                                 withJsonString:(NSString *)jSonString;
 
 @end
 

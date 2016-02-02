@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRProductShowcaseVC.m"
-            timestampString = "476123195.366703"
+            timestampString = "476132677.163154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -52,12 +52,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRProductShowcaseVC.m"
-            timestampString = "476123195.366703"
+            timestampString = "476132677.163154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "-viewWillDisappear:"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -228,7 +228,7 @@
                   moduleName = "BeyondTheRack"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/Masterpass/MPManager.m"
-                  timestampString = "476132179.764977"
+                  timestampString = "476134340.094802"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "66"
@@ -243,7 +243,7 @@
                   moduleName = "BeyondTheRack"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/Masterpass/MPManager.m"
-                  timestampString = "476132179.765174"
+                  timestampString = "476134340.095025"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "66"
@@ -900,12 +900,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/Model/Categories/Item+AppServer.m"
-            timestampString = "476132179.387682"
+            timestampString = "476134339.656164"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "+extractSizeFromJSonString:"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "+loadItemsfromAppServerArray:forItemsArray:withJsonString:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeyondTheRack/Model/Categories/Item+AppServer.m"
+            timestampString = "476134339.656164"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "+loadItemsfromAppServerArray:forItemsArray:withJsonString:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeyondTheRack/Model/Categories/Item+AppServer.m"
+            timestampString = "476134300.899936"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "+loadItemsfromAppServerArray:withEventId:forItemsArray:withJsonString:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeyondTheRack/Model/Categories/Item+AppServer.m"
+            timestampString = "476134301.429249"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "+loadItemsfromAppServerArray:withEventId:forItemsArray:withJsonString:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
