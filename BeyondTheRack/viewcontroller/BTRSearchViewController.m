@@ -43,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *bagButton;
 @property (strong, nonatomic) Item *selectedItem;
 @property (strong, nonatomic) NSDictionary *responseDictionaryFromFacets;
+@property (strong, nonatomic) NSString *responseJSON;
 @property (strong, nonatomic) NSMutableArray* suggestionArray;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
@@ -493,7 +494,7 @@
     NSMutableArray * arrayToPass = [sharedFacetHandler getItemDataArrayFromResponse:[self responseDictionaryFromFacets]];
     if (![[NSString stringWithFormat:@"%@",arrayToPass] isEqualToString:@"0"])
         if ([arrayToPass count] != 0) {
-            self.itemsArray = [Item loadItemsfromAppServerArray:arrayToPass forItemsArray:[self itemsArray] withJsonString:nil];
+            self.itemsArray = [Item loadItemsfromAppServerArray:arrayToPass forItemsArray:[self itemsArray] withJsonString:[self responseJSON]];
             for (int i =  0; i < self.itemsArray.count ; i++)
                 [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
         }
@@ -538,8 +539,9 @@
 
 #pragma mark - BTRRefineResultsViewController Delegate
 
-- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary {
+- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary withJSonResponse:(NSString *)jSonString {
     self.responseDictionaryFromFacets = responseDictionary;
+    self.responseJSON = jSonString;
 }
 
 #pragma mark - SuggestionTableView Delegates and DataSource

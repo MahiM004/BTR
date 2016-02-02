@@ -447,10 +447,10 @@
     [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                     withSortString:sortString
                   withFacetsString:facetString
-                           success:^(NSDictionary *responseDictionary) {
+                           success:^(NSDictionary *responseDictionary,NSString *jSonString) {
                              [self removeViewWithLoader];
-                             if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:)]) {
-                                 [self.delegate refineSceneWillDisappearWithResponseDictionary:responseDictionary];
+                             if ([self.delegate respondsToSelector:@selector(refineSceneWillDisappearWithResponseDictionary:withJSonResponse:)]) {
+                                 [self.delegate refineSceneWillDisappearWithResponseDictionary:responseDictionary withJSonResponse:jSonString];
                              }
                              [self performSegueWithIdentifier:@"unwindFromRefineResultsApplied" sender:self];
                          }
@@ -491,7 +491,7 @@
 - (void)fetchItemsforSearchQuery:(NSString *)searchQuery
                 withSortString:(NSString *)sortString
               withFacetsString:(NSString *)facetsString
-                       success:(void (^)(id  responseObject)) success
+                       success:(void (^)(id  responseObject, NSString *jSonString)) success
                        failure:(void (^)(NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortString withFacetString:facetsString andPageNumber:1]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
@@ -499,7 +499,7 @@
             BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
             [sharedFacetsHandler updateFacetsFromResponseDictionary:response];
         }
-        success(response);
+        success(response,jSonString);
     } faild:^(NSError *error) {
         failure(error);
     }];

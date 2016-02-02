@@ -25,7 +25,8 @@
 @protocol BTRRefineResultsViewController <NSObject>
 
 @optional
-- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary;
+
+- (void)refineSceneWillDisappearWithResponseDictionary:(NSDictionary *)responseDictionary withJSonResponse:(NSString *)jSonString;
 
 @end
 
