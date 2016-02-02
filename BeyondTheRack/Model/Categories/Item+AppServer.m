@@ -46,7 +46,7 @@
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                                   forItemsArray:(NSMutableArray *)itemsArray withJsonString:(NSString *)jSonString{
     
-    NSMutableArray *jSonArray = [[NSMutableArray alloc]initWithArray:[jSonString componentsSeparatedByString:@"sku_id"]];
+    NSMutableArray *jSonArray = [[NSMutableArray alloc]initWithArray:[jSonString componentsSeparatedByString:@"sku"]];
     if ([jSonArray count] > 1) {
         [jSonArray removeObjectAtIndex:0];
     }
