@@ -20,12 +20,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475003114.206675"
+            timestampString = "475793192.593356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "727"
-            endingLineNumber = "727"
-            landmarkName = "-enableShippingAddress"
+            startingLineNumber = "729"
+            endingLineNumber = "729"
+            landmarkName = "-disableShippingAddress"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -36,12 +36,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRProductShowcaseVC.m"
-            timestampString = "471807196.213046"
+            timestampString = "476123195.366703"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "-viewWillDisappear:"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -52,124 +52,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRProductShowcaseVC.m"
-            timestampString = "471807196.213046"
+            timestampString = "476123195.366703"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "-viewWillDisappear:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m"
-            timestampString = "471805217.654001"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "578"
-            endingLineNumber = "578"
-            landmarkName = "-addToBag"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m"
-            timestampString = "471805218.205456"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "579"
-            endingLineNumber = "579"
-            landmarkName = "-addToBag"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m"
-            timestampString = "471805219.921861"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "588"
-            endingLineNumber = "588"
-            landmarkName = "-cartIncrementServerCallWithSuccess:failure:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[BTRProductDetailEmbededVC fetchItemforProductSku:success:failure:]"
-                  moduleName = "BeyondTheRack"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/viewcontroller/BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m"
-                  timestampString = "471808670.34212"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "588"
-                  endingLineNumber = "588"
-                  offsetFromSymbolStart = "689">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__68-[BTRProductDetailEmbededVC fetchItemforProductSku:success:failure:]_block_invoke"
-                  moduleName = "BeyondTheRack"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/viewcontroller/BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m"
-                  timestampString = "471808670.342508"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "588"
-                  endingLineNumber = "588"
-                  offsetFromSymbolStart = "52">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m"
-            timestampString = "471805220.539195"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "589"
-            endingLineNumber = "589"
-            landmarkName = "-cartIncrementServerCallWithSuccess:failure:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m"
-            timestampString = "471805221.058588"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "590"
-            endingLineNumber = "590"
-            landmarkName = "-cartIncrementServerCallWithSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -259,45 +147,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m"
-            timestampString = "471808581.426332"
+            filePath = "BeyondTheRack/viewcontroller/BTRShoppingBagViewController.m"
+            timestampString = "476129693.44196"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
-            landmarkName = "-updateViewWithDeatiledItem:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m"
-            timestampString = "471808582.516753"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
-            landmarkName = "-updateViewWithDeatiledItem:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRProductDetailEmbededVC/BTRProductDetailEmbededVC.m"
-            timestampString = "471808583.360648"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "-updateViewWithDeatiledItem:"
+            startingLineNumber = "512"
+            endingLineNumber = "512"
+            landmarkName = "-getPaypalInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -308,28 +164,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRShoppingBagViewController.m"
-            timestampString = "471817043.165824"
+            timestampString = "476129693.44196"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "508"
-            endingLineNumber = "508"
-            landmarkName = "-masterPassCheckout:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRShoppingBagViewController.m"
-            timestampString = "471817043.165824"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "507"
-            endingLineNumber = "507"
-            landmarkName = "-masterPassCheckout:"
+            startingLineNumber = "511"
+            endingLineNumber = "511"
+            landmarkName = "-getPaypalInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -388,7 +228,7 @@
                   moduleName = "BeyondTheRack"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/Masterpass/MPManager.m"
-                  timestampString = "475429273.10258"
+                  timestampString = "476132179.764977"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "66"
@@ -403,7 +243,7 @@
                   moduleName = "BeyondTheRack"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/Masterpass/MPManager.m"
-                  timestampString = "475429273.102833"
+                  timestampString = "476132179.765174"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "66"
@@ -436,28 +276,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475003114.206675"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "965"
-            endingLineNumber = "965"
-            landmarkName = "-fillBillingAddressByAddress:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475003114.206675"
+            timestampString = "475793192.593356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "967"
             endingLineNumber = "967"
-            landmarkName = "-fillBillingAddressByAddress:"
+            landmarkName = "-fillShippingAddressByAddress:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -468,12 +292,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475003114.206675"
+            timestampString = "475793192.593356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "975"
-            endingLineNumber = "975"
-            landmarkName = "-fillPaymentInfoWithCurrentData"
+            startingLineNumber = "969"
+            endingLineNumber = "969"
+            landmarkName = "-fillShippingAddressByAddress:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -484,12 +308,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475003114.206675"
+            timestampString = "475793192.593356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "974"
-            endingLineNumber = "974"
-            landmarkName = "-fillPaymentInfoWithCurrentData"
+            startingLineNumber = "977"
+            endingLineNumber = "977"
+            landmarkName = "-fillShippingAddressByAddress:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
+            timestampString = "475793192.593356"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "976"
+            endingLineNumber = "976"
+            landmarkName = "-fillShippingAddressByAddress:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -500,61 +340,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRSearchViewController.m"
-            timestampString = "471993291.890678"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "575"
-            endingLineNumber = "575"
-            landmarkName = "-searchFor:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRSearchViewController.m"
-            timestampString = "471993291.890678"
+            timestampString = "476128273.969727"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "577"
             endingLineNumber = "577"
             landmarkName = "-searchFor:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[BTRSearchViewController searchFor:]"
-                  moduleName = "BeyondTheRack"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/viewcontroller/BTRSearchViewController.m"
-                  timestampString = "475429273.108413"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "577"
-                  endingLineNumber = "577"
-                  offsetFromSymbolStart = "193">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__37-[BTRSearchViewController searchFor:]_block_invoke"
-                  moduleName = "BeyondTheRack"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/viewcontroller/BTRSearchViewController.m"
-                  timestampString = "475429273.108641"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "577"
-                  endingLineNumber = "577"
-                  offsetFromSymbolStart = "51">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -564,11 +356,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRSearchViewController.m"
-            timestampString = "471993291.890678"
+            timestampString = "476128273.969727"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "578"
-            endingLineNumber = "578"
+            startingLineNumber = "579"
+            endingLineNumber = "579"
+            landmarkName = "-searchFor:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeyondTheRack/viewcontroller/BTRSearchViewController.m"
+            timestampString = "476128273.969727"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "580"
+            endingLineNumber = "580"
             landmarkName = "-searchFor:"
             landmarkType = "5">
          </BreakpointContent>
@@ -868,12 +676,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRShoppingBagViewController.m"
-            timestampString = "475003235.882667"
+            timestampString = "476129693.44196"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "414"
-            endingLineNumber = "414"
-            landmarkName = "-tappedCheckout:"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
+            landmarkName = "-gotoCheckoutPageWithPaymentInfo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -900,12 +708,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475373665.010842"
+            timestampString = "475793192.593356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1367"
-            endingLineNumber = "1367"
-            landmarkName = "-sendPayPalInfo"
+            startingLineNumber = "1368"
+            endingLineNumber = "1368"
+            landmarkName = "-makePaymentWithSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -916,28 +724,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475372527.872368"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1356"
-            endingLineNumber = "1356"
-            landmarkName = "-sendPayPalInfo"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475372528.819652"
+            timestampString = "475793192.593356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1357"
             endingLineNumber = "1357"
-            landmarkName = "-sendPayPalInfo"
+            landmarkName = "-setupApplePay:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
+            timestampString = "475793192.593356"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1358"
+            endingLineNumber = "1358"
+            landmarkName = "-setupApplePay:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1012,12 +820,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475373665.010842"
+            timestampString = "475793192.593356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1382"
-            endingLineNumber = "1382"
-            landmarkName = "-sendPayPalInfo"
+            startingLineNumber = "1383"
+            endingLineNumber = "1383"
+            landmarkName = "@implementation BTRCheckoutViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
+            timestampString = "475793192.593356"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1376"
+            endingLineNumber = "1376"
+            landmarkName = "-makePaymentWithSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1028,12 +852,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475373665.010842"
+            timestampString = "475793192.593356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1375"
-            endingLineNumber = "1375"
-            landmarkName = "-sendPayPalInfo"
+            startingLineNumber = "1378"
+            endingLineNumber = "1378"
+            landmarkName = "-makePaymentWithSuccess:failure:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeyondTheRack/BTRConnectionHelper.m"
+            timestampString = "476129314.339634"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "+putDataFromURL:withParameters:setSessionInHeader:contentType:success:faild:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1043,13 +883,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BeyondTheRack/viewcontroller/BTRCheckoutViewController.m"
-            timestampString = "475373665.010842"
+            filePath = "BeyondTheRack/BTRConnectionHelper.m"
+            timestampString = "476129314.339634"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1377"
-            endingLineNumber = "1377"
-            landmarkName = "-sendPayPalInfo"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "+putDataFromURL:withParameters:setSessionInHeader:contentType:success:faild:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeyondTheRack/Model/Categories/Item+AppServer.m"
+            timestampString = "476132179.387682"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "+extractSizeFromJSonString:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

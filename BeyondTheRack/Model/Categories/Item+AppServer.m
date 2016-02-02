@@ -157,6 +157,32 @@
     return item;
 }
 
++ (NSArray *)extractSizeFromJSonString:(NSString *)jSonString {
+    NSRange range = [jSonString rangeOfString:@"variant_inventory\":{"];
+    if (range.location == NSNotFound) {
+        return nil;
+    } else {
+        int i = 0;
+        while ([jSonString characterAtIndex:i + range.location + range.length] != '}')
+            i++;
+        
+        NSMutableArray *sizes = [[NSMutableArray alloc]init];
+        NSString *variantString = [jSonString substringWithRange:NSMakeRange(range.location + range.length, i)];
+        
+        variantString = [variantString stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        variantString = [variantString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+        
+        NSArray *sizeDictionaries = [variantString componentsSeparatedByString:@","];
+        for (int i = 0; i < [sizeDictionaries count]; i++) {
+            NSArray *keyValue = [[sizeDictionaries objectAtIndex:i]componentsSeparatedByString:@":"];
+            NSDictionary *dic = [NSDictionary dictionaryWithObject:[keyValue objectAtIndex:1] forKey:[keyValue objectAtIndex:0]];
+            [sizes addObject:dic];
+        }
+        return sizes;
+    }
+    return nil;
+}
+
 @end
 
 

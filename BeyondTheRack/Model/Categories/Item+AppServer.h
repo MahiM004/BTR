@@ -32,6 +32,8 @@
 
 + (Item *)extractItemfromConfirmationDictionary:(NSDictionary *)itemDictionary forItem:(Item *)item;
 
++ (NSArray *)extractSizeFromJSonString:(NSString *)jSonString;
+
 + (NSMutableArray *)loadItemsfromAppServerArray:(NSArray *)items // of AppServer Item NSDictionary
                                     withEventId:(NSString *)eventId
                                  forItemsArray:(NSMutableArray *)itemsArray;
