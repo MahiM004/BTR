@@ -425,7 +425,7 @@
         url = [NSString stringWithFormat:@"%@",[BTRItemFetcher URLforSearchQuery:searchQuery withSortString:sortingQuery withFacetString:facetQuery andPageNumber:pageNum forCountry:country]];
         sessionNeeded = NO;
     }
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         BTRFacetsHandler *sharedFacetsHandler = [BTRFacetsHandler sharedFacetHandler];
         [sharedFacetsHandler setSearchString:[self.searchBar text]];
         [sharedFacetsHandler setFacetsFromResponseDictionary:response];
@@ -571,7 +571,7 @@
 
 - (void)searchFor:(NSString *)word {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRSuggestionFetcher URLforSugesstionWithQuery:word]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeHTMLOrText success:^(NSDictionary * response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeHTMLOrText success:^(NSDictionary * response,NSString *jSonString) {
         NSArray * receivedData = [[NSArray alloc]initWithArray:(NSArray *)response];
         if (receivedData.count > 0) {
             [self.suggestionArray removeAllObjects];

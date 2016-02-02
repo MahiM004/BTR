@@ -68,7 +68,7 @@
 }
 
 - (void)getOrderInfoOfCallBackURLRequest:(NSString *)url {
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         if (self.delegate) {
             [self dismissViewControllerAnimated:YES completion:^{
                 [self.delegate payPalInfoDidReceived:response];
@@ -100,7 +100,7 @@
 
 - (void)callBackProcessWithTransactionID:(NSString *)transatcionID {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcessCallBackWithTransactionNumber:transatcionID]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         NSLog(@"%@",response);
     } faild:^(NSError *error) {
         
@@ -109,7 +109,7 @@
 
 - (void)getConfirmationInfoWithOrderID:(NSString *)orderID {
     NSString* url = [NSString stringWithFormat:@"%@",[BTROrderFetcher URLforOrderNumber:orderID]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         self.confirmationInfo = [[ConfirmationInfo alloc]init];
         self.confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:response forConformationInfo:self.confirmationInfo];
         NSString * identifierSB;

@@ -39,10 +39,10 @@
         if ([(NSString *)obj1 intValue] == 0 && [(NSString *)obj2 intValue]) {
             return [reference[obj1] compare:reference[obj2]];
         }else {
-            if ([obj1 integerValue] > [obj2 integerValue]) {
+            if ([(NSString *)obj1 intValue] > [(NSString *)obj2 intValue]) {
                 return (NSComparisonResult)NSOrderedDescending;
             }
-            if ([obj1 integerValue] < [obj2 integerValue]) {
+            if ([(NSString *)obj1 intValue] < [(NSString *)obj2 intValue]) {
                 return (NSComparisonResult)NSOrderedAscending;
             }
             return (NSComparisonResult)NSOrderedSame;

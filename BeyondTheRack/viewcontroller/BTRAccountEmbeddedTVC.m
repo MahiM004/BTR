@@ -76,7 +76,7 @@
 - (void)fetchUserWithSuccess:(void (^)(id  responseObject)) success
                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         if (response) {
             self.user = [User userWithAppServerInfo:response forUser:[self user]];
             success(self.user);

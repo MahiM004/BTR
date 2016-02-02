@@ -312,7 +312,7 @@ typedef enum ScrollDirection {
         url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforAllItemsWithEventSku:eventSku inPageNumber:pageNum withSortingMode:selectedSortMode andSizeFilter:filterSize forCountry:country]];
         sessionNeeded = NO;
     }
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:sessionNeeded contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:sessionNeeded contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         NSMutableArray *newItems = [[NSMutableArray alloc]init];
         newItems = [Item loadItemsfromAppServerArray:(NSArray *)response withEventId:[self eventSku] forItemsArray:newItems];
         success(newItems);
@@ -855,7 +855,7 @@ typedef enum ScrollDirection {
 - (void)getCartCountServerCallWithSuccess:(void (^)(id  responseObject)) success
                                   failure:(void (^)(NSError *error)) failure {
     NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBagCount]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response, NSString *jSonString) {
         NSString *bagCount = [NSString stringWithFormat:@"%@",response[@"count"]];
         BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
         sharedShoppingBag.bagCount = [bagCount integerValue];

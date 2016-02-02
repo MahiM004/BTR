@@ -24,7 +24,7 @@ static ContentType kContentTypeJSON = @"application/json", kContentTypeHTMLOrTex
         withParameters:(NSDictionary *)param
     setSessionInHeader:(BOOL)needSession
            contentType:(ContentType)contentType
-               success:(void (^) (NSDictionary *response))success
+               success:(void (^) (NSDictionary *response,NSString *jSonString))success
                  faild:(void (^) (NSError *error))faild;
 
 + (void)putDataFromURL:(NSString *)url

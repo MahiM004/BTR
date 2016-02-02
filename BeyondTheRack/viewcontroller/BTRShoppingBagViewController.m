@@ -285,7 +285,7 @@
 - (void)getCheckoutInfoSuccess:(void (^)(id  responseObject)) success
                               failure:(void (^)(NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforCheckoutInfo]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         success(response);
     } faild:^(NSError *error) {
         
@@ -508,9 +508,9 @@
 - (void)getPaypalInfo {
     NSString *startURL = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]];
     NSString *infoURL = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforPaypalInfo]];
-    [BTRConnectionHelper getDataFromURL:startURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:startURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         if ([[response valueForKey:@"mode"]isEqualToString:@"billingAgreement"] || [[response valueForKey:@"mode"]isEqualToString:@"sessionToken"]) {
-            [BTRConnectionHelper getDataFromURL:infoURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+            [BTRConnectionHelper getDataFromURL:infoURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
                 [self setPaypalCallBackInfo:response];
                 [self gotoCheckoutPageWithPaymentInfo:response];
             } faild:^(NSError *error) {
@@ -529,7 +529,7 @@
 
 - (void)getMasterPassInfo {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         if (response) {
             MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:response];
             BTRMasterPassViewController *masterpassVC  = [self.storyboard instantiateViewControllerWithIdentifier:@"MasterPassViewController"];

@@ -156,7 +156,7 @@
 - (void)requestForTokenWithSuccess:(void (^)(id  responseObject)) success
                            failure:(void (^)(NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRApplePayFetcher URLForRequestToken]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         success(response);
     } faild:^(NSError *error) {
         failure(error);
@@ -377,7 +377,7 @@
 
 - (void)getConfirmationInfoWithOrderID:(NSString *)orderID {
     NSString* url = [NSString stringWithFormat:@"%@",[BTROrderFetcher URLforOrderNumber:orderID]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         [self.delegate applePayReceiptInfoDidReceivedSuccessful:response];
     } faild:^(NSError *error) {
         [self.delegate applePayInfoFailedWithError:error];

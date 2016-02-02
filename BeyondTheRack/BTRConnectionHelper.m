@@ -40,7 +40,7 @@
     
 }
 
-+ (void)getDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
++ (void)getDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response,NSString *jSonString))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
@@ -59,8 +59,9 @@
     [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
+            NSString *jSonString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             NSDictionary *entitiesPropertyList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
-            success(entitiesPropertyList);
+            success(entitiesPropertyList,jSonString);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (faild)

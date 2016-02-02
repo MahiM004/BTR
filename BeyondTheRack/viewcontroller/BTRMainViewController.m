@@ -129,7 +129,7 @@
 - (void)getCartCountServerCallWithSuccess:(void (^)(id  responseObject)) success
                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBagCount]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         NSString *bagCount = [NSString stringWithFormat:@"%@",response[@"count"]];
         BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
         sharedShoppingBag.bagCount = [bagCount integerValue];
@@ -298,7 +298,7 @@
     [[self itemsDictionary] removeAllObjects];
     [[self headersArray] removeAllObjects];
     NSString* url = [NSString stringWithFormat:@"%@", [BTROrderHistoryFetcher URLforOrderHistory]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         success(response);
     } faild:^(NSError *error) {
         failure(error);
@@ -308,7 +308,7 @@
 - (void)fetchUserWithSuccess:(void (^)(id  responseObject)) success
                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfo]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         if (response) {
             self.user = [User userWithAppServerInfo:response forUser:[self user]];
             success(self.user);
@@ -321,7 +321,7 @@
 - (void)fetchContactWithSuccess:(void (^)(id  responseObject)) success
                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRContactFetcher URLForContact]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         if (response) {
             if (!self.contactInfo)
                 self.contactInfo = [[Contact alloc]init];
@@ -336,7 +336,7 @@
 - (void)logutUserServerCallWithSuccess:(void (^)(id  responseObject)) success
                                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserLogout]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         FBSDKLoginManager *fbAuth = [[FBSDKLoginManager alloc] init];
         [fbAuth logOut];
         success(@"TRUE");

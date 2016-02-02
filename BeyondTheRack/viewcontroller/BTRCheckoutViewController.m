@@ -628,7 +628,7 @@
     if (alertView.tag == 504) {
         if (buttonIndex == 0) {
             NSString *deleteTokenURL = [NSString stringWithFormat:@"%@",[BTRUserFetcher URLforDeleteCCToken]];
-            [BTRConnectionHelper getDataFromURL:deleteTokenURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+            [BTRConnectionHelper getDataFromURL:deleteTokenURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
                     if ([[response valueForKey:@"success"]boolValue]) {
                         [self.order setLockCCFields:@"0"];
                         [self enablePaymentInfo];
@@ -1443,7 +1443,7 @@
 - (void)getMasterPassInfo {
     self.masterCallBackInfo = nil;
     NSString* url = [NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
         if (response) {
             MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:response];
             self.masterpass= master;
@@ -1679,7 +1679,7 @@
 - (void)getImage {
     NSString* url = [NSString stringWithFormat:@"%@",[BTRFreeshipFetcher URLforFreeship]];
     self.freeshipInfo = [[Freeship alloc]init];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
         self.freeshipInfo = [Freeship extractFreeshipInfofromJSONDictionary:response forFreeship:self.freeshipInfo];
         self.bannerImageView.hidden = NO;
         [self.bannerImageView setImageWithURL:[BTRFreeshipFetcher URLforImage:self.freeshipInfo.checkoutImage withBaseURL:self.freeshipInfo.imagesDomain] placeholderImage:nil];
@@ -1692,7 +1692,7 @@
 
 - (void)getConfirmationInfoWithOrderID:(NSString *)orderID {
     NSString* url = [NSString stringWithFormat:@"%@",[BTROrderFetcher URLforOrderNumber:orderID]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
         self.confirmationInfo = [[ConfirmationInfo alloc]init];
         self.confirmationInfo = [ConfirmationInfo extractConfirmationInfoFromConfirmationInfo:response forConformationInfo:self.confirmationInfo];
         NSString * identifierSB;
@@ -2027,7 +2027,7 @@
 - (void)fetchFAQWithSuccess:(void (^)(id  responseObject)) success
                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRFAQFetcher URLforFAQ]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
         if (response) {
             self.faqArray = [FAQ arrayOfFAQWithAppServerInfo:response];
             success(self.faqArray);

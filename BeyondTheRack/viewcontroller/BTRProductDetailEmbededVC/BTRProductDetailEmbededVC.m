@@ -614,12 +614,35 @@
         url = [NSString stringWithFormat:@"%@", [BTRItemFetcher URLforItemWithProductSku:productSku forCountry:country]];
         sessionNeeded = NO;
     }
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
         Item *productItem = [Item itemWithAppServerInfo:response withEventId:[self getEventID]];
         success(productItem);
     } faild:^(NSError *error) {
         failure(error);
     }];
+    
+    
+//    BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+//    securityPolicy.validatesDomainName = NO;
+//    [manager setSecurityPolicy:securityPolicy];
+//    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
+//    
+//    serializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+//    manager.responseSerializer = serializer;
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    
+//    if (sessionNeeded)
+//        [manager.requestSerializer setValue:[sessionSettings sessionId] forHTTPHeaderField:@"SESSION"];
+//    
+//    [manager.requestSerializer setValue:[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERAGENT] forHTTPHeaderField:@"User-Agent"];
+//    [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+//    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+//        
+//    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+//        failure(error);
+//    }];
 }
 
 #pragma View Orientation Changes
@@ -921,7 +944,7 @@
 - (void)getCartCountServerCallWithSuccess:(void (^)(id  responseObject)) success
                                   failure:(void (^)(NSError *error)) failure {
     NSString *url = [NSString stringWithFormat:@"%@", [BTRBagFetcher URLforBagCount]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
         NSString *bagCount = [NSString stringWithFormat:@"%@",response[@"count"]];
         BTRBagHandler *sharedShoppingBag = [BTRBagHandler sharedShoppingBag];
         sharedShoppingBag.bagCount = [bagCount integerValue];
@@ -946,7 +969,7 @@
 
 - (void)flatRateShipping {
     NSString *url = [NSString stringWithFormat:@"%@",[BTRSKUContentFetcher URLForContent]];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
         SKUContents *content = [[SKUContents alloc]init];
         [SKUContents extractSKUContentFromContentInformation:response forSKUContent:content];
         UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closePop)];

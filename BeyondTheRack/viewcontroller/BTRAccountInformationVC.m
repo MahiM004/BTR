@@ -304,7 +304,7 @@
 - (void)fetchUserInfoforSessionId:(NSString *)sessionId
                        success:(void (^)(id  responseObject)) success
                        failure:(void (^)(NSError *error)) failure {
-    [BTRConnectionHelper getDataFromURL:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]] withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:[NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]] withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         if (response) {
             self.user = [[User alloc]init];
             self.user = [User userWithAppServerInfo:response forUser:[self user]];

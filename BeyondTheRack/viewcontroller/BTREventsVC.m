@@ -128,7 +128,7 @@ static NSString * const reuseIdentifier = @"Cell";
         needSession = NO;
     }
     [BTRLoader showLoaderInView:self.view];
-    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:needSession contentType:kContentTypeJSON success:^(NSDictionary *response) {
+    [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:needSession contentType:kContentTypeJSON success:^(NSDictionary *response, NSString *jSonString) {
         success(response);
         [BTRLoader hideLoaderFromView:self.view];
     } faild:^(NSError *error) {
