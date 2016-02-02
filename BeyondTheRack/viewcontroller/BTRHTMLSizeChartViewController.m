@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.webView setDelegate:self];
     NSString *filePath = [[NSBundle mainBundle]pathForResource:@"size" ofType:@"html"];
     self.defaultString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
 }
@@ -25,6 +26,17 @@
     NSString *width = [NSString stringWithFormat:@"%f",screenBounds.size.width];
     NSString *fixedString = [self.defaultString stringByReplacingOccurrencesOfString:@"deviceWidth" withString:width];
     [self.webView loadHTMLString:fixedString baseURL:nil];
+}
+
+-(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
+    if ( inType == UIWebViewNavigationTypeLinkClicked ) {
+        [[UIApplication sharedApplication] openURL:[inRequest URL]];
+        return NO;
+    }
+    if ( inType == UIWebViewNavigationTypeReload ) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

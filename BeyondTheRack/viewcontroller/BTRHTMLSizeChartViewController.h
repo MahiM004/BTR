@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BTRHTMLSizeChartViewController : UIViewController
+@interface BTRHTMLSizeChartViewController : UIViewController <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end
