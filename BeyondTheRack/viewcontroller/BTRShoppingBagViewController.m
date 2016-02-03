@@ -465,6 +465,7 @@
     self.applePayManager = [[ApplePayManager alloc]init];
     self.applePayManager.delegate = self;
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
+        NSString *token = [responseObject valueForKey:@"token"];
         [self getCheckoutInfoSuccess:^(id responseObject) {
             self.order = [Order extractOrderfromJSONDictionary:responseObject forOrder:self.order isValidating:NO];
             if (self.order.allTotalPrice.doubleValue == 0 && [self.order.shippingAddress.postalCode length] > 0) {
@@ -475,7 +476,7 @@
             } else if (self.order.allTotalPrice.doubleValue == 0){
                 self.order.allTotalPrice = @"0.99";
             }
-            [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:[self.order copy] checkoutMode:checkoutOne];
+            [self.applePayManager initWithClientWithToken:token andOrderInfromation:[self.order copy] checkoutMode:checkoutOne];
             [self.applePayManager showPaymentViewFromViewController:self];
         } failure:^(NSError *error) {
             
