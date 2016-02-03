@@ -35,7 +35,9 @@
 #import <FRDLivelyButton/FRDLivelyButton.h>
 
 @interface BTRMainViewController ()
-
+{
+    BOOL menuOpenediPad;
+}
 @property (weak, nonatomic) IBOutlet FRDLivelyButton * sideMenuButton;
 
 @property (weak, nonatomic) IBOutlet UIView *headerView;
@@ -64,6 +66,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    menuOpenediPad = NO;
     if ([[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
         [self getCartCountServerCallWithSuccess:^(NSString *bagCountString) {
             self.bagButton.badgeValue = bagCountString;
@@ -153,6 +156,7 @@
         [self closeMenu];
         return;
     }
+    menuOpenediPad = YES;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.accountViewController = (BTRAccountEmbeddedTVC *)[storyboard instantiateViewControllerWithIdentifier:@"BTRMyAccountController"];
     self.accountViewController.delegate = self;
@@ -162,7 +166,16 @@
     [BTRAnimationHandler showViewController:self.accountViewController atLeftOfViewController:self inDuration:0.5];
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    if ([BTRViewUtility isIPAD]) {
+        if (menuOpenediPad == YES) {
+            [BTRAnimationHandler showViewController:self.accountViewController atLeftOfViewController:self inDuration:0.1];
+        }
+    }
+}
+
 - (void)closeMenu {
+    menuOpenediPad = NO;
     [self removeTapRecognizerView];
     [BTRAnimationHandler hideViewController:self.accountViewController fromMainViewController:self inDuration:0.5];
     [self setIsMenuOpen:NO];
