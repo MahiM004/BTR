@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *subtotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *youSaveLabel;
 @property (weak, nonatomic) IBOutlet UIView *applePayButtonView;
+@property (weak, nonatomic) IBOutlet UILabel *emptyLabel;
 
 @property (strong, nonatomic) UIButton *applePayButton;
 @property (strong, nonatomic) Order *order;
@@ -47,7 +48,6 @@
 @property (strong, nonatomic) MasterPassInfo *masterpass;
 @property (strong, nonatomic) NSDictionary *masterPassCallBackInfo;
 @property (strong, nonatomic) NSDictionary *paypalCallBackInfo;
-@property (strong, nonatomic) UILabel *emptyLabel;
 @property (strong, nonatomic) BagItem *removeItem;
 @property (strong, nonatomic) ApplePayManager* applePayManager;
 
@@ -296,6 +296,7 @@
     [BTRLoader showLoaderInView:self.view];
     [self getCartServerCallWithSuccess:^(NSDictionary *response) {
         [self reloadInfoWithResponse:response];
+        [BTRLoader hideLoaderFromView:self.view];
     } failure:^(NSError *error) {
         
     }];
@@ -548,7 +549,7 @@
         [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
     }
-    [self.emptyLabel removeFromSuperview];
+    [self.emptyLabel setHidden:YES];
     [[self bagItemsArray] removeAllObjects];
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -595,18 +596,8 @@
     [[self tableView] reloadData];
     
     if ([self.bagItemsArray count] == 0) {
-        
-        self.emptyLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.tableView.frame.origin.x + 16, self.tableView.frame.origin.y + 16, self.tableView.frame.size.width - 32, 300)];
-        self.emptyLabel.numberOfLines = 0;
-        self.emptyLabel.textColor = [UIColor blackColor];
-        self.emptyLabel.backgroundColor = [UIColor clearColor];
-        self.emptyLabel.textAlignment = NSTextAlignmentJustified;
+        [self.emptyLabel setHidden:NO];
         self.emptyLabel.text = [response valueForKey:@"message"];
-        self.emptyLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
-        
-        [self.emptyLabel sizeToFit];
-        [self.view addSubview:self.emptyLabel];
-        [self.view bringSubviewToFront:self.emptyLabel];
     }
     pkStepper.userInteractionEnabled = YES;
 }
