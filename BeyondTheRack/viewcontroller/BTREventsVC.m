@@ -51,7 +51,7 @@ static NSString * const reuseIdentifier = @"Cell";
     }];
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Events"];
+    [tracker set:kGAIScreenName value:@"/event"];
     [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
