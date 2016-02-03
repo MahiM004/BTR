@@ -9,6 +9,8 @@
 #import "BTRHelpViewController.h"
 #import "BTRFAQTableViewCell.h"
 #import "BTRCheckoutViewController.h"
+#import <Google/Analytics.h>
+
 @interface BTRHelpViewController ()
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *faqBtnHeight;
@@ -68,6 +70,11 @@
         }
         self.heightOfSelectedCell = [self findHeightForText:resultString havingWidth:self.helpTable.frame.size.width andFont:[UIFont systemFontOfSize:12.0f]] -decreaseForiPad;
     }
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"/help/faq"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (IBAction)contactUS:(id)sender {

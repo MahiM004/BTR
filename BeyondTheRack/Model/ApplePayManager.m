@@ -14,6 +14,7 @@
 #import "BTROrderFetcher.h"
 #import "BTRViewUtility.h"
 #import "SDVersion.h"
+#import <Google/Analytics.h>
 
 @interface ApplePayManager()
 @property (nonatomic, strong) BTAPIClient *braintreeClient;
@@ -170,6 +171,12 @@
 }
 
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController {
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"bag/checkout/MasterPass"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    
     self.applePayIsLoaded = NO;
     PKPaymentRequest *paymentRequest = [self paymentRequest];
     self.vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];

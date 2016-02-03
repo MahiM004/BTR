@@ -12,6 +12,7 @@
 #import "BTRUserFetcher.h"
 #import "User+AppServer.h"
 #import "BTRloadingButton.h"
+#import <Google/Analytics.h>
 
 #define COUNTRY_PICKER     1
 #define GENDER_PICKER      2
@@ -109,9 +110,6 @@
     return _statesArray;
 }
 
-
-
-
 # pragma mark - UI
 
 - (void)viewDidLoad {
@@ -164,6 +162,12 @@
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"/member/show"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+}
 
 - (void)loadPickerViewforType:(NSUInteger)type {
     [self setPickerType:type];

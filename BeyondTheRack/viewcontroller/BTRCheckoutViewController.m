@@ -24,6 +24,7 @@
 #import "Freeship+appServer.h"
 #import "BTRFreeshipFetcher.h"
 #import "BTRLoader.h"
+#import <Google/Analytics.h>
 
 #import "BTRHelpViewController.h"
 #import "BTRFAQFetcher.h"
@@ -314,6 +315,13 @@
         self.billingCountryPicker.delegate = self;
     }
     self.cardVerificationPaymentTF.tag = 4444;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"bag/checkout"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

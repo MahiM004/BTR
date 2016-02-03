@@ -16,6 +16,7 @@
 #import "BTRLoader.h"
 #import "BTRSettingManager.h"
 #import "SDVersion.h"
+#import <Google/Analytics.h>
 
 @interface BTREventsVC ()
 
@@ -48,6 +49,11 @@ static NSString * const reuseIdentifier = @"Cell";
     [UIView animateWithDuration:0.02 animations:^{
         [self.collectionView performBatchUpdates:nil completion:nil];
     }];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Events"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 #pragma mark LoadEvents

@@ -26,6 +26,7 @@
 #import "BTRConfirmationViewController.h"
 #import "BTRLoader.h"
 #import "BTRProductDetailEmbededVC.h"
+#import <Google/Analytics.h>
 
 @interface BTRShoppingBagViewController () {
     PKYStepper * pkStepper;
@@ -70,6 +71,12 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"/bag/show"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    
     [super viewWillAppear:YES];
     [self loadBagInfo];
 }

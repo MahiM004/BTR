@@ -9,6 +9,7 @@
 #import "BTRNotificationsVC.h"
 #import "BTRUserFetcher.h"
 #import "BTRConnectionHelper.h"
+#import <Google/Analytics.h>
 
 @interface BTRNotificationsVC ()
 @property IBOutlet UIView * view1 ;
@@ -80,6 +81,13 @@
         [self setChosenEmailFrequencyString:@"-"];
         [self setEmailFrequency:btrNoEmails];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"/member/notifications"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)createVerticalList {

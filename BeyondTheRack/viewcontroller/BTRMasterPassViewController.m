@@ -13,6 +13,7 @@
 #import "BTRConnectionHelper.h"
 #import "Order+AppServer.h"
 #import "ConfirmationInfo+AppServer.h"
+#import <Google/Analytics.h>
 
 @interface BTRMasterPassViewController ()
 @property (nonatomic,strong) Order *order;
@@ -37,6 +38,13 @@
         }
         [self setShouldLoad:NO];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"bag/checkout/MasterPass"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)preCheckoutDidCompleteWithData:(NSDictionary *)data error:(NSError *)error {

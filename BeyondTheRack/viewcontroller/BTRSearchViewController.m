@@ -24,6 +24,7 @@
 #import "BTRProductDetailEmbededVC.h"
 #import "BTRSettingManager.h"
 #import "BTRLoginViewController.h"
+#import <Google/Analytics.h>
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -91,6 +92,11 @@
     self.bagButton.badgeValue = [sharedShoppingBag totalBagCountString];
     
     [self assignFilterIcon];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"/search"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)viewDidLoad {

@@ -35,6 +35,7 @@
 #import "SKUContents+AppServer.h"
 #import "BTRSKUContentFetcher.h"
 #import "SDVersion.h"
+#import <Google/Analytics.h>
 
 #define SIZE_NOT_SELECTED_STRING @"-1"
 #define SOCIAL_MEDIA_INIT_STRING @"Check out this great sale from Beyond the Rack!"
@@ -155,6 +156,14 @@
     view2.hidden = YES;
     detailTV.hidden = YES;
     [BTRLoader showLoaderInView:self.view];
+   
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:[NSString stringWithFormat:@"product/%@",self.getItem.sku]];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    
+    
     [self fetchItemforProductSku:[[self getItem] sku]
                          success:^(Item *responseObject) {
                              [self fillWithItem:responseObject];

@@ -8,6 +8,7 @@
 #import "BTRConfirmationViewController.h"
 #import "BTRAttributeHandler.h"
 #import "Item.h"
+#import <Google/Analytics.h>
 
 @interface BTRConfirmationViewController ()
 
@@ -75,6 +76,11 @@
         [_noteLabelHeight setConstant:70];
         _viewHeight.constant -= 100;
     }
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"/receipt"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -13,6 +13,7 @@
 #import "BTRTrackOrdersItemCell.h"
 #import "BTRItemFetcher.h"
 #import "UIImageView+AFNetworking.h"
+#import <Google/Analytics.h>
 
 @interface BTRTrackOrdersVC ()
 
@@ -47,6 +48,13 @@
     self.headersArray = [[NSMutableArray alloc]initWithArray:sorted];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"/member/orders"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 #pragma mark - Table view data source

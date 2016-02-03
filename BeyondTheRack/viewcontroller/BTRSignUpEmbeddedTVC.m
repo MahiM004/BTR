@@ -15,6 +15,7 @@
 #import "UITextField+BSErrorMessageView.h"
 #import "BTRLoadingButton.h"
 #import "TNRadioButtonGroup.h"
+#import <Google/Analytics.h>
 
 @interface BTRSignUpEmbeddedTVC () {
     BTRAppDelegate * appDelegate;
@@ -47,6 +48,11 @@
     [super viewWillAppear:YES];
     BTRSessionSettings *btrSettings = [BTRSessionSettings sessionSettings];
     self.sessionId = [btrSettings sessionId];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"/signup"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)viewDidLoad {

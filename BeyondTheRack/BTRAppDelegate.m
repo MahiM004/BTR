@@ -95,19 +95,19 @@
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [[DNDonkyCore sharedInstance] initialiseWithAPIKey:@"1KgJgRCYwEhqnA1PHeaKEaQsLaklBN2t8TiBI0gezGFmhmki9Kr7mHTKEGb3QPWeCwia1qDRKNtJbt3wyFyQ"];
     
-//    //Google analytics
-//    NSError *configureError;
-//    [[GGLContext sharedInstance] configureWithError:&configureError];
-//    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
-//    [[GAI sharedInstance] setTrackUncaughtExceptions:YES];
-//
-//#if TARGET_IPHONE_SIMULATOR
-//    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-//    [tracker set:@"App-Open-In-Simulator" value:@"1"];
-//    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-//#elif TARGET_OS_IPHONE
-//    
-//#endif
+    //Google analytics
+    NSError *configureError;
+    [[GGLContext sharedInstance] configureWithError:&configureError];
+    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+    [[GAI sharedInstance] setTrackUncaughtExceptions:YES];
+
+#if TARGET_IPHONE_SIMULATOR
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:@"App-Open-In-Simulator" value:@"1"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+#elif TARGET_OS_IPHONE
+    
+#endif
     
     [[BTRRefreshManager sharedInstance]start];
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];

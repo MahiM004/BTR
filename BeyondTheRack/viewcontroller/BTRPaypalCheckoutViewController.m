@@ -13,6 +13,7 @@
 #import "BTRConfirmationViewController.h"
 #import "BTRConnectionHelper.h"
 #import "ConfirmationInfo+AppServer.h"
+#import <Google/Analytics.h>
 
 @interface BTRPaypalCheckoutViewController ()
 
@@ -33,6 +34,13 @@
         [self loadPaypalURLWithURL:self.payPalURL];
     else
         [self processPayPalWithInfo:self.paypalInfo];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"bag/checkout/PayPal"];
+    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)loadPaypalURLWithURL:(NSString *)url {
