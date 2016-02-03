@@ -617,6 +617,22 @@
 -(void)checkboxChangePaymentMethodDidChange:(CTCheckbox *)checkbox {
     if (self.isLoading)
         return;
+    
+    if (self.currentPaymentType == paypal) {
+        [self.order setLockCCFields:@"0"];
+        [self enablePaymentInfo];
+        [self clearPaymentInfo];
+        [self setCurrentPaymentType:creditCard];
+        [self changeDetailPaymentFor:creditCard];
+        [self.paymentMethodTF setText:@"Visa Credit"];
+        
+        [self setIsLoading:YES];
+        [_changePaymentMethodCheckbox setChecked:NO];
+        [self setIsLoading:NO];
+        
+        return;
+    }
+    
     if (checkbox.checked) {
         UIAlertView * alert2 = [[UIAlertView alloc]initWithTitle:@"Attention" message:@"By changing payment method, your payment information will be cleared from the system" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Yes, Continue",@"No, Cancel", nil];
         alert2.tag = 504;
@@ -634,7 +650,6 @@
                         [self enablePaymentInfo];
                         [self clearPaymentInfo];
                         [self validateAddressViaAPIAndInCompletion:^{
-                            [self.changePaymentMethodCheckbox setUserInteractionEnabled:NO];
                             [self setCurrentPaymentType:creditCard];
                             [self changeDetailPaymentFor:creditCard];
                             [self.paymentMethodTF setText:@"Visa Credit"];
