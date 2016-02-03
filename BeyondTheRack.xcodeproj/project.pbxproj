@@ -241,6 +241,8 @@
 		A0A402A91BB9AEA200902D75 /* BTRLoadingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A402A81BB9AEA200902D75 /* BTRLoadingButton.m */; };
 		A0ABECD11B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */; };
 		A0C0B3AA1C593F0F0059DF39 /* BTRRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0B3A91C593E4E0059DF39 /* BTRRefreshManager.m */; };
+		A0C25D201C62A83500E14DC2 /* BTRPrivacyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C25D1F1C62A83500E14DC2 /* BTRPrivacyFetcher.m */; };
+		A0C25D241C62A9AE00E14DC2 /* Privacy.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C25D231C62A9AE00E14DC2 /* Privacy.m */; };
 		A0CE31431B8665BA007D7682 /* BTRMasterPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */; };
 		A0D037481B90A82300EA9E48 /* BTRAttributeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D037471B90A82300EA9E48 /* BTRAttributeHandler.m */; };
 		A0D1B45D1B7E495100848FA7 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1B45C1B7E495100848FA7 /* Contact.m */; };
@@ -675,6 +677,10 @@
 		A0ABECD01B6FE0BB00BCBED3 /* BTRPaypalCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPaypalCheckoutViewController.m; sourceTree = "<group>"; };
 		A0C0B3A81C593E4E0059DF39 /* BTRRefreshManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTRRefreshManager.h; sourceTree = "<group>"; };
 		A0C0B3A91C593E4E0059DF39 /* BTRRefreshManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTRRefreshManager.m; sourceTree = "<group>"; };
+		A0C25D1E1C62A83500E14DC2 /* BTRPrivacyFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRPrivacyFetcher.h; sourceTree = "<group>"; };
+		A0C25D1F1C62A83500E14DC2 /* BTRPrivacyFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRPrivacyFetcher.m; sourceTree = "<group>"; };
+		A0C25D221C62A9AE00E14DC2 /* Privacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Privacy.h; sourceTree = "<group>"; };
+		A0C25D231C62A9AE00E14DC2 /* Privacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Privacy.m; sourceTree = "<group>"; };
 		A0CE31411B8665BA007D7682 /* BTRMasterPassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRMasterPassViewController.h; sourceTree = "<group>"; };
 		A0CE31421B8665BA007D7682 /* BTRMasterPassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRMasterPassViewController.m; sourceTree = "<group>"; };
 		A0D037461B90A82300EA9E48 /* BTRAttributeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAttributeHandler.h; sourceTree = "<group>"; };
@@ -1155,10 +1161,12 @@
 		69869F831A63F8FD00F986BC /* Fetcher */ = {
 			isa = PBXGroup;
 			children = (
-				A027C33C1C2AED010013A8AF /* BTRSKUContentFetcher.h */,
-				A027C33D1C2AED010013A8AF /* BTRSKUContentFetcher.m */,
 				69869FA11A63FCA500F986BC /* BTRFetcher.h */,
 				69869FA21A63FCA500F986BC /* BTRFetcher.m */,
+				A0C25D1E1C62A83500E14DC2 /* BTRPrivacyFetcher.h */,
+				A0C25D1F1C62A83500E14DC2 /* BTRPrivacyFetcher.m */,
+				A027C33C1C2AED010013A8AF /* BTRSKUContentFetcher.h */,
+				A027C33D1C2AED010013A8AF /* BTRSKUContentFetcher.m */,
 				A09F488C1BFCE27000A45B0B /* BTRApplePayFetcher.h */,
 				A09F488D1BFCE27000A45B0B /* BTRApplePayFetcher.m */,
 				69869FA41A63FD6B00F986BC /* BTREventFetcher.h */,
@@ -1265,41 +1273,10 @@
 		69B02CC41A60319600040C86 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A0C25D211C62A92B00E14DC2 /* PrimaryClasses */,
 				A09F48881BFCC90E00A45B0B /* Checkout */,
 				69869F831A63F8FD00F986BC /* Fetcher */,
 				69B02CE91A6058F400040C86 /* Categories */,
-				A00E4DD41B8642FC00C93CD3 /* MasterPassInfo.h */,
-				A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */,
-				A027C33F1C2AED1F0013A8AF /* SKUContents.h */,
-				A027C3401C2AED1F0013A8AF /* SKUContents.m */,
-				B3CC532C1B17798D0024EA08 /* User.h */,
-				B3CC532D1B17798D0024EA08 /* User.m */,
-				69D4404B1B331A5B00070FD8 /* EventCategory.h */,
-				69D4404C1B331A5B00070FD8 /* EventCategory.m */,
-				6901EA151ADC2628002534D9 /* BagItem.h */,
-				6901EA161ADC2628002534D9 /* BagItem.m */,
-				6901E9F11ACC3BA3002534D9 /* Item.h */,
-				6901E9F21ACC3BA3002534D9 /* Item.m */,
-				69D4403F1B31EA1400070FD8 /* Order.h */,
-				69D440401B31EA1400070FD8 /* Order.m */,
-				A06214C41BC71215006443F7 /* ConfirmationInfo.h */,
-				A06214C51BC71215006443F7 /* ConfirmationInfo.m */,
-				69AB98631A77E68F00EDB1E6 /* Event.h */,
-				69AB98641A77E68F00EDB1E6 /* Event.m */,
-				69F0BAF61B418628008C0498 /* OrderHistoryItem.h */,
-				69F0BAF71B418628008C0498 /* OrderHistoryItem.m */,
-				69F0BAF91B41868B008C0498 /* OrderHistoryBag.h */,
-				69F0BAFA1B41868B008C0498 /* OrderHistoryBag.m */,
-				A011426C1B6189D40099A40A /* FAQ.h */,
-				A011426D1B6189D40099A40A /* FAQ.m */,
-				A0D1B45B1B7E495100848FA7 /* Contact.h */,
-				A0D1B45C1B7E495100848FA7 /* Contact.m */,
-				A00C9C171B960817004A2629 /* Freeship.h */,
-				A00C9C181B960817004A2629 /* Freeship.m */,
-				A0FCDED31BA0C69900CD476B /* Address.h */,
-				A0FCDED41BA0C69900CD476B /* Address.m */,
-				A043E9211BB335AB00B42BB1 /* PromoItem.h */,
-				A043E9221BB335AB00B42BB1 /* PromoItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1498,6 +1475,47 @@
 				A09F488A1BFCC93F00A45B0B /* ApplePayManager.m */,
 			);
 			name = Checkout;
+			sourceTree = "<group>";
+		};
+		A0C25D211C62A92B00E14DC2 /* PrimaryClasses */ = {
+			isa = PBXGroup;
+			children = (
+				A00E4DD41B8642FC00C93CD3 /* MasterPassInfo.h */,
+				A00E4DD51B8642FC00C93CD3 /* MasterPassInfo.m */,
+				A027C33F1C2AED1F0013A8AF /* SKUContents.h */,
+				A027C3401C2AED1F0013A8AF /* SKUContents.m */,
+				B3CC532C1B17798D0024EA08 /* User.h */,
+				B3CC532D1B17798D0024EA08 /* User.m */,
+				69D4404B1B331A5B00070FD8 /* EventCategory.h */,
+				69D4404C1B331A5B00070FD8 /* EventCategory.m */,
+				6901EA151ADC2628002534D9 /* BagItem.h */,
+				6901EA161ADC2628002534D9 /* BagItem.m */,
+				6901E9F11ACC3BA3002534D9 /* Item.h */,
+				6901E9F21ACC3BA3002534D9 /* Item.m */,
+				69D4403F1B31EA1400070FD8 /* Order.h */,
+				69D440401B31EA1400070FD8 /* Order.m */,
+				A06214C41BC71215006443F7 /* ConfirmationInfo.h */,
+				A06214C51BC71215006443F7 /* ConfirmationInfo.m */,
+				69AB98631A77E68F00EDB1E6 /* Event.h */,
+				69AB98641A77E68F00EDB1E6 /* Event.m */,
+				69F0BAF61B418628008C0498 /* OrderHistoryItem.h */,
+				69F0BAF71B418628008C0498 /* OrderHistoryItem.m */,
+				69F0BAF91B41868B008C0498 /* OrderHistoryBag.h */,
+				69F0BAFA1B41868B008C0498 /* OrderHistoryBag.m */,
+				A011426C1B6189D40099A40A /* FAQ.h */,
+				A011426D1B6189D40099A40A /* FAQ.m */,
+				A0D1B45B1B7E495100848FA7 /* Contact.h */,
+				A0D1B45C1B7E495100848FA7 /* Contact.m */,
+				A00C9C171B960817004A2629 /* Freeship.h */,
+				A00C9C181B960817004A2629 /* Freeship.m */,
+				A0FCDED31BA0C69900CD476B /* Address.h */,
+				A0FCDED41BA0C69900CD476B /* Address.m */,
+				A043E9211BB335AB00B42BB1 /* PromoItem.h */,
+				A043E9221BB335AB00B42BB1 /* PromoItem.m */,
+				A0C25D221C62A9AE00E14DC2 /* Privacy.h */,
+				A0C25D231C62A9AE00E14DC2 /* Privacy.m */,
+			);
+			name = PrimaryClasses;
 			sourceTree = "<group>";
 		};
 		D838BEB35D456F9330E1096F /* Pods */ = {
@@ -1895,11 +1913,13 @@
 				69F0BB041B41871C008C0498 /* OrderHistoryBag+AppServer.m in Sources */,
 				A09F488B1BFCC93F00A45B0B /* ApplePayManager.m in Sources */,
 				6901EA171ADC2628002534D9 /* BagItem.m in Sources */,
+				A0C25D201C62A83500E14DC2 /* BTRPrivacyFetcher.m in Sources */,
 				B3C16AA41B137079009470EC /* BTRForgotPasswordVC.m in Sources */,
 				A0D1B45D1B7E495100848FA7 /* Contact.m in Sources */,
 				69CEF3501ABCBE2C00835276 /* BTRAccountEmbeddedTVC.m in Sources */,
 				B3CC53221B1604580024EA08 /* BTRAccountInformationVC.m in Sources */,
 				692CE4971A9684A5007E9C26 /* BTRFacetData.m in Sources */,
+				A0C25D241C62A9AE00E14DC2 /* Privacy.m in Sources */,
 				690A38ED1B1DEB7F00D4BA84 /* TNCircularRadioButton.m in Sources */,
 				69FF40691A3F8939000BD092 /* main.m in Sources */,
 				690A38EE1B1DEB7F00D4BA84 /* TNCircularRadioButtonData.m in Sources */,

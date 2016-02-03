@@ -14,7 +14,7 @@
 + (NSURL *)URLforFAQ {
     NSString* location = [[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERLOCATION];
     if ([location isEqualToString:@"US"])
-        return [self URLForQuery:[NSString stringWithFormat:@"%@/content/faq?lang=en_CA&render=text", BASEURL]];
+        return [self URLForQuery:[NSString stringWithFormat:@"%@/content/faq?lang=en_US&render=text", BASEURL]];
     return [self URLForQuery:[NSString stringWithFormat:@"%@/content/faq?lang=en_CA&render=text", BASEURL]];
 }
 
