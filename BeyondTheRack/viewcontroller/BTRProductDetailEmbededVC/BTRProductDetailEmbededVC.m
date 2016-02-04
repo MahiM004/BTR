@@ -850,9 +850,11 @@
     UINib *nib = [UINib nibWithNibName:@"BTRProductCollecCell" bundle: nil];
     [_collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
     BTRProductCollecCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellImage" forIndexPath:indexPath];
-    [cell.productImage setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
-                                                                   withCount:1+indexPath.row
-                                                                     andSize:@"large"] placeholderImage:nil fadeInWithDuration:0.5];
+    [cell.productImage setImageWithURL:[BTRItemFetcher URLforItemImageForSkuWithDomain:[_getItem imagesDomain] withSku:[self productSku] withCount:1+indexPath.row andSize:@"large"] placeholderImage:nil fadeInWithDuration:0.5];
+    
+//    [cell.productImage setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
+//                                                                   withCount:1+indexPath.row
+//                                                                     andSize:@"large"] placeholderImage:nil fadeInWithDuration:0.5];
     return cell;
 }
 

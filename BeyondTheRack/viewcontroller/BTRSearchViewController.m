@@ -406,15 +406,17 @@
     self.selectedCellIndexRow = indexPath.row;
     [self presentViewController:viewController animated:YES completion:nil];
 }
+/* We are not using this method
 - (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell withItem:(Item *)productItem {
-    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"whiteblank.jpg"] fadeInWithDuration:0.3];
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSkuWithDomain:[productItem imagesDomain] withSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"whiteblack.jpg"] fadeInWithDuration:0.3];
+//    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"whiteblank.jpg"] fadeInWithDuration:0.3];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
     [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
     [cell.originalPrice setText:[BTRViewUtility priceStringfromNumber:[productItem salePrice]]];
     return cell;
 }
-
+*/
 
 #pragma mark - Load Results RESTful
 
@@ -611,7 +613,8 @@
             cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
         }
     }
-    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSkuWithDomain:[productItem imagesDomain] withSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"whiteblack.jpg"] fadeInWithDuration:0.3];
+    //[cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"whiteblack.jpg"]];
     [cell.productImageView setContentMode:UIViewContentModeScaleAspectFit];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];

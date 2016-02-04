@@ -28,8 +28,11 @@ static NSString *defaultSize = @"Size";
 + (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode andSizeFilter:(NSString *)size;
 + (NSURL *)URLforAllItemsWithEventSku:(NSString *)eventSku inPageNumber:(int)pageNum withSortingMode:(sortMode)sortingMode andSizeFilter:(NSString *)size forCountry:(NSString *)country;
 
-+ (NSURL *)URLforItemImageForSku:(NSString *)sku;
-+ (NSURL *)URLforItemImageForSku:(NSString *)sku withCount:(NSInteger)countNumber andSize:(NSString *)sizeString;
++ (NSURL *)URLforItemImageForSku:(NSString *)sku;//Static
++ (NSURL *)URLforItemImageForSkuWithDomain:(NSString *)domainURL withSku:(NSString*)sku;//Dynamic
+
++ (NSURL *)URLforItemImageForSku:(NSString *)sku withCount:(NSInteger)countNumber andSize:(NSString *)sizeString;//Static
++ (NSURL *)URLforItemImageForSkuWithDomain:(NSString *)domainURL withSku:(NSString*)sku withCount:(NSInteger)countNumber andSize:(NSString *)sizeString;//Dynamic
 
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber;
 + (NSURL *)URLforSearchQuery:(NSString *)searchQuery withSortString:(NSString *)sortString andPageNumber:(NSUInteger)pageNumber forCountry:(NSString *)country;
