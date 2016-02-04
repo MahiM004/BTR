@@ -49,11 +49,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [UIView animateWithDuration:0.02 animations:^{
         [self.collectionView performBatchUpdates:nil completion:nil];
     }];
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"/event"];
-    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [BTRGAHelper logScreenWithName:@"/events"];
 }
 
 #pragma mark LoadEvents

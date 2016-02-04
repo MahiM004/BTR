@@ -185,6 +185,7 @@
 		A00897B81C63A241008963A4 /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = A00897B71C63A241008963A4 /* Terms.m */; };
 		A00897BB1C63A4AE008963A4 /* BTRTermsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00897BA1C63A4AE008963A4 /* BTRTermsFetcher.m */; };
 		A00897BE1C63E172008963A4 /* BTRTERMSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00897BD1C63E172008963A4 /* BTRTERMSViewController.m */; };
+		A00897C41C63F034008963A4 /* BTRGAHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A00897C31C63F034008963A4 /* BTRGAHelper.m */; };
 		A00A7FEC1B8E102200568BB6 /* BTRChartFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */; };
 		A00BD8741B97370D00B4693E /* BTRAnimationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A00BD8731B97370D00B4693E /* BTRAnimationHandler.m */; };
 		A00C9A331B7CE1E30047D6F5 /* BTRContactUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00C9A321B7CE1E30047D6F5 /* BTRContactUSViewController.m */; };
@@ -585,6 +586,8 @@
 		A00897BA1C63A4AE008963A4 /* BTRTermsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRTermsFetcher.m; sourceTree = "<group>"; };
 		A00897BC1C63E172008963A4 /* BTRTERMSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRTERMSViewController.h; sourceTree = "<group>"; };
 		A00897BD1C63E172008963A4 /* BTRTERMSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRTERMSViewController.m; sourceTree = "<group>"; };
+		A00897C21C63F034008963A4 /* BTRGAHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRGAHelper.h; sourceTree = "<group>"; };
+		A00897C31C63F034008963A4 /* BTRGAHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRGAHelper.m; sourceTree = "<group>"; };
 		A00A7FEA1B8E102200568BB6 /* BTRChartFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRChartFetcher.h; sourceTree = "<group>"; };
 		A00A7FEB1B8E102200568BB6 /* BTRChartFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTRChartFetcher.m; sourceTree = "<group>"; };
 		A00BD8721B97370D00B4693E /* BTRAnimationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTRAnimationHandler.h; sourceTree = "<group>"; };
@@ -1261,6 +1264,8 @@
 				A0E277FD1B9F3BA5006E7D33 /* SettingsKeys.h */,
 				A0C0B3A81C593E4E0059DF39 /* BTRRefreshManager.h */,
 				A0C0B3A91C593E4E0059DF39 /* BTRRefreshManager.m */,
+				A00897C21C63F034008963A4 /* BTRGAHelper.h */,
+				A00897C31C63F034008963A4 /* BTRGAHelper.m */,
 			);
 			name = BTRHelpClasses;
 			sourceTree = "<group>";
@@ -1946,6 +1951,7 @@
 				69B02CA31A5DA23100040C86 /* TTSlidingPage.m in Sources */,
 				A01142681B61777A0099A40A /* BTRFAQTableViewCell.m in Sources */,
 				6986A6A21B3D99E900DE481A /* BTRTrackOrdersVC.m in Sources */,
+				A00897C41C63F034008963A4 /* BTRGAHelper.m in Sources */,
 				69D440501B331A7F00070FD8 /* BTRCategoryFetcher.m in Sources */,
 				692F24DB1AAF31C0003AABE1 /* BTRProductImageCollectionCell.m in Sources */,
 				69B55F0D1A4B1AFC009A5524 /* BTRShoppingBagViewController.m in Sources */,

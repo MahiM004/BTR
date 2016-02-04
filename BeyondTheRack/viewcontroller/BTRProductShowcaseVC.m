@@ -24,7 +24,6 @@
 #import "MarqueeLabel.h"
 #import "BTRSettingManager.h"
 #import "SDVersion.h"
-#import <Google/Analytics.h>
 
 #define SIZE_NOT_SELECTED_STRING @"Select Size"
 
@@ -203,12 +202,8 @@ typedef enum ScrollDirection {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:[NSString stringWithFormat:@"event/showcase/%@",self.eventSku]];
-    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+
+    [BTRGAHelper logScreenWithName:[NSString stringWithFormat:@"event/showcase/%@",self.eventSku]];
     
     [super viewWillAppear:animated];
     [UIView animateWithDuration:0.02 animations:^{

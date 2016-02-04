@@ -171,12 +171,7 @@
 }
 
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController {
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"bag/checkout/MasterPass"];
-    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-    
+    [BTRGAHelper logScreenWithName:@"/checkout/ApplePay"];
     self.applePayIsLoaded = NO;
     PKPaymentRequest *paymentRequest = [self paymentRequest];
     self.vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];

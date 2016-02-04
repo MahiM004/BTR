@@ -115,6 +115,7 @@
     }
     [self initOptionsArray];
     _tableFilterSelection.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [BTRGAHelper logScreenWithName:@"/search/filter"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

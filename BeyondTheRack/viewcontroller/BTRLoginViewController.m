@@ -17,7 +17,6 @@
 #import "BTRLoader.h"
 #import "UITextField+BSErrorMessageView.h"
 #import "BTRLoadingButton.h"
-#import <Google/Analytics.h>
 
 #define IDIOM    UI_USER_INTERFACE_IDIOM()
 #define IPAD     UIUserInterfaceIdiomPad
@@ -85,10 +84,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"/login"];
-    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [BTRGAHelper logScreenWithName:@"/login"];
 }
 
 - (IBAction)signInButtonTapped:(BTRLoadingButton *)sender {

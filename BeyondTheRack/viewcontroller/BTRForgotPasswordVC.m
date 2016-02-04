@@ -10,7 +10,6 @@
 #import "BTRUserFetcher.h"
 #import "BTRConnectionHelper.h"
 #import "UITextField+BSErrorMessageView.h"
-#import <Google/Analytics.h>
 
 @interface BTRForgotPasswordVC ()
 {
@@ -32,10 +31,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"/forgotPassword"];
-    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [BTRGAHelper logScreenWithName:@"/forgotPassword"];
 }
 
 - (void)dismissKeyboard {

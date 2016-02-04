@@ -25,7 +25,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "729"
             endingLineNumber = "729"
-            landmarkName = "-disableShippingAddress"
+            landmarkName = "-sampleGiftSelected:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,7 +41,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "231"
             endingLineNumber = "231"
-            landmarkName = "-viewDidLoad"
+            landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,7 +57,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "228"
             endingLineNumber = "228"
-            landmarkName = "-viewDidLoad"
+            landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -153,7 +153,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "512"
             endingLineNumber = "512"
-            landmarkName = "-getPaypalInfo"
+            landmarkName = "-masterPassCheckout:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -169,7 +169,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "511"
             endingLineNumber = "511"
-            landmarkName = "-getPaypalInfo"
+            landmarkName = "-masterPassCheckout:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -228,7 +228,7 @@
                   moduleName = "BeyondTheRack"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/Masterpass/MPManager.m"
-                  timestampString = "476137014.667726"
+                  timestampString = "476300068.970258"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "66"
@@ -243,7 +243,7 @@
                   moduleName = "BeyondTheRack"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/Masterpass/MPManager.m"
-                  timestampString = "476137014.667968"
+                  timestampString = "476300068.970761"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "66"
@@ -281,7 +281,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "967"
             endingLineNumber = "967"
-            landmarkName = "-fillShippingAddressByAddress:"
+            landmarkName = "-enablePaymentInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -297,7 +297,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "969"
             endingLineNumber = "969"
-            landmarkName = "-fillShippingAddressByAddress:"
+            landmarkName = "-orderInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -313,7 +313,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "977"
             endingLineNumber = "977"
-            landmarkName = "-fillShippingAddressByAddress:"
+            landmarkName = "-orderInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -329,7 +329,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "976"
             endingLineNumber = "976"
-            landmarkName = "-fillShippingAddressByAddress:"
+            landmarkName = "-orderInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -345,8 +345,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "579"
             endingLineNumber = "579"
-            landmarkName = "-searchFor:"
-            landmarkType = "5">
+            landmarkName = "@implementation BTRSearchViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -425,7 +425,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
             endingLineNumber = "55"
-            landmarkName = "-checkoutDidCompleteWithError:withInfo:"
+            landmarkName = "-pairingDidCompleteError:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -681,7 +681,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "416"
             endingLineNumber = "416"
-            landmarkName = "-gotoCheckoutPageWithPaymentInfo:"
+            landmarkName = "-tappedCheckout:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -697,8 +697,85 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "90"
             endingLineNumber = "90"
-            landmarkName = "-processPayPalWithInfo:"
+            landmarkName = "-getOrderInfoOfCallBackURLRequest:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[BTRPaypalCheckoutViewController getOrderInfoOfCallBackURLRequest:]"
+                  moduleName = "BeyondTheRack"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/viewcontroller/BTRPaypalCheckoutViewController.m"
+                  timestampString = "476300068.994667"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "191">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__68-[BTRPaypalCheckoutViewController getOrderInfoOfCallBackURLRequest:]_block_invoke"
+                  moduleName = "BeyondTheRack"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/viewcontroller/BTRPaypalCheckoutViewController.m"
+                  timestampString = "476300068.994888"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "728">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_111"
+                  moduleName = "BeyondTheRack"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/viewcontroller/BTRPaypalCheckoutViewController.m"
+                  timestampString = "476300068.995096"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_112"
+                  moduleName = "BeyondTheRack"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/viewcontroller/BTRPaypalCheckoutViewController.m"
+                  timestampString = "476300068.995306"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "14">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__68-[BTRPaypalCheckoutViewController getOrderInfoOfCallBackURLRequest:]_block_invoke115"
+                  moduleName = "BeyondTheRack"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/viewcontroller/BTRPaypalCheckoutViewController.m"
+                  timestampString = "476300068.995518"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "59">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -713,7 +790,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1368"
             endingLineNumber = "1368"
-            landmarkName = "-makePaymentWithSuccess:failure:"
+            landmarkName = "-buyWithApplePay:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -729,7 +806,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1357"
             endingLineNumber = "1357"
-            landmarkName = "-setupApplePay:"
+            landmarkName = "-setupApplePayButton"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -745,7 +822,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1358"
             endingLineNumber = "1358"
-            landmarkName = "-setupApplePay:"
+            landmarkName = "-setupApplePayButton"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -825,8 +902,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1383"
             endingLineNumber = "1383"
-            landmarkName = "@implementation BTRCheckoutViewController"
-            landmarkType = "3">
+            landmarkName = "-setupApplePay:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -841,7 +918,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1376"
             endingLineNumber = "1376"
-            landmarkName = "-makePaymentWithSuccess:failure:"
+            landmarkName = "-buyWithApplePay:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -857,7 +934,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1378"
             endingLineNumber = "1378"
-            landmarkName = "-makePaymentWithSuccess:failure:"
+            landmarkName = "-buyWithApplePay:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -868,11 +945,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/BTRConnectionHelper.m"
-            timestampString = "476135499.777143"
+            timestampString = "476301138.07537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "+putDataFromURL:withParameters:setSessionInHeader:contentType:success:faild:"
             landmarkType = "5">
          </BreakpointContent>
@@ -884,11 +961,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/BTRConnectionHelper.m"
-            timestampString = "476135499.777143"
+            timestampString = "476301138.07537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "+putDataFromURL:withParameters:setSessionInHeader:contentType:success:faild:"
             landmarkType = "5">
          </BreakpointContent>
@@ -896,46 +973,62 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BeyondTheRack/BTRConnectionHelper.m"
-            timestampString = "476135499.777143"
+            timestampString = "476301138.07537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "+getDataFromURL:withParameters:setSessionInHeader:contentType:success:faild:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeyondTheRack/BTRConnectionHelper.m"
+            timestampString = "476301138.07537"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "+getDataFromURL:withParameters:setSessionInHeader:contentType:success:faild:"
             landmarkType = "5">
             <Locations>
                <Location
-                  shouldBeEnabled = "No"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "+[BTRConnectionHelper getDataFromURL:withParameters:setSessionInHeader:contentType:success:faild:]"
                   moduleName = "BeyondTheRack"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/BTRConnectionHelper.m"
-                  timestampString = "476135501.375572"
+                  timestampString = "476300069.012597"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "61"
-                  endingLineNumber = "61"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
                   offsetFromSymbolStart = "1232">
                </Location>
                <Location
-                  shouldBeEnabled = "No"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__98+[BTRConnectionHelper getDataFromURL:withParameters:setSessionInHeader:contentType:success:faild:]_block_invoke"
                   moduleName = "BeyondTheRack"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ali.pourhadi/Desktop/BTR/BeyondTheRack/BTRConnectionHelper.m"
-                  timestampString = "476135501.375873"
+                  timestampString = "476300069.012809"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "61"
-                  endingLineNumber = "61"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
                   offsetFromSymbolStart = "82">
                </Location>
             </Locations>

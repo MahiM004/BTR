@@ -17,7 +17,6 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
-#import <Google/Analytics.h>
 #import "DNNotificationController.h"
 #import "DNDonkyCore.h"
 #import "BTRInitializeViewController.h"
@@ -98,19 +97,7 @@
     [[DNDonkyCore sharedInstance] initialiseWithAPIKey:@"1KgJgRCYwEhqnA1PHeaKEaQsLaklBN2t8TiBI0gezGFmhmki9Kr7mHTKEGb3QPWeCwia1qDRKNtJbt3wyFyQ"];
     [self checkForRegisterUser];
     
-    //Google analytics
-    NSError *configureError;
-    [[GGLContext sharedInstance] configureWithError:&configureError];
-    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
-    [[GAI sharedInstance] setTrackUncaughtExceptions:YES];
-
-#if TARGET_IPHONE_SIMULATOR
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:@"App-Open-In-Simulator" value:@"1"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-#elif TARGET_OS_IPHONE
-    
-#endif
+    [BTRGAHelper setupGA];
     
     [[BTRRefreshManager sharedInstance]start];
     return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];

@@ -17,13 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Size Chart"];
-    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-    
-    [self.webView setDelegate:self];
+    [BTRGAHelper logScreenWithName:@"/SizeChart"];
+        [self.webView setDelegate:self];
     NSString *filePath = [[NSBundle mainBundle]pathForResource:@"size" ofType:@"html"];
     self.defaultString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
 }

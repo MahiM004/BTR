@@ -15,7 +15,6 @@
 #import "BTRContactFetcher.h"
 #import "BTRViewUtility.h"
 #import "BTRLoader.h"
-#import <Google/Analytics.h>
 
 @interface BTRContactUSViewController ()
 @property (strong, nonatomic) NSArray *inquiryArray;
@@ -69,10 +68,7 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"BackButtonPressed"];
     }
     
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"/help/contact"];
-    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [BTRGAHelper logScreenWithName:@"/help/contact"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
