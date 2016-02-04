@@ -19,7 +19,7 @@
 #import "BTRBagFetcher.h"
 #import "BTRShoppingBagViewController.h"
 #import "BTRAnimationHandler.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+AFNetworkingFadeIn.h"
 #import "BTRLoader.h"
 #import "BTRProductDetailEmbededVC.h"
 #import "BTRSettingManager.h"
@@ -407,7 +407,7 @@
     [self presentViewController:viewController animated:YES completion:nil];
 }
 - (BTRProductShowcaseCollectionCell *)configureViewForShowcaseCollectionCell:(BTRProductShowcaseCollectionCell *)cell withItem:(Item *)productItem {
-    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"whiteblank.jpg"] fadeInWithDuration:0.3];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
     [cell.brandLabel setText:[productItem brand]];
     [cell.btrPriceLabel setAttributedText:[BTRViewUtility crossedOffPricefromNumber:[productItem retailPrice]]];
