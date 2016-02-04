@@ -14,7 +14,6 @@
 #import "BTROrderFetcher.h"
 #import "BTRViewUtility.h"
 #import "SDVersion.h"
-#import <Google/Analytics.h>
 
 @interface ApplePayManager()
 @property (nonatomic, strong) BTAPIClient *braintreeClient;

@@ -12,7 +12,6 @@
 #import "BTRFacetsHandler.h"
 #import "BTRSearchFilterTVC.h"
 #import "BTRConnectionHelper.h"
-#import <Google/Analytics.h>
 
 @interface BTRModalFilterSelectionVC () {
     int selectedIndex;
@@ -81,11 +80,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self initOptionsArray];
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"/search/filter"];
-    [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 - (void)viewDidLoad {

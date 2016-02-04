@@ -7,7 +7,6 @@
 //
 
 #import "BTRHTMLSizeChartViewController.h"
-#import <Google/Analytics.h>
 
 @interface BTRHTMLSizeChartViewController ()
 @property NSString *defaultString;

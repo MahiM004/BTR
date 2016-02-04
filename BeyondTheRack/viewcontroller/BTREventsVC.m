@@ -16,7 +16,6 @@
 #import "BTRLoader.h"
 #import "BTRSettingManager.h"
 #import "SDVersion.h"
-#import <Google/Analytics.h>
 
 @interface BTREventsVC ()
 
