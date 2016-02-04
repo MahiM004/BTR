@@ -229,6 +229,7 @@
         if (self.productImageCount == 1) {
             [imageCell.pgParentHeight setConstant:0];
             [imageCell.pgParentView setHidden:YES];
+             [iPadPageController setHidden:YES];
         }
         imageCell.pageController.numberOfPages = self.productImageCount;
         iPadPageController.numberOfPages = self.productImageCount;
@@ -699,13 +700,16 @@
                 viewHeight = screenBounds.size.height;
             }
             
-            UIView * pageController = [[UIView alloc]initWithFrame:CGRectMake(0, viewHeight - 145-37, viewWidth/2, 37)];
-            pageController.tag = 505;
-            iPadPageController = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, viewWidth/2, 37)];
-            iPadPageController.pageIndicatorTintColor = [UIColor grayColor];
-            iPadPageController.currentPageIndicatorTintColor = [UIColor redColor];
-            iPadPageController.numberOfPages = [self productImageCount];
-            [pageController addSubview:iPadPageController];
+            UIView * pageController;
+            if ([self productImageCount] > 1) {
+                pageController = [[UIView alloc]initWithFrame:CGRectMake(0, viewHeight - 145-37, viewWidth/2, 37)];
+                pageController.tag = 505;
+                iPadPageController = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, viewWidth/2, 37)];
+                iPadPageController.pageIndicatorTintColor = [UIColor grayColor];
+                iPadPageController.currentPageIndicatorTintColor = [UIColor redColor];
+                iPadPageController.numberOfPages = [self productImageCount];
+                [pageController addSubview:iPadPageController];
+            }
             [view1 setFrame:CGRectMake(0, 75, viewWidth / 2, viewHeight - 145)];
             [view2 setFrame:CGRectMake(viewWidth/2, 75, viewWidth / 2, viewHeight - 145)];
             [detailTV setFrame:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145)];
@@ -850,9 +854,11 @@
     UINib *nib = [UINib nibWithNibName:@"BTRProductCollecCell" bundle: nil];
     [_collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
     BTRProductCollecCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellImage" forIndexPath:indexPath];
-    [cell.productImage setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
-                                                                   withCount:1+indexPath.row
-                                                                     andSize:@"large"] placeholderImage:nil fadeInWithDuration:0.5];
+    [cell.productImage setImageWithURL:[BTRItemFetcher URLforItemImageForSkuWithDomain:[_getItem imagesDomain] withSku:[self productSku] withCount:1+indexPath.row andSize:@"large"] placeholderImage:nil fadeInWithDuration:0.5];
+    
+//    [cell.productImage setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSku]
+//                                                                   withCount:1+indexPath.row
+//                                                                     andSize:@"large"] placeholderImage:nil fadeInWithDuration:0.5];
     return cell;
 }
 
@@ -871,6 +877,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     BTRZoomImageViewController *zoomVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ZoomImageVC"];
     zoomVC.productSkuString = [self productSku];
+    zoomVC.productImageDomain = [_getItem imagesDomain];
     if ([self productImageCount] == 0)
         zoomVC.zoomImageCount = 1;
     else

@@ -115,7 +115,9 @@ static NSString * const reuseIdentifier = @"Cell";
     cell.backgroundColor = [UIColor darkGrayColor];
     Event *event = [[self eventsArray] objectAtIndex:[indexPath row]];
     cell.durationLabel.adjustsFontSizeToFitWidth = YES;
-    [cell.eventImage setImageWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]] placeholderImage:[UIImage imageNamed:@"whiteblank.jpg"] fadeInWithDuration:0.3];
+    [cell.eventImage setImageWithURL:[BTREventFetcher URLforEventImageWithIdWithDomain:[event imagesDomain] withImageID:[event imageName]] placeholderImage:[UIImage imageNamed:@"whiteblank.jpg"] fadeInWithDuration:0.3];
+    
+//    [cell.eventImage setImageWithURL:[BTREventFetcher URLforEventImageWithId:[event imageName]] placeholderImage:[UIImage imageNamed:@"whiteblank.jpg"] fadeInWithDuration:0.3];
     return cell;
 }
 

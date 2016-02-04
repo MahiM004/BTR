@@ -8,7 +8,7 @@
 
 #import "BTRZoomImageViewController.h"
 #import "BTRZoomImageCollectionViewCell.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+AFNetworkingFadeIn.h"
 #import "BTRItemFetcher.h"
 
 
@@ -36,10 +36,12 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BTRZoomImageCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ZoomImageCollectionCellIdentifier" forIndexPath:indexPath];
     
-    [cell.zoomImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSkuString]
-                                                                       withCount:1+indexPath.row
-                                                                         andSize:@"large"]
-                          placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+    [cell.zoomImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSkuWithDomain:_productImageDomain withSku:[self productSkuString] withCount:1+indexPath.row andSize:@"large"] placeholderImage:[UIImage imageNamed:@"placeHolderImage"] fadeInWithDuration:0.5];
+    
+//    [cell.zoomImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[self productSkuString]
+//                                                                       withCount:1+indexPath.row
+//                                                                         andSize:@"large"]
+//                          placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
      return cell;
 }
 

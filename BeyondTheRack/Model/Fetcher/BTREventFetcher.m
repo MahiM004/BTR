@@ -18,9 +18,13 @@
 + (NSURL *)URLforAllRecentEvents {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/events/all", BASEURL]];
 }
-
+//Static
 + (NSURL *)URLforEventImageWithId:(NSString *)imageId {
     return [self URLForQuery:[NSString stringWithFormat:@"%@%@", STATICURL,imageId]];
+}
+//Dynamic
++ (NSURL *)URLforEventImageWithIdWithDomain:(NSString *)domain withImageID:(NSString*)imageId {
+    return [self URLForQuery:[NSString stringWithFormat:@"http:%@%@", domain,imageId]];
 }
 
 + (NSURL *)URLforRecentEventsForURLCategoryName:(NSString *)urlCategoryName inCountry:(NSString *)country {

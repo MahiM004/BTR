@@ -71,14 +71,24 @@
                                                                                                     kCFStringEncodingUTF8 ));
    return [self URLForQuery:[NSString stringWithFormat:@"%@/search?q=%@&page=%lu&facets=%@%@", BASEURL, searchQuery, (unsigned long)pageNumber, encodedFacetString, sortString]];
 }
-
+//Static Domain
 + (NSURL *)URLforItemImageForSku:(NSString *)sku{
     return [self URLForQuery:[NSString stringWithFormat:@"%@/productimages/%@/medium/%@_1.jpg", STATICURL,sku, sku]];
 }
 
+//Dynamic Domain
++ (NSURL *)URLforItemImageForSkuWithDomain:(NSString *)domainURL withSku:(NSString*)sku{
+    return [self URLForQuery:[NSString stringWithFormat:@"http:%@/productimages/%@/medium/%@_1.jpg", [domainURL stringByReplacingOccurrencesOfString:@"\\" withString:@""],sku,sku]];
+}
 
+//Static Domain
 + (NSURL *)URLforItemImageForSku:(NSString *)sku withCount:(NSInteger)countNumber andSize:(NSString *)sizeString {
     return [self URLForQuery:[NSString stringWithFormat:@"%@/productimages/%@/%@/%@_%ld.jpg", STATICURL,sku, sizeString, sku, (long)countNumber]];
+}
+
+//Dynamic Domain
++ (NSURL *)URLforItemImageForSkuWithDomain:(NSString *)domainURL withSku:(NSString*)sku withCount:(NSInteger)countNumber andSize:(NSString *)sizeString {
+    return [self URLForQuery:[NSString stringWithFormat:@"http:%@/productimages/%@/%@/%@_%ld.jpg", [domainURL stringByReplacingOccurrencesOfString:@"\\" withString:@""],sku, sizeString, sku, (long)countNumber]];
 }
 
 + (NSURL *)URLtoShareforEventId:(NSString *)eventId withProductSku:(NSString *)productSku {

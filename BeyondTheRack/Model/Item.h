@@ -46,6 +46,7 @@
 @property (nonatomic, retain) NSNumber * salePrice;
 @property (nonatomic, retain) NSString * variant;
 @property (nonatomic) BOOL isMockItem;
+@property (nonatomic, retain) NSString * imagesDomain;
 
 @property float discount;
 

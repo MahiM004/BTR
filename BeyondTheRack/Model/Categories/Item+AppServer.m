@@ -151,6 +151,9 @@
     if ([itemDictionary valueForKeyPath:@"reserved"] && [itemDictionary valueForKeyPath:@"reserved"] != [NSNull null])
         item.reserverdSizes = [itemDictionary valueForKey:@"reserved"];
     
+    if ([itemDictionary valueForKeyPath:@"imagesDomain"] && [itemDictionary valueForKeyPath:@"imagesDomain"] != [NSNull null])
+        item.imagesDomain = [itemDictionary valueForKey:@"imagesDomain"];
+    
     if ([item.sku hasPrefix:@"BTR"])
         item.isMockItem = YES;
     else

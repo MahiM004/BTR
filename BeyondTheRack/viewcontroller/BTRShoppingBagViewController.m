@@ -126,10 +126,12 @@
     BagItem *bagItem = [[BagItem alloc] init];
     if (indexPath.row < [self.bagItemsArray count]) {
         NSString *uniqueSku = [[[self bagItemsArray] objectAtIndex:indexPath.row] sku];
-        [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:uniqueSku]
-                           placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
         [cell.itemImageView setContentMode:UIViewContentModeScaleAspectFit];
         Item *item = [self getItemforSku:[[self.bagItemsArray objectAtIndex:[indexPath row]] sku]];
+        [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSkuWithDomain:[item imagesDomain] withSku:uniqueSku] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+        
+//        [cell.itemImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:uniqueSku] placeholderImage:[UIImage imageNamed:@"placeHolderImage"]];
+        
         bagItem = [self.bagItemsArray objectAtIndex:[indexPath row]];
         cell = [self configureCell:cell forBagItem:bagItem andItem:item];
         [cell setDidTapGoToPDPButtonBlock:^(id sender) {
