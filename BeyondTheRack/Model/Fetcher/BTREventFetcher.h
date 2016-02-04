@@ -13,7 +13,8 @@
 
 + (NSURL *)URLforRecentEventsForURLCategoryName:(NSString *)urlCategoryName forPage:(int)pagenum;
 + (NSURL *)URLforAllRecentEvents;
-+ (NSURL *)URLforEventImageWithId:(NSString *)imageId;
++ (NSURL *)URLforEventImageWithId:(NSString *)imageId;//Static
++ (NSURL *)URLforEventImageWithIdWithDomain:(NSString *)domain withImageID:(NSString*)imageId;//Dynamic
 + (NSURL *)URLforRecentEventsForURLCategoryName:(NSString *)urlCategoryName inCountry:(NSString *)country;
 
 @end

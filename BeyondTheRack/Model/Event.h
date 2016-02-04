@@ -41,5 +41,6 @@
 @property (nonatomic, retain) NSString * showMinQtyMinutes;
 @property (nonatomic, retain) NSString * poStatus;
 @property (nonatomic, retain) NSString * myCategoryName;
+@property (nonatomic, retain) NSString * imagesDomain;
 
 @end

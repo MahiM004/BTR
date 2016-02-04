@@ -118,6 +118,8 @@
         event.endDateTime = [serverFormatter dateFromString:[eventDictionary valueForKey:@"end_time"]];
     }
     
+    if ([eventDictionary valueForKeyPath:@"imagesDomain"] && [eventDictionary valueForKeyPath:@"imagesDomain"] != [NSNull null])
+        event.imagesDomain = [eventDictionary valueForKey:@"imagesDomain"];
     
     /*
      @dynamic expiryDateTime;
