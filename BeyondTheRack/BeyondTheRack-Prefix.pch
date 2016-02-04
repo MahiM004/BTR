@@ -33,6 +33,9 @@
 #import <Reachability.h>
 #import "BTRAppDelegate.h"
 #import "BTRRefreshManager.h"
+#import "BTRSettingManager.h"
+#import "BTRConnectionHelper.h"
+#import "BTRSessionSettings.h"
 
 #define MAX_EVENTS_PER_PAGE 35
 #define MAX_ITEMS_PER_PAGE 96

@@ -17,13 +17,15 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
-#import "BTRSettingManager.h"
 #import <Google/Analytics.h>
 #import "DNNotificationController.h"
 #import "DNDonkyCore.h"
 #import "BTRInitializeViewController.h"
 #import <IQKeyboardManager.h>
 #import "BTRCheckoutViewController.h"
+#import "User+AppServer.h"
+#import "BTRUserFetcher.h"
+#import "DNAccountController.h"
 
 @interface BTRAppDelegate ()
 
@@ -94,6 +96,7 @@
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [[DNDonkyCore sharedInstance] initialiseWithAPIKey:@"1KgJgRCYwEhqnA1PHeaKEaQsLaklBN2t8TiBI0gezGFmhmki9Kr7mHTKEGb3QPWeCwia1qDRKNtJbt3wyFyQ"];
+    [self checkForRegisterUser];
     
     //Google analytics
     NSError *configureError;
@@ -194,6 +197,7 @@
     [viewController dismissViewControllerAnimated:NO completion:^{
         [viewController.view removeFromSuperview];
     }];
+    [self checkForRegisterUser];
 }
 
 #pragma mark Notification
@@ -214,5 +218,26 @@
     }];
 }
 
+- (void)checkForRegisterUser {
+    if (![[[BTRSettingManager defaultManager]objectForKeyInSetting:kNOTIFICATIONREGISTER]boolValue] && [[BTRSessionSettings sessionSettings]isUserLoggedIn]) {
+        NSString* url = [NSString stringWithFormat:@"%@", [BTRUserFetcher URLforUserInfoDetail]];
+        [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
+            if (response) {
+                User *newUser = [[User alloc]init];
+                
+                [User userWithAppServerInfo:response forUser:newUser];
+                [[BTRSettingManager defaultManager]setInSetting:newUser.userId forKey:kUSERID];
+                
+                DNUserDetails *knownUser = [[DNUserDetails alloc] initWithUserID:newUser.userId displayName:[NSString stringWithFormat:@"%@ %@",newUser.name,newUser.lastName] emailAddress:newUser.email mobileNumber:newUser.mobile countryCode:newUser.country firstName:newUser.name lastName:newUser.lastName avatarID:nil selectedTags:nil additionalProperties:nil];
+                [DNAccountController updateUserDetails:knownUser automaticallyHandleUserIDTaken:YES success:^(NSURLSessionDataTask *task, id responseData) {
+                    [[BTRSettingManager defaultManager]setInSetting:@YES forKey:kNOTIFICATIONREGISTER];
+                } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                    NSLog(@"Error: %@", [error localizedDescription]);
+                }];
+            }
+        } faild:^(NSError *error) {
+        }];
+    }
+}
 
 @end

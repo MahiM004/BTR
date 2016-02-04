@@ -7,7 +7,6 @@
 //
 
 #import "BTRConnectionHelper.h"
-#import "BTRSettingManager.h"
 
 @implementation BTRConnectionHelper
 
