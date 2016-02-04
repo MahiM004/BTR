@@ -14,5 +14,5 @@
 @property (strong, nonatomic) NSString *productSkuString;
 @property NSIndexPath* selectedIndex;
 @property (nonatomic) NSInteger zoomImageCount;
-
+@property (strong, nonatomic) NSString *productImageDomain;
 @end

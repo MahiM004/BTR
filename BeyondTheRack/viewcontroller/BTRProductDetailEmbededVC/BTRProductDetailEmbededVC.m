@@ -873,6 +873,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     BTRZoomImageViewController *zoomVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ZoomImageVC"];
     zoomVC.productSkuString = [self productSku];
+    zoomVC.productImageDomain = [_getItem imagesDomain];
     if ([self productImageCount] == 0)
         zoomVC.zoomImageCount = 1;
     else
