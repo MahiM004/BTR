@@ -30,6 +30,10 @@
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:name];
     [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    if ([[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERID])
+        [tracker set:[GAIFields customDimensionForIndex:1]value:[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERID]];
+    else
+        [tracker set:[GAIFields customDimensionForIndex:1]value:@"Anonymous"];
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
