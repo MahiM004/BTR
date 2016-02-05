@@ -43,9 +43,10 @@
 @property  NSString * selectedPrice; // temp string
 
 @property BOOL multipleOrSingleSelectOrDeselect; // to check if multiple selection has a change or not(if add or remove)
-
+@property BOOL appliedSortButNotFacet;
 
 @property (weak, nonatomic) IBOutlet UIButton * clearBtn;
+@property (weak, nonatomic) IBOutlet UIButton * applyBtn;
 
 @end
 
@@ -88,9 +89,6 @@
     }
     
     
-    // TITLES ARRAY
-    [self.titles addObjectsFromArray:@[SORT_TITLE, CATEGORY_TITLE, PRICE_TITLE, BRAND_TITLE, COLOR_TITLE, SIZE_TITLE]];
-    
     
     // By default this only SORT_TITLE only needed
     [self loadDataWithSelectedSortType:SORT_TITLE];
@@ -105,6 +103,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _multipleOrSingleSelectOrDeselect = NO;
+    _appliedSortButNotFacet = NO;
      self.headerView.backgroundColor = self.view.backgroundColor = [UIColor whiteColor];
 }
 
@@ -213,9 +212,13 @@
             
             [self addViewWithLoader];
             BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+            [sharedFacetHandler setCategorySelectionWithCategoryString:_selectedCategory];
+            [sharedFacetHandler setPriceSelectionWithPriceString:_selectedPrice];
+            [sharedFacetHandler setSortChosenOptionString:_selectSortString]; // Sort selection
             [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                           withFacetsString:[self facetsQueryString:getPreviousSelectedSortType]
                                    success:^(NSDictionary *responseDictionary) {
+                                       _appliedSortButNotFacet = YES;
                                        _multipleOrSingleSelectOrDeselect = NO;
                                        [self loadDataWithSelectedSortType:cell.lblTitle.text];
                                        getPreviousSelectedSortType = cell.lblTitle.text;
@@ -233,11 +236,10 @@
     }
 
     else {
-       
+       _multipleOrSingleSelectOrDeselect = YES;
         FilterSelectionCell *cell = (FilterSelectionCell*)[tableView cellForRowAtIndexPath:indexPath];
         if (_isMultiSelect) {
             //3
-            _multipleOrSingleSelectOrDeselect = YES;
             NSString * selected = [self breakStringGetFirst:cell.lblTitle.text];
             if (cell.accessoryType == 0) {
                 cell.accessoryType = 3;
@@ -264,7 +266,6 @@
             
         
             NSString * selectedSort = self.titles[_selectedSortIndex];
-            BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
             if (_selectedSortIndex != 0) {
                 _multipleOrSingleSelectOrDeselect = YES;
                 if ([selectedSort isEqualToString:CATEGORY_TITLE]) {
@@ -273,7 +274,6 @@
                     else
                         _selectedCategory = nil;
                 
-                    [sharedFacetHandler setCategorySelectionWithCategoryString:_selectedCategory];
                 }
                 
                 else {
@@ -283,12 +283,10 @@
                     else
                         _selectedPrice = nil;
                     
-                    [sharedFacetHandler setPriceSelectionWithPriceString:_selectedPrice];
                 }
             }
             else {
                 _selectSortString = cell.lblTitle.text;
-                [sharedFacetHandler setSortChosenOptionString:_selectSortString]; // Sort selection
             }
             [_tableFilterSelection reloadData];
         }
@@ -299,9 +297,69 @@
 - (void)loadDataWithSelectedSortType:(NSString*)title {
     [self.optionsArray removeAllObjects];
     [self.totalSelectedArray removeAllObjects];//Remove all objects any way we are adding at bottom
+    [self.titles removeAllObjects];
     
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     
+    if (![self.titles containsObject:SORT_TITLE])
+        [self.titles addObject:SORT_TITLE];
+    
+    if (sharedFacetHandler.getCategoryFiltersForDisplay.count != 0) {
+        if (![self.titles containsObject:CATEGORY_TITLE])
+            [self.titles addObject:CATEGORY_TITLE];
+    }
+    else {
+        if ([self.titles containsObject:title]) {
+            [self.titles removeObject:CATEGORY_TITLE];
+            _selectedSortIndex = [self.titles indexOfObject:title];
+        }
+    }
+    
+    if (sharedFacetHandler.getPriceFiltersForDisplay.count != 0) {
+        if (![self.titles containsObject:PRICE_TITLE])
+            [self.titles addObject:PRICE_TITLE];
+    }
+    else {
+        if ([self.titles containsObject:title]) {
+            [self.titles removeObject:PRICE_TITLE];
+            _selectedSortIndex = [self.titles indexOfObject:title];
+        }
+    }
+    
+    if (sharedFacetHandler.getBrandFiltersForDisplay.count != 0) {
+        if (![self.titles containsObject:BRAND_TITLE])
+            [self.titles addObject:BRAND_TITLE];
+    }
+    else {
+        if ([self.titles containsObject:title]) {
+            [self.titles removeObject:BRAND_TITLE];
+            _selectedSortIndex = [self.titles indexOfObject:title];
+        }
+    }
+    
+    if (sharedFacetHandler.getColorFiltersForDisplay.count != 0) {
+        if (![self.titles containsObject:COLOR_TITLE])
+            [self.titles addObject:COLOR_TITLE];
+    }
+    else {
+        if ([self.titles containsObject:title]) {
+            [self.titles removeObject:COLOR_TITLE];
+            _selectedSortIndex = [self.titles indexOfObject:title];
+        }
+    }
+    
+    if (sharedFacetHandler.getSizeFiltersForDisplay.count != 0) {
+        if (![self.titles containsObject:SIZE_TITLE])
+            [self.titles addObject:SIZE_TITLE];
+    }
+    else {
+        if ([self.titles containsObject:title]) {
+            [self.titles removeObject:SIZE_TITLE];
+            _selectedSortIndex = [self.titles indexOfObject:title];
+        }
+    }
+
+    // Setting Options Selections Array
     if ([title isEqualToString:SORT_TITLE]) {
         _isMultiSelect = NO;
         [self.optionsArray addObjectsFromArray:[sharedFacetHandler getSortOptionStringsArray]];
@@ -326,6 +384,7 @@
             
         } else {
             _selectedSortIndex = 0;
+             [self loadDataWithSelectedSortType:SORT_TITLE];
             //this is because if after selecting the row there is no data it shows empty so just make him to go the first
             // we can also make him to go above one but difficult to handle i think
         }
@@ -340,6 +399,7 @@
             
         } else {
             _selectedSortIndex = 0;
+             [self loadDataWithSelectedSortType:SORT_TITLE];
         }
     }
     else if ([title isEqualToString:SIZE_TITLE]) {
@@ -351,35 +411,8 @@
                 [self.totalSelectedArray addObjectsFromArray:[sharedFacetHandler getSelectedSizesArray]];
         } else {
             _selectedSortIndex = 0;
+             [self loadDataWithSelectedSortType:SORT_TITLE];
         }
-    }
-    
-    
-    
-    
-    if (sharedFacetHandler.getCategoryFiltersForDisplay.count == 0) {
-        if ([self.titles containsObject:title])
-            [self.titles removeObject:CATEGORY_TITLE];
-    }
-    
-    if (sharedFacetHandler.getPriceFiltersForDisplay.count == 0) {
-        if ([self.titles containsObject:title])
-            [self.titles removeObject:PRICE_TITLE];
-    }
-    
-    if (sharedFacetHandler.getBrandFiltersForDisplay.count == 0) {
-        if ([self.titles containsObject:title])
-            [self.titles removeObject:BRAND_TITLE];
-    }
-    
-    if (sharedFacetHandler.getColorFiltersForDisplay.count == 0) {
-        if ([self.titles containsObject:title])
-            [self.titles removeObject:COLOR_TITLE];
-    }
-    
-    if (sharedFacetHandler.getSizeFiltersForDisplay.count == 0) {
-        if ([self.titles containsObject:title])
-            [self.titles removeObject:SIZE_TITLE];
     }
     
     if ([sharedFacetHandler getSelectedCategoryString] )
@@ -405,7 +438,7 @@
     }
     
     
-    if ([[self optionsArray]count] == 0) // if problem with backend data
+    if ([[self optionsArray]count] == 0 && _titles.count == 1) // if problem with backend data
         [self performSegueWithIdentifier:@"unwindFromRefineResultsCleared" sender:self];
     
     /* Animate the table view reload */
@@ -428,6 +461,9 @@
     //we are making the array empty in didselectrow in case not empty it should perform the below method
     if (_multipleOrSingleSelectOrDeselect == YES) {
         [self addViewWithLoader];
+        [sharedFacetHandler setCategorySelectionWithCategoryString:_selectedCategory];
+        [sharedFacetHandler setPriceSelectionWithPriceString:_selectedPrice];
+        [sharedFacetHandler setSortChosenOptionString:_selectSortString]; // Sort selection
         [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                       withFacetsString:[self facetsQueryString:getPreviousSelectedSortType]
                                success:^(NSDictionary *responseDictionary) {
@@ -469,7 +505,16 @@
 }
 
 - (IBAction)closeTapped:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (_multipleOrSingleSelectOrDeselect == YES) {
+        UIAlertView * closeAlert = [[UIAlertView alloc]initWithTitle:@"Exit Filter ?" message:@"Do you want to keep the Applied Changes" delegate:self cancelButtonTitle:@"Exit" otherButtonTitles:@"APPLY & EXIT", nil];
+        closeAlert.delegate = self;
+        closeAlert.tag = 444;
+        [closeAlert show];
+    } else if (_appliedSortButNotFacet == YES) {
+        [self applyButtonTapped:_applyBtn];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 
@@ -636,6 +681,12 @@
         } else {
             
         }
+    }
+    else if (alertView.tag == 444) {
+        if (buttonIndex == 1)
+            [self applyButtonTapped:_applyBtn];
+        else
+            [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
