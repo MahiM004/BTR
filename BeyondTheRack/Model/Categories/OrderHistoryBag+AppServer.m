@@ -54,8 +54,8 @@
     if ([jsonDictionary valueForKeyPath:@"total_shipping"] && [jsonDictionary valueForKeyPath:@"total_shipping"] != [NSNull null])
         orderHistoryBag.shipping = [jsonDictionary valueForKeyPath:@"total_shipping"];
     
-    if ([jsonDictionary valueForKeyPath:@"credit_total"] && [jsonDictionary valueForKeyPath:@"credit_total"] != [NSNull null])
-        orderHistoryBag.credits = [jsonDictionary valueForKeyPath:@"credit_total"];
+    if ([jsonDictionary valueForKeyPath:@"total_credit_applied"] && [jsonDictionary valueForKeyPath:@"total_credit_applied"] != [NSNull null])
+        orderHistoryBag.credits = [jsonDictionary valueForKeyPath:@"total_credit_applied"];
     
     if ([jsonDictionary valueForKeyPath:@"total_order_value"] && [jsonDictionary valueForKeyPath:@"total_order_value"] != [NSNull null])
         orderHistoryBag.total = [jsonDictionary valueForKeyPath:@"total_order_value"];
