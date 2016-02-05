@@ -10,6 +10,6 @@
 
 @interface Privacy : NSObject
 
-+ (NSString *)makeHTMLStringByResponse:(NSArray *)response;
++ (NSString *)makeHTMLStringByResponse:(NSDictionary *)response;
 
 @end

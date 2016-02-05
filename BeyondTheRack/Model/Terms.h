@@ -15,7 +15,7 @@ typedef enum {USA,Canada} Country;
 
 @property (nonatomic, strong) NSDictionary *response;
 
-- (id)initWithResponse:(NSDictionary *)reponse;
+- (id)initWithResponse:(NSDictionary *)response;
 - (NSString *)makeHTMLStringForCountry:(Country)selectedCountry;
 
 @end

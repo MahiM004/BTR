@@ -10,7 +10,7 @@
 
 @implementation Privacy
 
-+ (NSString *)makeHTMLStringByResponse:(NSArray *)response {
++ (NSString *)makeHTMLStringByResponse:(NSDictionary *)response {
     NSString *htmlString = @"<HTML>";
     for (NSDictionary *mainObject in response) {
         htmlString = [htmlString stringByAppendingString:@"</BR>"];
