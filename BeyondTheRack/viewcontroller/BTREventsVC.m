@@ -48,7 +48,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [UIView animateWithDuration:0.02 animations:^{
         [self.collectionView performBatchUpdates:nil completion:nil];
     }];
-    [BTRGAHelper logScreenWithName:@"/events"];
+    [BTRGAHelper logScreenWithName:@"/event"];
 }
 
 #pragma mark LoadEvents
