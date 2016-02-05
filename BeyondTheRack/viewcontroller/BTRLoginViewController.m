@@ -18,8 +18,6 @@
 #import "UITextField+BSErrorMessageView.h"
 #import "BTRLoadingButton.h"
 
-#define IDIOM    UI_USER_INTERFACE_IDIOM()
-#define IPAD     UIUserInterfaceIdiomPad
 
 @interface BTRLoginViewController ()<UITextFieldDelegate>
 {
@@ -149,7 +147,7 @@
                      NSString *fbAccessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
                      
                      NSString *inviteCode = nil;
-                     if ( IDIOM == IPAD ) {
+                     if ( [BTRViewUtility isIPAD] ) {
                          inviteCode = @"IOSTABLETAPP2";
                      } else {
                          inviteCode = @"IOSMOBILEAPP2";
