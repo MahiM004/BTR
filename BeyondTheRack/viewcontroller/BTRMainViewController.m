@@ -407,6 +407,7 @@
 }
 
 - (void)faildRequest {
+    menuOpenediPad = NO;
     dispatch_async (dispatch_get_main_queue(), ^{
         [BTRLoader hideLoaderFromView:self.view];
         [self setIsWorking:NO];
