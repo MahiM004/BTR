@@ -387,7 +387,7 @@
 }
 
 - (void)genderChanged {
-    if ([self.genderGroup.selectedRadioButton.data.identifier isEqualToString:@"male"])
+    if ([self.genderGroup.selectedRadioButton.data.identifier isEqualToString:@"Male"])
         self.genderIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-male"];
     else
         self.genderIconLabel.text = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-female"];
@@ -412,5 +412,17 @@
 - (IBAction)backToLogin:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (IBAction)openTermsVC:(id)sender {
+    UIViewController * terms = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRTerms"];
+    [self presentViewController:terms animated:YES completion:nil];
+}
+
+- (IBAction)openPrivacyVC:(id)sender {
+    UIViewController * privacy = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRPrivacy"];
+    [self presentViewController:privacy animated:YES completion:nil];
+}
+
+
 
 @end
