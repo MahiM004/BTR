@@ -49,7 +49,7 @@
     paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.requiredBillingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
-    if ([self.info.isPickup boolValue])
+    if ([self.info.isPickup boolValue] || [self.info.vipPickup boolValue])
         paymentRequest.shippingAddress = [self recordFromAddress:self.info.pickupAddress withLabel:@"Pickup"];
     else if (self.info.shippingAddress.postalCode.length > 0)
         paymentRequest.shippingAddress = [self recordFromAddress:self.info.shippingAddress withLabel:@"Shipping"];
@@ -164,6 +164,12 @@
 }
 
 - (void)initWithClientWithToken:(NSString *)token andOrderInfromation:(Order *)information checkoutMode:(checkoutMode)mode{
+    if (mode == checkoutOne) {
+        if ([information.isFreeshipAddress boolValue]) {
+            information.isPickup = @"0";
+            information.vipPickup = @"0";
+        }
+    }
     self.braintreeClient = [[BTAPIClient alloc]initWithAuthorization:token];
     self.info = information;
     self.currentCheckOutMode = mode;
@@ -326,6 +332,8 @@
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion {
     if ((self.applePayIsLoaded && self.currentCheckOutMode == checkoutTwo) || self.currentCheckOutMode == checkoutOne) {
+        self.info.vipPickup = @"0";
+        self.info.isPickup = @"0";
         [self validateShippingAddress:[self addressForContact:contact] andBillingAddress:[self dictionatyOfAddress:self.info.billingAddress] AndInCompletion:^{
             completion(PKPaymentAuthorizationStatusSuccess,[self shippingMethod],[self summaryItems]);
         }];
