@@ -669,6 +669,7 @@
             [self fetchItemsforSearchQuery:[sharedFacetHandler searchString]
                           withFacetsString:[self facetsQueryString:getPreviousSelectedSortType]
                                    success:^(NSDictionary *responseDictionary) {
+                                       _appliedSortButNotFacet = YES;
                                        [self removeViewWithLoader];
                                        [self loadDataWithSelectedSortType:self.titles[0]];
                                    }
