@@ -26,15 +26,42 @@
 #endif
 }
 
++ (NSString *)uID {
+    NSString *uID;
+    if ([[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERID])
+        uID = [[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERID];
+    else
+        uID = @"Anonymous";
+    return uID;
+}
+
 + (void)logScreenWithName:(NSString *)name {
+    [self sendlogScreenWithName:name withCustomDimensions:[NSArray arrayWithObject:[self uID]]];
+}
+
++ (void)logScreenWithName:(NSString *)name WithAdditionalDimensions:(NSArray *)dimensions{
+    NSMutableArray *customField = [[NSMutableArray alloc]init];
+    [customField addObject:[self uID]];
+    for (NSString *dim in dimensions) {
+        [customField addObject:dim];
+    }
+    [self sendlogScreenWithName:name withCustomDimensions:dimensions];
+}
+
++ (void)logEventWithCatrgory:(NSString *)category action:(NSString *)action label:(NSString *)label {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:category
+                                                          action:action
+                                                           label:label
+                                                           value:nil] build]];
+}
+
++ (void)sendlogScreenWithName:(NSString *)name withCustomDimensions:(NSArray *)dimensions {
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:name];
     [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-    if ([[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERID])
-        [tracker set:[GAIFields customDimensionForIndex:1]value:[[BTRSettingManager defaultManager]objectForKeyInSetting:kUSERID]];
-    else
-        [tracker set:[GAIFields customDimensionForIndex:1]value:@"Anonymous"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    for (int i =0;i < [dimensions count];i++)
+        [tracker set:[GAIFields customDimensionForIndex:i+1]value:[dimensions objectAtIndex:i]];
 }
 
 @end

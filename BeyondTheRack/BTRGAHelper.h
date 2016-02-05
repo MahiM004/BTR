@@ -12,5 +12,7 @@
 
 + (void)setupGA;
 + (void)logScreenWithName:(NSString *)name;
++ (void)logScreenWithName:(NSString *)name WithAdditionalDimensions:(NSArray *)dimensions;
++ (void)logEventWithCatrgory:(NSString *)category action:(NSString *)action label:(NSString *)label;
 
 @end
