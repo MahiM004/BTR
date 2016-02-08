@@ -23,6 +23,10 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [BTRGAHelper logScreenWithName:@"/privacy"];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [BTRLoader showLoaderInView:self.view];
     NSString *url = [NSString stringWithFormat:@"%@",[BTRPrivacyFetcher URLforPrivacy]];

@@ -25,6 +25,10 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [BTRGAHelper logScreenWithName:@"/terms"];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [BTRLoader showLoaderInView:self.view];
     NSString *url = [NSString stringWithFormat:@"%@",[BTRTermsFetcher URLforTerms]];
