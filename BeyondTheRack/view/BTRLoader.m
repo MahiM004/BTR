@@ -35,22 +35,22 @@
             [subView removeFromSuperview];
 }
 
-+ (void)showLoaderWithViewDisabled:(UIView *)view withTag:(NSInteger)tag {
++ (void)showLoaderWithViewDisabled:(UIView *)view withLoader:(BOOL)showLoader withTag:(NSInteger)tag {
     UIView * backgroundView = [[UIView alloc]initWithFrame:view.frame];
     backgroundView.backgroundColor = [UIColor clearColor];
     backgroundView.tag = tag;
-    // Uncomment if you want to show the loader. i think it is better to show loader
-    /*
-    RTSpinKitView *spinner = [[RTSpinKitView alloc] initWithStyle:RTSpinKitViewStyleThreeBounce];
-    spinner.color = [UIColor colorWithRed:1.0 green:0.2 blue:0.1 alpha:1];
-    if ([BTRViewUtility isIPAD])
-        spinner.spinnerSize = 300;
-    else
-        spinner.spinnerSize = 100;
-    spinner.tag = kLOADERTAG;
-    spinner.center = CGPointMake(([UIScreen mainScreen].bounds.size.width)/2 - spinner.spinnerSize / 2 + 10, ([UIScreen mainScreen].bounds.size.height)/2 - spinner.spinnerSize);
-    [backgroundView addSubview:spinner];
-     */
+    // Show Loader in view only if you want. i think it is better to show loader
+    if (showLoader == YES) {
+        RTSpinKitView *spinner = [[RTSpinKitView alloc] initWithStyle:RTSpinKitViewStyleThreeBounce];
+        spinner.color = [UIColor colorWithRed:1.0 green:0.2 blue:0.1 alpha:1];
+        if ([BTRViewUtility isIPAD])
+            spinner.spinnerSize = 300;
+        else
+            spinner.spinnerSize = 100;
+        spinner.tag = kLOADERTAG;
+        spinner.center = CGPointMake(([UIScreen mainScreen].bounds.size.width)/2 - spinner.spinnerSize / 2 + 10, ([UIScreen mainScreen].bounds.size.height)/2 - spinner.spinnerSize);
+        [backgroundView addSubview:spinner];
+    }
     [view addSubview:backgroundView];
 }
 + (void)removeLoaderFromViewDisabled:(UIView *)view withTag:(NSInteger)tag {

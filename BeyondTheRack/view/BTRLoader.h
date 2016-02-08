@@ -13,7 +13,7 @@
 + (void)showLoaderInView:(UIView *)view;
 + (void)hideLoaderFromView:(UIView *)view;
 
-+ (void)showLoaderWithViewDisabled:(UIView *)view withTag:(NSInteger)tag;
++ (void)showLoaderWithViewDisabled:(UIView *)view withLoader:(BOOL)showLoader withTag:(NSInteger)tag;
 + (void)removeLoaderFromViewDisabled:(UIView *)view withTag:(NSInteger)tag;
 
 @end

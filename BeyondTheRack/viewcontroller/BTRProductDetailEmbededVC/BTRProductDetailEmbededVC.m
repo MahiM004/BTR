@@ -548,7 +548,7 @@
 }
 
 - (void)addToBag {
-    [BTRLoader showLoaderWithViewDisabled:self.view withTag:555];
+    [BTRLoader showLoaderWithViewDisabled:self.view withLoader:NO withTag:555];
     [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
         if ([successString isEqualToString:@"TRUE"]) {
             [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];

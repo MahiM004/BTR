@@ -84,6 +84,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
     [UIView animateWithDuration:0.02 animations:^{
         [self.collectionView performBatchUpdates:nil completion:nil];
     }];
@@ -360,21 +361,27 @@
     
     frame.origin = [cell convertPoint:correctedOffset toView:self.view];
     CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , cell.productImageView.frame.size.width, cell.productImageView.frame.size.height);
-    UIImageView *startView = [[UIImageView alloc] initWithImage:cell.productImageView.image];
-    [startView setFrame:rect];
-    startView.layer.cornerRadius=5;
-    startView.layer.borderColor=[[UIColor blackColor]CGColor];
-    startView.layer.borderWidth=1;
-    [self.view addSubview:startView];
     
-    CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
-    [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
-
+    [BTRLoader showLoaderWithViewDisabled:self.view withLoader:NO withTag:555];
     [self cartIncrementServerCallToAddProductItem:item withVariant:selelectedSize  success:^(NSString *successString) {
-        if ([successString isEqualToString:@"TRUE"])
+        if ([successString isEqualToString:@"TRUE"]) {
             [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
+            UIImageView *startView = [[UIImageView alloc] initWithImage:cell.productImageView.image];
+            [startView setFrame:rect];
+            startView.layer.cornerRadius=5;
+            startView.layer.borderColor=[[UIColor blackColor]CGColor];
+            startView.layer.borderWidth=1;
+            [self.view addSubview:startView];
+            
+            CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
+            [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
+        } else {
+            [BTRViewUtility showAlert:@"Error Adding" msg:@"Unable to add to bag. Please try adding again"];
+            [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
+        }
     } failure:^(NSError *error) {
-        
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
+        [BTRViewUtility showAlert:@"Error Adding" msg:@"Unable to add to bag. Please try adding again"];
     }];
 }
 

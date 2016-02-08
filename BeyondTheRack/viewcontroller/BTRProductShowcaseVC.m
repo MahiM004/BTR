@@ -517,7 +517,7 @@ typedef enum ScrollDirection {
     CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , cell.productImageView.frame.size.width, cell.productImageView.frame.size.height);
     
     // calling add to bag
-    [BTRLoader showLoaderWithViewDisabled:self.view withTag:555];
+    [BTRLoader showLoaderWithViewDisabled:self.view withLoader:NO withTag:555];
     [self cartIncrementServerCallToAddProductItem:item withVariant:selelectedSize  success:^(NSString *successString) {
         if ([successString isEqualToString:@"TRUE"]) {
             [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
