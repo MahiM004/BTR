@@ -93,9 +93,11 @@
         }
     }];
     
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-    [[DNDonkyCore sharedInstance] initialiseWithAPIKey:@"1KgJgRCYwEhqnA1PHeaKEaQsLaklBN2t8TiBI0gezGFmhmki9Kr7mHTKEGb3QPWeCwia1qDRKNtJbt3wyFyQ"];
-    [self checkForRegisterUser];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+        [[DNDonkyCore sharedInstance] initialiseWithAPIKey:@"1KgJgRCYwEhqnA1PHeaKEaQsLaklBN2t8TiBI0gezGFmhmki9Kr7mHTKEGb3QPWeCwia1qDRKNtJbt3wyFyQ"];
+        [self checkForRegisterUser];
+    });
     
     [BTRGAHelper setupGA];
     
