@@ -548,8 +548,10 @@
 }
 
 - (void)addToBag {
+    [BTRLoader showLoaderWithViewDisabled:self.view withTag:555];
     [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
         if ([successString isEqualToString:@"TRUE"]) {
+            [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
             if ([[self getOriginalVCString] isEqualToString:BAG_SCENE]) {
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return;
@@ -559,7 +561,7 @@
             [self presentViewController:vc animated:YES completion:nil];
         }
     } failure:^(NSError *error) {
-        
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
     }];
 }
 

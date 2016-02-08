@@ -202,7 +202,7 @@ typedef enum ScrollDirection {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-
+    [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
     [BTRGAHelper logScreenWithName:[NSString stringWithFormat:@"event/showcase/%@",self.eventSku]];
     
     [super viewWillAppear:animated];
@@ -517,6 +517,7 @@ typedef enum ScrollDirection {
     CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , cell.productImageView.frame.size.width, cell.productImageView.frame.size.height);
     
     // calling add to bag
+    [BTRLoader showLoaderWithViewDisabled:self.view withTag:555];
     [self cartIncrementServerCallToAddProductItem:item withVariant:selelectedSize  success:^(NSString *successString) {
         if ([successString isEqualToString:@"TRUE"]) {
             [self performSelector:@selector(moveToCheckout) withObject:nil afterDelay:1];
@@ -529,9 +530,14 @@ typedef enum ScrollDirection {
             
             CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
             [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
+        } else {
+            [BTRViewUtility showAlert:@"Error Adding" msg:@"Unable to add to bag. Please try adding again"];
+            [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
         }
-    } failure:^(NSError *error) {
         
+    } failure:^(NSError *error) {
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
+        [BTRViewUtility showAlert:@"Error Adding" msg:@"Unable to add to bag. Please try adding again"];
     }];
 }
 
