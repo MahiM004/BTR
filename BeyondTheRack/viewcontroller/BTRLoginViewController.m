@@ -297,7 +297,7 @@
 }
 
 - (void)alertUserForLoginError {
-    [[[UIAlertView alloc] initWithTitle:@"Please try agian"
+    [[[UIAlertView alloc] initWithTitle:@"Please try again"
                                 message:@"Email or Password Incorrect !"
                                delegate:self
                       cancelButtonTitle:nil
