@@ -28,7 +28,6 @@
 #import "BTRProductDetailEmbededVC.h"
 
 @interface BTRShoppingBagViewController () {
-    PKYStepper * pkStepper;
     Item * selectedItemToPDP;
     NSString * selectedItemEventID;
 }
@@ -152,8 +151,7 @@
         [UIImageView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:weakcell.itemImageView cache:YES];
         [UIImageView setAnimationDuration:0.5];
         [UIImageView commitAnimations];
-        stepper.userInteractionEnabled = NO;
-        pkStepper = stepper;
+        [BTRLoader showLoaderWithViewDisabled:self.view withLoader:YES withTag:222];
         [self performSelector:@selector(addOneQuantityForItem:) withObject:bagItem afterDelay:0.5];
     };
     cell.stepper.decrementCallback = ^(PKYStepper *stepper, float count) {
@@ -165,8 +163,7 @@
             [UIImageView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:weakcell.itemImageView cache:YES];
             [UIImageView setAnimationDuration:0.5];
             [UIImageView commitAnimations];
-            stepper.userInteractionEnabled = NO;
-            pkStepper = stepper;
+            [BTRLoader showLoaderWithViewDisabled:self.view withLoader:YES withTag:444];
             [self performSelector:@selector(removeOneQuantityForItem:) withObject:bagItem afterDelay:0.5];
         }
     };
@@ -313,10 +310,11 @@
                               @"variant": [bagItem variant],
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:222];
         [self reloadInfoWithResponse:response];
 //        [self performSelector:@selector(reloadInfoWithResponse:) withObject:response afterDelay:0.5];
     }faild:^(NSError *error) {
-        pkStepper.userInteractionEnabled = YES;
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:222];
     }];
 }
 
@@ -328,9 +326,10 @@
                               @"variant": [bagItem variant],
                               });
     [BTRConnectionHelper postDataToURL:url withParameters:(NSDictionary *)params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:444];
         [self performSelector:@selector(reloadInfoWithResponse:) withObject:response afterDelay:0.5];
     }faild:^(NSError *error) {
-        pkStepper.userInteractionEnabled = YES;
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:444];
     }];
 }
 
@@ -603,7 +602,6 @@
         [self.emptyLabel setHidden:NO];
         self.emptyLabel.text = [response valueForKey:@"message"];
     }
-    pkStepper.userInteractionEnabled = YES;
 }
 
 - (void)masterPassInfoDidReceived:(NSDictionary *)info {
