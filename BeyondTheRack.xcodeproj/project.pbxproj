@@ -976,10 +976,10 @@
 		692F24D11AA8E093003AABE1 /* Product */ = {
 			isa = PBXGroup;
 			children = (
-				6965085D1AA4B47C00ED28B8 /* BTRProductShowcaseVC.h */,
-				6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */,
 				14F378A31BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.h */,
 				14F378A41BE9D58E00E0D6D8 /* BTRProductDetailEmbededVC.m */,
+				6965085D1AA4B47C00ED28B8 /* BTRProductShowcaseVC.h */,
+				6965085E1AA4B47C00ED28B8 /* BTRProductShowcaseVC.m */,
 				692F24E21AAF7BC5003AABE1 /* BTRZoomImageViewController.h */,
 				692F24E31AAF7BC5003AABE1 /* BTRZoomImageViewController.m */,
 				6901E9DF1AC9901D002534D9 /* BTRSelectSizeVC.h */,

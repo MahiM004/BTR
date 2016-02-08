@@ -696,16 +696,13 @@
                 viewHeight = screenBounds.size.height;
             }
             
-            UIView * pageController;
-            if ([self productImageCount] > 1) {
-                pageController = [[UIView alloc]initWithFrame:CGRectMake(0, viewHeight - 145-37, viewWidth/2, 37)];
-                pageController.tag = 505;
-                iPadPageController = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, viewWidth/2, 37)];
-                iPadPageController.pageIndicatorTintColor = [UIColor grayColor];
-                iPadPageController.currentPageIndicatorTintColor = [UIColor redColor];
-                iPadPageController.numberOfPages = [self productImageCount];
-                [pageController addSubview:iPadPageController];
-            }
+            UIView * pageController = [[UIView alloc]initWithFrame:CGRectMake(0, viewHeight - 145-37, viewWidth/2, 37)];
+            pageController.tag = 505;
+            iPadPageController = [[UIPageControl alloc]initWithFrame:CGRectMake(0, 0, viewWidth/2, 37)];
+            iPadPageController.pageIndicatorTintColor = [UIColor grayColor];
+            iPadPageController.currentPageIndicatorTintColor = [UIColor redColor];
+            iPadPageController.numberOfPages = [self productImageCount];
+            [pageController addSubview:iPadPageController];
             [view1 setFrame:CGRectMake(0, 75, viewWidth / 2, viewHeight - 145)];
             [view2 setFrame:CGRectMake(viewWidth/2, 75, viewWidth / 2, viewHeight - 145)];
             [detailTV setFrame:CGRectMake(0, 0, viewWidth / 2, viewHeight - 145)];
