@@ -53,7 +53,7 @@
     another.promoItems = self.promoItems;
     another.promoShipName = self.promoShipName;
     another.promoShipPhone = self.promoShipPhone;
-    another.promoShippingAddress = self.shippingAddress;
+    another.promoShippingAddress = self.promoShippingAddress;
     another.recipientGiftMessage = self.recipientGiftMessage;
     another.rememberCard = self.rememberCard;
     another.requireCcv = self.requireCcv;
