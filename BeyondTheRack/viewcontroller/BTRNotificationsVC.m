@@ -213,6 +213,7 @@
 
 - (void)emailGroupUpdated:(NSNotification *)notification {
     [self setChosenEmailFrequencyString:self.emailNotificationGroup.selectedRadioButton.data.identifier];
+    [BTRGAHelper logEventWithCatrgory:@"email notifications" action:@"click" label:self.emailNotificationGroup.selectedRadioButton.lblLabel.text];
 }
 
 

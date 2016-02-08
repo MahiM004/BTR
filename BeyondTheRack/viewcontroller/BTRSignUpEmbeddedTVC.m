@@ -134,6 +134,7 @@
                           [self fetchFacebookUserSessionforFacebookUserParams:fbParams success:^(NSString *didLogIn) {
                               if ([didLogIn isEqualToString:@"TRUE"])
                                   [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                                      [BTRGAHelper logEventWithCatrgory:@"user registration" action:@"new use" label:@"new user registered via facebook"];
                                       [self sendNotification];
                                   }];
                               else
@@ -167,6 +168,7 @@
                     [sender hideLoading];
                     if ([didSignUp  isEqualToString:@"TRUE"]) {
                             [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                                [BTRGAHelper logEventWithCatrgory:@"user registration" action:@"new use" label:@"new user registered via email"];
                                 [self sendNotification];
                             }];
                     } else {

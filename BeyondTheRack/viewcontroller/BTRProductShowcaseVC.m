@@ -202,8 +202,9 @@ typedef enum ScrollDirection {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
-    [BTRGAHelper logScreenWithName:[NSString stringWithFormat:@"event/showcase/%@",self.eventSku]];
+    [BTRGAHelper logScreenWithName:[NSString stringWithFormat:@"/event/showcase/%@",self.eventSku]];
     
     [super viewWillAppear:animated];
     [UIView animateWithDuration:0.02 animations:^{
@@ -517,6 +518,8 @@ typedef enum ScrollDirection {
     CGRect rect = CGRectMake(cellOrigin.x, frame.origin.y + self.headerView.frame.size.height , cell.productImageView.frame.size.width, cell.productImageView.frame.size.height);
     
     // calling add to bag
+    
+    [BTRGAHelper logEventWithCatrgory:@"showcase" action:@"click" label:@"add to bag"];
     [BTRLoader showLoaderWithViewDisabled:self.view withLoader:NO withTag:555];
     [self cartIncrementServerCallToAddProductItem:item withVariant:selelectedSize  success:^(NSString *successString) {
         if ([successString isEqualToString:@"TRUE"]) {

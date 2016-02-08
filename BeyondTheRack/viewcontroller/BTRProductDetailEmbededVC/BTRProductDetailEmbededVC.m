@@ -548,6 +548,7 @@
 }
 
 - (void)addToBag {
+    [BTRGAHelper logEventWithCatrgory:@"pdp" action:@"click" label:@"add to bag"];
     [BTRLoader showLoaderWithViewDisabled:self.view withLoader:NO withTag:555];
     [self cartIncrementServerCallWithSuccess:^(NSString *successString) {
         if ([successString isEqualToString:@"TRUE"]) {
