@@ -36,7 +36,7 @@
 }
 
 + (void)logScreenWithName:(NSString *)name {
-    [self sendlogScreenWithName:name withCustomDimensions:[NSArray arrayWithObject:[self uID]]];
+    [self sendlogScreenWithName:name withCustomDimensions:nil];
 }
 
 + (void)logScreenWithName:(NSString *)name WithAdditionalDimensions:(NSArray *)dimensions{
