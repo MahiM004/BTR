@@ -14,6 +14,8 @@
 #import "BTRCategoryData.h"
 #import "BTRConnectionHelper.h"
 #import "BTRLoader.h"
+#import "BTRAppDelegate.h"
+#import "BTRNoInternetConnectionViewController.h"
 
 @interface BTRInitializeViewController ()
 
@@ -32,8 +34,15 @@
             [self performSegueWithIdentifier:@"BTRMainSceneSegueIdentifier" sender:self];
         } failure:^(NSError *error) {
             [BTRLoader hideLoaderFromView:self.view];
+            BTRAppDelegate *appdel = (BTRAppDelegate *)[[UIApplication sharedApplication]delegate];
+            if ([appdel connected] == 0)  {
+                BTRNoInternetConnectionViewController *noInt = [[BTRNoInternetConnectionViewController alloc]initWithNibName:@"BTRNoInternetView" bundle:nil];
+                [self presentViewController:noInt animated:YES completion:nil];
+            } else {
+                BTRNoInternetConnectionViewController *noInt = [[BTRNoInternetConnectionViewController alloc]initWithNibName:@"BTRNoInternetView" bundle:nil];
+                [self presentViewController:noInt animated:YES completion:nil];
+            }
         }];
-        
     });
     
 }
