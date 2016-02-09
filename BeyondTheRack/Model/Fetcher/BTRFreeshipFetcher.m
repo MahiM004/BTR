@@ -15,7 +15,7 @@
 }
 
 + (NSURL *)URLforImage:(NSString *)imageURL withBaseURL:(NSString *)baseURL{
-    return [self URLForQuery:[NSString stringWithFormat:@"http:%@%@", [baseURL stringByReplacingOccurrencesOfString:@"\\" withString:@""],[imageURL stringByReplacingOccurrencesOfString:@"\\" withString:@""]]];
+    return [self URLForQuery:[NSString stringWithFormat:@"https:%@%@", [baseURL stringByReplacingOccurrencesOfString:@"\\" withString:@""],[imageURL stringByReplacingOccurrencesOfString:@"\\" withString:@""]]];
 }
 
 @end

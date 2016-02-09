@@ -78,7 +78,7 @@
 
 //Dynamic Domain
 + (NSURL *)URLforItemImageForSkuWithDomain:(NSString *)domainURL withSku:(NSString*)sku{
-    return [self URLForQuery:[NSString stringWithFormat:@"http:%@/productimages/%@/medium/%@_1.jpg", [domainURL stringByReplacingOccurrencesOfString:@"\\" withString:@""],sku,sku]];
+    return [self URLForQuery:[NSString stringWithFormat:@"https:%@/productimages/%@/medium/%@_1.jpg", [domainURL stringByReplacingOccurrencesOfString:@"\\" withString:@""],sku,sku]];
 }
 
 //Static Domain
@@ -88,7 +88,7 @@
 
 //Dynamic Domain
 + (NSURL *)URLforItemImageForSkuWithDomain:(NSString *)domainURL withSku:(NSString*)sku withCount:(NSInteger)countNumber andSize:(NSString *)sizeString {
-    return [self URLForQuery:[NSString stringWithFormat:@"http:%@/productimages/%@/%@/%@_%ld.jpg", [domainURL stringByReplacingOccurrencesOfString:@"\\" withString:@""],sku, sizeString, sku, (long)countNumber]];
+    return [self URLForQuery:[NSString stringWithFormat:@"https:%@/productimages/%@/%@/%@_%ld.jpg", [domainURL stringByReplacingOccurrencesOfString:@"\\" withString:@""],sku, sizeString, sku, (long)countNumber]];
 }
 
 + (NSURL *)URLtoShareforEventId:(NSString *)eventId withProductSku:(NSString *)productSku {
