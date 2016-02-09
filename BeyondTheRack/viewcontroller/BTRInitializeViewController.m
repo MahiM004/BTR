@@ -39,7 +39,7 @@
                 BTRNoInternetConnectionViewController *noInt = [[BTRNoInternetConnectionViewController alloc]initWithNibName:@"BTRNoInternetView" bundle:nil];
                 [self presentViewController:noInt animated:YES completion:nil];
             } else {
-                BTRNoInternetConnectionViewController *noInt = [[BTRNoInternetConnectionViewController alloc]initWithNibName:@"BTRNoInternetView" bundle:nil];
+                BTRNoInternetConnectionViewController *noInt = [[BTRNoInternetConnectionViewController alloc]initWithNibName:@"BTRErrorView" bundle:nil];
                 [self presentViewController:noInt animated:YES completion:nil];
             }
         }];
