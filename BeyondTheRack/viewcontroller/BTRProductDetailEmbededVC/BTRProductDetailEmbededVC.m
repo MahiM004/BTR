@@ -978,6 +978,7 @@
 }
 
 - (void)flatRateShipping {
+    [BTRLoader showLoaderWithViewDisabled:self.view withLoader:YES withTag:143];
     NSString *url = [NSString stringWithFormat:@"%@",[BTRSKUContentFetcher URLForContent]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
         SKUContents *content = [[SKUContents alloc]init];
@@ -994,8 +995,9 @@
         [customAlert setContainerView:pop];
         [customAlert setUseMotionEffects:false];
         [customAlert show];
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:143];
     } faild:^(NSError *error) {
-        
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:143];
     }];
 }
 
