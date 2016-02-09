@@ -803,6 +803,11 @@
 }
 
 - (void)shareOnEmailTapped:(UIButton *)sender  {
+    if ([MFMailComposeViewController canSendMail] == NO) {
+        [[[UIAlertView alloc]initWithTitle:@"No Mail Accounts" message:@"Please set up an Mail account in order to share." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil]show];
+        return;
+    }
+    
     MFMailComposeViewController *emailVC = [[MFMailComposeViewController alloc]init];
     [emailVC setMailComposeDelegate:self];
     [emailVC setMessageBody:[NSString stringWithFormat:@"<HTML>%@</br><a href=\"%@\">%@</a><HTML>",SOCIAL_MEDIA_INIT_STRING,[BTRItemFetcher URLtoShareforEventId:_getEventID withProductSku:[self productSku]],[self productSku]] isHTML:YES];
@@ -978,6 +983,7 @@
 }
 
 - (void)flatRateShipping {
+    [BTRLoader showLoaderWithViewDisabled:self.view withLoader:YES withTag:143];
     NSString *url = [NSString stringWithFormat:@"%@",[BTRSKUContentFetcher URLForContent]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:NO contentType:kContentTypeJSON success:^(NSDictionary *response ,NSString *jSonString) {
         SKUContents *content = [[SKUContents alloc]init];
@@ -994,8 +1000,9 @@
         [customAlert setContainerView:pop];
         [customAlert setUseMotionEffects:false];
         [customAlert show];
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:143];
     } faild:^(NSError *error) {
-        
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:143];
     }];
 }
 
