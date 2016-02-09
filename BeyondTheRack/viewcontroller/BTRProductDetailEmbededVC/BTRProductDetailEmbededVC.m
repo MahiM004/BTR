@@ -803,6 +803,11 @@
 }
 
 - (void)shareOnEmailTapped:(UIButton *)sender  {
+    if ([MFMailComposeViewController canSendMail] == NO) {
+        [[[UIAlertView alloc]initWithTitle:@"No Mail Accounts" message:@"Please set up an Mail account in order to share." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil]show];
+        return;
+    }
+    
     MFMailComposeViewController *emailVC = [[MFMailComposeViewController alloc]init];
     [emailVC setMailComposeDelegate:self];
     [emailVC setMessageBody:[NSString stringWithFormat:@"<HTML>%@</br><a href=\"%@\">%@</a><HTML>",SOCIAL_MEDIA_INIT_STRING,[BTRItemFetcher URLtoShareforEventId:_getEventID withProductSku:[self productSku]],[self productSku]] isHTML:YES];
