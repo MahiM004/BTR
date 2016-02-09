@@ -1,3 +1,4 @@
+
 //
 //  BTRConnectionHelper.m
 //  BeyondTheRack
@@ -13,11 +14,12 @@
 + (void)postDataToURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-    securityPolicy.validatesDomainName = NO;
-    [manager setSecurityPolicy:securityPolicy];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     
+//    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+//    securityPolicy.validatesDomainName = NO;
+//    [manager setSecurityPolicy:securityPolicy];
+    
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:contentType];
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -42,11 +44,12 @@
 + (void)getDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response,NSString *jSonString))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-    securityPolicy.validatesDomainName = NO;
-    [manager setSecurityPolicy:securityPolicy];
-    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     
+//    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+//    securityPolicy.validatesDomainName = NO;
+//    [manager setSecurityPolicy:securityPolicy];
+    
+    AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     serializer.acceptableContentTypes = [NSSet setWithObject:contentType];
     manager.responseSerializer = serializer;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -71,9 +74,11 @@
 + (void)putDataFromURL:(NSString *)url withParameters:(NSDictionary *)param setSessionInHeader:(BOOL)needSession contentType:(ContentType)contentType success:(void (^) (NSDictionary *response))success faild:(void (^) (NSError *error))faild {
     BTRSessionSettings *sessionSettings = [BTRSessionSettings sessionSettings];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-    securityPolicy.validatesDomainName = NO;
-    [manager setSecurityPolicy:securityPolicy];
+    
+//    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+//    securityPolicy.validatesDomainName = NO;
+//    [manager setSecurityPolicy:securityPolicy];
+    
     AFHTTPResponseSerializer *serializer = [AFHTTPResponseSerializer serializer];
     
     serializer.acceptableContentTypes = [NSSet setWithObject:contentType];
