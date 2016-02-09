@@ -1362,16 +1362,24 @@
 }
 
 - (IBAction)buyWithApplePay:(UIButton *)sender {
-    self.order.shippingAddress.phoneNumber = self.phoneShippingTF.text;
-    self.applePayManager = [[ApplePayManager alloc]init];
-    self.applePayManager.delegate = self;
-    [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
-        [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:self.order checkoutMode:checkoutTwo];
-        [self.applePayManager setSelectedPromoGifts:self.selectedGift];
-        [self.applePayManager setRecipientMessage:self.giftMessageTF.text];
-        [self.applePayManager showPaymentViewFromViewController:self];
-    } failure:^(NSError *error) {
-    }];
+    if ([self isShippingAddressCompeleted]) {
+        // copy address
+        self.order.shippingAddress.name = self.recipientNameShippingTF.text;
+        self.order.shippingAddress.addressLine1 = self.addressLine1ShippingTF.text;
+        self.order.shippingAddress.addressLine2 = self.addressLine2ShippingTF.text;
+        self.order.shippingAddress.phoneNumber = self.phoneShippingTF.text;
+        // call applepay
+        self.applePayManager = [[ApplePayManager alloc]init];
+        self.applePayManager.delegate = self;
+        [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
+            [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:[self.order copy] checkoutMode:checkoutTwo];
+            [self.applePayManager setSelectedPromoGifts:self.selectedGift];
+            [self.applePayManager setRecipientMessage:self.giftMessageTF.text];
+            [self.applePayManager showPaymentViewFromViewController:self];
+        } failure:^(NSError *error) {
+        }];
+
+    }
 }
 
 - (IBAction)setupApplePay:(UIButton *)sender {
