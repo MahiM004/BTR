@@ -760,8 +760,8 @@
 }
 
 - (void)showLogin {
-    BTRLoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginViewController"];
-    [self presentViewController:login animated:YES completion:nil];
+    UINavigationController *navigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"BTRLoginNavigation"];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)userDidLogin:(NSNotification *) notification {
