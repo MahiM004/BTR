@@ -470,22 +470,83 @@
         NSString *token = [responseObject valueForKey:@"token"];
         [self getCheckoutInfoSuccess:^(id responseObject) {
             self.order = [Order extractOrderfromJSONDictionary:responseObject forOrder:self.order isValidating:NO];
+            BOOL needValidate = NO;
             if (self.order.allTotalPrice.doubleValue == 0 && [self.order.shippingAddress.postalCode length] > 0) {
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Good news!" message:@"You have enough credits to pay for your order.\nPlease complete your order on the checkout page without Apple Pay." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 alert.tag = 200;
                 [alert show];
                 return;
+                // validation required
             } else if (self.order.allTotalPrice.doubleValue == 0){
                 self.order.allTotalPrice = @"0.99";
             }
-            [self.applePayManager initWithClientWithToken:token andOrderInfromation:[self.order copy] checkoutMode:checkoutOne];
-            [self.applePayManager showPaymentViewFromViewController:self];
-        } failure:^(NSError *error) {
+            if ([self.order.isFreeshipAddress boolValue]) {
+                self.order.shippingAddress = self.order.promoShippingAddress;
+                needValidate = YES;
+            } else if ([self.order.isPickup boolValue] || [self.order.vipPickup boolValue]) {
+                if ([self.order.shippingAddress.name length] > 0 && [self.order.shippingAddress.phoneNumber length] >0) {
+                    self.order.shippingAddress.addressLine1 = self.order.pickupAddress.addressLine1;
+                    self.order.shippingAddress.addressLine2 = self.order.pickupAddress.addressLine2;
+                    self.order.shippingAddress.postalCode = self.order.pickupAddress.postalCode;
+                    self.order.shippingAddress.city = self.order.pickupAddress.city;
+                    self.order.shippingAddress.province = self.order.pickupAddress.province;
+                    self.order.shippingAddress.country = self.order.pickupAddress.country;
+                    needValidate = YES;
+                }else {
+                    self.order.isPickup = NO;
+                    self.order.vipPickup = NO;
+                }
+            }
+            if (needValidate) {
+                [self validateAddressViaAPIAndInCompletion:^{
+                    [self.applePayManager initWithClientWithToken:token andOrderInfromation:[self.order copy] checkoutMode:checkoutOne];
+                    [self.applePayManager showPaymentViewFromViewController:self];
+                }];
+            } else {
+                [self.applePayManager initWithClientWithToken:token andOrderInfromation:[self.order copy] checkoutMode:checkoutOne];
+                [self.applePayManager showPaymentViewFromViewController:self];
+            }
             
+        } failure:^(NSError *error) {
         }];
     } failure:^(NSError *error) {
     }];
 }
+
+- (void)validateAddressViaAPIAndInCompletion:(void(^)())completionBlock; {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
+    
+    [orderInfo setObject:[self dictionaryFromAddress:self.order.shippingAddress] forKey:@"shipping"];
+    [orderInfo setObject:[self dictionaryFromAddress:self.order.billingAddress] forKey:@"billing"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.order.billingSameAsShipping boolValue]] forKey:@"billto_shipto"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.order.isGift boolValue]] forKey:@"is_gift"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.order.vipPickup boolValue]] forKey:@"vip_pickup"];
+    [orderInfo setObject:[NSNumber numberWithBool:[self.order.isPickup boolValue]] forKey:@"is_pickup"];
+    [params setObject:orderInfo forKey:@"orderInfo"];
+    [params setObject:@[] forKey:@"vanity_codes"];
+    
+    NSString* url = [NSString stringWithFormat:@"%@", [BTROrderFetcher URLforAddressValidation]];
+    [BTRConnectionHelper postDataToURL:url withParameters:params setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response) {
+        self.order = [Order extractOrderfromJSONDictionary:response forOrder:self.order isValidating:YES];
+        if (completionBlock)
+            completionBlock(nil);
+    } faild:^(NSError *error) {
+    }];
+}
+
+- (NSDictionary *)dictionaryFromAddress:(Address *)address {
+    NSDictionary *info = (@{@"name": address.name,
+                            @"address1": address.addressLine1,
+                            @"address2": address.addressLine2,
+                            @"country": address.country,
+                            @"postal": address.postalCode,
+                            @"state": address.province,
+                            @"city": address.city,
+                            @"phone": address.phoneNumber });
+    return info;
+}
+
 
 - (IBAction)setupApplePay:(UIButton *)sender {
     [self.applePayManager setupApplePay];

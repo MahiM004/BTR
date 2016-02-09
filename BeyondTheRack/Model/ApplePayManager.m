@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSString *nonce;
 @property (nonatomic, strong) PKPaymentAuthorizationViewController *vc;
 @property (nonatomic) BOOL applePayIsLoaded;
+@property (nonatomic) BOOL addressChanged;
 @property (nonatomic) checkoutMode currentCheckOutMode;
 
 @end
@@ -49,12 +50,11 @@
     paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.requiredBillingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
-    if ([self.info.isPickup boolValue] || [self.info.vipPickup boolValue])
-        paymentRequest.shippingAddress = [self recordFromAddress:self.info.pickupAddress withLabel:@"Pickup"];
-    else if (self.info.shippingAddress.postalCode.length > 0)
+    if ([self.info.shippingAddress.postalCode length] > 0) {
+        paymentRequest.shippingContact = [self contactForAddress:self.info.shippingAddress];
         paymentRequest.shippingAddress = [self recordFromAddress:self.info.shippingAddress withLabel:@"Shipping"];
+    }
     paymentRequest.billingContact = [self contactForAddress:self.info.billingAddress];
-    paymentRequest.shippingContact = [self contactForAddress:self.info.shippingAddress];
     paymentRequest.merchantCapabilities = PKMerchantCapability3DS;
     paymentRequest.countryCode = [self.info.country uppercaseString];
     paymentRequest.currencyCode = [self.info.currency uppercaseString];
@@ -137,9 +137,9 @@
     }
     else if ([self.info.vipPickup boolValue]){
         PKShippingMethod *newMethod = [[PKShippingMethod alloc]init];
-        [newMethod setLabel:self.info.pickupTitle];
+        [newMethod setLabel:@"VIP PICKUP"];
         [newMethod setIdentifier:@"VIPPICKUP"];
-        [newMethod setDetail:[self stringOfAddress:[self.info pickupAddress]]];
+        [newMethod setDetail:[self.info pickupTitle]];
         [newMethod setAmount:[NSDecimalNumber decimalNumberWithString:@"0"]];
         [shippingMethods addObject:newMethod];
     } else {
@@ -178,6 +178,7 @@
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController {
     [BTRGAHelper logScreenWithName:@"/checkout/ApplePay"];
     self.applePayIsLoaded = NO;
+    self.addressChanged = NO;
     PKPaymentRequest *paymentRequest = [self paymentRequest];
     self.vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
     self.vc.delegate = self;
@@ -238,7 +239,11 @@
     [order setObject:nonce forKey:@"applePay"];
     
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc]init];
-    [orderInfo setObject:[self addressForContact:self.paymentInfo.shippingContact] forKey:@"shipping"];
+    if (!self.addressChanged) {
+        [orderInfo setObject:[self dictionatyOfAddress:self.info.shippingAddress] forKey:@"shipping"];
+    }
+    else
+        [orderInfo setObject:[self addressForContact:self.paymentInfo.shippingContact] forKey:@"shipping"];
     [orderInfo setObject:[self addressForContact:self.paymentInfo.billingContact] forKey:@"billing"];
     [orderInfo setObject:[NSNumber numberWithBool:self.info.isPickup.boolValue] forKey:@"is_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:self.info.vipPickup.boolValue] forKey:@"vip_pickup"];
@@ -335,6 +340,7 @@
         self.info.vipPickup = @"0";
         self.info.isPickup = @"0";
         [self validateShippingAddress:[self addressForContact:contact] andBillingAddress:[self dictionatyOfAddress:self.info.billingAddress] AndInCompletion:^{
+            self.addressChanged = YES;
             completion(PKPaymentAuthorizationStatusSuccess,[self shippingMethod],[self summaryItems]);
         }];
     }
