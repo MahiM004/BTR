@@ -1605,8 +1605,11 @@
         return NO;
     }
     
-    if (self.phoneShippingTF.text.length == 0) {
-        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter your phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+    if (self.phoneShippingTF.text.length < 8 || self.phoneShippingTF.text.length > 15) {
+        if (self.phoneShippingTF.text.length == 0)
+            [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter your shipping phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        else
+            [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please check your shipping phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.phoneShippingTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.phoneShippingTF.frame animated:YES];
         return NO;
@@ -1627,6 +1630,15 @@
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please re-check your shipping postal code" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.postalCodeBillingTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.postalCodeBillingTF.frame animated:YES];
+        return NO;
+    }
+    if (self.phoneBillingTF.text.length < 8 || self.phoneBillingTF.text.length > 15) {
+        if (self.phoneBillingTF.text.length == 0)
+            [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter your billing phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        else
+            [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please check your billing phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [self.phoneBillingTF becomeFirstResponder];
+        [self.scrollView scrollRectToVisible:self.phoneBillingTF.frame animated:YES];
         return NO;
     }
     return YES;
