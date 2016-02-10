@@ -287,7 +287,7 @@
     else
         [addressDic setObject:@" " forKey:@"address1"];
     
-    [addressDic setObject:@" " forKey:@"address2"];
+    [addressDic setObject:@"" forKey:@"address2"];
 
     if ([contact.postalAddress.ISOCountryCode length] > 0)
         [addressDic setObject:[contact.postalAddress.ISOCountryCode uppercaseString] forKey:@"country"];
