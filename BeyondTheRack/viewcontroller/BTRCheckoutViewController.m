@@ -1020,13 +1020,13 @@
     else {
         if  (self.order.cardHolderName.length > 0)
             self.nameOnCardPaymentTF.text = self.order.cardHolderName;
-        if (self.cardNumberPaymentTF.text.length == 0)
+        if (self.order.cardNumber.length > 0)
             [self.cardNumberPaymentTF setText:self.order.cardNumber];
-        if (self.expiryYearPaymentTF.text.length == 0)
+        if (self.order.expiryYear.length > 0)
             [self.expiryYearPaymentTF setText:[self.order expiryYear]];
         if (self.order.expiryMonth.length > 0)
             [self.expiryMonthPaymentTF setText:[self.expiryMonthsArray objectAtIndex:[[self.order expiryMonth]intValue] - 1]];
-        if (self.order.cardType.length > 0 && self.order.cardType.length > 0 )
+        if (self.order.cardType.length > 0 )
             [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
         [self setCurrentPaymentType:creditCard];
     }
