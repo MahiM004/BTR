@@ -293,15 +293,29 @@
             [addressDic setObject:[contact.postalAddress postalCode] forKey:@"postal"];
     }
     else
-        [addressDic setObject:@" " forKey:@"postal"];
+        [addressDic setObject:@"" forKey:@"postal"];
     
-    if (contact.postalAddress.street)
-        [addressDic setObject:contact.postalAddress.street forKey:@"address1"];
-    else
-        [addressDic setObject:@" " forKey:@"address1"];
+    if (contact.postalAddress.street) {
+        NSArray *array = [contact.postalAddress.street componentsSeparatedByString:@"\n"];
+        if ([array count] == 1) {
+            [addressDic setObject:contact.postalAddress.street forKey:@"address1"];
+            [addressDic setObject:@"" forKey:@"address2"];
+        } else {
+            NSString *addressOne = @"";
+            for (int i = 0; i <([array count] / 2); i++)
+                addressOne = [addressOne stringByAppendingString:[array objectAtIndex:i]];
+            NSString *addressTwo = @"";
+            for (int i = ([array count] / 2); i <[array count]; i++)
+                addressTwo = [addressTwo stringByAppendingString:[array objectAtIndex:i]];
+            [addressDic setObject:addressOne forKey:@"address1"];
+            [addressDic setObject:addressTwo forKey:@"address2"];
+        }
+    }
+    else {
+        [addressDic setObject:@"" forKey:@"address1"];
+        [addressDic setObject:@"" forKey:@"address2"];
+    }
     
-    [addressDic setObject:@"" forKey:@"address2"];
-
     if ([contact.postalAddress.ISOCountryCode length] > 0)
         [addressDic setObject:[contact.postalAddress.ISOCountryCode uppercaseString] forKey:@"country"];
     else if ([contact.postalAddress.country isEqualToString:@"United States"])
@@ -309,24 +323,24 @@
     else if ([contact.postalAddress.country isEqualToString:@"Canada"])
         [addressDic setObject:@"CA" forKey:@"country"];
     else
-        [addressDic setObject:@" " forKey:@"country"];
+        [addressDic setObject:@"" forKey:@"country"];
     
     if (contact.postalAddress.state && contact.postalAddress.state.length > 2)
         [addressDic setObject:[BTRViewUtility provinceCodeforName:contact.postalAddress.state] forKey:@"state"];
     else if (contact.postalAddress)
         [addressDic setObject:contact.postalAddress.state forKey:@"state"];
     else
-        [addressDic setObject:@" " forKey:@"state"];
+        [addressDic setObject:@"" forKey:@"state"];
     
     if (contact.phoneNumber)
         [addressDic setObject:contact.phoneNumber.stringValue forKey:@"phone"];
     else
-        [addressDic setObject:@" " forKey:@"phone"];
+        [addressDic setObject:@"" forKey:@"phone"];
     
     if (contact.postalAddress.city)
         [addressDic setObject:contact.postalAddress.city forKey:@"city"];
     else
-        [addressDic setObject:@" " forKey:@"city"];
+        [addressDic setObject:@"" forKey:@"city"];
     return addressDic;
 }
 
