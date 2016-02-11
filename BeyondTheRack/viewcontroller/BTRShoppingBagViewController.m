@@ -493,8 +493,8 @@
                     self.order.shippingAddress.country = self.order.pickupAddress.country;
                     needValidate = YES;
                 }else {
-                    self.order.isPickup = NO;
-                    self.order.vipPickup = NO;
+                    self.order.isPickup = @"0";
+                    self.order.vipPickup = @"0";
                 }
             }
             if (needValidate) {
