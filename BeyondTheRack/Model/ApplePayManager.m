@@ -46,7 +46,7 @@
 
 - (PKPaymentRequest *)paymentRequest {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
-    paymentRequest.merchantIdentifier = @"merchant.beyondtherack.com.prod";
+    paymentRequest.merchantIdentifier = @"merchant.com.beyondtherack.sandbox";
     paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.requiredBillingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
@@ -192,7 +192,20 @@
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
                        didAuthorizePayment:(PKPayment *)payment
                                 completion:(void (^)(PKPaymentAuthorizationStatus status))completion{
-   
+    
+    if (![self isContactCompelet:payment.shippingContact]) {
+        completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress);
+        return;
+    }
+    if (![self isPhoneNumberCompeletInContact:payment.shippingContact]) {
+        completion(PKPaymentAuthorizationStatusInvalidShippingContact);
+        return;
+    }
+    if (![self isContactCompelet:payment.billingContact]) {
+        completion(PKPaymentAuthorizationStatusInvalidBillingPostalAddress);
+        return;
+    }
+    
     BTApplePayClient *applePayClient = [[BTApplePayClient alloc]
                                         initWithAPIClient:self.braintreeClient];
     self.paymentInfo = payment;
@@ -336,9 +349,13 @@
 }
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion {
+    self.info.vipPickup = @"0";
+    self.info.isPickup = @"0";
+    if (![self isContactCompeletForValidate:contact]) {
+        completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress,[self shippingMethod],[self summaryItems]);
+        return;
+    }
     if ((self.applePayIsLoaded && self.currentCheckOutMode == checkoutTwo) || self.currentCheckOutMode == checkoutOne) {
-        self.info.vipPickup = @"0";
-        self.info.isPickup = @"0";
         [self validateShippingAddress:[self addressForContact:contact] andBillingAddress:[self dictionatyOfAddress:self.info.billingAddress] AndInCompletion:^{
             self.addressChanged = YES;
             completion(PKPaymentAuthorizationStatusSuccess,[self shippingMethod],[self summaryItems]);
@@ -348,6 +365,43 @@
         completion(PKPaymentAuthorizationStatusSuccess,[self shippingMethod],[self summaryItems]);
     }
 }
+
+- (BOOL)isContactCompeletForValidate:(PKContact *)contact {
+    if ([[[contact postalAddress]postalCode]length] == 0)
+        return NO;
+    if ([[[contact postalAddress]city]length] == 0)
+        return NO;
+    if ([[[contact postalAddress]state]length] == 0)
+        return NO;
+    if ([[[contact postalAddress]country]length] == 0)
+        return NO;
+    return YES;
+}
+
+- (BOOL)isContactCompelet:(PKContact *)contact {
+    if ([[[contact name]familyName]length] == 0)
+        return NO;
+    if ([[[contact postalAddress]street]length] == 0)
+        return NO;
+    if ([[[contact postalAddress]postalCode]length] == 0)
+        return NO;
+    if ([[[contact postalAddress]city]length] == 0)
+        return NO;
+    if ([[[contact postalAddress]state]length] == 0)
+        return NO;
+    if ([[[contact postalAddress]country]length] == 0)
+        return NO;
+    return YES;
+}
+
+- (BOOL)isPhoneNumberCompeletInContact:(PKContact *)contact{
+    if (contact.phoneNumber == nil)
+        return NO;
+    if (contact.phoneNumber.stringValue.length < 8 || contact.phoneNumber.stringValue.length > 15 )
+        return NO;
+    return YES;
+}
+
 
 //
 //- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion {
