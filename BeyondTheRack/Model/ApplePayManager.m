@@ -131,7 +131,7 @@
         PKShippingMethod *newMethod = [[PKShippingMethod alloc]init];
         [newMethod setLabel:@"PICKUP"];
         [newMethod setIdentifier:@"PICKUP"];
-        [newMethod setDetail:[self.info pickupTitle]];//[self stringOfAddress:[self.info pickupAddress]]];
+        [newMethod setDetail:[self.info pickupTitle]];
         [newMethod setAmount:[NSDecimalNumber decimalNumberWithString:@"0"]];
         [shippingMethods addObject:newMethod];
     }
@@ -173,6 +173,16 @@
     self.braintreeClient = [[BTAPIClient alloc]initWithAuthorization:token];
     self.info = information;
     self.currentCheckOutMode = mode;
+}
+
+- (NSString *)makePhoneNumberFromString:(NSString *)phoneNumber {
+    if (phoneNumber) {
+        NSCharacterSet *notAllowedChars = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
+        NSString *resultString = [[phoneNumber componentsSeparatedByCharactersInSet:notAllowedChars] componentsJoinedByString:@""];
+        resultString = [resultString stringByReplacingOccurrencesOfString:@" " withString:@""];
+        return resultString;
+    }
+    return @"";
 }
 
 - (void)showPaymentViewFromViewController:(UIViewController *)viewController {
@@ -305,7 +315,7 @@
             for (int i = 0; i <([array count] / 2); i++)
                 addressOne = [addressOne stringByAppendingString:[array objectAtIndex:i]];
             NSString *addressTwo = @"";
-            for (int i = ([array count] / 2); i <[array count]; i++)
+            for (unsigned long i = ([array count] / 2); i <[array count]; i++)
                 addressTwo = [addressTwo stringByAppendingString:[array objectAtIndex:i]];
             [addressDic setObject:addressOne forKey:@"address1"];
             [addressDic setObject:addressTwo forKey:@"address2"];
@@ -333,7 +343,7 @@
         [addressDic setObject:@"" forKey:@"state"];
     
     if (contact.phoneNumber)
-        [addressDic setObject:contact.phoneNumber.stringValue forKey:@"phone"];
+        [addressDic setObject:[self makePhoneNumberFromString:contact.phoneNumber.stringValue] forKey:@"phone"];
     else
         [addressDic setObject:@"" forKey:@"phone"];
     
@@ -411,7 +421,7 @@
 - (BOOL)isPhoneNumberCompeletInContact:(PKContact *)contact{
     if (contact.phoneNumber == nil)
         return NO;
-    if (contact.phoneNumber.stringValue.length < 8 || contact.phoneNumber.stringValue.length > 15 )
+    if ([self makePhoneNumberFromString:contact.phoneNumber.stringValue].length < 8 || [self makePhoneNumberFromString:contact.phoneNumber.stringValue].length > 15 )
         return NO;
     return YES;
 }
