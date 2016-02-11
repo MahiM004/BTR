@@ -160,7 +160,7 @@
                             @"postal": [[self zipCodeShippingTF] text],
                             @"state": [BTRViewUtility provinceCodeforName:[[self provinceShippingTF] text]],
                             @"city": [[self cityShippingTF] text],
-                            @"phone": [[self phoneShippingTF] text] });
+                            @"phone": [self makePhoneNumberFromString:[[self phoneShippingTF] text]] });
     return info;
 }
 
@@ -172,8 +172,18 @@
                              @"postal": [[self postalCodeBillingTF] text],
                              @"state": [BTRViewUtility provinceCodeforName:[[self provinceBillingTF] text]],
                              @"city": [[self cityBillingTF] text],
-                             @"phone": [[self phoneBillingTF] text] });
+                             @"phone": [self makePhoneNumberFromString:[[self phoneBillingTF] text]] });
     return info;
+}
+
+- (NSString *)makePhoneNumberFromString:(NSString *)phoneNumber {
+    if (phoneNumber) {
+        NSCharacterSet *notAllowedChars = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
+        NSString *resultString = [[phoneNumber componentsSeparatedByCharactersInSet:notAllowedChars] componentsJoinedByString:@""];
+        resultString = [resultString stringByReplacingOccurrencesOfString:@" " withString:@""];
+        return resultString;
+    }
+    return @"";
 }
 
 - (NSDictionary *)cardInfo {
@@ -1367,6 +1377,8 @@
         self.order.shippingAddress.name = self.recipientNameShippingTF.text;
         self.order.shippingAddress.addressLine1 = self.addressLine1ShippingTF.text;
         self.order.shippingAddress.addressLine2 = self.addressLine2ShippingTF.text;
+        self.order.shippingAddress.city = self.cityShippingTF.text;
+        self.order.shippingAddress.country = self.countryShippingTF.text;
         self.order.shippingAddress.phoneNumber = self.phoneShippingTF.text;
         // call applepay
         self.applePayManager = [[ApplePayManager alloc]init];
@@ -1605,11 +1617,11 @@
         return NO;
     }
     
-    if (self.phoneShippingTF.text.length < 8 || self.phoneShippingTF.text.length > 15) {
+    if ([self makePhoneNumberFromString:self.phoneShippingTF.text].length < 8 || [self makePhoneNumberFromString:self.phoneShippingTF.text].length > 15) {
         if (self.phoneShippingTF.text.length == 0)
             [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter your shipping phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         else
-            [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please check your shipping phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Shipping phone number must be 8-15 digits" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.phoneShippingTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.phoneShippingTF.frame animated:YES];
         return NO;
@@ -1632,11 +1644,11 @@
         [self.scrollView scrollRectToVisible:self.postalCodeBillingTF.frame animated:YES];
         return NO;
     }
-    if (self.phoneBillingTF.text.length < 8 || self.phoneBillingTF.text.length > 15) {
+    if ([self makePhoneNumberFromString:self.phoneBillingTF.text].length < 8 || [self makePhoneNumberFromString:self.phoneBillingTF.text].length > 15) {
         if (self.phoneBillingTF.text.length == 0)
             [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please enter your billing phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         else
-            [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Please check your billing phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+            [[[UIAlertView alloc]initWithTitle:@"Error" message:@"Billing phone number must be 8-15 digits" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         [self.phoneBillingTF becomeFirstResponder];
         [self.scrollView scrollRectToVisible:self.phoneBillingTF.frame animated:YES];
         return NO;
