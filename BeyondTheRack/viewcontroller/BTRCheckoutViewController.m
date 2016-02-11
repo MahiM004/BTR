@@ -66,6 +66,7 @@
 
 @interface BTRCheckoutViewController () {
     BOOL shouldCallOnceInLaunch;
+    BOOL isFirstTimeLoadedBefore;
 }
 @property (nonatomic, strong) UIPopoverController *userDataPopover;
 @property (strong, nonatomic) Freeship* freeshipInfo;
@@ -256,6 +257,7 @@
     [self setCheckboxesTargets];
     [self getImage];
     shouldCallOnceInLaunch = YES;
+    isFirstTimeLoadedBefore = NO;
     NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [gregorian components:NSCalendarUnitYear fromDate:[NSDate date]];
     NSInteger currentYear = [components year];
@@ -324,6 +326,7 @@
         self.billingCountryPicker.delegate = self;
     }
     self.cardVerificationPaymentTF.tag = 4444;
+    isFirstTimeLoadedBefore = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -492,7 +495,7 @@
     
     // Free ShipAddress
     BOOL shouldCallValidate = NO;
-    if ([[self.order isFreeshipAddress]boolValue] && ![[self.order vipPickupEligible]boolValue]) {
+    if ([[self.order isFreeshipAddress]boolValue] && ![[self.order vipPickupEligible]boolValue] && !self.pickupOptionCheckbox.checked) {
         if (!self.freeshipOptionCheckbox.checked) {
             [self fillShippingAddressByAddress:self.order.promoShippingAddress];
             [self disableShippingAddress];
@@ -505,7 +508,7 @@
             [self enableShippingAddress];
             [self fillShippingAddressByAddress:self.order.shippingAddress];
         }
-    } else {
+    } else if (!self.pickupOptionCheckbox.checked) {
         [self enableShippingAddress];
         [self fillShippingAddressByAddress:self.order.shippingAddress];
         [self.FreeshipingPromoView setHidden:YES];
@@ -534,6 +537,7 @@
     if ([self.order.vipPickup boolValue]) {
         [self vipOptionChecked];
         [self disableShippingAddress];
+        shouldCallValidate = YES;
     }
     
     if (self.isVisible)
@@ -544,7 +548,7 @@
     
     self.isLoading = NO;
     
-    if (!self.isVisible && shouldCallValidate)
+    if (!isFirstTimeLoadedBefore && shouldCallValidate)
         [self validateAddressViaAPIAndInCompletion:nil];
 }
 
@@ -1543,6 +1547,8 @@
 #pragma mark Validation
 
 - (void)validateAddressViaAPIAndInCompletion:(void(^)())completionBlock; {
+    
+    NSLog(@"VALIDATING ADDRESS");
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
