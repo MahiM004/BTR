@@ -66,14 +66,21 @@
     // getting header's info
     [self.bannerLabel setTextColor:[UIColor blackColor]];
     [self getheaderInfo];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     // adding tableview frame
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidLogin:)
+                                                 name:kUSERDIDLOGIN
+                                               object:nil];
     self.slider.view.frame = _sliderBackFrame.frame;
     [self.view addSubview:self.slider.view];
     [self addChildViewController:self.slider];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kUSERDIDLOGIN object:nil];
 }
 
 #pragma mark TTSlidingPagesDataSource methods
@@ -135,9 +142,9 @@
     }
     NSString* timerString;
     if (minutes == 0 && hours == 0)
-        timerString = [NSString stringWithFormat:@"Less than a minute"];
+        timerString = [NSString stringWithFormat:@"\nLess than a minute"];
     else {
-        timerString = [NSString stringWithFormat:@"%02ld days %02d Hours : %02d Minutes",days,hours,minutes];
+        timerString = [NSString stringWithFormat:@"\n%02ld days %02d Hours : %02d Minutes",days,hours,minutes];
     }
     NSString* bannerString = [self.freeshipInfo.banner stringByReplacingOccurrencesOfString:@"##counter##" withString:timerString];
 //    [_bannerLabel setText:bannerString];
@@ -146,6 +153,12 @@
 
 - (void) viewWillLayoutSubviews {
     [_bannerLabel setCenter:CGPointMake(self.view.center.x, _bannerLabel.center.y)];
+}
+
+#pragma mark header info
+
+- (void)userDidLogin:(NSNotification *) notification {
+    [self getheaderInfo];
 }
 
 @end
