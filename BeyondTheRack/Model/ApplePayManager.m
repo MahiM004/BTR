@@ -46,7 +46,7 @@
 
 - (PKPaymentRequest *)paymentRequest {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
-    paymentRequest.merchantIdentifier = @"merchant.com.beyondtherack.sandbox";
+    paymentRequest.merchantIdentifier = @"merchant.beyondtherack.com.prod";
     paymentRequest.requiredShippingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.requiredBillingAddressFields = (PKAddressFieldPostalAddress|PKAddressFieldPhone|PKAddressFieldName);
     paymentRequest.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkVisa, PKPaymentNetworkMasterCard];
@@ -403,7 +403,7 @@
 }
 
 - (BOOL)isContactCompelet:(PKContact *)contact {
-    if ([[[contact name]familyName]length] == 0)
+    if ([[[contact name]familyName]length] == 0 && [[[contact name]givenName]length] == 0)
         return NO;
     if ([[[contact postalAddress]street]length] == 0)
         return NO;
