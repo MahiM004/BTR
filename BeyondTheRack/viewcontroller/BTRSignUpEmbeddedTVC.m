@@ -138,9 +138,9 @@
                                       [self sendNotification];
                                   }];
                               else
-                                  [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
+                                  [self showAlert:@"Please try again" msg:@"Email or Password Incorrect !"];
                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                              [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
+                              [self showAlert:@"Please try again" msg:@"Email or Password Incorrect !"];
                           }];
                       } else {
                           NSLog(@"graph api error: %@", error);
@@ -173,7 +173,7 @@
                             }];
                     } else {
                         if (messageString.length != 0) {
-                            [self showAlert:@"Please try agian" msg:messageString];
+                            [self showAlert:@"Please try again" msg:messageString];
                         } else {
                             [self showAlert:@"Email or Password Incorrect !" msg:@"Sign Up Failed !"];
                         }
@@ -227,7 +227,7 @@
             success(@"FALSE", nil);
         
     } faild:^(NSError *error) {
-        [self showAlert:@"Please try agian" msg:@"Sign Up Failed !"];
+        [self showAlert:@"Please try again" msg:@"Sign Up Failed !"];
         failure(nil, error);
     }];
 }
@@ -277,7 +277,7 @@
             success(@"FALSE", alertString);
         }
     } faild:^(NSError *error) {
-        [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
+        [self showAlert:@"Please try again" msg:@"Email or Password Incorrect !"];
     }];
 }
 
@@ -303,7 +303,7 @@
             success(@"FALSE", nil);
         }
     } faild:^(NSError *error) {
-        [self showAlert:@"Please try agian" msg:@"Email or Password Incorrect !"];
+        [self showAlert:@"Please try again" msg:@"Email or Password Incorrect !"];
     }];
 }
 
