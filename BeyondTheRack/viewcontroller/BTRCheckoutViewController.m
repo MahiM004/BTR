@@ -547,7 +547,7 @@
     
     if ([self isAddress:self.order.shippingAddress sameAsAddress:self.order.pickupAddress] && [self.order.eligiblePickup boolValue])
         [self.pickupOptionCheckbox setChecked:YES];
-    if ([self isAddress:self.order.promoShippingAddress sameAsAddress:self.order.pickupAddress] && [self.order.eligiblePickup boolValue] && [self.order.isFreeshipAddress boolValue])
+    if ([self isAddress:self.order.promoShippingAddress sameAsAddress:self.order.pickupAddress] && [self.order.eligiblePickup boolValue] && [self.order.isFreeshipAddress boolValue] && !self.freeshipOptionCheckbox.checked)
         [self.pickupOptionCheckbox setChecked:YES];
     
     self.isLoading = NO;
