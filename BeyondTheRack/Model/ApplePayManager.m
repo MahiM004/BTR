@@ -164,12 +164,6 @@
 }
 
 - (void)initWithClientWithToken:(NSString *)token andOrderInfromation:(Order *)information checkoutMode:(checkoutMode)mode{
-    if (mode == checkoutOne) {
-        if ([information.isFreeshipAddress boolValue]) {
-            information.isPickup = @"0";
-            information.vipPickup = @"0";
-        }
-    }
     self.braintreeClient = [[BTAPIClient alloc]initWithAuthorization:token];
     self.info = information;
     self.currentCheckOutMode = mode;
