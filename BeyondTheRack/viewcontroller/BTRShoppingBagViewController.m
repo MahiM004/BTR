@@ -563,7 +563,7 @@
 
 - (IBAction)masterPassCheckout:(id)sender {
     if ([self.bagItemsArray count] == 0) {
-        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no item in bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no items in your bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
     }
     
