@@ -155,7 +155,7 @@
 //Manual Join SignUP
 - (IBAction)joinButtonTapped:(BTRLoadingButton *)sender {
     if ([_emailTextField.text length] == 0 || ![self validateEmailWithString:_emailTextField.text]) {
-        [self showAlert:@"Failed" msg:@"Please give Valid Email ID"];
+        [self showAlert:@"Failed" msg:@"Please enter a valid email address"];
         [self.emailTextField bs_showError];
     } else if (_passwordTextField.text.length < 3){
         [self showAlert:@"Failed" msg:@"Password should be minimum 3 characters"];
