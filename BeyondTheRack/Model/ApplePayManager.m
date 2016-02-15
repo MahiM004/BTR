@@ -267,6 +267,7 @@
     }
     else
         [orderInfo setObject:[self addressForContact:self.paymentInfo.shippingContact] forKey:@"shipping"];
+    self.paymentInfo.billingContact.phoneNumber = self.paymentInfo.shippingContact.phoneNumber;
     [orderInfo setObject:[self addressForContact:self.paymentInfo.billingContact] forKey:@"billing"];
     [orderInfo setObject:[NSNumber numberWithBool:self.info.isPickup.boolValue] forKey:@"is_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:self.info.vipPickup.boolValue] forKey:@"vip_pickup"];
