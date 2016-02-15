@@ -494,7 +494,7 @@
     
     // Free ShipAddress
     BOOL shouldCallValidate = NO;
-    if ([[self.order isFreeshipAddress]boolValue] && ![[self.order vipPickupEligible]boolValue] && !self.pickupOptionCheckbox.checked) {
+    if ([[self.order isFreeshipAddress]boolValue] && ![[self.order vipPickupEligible]boolValue]) {
         if (!self.freeshipOptionCheckbox.checked) {
             [self fillShippingAddressByAddress:self.order.promoShippingAddress];
             [self disableShippingAddress];
@@ -533,7 +533,7 @@
         _shippingViewHeight.constant += 47+8;
     }
     
-    if ([self.order.vipPickup boolValue]) {
+    if ([self.order.vipPickup boolValue] && [self.order.isFreeshipAddress boolValue]) {
         [self vipOptionChecked];
         [self disableShippingAddress];
         shouldCallValidate = YES;
@@ -544,6 +544,11 @@
     
     if (self.order.allTotalPrice.floatValue == 0.0)
         self.applePayButtonView.hidden = YES;
+    
+    if ([self isAddress:self.order.shippingAddress sameAsAddress:self.order.pickupAddress] && [self.order.eligiblePickup boolValue])
+        [self.pickupOptionCheckbox setChecked:YES];
+    if ([self isAddress:self.order.promoShippingAddress sameAsAddress:self.order.pickupAddress] && [self.order.eligiblePickup boolValue] && [self.order.isFreeshipAddress boolValue])
+        [self.pickupOptionCheckbox setChecked:YES];
     
     self.isLoading = NO;
     
@@ -2057,6 +2062,22 @@
     }
 }
 
+
+- (BOOL)isAddress:(Address *)addressOne sameAsAddress:(Address *)addreseTwo {
+    if (![addressOne.addressLine1 isEqualToString:addreseTwo.addressLine1])
+        return NO;
+    if (![addressOne.addressLine2 isEqualToString:addreseTwo.addressLine2])
+        return NO;
+    if (![addressOne.postalCode isEqualToString:addreseTwo.postalCode])
+        return NO;
+    if (![addressOne.country isEqualToString:addreseTwo.country])
+        return NO;
+    if (![addressOne.province isEqualToString:addreseTwo.province])
+        return NO;
+    if (![addressOne.city isEqualToString:addreseTwo.city])
+        return NO;
+    return YES;
+}
 
 - (void)learnMoreAboutGift {
     if (self.faqArray == nil) {
