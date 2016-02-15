@@ -326,7 +326,6 @@
         self.billingCountryPicker.delegate = self;
     }
     self.cardVerificationPaymentTF.tag = 4444;
-    isFirstTimeLoadedBefore = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -548,8 +547,10 @@
     
     self.isLoading = NO;
     
-    if (!isFirstTimeLoadedBefore && shouldCallValidate)
+    if (!isFirstTimeLoadedBefore && shouldCallValidate) {
         [self validateAddressViaAPIAndInCompletion:nil];
+        isFirstTimeLoadedBefore = YES;
+    }
 }
 
 - (void)addSampleGifts {
@@ -1911,9 +1912,6 @@
     
     rightSize += _sampleGiftViewHeight.constant;
     rightSize -= self.totalRemovedPlaceInReceipt * RECEIPT_CELL_SIZE;
-    
-    
-    NSLog(@"%f %f",leftSize,rightSize);
     
     if (leftSize > rightSize)
         self.viewHeight.constant = leftSize;
