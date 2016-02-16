@@ -1067,7 +1067,7 @@
 - (void)changeDetailPaymentFor:(paymentType)type {
     self.paymentCreditView.hidden = NO;
     if (type == creditCard) {
-        if ([self.order.billingAddress.country isEqualToString:@"US"])
+        if ([[self.order.billingAddress.country uppercaseString] isEqualToString:@"US"])
             [self.paymentMethodImageView setImage:[UIImage imageNamed:@"cardImages_us"]];
         else
             [self.paymentMethodImageView setImage:[UIImage imageNamed:@"cardImages"]];
