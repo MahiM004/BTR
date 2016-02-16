@@ -417,7 +417,7 @@
     NSDictionary *paymentsDictionary = checkoutInfo[@"paymentMethods"];
     [self setOrder:[Order orderWithAppServerInfo:checkoutInfo]];
     if ([self.order.items count] == 0) {
-        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no item in bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no items in your bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
     }
     BTRPaymentTypesHandler *sharedPaymentTypes = [BTRPaymentTypesHandler sharedPaymentTypes];
@@ -460,7 +460,7 @@
 
 - (IBAction)buyWithApplePay:(UIButton *)sender {
     if ([self.bagItemsArray count] == 0) {
-        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no item in bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no items in your bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
     }
 
@@ -554,7 +554,7 @@
 
 - (IBAction)paypalCheckout:(UIButton *)sender {
     if ([self.bagItemsArray count] == 0) {
-        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no item in bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+        [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no items in your bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
     }
     
