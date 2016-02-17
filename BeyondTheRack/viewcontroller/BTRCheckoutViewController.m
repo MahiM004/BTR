@@ -533,7 +533,7 @@
         _shippingViewHeight.constant += 47+8;
     }
     
-    if ([self.order.vipPickup boolValue] && [self.order.isFreeshipAddress boolValue]) {
+    if ([self.order.vipPickup boolValue]) {
         [self vipOptionChecked];
         [self disableShippingAddress];
         shouldCallValidate = YES;
