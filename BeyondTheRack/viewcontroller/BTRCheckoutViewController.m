@@ -1583,6 +1583,7 @@
 - (IBAction)billingAddressChangeds:(id)sender {
     if (self.currentPaymentType == masterPass) {
         [self setCurrentPaymentType:creditCard];
+        [self.cardNumberPaymentTF setText:@""];
         [self.cardVerificationPaymentTF setHidden:NO];
         [self.cardVerificationPaymentLB setHidden:NO];
         [self changeDetailPaymentFor:creditCard];
@@ -1950,6 +1951,7 @@
     self.expiryYearPaymentTF.text = [NSString stringWithFormat:@"%lu",(unsigned long)info.expiryYear];
     self.cardNumberPaymentTF.text = info.cardNumber;
     self.cardVerificationPaymentTF.text = info.cvv;
+    [self billingAddressChangeds:nil];
     [scanViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -2019,6 +2021,8 @@
 #pragma mark DropPicker Delegate
 
 -(void)pickerType:(NSString *)pickType selectedIndex:(NSInteger)row {
+    if ([pickType isEqualToString:@"bilCountry"]|| [pickType isEqualToString:@"Payment"] || [pickType isEqualToString:@"expMonth"] || [pickType isEqualToString:@"expYear"])
+        [self billingAddressChangeds:nil];
     [self showPickerWithType:pickType selectedIndex:row];
 }
 
