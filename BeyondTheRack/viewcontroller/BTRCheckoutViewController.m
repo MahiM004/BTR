@@ -1050,7 +1050,9 @@
             [self.paymentMethodTF setText:[[BTRPaymentTypesHandler sharedPaymentTypes]cardDisplayNameForType:self.order.cardType]];
         [self setCurrentPaymentType:creditCard];
     }
-    if  ([self.order.paypalInfo valueForKey:@"email"]&&[[self.order.paypalInfo valueForKey:@"mode"]isEqualToString:@"billingAgreement"])
+    if  ([[self.order.paypalInfo valueForKey:@"email"]length] > 0 &&[[self.order.paypalInfo valueForKey:@"mode"]isEqualToString:@"billingAgreement"])
+        self.paypalEmailTF.text = [self.order.paypalInfo valueForKey:@"email"];
+    if  ([[self.order.paypalInfo valueForKey:@"email"]length] > 0 && [[self.order.paypalInfo valueForKey:@"payerId"]length] > 0 &&[[self.order.paypalInfo valueForKey:@"mode"]isEqualToString:@"token"])
         self.paypalEmailTF.text = [self.order.paypalInfo valueForKey:@"email"];
     [self changeDetailPaymentFor:self.currentPaymentType];
 }
