@@ -233,7 +233,6 @@ typedef enum ScrollDirection {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[BTRRefreshManager sharedInstance]setTopViewController:self];
-    [BTRLoader showLoaderInView:self.view];
     [self setSelectedCellIndexRow:NSUIntegerMax];
 
     [self.eventTitleLabel setText:[self eventTitleString]];
@@ -250,11 +249,10 @@ typedef enum ScrollDirection {
 }
 
 - (void)loadFirstPageOfItems {
+    [BTRLoader showLoaderInView:self.view];
     self.currentPage = 1;
     self.lastPageDidLoad = NO;
     self.isLoadingNextPage = YES;
-    [self.originalItemArray removeAllObjects];
-    [self.chosenSizesArray removeAllObjects];
     
     unsigned long indexOfSize = [self.allSizes indexOfObject:self.filterSizeTextField.text];
     NSString *filter;
@@ -267,7 +265,10 @@ typedef enum ScrollDirection {
     
     [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]] andFilterSize:filter
                         success:^(NSMutableArray *responseObject) {
+                            [BTRLoader hideLoaderFromView:self.view];
                             self.isLoadingNextPage = NO;
+                            [self.originalItemArray removeAllObjects];
+                            [self.chosenSizesArray removeAllObjects];
                             [self.originalItemArray addObjectsFromArray:responseObject];
                             for (int i = 0; i < [self.originalItemArray count]; i++)
                                 [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
