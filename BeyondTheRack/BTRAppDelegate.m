@@ -69,7 +69,8 @@
      */
     
     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
-    [[IQKeyboardManager sharedManager] disableToolbarInViewControllerClass:[BTRCheckoutViewController class]];
+    if ([BTRViewUtility isIPAD])
+        [[IQKeyboardManager sharedManager] disableToolbarInViewControllerClass:[BTRCheckoutViewController class]];
     
     /**
      *
