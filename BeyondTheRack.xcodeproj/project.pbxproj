@@ -1620,7 +1620,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Hadi Kheyruri";
+				ORGANIZATIONNAME = BeyondTheRack;
 				TargetAttributes = {
 					69FF40621A3F8939000BD092 = {
 						CreatedOnToolsVersion = 6.1.1;
