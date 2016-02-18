@@ -199,7 +199,8 @@
     self.lastPageDidLoad = NO;
     [self.itemsArray removeAllObjects];
     [self setIsLoadingNextPage:YES];
-    
+    [self.collectionView setContentOffset:CGPointZero animated:YES];
+
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]]) {
         sharedFacetHandler.searchString = [self.searchBar text];
