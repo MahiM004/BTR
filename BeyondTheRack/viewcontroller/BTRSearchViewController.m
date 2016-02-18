@@ -616,7 +616,7 @@
             cell.selectSizeButton.titleLabel.text = [NSString stringWithFormat:@"Size: %@", [[cell sizesArray] objectAtIndex:[[[self chosenSizesArray] objectAtIndex:[indexPath row]] integerValue]]];
         }
     }
-    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSkuWithDomain:[productItem imagesDomain] withSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"whiteblack.jpg"] fadeInWithDuration:0.3];
+    [cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSkuWithDomain:[productItem imagesDomain] withSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"whiteblank.jpg"] fadeInWithDuration:0.3];
     //[cell.productImageView setImageWithURL:[BTRItemFetcher URLforItemImageForSku:[productItem sku]] placeholderImage:[UIImage imageNamed:@"whiteblack.jpg"]];
     [cell.productImageView setContentMode:UIViewContentModeScaleAspectFit];
     [cell.productTitleLabel setText:[productItem shortItemDescription]];
