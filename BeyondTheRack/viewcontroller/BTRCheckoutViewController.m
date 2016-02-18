@@ -354,9 +354,11 @@
     // checkboxes
     if ([self.order.eligiblePickup boolValue]) {
         [self.pickupOptionCheckbox setChecked:[[self.order isPickup] boolValue]];
+        [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
+    }
+    if ([self.order.vipPickupEligible boolValue]) {
         [self.vipOptionCheckbox setChecked:[[self.order vipPickup] boolValue]];
         [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
-        [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
     }
     [self.sameAddressCheckbox setChecked:[[self.order billingSameAsShipping] boolValue]];
     [self.orderIsGiftCheckbox setChecked:[[self.order isGift] boolValue]];
@@ -537,7 +539,7 @@
         _shippingViewHeight.constant += 47+8;
     }
     
-    if ([self.order.vipPickup boolValue] && [self.order.eligiblePickup boolValue]) {
+    if ([self.order.vipPickup boolValue] && [self.order.vipPickupEligible boolValue]) {
         [self vipOptionChecked];
         [self disableShippingAddress];
         shouldCallValidate = YES;
