@@ -140,7 +140,6 @@
     self.suggestionTableView.hidden = YES;
     self.currentPage = 1;
     self.isLoadingNextPage = NO;
-    self.lastPageDidLoad = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -197,6 +196,7 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    self.lastPageDidLoad = NO;
     [self.itemsArray removeAllObjects];
     [self setIsLoadingNextPage:YES];
     
@@ -729,6 +729,7 @@
 }
 
 - (void)callForNextPage {
+    NSLog(@"call next page");
     self.isLoadingNextPage = YES;
     self.currentPage++;
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
