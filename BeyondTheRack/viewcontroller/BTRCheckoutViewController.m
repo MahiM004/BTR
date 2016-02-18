@@ -352,15 +352,16 @@
     self.isLoading = YES;
 
     // checkboxes
-    [self.vipOptionCheckbox setChecked:[[self.order vipPickup] boolValue]];
+    if ([self.order.eligiblePickup boolValue]) {
+        [self.pickupOptionCheckbox setChecked:[[self.order isPickup] boolValue]];
+        [self.vipOptionCheckbox setChecked:[[self.order vipPickup] boolValue]];
+        [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
+        [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
+    }
     [self.sameAddressCheckbox setChecked:[[self.order billingSameAsShipping] boolValue]];
     [self.orderIsGiftCheckbox setChecked:[[self.order isGift] boolValue]];
-    [self.pickupOptionCheckbox setChecked:[[self.order isPickup] boolValue]];
     [self.remeberCardInfoCheckbox setChecked:[[self.order rememberCard] boolValue]];
-    
-    [self checkboxVipOptionDidChange:self.vipOptionCheckbox];
     [self checkboxSameAddressDidChange:self.sameAddressCheckbox];
-    [self checkboxPickupOptionDidChange:self.pickupOptionCheckbox];
     [self checkboxChangePaymentMethodDidChange:self.changePaymentMethodCheckbox];
     
     // prices
@@ -507,8 +508,11 @@
             [self enableShippingAddress];
             [self fillShippingAddressByAddress:self.order.shippingAddress];
         }
-    } else if (!self.pickupOptionCheckbox.checked) {
-        [self enableShippingAddress];
+    } else {
+        if (self.pickupOptionCheckbox.checked || self.vipOptionCheckbox.checked)
+            [self disableShippingAddress];
+        else
+            [self enableShippingAddress];
         [self fillShippingAddressByAddress:self.order.shippingAddress];
         [self.FreeshipingPromoView setHidden:YES];
         [self.freeShippingPromoHeight setConstant:0];
@@ -533,7 +537,7 @@
         _shippingViewHeight.constant += 47+8;
     }
     
-    if ([self.order.vipPickup boolValue]) {
+    if ([self.order.vipPickup boolValue] && [self.order.eligiblePickup boolValue]) {
         [self vipOptionChecked];
         [self disableShippingAddress];
         shouldCallValidate = YES;
@@ -545,10 +549,14 @@
     if (self.order.allTotalPrice.floatValue == 0.0)
         self.applePayButtonView.hidden = YES;
     
-    if ([self isAddress:self.order.shippingAddress sameAsAddress:self.order.pickupAddress] && [self.order.eligiblePickup boolValue])
+    if ([self isAddress:self.order.shippingAddress sameAsAddress:self.order.pickupAddress] && [self.order.eligiblePickup boolValue]) {
         [self.pickupOptionCheckbox setChecked:YES];
-    if ([self isAddress:self.order.promoShippingAddress sameAsAddress:self.order.pickupAddress] && [self.order.eligiblePickup boolValue] && [self.order.isFreeshipAddress boolValue] && !self.freeshipOptionCheckbox.checked)
+        [self disableShippingAddress];
+    }
+    if ([self isAddress:self.order.promoShippingAddress sameAsAddress:self.order.pickupAddress] && [self.order.eligiblePickup boolValue] && [self.order.isFreeshipAddress boolValue] && !self.freeshipOptionCheckbox.checked) {
         [self.pickupOptionCheckbox setChecked:YES];
+        [self disableShippingAddress];
+    }
     
     self.isLoading = NO;
     
