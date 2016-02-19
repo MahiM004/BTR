@@ -1338,7 +1338,7 @@
 - (IBAction)processOrderTpped:(BTRLoadingButton *)sender {
     if (![self isShippingAddressCompeleted] && self.currentPaymentType != paypal)
         return;
-    if (self.currentPaymentType == paypal && [self.phoneShippingTF.text length] == 0)
+    if (self.currentPaymentType == paypal && ([self makePhoneNumberFromString:self.phoneShippingTF.text].length < 8 || [self makePhoneNumberFromString:self.phoneShippingTF.text].length > 15))
         return;
     
     if (self.currentPaymentType == creditCard && [self isBillingAddressCompeleted] && [self isCardInfoCompeleted]) {
