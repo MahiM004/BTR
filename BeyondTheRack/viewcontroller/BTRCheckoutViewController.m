@@ -1377,7 +1377,14 @@
         }
         self.applePayButton.frame = self.applePayButtonView.bounds;
         [self.applePayButtonView addSubview:self.applePayButton];
+    } else {
+        [self hideApplePay];
     }
+}
+
+- (void)hideApplePay {
+    [_applePayHeight setConstant:0];
+    [_payViewHeight setConstant:45];
 }
 
 - (IBAction)buyWithApplePay:(UIButton *)sender {
@@ -1861,6 +1868,11 @@
     if (_noShippingLabelHeight.constant == 0) {
         size -= 47;
     }
+    
+    if (![self.applePayManager isApplePayAvailable]) {
+        size -= 55;
+    }
+    
     size = size + self.sampleGiftViewHeight.constant;
     size = size - self.totalRemovedPlaceInReceipt * RECEIPT_CELL_SIZE;
     self.viewHeight.constant = size;
@@ -1917,6 +1929,10 @@
     
     rightSize += _sampleGiftViewHeight.constant;
     rightSize -= self.totalRemovedPlaceInReceipt * RECEIPT_CELL_SIZE;
+    
+    if (![self.applePayManager isApplePayAvailable]) {
+        rightSize -= 55;
+    }
     
     if (leftSize > rightSize)
         self.viewHeight.constant = leftSize;

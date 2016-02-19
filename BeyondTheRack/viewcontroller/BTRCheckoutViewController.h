@@ -266,6 +266,12 @@ typedef enum  PopUPType{
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *billAddressViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *billTopConstraint;
 
+
+//If no Apple Pay
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *applePayHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *payViewHeight;
+
+
 @end
 
 
