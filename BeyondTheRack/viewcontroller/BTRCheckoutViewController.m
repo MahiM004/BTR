@@ -1158,7 +1158,7 @@
     [self.cardPaymentTipHeight setConstant:CARD_PAYMENT_TIP_HEIGHT];
     [self.cardPaymentTipLabel setHidden:NO];
 }
-
+//
 - (void)hideBillingAddress {
     self.billingAddressView.hidden = YES;
     self.billAddressLblView.hidden = YES;
