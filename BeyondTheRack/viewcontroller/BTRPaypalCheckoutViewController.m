@@ -82,7 +82,7 @@
                     NSMutableDictionary *modifiedResponse = [[NSMutableDictionary alloc]initWithDictionary:response copyItems:YES];
                     NSMutableDictionary *orderInfoDic = [[NSMutableDictionary alloc]initWithDictionary:response[@"orderInfo"] copyItems:YES];
                     [orderInfoDic setObject:@"0" forKey:@"vip_pickup"];
-                    [modifiedResponse setObject:modifiedResponse forKey:@"orderInfo"];
+                    [modifiedResponse setObject:orderInfoDic forKey:@"orderInfo"];
                     [self.delegate payPalInfoDidReceived:modifiedResponse];
                 } else
                     [self.delegate payPalInfoDidReceived:response];
