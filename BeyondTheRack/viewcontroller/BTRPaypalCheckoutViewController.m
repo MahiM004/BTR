@@ -42,6 +42,7 @@
 }
 
 - (void)loadPaypalURLWithURL:(NSString *)url {
+    [self setShouldRemoveVIP:YES];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 
@@ -66,7 +67,6 @@
         }
         if ([urlString rangeOfString:[[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcess]] lowercaseString]].location != NSNotFound) {
             [self.webView setHidden:NO];
-            [self setShouldRemoveVIP:YES];
             [self getOrderInfoOfCallBackURLRequest:request.URL.absoluteString];
             return NO;
         }
