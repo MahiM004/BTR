@@ -142,7 +142,7 @@
     view1.backgroundColor = [UIColor whiteColor];
     
     view2 = [[UIView alloc]initWithFrame:CGRectMake(10, viewHeight/2 + 10, viewWidth - 20, viewHeight/2 - 20)];
-    view2.backgroundColor = [UIColor greenColor];
+    view2.backgroundColor = [UIColor whiteColor];
     
     detailTV = [[UITableView alloc]initWithFrame:view2.frame];
     detailTV.delegate = self;
