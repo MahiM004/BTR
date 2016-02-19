@@ -1075,15 +1075,11 @@
             [self.paymentMethodImageView setImage:[UIImage imageNamed:@"cardImages"]];
         [self showBillingAddress];
         [self showCardPaymentTip];
-        if (![BTRViewUtility isIPAD]) {
-            self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
+        if (![BTRViewUtility isIPAD])
             self.fastPaymentHeight.constant = FASTPAYMENT_HEIGHT;
-        } else {
-            self.billingAddressView.userInteractionEnabled = YES;
-            self.billingAddressView.alpha = 1.0;
+        else
             self.fastPaymentHeight.constant = FASTPAYMENT_HEIGHT_IPAD;
-            self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
-        }
+        self.creditCardDetailHeight.constant = CARD_PAYMENT_HEIGHT;
         UIImageView * camImage = [self.view viewWithTag:555];
         self.cameraButton.hidden = NO;
         self.scanCardButton.hidden = NO;
@@ -1112,10 +1108,7 @@
         self.fastPaymentView.hidden = YES;
         [self hideBillingAddress];
         [self hideCardPaymentTip];
-        if ([BTRViewUtility isIPAD ]) {
-             self.billingAddressView.userInteractionEnabled = NO;
-            self.billingAddressView.alpha = 0.5;
-        }
+        
         if (self.paypalEmailTF.text.length > 0) {
             self.paypalEmailTF.hidden = NO;
             self.paypalDetailsView.hidden = NO;
@@ -1167,26 +1160,30 @@
 }
 
 - (void)hideBillingAddress {
+    self.billingAddressView.hidden = YES;
+    self.billAddressLblView.hidden = YES;
     if (self.billingAddressHeight.constant == BILLING_ADDRESS_HEIGHT) {
-        self.billingAddressView.hidden = YES;
         self.billingAddressHeight.constant  =  0;
-        [self.view layoutIfNeeded];
-    } else if (self.billingAddressHeight.constant == BILLING_ADDRESS_HEIGHT_IPAD) {
-        self.billingAddressView.alpha = 0.5;
+    } else if ([BTRViewUtility isIPAD]) {
+        self.billAddressViewHeight.constant = 0;
+        self.billTopConstraint.constant = 0;
+        self.billingAddressHeight.constant  =  0;
     }
+    [self.view layoutIfNeeded];
 }
 
 - (void)showBillingAddress {
     if (self.billingAddressHeight.constant == 0) {
         self.billingAddressView.hidden = NO;
+        self.billAddressLblView.hidden = NO;
         if ([BTRViewUtility isIPAD]) {
+            self.billAddressViewHeight.constant = 83;
+            self.billTopConstraint.constant = 10;
             self.billingAddressHeight.constant  =  BILLING_ADDRESS_HEIGHT_IPAD;
         } else {
             self.billingAddressHeight.constant  =  BILLING_ADDRESS_HEIGHT;
         }
         [self.view layoutIfNeeded];
-    } else if (_billingAddressView.alpha == 0.5) {
-        _billingAddressView.alpha = 1;
     }
 }
 
@@ -1876,7 +1873,7 @@
     
     if (self.currentPaymentType == paypal) {
         leftSize -= FASTPAYMENT_HEIGHT_IPAD;
-        rightSize -= FASTPAYMENT_HEIGHT_IPAD;
+        rightSize -= (FASTPAYMENT_HEIGHT_IPAD+BILLING_ADDRESS_HEIGHT_IPAD+80);
         
         if (self.paypalEmailTF.text.length != 0) {
             leftSize -= (CARD_PAYMENT_HEIGHT - PAYPAL_PAYMENT_HEIGHT_IPAD);
@@ -1968,7 +1965,7 @@
     self.userDataPopover.popoverContentSize = CGSizeMake(200, popHeight);
     [self.userDataPopover presentPopoverFromRect:[frameV frame]
                                           inView:view
-                        permittedArrowDirections:UIPopoverArrowDirectionDown && UIPopoverArrowDirectionUp
+                        permittedArrowDirections:UIPopoverArrowDirectionUnknown
                                         animated:NO];
 }
 

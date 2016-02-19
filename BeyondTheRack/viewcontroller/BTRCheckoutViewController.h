@@ -261,6 +261,11 @@ typedef enum  PopUPType{
 //VIP PickUP Label
 @property (weak, nonatomic) IBOutlet UILabel *vipTitleText;
 
+//iPad Billing hide part
+@property (weak, nonatomic) IBOutlet UIView *billAddressLblView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *billAddressViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *billTopConstraint;
+
 @end
 
 
