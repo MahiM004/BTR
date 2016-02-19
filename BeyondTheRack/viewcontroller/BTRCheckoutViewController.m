@@ -511,7 +511,7 @@
             [self fillShippingAddressByAddress:self.order.shippingAddress];
         }
     } else {
-        if (self.pickupOptionCheckbox.checked || self.vipOptionCheckbox.checked)
+        if (self.pickupOptionCheckbox.checked)
             [self disableShippingAddress];
         else
             [self enableShippingAddress];
@@ -539,7 +539,7 @@
         _shippingViewHeight.constant += 47+8;
     }
     
-    if ([self.order.vipPickup boolValue] && [self.order.vipPickupEligible boolValue]) {
+    if (self.vipOptionCheckbox.checked) {
         [self vipOptionChecked];
         [self disableShippingAddress];
         shouldCallValidate = YES;
@@ -1792,6 +1792,7 @@
 - (void)masterPassInfoDidReceived:(NSDictionary *)info {
     self.masterCallBackInfo = info;
     self.order = [Order extractOrderfromJSONDictionary:info forOrder:self.order isValidating:NO];
+    self.order.vipPickup = NO;
     [self fixViewForMasterPass];
 }
 

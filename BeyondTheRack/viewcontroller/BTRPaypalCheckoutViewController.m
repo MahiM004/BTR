@@ -18,6 +18,7 @@
 
 @property Order *order;
 @property BOOL didLogined;
+@property BOOL shouldRemoveVIP;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong,nonatomic) ConfirmationInfo *confirmationInfo;
 
@@ -29,6 +30,7 @@
     [super viewDidLoad];
     [self.webView setDelegate:self];
     [self setDidLogined:NO];
+    [self setShouldRemoveVIP:NO];
     if (self.delegate)
         [self loadPaypalURLWithURL:self.payPalURL];
     else
@@ -64,6 +66,7 @@
         }
         if ([urlString rangeOfString:[[NSString stringWithFormat:@"%@",[BTRPaypalFetcher URLforPaypalProcess]] lowercaseString]].location != NSNotFound) {
             [self.webView setHidden:NO];
+            [self setShouldRemoveVIP:YES];
             [self getOrderInfoOfCallBackURLRequest:request.URL.absoluteString];
             return NO;
         }
@@ -75,7 +78,14 @@
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         if (self.delegate) {
             [self dismissViewControllerAnimated:YES completion:^{
-                [self.delegate payPalInfoDidReceived:response];
+                if (self.shouldRemoveVIP) {
+                    NSMutableDictionary *modifiedResponse = [[NSMutableDictionary alloc]initWithDictionary:response copyItems:YES];
+                    NSMutableDictionary *orderInfoDic = [[NSMutableDictionary alloc]initWithDictionary:response[@"orderInfo"] copyItems:YES];
+                    [orderInfoDic setObject:@"0" forKey:@"vip_pickup"];
+                    [modifiedResponse setObject:modifiedResponse forKey:@"orderInfo"];
+                    [self.delegate payPalInfoDidReceived:modifiedResponse];
+                } else
+                    [self.delegate payPalInfoDidReceived:response];
             }];
             return;
         }
