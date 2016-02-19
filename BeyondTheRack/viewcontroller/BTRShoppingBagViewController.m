@@ -483,7 +483,8 @@
             if ([self.order.isFreeshipAddress boolValue]) {
                 self.order.shippingAddress = self.order.promoShippingAddress;
                 needValidate = YES;
-            } else if ([self.order.isPickup boolValue] || [self.order.vipPickup boolValue]) {
+            }
+            if ([self.order.isPickup boolValue] || [self.order.vipPickup boolValue]) {
                 if ([self.order.shippingAddress.name length] > 0 && [self.order.shippingAddress.phoneNumber length] >0) {
                     self.order.shippingAddress.addressLine1 = self.order.pickupAddress.addressLine1;
                     self.order.shippingAddress.addressLine2 = self.order.pickupAddress.addressLine2;
