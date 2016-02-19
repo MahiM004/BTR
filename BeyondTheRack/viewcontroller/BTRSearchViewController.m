@@ -197,9 +197,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     self.lastPageDidLoad = NO;
-    [self.itemsArray removeAllObjects];
     [self setIsLoadingNextPage:YES];
-    [self.collectionView setContentOffset:CGPointZero animated:YES];
 
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
     if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]]) {
@@ -213,6 +211,8 @@
     [self assignFilterIcon];
     [self fetchItemsforSearchQuery:[sharedFacetHandler searchString] withSortingQuery:sortString andFacetQuery:facetString forPage:self.currentPage
                          success:^(NSMutableArray *responseArray) {
+                             [self.itemsArray removeAllObjects];
+                             [self.collectionView setContentOffset:CGPointZero animated:YES];
                              [self setItemsArray:responseArray];
                              [self.suggestionTableView setHidden:YES];
                              [self.collectionView becomeFirstResponder];
@@ -715,12 +715,12 @@
 
 #pragma mark ScrollView Delegate
 
--(void)scrollViewDidScroll: (UIScrollView*)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (self.suggestionTableView.hidden) {
         float scrollViewHeight = scrollView.frame.size.height;
         float scrollContentSizeHeight = scrollView.contentSize.height;
         float scrollOffset = scrollView.contentOffset.y;
-        if (scrollOffset + scrollViewHeight > scrollContentSizeHeight - 2 * self.collectionView.frame.size.height) {
+        if (scrollOffset + scrollViewHeight > scrollContentSizeHeight - 4 * self.collectionView.frame.size.height) {
             if (!self.isLoadingNextPage && !self.lastPageDidLoad) {
                 [BTRLoader showLoaderInView:self.view];
                 [self callForNextPage];
