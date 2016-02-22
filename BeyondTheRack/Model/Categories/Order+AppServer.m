@@ -103,8 +103,7 @@
      */
     
     NSDictionary *billingAddressDic = orderInfoDic[@"billing"];
-    if (!order.billingAddress)
-        order.billingAddress = [[Address alloc]init];
+    order.billingAddress = [[Address alloc]init];
     
     if ([billingAddressDic valueForKeyPath:@"address1"] && [billingAddressDic valueForKeyPath:@"address1"] != [NSNull null])
         order.billingAddress.addressLine1 = [billingAddressDic valueForKeyPath:@"address1"];
@@ -132,8 +131,7 @@
      */
     
     NSDictionary *shippingAddressDic = orderInfoDic[@"shipping"];
-    if (!order.shippingAddress)
-        order.shippingAddress = [[Address alloc]init];
+    order.shippingAddress = [[Address alloc]init];
     
     if ([shippingAddressDic valueForKeyPath:@"address1"] && [shippingAddressDic valueForKeyPath:@"address1"] != [NSNull null])
         order.shippingAddress.addressLine1 = [shippingAddressDic valueForKeyPath:@"address1"];
@@ -160,8 +158,7 @@
 
     
     NSDictionary *shippingPromo = orderInfoDic[@"shipping_promo_address"];
-    if (!order.promoBillingAddress)
-        order.promoBillingAddress = [[Address alloc]init];
+    order.promoBillingAddress = [[Address alloc]init];
     
     NSDictionary *shippingPromoBilling = shippingPromo[@"billing"];
     
@@ -187,8 +184,7 @@
     
     
     NSDictionary *shippingPromoAddress = shippingPromo[@"shipping"];
-    if (!order.promoShippingAddress)
-        order.promoShippingAddress = [[Address alloc]init];
+    order.promoShippingAddress = [[Address alloc]init];
     
     if ([shippingPromoAddress valueForKeyPath:@"address1"] && [shippingPromoAddress valueForKeyPath:@"address1"] != [NSNull null])
         order.promoShippingAddress.addressLine1 = [shippingPromoAddress valueForKeyPath:@"address1"];
@@ -214,8 +210,7 @@
      */
     
     NSDictionary *pickUpaddress = orderInfoDic[@"pickup"];
-    if (!order.pickupAddress)
-        order.pickupAddress = [[Address alloc]init];
+    order.pickupAddress = [[Address alloc]init];
     
     if ([pickUpaddress valueForKeyPath:@"address1"] && [pickUpaddress valueForKeyPath:@"address1"] != [NSNull null])
         order.pickupAddress.addressLine1 = [pickUpaddress valueForKeyPath:@"address1"];
