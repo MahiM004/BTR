@@ -200,10 +200,11 @@
     [self setIsLoadingNextPage:YES];
 
     BTRFacetsHandler *sharedFacetHandler = [BTRFacetsHandler sharedFacetHandler];
+    [sharedFacetHandler clearAllSelections];
+    [sharedFacetHandler clearAllFacets];
     if (![[sharedFacetHandler searchString] isEqualToString:[self.searchBar text]]) {
         sharedFacetHandler.searchString = [self.searchBar text];
     }
-    
     NSString *facetString = [sharedFacetHandler getFacetStringForRESTfulRequest];
     NSString *sortString = [sharedFacetHandler getSortStringForRESTfulRequest];
     
