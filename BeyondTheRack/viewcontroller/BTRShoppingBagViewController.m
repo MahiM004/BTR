@@ -469,6 +469,7 @@
     [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
         NSString *token = [responseObject valueForKey:@"token"];
         [self getCheckoutInfoSuccess:^(id responseObject) {
+            self.order = [[Order alloc]init];
             self.order = [Order extractOrderfromJSONDictionary:responseObject forOrder:self.order isValidating:NO];
             BOOL needValidate = NO;
             if (self.order.allTotalPrice.doubleValue == 0 && [self.order.shippingAddress.postalCode length] > 0) {
@@ -629,16 +630,6 @@
     
     NSNumber *total = response[@"total"];
     NSString *totalString = [NSString stringWithFormat:@"%@",total];
-    
-    if (!self.order)
-        self.order = [[Order alloc]init];
-
-    [self.order setOrderTotalPrice:totalString];
-    [self.order setSubTotalPrice:@"0.0"];
-    [self.order setShippingPrice:@"0.0"];
-    [self.order setBagTotalPrice:@"0.0"];
-    [self.order setCountry:[[response valueForKey:@"country"]uppercaseString]];
-    [self.order setCurrency:[NSString stringWithFormat:@"%@D",self.order.country]];
     
     [BagItem loadBagItemsfromAppServerArray:bagJsonReservedArray
                          withServerDateTime:serverTime
