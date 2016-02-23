@@ -69,6 +69,8 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.paypalCallBackInfo = nil;
+    self.masterPassCallBackInfo = nil;
     [BTRGAHelper logScreenWithName:@"/bag/show"];
     [super viewWillAppear:YES];
     [self loadBagInfo];
