@@ -13,6 +13,7 @@
 @interface Order : NSObject <NSCopying>
 
 @property BOOL isAccepted;
+@property BOOL isFirstComeFromWeb;
 @property (nonatomic, retain) NSString * confirmDateTime;
 @property (nonatomic, retain) NSString * confirmed;
 @property (nonatomic, retain) NSString * createDateTime;

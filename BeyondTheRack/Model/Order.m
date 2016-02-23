@@ -70,6 +70,8 @@
     another.accountCredit = self.accountCredit;
     another.promoCredit = self.promoCredit;
     another.paypalInfo = self.paypalInfo;
+    another.isAccepted = self.isAccepted;
+    another.isFirstComeFromWeb = self.isFirstComeFromWeb;
     return another;
 }
 

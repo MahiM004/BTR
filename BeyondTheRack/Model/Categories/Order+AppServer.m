@@ -23,6 +23,11 @@
 
     NSDictionary *successfulorder = orderDictionary[@"order"];
     
+    if ([orderDictionary valueForKeyPath:@"isFirstComeFromWeb"] && [orderDictionary valueForKeyPath:@"isFirstComeFromWeb"] != [NSNull null])
+        order.isFirstComeFromWeb = YES;
+    else
+        order.isFirstComeFromWeb = NO;
+    
     // order info
     if ([successfulorder valueForKeyPath:@"order_id"] && [successfulorder valueForKeyPath:@"order_id"] != [NSNull null])
         order.orderId = [successfulorder valueForKeyPath:@"order_id"];
