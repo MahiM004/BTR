@@ -522,6 +522,9 @@
         [self.freeShippingPromoHeight setConstant:0];
     }
     
+    if (self.order.isFirstComeFromWeb)
+        [self fillShippingAddressByAddress:self.order.shippingAddress];
+    
     [self fillBillingAddressByAddress:self.order.billingAddress];
     // If Shipping Country is US we are displaying no shipping Label else we hide it
     

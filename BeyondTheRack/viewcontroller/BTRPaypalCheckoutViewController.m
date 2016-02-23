@@ -18,7 +18,7 @@
 
 @property Order *order;
 @property BOOL didLogined;
-@property BOOL shouldRemoveVIP;
+@property BOOL firstTimeLoading;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (strong,nonatomic) ConfirmationInfo *confirmationInfo;
 
@@ -30,7 +30,7 @@
     [super viewDidLoad];
     [self.webView setDelegate:self];
     [self setDidLogined:NO];
-    [self setShouldRemoveVIP:NO];
+    [self setFirstTimeLoading:NO];
     if (self.delegate)
         [self loadPaypalURLWithURL:self.payPalURL];
     else
@@ -42,7 +42,7 @@
 }
 
 - (void)loadPaypalURLWithURL:(NSString *)url {
-    [self setShouldRemoveVIP:YES];
+    [self setFirstTimeLoading:YES];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 
@@ -78,11 +78,9 @@
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
         if (self.delegate) {
             [self dismissViewControllerAnimated:YES completion:^{
-                if (self.shouldRemoveVIP) {
+                if (self.firstTimeLoading) {
                     NSMutableDictionary *modifiedResponse = [[NSMutableDictionary alloc]initWithDictionary:response copyItems:YES];
-                    NSMutableDictionary *orderInfoDic = [[NSMutableDictionary alloc]initWithDictionary:response[@"orderInfo"] copyItems:YES];
-                    [orderInfoDic setObject:[NSNumber numberWithBool:YES]forKey:@"isFirstComeFromWeb"];
-                    [modifiedResponse setObject:orderInfoDic forKey:@"orderInfo"];
+                    [modifiedResponse setObject:[NSNumber numberWithBool:YES]forKey:@"isFirstComeFromWeb"];
                     [self.delegate payPalInfoDidReceived:modifiedResponse];
                 } else
                     [self.delegate payPalInfoDidReceived:response];
