@@ -142,7 +142,7 @@
     NSString* shippingAddressString = [NSString stringWithFormat:@"%@\n%@\n%@\n%@, %@\n%@\n%@",self.info.shippingAddress.name,self.info.shippingAddress.addressLine1,self.info.shippingAddress.addressLine2,self.info.shippingAddress.city,self.info.shippingAddress.province,self.info.shippingAddress.country,self.info.shippingAddress.postalCode];
     self.shippingAddress.text = shippingAddressString;
     
-    NSString* billingAddressString = [NSString stringWithFormat:@"%@\n%@\n%@\n%@, %@\n%@\n%@",self.info.shippingAddress.name,self.info.billingAddress.addressLine1,self.info.billingAddress.addressLine2,self.info.billingAddress.city,self.info.billingAddress.province,self.info.billingAddress.country,self.info.billingAddress.postalCode];
+    NSString* billingAddressString = [NSString stringWithFormat:@"%@\n%@\n%@\n%@, %@\n%@\n%@",self.info.billingAddress.name,self.info.billingAddress.addressLine1,self.info.billingAddress.addressLine2,self.info.billingAddress.city,self.info.billingAddress.province,self.info.billingAddress.country,self.info.billingAddress.postalCode];
     self.billingAddress.text = billingAddressString;
     
     // order Items
