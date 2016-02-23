@@ -998,8 +998,7 @@
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     
     [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
-    if (!(self.currentPaymentType == paypal || self.currentPaymentType == masterPass))
-        [orderInfo setObject:[self billingInfo] forKey:@"billing"];
+    [orderInfo setObject:[self billingInfo] forKey:@"billing"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];

@@ -40,6 +40,8 @@
 
 
 // Heights
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *billingAddressTitleHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *billingAddressHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *itemsHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *label3HeightConstraint;
@@ -97,6 +99,12 @@
         billingString = [[NSMutableAttributedString alloc]initWithAttributedString:self.billingLabel.attributedText];
         [[billingString mutableString] replaceOccurrencesOfString:@"1111" withString:self.info.billingCardLastdigits options:NSCaseInsensitiveSearch range:NSMakeRange(0, billingString.string.length)];
     } else if ([self.info.paymentMethod isEqualToString:@"paypal"]) {
+        self.billingLabel.hidden = YES;
+        self.billingAddress.hidden = YES;
+        self.viewHeight.constant = self.viewHeight.constant - self.billingAddressHeight.constant - self.billingAddressTitleHeight.constant;
+        self.billingAddressTitleHeight.constant = 0;
+        self.billingAddressHeight.constant = 0;
+        [self.view layoutIfNeeded];
         NSString *text = [NSString stringWithFormat:@"We've billed your order to your PayPal account – %@, the transaction id is %@ with the following shipping address:",self.info.billingAddress.name,self.info.confirmationNumber];
         NSRange range = [text rangeOfString:self.info.billingAddress.name];
         billingString = [[NSMutableAttributedString alloc]initWithString:text];
