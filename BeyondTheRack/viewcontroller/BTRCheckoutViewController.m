@@ -73,6 +73,7 @@
 
 @property BOOL isLoading;
 @property BOOL comeFromMasterPass;
+@property BOOL comeFromPayPal;
 @property BOOL isVisible;
 @property float totalSave;
 
@@ -298,6 +299,7 @@
     [self setIsVisible:NO];
     [self loadOrderData];
     [self setComeFromMasterPass:NO];
+    [self setComeFromPayPal:NO];
     [self fillPaymentInfoWithCurrentData];
     
     [_expandHaveCode setOptions:@{ kFRDLivelyButtonLineWidth: @(1.5f),
@@ -640,7 +642,7 @@
         [self.freeshipMessageLabelHeight setConstant:0];
         [self loadOrderData];
     }
-    if (!self.comeFromMasterPass)
+    if (!(self.comeFromMasterPass || self.comeFromPayPal))
         [self validateAddressViaAPIAndInCompletion:nil];
     if ([BTRViewUtility isIPAD])
         [self resetSizeForiPad];
@@ -996,7 +998,8 @@
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     
     [orderInfo setObject:[self shippingInfo] forKey:@"shipping"];
-    [orderInfo setObject:[self billingInfo] forKey:@"billing"];
+    if (!(self.currentPaymentType == paypal || self.currentPaymentType == masterPass))
+        [orderInfo setObject:[self billingInfo] forKey:@"billing"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.sameAddressCheckbox checked]] forKey:@"billto_shipto"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.vipOptionCheckbox checked]] forKey:@"vip_pickup"];
     [orderInfo setObject:[NSNumber numberWithBool:[self.orderIsGiftCheckbox checked]] forKey:@"is_gift"];
@@ -1792,13 +1795,13 @@
 - (void)masterPassInfoDidReceived:(NSDictionary *)info {
     self.masterCallBackInfo = info;
     self.order = [Order extractOrderfromJSONDictionary:info forOrder:self.order isValidating:NO];
-    self.order.vipPickup = NO;
+    self.order.vipPickup = @"0";
     [self fixViewForMasterPass];
 }
 
 - (void)fixViewForMasterPass {
     [self setComeFromMasterPass:YES];
-    if ([self.order.isFreeshipAddress boolValue]){
+    if ([self.order.isFreeshipAddress boolValue] && ![self.order.vipPickupEligible boolValue]){
         [self.FreeshipingPromoView setHidden:NO];
         [self.freeshipOptionCheckbox setChecked:YES];
     }
@@ -1822,6 +1825,15 @@
 }
 
 - (void)fixViewForPaypal {
+    [self setComeFromPayPal:NO];
+    if (self.order.isFirstComeFromWeb) {
+        self.order.vipPickup = @"0";
+        [self setComeFromPayPal:YES];
+        if ([self.order.isFreeshipAddress boolValue] && ![self.order.vipPickupEligible boolValue]){
+            [self.FreeshipingPromoView setHidden:NO];
+            [self.freeshipOptionCheckbox setChecked:YES];
+        }
+    }
     [self loadOrderData];
     [self fillPaymentInfoWithCurrentData];
     [self changeDetailPaymentFor:paypal];
@@ -1829,6 +1841,7 @@
         [self resetSizeForiPad];
     else
         [self resetSize];
+    [self setComeFromPayPal:NO];
 }
 
 - (void)resetSize {

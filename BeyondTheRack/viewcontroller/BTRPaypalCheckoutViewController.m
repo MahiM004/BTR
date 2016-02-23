@@ -81,7 +81,7 @@
                 if (self.shouldRemoveVIP) {
                     NSMutableDictionary *modifiedResponse = [[NSMutableDictionary alloc]initWithDictionary:response copyItems:YES];
                     NSMutableDictionary *orderInfoDic = [[NSMutableDictionary alloc]initWithDictionary:response[@"orderInfo"] copyItems:YES];
-                    [orderInfoDic setObject:[NSNumber numberWithBool:NO]forKey:@"vip_pickup"];
+                    [orderInfoDic setObject:[NSNumber numberWithBool:YES]forKey:@"isFirstComeFromWeb"];
                     [modifiedResponse setObject:orderInfoDic forKey:@"orderInfo"];
                     [self.delegate payPalInfoDidReceived:modifiedResponse];
                 } else
