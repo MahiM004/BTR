@@ -112,11 +112,15 @@
         self.info.promoCredit = [NSString stringWithFormat:@"%.2f",self.info.promoCredit.floatValue];
        [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"PROMO CREDIT" amount:[NSDecimalNumber decimalNumberWithString:self.info.promoCredit]]];
     }
-    [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.subTotalPrice]]];
+    if ([self.info.subTotalPrice floatValue] > 0)
+        [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.subTotalPrice]]];
+    
     [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:[NSDecimalNumber decimalNumberWithString:self.info.shippingPrice]]];
+    
     for (int i = 0; i < [self.info.taxes count]; i++)
         [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:[[[self.info.taxes objectAtIndex:i]valueForKey:@"label"]uppercaseString] amount:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%@",[[self.info.taxes objectAtIndex:i]valueForKey:@"amount"]]]]];
-    [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"ORDER TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]]];
+    if ([self.info.orderTotalPrice floatValue] > 0)
+        [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"ORDER TOTAL" amount:[NSDecimalNumber decimalNumberWithString:self.info.orderTotalPrice]]];
     if (self.info.accountCredit.floatValue > 0.0){
         self.info.accountCredit = [NSString stringWithFormat:@"%.2f",self.info.accountCredit.floatValue];
         [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"ACCOUNT CREDIT" amount:[NSDecimalNumber decimalNumberWithString:self.info.accountCredit]]];

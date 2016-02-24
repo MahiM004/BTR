@@ -553,7 +553,7 @@
     if (self.isVisible)
         [self addSampleGifts];
     
-    if (self.order.allTotalPrice.floatValue == 0.0)
+    if (self.order.allTotalPrice.floatValue == 0.0 && self.order.shippingAddress.postalCode.length > 3)
         self.applePayButtonView.hidden = YES;
     
     if ([self isAddress:self.order.shippingAddress sameAsAddress:self.order.pickupAddress] && [self.order.eligiblePickup boolValue]) {
