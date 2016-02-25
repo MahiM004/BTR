@@ -465,6 +465,7 @@
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no items in your bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
     }
+    [BTRLoader showLoaderWithViewDisabled:self.view withLoader:YES withTag:555];
 
     self.applePayManager = [[ApplePayManager alloc]init];
     self.applePayManager.delegate = self;
@@ -503,10 +504,12 @@
             }
             if (needValidate) {
                 [self validateAddressViaAPIAndInCompletion:^{
+                    [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
                     [self.applePayManager initWithClientWithToken:token andOrderInfromation:[self.order copy] checkoutMode:checkoutOne];
                     [self.applePayManager showPaymentViewFromViewController:self];
                 }];
             } else {
+                [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
                 [self.applePayManager initWithClientWithToken:token andOrderInfromation:[self.order copy] checkoutMode:checkoutOne];
                 [self.applePayManager showPaymentViewFromViewController:self];
             }
