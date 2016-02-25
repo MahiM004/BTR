@@ -36,7 +36,7 @@
 }
 
 + (void)logScreenWithName:(NSString *)name {
-    [self sendlogScreenWithName:name withCustomDimensions:nil];
+    [self logScreenWithName:name WithAdditionalDimensions:nil];
 }
 
 + (void)logScreenWithName:(NSString *)name WithAdditionalDimensions:(NSArray *)dimensions{
@@ -60,8 +60,10 @@
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIAppVersion value:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
     [tracker set:kGAIScreenName value:name];
-    for (int i =0;i < [dimensions count];i++)
+    for (int i =0;i < [dimensions count];i++) {
+        NSLog(@"%@, %@",name,dimensions);
         [tracker set:[GAIFields customDimensionForIndex:i+1]value:[dimensions objectAtIndex:i]];
+    }
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 

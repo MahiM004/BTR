@@ -83,6 +83,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kUSERDIDLOGIN object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [BTRGAHelper logScreenWithName:@"/event"];
+}
+
 #pragma mark TTSlidingPagesDataSource methods
 
 - (int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source{
