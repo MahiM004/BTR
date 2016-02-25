@@ -1422,6 +1422,7 @@
         [self.applePayManager requestForTokenWithSuccess:^(id responseObject) {
             [self.applePayManager initWithClientWithToken:[responseObject valueForKey:@"token"] andOrderInfromation:[self.order copy] checkoutMode:checkoutTwo];
             [self.applePayManager setSelectedPromoGifts:self.selectedGift];
+            [self.applePayManager setVanityCodes:self.arrayOfVanityCodes];
             [self.applePayManager setRecipientMessage:self.giftMessageTF.text];
             [self.applePayManager showPaymentViewFromViewController:self];
         } failure:^(NSError *error) {
