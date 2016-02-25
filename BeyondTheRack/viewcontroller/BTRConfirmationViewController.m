@@ -77,6 +77,9 @@
         [_noteLabelHeight setConstant:70];
         _viewHeight.constant -= 100;
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     [BTRGAHelper logEventWithCatrgory:@"new order" action:self.info.billingCardType label:[NSString stringWithFormat:@"%@",self.info.totalOrderValue]];
     [BTRGAHelper logScreenWithName:@"/bag/confirmation" WithAdditionalDimensions:@[self.info.paymentMethod]];
 }
