@@ -500,7 +500,7 @@
     // Free ShipAddress
     BOOL shouldCallValidate = NO;
     if ([[self.order isFreeshipAddress]boolValue] && ![[self.order vipPickupEligible]boolValue]) {
-        if (!self.freeshipOptionCheckbox.checked) {
+        if (!self.freeshipOptionCheckbox.checked && !self.pickupOptionCheckbox.checked) {
             [self fillShippingAddressByAddress:self.order.promoShippingAddress];
             [self disableShippingAddress];
             [self.FreeshipingPromoView setHidden:NO];
@@ -509,7 +509,10 @@
             [self.freeShippingPromoHeight setConstant:CHECKBOXES_HEIGHT];
             shouldCallValidate = YES;
         } else {
-            [self enableShippingAddress];
+            if (self.pickupOptionCheckbox.checked)
+                [self disableShippingAddress];
+            else
+                [self enableShippingAddress];
             [self fillShippingAddressByAddress:self.order.shippingAddress];
         }
     } else {
@@ -638,6 +641,8 @@
 
 - (void)checkboxFreeshipAddressChanged:(CTCheckbox *)checkbox {
     if (checkbox.checked) {
+        if (self.pickupOptionCheckbox.checked)
+            [self.pickupOptionCheckbox setChecked:NO];
         [self clearShippingAddressAndkeepPhoneAndName:NO];
         [self enableShippingAddress];
         [self.freeshipMessageLabelHeight setConstant:75];
