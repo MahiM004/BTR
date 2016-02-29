@@ -248,12 +248,7 @@ typedef enum ScrollDirection {
     [self setupMenu];
 }
 
-- (void)loadFirstPageOfItems {
-    [BTRLoader showLoaderInView:self.view];
-    self.currentPage = 1;
-    self.lastPageDidLoad = NO;
-    self.isLoadingNextPage = YES;
-    
+- (NSString *)filter {
     unsigned long indexOfSize = [self.allSizes indexOfObject:self.filterSizeTextField.text];
     NSString *filter;
     if (indexOfSize == NSNotFound)
@@ -262,8 +257,18 @@ typedef enum ScrollDirection {
         filter = [self.allCodedSizes objectAtIndex:indexOfSize];
     else
         filter = @"Size";
+    return filter;
+}
+
+- (void)loadFirstPageOfItems {
+    [BTRLoader showLoaderInView:self.view];
+    self.currentPage = 1;
+    self.lastPageDidLoad = NO;
+    self.isLoadingNextPage = YES;
     
-    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]] andFilterSize:filter
+    
+    
+    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]] andFilterSize:[self filter]
                         success:^(NSMutableArray *responseObject) {
                             [BTRLoader hideLoaderFromView:self.view];
                             self.isLoadingNextPage = NO;
@@ -284,7 +289,7 @@ typedef enum ScrollDirection {
 - (void)callForNextPage {
     self.isLoadingNextPage = YES;
     self.currentPage++;
-    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]] andFilterSize:self.filterSizeTextField.text success:^(NSMutableArray *responseObject) {
+    [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]] andFilterSize:[self filter] success:^(NSMutableArray *responseObject) {
                             if (responseObject.count == 0) {
                                 self.lastPageDidLoad = YES;
                                 return;
