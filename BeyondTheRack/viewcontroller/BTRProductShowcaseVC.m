@@ -262,6 +262,7 @@ typedef enum ScrollDirection {
 
 - (void)loadFirstPageOfItems {
     [BTRLoader showLoaderInView:self.view];
+    
     self.currentPage = 1;
     self.lastPageDidLoad = NO;
     self.isLoadingNextPage = YES;
@@ -290,23 +291,25 @@ typedef enum ScrollDirection {
     self.isLoadingNextPage = YES;
     self.currentPage++;
     [self fetchItemsforEventSku:[self eventSku] forPagenum:self.currentPage andSortMode:[[self sortModes]objectAtIndex:[self.sortArray indexOfObject:self.sortTextField.text]] andFilterSize:[self filter] success:^(NSMutableArray *responseObject) {
-                            if (responseObject.count == 0) {
-                                self.lastPageDidLoad = YES;
-                                return;
-                            }
-                            [self.originalItemArray addObjectsFromArray:responseObject];
-                            NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
-                            for (int i = 0; i < [responseObject count]; i++) {
-                                [indexPaths addObject:[NSIndexPath indexPathForItem:[self.originalItemArray count] - [responseObject count] + i inSection:0]];
-                                [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
-                            }
-                            [self.collectionView insertItemsAtIndexPaths:indexPaths];
-                            [BTRLoader hideLoaderFromView:self.view];
-                            [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + 50)];
-                            self.isLoadingNextPage = NO;
-                        } failure:^(NSError *error) {
-                            self.isLoadingNextPage = NO;
-                    }];
+            if (responseObject.count == 0) {
+                self.lastPageDidLoad = YES;
+                return;
+            }
+            if (responseObject.count < MAX_ITEMS_PER_PAGE)
+                self.lastPageDidLoad = YES;
+            [self.originalItemArray addObjectsFromArray:responseObject];
+            NSMutableArray *indexPaths = [[NSMutableArray alloc]init];
+            for (int i = 0; i < [responseObject count]; i++) {
+                [indexPaths addObject:[NSIndexPath indexPathForItem:[self.originalItemArray count] - [responseObject count] + i inSection:0]];
+                [self.chosenSizesArray addObject:[NSNumber numberWithInt:-1]];
+            }
+            [self.collectionView insertItemsAtIndexPaths:indexPaths];
+            [BTRLoader hideLoaderFromView:self.view];
+            [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + 50)];
+            self.isLoadingNextPage = NO;
+    } failure:^(NSError *error) {
+        self.isLoadingNextPage = NO;
+    }];
 }
 
 #pragma mark - Load Event Products RESTful
