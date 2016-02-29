@@ -352,6 +352,7 @@ typedef enum ScrollDirection {
             if ([response valueForKey:@"error_message"]) {
                 [[[UIAlertView alloc]initWithTitle:@"Error" message:[response valueForKey:@"error_message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
             }
+            success(@"FALSE");
             return;
         }
         NSArray *bagJsonReservedArray = response[@"bag"][@"reserved"];
@@ -543,7 +544,6 @@ typedef enum ScrollDirection {
             CGPoint endPoint = CGPointMake(self.view.frame.origin.x + self.view.frame.size.width - 30, self.view.frame.origin.y + 40);
             [BTRAnimationHandler moveAndshrinkView:startView toPoint:endPoint withDuration:0.65];
         } else {
-            [BTRViewUtility showAlert:@"Error Adding" msg:@"Unable to add to bag. Please try adding again"];
             [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
         }
         
