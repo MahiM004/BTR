@@ -500,8 +500,10 @@
     // Free ShipAddress
     BOOL shouldCallValidate = NO;
     if ([[self.order isFreeshipAddress]boolValue] && ![[self.order vipPickupEligible]boolValue]) {
-        if (!self.freeshipOptionCheckbox.checked && !self.pickupOptionCheckbox.checked) {
+        if (!self.freeshipOptionCheckbox.checked) {
             [self fillShippingAddressByAddress:self.order.promoShippingAddress];
+            if (self.pickupOptionCheckbox.checked)
+                [self fillByPickupAddress];
             [self disableShippingAddress];
             [self.FreeshipingPromoView setHidden:NO];
             [self.pleaseFillOutTheShippingFormView setHidden:YES];
@@ -513,7 +515,7 @@
                 [self disableShippingAddress];
             else
                 [self enableShippingAddress];
-            [self fillShippingAddressByAddress:self.order.shippingAddress];
+//            [self fillShippingAddressByAddress:self.order.shippingAddress];
         }
     } else {
         if (self.pickupOptionCheckbox.checked)
@@ -641,8 +643,11 @@
 
 - (void)checkboxFreeshipAddressChanged:(CTCheckbox *)checkbox {
     if (checkbox.checked) {
-        if (self.pickupOptionCheckbox.checked)
+        if (self.pickupOptionCheckbox.checked) {
+            [self setIsLoading:YES];
             [self.pickupOptionCheckbox setChecked:NO];
+            [self setIsLoading:NO];
+        }
         [self clearShippingAddressAndkeepPhoneAndName:NO];
         [self enableShippingAddress];
         [self.freeshipMessageLabelHeight setConstant:75];
@@ -725,12 +730,7 @@
 }
 
 -(void)vipOptionChecked {
-    [self.addressLine1ShippingTF setText:self.order.pickupAddress.addressLine1];
-    [self.addressLine2ShippingTF setText:self.order.pickupAddress.addressLine2];
-    [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:self.order.pickupAddress.country]];
-    [self.zipCodeShippingTF setText:self.order.pickupAddress.postalCode];
-    [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:self.order.pickupAddress.province]];
-    [self.cityShippingTF setText:self.order.pickupAddress.city];
+    [self fillByPickupAddress];
     NSString * vipTitle = [NSString stringWithFormat:@"VIP Option: Pick up from %@ (no shipping fees)",self.order.pickupTitle];
     [self.vipTitleText setText:vipTitle];
     [self disableShippingAddress];
@@ -742,12 +742,7 @@
     
     if ([checkbox checked]) {
         [self saveCurrentShippingAddress];
-        [self.addressLine1ShippingTF setText:self.order.pickupAddress.addressLine1];
-        [self.addressLine2ShippingTF setText:self.order.pickupAddress.addressLine2];
-        [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:self.order.pickupAddress.country]];
-        [self.zipCodeShippingTF setText:self.order.pickupAddress.postalCode];
-        [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:self.order.pickupAddress.province]];
-        [self.cityShippingTF setText:self.order.pickupAddress.city];
+        [self fillByPickupAddress];
         [self disableShippingAddress];
 
     } else if (![checkbox checked]) {
@@ -1033,6 +1028,15 @@
         self.shippingProvinceLB.text = @"PROVINCE";
         self.shippingPostalCodeLB.text = @"POSTAL CODE";
     }
+}
+
+- (void)fillByPickupAddress {
+    [self.addressLine1ShippingTF setText:self.order.pickupAddress.addressLine1];
+    [self.addressLine2ShippingTF setText:self.order.pickupAddress.addressLine2];
+    [self.countryShippingTF setText:[BTRViewUtility countryNameforCode:self.order.pickupAddress.country]];
+    [self.zipCodeShippingTF setText:self.order.pickupAddress.postalCode];
+    [self.provinceShippingTF setText:[BTRViewUtility provinceNameforCode:self.order.pickupAddress.province]];
+    [self.cityShippingTF setText:self.order.pickupAddress.city];
 }
 
 - (void)fillBillingAddressByAddress:(Address *)address {
