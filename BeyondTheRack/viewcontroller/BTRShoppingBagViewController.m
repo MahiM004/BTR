@@ -408,7 +408,9 @@
 }
 
 - (IBAction)tappedCheckout:(UIButton *)sender {
+    [BTRLoader showLoaderWithViewDisabled:self.view withLoader:YES withTag:555];
     [self getCheckoutInfoSuccess:^(NSDictionary *response) {
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
         [self gotoCheckoutPageWithPaymentInfo:response];
     } failure:^(NSError *error) {
         
@@ -515,8 +517,10 @@
             }
             
         } failure:^(NSError *error) {
+            [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
         }];
     } failure:^(NSError *error) {
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
     }];
 }
 
@@ -564,7 +568,7 @@
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no items in your bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
     }
-    
+    [BTRLoader showLoaderWithViewDisabled:self.view withLoader:YES withTag:555];
     [self getPaypalInfo];
 }
 
@@ -573,7 +577,7 @@
         [[[UIAlertView alloc]initWithTitle:@"Error" message:@"There are no items in your bag" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
         return;
     }
-    
+    [BTRLoader showLoaderWithViewDisabled:self.view withLoader:YES withTag:555];
     [self getMasterPassInfo];
 }
 
@@ -581,6 +585,7 @@
     NSString *startURL = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforStartPaypal]];
     NSString *infoURL = [NSString stringWithFormat:@"%@", [BTRPaypalFetcher URLforPaypalInfo]];
     [BTRConnectionHelper getDataFromURL:startURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
         if ([[response valueForKey:@"mode"]isEqualToString:@"billingAgreement"] || [[response valueForKey:@"mode"]isEqualToString:@"sessionToken"]) {
             [BTRConnectionHelper getDataFromURL:infoURL withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
                 [self setPaypalCallBackInfo:response];
@@ -595,13 +600,14 @@
             [self presentViewController:paypalVC animated:YES completion:nil];
         }
     } faild:^(NSError *error) {
-        
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
     }];
 }
 
 - (void)getMasterPassInfo {
     NSString* url = [NSString stringWithFormat:@"%@", [BTRMasterPassFetcher URLforStartMasterPass]];
     [BTRConnectionHelper getDataFromURL:url withParameters:nil setSessionInHeader:YES contentType:kContentTypeJSON success:^(NSDictionary *response,NSString *jSonString) {
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
         if (response) {
             MasterPassInfo* master = [MasterPassInfo masterPassInfoWithAppServerInfo:response];
             BTRMasterPassViewController *masterpassVC  = [self.storyboard instantiateViewControllerWithIdentifier:@"MasterPassViewController"];
@@ -610,7 +616,7 @@
             [self presentViewController:masterpassVC animated:YES completion:nil];
         }
     } faild:^(NSError *error) {
-        
+        [BTRLoader removeLoaderFromViewDisabled:self.view withTag:555];
     }];
 }
 
